@@ -1,0 +1,176 @@
+{
+ "rep": "R1@0.5",
+ "design": "rolling",
+ "pop": "U",
+ "outcome": "primary",
+ "windows": {
+  "roll2019": {
+   "train_years": [
+    2016,
+    2017,
+    2018
+   ],
+   "calib_year": 2018,
+   "test_years": [
+    2019
+   ],
+   "n_train": 1153,
+   "n_test": 1248,
+   "C": 0.5,
+   "C_at_grid_edge": true,
+   "cv_logloss": {
+    "0.5": 0.31372197893125175
+   },
+   "n_features": 7313,
+   "r5_removed": null,
+   "seconds": 1.9
+  },
+  "roll2020": {
+   "train_years": [
+    2017,
+    2018,
+    2019
+   ],
+   "calib_year": 2019,
+   "test_years": [
+    2020
+   ],
+   "n_train": 2401,
+   "n_test": 2070,
+   "C": 0.5,
+   "C_at_grid_edge": true,
+   "cv_logloss": {
+    "0.5": 0.3502352490616906
+   },
+   "n_features": 14055,
+   "r5_removed": null,
+   "seconds": 1.4
+  },
+  "roll2021": {
+   "train_years": [
+    2018,
+    2019,
+    2020
+   ],
+   "calib_year": 2020,
+   "test_years": [
+    2021
+   ],
+   "n_train": 4087,
+   "n_test": 2360,
+   "C": 0.5,
+   "C_at_grid_edge": true,
+   "cv_logloss": {
+    "0.5": 0.3898559586545748
+   },
+   "n_features": 22266,
+   "r5_removed": null,
+   "seconds": 2.4
+  },
+  "roll2022": {
+   "train_years": [
+    2019,
+    2020,
+    2021
+   ],
+   "calib_year": 2021,
+   "test_years": [
+    2022
+   ],
+   "n_train": 5678,
+   "n_test": 2649,
+   "C": 0.5,
+   "C_at_grid_edge": true,
+   "cv_logloss": {
+    "0.5": 0.4025185078868425
+   },
+   "n_features": 30012,
+   "r5_removed": null,
+   "seconds": 3.1
+  },
+  "roll2023": {
+   "train_years": [
+    2020,
+    2021,
+    2022
+   ],
+   "calib_year": 2022,
+   "test_years": [
+    2023
+   ],
+   "n_train": 7079,
+   "n_test": 3872,
+   "C": 0.5,
+   "C_at_grid_edge": true,
+   "cv_logloss": {
+    "0.5": 0.42203424798137845
+   },
+   "n_features": 36971,
+   "r5_removed": null,
+   "seconds": 4.4
+  },
+  "roll2024": {
+   "train_years": [
+    2021,
+    2022,
+    2023
+   ],
+   "calib_year": 2023,
+   "test_years": [
+    2024
+   ],
+   "n_train": 8881,
+   "n_test": 5765,
+   "C": 0.5,
+   "C_at_grid_edge": true,
+   "cv_logloss": {
+    "0.5": 0.44179044003049595
+   },
+   "n_features": 46111,
+   "r5_removed": null,
+   "seconds": 6.3
+  },
+  "roll2025": {
+   "train_years": [
+    2022,
+    2023,
+    2024
+   ],
+   "calib_year": 2024,
+   "test_years": [
+    2025
+   ],
+   "n_train": 12286,
+   "n_test": 8953,
+   "C": 0.5,
+   "C_at_grid_edge": true,
+   "cv_logloss": {
+    "0.5": 0.47970608941247644
+   },
+   "n_features": 50000,
+   "r5_removed": null,
+   "seconds": 9.7
+  },
+  "roll2026": {
+   "train_years": [
+    2023,
+    2024,
+    2025
+   ],
+   "calib_year": 2025,
+   "test_years": [
+    2026
+   ],
+   "n_train": 18590,
+   "n_test": 15412,
+   "C": 0.5,
+   "C_at_grid_edge": true,
+   "cv_logloss": {
+    "0.5": 0.5075360841183157
+   },
+   "n_features": 50000,
+   "r5_removed": null,
+   "seconds": 15.2
+  }
+ }
+}

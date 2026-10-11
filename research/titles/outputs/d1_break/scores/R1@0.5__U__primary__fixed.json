@@ -1,0 +1,31 @@
+{
+ "rep": "R1@0.5",
+ "design": "fixed",
+ "pop": "U",
+ "outcome": "primary",
+ "windows": {
+  "fixed": {
+   "train_years": [
+    2021,
+    2022,
+    2023
+   ],
+   "calib_year": 2023,
+   "test_years": [
+    2024,
+    2025,
+    2026
+   ],
+   "n_train": 8881,
+   "n_test": 30130,
+   "C": 0.5,
+   "C_at_grid_edge": true,
+   "cv_logloss": {
+    "0.5": 0.44179044003049595
+   },
+   "n_features": 46111,
+   "r5_removed": null,
+   "seconds": 12.1
+  }
+ }
+}

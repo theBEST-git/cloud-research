@@ -1,0 +1,304 @@
+{
+ "script": "/home/user/cloud-research/research/titles/src/analyses/annotate_sample.py",
+ "script_sha256": "8e3d8475cc5f132f5afdfad2bd929a881a860b4835019ace680ea51a348d13c9",
+ "seed": 20261011,
+ "inputs_sha256": {
+  "/home/user/cloud-research/research/titles/outputs/core/universe.parquet": "47b4905d157d5b9a10e99eed609e4e3f09aeccf842fc65ada7cd9bf2549f2bb2",
+  "/home/user/cloud-research/research/titles/outputs/features/features_v2.parquet": "f723c5a98a80df424f94f93f4970a99906da533e9a8a4fd9515d626bed8f349d",
+  "/home/user/cloud-research/research/titles/cache/topics.parquet": "4c2c931072fda8000e0a25a9e6f9dc51ec291b0c3722fec250cf69d381758bbd",
+  "/home/user/cloud-research/research/titles/outputs/topics/centroids.npz": "b745b80e5d8960fc1bb9604f9f74995bab478a5107336f24082b06ae7d7a2ef4",
+  "/home/user/cloud-research/research/titles/outputs/features/lexicon_hash.txt": "23eacd7ed46a62d1fd5712362abe59a084544d33a0d3b93aa5f47ef31bd272a7"
+ },
+ "counts": {
+  "V1": 1400,
+  "V2": 400,
+  "V3": 300,
+  "V5": 100
+ },
+ "batch_files": {
+  "v1_batch01": "59e26f057a6c5ff5a2add40c1639b06e2f52c1e1546f89c6d94972b4f81d9ba4",
+  "v1_batch02": "44a09bc4110fe39303d0a1abffb5dca8897c761f8b6d96cab0f0ee82e7d745a3",
+  "v1_batch03": "1953b8cdee962ef8d1687d025a176892858d826c4feb974e554e57aa5a024fb3",
+  "v1_batch04": "a3de241044dd1e0dbeb3ee7bdd05e7cf07a746e8f806af2f2fa3e5ab001d25ec",
+  "v1_batch05": "e9442aff9e78e80aa8d011722b79c105a871d41431cc853ef801c77a47f21e50",
+  "v1_batch06": "5cdb8b65e2090c266ad0c616552d28d5092afb297530e2fce526f5485cc28784",
+  "v1_batch07": "b077d02eaad9837377dc4d71445d4971649535d6c360e84cb1a01075135263e7",
+  "v2_batch01": "ce2529ec85deeea7e9e12f28b259b8d9c75fb0890bb55114f877852c5d5ba277",
+  "v2_batch02": "77dfff3eb76ad9167e6ceb00ccf91351eb09a1eec777d6ab8b591fbaa502076a",
+  "v3_batch01": "3c82a2e5a2ef7402653eaf573a0753642fdb83847f20e2ce86aff946445590d2",
+  "v3_batch02": "1920bfb0170b4d275f2db320ae65bb56187494efdeffc9095d0dcace9799d324",
+  "v3_batch03": "7ced512268b7b1be7da5745799a592740df4b7491c769c72b84bc16c8a7ad18f",
+  "v5_batch01": "ded17d89e9396dbaf245442b32969da598aa99d64d0982fac815e856b8b7f2e2",
+  "v5_batch02": "156e3d986af85355d21fd60b139a2556c7cca6e1dc3b536a50e688e2832a0cc1"
+ },
+ "codebooks": {
+  "v1_codebook_A.md": {
+   "path": "/home/user/cloud-research/research/titles/outputs/validation/codebooks/v1_codebook_A.md",
+   "sha256": "951b2540588e1979c04c92029c372e4a900810330a7d8328f3b9e72c7fa5123f"
+  },
+  "v1_codebook_B.md": {
+   "path": "/home/user/cloud-research/research/titles/outputs/validation/codebooks/v1_codebook_B.md",
+   "sha256": "80b0d5330a1e32fb76295582848ba76b008b1669e5c8b2beec942c64bc9ce251"
+  },
+  "v2_codebook_A.md": {
+   "path": "/home/user/cloud-research/research/titles/outputs/validation/codebooks/v2_codebook_A.md",
+   "sha256": "7df329d4c7f40094779ff2dce248c8081c059430d6486352a7d61cfd2df6b3b5"
+  },
+  "v2_codebook_B.md": {
+   "path": "/home/user/cloud-research/research/titles/outputs/validation/codebooks/v2_codebook_B.md",
+   "sha256": "495dca9fa268c0bc3b31c99777a4710d1d8fab9e01b647520d0d050d844fbba5"
+  },
+  "v3_rubric.md": {
+   "path": "/home/user/cloud-research/research/titles/outputs/validation/codebooks/v3_rubric.md",
+   "sha256": "7b1a3220087a425dc7e7a6bc2ff4e54d7139aa16464ec4094cfb4412c103fef0"
+  },
+  "v5_instructions.md": {
+   "path": "/home/user/cloud-research/research/titles/outputs/validation/codebooks/v5_instructions.md",
+   "sha256": "ee4fbbcbb563f134e10f3d614a4d668311ff466fa4ace70163fccff02d243c15"
+  }
+ },
+ "label_file_convention": "<out_prefix>_passA.jsonl (codebook_A) and <out_prefix>_passB.jsonl (codebook_B); single-pass tasks write <out_prefix>_passA.jsonl",
+ "label_schemas": {
+  "V1": {
+   "keys": [
+    "item_id",
+    "compound",
+    "lead",
+    "lead_type",
+    "lead_orthography",
+    "casing",
+    "question",
+    "note"
+   ],
+   "values": {
+    "compound": [
+     "y",
+     "n"
+    ],
+    "lead_type": [
+     "coined_name",
+     "descriptive_phrase",
+     "genre_label",
+     "none"
+    ],
+    "lead_orthography": [
+     "all_caps",
+     "mixed_case",
+     "word",
+     "paren_acronym",
+     "na"
+    ],
+    "casing": [
+     "title_case",
+     "sentence_case",
+     "all_caps",
+     "other"
+    ],
+    "question": [
+     "y",
+     "n"
+    ]
+   }
+  },
+  "V2": {
+   "keys": [
+    "item_id",
+    "slot_sense",
+    "swap_preserves",
+    "note"
+   ],
+   "values": {
+    "slot_sense": [
+     "y",
+     "n"
+    ],
+    "swap_preserves": [
+     "y",
+     "n"
+    ]
+   }
+  },
+  "V3": {
+   "keys": [
+    "item_id",
+    "rating",
+    "cues"
+   ],
+   "values": {
+    "rating": [
+     1,
+     2,
+     3,
+     4,
+     5
+    ]
+   }
+  },
+  "V5": {
+   "keys": [
+    "item_id",
+    "label",
+    "about_lms",
+    "lm_papers"
+   ],
+   "values": {
+    "about_lms": [
+     "y",
+     "n"
+    ],
+    "lm_papers": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12
+    ]
+   }
+  }
+ },
+ "batches": [
+  {
+   "task": "V1",
+   "batch_path": "/home/user/cloud-research/research/titles/outputs/validation/batches/v1_batch01.jsonl",
+   "n_items": 200,
+   "codebook_A": "/home/user/cloud-research/research/titles/outputs/validation/codebooks/v1_codebook_A.md",
+   "passes": 2,
+   "out_prefix": "/home/user/cloud-research/research/titles/outputs/validation/labels/v1_batch01",
+   "codebook_B": "/home/user/cloud-research/research/titles/outputs/validation/codebooks/v1_codebook_B.md"
+  },
+  {
+   "task": "V1",
+   "batch_path": "/home/user/cloud-research/research/titles/outputs/validation/batches/v1_batch02.jsonl",
+   "n_items": 200,
+   "codebook_A": "/home/user/cloud-research/research/titles/outputs/validation/codebooks/v1_codebook_A.md",
+   "passes": 2,
+   "out_prefix": "/home/user/cloud-research/research/titles/outputs/validation/labels/v1_batch02",
+   "codebook_B": "/home/user/cloud-research/research/titles/outputs/validation/codebooks/v1_codebook_B.md"
+  },
+  {
+   "task": "V1",
+   "batch_path": "/home/user/cloud-research/research/titles/outputs/validation/batches/v1_batch03.jsonl",
+   "n_items": 200,
+   "codebook_A": "/home/user/cloud-research/research/titles/outputs/validation/codebooks/v1_codebook_A.md",
+   "passes": 2,
+   "out_prefix": "/home/user/cloud-research/research/titles/outputs/validation/labels/v1_batch03",
+   "codebook_B": "/home/user/cloud-research/research/titles/outputs/validation/codebooks/v1_codebook_B.md"
+  },
+  {
+   "task": "V1",
+   "batch_path": "/home/user/cloud-research/research/titles/outputs/validation/batches/v1_batch04.jsonl",
+   "n_items": 200,
+   "codebook_A": "/home/user/cloud-research/research/titles/outputs/validation/codebooks/v1_codebook_A.md",
+   "passes": 2,
+   "out_prefix": "/home/user/cloud-research/research/titles/outputs/validation/labels/v1_batch04",
+   "codebook_B": "/home/user/cloud-research/research/titles/outputs/validation/codebooks/v1_codebook_B.md"
+  },
+  {
+   "task": "V1",
+   "batch_path": "/home/user/cloud-research/research/titles/outputs/validation/batches/v1_batch05.jsonl",
+   "n_items": 200,
+   "codebook_A": "/home/user/cloud-research/research/titles/outputs/validation/codebooks/v1_codebook_A.md",
+   "passes": 2,
+   "out_prefix": "/home/user/cloud-research/research/titles/outputs/validation/labels/v1_batch05",
+   "codebook_B": "/home/user/cloud-research/research/titles/outputs/validation/codebooks/v1_codebook_B.md"
+  },
+  {
+   "task": "V1",
+   "batch_path": "/home/user/cloud-research/research/titles/outputs/validation/batches/v1_batch06.jsonl",
+   "n_items": 200,
+   "codebook_A": "/home/user/cloud-research/research/titles/outputs/validation/codebooks/v1_codebook_A.md",
+   "passes": 2,
+   "out_prefix": "/home/user/cloud-research/research/titles/outputs/validation/labels/v1_batch06",
+   "codebook_B": "/home/user/cloud-research/research/titles/outputs/validation/codebooks/v1_codebook_B.md"
+  },
+  {
+   "task": "V1",
+   "batch_path": "/home/user/cloud-research/research/titles/outputs/validation/batches/v1_batch07.jsonl",
+   "n_items": 200,
+   "codebook_A": "/home/user/cloud-research/research/titles/outputs/validation/codebooks/v1_codebook_A.md",
+   "passes": 2,
+   "out_prefix": "/home/user/cloud-research/research/titles/outputs/validation/labels/v1_batch07",
+   "codebook_B": "/home/user/cloud-research/research/titles/outputs/validation/codebooks/v1_codebook_B.md"
+  },
+  {
+   "task": "V2",
+   "batch_path": "/home/user/cloud-research/research/titles/outputs/validation/batches/v2_batch01.jsonl",
+   "n_items": 200,
+   "codebook_A": "/home/user/cloud-research/research/titles/outputs/validation/codebooks/v2_codebook_A.md",
+   "passes": 2,
+   "out_prefix": "/home/user/cloud-research/research/titles/outputs/validation/labels/v2_batch01",
+   "codebook_B": "/home/user/cloud-research/research/titles/outputs/validation/codebooks/v2_codebook_B.md"
+  },
+  {
+   "task": "V2",
+   "batch_path": "/home/user/cloud-research/research/titles/outputs/validation/batches/v2_batch02.jsonl",
+   "n_items": 200,
+   "codebook_A": "/home/user/cloud-research/research/titles/outputs/validation/codebooks/v2_codebook_A.md",
+   "passes": 2,
+   "out_prefix": "/home/user/cloud-research/research/titles/outputs/validation/labels/v2_batch02",
+   "codebook_B": "/home/user/cloud-research/research/titles/outputs/validation/codebooks/v2_codebook_B.md"
+  },
+  {
+   "task": "V3",
+   "batch_path": "/home/user/cloud-research/research/titles/outputs/validation/batches/v3_batch01.jsonl",
+   "n_items": 100,
+   "codebook_A": "/home/user/cloud-research/research/titles/outputs/validation/codebooks/v3_rubric.md",
+   "passes": 1,
+   "out_prefix": "/home/user/cloud-research/research/titles/outputs/validation/labels/v3_batch01"
+  },
+  {
+   "task": "V3",
+   "batch_path": "/home/user/cloud-research/research/titles/outputs/validation/batches/v3_batch02.jsonl",
+   "n_items": 100,
+   "codebook_A": "/home/user/cloud-research/research/titles/outputs/validation/codebooks/v3_rubric.md",
+   "passes": 1,
+   "out_prefix": "/home/user/cloud-research/research/titles/outputs/validation/labels/v3_batch02"
+  },
+  {
+   "task": "V3",
+   "batch_path": "/home/user/cloud-research/research/titles/outputs/validation/batches/v3_batch03.jsonl",
+   "n_items": 100,
+   "codebook_A": "/home/user/cloud-research/research/titles/outputs/validation/codebooks/v3_rubric.md",
+   "passes": 1,
+   "out_prefix": "/home/user/cloud-research/research/titles/outputs/validation/labels/v3_batch03"
+  },
+  {
+   "task": "V5",
+   "batch_path": "/home/user/cloud-research/research/titles/outputs/validation/batches/v5_batch01.jsonl",
+   "n_items": 50,
+   "codebook_A": "/home/user/cloud-research/research/titles/outputs/validation/codebooks/v5_instructions.md",
+   "passes": 1,
+   "out_prefix": "/home/user/cloud-research/research/titles/outputs/validation/labels/v5_batch01"
+  },
+  {
+   "task": "V5",
+   "batch_path": "/home/user/cloud-research/research/titles/outputs/validation/batches/v5_batch02.jsonl",
+   "n_items": 50,
+   "codebook_A": "/home/user/cloud-research/research/titles/outputs/validation/codebooks/v5_instructions.md",
+   "passes": 1,
+   "out_prefix": "/home/user/cloud-research/research/titles/outputs/validation/labels/v5_batch02"
+  }
+ ],
+ "v5_top20_rank_agreement_with_wp2": 1.0,
+ "blinding": "batch items contain only item_id and text fields (V1 title; V2 title, target word, occurrence, sense, swap word; V3 abstract; V5 12 central titles + 300-char abstract snippets); item order and batch membership are random; keys/ is private",
+ "deviations": [
+  "V5 shows the 12 most central papers per cluster (title + first 300 characters of the abstract), as the WP3a task specifies; PLAN.md §3 V5 says 20 central abstracts. Central = smallest squared Euclidean distance of the MiniLM abstract embedding to the cluster's label-mean centroid (outputs/topics/centroids.npz minilm_k100), over U papers of all years, skipping exact duplicate titles/abstracts (resubmissions).",
+  "V1 hard cases, genre leads: U has only 22 compound titles whose lead is or contains a genre word (features_v2.lead_is_genre, which also fires on leads such as 'Orthogonal Drift Correction (ODC)'). All genre leads not already in the main sample are taken; the rest of the 50 are single-token leads that are ordinary English words (Title-case alphabetic, wordfreq zipf >= 3.5, e.g. 'Attention', 'Uncertainty', 'Echo'), the coined-name vs generic-word boundary.",
+  "V1 main sample design: within each year block, 100 NAME-positive titles allocated as equally as possible across the four orthography classes (paren_acronym has only 1-22 titles per block, so all are taken and the remainder is redistributed), and 100 NAME-negative titles split 50 phrase-colon compound / 50 non-compound so that recall can be estimated where misses are plausible. Design weights N_h/n_h are in the key.",
+  "V1 dash hard cases: 25 titles whose separator the detector found as a spaced dash, and 25 titles without a detected separator that contain an unspaced en/em dash or '--'/'---', or a dash with space on one side only (the v1 COLON regex misses e.g. ' --- ' and unspaced em dashes).",
+  "V1/V2 items show the raw title (whitespace collapsed), not the NFKC title the detectors read, so annotators see what the authors typed (LaTeX kept).",
+  "V1 codebook label set: lead_type adds 'none' for non-compound titles; casing has 4 classes, so the detector's 'mixed' and 'other' both map to 'other'. Auxiliary fields 'lead' (verbatim) and 'note' support adjudication.",
+  "V2 population: 2018+ (the D3 slot-model years), opener slots filled under EITHER opener rule: the primary opener after an optional NAME lead without the pre-V2 sense filter (slot_*_raw) or the opener after any compound lead (slot_*_al, API.md deviation 3). This covers both candidate primary definitions and the 8 sense-filtered titles. A title filling two slots is assigned by preferring the primary opener over the any-lead opener, then the order improve, reveal, exploit, study_adj. Within each slot x variant x era cell, items are allocated equally across slot words (capped at availability) so that per-word sense precision, the PLAN drop rule (< 0.85), is estimable.",
+  "V2 swap test is symmetric: an LLM-favoured target gets the slot's reference neutral word (Improving / Understanding / Exploiting / systematic); a neutral target gets the reference LLM-favoured word (Enhancing / Unveiling / Leveraging / comprehensive). References are the first-listed words in PLAN.md D3. Annotators are not told which word of a pair is LLM-favoured.",
+  "V3 strata: year (2024, 2025, 2026) x 4 fingerprint categories (F0; F24 only; F26 or title typography without F24; F24 and F26/typography), 25 per cell, finer than F0/F1 so that component-level convergence can be read. The rubric does not name the fingerprint words or typography, to avoid a mechanically induced correlation.",
+  "V5 adds an auxiliary integer 'lm_papers' (how many of the 12 shown papers are centrally about language models) next to the required label and y/n flag, for comparison with the >50% regex-share cluster rule."
+ ]
+}

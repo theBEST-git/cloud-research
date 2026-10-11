@@ -1,0 +1,20 @@
+{
+ "n_profile_rows": 198640,
+ "n_profile_keys": 89115,
+ "n_alias_keys": 78255,
+ "n_email_rows": 17572,
+ "n_email_keys": 11507,
+ "groups_main": {
+  "S": 8710,
+  "X": 8404,
+  "N": 56217,
+  "R": 6949
+ },
+ "groups_alias": {
+  "S": 9205,
+  "X": 7198,
+  "N": 47537,
+  "R": 6865
+ },
+ "elapsed_s": 6.5
+}

@@ -1,0 +1,31 @@
+{
+ "rep": "R1@0.5",
+ "design": "placebo",
+ "pop": "U",
+ "outcome": "primary",
+ "windows": {
+  "placebo": {
+   "train_years": [
+    2018,
+    2019,
+    2020
+   ],
+   "calib_year": 2020,
+   "test_years": [
+    2021,
+    2022,
+    2023
+   ],
+   "n_train": 4087,
+   "n_test": 8881,
+   "C": 0.5,
+   "C_at_grid_edge": true,
+   "cv_logloss": {
+    "0.5": 0.3898559586545748
+   },
+   "n_features": 22266,
+   "r5_removed": null,
+   "seconds": 5.3
+  }
+ }
+}

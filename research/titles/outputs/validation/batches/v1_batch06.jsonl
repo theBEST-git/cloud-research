@@ -1,0 +1,200 @@
+{"item_id": "v1_6736cfb9", "title": "Morse: Fast Sampling for Accelerating Diffusion Models Universally"}
+{"item_id": "v1_52157830", "title": "DEBOSH: Deep Bayesian Shape Optimization"}
+{"item_id": "v1_716f444c", "title": "Percept Activation Graph (PAG): Decomposing LLM Computation into Perceptual Entities and Their Interactions"}
+{"item_id": "v1_e6d8dc91", "title": "Here's My Point: Argumentation Mining with Pointer Networks"}
+{"item_id": "v1_438b87e1", "title": "SAU: Smooth activation function using convolution with approximate identities"}
+{"item_id": "v1_7ae8d63b", "title": "FedBPT: Efficient Federated Black-box Prompt Tuning for Large Language Models"}
+{"item_id": "v1_ff2139bb", "title": "Forgetting: A New Mechanism Towards Better Large Language Model Fine-tuning"}
+{"item_id": "v1_21e5c54a", "title": "Revisiting Uncertainty Estimation for Node Classification: New Benchmark and Insights"}
+{"item_id": "v1_39ce4e66", "title": "STREET: A MULTI-TASK STRUCTURED REASONING AND EXPLANATION BENCHMARK"}
+{"item_id": "v1_cf55f46b", "title": "Selectivity metrics can overestimate the selectivity of units: a case study on AlexNet"}
+{"item_id": "v1_55b6a3fd", "title": "DRoC: Elevating Large Language Models for Complex Vehicle Routing via Decomposed Retrieval of Constraints"}
+{"item_id": "v1_0411d0e7", "title": "LiveXiv - A Multi-Modal live benchmark based on Arxiv papers content"}
+{"item_id": "v1_77582456", "title": "Phidias: A Generative Model for Creating 3D Content from Text, Image, and 3D Conditions with Reference-Augmented Diffusion"}
+{"item_id": "v1_f0530779", "title": "Meta Pruning via Graph Metanetworks : A Universal Meta Learning Framework for Network Pruning"}
+{"item_id": "v1_add0f465", "title": "Mol-CycleGAN - a generative model for molecular optimization"}
+{"item_id": "v1_c28958a4", "title": "Catastrophic Cyber Capabilities Benchmark (3CB): Robustly Evaluating LLM Agent Cyber Offense Capabilities"}
+{"item_id": "v1_e711f469", "title": "FED-$\\chi^2$: Secure Federated Correlation Test"}
+{"item_id": "v1_da8656e5", "title": "DualFusion: Dual Adaptive Fusion for Multi-View Pedestrian Detection via View Reliability Modeling and Channel Reweighting"}
+{"item_id": "v1_b0b63df4", "title": "MLoops: A Dataset for Music Loops"}
+{"item_id": "v1_3f7cd47e", "title": "Generate the Forest before the Trees - A Hierarchical Diffusion model for Climate Downscaling"}
+{"item_id": "v1_b680068a", "title": "Exposing Text-Image Inconsistency Using Diffusion Models"}
+{"item_id": "v1_7d226155", "title": "ContraQA: Question Answering under Contradicting Contexts"}
+{"item_id": "v1_278f431a", "title": "DAM: Towards a Foundation Model for Forecasting"}
+{"item_id": "v1_5aec4b5f", "title": "Learning to Unlearn: Instance-wise Unlearning for Pre-trained Classifiers"}
+{"item_id": "v1_47d09b79", "title": "ML-ViG: Multi-Label Image Recognition with Vision Graph Convolutional Network"}
+{"item_id": "v1_2bc3e827", "title": "TopoFR: A Closer Look at Topology Alignment on Face Recognition"}
+{"item_id": "v1_b2c13bbd", "title": "Progressive LLM Alignments Using Two-Player Games"}
+{"item_id": "v1_9dbb2ef9", "title": "AntMan: Sparse Low-Rank Compression To Accelerate RNN Inference"}
+{"item_id": "v1_06deb2af", "title": "Large Scale Optimal Transport and Mapping Estimation"}
+{"item_id": "v1_fbec25c5", "title": "STAFF: Speculative Coreset Selection for Task-Specific Fine-tuning"}
+{"item_id": "v1_8c546491", "title": "ReMasker: Imputing Tabular Data with Masked Autoencoding"}
+{"item_id": "v1_c8b904d2", "title": "Canary in a Coalmine: Better Membership Inference with Ensembled Adversarial Queries"}
+{"item_id": "v1_1a8b6cdc", "title": "MAXENT LOSS: CONSTRAINED MAXIMUM ENTROPY FOR CALIBRATING DEEP NEURAL NETWORKS"}
+{"item_id": "v1_4f81b8dc", "title": "PHyCLIP: $\\ell_1$-Product of Hyperbolic Factors Unifies Hierarchy and Compositionality in Vision-Language Representation Learning"}
+{"item_id": "v1_0faf5560", "title": "${\\rm EFO}_k$-CQA: Towards Knowledge Graph Complex Query Answering beyond Set Operation"}
+{"item_id": "v1_36a154a6", "title": "Deep Learning From Crowdsourced Labels: Coupled Cross-Entropy Minimization, Identifiability, and Regularization"}
+{"item_id": "v1_10829899", "title": "Chain-of-Context Learning: Dynamic Constraint Understanding for Multi-Task VRPs"}
+{"item_id": "v1_96839826", "title": "Towards Fine-tuning-free Few-shot Classification: A Purely Self-supervised Manner"}
+{"item_id": "v1_cb6323b3", "title": "Win: Weight-Decay-Integrated Nesterov Acceleration for Adaptive Gradient Algorithms"}
+{"item_id": "v1_136b672e", "title": "Trimsformer: Trimming Transformer via Searching for Low-Rank Structure"}
+{"item_id": "v1_92cbec4c", "title": "Learning Identifiable Causal Structures with Pairwise Representation"}
+{"item_id": "v1_0dff8b7d", "title": "Incidental Polysemanticity: A New Obstacle for Mechanistic Interpretability"}
+{"item_id": "v1_abc1044b", "title": "MSA Generation with Seqs2Seqs Pretraining: Advancing Protein Structure Predictions"}
+{"item_id": "v1_d108e01d", "title": "Rrls: Robust reinforcement learning suite"}
+{"item_id": "v1_32d8f10d", "title": "Data Valuation Without Training of a Model"}
+{"item_id": "v1_a10052ff", "title": "Decoupled Graph Energy-based Model for Node Out-of-Distribution Detection on Heterophilic Graphs"}
+{"item_id": "v1_ce70095a", "title": "Zero-Shot Image Restoration Using Denoising Diffusion Null-Space Model"}
+{"item_id": "v1_4107f8f5", "title": "AgenticIQA: An Agentic Framework for Adaptive and Interpretable Image Quality Assessment"}
+{"item_id": "v1_63c326b7", "title": "Routesplain: Towards Faithful and Intervenable Routing for Software-related Tasks"}
+{"item_id": "v1_8cfdd092", "title": "One Stone Three Birds: Training-free Core-context-aware Attention for Efficient LLM Prefilling, Decoding, and KV Caching"}
+{"item_id": "v1_cf96d9de", "title": "Boosting Adversarial Robustness with CLAT: Criticality Leveraged Adversarial Training"}
+{"item_id": "v1_b7ac4ae5", "title": "LitmusValues: Will AI Tell Lies to Save Sick Children? Litmus-Testing AI Values Prioritization with AIRiskDilemmas"}
+{"item_id": "v1_760c17e5", "title": "FP-IRL: Fokker-Planck-based Inverse Reinforcement Learning --- A Physics-Constrained Approach to Markov Decision Processes"}
+{"item_id": "v1_7af7f615", "title": "Promptus: Representing Real-World Video as Stable Diffusion Prompts for Video Streaming"}
+{"item_id": "v1_89db1366", "title": "Sphinx: Visual Perception and Reasoning Gym"}
+{"item_id": "v1_938be4b4", "title": "Learning Incompressible Fluid Dynamics from Scratch - Towards Fast, Differentiable Fluid Models that Generalize"}
+{"item_id": "v1_384c13a7", "title": "Gradient-Free Analytical Fisher Information of Diffused Distributions"}
+{"item_id": "v1_75b4cc62", "title": "Self-contradictory Hallucinations of Large Language Models: Evaluation, Detection and Mitigation"}
+{"item_id": "v1_1de494a2", "title": "Rethinking Sparse Autoencoders: Select-and-Project for Fairness and Control from Encoder Features Alone"}
+{"item_id": "v1_33e34dad", "title": "Diffusion State-Guided Projected Gradient for Inverse Problems"}
+{"item_id": "v1_3ce1c362", "title": "Anytime Neural Network: a Versatile Trade-off Between Computation and Accuracy"}
+{"item_id": "v1_5a23a046", "title": "A Painless Attention Mechanism for Convolutional Neural Networks"}
+{"item_id": "v1_5e54c0d9", "title": "Embedding Interpretability Score: A Domain-Agnostic Representation Quality Assessment"}
+{"item_id": "v1_8f31224d", "title": "Coupled Oscillatory Recurrent Neural Network (coRNN): An accurate and (gradient) stable architecture for learning long time dependencies"}
+{"item_id": "v1_235483b1", "title": "Weak Bisimulation Metric-based Representations for Sparse-Reward Reinforcement Learning"}
+{"item_id": "v1_9c51549e", "title": "P^2IR: Universal Deep Node Representation via Partial Permutation Invariant Set Functions"}
+{"item_id": "v1_4c6d5759", "title": "SCAN: Learning Hierarchical Compositional Visual Concepts"}
+{"item_id": "v1_59cd254f", "title": "NeFL: Nested Federated Learning for Heterogeneous Clients"}
+{"item_id": "v1_3eeab551", "title": "SPA-BENCH: A COMPREHENSIVE BENCHMARK FOR SMARTPHONE AGENT EVALUATION"}
+{"item_id": "v1_968719c9", "title": "GROOT: Corrective Reward Optimization for Generative Sequential Labeling"}
+{"item_id": "v1_187e5e19", "title": "Improving and Stabilizing Deep Energy-Based Learning"}
+{"item_id": "v1_3109b458", "title": "DNN Representations as Codewords: Manipulating Statistical Properties via Penalty Regularization"}
+{"item_id": "v1_64876e25", "title": "Scarf: Self-Supervised Contrastive Learning using Random Feature Corruption"}
+{"item_id": "v1_08f80147", "title": "AUPO - Abstracted until proven otherwise: A reward distribution based abstraction algorithm"}
+{"item_id": "v1_358e25e0", "title": "TFGAN: Improving Conditioning for Text-to-Video Synthesis"}
+{"item_id": "v1_43f49552", "title": "Conditional Generative Models are Sufficient to Sample from Any Causal Effect Estimand"}
+{"item_id": "v1_f3e7f384", "title": "Human MotionFormer: Transferring Human Motions with Vision Transformers"}
+{"item_id": "v1_3a189b65", "title": "DBA: Efficient Transformer with Dynamic Bilinear Low-Rank Attention"}
+{"item_id": "v1_e06758b4", "title": "Flexible Prior Distributions for Deep Generative Models"}
+{"item_id": "v1_066a843a", "title": "Learning not to learn: Nature versus nurture in silico"}
+{"item_id": "v1_680593db", "title": "Tree-Structured Recurrent Switching Linear Dynamical Systems for Multi-Scale Modeling"}
+{"item_id": "v1_8dc46cde", "title": "Globetrotter: Unsupervised Multilingual Translation from Visual Alignment"}
+{"item_id": "v1_134daca4", "title": "Espresso: Efficient Forward Propagation for Binary Deep Neural Networks"}
+{"item_id": "v1_816212a9", "title": "Explicit Learning Topology for Differentiable Neural Architecture Search"}
+{"item_id": "v1_3ad04873", "title": "Language Model Beats Diffusion - Tokenizer is key to visual generation"}
+{"item_id": "v1_b2781251", "title": "Diverse, Difficult, and Odd Instances (D2O): A New Test Set for Object Classification"}
+{"item_id": "v1_9532146f", "title": "Disentangling neural mechanisms for perceptual grouping"}
+{"item_id": "v1_b3b669fc", "title": "SKILL-MIX: a Flexible and Expandable Family of Evaluations for AI Models"}
+{"item_id": "v1_1ec2bd32", "title": "Anisotropic Message Passing: Graph Neural Networks with Directional and Long-Range Interactions"}
+{"item_id": "v1_0daf33ef", "title": "FLAGNet : Feature Label based Automatic Generation Network for symbolic music"}
+{"item_id": "v1_e2935c9f", "title": "Statistical Inference for Deep Learning via Stochastic Modeling"}
+{"item_id": "v1_3d04f8e9", "title": "WILT: A Multi-Turn, Memorization-Robust Inductive Logic Benchmark for LLMs"}
+{"item_id": "v1_2ed4bf68", "title": "Enhancing Multimodal Survival Prediction with Pathology Reports in Hyperbolic Space"}
+{"item_id": "v1_e837e140", "title": "C-Learning: Horizon-Aware Cumulative Accessibility Estimation"}
+{"item_id": "v1_98f61631", "title": "Adaptive Methods through the Lens of SDEs: Theoretical Insights on the Role of Noise"}
+{"item_id": "v1_38094fdc", "title": "Mistill: Distilling Distributed Network Protocols from Examples"}
+{"item_id": "v1_666b1ecb", "title": "Sparse Upcycling: Training Mixture-of-Experts from Dense Checkpoints"}
+{"item_id": "v1_01b75c11", "title": "Exploratory Memory-Augmented LLM Agent via Hybrid On- and Off-Policy Optimization"}
+{"item_id": "v1_724e39fe", "title": "Explicitly Bounding Q‑Function Estimates for Offline-to-Online Reinforcement Learning"}
+{"item_id": "v1_2891b3f2", "title": "$O(T^{-1})$ Convergence of Optimistic-Follow-the-Regularized-Leader in Two-Player Zero-Sum Markov Games"}
+{"item_id": "v1_27c0cad6", "title": "Fixed Non-negative Orthogonal Classifier: Inducing Zero-mean Neural Collapse with Feature Dimension Separation"}
+{"item_id": "v1_1cc429ba", "title": "Multi Perspective Actor Critic: Adaptive Value Decomposition for Robust and Safe Reinforcement Learning"}
+{"item_id": "v1_4a892aab", "title": "Chunking: Forgetting Matters in Continual Learning even without Changing Tasks"}
+{"item_id": "v1_0af1218a", "title": "On The Surprising Effectiveness of a Single Global Merging in Decentralized Learning"}
+{"item_id": "v1_1e33acfd", "title": "Padam: Closing the Generalization Gap of Adaptive Gradient Methods in Training Deep Neural Networks"}
+{"item_id": "v1_58eb9754", "title": "Generative Editing via Convolutional Obscuring (GECO): A Generative Adversarial Network for MRI de-artifacting"}
+{"item_id": "v1_ef87965b", "title": "BSTT: A Bayesian Spatial-Temporal Transformer for Sleep Staging"}
+{"item_id": "v1_cabbea0a", "title": "Prediction, Consistency, Curvature: Representation Learning for Locally-Linear Control"}
+{"item_id": "v1_d919a100", "title": "Nüwa: Mending the Spatial Integrity Torn by VLM Token Pruning"}
+{"item_id": "v1_4fb37803", "title": "GUI-ReWalk: Massive Data Generation for GUI Agent via Stochastic Exploration and Intent-Aware Reasoning"}
+{"item_id": "v1_d04ca48e", "title": "A Theoretical Framework for Robustness of (Deep) Classifiers against Adversarial Samples"}
+{"item_id": "v1_1d0c81ad", "title": "LLaVA-Interleave: Tackling Multi-image, Video, and 3D in Large Multimodal Models"}
+{"item_id": "v1_15b60ab7", "title": "An Open Review of OpenReview: A Critical Analysis of the Machine Learning Conference Review Process"}
+{"item_id": "v1_4026a7a8", "title": "Localized Cultural Knowledge is Conserved and Controllable in Large Language Models"}
+{"item_id": "v1_929d0413", "title": "PLP-RC:Point–Line–Plane Fusion for Discriminative Relation Classification with LLMs"}
+{"item_id": "v1_6b33f2cf", "title": "Block and Subword-Scaling Floating-Point (BSFP) : An Efficient Non-Uniform Quantization For Low Precision Inference"}
+{"item_id": "v1_aac1857d", "title": "Adversarial Machine Unlearning: A Stackelberg Game Approach"}
+{"item_id": "v1_bc766377", "title": "Daylight: Assessing Generalization Skills of Deep Reinforcement Learning Agents"}
+{"item_id": "v1_10d4c0b7", "title": "VoxDialogue: Can Spoken Dialogue Systems Understand Information Beyond Words?"}
+{"item_id": "v1_e8efa385", "title": "A Fast, Well-Founded Approximation to the Empirical Neural Tangent Kernel"}
+{"item_id": "v1_983e5b17", "title": "Conformal Non-Coverage Risk Control (CNCRC): Risk-Centric Guarantees for Predictive Safety in High-Stakes Settings"}
+{"item_id": "v1_00147bdc", "title": "Inequality phenomenon in $l_{\\infty}$-adversarial training, and its unrealized threats"}
+{"item_id": "v1_8c26875f", "title": "Intelligent Control in Embodied Robotics: Enhancing Human-Robot Interaction through Adaptive Control Techniques"}
+{"item_id": "v1_adfe9dde", "title": "Igeood: An Information Geometry Approach to Out-of-Distribution Detection"}
+{"item_id": "v1_7ce3b1bf", "title": "Powderworld: A Platform for Understanding Generalization via Rich Task Distributions"}
+{"item_id": "v1_d83f37f0", "title": "Mixture of Quantized Experts (MoQE): Complementary Effect of Low-bit Quantization and Robustness"}
+{"item_id": "v1_a6a73881", "title": "Simple Fast Convolutional Feature Learning"}
+{"item_id": "v1_a8a03387", "title": "Path Choice Matters for Clear Attributions in Path Methods"}
+{"item_id": "v1_37d3ec45", "title": "Extending Contextual Self-Modulation: Meta-Learning Across Modalities, Task Dimensionalities, and Data Regimes"}
+{"item_id": "v1_e038f721", "title": "Aryabhata: An exam-focused language model for JEE Math"}
+{"item_id": "v1_18b800c4", "title": "Tiered Agentic Oversight: A Hierarchical Multi-Agent System for Healthcare Safety"}
+{"item_id": "v1_19e5d34b", "title": "Necessary and Sufficient Watermark for Large Language Models"}
+{"item_id": "v1_f6bd1370", "title": "Learngene Tells You How to Customize: Task-Aware Parameter Prediction at Flexible Scales"}
+{"item_id": "v1_d243474e", "title": "Amos: An Adam-style Optimizer with Adaptive Weight Decay towards Model-Oriented Scale"}
+{"item_id": "v1_b6ed4321", "title": "High Fidelity Visualization of What Your Self-Supervised Representation Knows About"}
+{"item_id": "v1_aadb6c53", "title": "On Meaning-Preserving Adversarial Perturbations for Sequence-to-Sequence Models"}
+{"item_id": "v1_e0fd6281", "title": "Statestream: A toolbox to explore layerwise-parallel deep neural networks"}
+{"item_id": "v1_f683384d", "title": "TRUNCATED HORIZON POLICY SEARCH: COMBINING REINFORCEMENT LEARNING & IMITATION LEARNING"}
+{"item_id": "v1_e27100cf", "title": "Adam or Gauss-Newton? — A Comparative Study In Terms of Basis Alignment and SGD Noise"}
+{"item_id": "v1_b30b70f8", "title": "AvatarStudio: High-fidelity and Animatable 3D Avatar Creation from Text"}
+{"item_id": "v1_15507088", "title": "Continual Slow-and-Fast Adaptation of Latent Neural Dynamics (CoSFan): Meta-Learning What-How & When to Adapt"}
+{"item_id": "v1_97ca390b", "title": "Time-Agnostic Prediction: Predicting Predictable Video Frames"}
+{"item_id": "v1_02f2a07e", "title": "CAN - CONTINUOUSLY ADAPTING NETWORKS"}
+{"item_id": "v1_d04e7442", "title": "PointGrow: Autoregressively Learned Point Cloud Generation with Self-Attention"}
+{"item_id": "v1_f12f1066", "title": "Classifier-to-Generator Attack: Estimation of Training Data Distribution from Classifier"}
+{"item_id": "v1_d51dc145", "title": "Better, Faster: Harnessing Self-Improvement in Large Reasoning Models"}
+{"item_id": "v1_8e3dd126", "title": "Retro: Reusing teacher projection head for efficient embedding distillation on Lightweight Models via Self-supervised Learning"}
+{"item_id": "v1_ee819568", "title": "SMART: Self-supervised Multi-task pretrAining with contRol Transformers"}
+{"item_id": "v1_6277448e", "title": "Forge: Foundational Optimization Representations from Graph Embeddings"}
+{"item_id": "v1_97e166df", "title": "Accurate Bayesian Meta-Learning by Accurate Task Posterior Inference"}
+{"item_id": "v1_1b3ac824", "title": "PN-GAIL: Leveraging Non-optimal Information from Imperfect Demonstrations"}
+{"item_id": "v1_a6e8b8dc", "title": "Harnessing the Wikipedia Graph for Effective Multi-Entity Question Answering"}
+{"item_id": "v1_ae47eabf", "title": "It's About Time: Temporal References in Emergent Communication"}
+{"item_id": "v1_2e90a5a7", "title": "ACRF: Compressing Explicit Neural Radiance Fields via Attribute Compression"}
+{"item_id": "v1_a9682827", "title": "Smooth ECE: Principled Reliability Diagrams via Kernel Smoothing"}
+{"item_id": "v1_97399a17", "title": "Continuous Control with Contexts, Provably"}
+{"item_id": "v1_f9ca9770", "title": "Towards Adaptive ML Benchmarks: Web-Agent-Driven Construction, Domain Expansion, and Metric Optimization"}
+{"item_id": "v1_62270f1f", "title": "Agent Security Bench (ASB): Formalizing and Benchmarking Attacks and Defenses in LLM-based Agents"}
+{"item_id": "v1_2f5db20e", "title": "PATHS: Parameter-wise Adaptive Two-Stage Training Harnessing Scene Transition Mask Adapters for Video Retrieval"}
+{"item_id": "v1_25bb5d9b", "title": "MVP-BERT: Redesigning Vocabularies for Chinese BERT and Multi-Vocab Pretraining"}
+{"item_id": "v1_e1ed8197", "title": "Undersensitivity in Neural Reading Comprehension"}
+{"item_id": "v1_b707bfd8", "title": "Nemesis: Normalizing the Soft-prompt Vectors of Vision-Language Models"}
+{"item_id": "v1_2ee99b17", "title": "LayerMix Law: Scaling Law for Large Language Models on Quality-Weighted Mixture Data with Repetition"}
+{"item_id": "v1_7b573226", "title": "Sp-R-IP: A Decision-Focused Learning Strategy for Linear Programs that Avoids Overfitting"}
+{"item_id": "v1_13689ea8", "title": "Gaitor: Learning a Unified Representation for Continuous Gait Transition and Terrain Traversal for Quadruped Robots"}
+{"item_id": "v1_4b3e2a79", "title": "Scaling-up Diverse Orthogonal Convolutional Networks by a Paraunitary Framework"}
+{"item_id": "v1_b9e925bb", "title": "From Correction to Mastery: Reinforced Distillation of Large Language Model Agents"}
+{"item_id": "v1_0affd532", "title": "Convergence Analysis of Tsetlin Machines under Noise-Free and Noisy Training Conditions: From $2$ Bits to $k$ Bits"}
+{"item_id": "v1_0e27c363", "title": "Multi-Agent Cross-Entropy Method with Monotonic Nonlinear Critic Decomposition"}
+{"item_id": "v1_931533ef", "title": "Zoology: Measuring and Improving Recall in Efficient Language Models"}
+{"item_id": "v1_af7c98be", "title": "Paleo: A Performance Model for Deep Neural Networks"}
+{"item_id": "v1_4cd4d69a", "title": "Peer Review as A Multi-Turn and Long-Context Dialogue with Role-Based Interactions: Benchmarking Large Language Models"}
+{"item_id": "v1_6e603b0a", "title": "CycleAlign: Iterative Distillation from Black-box LLM to White-box Models for Better Human Alignment"}
+{"item_id": "v1_ceffba78", "title": "MCTSBug: Generating Adversarial Text Sequences via Monte Carlo Tree Search and Homoglyph Attack"}
+{"item_id": "v1_d629400e", "title": "Scaling Generalist Data-Analytic Agents"}
+{"item_id": "v1_a5e26e72", "title": "Efficient Sparsification of Densely Connected Clusters"}
+{"item_id": "v1_1bf70ea7", "title": "Dynamic Neural Fortresses: An Adaptive Shield for Model Extraction Defense"}
+{"item_id": "v1_06aee325", "title": "Adversarial Examples Guided Pseudo-label Refinement for Decentralized Domain Adaptation"}
+{"item_id": "v1_c145a5dc", "title": "Differentiable Graph Optimization for Neural Architecture Search"}
+{"item_id": "v1_938d22e0", "title": "SFESS: Score Function Estimators for $k$-Subset Sampling"}
+{"item_id": "v1_80355d08", "title": "Learn Together, Stop Apart: An Inclusive Approach To Early Stopping"}
+{"item_id": "v1_ce370d15", "title": "Faster Training by Selecting Samples Using Embeddings"}
+{"item_id": "v1_3aaf0043", "title": "Model ChangeLists: Characterizing Changes in ML Prediction APIs"}
+{"item_id": "v1_1c6be06d", "title": "Diving Deep into Regions: Exploiting Regional information Transformer for Single Image Deraining"}
+{"item_id": "v1_714345f4", "title": "Law of Balance and Stationary Distribution of Stochastic Gradient Descent"}
+{"item_id": "v1_6d04fc94", "title": "Griffin: Generative Reference and Layout Guided Image Composition"}
+{"item_id": "v1_8c1aa7b6", "title": "Few-shot Lifelong Reinforcement Learning with Generalization Guarantees: An Empirical PAC-Bayes Approach"}
+{"item_id": "v1_bcecea61", "title": "Near-Optimal Convergence of Accelerated Gradient Methods under Generalized and $(L_0, L_1)$-Smoothness"}
+{"item_id": "v1_20a514c2", "title": "Signal Preserving Weight Initialization for Odd-Sigmoid Activations"}
+{"item_id": "v1_2629f90b", "title": "Beyond Fully-Connected Layers with Quaternions: Parameterization of Hypercomplex Multiplications with $1/n$ Parameters"}
+{"item_id": "v1_8ed5f1ad", "title": "Ghost in the Cloud: Your Geo-Distributed Large Language Models Training is Easily Manipulated"}
+{"item_id": "v1_e231565c", "title": "Train on Validation (ToV): Fast data selection with applications to fine-tuning"}
+{"item_id": "v1_8aa0645e", "title": "Are We in (A)Sync?: Guidance for Efficient Federated Learning"}
+{"item_id": "v1_eae4b2da", "title": "Variational Inference for Cyclic Learning"}
+{"item_id": "v1_5dda7a38", "title": "Mitigating Catastrophic Forgetting with Context-aware Continual Pretraining for LLMs"}
+{"item_id": "v1_81227db0", "title": "”DOES YOUR MOBILE SUIT YOUR SKIN?”: ADDRESSING SKIN TONE DISPARITIES IN PRESENTATION ATTACK DETECTION FOR ENHANCED INCLUSIVITY OF SMARTPHONE SECURITY"}
+{"item_id": "v1_89f84232", "title": "Adaptivity of deep ReLU network for learning in Besov and mixed smooth Besov spaces: optimal rate and curse of dimensionality"}
+{"item_id": "v1_3ce87d36", "title": "Linguistic Embeddings as a Common-Sense Knowledge Repository: Challenges and Opportunities"}
+{"item_id": "v1_feb331d1", "title": "TailMix: Overcoming the Label Sparsity for Extreme Multi-label Classification"}
+{"item_id": "v1_d91cf6e9", "title": "Noise-conditioned Energy-based Annealed Rewards (NEAR): A Generative Framework for Imitation Learning from Observation"}

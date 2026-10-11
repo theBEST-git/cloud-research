@@ -1,0 +1,201 @@
+rank,feature,coef
+1,approach,-2.4151387
+2,that the,-2.031971
+3,study,-1.989735
+4,of this,-1.844043
+5,standard,-1.7803296
+6,identify,-1.7065718
+7,find,-1.6264883
+8,these,-1.4820683
+9,we show,-1.4662489
+10,robustness,-1.448611
+11,alternative,-1.4286313
+12,dynamic,-1.3941612
+13,how,-1.3472522
+14,generalization,-1.3472354
+15,to identify,-1.3273257
+16,kernel,-1.3144432
+17,the proposed,-1.3046242
+18,model based,-1.2968717
+19,classifiers,-1.2837821
+20,equivariant,-1.2755762
+21,recurrent,-1.2136713
+22,uncertainty,-1.2077931
+23,word,-1.2075408
+24,is to,-1.2058902
+25,provide,-1.2058531
+26,learning is,-1.203428
+27,findings,-1.2000896
+28,bounds,-1.1965363
+29,to be,-1.1902484
+30,assumption,-1.1817392
+31,find that,-1.1769204
+32,how the,-1.1631004
+33,interpretable,-1.155469
+34,that this,-1.1495879
+35,difficulty,-1.1332613
+36,networks,-1.1126808
+37,our method,-1.1110169
+38,games,-1.1049186
+39,policy,-1.0995923
+40,is the,-1.0960904
+41,of learning,-1.0954561
+42,regret,-1.0902482
+43,our theoretical,-1.0825427
+44,exists,-1.0799394
+45,propose to,-1.0657759
+46,in the,-1.065064
+47,method on,-1.0600148
+48,bias,-1.0554037
+49,learn,-1.0431116
+50,probability,-1.0408603
+51,powerful,-1.037629
+52,especially in,-1.0363187
+53,finetuning,-1.0252601
+54,structure,-1.0185348
+55,symbolic,-1.0147015
+56,to solve,-1.0141026
+57,levels,-1.0137771
+58,sampling,-1.0092459
+59,study the,-1.00897
+60,adversarial robustness,-1.0018094
+61,continual,-0.9959588
+62,of these,-0.9914785
+63,number,-0.98972154
+64,the semantic,-0.9864908
+65,emph,-0.97963333
+66,continual learning,-0.97562575
+67,gradient descent,-0.9695148
+68,pruning,-0.96723
+69,metric,-0.96438766
+70,analyze,-0.96433085
+71,and efficiency,-0.94812435
+72,yield,-0.9384994
+73,likely,-0.93757606
+74,behavior,-0.9354008
+75,learning with,-0.93203586
+76,properties,-0.92829645
+77,measure,-0.92792636
+78,replay,-0.9238253
+79,we consider,-0.9213661
+80,representation learning,-0.9202337
+81,terms,-0.91639954
+82,lead to,-0.91463304
+83,policy gradient,-0.9117959
+84,cases,-0.9094804
+85,theoretical,-0.9074513
+86,distributions,-0.90449476
+87,we provide,-0.90390754
+88,descent,-0.9024755
+89,and show,-0.89870226
+90,proposed,-0.89868516
+91,neural networks,-0.89649314
+92,access,-0.8927276
+93,arbitrary,-0.8906989
+94,possible,-0.8891846
+95,this approach,-0.8866902
+96,and their,-0.88340557
+97,correlation,-0.8817995
+98,fact,-0.8802149
+99,show how,-0.8783377
+100,fixed,-0.8772466
+101,statistical,-0.8679297
+102,permutation,-0.867408
+103,give,-0.8667877
+104,straightforward,-0.86526465
+105,the challenge,-0.86170554
+106,we study,-0.8601338
+107,small,-0.85976064
+108,the context,-0.8575951
+109,we achieve,-0.8560259
+110,exhibit,-0.8560192
+111,measures,-0.855961
+112,some of,-0.85579735
+113,networks with,-0.85424674
+114,reinforcement learning,-0.85423577
+115,log,-0.85330373
+116,context,-0.85290045
+117,likely to,-0.8500833
+118,with no,-0.84944063
+119,distribution over,-0.8478664
+120,significantly improve,-0.8476003
+121,methods we,-0.84604514
+122,if,-0.842102
+123,approach for,-0.8399144
+124,supervised,-0.8391361
+125,models,-0.8364529
+126,levels of,-0.8362841
+127,reinforcement,-0.83603215
+128,case,-0.83178705
+129,new state,-0.8297694
+130,off,-0.8270503
+131,consider,-0.82547873
+132,trajectories,-0.8211016
+133,proposed method,-0.8165584
+134,policy optimization,-0.81554794
+135,learning to,-0.80954176
+136,make,-0.8066596
+137,points,-0.805769
+138,or,-0.80360043
+139,worse,-0.80149597
+140,itself,-0.8009357
+141,min,-0.7998959
+142,quality of,-0.7994334
+143,existence,-0.7992745
+144,lead,-0.7975139
+145,by large,-0.7962803
+146,bound,-0.795556
+147,density,-0.7951329
+148,may be,-0.7946271
+149,transfer to,-0.79368603
+150,but,-0.7916578
+151,treatment,-0.7892523
+152,simulated,-0.7871304
+153,influence,-0.7862317
+154,perceptual,-0.7857068
+155,humans,-0.7852554
+156,with large,-0.7811123
+157,the prediction,-0.7801269
+158,empirical,-0.7784473
+159,assumptions,-0.7775472
+160,this framework,-0.7771002
+161,approximation,-0.7757354
+162,learner,-0.7736962
+163,we find,-0.7690634
+164,distributional,-0.76620746
+165,frame,-0.7652569
+166,tested,-0.7649804
+167,experimental,-0.7636413
+168,given,-0.76122147
+169,models with,-0.7612096
+170,the multi,-0.76052815
+171,frames,-0.7583098
+172,some,-0.7572658
+173,when the,-0.7543705
+174,problem,-0.7539603
+175,generation quality,-0.7530323
+176,propose two,-0.7507841
+177,to use,-0.7495401
+178,during,-0.74850404
+179,similarities,-0.74627423
+180,for its,-0.74581176
+181,methods are,-0.74459577
+182,problems in,-0.7444159
+183,representational,-0.7443324
+184,latent variables,-0.7441282
+185,framework is,-0.74285495
+186,lack,-0.74227214
+187,formulate,-0.7415646
+188,evidence,-0.74070984
+189,performance and,-0.7379707
+190,agents,-0.7376245
+191,approaches that,-0.7362681
+192,posterior,-0.7335008
+193,hidden,-0.73137414
+194,with our,-0.72831005
+195,methodology,-0.7272759
+196,that in,-0.7254849
+197,for the,-0.7251639
+198,sample complexity,-0.7218705
+199,practical,-0.71990734
+200,method in,-0.71857643

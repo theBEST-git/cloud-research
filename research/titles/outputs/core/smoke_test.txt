@@ -1,0 +1,40 @@
+PASS universe rows 43482 unique ids
+PASS features_v2 aligned to universe
+PASS topics_bge aligned
+PASS no empty titles in U
+PASS NA = REJ | WD | DR
+PASS ACC disjoint from NA
+PASS wd_post = 349 (plan: 349)
+PASS inconsistent rows = 27 (README: 27)
+PASS acceptance population in U = 32533
+PASS name_strict subset of name_primary
+PASS name_primary subset of compound
+PASS V4: lead string survives R3 mask in 0 NAME abstracts
+PASS NAME 2023 0.203 -> 2026 0.405 (plan 0.203 -> 0.405)
+PASS RARE21 any: 2024 0.1915, 2026 0.0915 (scout 0.1915, 0.0914)
+PASS D2 style markers >= 40
+PASS mask_abstract: We present [NAME], a model. [NAME]-based agents beat [NAME] and [NAME] on [NAME]; In-Context RL-based.
+PASS mask_abstract_lower: present model based agents beat and on
+               coef      se        t       p      lo      hi   nobs  n_clusters  vcov
+F            0.0247  0.0064   3.8636  0.0002  0.0120  0.0374  30130         100  CRV1
+log_authors  0.1031  0.0063  16.2579  0.0000  0.0905  0.1157  30130         100  CRV1
+llm_topic    0.0425  0.0129   3.2869  0.0014  0.0168  0.0681  30130         100  CRV1
+PASS feols vs pyfixest coef max diff 2.02e-15
+PASS feols vs pyfixest CRV1 se max diff 2.14e-07 (in-house 0.09s, pyfixest 0.87s)
+PASS two-way FE coefficients match pyfixest
+PASS two-way FE CRV1 SEs match pyfixest
+PASS HC1 SEs match pyfixest (no FE)
+         coef     se      z      p     lo     hi     OR  OR_lo  OR_hi   nobs
+post:t  0.129  0.029  4.437  0.000  0.072  0.187  1.138  1.075  1.205  43482
+post    0.017  0.067  0.257  0.797 -0.114  0.149  1.017  0.892  1.160  43482
+t       0.117  0.024  4.898  0.000  0.070  0.164  1.124  1.073  1.178  43482
+PASS segmented logit runs (slope-change OR 1.138)
+PASS boot_means stratified
+PASS cluster bootstrap wider than paper bootstrap
+PASS boot_indices (clustered, stratified) valid
+      est      se      lo      hi  p_le0
+0  0.2981  0.0022  0.2942  0.3022    0.0
+PASS assign_centroids reproduces MiniLM topic100
+PASS assign_centroids reproduces bge topic100
+PASS save_fig wrote PDF/PNG/CSV
+elapsed 6.1s; failures: 0

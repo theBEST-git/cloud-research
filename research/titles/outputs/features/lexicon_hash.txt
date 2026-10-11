@@ -1,0 +1,3 @@
+34ec8f939bfbc2448426d918bd217522c64a42a6f09f31aa2d1a0a54b0737847  analyses/lexicons.json
+851d3a80eabf3bdd40175cd24c2f88a24f54a3d0c1d53ca68cf73cd0023bc323  features.py (v1, version-locked by content hash; no git commit available)
+ea5bee8d8baa1e9993f487cdcde97a316560b2f3ba55b787bfa717adce1af4dc  analyses/features_v2.py

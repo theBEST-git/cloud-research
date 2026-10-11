@@ -1,0 +1,8 @@
+# Keep the prepared dataset when this folder is copied into its own repository.
+__pycache__/
+*.pyc
+.venv/
+.env
+.env.*
+*.partial
+*.tmp

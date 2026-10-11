@@ -1,0 +1,3 @@
+# Preserve exported data and provenance checksums on every platform.
+* -text
+data/*.gz binary

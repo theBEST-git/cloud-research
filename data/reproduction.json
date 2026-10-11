@@ -1,0 +1,33 @@
+{
+  "package_version": "iclr-author-inputs-v1",
+  "python": "3.12.4 (tags/v3.12.4:8e8a4ba, Jun  6 2024, 19:30:16) [MSC v.1940 64 bit (AMD64)]",
+  "dependencies": "Python standard library only",
+  "export_commands": "See README.md; explicit existing source paths, no experimental inputs",
+  "repeated_export_byte_identical": true,
+  "data_file_sha256": {
+    "metadata_provenance.csv.gz": "4ece0266b5d2b6d6605b1b395ac9439ae3066a69e946cba792eefba9f79f49cd",
+    "submission_authors.csv.gz": "ed082e276459973770c46bb41362290e346908f7faa5f0f811e419782858f7a5",
+    "submissions.csv.gz": "203beba9e59024a58240de517c4c6f3d06060a84fe00f4282fe954e2df87b84c"
+  },
+  "source_preservation": true,
+  "large_database_verification": "sealed manifests rehashed; source size/mtime unchanged; no new full raw database checksum audit",
+  "small_outcome_database_sha256_verified": true,
+  "package_files": {
+    ".gitignore": "841a97e68e2c97c85b73ea9705765f2ed08da358de926d3810bd6747576369f0",
+    "data/manifest.json": "1c01dd639478fb75005a2bb9c97a0f932d615cebf6fb45fca6115218f0206d48",
+    "data/metadata_provenance.csv.gz": "4ece0266b5d2b6d6605b1b395ac9439ae3066a69e946cba792eefba9f79f49cd",
+    "data/submission_authors.csv.gz": "ed082e276459973770c46bb41362290e346908f7faa5f0f811e419782858f7a5",
+    "data/submissions.csv.gz": "203beba9e59024a58240de517c4c6f3d06060a84fe00f4282fe954e2df87b84c",
+    "data/validation.json": "9f08c7ed9cf88f261668fe0b742df4a44158c501296dc32f0e4e8c15c76ff1c3",
+    "DATA_DICTIONARY.md": "00fdbaedf6d2d1001e5f0ea2eb1988358186992f848f37338b12d7630173b455",
+    "README.md": "8d824b7e4bdde097967b296d5b8e1743257ca120a11517c7dfa2667c6467b459",
+    "scripts/check_package.py": "58757f5c38cf7e0ea27ce91fed965b09d9e9cad41318c2eeb3a4727a78219753",
+    "scripts/export_dataset.py": "15c97d6b4e0de0c280c436913b44c49bb347f3237826a478a951c91a558d7d10",
+    "tests/test_export_dataset.py": "678877c0faa29ae652bd3d7af68c422300aa68f4e9f2a9fce66ea35644ae8719",
+    ".gitattributes": "cdbd63bbef8b60a88d5c3d2cc1e9a03b85ba2077d1131959ea89b611c8ff77a8"
+  },
+  "current_workspace_remote_changed": false,
+  "corpus_acquisition_requests": 0,
+  "model_calls": 0,
+  "repository_upload_during_export": false
+}

@@ -1,0 +1,37 @@
+{
+  "status": "passed",
+  "version": "iclr-author-inputs-v1",
+  "checks": [
+    "file_checksums",
+    "discovery_isolation",
+    "unique_submissions",
+    "author_position_accounting",
+    "stable_family_year_joins",
+    "email_suppression",
+    "keyword_uniqueness",
+    "provenance_coverage",
+    "manifest_counts"
+  ],
+  "counts": {
+    "author_lists_aligned_lists": 43418,
+    "author_lists_list_length_mismatch": 95,
+    "author_lists_missing_or_nonlist_field": 3,
+    "author_positions": 219719,
+    "email_positions_withheld": 20817,
+    "status_desk_rejected": 884,
+    "status_ordinary_submission": 32646,
+    "status_withdrawn": 9986,
+    "submissions": 43516,
+    "year_2017": 385,
+    "year_2018": 774,
+    "year_2019": 1255,
+    "year_2020": 2071,
+    "year_2021": 2364,
+    "year_2022": 2649,
+    "year_2023": 3872,
+    "year_2024": 5766,
+    "year_2025": 8960,
+    "year_2026": 15420
+  },
+  "network_requests": 0
+}

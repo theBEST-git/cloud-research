@@ -1,0 +1,107 @@
+[
+ {
+  "topic": "f022",
+  "name": "Math, logic and domain reasoning benchmarks",
+  "reason": "Nearly identical to f007 'LLM benchmarks and capability evaluation'"
+ },
+ {
+  "topic": "m009",
+  "name": "LLM watermarking, AI-text and hallucination detection",
+  "reason": "Clashed with m072 'Watermarking, ...'; specify LLM text"
+ },
+ {
+  "topic": "f020",
+  "name": "LLM watermarking, AI-text and hallucination detection",
+  "reason": "Only child; keep equal to renamed parent m009"
+ },
+ {
+  "topic": "m072",
+  "name": "Image watermarking, deepfakes and VLM attacks",
+  "reason": "Clashed with m009 'Watermarking, ...'; specify image and VLM focus"
+ },
+ {
+  "topic": "f115",
+  "name": "Speculative decoding, serving and test-time scaling",
+  "reason": "'LLM decoding' prefix duplicated f016; name the speed-up focus"
+ },
+ {
+  "topic": "f090",
+  "name": "Efficient fine-tuning of pretrained models",
+  "reason": "Near-duplicate of f108 'LoRA and parameter-efficient fine-tuning'"
+ },
+ {
+  "topic": "f108",
+  "name": "LoRA variants for LLM fine-tuning",
+  "reason": "Near-duplicate of f090; specify LLM focus"
+ },
+ {
+  "topic": "m051",
+  "name": "LLM pre-training, MoE and LoRA",
+  "reason": "Overlapped m040 on 'fine-tuning' and 'merging'"
+ },
+ {
+  "topic": "m082",
+  "name": "VLM benchmarks and multimodal reasoning",
+  "reason": "Too close to m061 'Multimodal LLMs for image understanding'"
+ },
+ {
+  "topic": "f166",
+  "name": "Multimodal chain-of-thought reasoning",
+  "reason": "Hallucination duplicated f128; examples are mainly multimodal reasoning"
+ },
+ {
+  "topic": "f126",
+  "name": "Multimodal LLM capabilities and cross-modal alignment",
+  "reason": "Use 'Multimodal LLM' wording consistently with m061 and f180"
+ },
+ {
+  "topic": "m056",
+  "name": "Generalization and training dynamics theory",
+  "reason": "'Optimization theory' overlapped m046 'Optimization algorithms and convergence theory'"
+ },
+ {
+  "topic": "f041",
+  "name": "3D human avatar reconstruction and generation",
+  "reason": "'Motion generation' duplicated f179; examples are mostly 3D avatars"
+ },
+ {
+  "topic": "f035",
+  "name": "Human behavior modeling and human-AI collaboration",
+  "reason": "'Agent safety' too close to f006 'LLM agent security'"
+ },
+ {
+  "topic": "f103",
+  "name": "Predictive uncertainty and post-hoc calibration",
+  "reason": "Nearly identical to f008 'LLM uncertainty estimation and calibration'"
+ },
+ {
+  "topic": "f083",
+  "name": "Stability-plasticity trade-off in continual learning",
+  "reason": "Original name exceeded six words"
+ },
+ {
+  "topic": "m076",
+  "name": "Action recognition and video prediction",
+  "reason": "Too close to m063 'Video-language understanding'"
+ },
+ {
+  "topic": "m079",
+  "name": "Diffusion model formulation and sampling",
+  "reason": "'Diffusion models' alone is vague among many diffusion topics"
+ },
+ {
+  "topic": "f182",
+  "name": "Text-to-image alignment and concept erasure",
+  "reason": "Spell out uncommon acronym T2I, matching parent wording"
+ },
+ {
+  "topic": "f158",
+  "name": "GAN variants and adversarial generative modeling",
+  "reason": "Use American spelling 'modeling' consistently across topics"
+ },
+ {
+  "topic": "f195",
+  "name": "Visual cortex modeling and neural coding",
+  "reason": "Use American spelling 'modeling' consistently across topics"
+ }
+]

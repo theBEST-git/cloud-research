@@ -1,0 +1,1931 @@
+{
+ "c02": {
+  "name": "LLM reasoning, agents, code and alignment",
+  "description": "Papers improve, train, align and evaluate LLMs for reasoning, agentic tasks, code generation, formal mathematics and multi-agent social settings.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "m010": {
+  "name": "LLM reasoning and chain-of-thought",
+  "description": "Papers analyse, elicit, train and benchmark multi-step reasoning in LLMs and large reasoning models, especially mathematical and logical reasoning.",
+  "coherence": "coherent",
+  "note": ""
+ },
+ "f021": {
+  "name": "Chain-of-thought and latent reasoning",
+  "description": "Papers study and improve LLM reasoning processes through chain-of-thought prompting, latent thought, symbolic inference and analysis of reasoning behaviours.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "f022": {
+  "name": "Math, logic and domain reasoning benchmarks",
+  "description": "Papers build benchmarks and probing studies that evaluate LLM mathematical, logical, scientific, commonsense and domain-specific reasoning abilities.",
+  "coherence": "mostly_coherent",
+  "note": "",
+  "revised": "Nearly identical to f007 'LLM benchmarks and capability evaluation'"
+ },
+ "f023": {
+  "name": "Post-training and distillation for reasoning",
+  "description": "Papers improve LLM math, medical and general reasoning through post-training, reinforcement-based pretraining, distillation, targeted fine-tuning and long-CoT learning.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "f024": {
+  "name": "Test-time scaling and reasoning efficiency",
+  "description": "Papers study inference-time compute scaling, sampling diversity, process supervision, pruning and efficient deliberation for large reasoning models.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "m011": {
+  "name": "LLM agents and agent benchmarks",
+  "description": "Papers build frameworks, training recipes and benchmarks for LLM agents doing planning, web and GUI tasks, tool use, coding and research.",
+  "coherence": "coherent",
+  "note": ""
+ },
+ "f025": {
+  "name": "Agent planning, games and skill learning",
+  "description": "Papers train generalist LLM agents for planning, game playing, skill discovery, curriculum learning and collaborative multi-agent problem solving.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "f026": {
+  "name": "Tool-using and software engineering agents",
+  "description": "Papers develop and benchmark LLM agents that use tools, MCP servers and code for software engineering, cybersecurity and office tasks.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "f027": {
+  "name": "Deep research and information-seeking agents",
+  "description": "Papers build and evaluate agents for deep search, knowledge-intensive information seeking, forecasting and tool-augmented research workflows.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "m012": {
+  "name": "Code generation and program synthesis",
+  "description": "Papers train, prompt and benchmark models that generate, repair, translate, verify and secure source code.",
+  "coherence": "coherent",
+  "note": ""
+ },
+ "f028": {
+  "name": "LLM code generation and repair",
+  "description": "Papers improve and benchmark LLM code generation, self-repair, refactoring, code translation and repository-level coding.",
+  "coherence": "coherent",
+  "note": ""
+ },
+ "f029": {
+  "name": "Code security and formal verification",
+  "description": "Papers address vulnerability detection, code security, formal program modelling, hardware code generation and verifier-guided training for code models.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "m013": {
+  "name": "RL with verifiable rewards for LLMs",
+  "description": "Papers design reinforcement learning algorithms such as GRPO and PPO variants to improve LLM reasoning with verifiable or self-generated rewards.",
+  "coherence": "coherent",
+  "note": ""
+ },
+ "f030": {
+  "name": "RLVR exploration and self-improvement",
+  "description": "Papers improve RL for LLM reasoning through exploration strategies, reward design, self-training, self-play and expert-assisted policy optimization.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "f031": {
+  "name": "Stable policy optimization for LLM RL",
+  "description": "Papers stabilise GRPO and PPO-style training for LLMs, covering off-policy correction, clipping, multi-turn agents and diffusion language models.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "m014": {
+  "name": "Symbolic reasoning and theorem proving",
+  "description": "Papers combine learning with symbolic structure: symbolic regression, formal languages, logic, verification, autoformalization and neural theorem proving.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "f032": {
+  "name": "Neurosymbolic learning and formal languages",
+  "description": "Papers study symbolic regression, logic-based explanations, formal language recognition, network verification and program synthesis with neural models.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "f033": {
+  "name": "LLM theorem proving and autoformalization",
+  "description": "Papers train and evaluate LLMs to produce formal proofs, autoformalize mathematics, grade proofs and verify mathematical reasoning.",
+  "coherence": "coherent",
+  "note": ""
+ },
+ "m015": {
+  "name": "Multi-agent social intelligence and safety",
+  "description": "Papers study LLM agents' communication, persuasion, theory of mind, cooperation with humans and safety in social or multi-agent settings.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "f034": {
+  "name": "Agent communication, persuasion and theory of mind",
+  "description": "Papers study emergent communication, negotiation, persuasion and theory-of-mind reasoning among LLM-based or learned agents.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "f035": {
+  "name": "Human behavior modeling and human-AI collaboration",
+  "description": "Papers model human behaviour, human-AI cooperation and trust, and evaluate safety and personalised alignment of AI agents.",
+  "coherence": "mostly_coherent",
+  "note": "",
+  "revised": "'Agent safety' too close to f006 'LLM agent security'"
+ },
+ "m016": {
+  "name": "Preference alignment and RLHF",
+  "description": "Papers align LLMs with human preferences via RLHF, reward models and direct preference optimization, addressing biases and over-optimization.",
+  "coherence": "coherent",
+  "note": ""
+ },
+ "f036": {
+  "name": "Direct preference optimization variants",
+  "description": "Papers propose and analyse DPO-style and game-theoretic alignment objectives, addressing likelihood displacement, sampling and reward over-optimization.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "f037": {
+  "name": "Reward modeling and RLHF",
+  "description": "Papers build, benchmark and calibrate reward models and improve RLHF credit assignment, robustness and personalization.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "c09": {
+  "name": "Generalization theory, compression and architecture design",
+  "description": "Papers analyse training and generalization, design network components, and make models efficient via quantization, pruning and architecture search.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "m056": {
+  "name": "Generalization and training dynamics theory",
+  "description": "Papers theoretically and empirically analyse generalization, training dynamics, over-parameterization and convergence of neural networks.",
+  "coherence": "coherent",
+  "note": "",
+  "revised": "'Optimization theory' overlapped m046 'Optimization algorithms and convergence theory'"
+ },
+ "f117": {
+  "name": "Training dynamics and implicit bias",
+  "description": "Papers analyse gradient descent dynamics, implicit regularization, double descent, scaling limits and simplicity bias in trained networks.",
+  "coherence": "coherent",
+  "note": ""
+ },
+ "f118": {
+  "name": "Generalization phenomena and learning curves",
+  "description": "Papers empirically and theoretically probe generalization, neural collapse, learning curves, information planes and reproducibility of network predictions.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "f119": {
+  "name": "Convergence guarantees and generalization bounds",
+  "description": "Papers prove convergence of gradient methods and generalization or width bounds for ReLU, recurrent and NTK-regime networks.",
+  "coherence": "coherent",
+  "note": ""
+ },
+ "m057": {
+  "name": "Normalization, initialization and activation design",
+  "description": "Papers propose and analyse normalization layers, initialization schemes, activation functions, skip connections and recurrent or convolutional components.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "f120": {
+  "name": "Normalization, initialization and training stability",
+  "description": "Papers improve training speed and stability via normalization layers, initialization, gradient propagation and backpropagation alternatives.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "f121": {
+  "name": "Activation functions and recurrent architectures",
+  "description": "Papers design activation functions, orthogonal or Lipschitz recurrent networks and convolutional components, and analyse unit selectivity.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "m058": {
+  "name": "Quantization and efficient training systems",
+  "description": "Papers reduce memory and compute through quantization, vector quantization, structured sparsity and distributed or on-device training systems.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "f122": {
+  "name": "Efficient training systems and alternative layers",
+  "description": "Papers build distributed, parallel and edge training infrastructure, alongside assorted alternative layers and learning rules for efficiency.",
+  "coherence": "mixed",
+  "note": "Distributed/edge training systems mixed with assorted novel layers and training rules"
+ },
+ "f123": {
+  "name": "Network quantization and vector quantization",
+  "description": "Papers develop post-training and quantization-aware training, fixed-point networks, codebook learning and vector quantization for compression.",
+  "coherence": "coherent",
+  "note": ""
+ },
+ "m059": {
+  "name": "Network pruning and lottery tickets",
+  "description": "Papers prune weights or structures, study lottery tickets and sparse training to compress networks while preserving accuracy.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "f124": {
+  "name": "Network pruning and lottery tickets",
+  "description": "Papers prune weights or structures, study lottery tickets and sparse training to compress networks while preserving accuracy.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "m060": {
+  "name": "Neural architecture search and AutoML",
+  "description": "Papers search architectures with differentiable or predictor-based NAS, tune hyperparameters and automate model building and compilation.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "f125": {
+  "name": "Neural architecture search and AutoML",
+  "description": "Papers search architectures with differentiable or predictor-based NAS, tune hyperparameters and automate model building and compilation.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "c12": {
+  "name": "Adversarial robustness, backdoors and AI security",
+  "description": "Papers attack and defend models via adversarial examples, backdoors and poisoning, and protect content and models with watermarking and forensics.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "m071": {
+  "name": "Adversarial examples and robust training",
+  "description": "Papers craft adversarial attacks and develop defenses, adversarial training and certified robustness for image classifiers and other models.",
+  "coherence": "coherent",
+  "note": ""
+ },
+ "f143": {
+  "name": "Adversarial attacks and transferability",
+  "description": "Papers design adversarial attacks, improve their transferability, and evaluate robustness to unforeseen or sparse perturbations.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "f144": {
+  "name": "Adversarial defenses and physical attacks",
+  "description": "Papers detect and defend against adversarial examples, including feature-space and physically realizable attacks on image classifiers.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "f145": {
+  "name": "Certified robustness and robust architectures",
+  "description": "Papers provide certified or provable robustness guarantees and design or explain architectures that resist adversarial perturbations.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "f146": {
+  "name": "Adversarial training and robust overfitting",
+  "description": "Papers improve adversarial training objectives, analyse robust overfitting and optimal adversarial error, and balance multiple robustness notions.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "m072": {
+  "name": "Image watermarking, deepfakes and VLM attacks",
+  "description": "Papers watermark and detect AI-generated or forged images and attack or defend vision-language models against adversarial inputs.",
+  "coherence": "mostly_coherent",
+  "note": "",
+  "revised": "Clashed with m009 'Watermarking, ...'; specify image and VLM focus"
+ },
+ "f147": {
+  "name": "Watermarking and AI-generated image detection",
+  "description": "Papers watermark generated content, detect deepfakes and AI-generated images, and localize image forgeries.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "f148": {
+  "name": "Adversarial robustness of vision-language models",
+  "description": "Papers craft universal or multimodal adversarial perturbations against CLIP-style and large vision-language models and develop defenses.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "m073": {
+  "name": "Backdoors, poisoning and model security",
+  "description": "Papers study backdoor and poisoning attacks, defenses, unlearning, model stealing, ownership verification and privacy of deployed models.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "f149": {
+  "name": "Backdoor attacks, data poisoning and unlearning",
+  "description": "Papers inject and defend against backdoors and poisoned data, perform poisoned-data forensics, and develop machine unlearning methods.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "f150": {
+  "name": "Model ownership protection and ML security",
+  "description": "Papers protect model and data ownership, infer or steal models, and apply ML to security tasks like malware detection.",
+  "coherence": "mixed",
+  "note": "Model IP and privacy protection plus assorted security applications"
+ },
+ "c17": {
+  "name": "Diffusion image, video and motion generation",
+  "description": "Papers develop diffusion and autoregressive generators for text-to-image, image editing, video and human motion synthesis.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "m088": {
+  "name": "Video and human motion generation",
+  "description": "Papers generate and edit videos, human motion, talking heads and audio with diffusion and transformer-based generative models.",
+  "coherence": "coherent",
+  "note": ""
+ },
+ "f178": {
+  "name": "Video diffusion generation and editing",
+  "description": "Papers build efficient, controllable, long-horizon or streaming text-to-video diffusion models and video editing methods.",
+  "coherence": "coherent",
+  "note": ""
+ },
+ "f179": {
+  "name": "Human motion, talking-head and audio generation",
+  "description": "Papers generate human motion, talking heads, human animation, camera motion and music or audio from text or multimodal conditions.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "m089": {
+  "name": "Multimodal and autoregressive image generation",
+  "description": "Papers build unified multimodal models, autoregressive image generators and evaluation benchmarks for AI-generated visual content.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "f180": {
+  "name": "Multimodal LLMs and controllable image generation",
+  "description": "Papers build multimodal LLMs and unified understanding-generation models for subject-driven, style or vector-graphics generation, plus assorted applications.",
+  "coherence": "mixed",
+  "note": "Multimodal LLM understanding mixed with controllable generation and unrelated applications"
+ },
+ "f181": {
+  "name": "Autoregressive and unified image generative models",
+  "description": "Papers propose autoregressive, energy-based and distilled image generators, unify generation with understanding, and study generative evaluation metrics.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "m090": {
+  "name": "Text-to-image diffusion control and editing",
+  "description": "Papers align, steer, unlearn concepts in, and edit with text-to-image diffusion models for image manipulation and translation.",
+  "coherence": "coherent",
+  "note": ""
+ },
+ "f182": {
+  "name": "Text-to-image alignment and concept erasure",
+  "description": "Papers align text-to-image diffusion models with preferences, optimize noise or prompts, and erase or unlearn unwanted concepts.",
+  "coherence": "mostly_coherent",
+  "note": "",
+  "revised": "Spell out uncommon acronym T2I, matching parent wording"
+ },
+ "f183": {
+  "name": "Diffusion image editing and translation",
+  "description": "Papers use diffusion models for image editing, style transfer, image-to-image translation, restoration and subject-driven personalization.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "c01": {
+  "name": "LLMs and natural language processing",
+  "description": "Papers on language models and NLP: retrieval, safety, evaluation, in-context learning, text generation, interpretability, watermarking and classic NLP tasks.",
+  "coherence": "coherent",
+  "note": ""
+ },
+ "m001": {
+  "name": "Retrieval-augmented generation and question answering",
+  "description": "Builds retrieval-augmented LLM pipelines, question answering systems, text-to-SQL and domain QA benchmarks over documents, tables and knowledge graphs.",
+  "coherence": "coherent",
+  "note": ""
+ },
+ "f001": {
+  "name": "Question answering and question generation",
+  "description": "Develops models and benchmarks for reading comprehension, table and document QA, multiple-choice QA and automatic question generation.",
+  "coherence": "coherent",
+  "note": ""
+ },
+ "f002": {
+  "name": "RAG pipelines and retrievers",
+  "description": "Improves retrieval-augmented generation via graph-based RAG, source reliability, instruction-trained and generative retrievers, and handling conflicting retrieved evidence.",
+  "coherence": "coherent",
+  "note": ""
+ },
+ "f003": {
+  "name": "Text-to-SQL and domain QA benchmarks",
+  "description": "Applies LLMs with retrieval to text-to-SQL, multi-hop and domain-specific QA (medical, molecular, tabular), often introducing new benchmarks.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "m002": {
+  "name": "LLM safety, jailbreaks and security",
+  "description": "Studies attacks on and defenses for LLMs, including jailbreaks, refusal behaviour, backdoors, privacy leakage, red-teaming and agent security.",
+  "coherence": "coherent",
+  "note": ""
+ },
+ "f004": {
+  "name": "Jailbreak attacks and refusal alignment",
+  "description": "Designs jailbreak attacks, detection and defenses, safety alignment techniques and over-refusal benchmarks for LLMs and VLMs.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "f005": {
+  "name": "LLM backdoors, privacy and fine-tuning risks",
+  "description": "Examines backdoor and fine-tuning attacks, privacy attacks on RAG, model auditing, fingerprinting and verifiable or trusted LLM inference.",
+  "coherence": "coherent",
+  "note": ""
+ },
+ "f006": {
+  "name": "Red-teaming and LLM agent security",
+  "description": "Red-teams LLMs, benchmarks safety refusals and attacks on LLM agents, and proposes auditing and safeguards for agentic and biosecurity risks.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "m003": {
+  "name": "LLM evaluation, judges and uncertainty",
+  "description": "Builds benchmarks and evaluation frameworks for LLMs, LLM-as-a-judge scoring, and uncertainty estimation, calibration and hallucination analysis.",
+  "coherence": "coherent",
+  "note": ""
+ },
+ "f007": {
+  "name": "LLM benchmarks and capability evaluation",
+  "description": "Introduces benchmarks and automated evaluation frameworks probing LLM capabilities, values, weaknesses and domain-specific knowledge.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "f008": {
+  "name": "LLM uncertainty estimation and calibration",
+  "description": "Estimates and calibrates LLM uncertainty and confidence, detects unanswerable questions, and evaluates knowledge gaps in domain QA.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "f009": {
+  "name": "LLM-as-a-judge and peer review",
+  "description": "Uses LLMs as evaluators or debaters, studies robust scoring with imperfect judges, and evaluates LLMs on peer review, forecasting and scientific tasks.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "m004": {
+  "name": "In-context learning, fine-tuning and unlearning",
+  "description": "Analyses how LLMs acquire and modify knowledge through in-context learning, instruction tuning, model editing, unlearning and continual fine-tuning.",
+  "coherence": "coherent",
+  "note": ""
+ },
+ "f010": {
+  "name": "In-context learning and instruction tuning",
+  "description": "Explains and improves in-context learning, prompt and instruction tuning, and context compression in transformers and LLMs.",
+  "coherence": "coherent",
+  "note": ""
+ },
+ "f011": {
+  "name": "LLM unlearning, editing and forgetting",
+  "description": "Develops and stress-tests machine unlearning and knowledge editing for LLMs and mitigates catastrophic forgetting during fine-tuning.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "m005": {
+  "name": "Word embeddings and core NLP tasks",
+  "description": "Pre-LLM-style NLP: word, sentence and document embeddings, named entity recognition, machine translation, summarization and BERT-based models.",
+  "coherence": "coherent",
+  "note": ""
+ },
+ "f012": {
+  "name": "NER, translation and sequence labeling",
+  "description": "Proposes models for named entity recognition, neural machine translation, summarization, sequence labeling and low-resource NLP data augmentation.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "f013": {
+  "name": "Word, sentence and document embeddings",
+  "description": "Learns and analyses word, sentence and document embeddings, cross-lingual alignment and text clustering, with some tabular representation papers.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "m006": {
+  "name": "Dialogue agents, speech LLMs and prompting",
+  "description": "Studies conversational assistants and dialogue systems, speech and audio language models, persona shaping, and prompt or instruction optimization.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "f014": {
+  "name": "Dialogue systems and audio language models",
+  "description": "Builds task-oriented and open-domain dialogue systems and speech or audio language models for spoken interaction and music understanding.",
+  "coherence": "mixed",
+  "note": "Text dialogue systems alongside speech, music and audio LLM papers"
+ },
+ "f015": {
+  "name": "Prompt optimization and instruction following",
+  "description": "Automatically optimizes prompts and improves complex instruction following and fine-grained alignment of language and multimodal models.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "m007": {
+  "name": "Text generation and decoding",
+  "description": "Improves how language models generate text via decoding strategies, diffusion language models, diversity, style control and generation evaluation metrics.",
+  "coherence": "coherent",
+  "note": ""
+ },
+ "f016": {
+  "name": "LLM decoding and diffusion language models",
+  "description": "Proposes decoding and sampling strategies, discrete diffusion language models and vocabulary or architectural changes for LLM generation.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "f017": {
+  "name": "Diverse and controllable text generation",
+  "description": "Earlier natural language generation work on quality-diversity trade-offs, style transfer, detoxification, GAN-based text generation and diverse translation.",
+  "coherence": "coherent",
+  "note": ""
+ },
+ "m008": {
+  "name": "Language model interpretability",
+  "description": "Reverse-engineers language models through circuits, attention heads, representation geometry and sparse autoencoders, and analyses learned linguistic structure.",
+  "coherence": "coherent",
+  "note": ""
+ },
+ "f018": {
+  "name": "Mechanisms and inductive biases of transformers",
+  "description": "Analyses internal mechanisms such as entity binding and positional effects, and architectures that help sequence models capture hierarchical structure.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "f019": {
+  "name": "Representation geometry and sparse autoencoders",
+  "description": "Studies concept geometry, sparse autoencoder features and the emergence of linguistic representations inside language models and RNNs.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "m009": {
+  "name": "LLM watermarking, AI-text and hallucination detection",
+  "description": "Watermarks LLM outputs, detects machine-generated text and hallucinations, and measures memorization of training data in language models.",
+  "coherence": "mostly_coherent",
+  "note": "",
+  "revised": "Clashed with m072 'Watermarking, ...'; specify LLM text"
+ },
+ "f020": {
+  "name": "LLM watermarking, AI-text and hallucination detection",
+  "description": "Watermarks LLM outputs, detects machine-generated text and hallucinations, and measures memorization of training data in language models.",
+  "coherence": "mostly_coherent",
+  "note": "",
+  "revised": "Only child; keep equal to renamed parent m009"
+ },
+ "c10": {
+  "name": "Vision-language models and few-shot learning",
+  "description": "Papers on multimodal LLMs, CLIP-style models, video-language understanding and multimodal representations, plus few-shot and meta-learning.",
+  "coherence": "mixed",
+  "note": "Vision-language and multimodal work plus a distinct few-shot/meta-learning strand"
+ },
+ "m061": {
+  "name": "Multimodal LLMs for image understanding",
+  "description": "Builds and analyses multimodal LLMs for image and document understanding, covering capabilities, efficient visual tokens and hallucination mitigation.",
+  "coherence": "coherent",
+  "note": ""
+ },
+ "f126": {
+  "name": "Multimodal LLM capabilities and cross-modal alignment",
+  "description": "Develops and evaluates multimodal LLMs, unified understanding-generation models and fine-grained vision-language alignment across images, 3D and sign language.",
+  "coherence": "mostly_coherent",
+  "note": "",
+  "revised": "Use 'Multimodal LLM' wording consistently with m061 and f180"
+ },
+ "f127": {
+  "name": "Visual token compression and efficient MLLMs",
+  "description": "Makes multimodal LLMs efficient through visual token pruning, compression and grouping, and redesigns visual tokenizers and architectures.",
+  "coherence": "coherent",
+  "note": ""
+ },
+ "f128": {
+  "name": "Hallucination in vision-language models",
+  "description": "Analyses, benchmarks and mitigates object hallucination, language bias and spurious cues in large vision-language models.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "m062": {
+  "name": "CLIP-style models and prompt learning",
+  "description": "Pretrains and adapts contrastive vision-language models for retrieval, open-vocabulary detection, prompt tuning and test-time adaptation.",
+  "coherence": "coherent",
+  "note": ""
+ },
+ "f129": {
+  "name": "CLIP pretraining, retrieval and open-vocabulary detection",
+  "description": "Improves contrastive image-text pretraining and applies it to image retrieval, open-vocabulary detection and zero-shot recognition.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "f130": {
+  "name": "VLM prompt tuning and test-time adaptation",
+  "description": "Adapts CLIP-like models via prompt learning, test-time adaptation, few-shot fine-tuning and distillation for downstream generalization.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "m063": {
+  "name": "Video-language understanding",
+  "description": "Develops video LLMs and video-language models for long-video reasoning, question answering, temporal grounding, captioning and summarization.",
+  "coherence": "coherent",
+  "note": ""
+ },
+ "f131": {
+  "name": "Long-video reasoning with video LLMs",
+  "description": "Builds video LLMs and benchmarks for long-video question answering, multi-turn reasoning and video-grounded dialogue.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "f132": {
+  "name": "Video grounding, captioning and summarization",
+  "description": "Tackles temporal and spatio-temporal video grounding, video captioning, summarization and streaming video understanding.",
+  "coherence": "coherent",
+  "note": ""
+ },
+ "m064": {
+  "name": "Few-shot learning and meta-learning",
+  "description": "Proposes meta-learning algorithms such as MAML variants and few-shot or zero-shot classification methods, analysing generalization and uncertainty.",
+  "coherence": "coherent",
+  "note": ""
+ },
+ "f133": {
+  "name": "Few-shot learning and meta-learning",
+  "description": "Proposes meta-learning algorithms such as MAML variants and few-shot or zero-shot classification methods, analysing generalization and uncertainty.",
+  "coherence": "coherent",
+  "note": ""
+ },
+ "m065": {
+  "name": "Multimodal representation learning and alignment",
+  "description": "Learns aligned representations across modalities, handling missing modalities, cross-modal distillation and multi-view classification.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "f134": {
+  "name": "Multimodal representation learning and alignment",
+  "description": "Learns aligned representations across modalities, handling missing modalities, cross-modal distillation and multi-view classification.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "c16": {
+  "name": "Graph neural networks",
+  "description": "Papers on learning over graphs: GNN architectures, graph transformers, self-supervised graph learning, link prediction, expressivity, over-smoothing and robustness.",
+  "coherence": "coherent",
+  "note": ""
+ },
+ "m086": {
+  "name": "Graph representation learning",
+  "description": "Learns node, edge and graph representations with graph transformers, contrastive pretraining, link prediction and temporal graph models.",
+  "coherence": "coherent",
+  "note": ""
+ },
+ "f171": {
+  "name": "Graph transformers and graph-level representations",
+  "description": "Designs graph transformers, pooling and multi-scale architectures for graph classification and scalable graph representation learning.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "f172": {
+  "name": "Graph contrastive learning and anomaly detection",
+  "description": "Applies self-supervised and contrastive pretraining to graphs, studies distribution shift and bias, and detects graph anomalies.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "f173": {
+  "name": "Link prediction and network mining",
+  "description": "Predicts links and node labels in multiplex, heterogeneous and text-rich networks and mines subgraphs or motifs.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "f174": {
+  "name": "Temporal and dynamic graph learning",
+  "description": "Models continuous-time and evolving graphs with temporal graph networks for dynamic link prediction and temporal generalization.",
+  "coherence": "coherent",
+  "note": ""
+ },
+ "m087": {
+  "name": "GNN expressivity, propagation and robustness",
+  "description": "Analyses GNN message passing: expressive power, over-smoothing, spectral diffusion, heterophily, directed graphs and adversarial robustness.",
+  "coherence": "coherent",
+  "note": ""
+ },
+ "f175": {
+  "name": "GNN expressivity and over-smoothing",
+  "description": "Studies expressive power, over-smoothing and depth in GNNs, proposing deeper architectures and efficient or distributed GNN training.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "f176": {
+  "name": "Directed graphs, heterophily and graph clustering",
+  "description": "Extends GNNs to directed and heterophilic graphs, sheaf models, long-range propagation, coarsening and community detection.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "f177": {
+  "name": "Adversarial robustness of GNNs",
+  "description": "Designs structure-perturbation attacks on GNNs and defenses, plus robust uncertainty estimation and watermarking for graph models.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "c20": {
+  "name": "Neuroscience, brain decoding and spiking networks",
+  "description": "Papers linking ML and the brain: computational neuroscience models, EEG and fMRI decoding, biosignal learning, and spiking neural networks.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "m098": {
+  "name": "Computational neuroscience and brain-inspired models",
+  "description": "Models brain circuits such as hippocampus and visual cortex with artificial networks and studies biologically plausible learning and neural coding.",
+  "coherence": "coherent",
+  "note": ""
+ },
+ "f194": {
+  "name": "RNNs, grid cells and biological learning",
+  "description": "Uses recurrent networks to model hippocampus, grid cells and memory, and studies plasticity and backprop-free learning rules.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "f195": {
+  "name": "Visual cortex modeling and neural coding",
+  "description": "Compares artificial and biological vision, models neural activity in visual cortex, and studies modularity and interpretable neural representations.",
+  "coherence": "mostly_coherent",
+  "note": "",
+  "revised": "Use American spelling 'modeling' consistently across topics"
+ },
+ "m099": {
+  "name": "EEG, fMRI and biosignal decoding",
+  "description": "Decodes brain activity from EEG, fMRI and intracranial recordings and learns representations of physiological signals such as heart rate and sleep.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "f196": {
+  "name": "EEG, fMRI and biosignal decoding",
+  "description": "Decodes brain activity from EEG, fMRI and intracranial recordings and learns representations of physiological signals such as heart rate and sleep.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "m100": {
+  "name": "Spiking neural networks",
+  "description": "Trains and converts spiking neural networks for energy-efficient neuromorphic computing and applies them to vision, audio and graph tasks.",
+  "coherence": "coherent",
+  "note": ""
+ },
+ "f197": {
+  "name": "SNN training and ANN-to-SNN conversion",
+  "description": "Develops training algorithms, normalization, pruning and ANN-to-SNN conversion for deep spiking networks with improved efficiency and robustness.",
+  "coherence": "coherent",
+  "note": ""
+ },
+ "f198": {
+  "name": "Spiking models for graphs and audio",
+  "description": "Applies spiking mechanisms to graph learning and audio tasks, with some neural dynamics and electrophysiology modelling papers.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "c03": {
+  "name": "Computer vision, 3D vision and imaging",
+  "description": "Papers on visual recognition, segmentation, 3D perception, generation and rendering, image restoration, medical imaging and imaging inverse problems.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "m017": {
+  "name": "3D perception and point clouds",
+  "description": "Papers detect, localize and estimate pose of objects and humans in 3D scenes, and learn from LiDAR and point cloud data.",
+  "coherence": "coherent",
+  "note": ""
+ },
+ "f038": {
+  "name": "3D detection, pose and scene understanding",
+  "description": "Papers address 3D object detection, human and object pose estimation, SLAM, localization and 3D scene understanding, often for driving or robotics.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "f039": {
+  "name": "Point cloud learning and surface reconstruction",
+  "description": "Papers propose networks for point cloud registration, completion, upsampling, pre-training, meshing and shape reconstruction.",
+  "coherence": "coherent",
+  "note": ""
+ },
+ "m018": {
+  "name": "3D asset and human generation",
+  "description": "Papers generate 3D objects, scenes, avatars and motions, typically using diffusion priors or Gaussian splatting representations.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "f040": {
+  "name": "Diffusion-based 3D and scene generation",
+  "description": "Papers use diffusion and generative models for text- or image-to-3D generation, view synthesis, scene layout and controllable visual synthesis.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "f041": {
+  "name": "3D human avatar reconstruction and generation",
+  "description": "Papers reconstruct or generate animatable 3D humans, heads, garments and hand interactions, and synthesize human motion sequences.",
+  "coherence": "mostly_coherent",
+  "note": "",
+  "revised": "'Motion generation' duplicated f179; examples are mostly 3D avatars"
+ },
+ "m019": {
+  "name": "Image restoration and compression",
+  "description": "Papers tackle low-level vision tasks such as super-resolution, deblurring, enhancement and learned image or video compression.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "f042": {
+  "name": "Image restoration and super-resolution",
+  "description": "Papers design diffusion, transformer or Mamba models for super-resolution, low-light enhancement, deblurring, inpainting and general image restoration.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "f043": {
+  "name": "Learned image and video compression",
+  "description": "Papers develop neural codecs, implicit representations and quantized autoencoders for rate-distortion efficient image and video compression.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "m020": {
+  "name": "Segmentation and object detection",
+  "description": "Papers propose models and training schemes for semantic, instance and video segmentation and for object detection.",
+  "coherence": "coherent",
+  "note": ""
+ },
+ "f044": {
+  "name": "Semantic and instance segmentation",
+  "description": "Papers improve semantic, instance and video segmentation, often with weak, semi-supervised or prompt-based supervision.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "f045": {
+  "name": "Object detection and weakly supervised localization",
+  "description": "Papers improve object detectors, including oriented and semi-supervised detection, box refinement, and learning from point or count annotations.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "m021": {
+  "name": "Neural rendering and geometry estimation",
+  "description": "Papers build NeRF and Gaussian splatting scene representations and estimate depth, stereo, flow and dynamic 3D geometry.",
+  "coherence": "coherent",
+  "note": ""
+ },
+ "f046": {
+  "name": "Depth, stereo and motion estimation",
+  "description": "Papers estimate monocular depth, stereo correspondence, optical flow, 3D tracking and 4D reconstruction from images or video.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "f047": {
+  "name": "NeRF and Gaussian splatting rendering",
+  "description": "Papers improve radiance fields and 3D Gaussian splatting for novel view synthesis, inverse rendering, surface reconstruction and compression.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "m022": {
+  "name": "CNN and vision transformer architectures",
+  "description": "Papers design and analyze convolutional and transformer backbones for image classification, detection and video recognition.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "f048": {
+  "name": "CNN backbones for visual recognition",
+  "description": "Papers propose convolutional architecture modules, receptive field designs and backbone benchmarks for image classification and detection.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "f049": {
+  "name": "Vision transformer design and efficiency",
+  "description": "Papers modify ViT attention, apply token pruning and masked image modeling, and make vision transformers faster or more accurate.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "m023": {
+  "name": "Medical image analysis",
+  "description": "Papers apply learning to medical images for segmentation, pathology, anomaly detection, diagnosis and vision-language report generation.",
+  "coherence": "coherent",
+  "note": ""
+ },
+ "f050": {
+  "name": "Medical image segmentation and diagnosis",
+  "description": "Papers segment organs, cells and lesions, adapt SAM-like foundation models, and classify pathology or MRI images.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "f051": {
+  "name": "Medical vision-language models",
+  "description": "Papers build multimodal medical foundation models, image-text datasets, radiology report generation and medical VQA benchmarks.",
+  "coherence": "coherent",
+  "note": ""
+ },
+ "m024": {
+  "name": "Inverse problems and computational imaging",
+  "description": "Papers solve imaging inverse problems such as compressed sensing and reconstruction using diffusion priors, denoisers and learned proximal operators.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "f052": {
+  "name": "Inverse problems and computational imaging",
+  "description": "Papers solve imaging inverse problems such as compressed sensing and reconstruction using diffusion priors, denoisers and learned proximal operators.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "c05": {
+  "name": "Federated learning, privacy and decision making",
+  "description": "Papers on federated and private learning, bandits and online decisions, combinatorial optimization, recommendation, fairness and conformal prediction.",
+  "coherence": "mixed",
+  "note": "Also covers combinatorial optimization, recommender systems, fairness and conformal prediction."
+ },
+ "m029": {
+  "name": "Federated learning",
+  "description": "Papers develop federated and decentralized training algorithms handling client heterogeneity, communication cost, personalization and robustness.",
+  "coherence": "coherent",
+  "note": ""
+ },
+ "f068": {
+  "name": "Personalized federated learning under heterogeneity",
+  "description": "Papers address non-IID clients via personalization, clustering, semi-supervision and communication-efficient updates, plus federated benchmarks.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "f069": {
+  "name": "Federated optimization and decentralized training",
+  "description": "Papers analyze asynchronous, partial-participation and decentralized optimization algorithms, including bilevel and Bayesian formulations for federated settings.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "f070": {
+  "name": "Federated learning robustness and security",
+  "description": "Papers study Byzantine and privacy attacks, adversarial robustness, noisy labels, one-shot aggregation and server-side acceleration in federated learning.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "m030": {
+  "name": "Differential privacy and privacy attacks",
+  "description": "Papers design differentially private algorithms, private inference and audits, and study membership, inversion and extraction attacks.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "f071": {
+  "name": "Privacy attacks and DP mechanisms",
+  "description": "Papers propose attribute and gradient inversion attacks, defenses, local differential privacy mechanisms and private data-analysis primitives.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "f072": {
+  "name": "DP-SGD training and private inference",
+  "description": "Papers study DP-SGD noise and optimizers, private LLM fine-tuning, encrypted or secure inference, and memorization risks.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "m031": {
+  "name": "Bandits, online learning and mechanism design",
+  "description": "Papers study regret minimization in bandits, online learning, game-theoretic markets and mechanism design, often with theoretical guarantees.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "f073": {
+  "name": "Online learning, markets and mechanism design",
+  "description": "Papers analyze online learning, pacing equilibria, matching markets, mechanism design and experiment design, with some PAC and evaluation work.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "f074": {
+  "name": "Multi-armed and contextual bandits",
+  "description": "Papers derive regret bounds and algorithms for linear, contextual, Lipschitz and combinatorial bandits, including Thompson sampling.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "m032": {
+  "name": "Neural combinatorial optimization",
+  "description": "Papers use GNNs, RL, diffusion and LLMs to solve or design heuristics for routing, scheduling and integer programming problems.",
+  "coherence": "coherent",
+  "note": ""
+ },
+ "f075": {
+  "name": "Learned solvers for MILP and graph problems",
+  "description": "Papers learn branching, neighborhood search and GNN representations for MILP and graph optimization, and study algorithm configuration.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "f076": {
+  "name": "Neural solvers for routing and scheduling",
+  "description": "Papers apply RL and transformers to vehicle routing, TSP, job shop scheduling, circuit routing and power flow problems.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "m033": {
+  "name": "Conformal prediction and tree-based tabular learning",
+  "description": "Papers develop conformal and other uncertainty quantification methods, and decision tree or ensemble models for tabular data.",
+  "coherence": "mixed",
+  "note": "Uncertainty quantification and decision-tree tabular learning are separate themes."
+ },
+ "f077": {
+  "name": "Conformal prediction and tree-based tabular learning",
+  "description": "Papers develop conformal and other uncertainty quantification methods, and decision tree or ensemble models for tabular data.",
+  "coherence": "mixed",
+  "note": "Uncertainty quantification and decision-tree tabular learning are separate themes."
+ },
+ "m034": {
+  "name": "Recommender systems",
+  "description": "Papers model user preferences for sequential, multimodal, LLM-based and generative recommendation, including collaborative filtering and matching.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "f078": {
+  "name": "Recommender systems",
+  "description": "Papers model user preferences for sequential, multimodal, LLM-based and generative recommendation, including collaborative filtering and matching.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "m035": {
+  "name": "Algorithmic fairness and bias mitigation",
+  "description": "Papers define and enforce group or counterfactual fairness, study fairness-accuracy trade-offs, and attribute model behavior via Shapley values.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "f079": {
+  "name": "Algorithmic fairness and bias mitigation",
+  "description": "Papers define and enforce group or counterfactual fairness, study fairness-accuracy trade-offs, and attribute model behavior via Shapley values.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "c13": {
+  "name": "Embodied AI, driving and video understanding",
+  "description": "Papers on robot learning, vision-language-action agents, embodied navigation, autonomous driving and video action understanding.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "m074": {
+  "name": "Robot learning and manipulation",
+  "description": "Papers train manipulation and control policies via imitation, RL, world models and simulation or physics-based data.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "f151": {
+  "name": "Visual imitation and world models for control",
+  "description": "Papers learn visuomotor policies from demonstrations or video, using latent world models and video generation for robot control.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "f152": {
+  "name": "Robot data, simulation and physics models",
+  "description": "Papers build robot datasets, simulated assets and demonstration generators, and learn physics predictors or differentiable simulation for manipulation.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "m075": {
+  "name": "Language-guided embodied agents and navigation",
+  "description": "Papers build vision-language-action models, LLM planners and navigation agents that follow instructions in embodied environments.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "f153": {
+  "name": "VLA models and LLM embodied planning",
+  "description": "Papers use LLMs, multimodal LLMs and vision-language-action models for embodied reasoning, task planning and robot manipulation.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "f154": {
+  "name": "Embodied navigation and spatial representations",
+  "description": "Papers study visual, audio-visual and language navigation, embodied world models, affordance reasoning and spatial memory for agents.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "m076": {
+  "name": "Action recognition and video prediction",
+  "description": "Papers learn video representations for action recognition, localization, anticipation and video prediction, including event-camera data.",
+  "coherence": "mostly_coherent",
+  "note": "",
+  "revised": "Too close to m063 'Video-language understanding'"
+ },
+ "f155": {
+  "name": "Video prediction and action anticipation",
+  "description": "Papers forecast future video frames, trajectories or actions, and model long-range temporal structure for detection and grounding.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "f156": {
+  "name": "Skeleton and video action recognition",
+  "description": "Papers recognize, segment and localize human actions from video, skeleton or MoCap data, often zero-shot or self-supervised.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "m077": {
+  "name": "Autonomous driving planning and prediction",
+  "description": "Papers develop end-to-end driving, trajectory prediction, motion planning, occupancy forecasting and driving benchmarks for autonomous vehicles.",
+  "coherence": "coherent",
+  "note": ""
+ },
+ "f157": {
+  "name": "Autonomous driving planning and prediction",
+  "description": "Papers develop end-to-end driving, trajectory prediction, motion planning, occupancy forecasting and driving benchmarks for autonomous vehicles.",
+  "coherence": "coherent",
+  "note": ""
+ },
+ "c18": {
+  "name": "Time series and spatiotemporal modeling",
+  "description": "Papers forecast, classify and generatively model time series, point processes and spatiotemporal data such as weather and climate.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "m091": {
+  "name": "Time series forecasting models",
+  "description": "Papers propose transformer, MLP, state space and foundation models for multivariate and long-term time series forecasting.",
+  "coherence": "coherent",
+  "note": ""
+ },
+ "f184": {
+  "name": "Multivariate time series forecasting architectures",
+  "description": "Papers design decomposition, channel-mixing, Mamba, MoE and diffusion architectures for long-term multivariate forecasting, including financial series.",
+  "coherence": "coherent",
+  "note": ""
+ },
+ "f185": {
+  "name": "Time series foundation models and LLMs",
+  "description": "Papers pre-train general-purpose time series foundation models or adapt LLMs to forecasting, studying robustness and interpretability.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "m092": {
+  "name": "Time series representation, classification and anomalies",
+  "description": "Papers learn representations for time series classification and anomaly detection, often handling irregular sampling or clinical data.",
+  "coherence": "coherent",
+  "note": ""
+ },
+ "f186": {
+  "name": "Time series representation, classification and anomalies",
+  "description": "Papers learn representations for time series classification and anomaly detection, often handling irregular sampling or clinical data.",
+  "coherence": "coherent",
+  "note": ""
+ },
+ "m093": {
+  "name": "Probabilistic temporal dynamics and point processes",
+  "description": "Papers model temporal data with point processes, state spaces, diffusion models and Gaussian processes, including temporal causal discovery.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "f187": {
+  "name": "Probabilistic temporal dynamics and point processes",
+  "description": "Papers model temporal data with point processes, state spaces, diffusion models and Gaussian processes, including temporal causal discovery.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "m094": {
+  "name": "Weather, climate and spatiotemporal forecasting",
+  "description": "Papers forecast weather, climate, traffic and environmental variables from spatiotemporal sensor or remote sensing data.",
+  "coherence": "coherent",
+  "note": ""
+ },
+ "f188": {
+  "name": "Weather, climate and spatiotemporal forecasting",
+  "description": "Papers forecast weather, climate, traffic and environmental variables from spatiotemporal sensor or remote sensing data.",
+  "coherence": "coherent",
+  "note": ""
+ },
+ "c04": {
+  "name": "Reinforcement learning",
+  "description": "Develop and analyze RL algorithms, covering value and policy learning, offline, safe, imitation, hierarchical, exploration-driven and multi-agent settings.",
+  "coherence": "coherent",
+  "note": ""
+ },
+ "m025": {
+  "name": "Core RL algorithms and theory",
+  "description": "Propose value-based, policy-gradient, offline and constrained RL algorithms and analyze their sample complexity, stability and convergence.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "f053": {
+  "name": "Value learning and deep RL training",
+  "description": "Study Q-learning, distributional and entropy-regularized value learning, memory agents and training dynamics of deep RL agents.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "f054": {
+  "name": "RL theory and sample complexity",
+  "description": "Prove regret, PAC and sample-complexity bounds for MDPs, POMDPs, linear, robust and constrained MDPs.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "f055": {
+  "name": "Policy gradient and actor-critic algorithms",
+  "description": "Design on-policy and actor-critic policy optimization algorithms, trust regions and exploration schemes for continuous control.",
+  "coherence": "coherent",
+  "note": ""
+ },
+ "f056": {
+  "name": "Offline reinforcement learning",
+  "description": "Learn policies from fixed datasets, handling distribution shift through regularization, data weighting, diffusion policies and offline-to-online fine-tuning.",
+  "coherence": "coherent",
+  "note": ""
+ },
+ "f057": {
+  "name": "Safe and constrained RL",
+  "description": "Enforce safety constraints and robustness in RL via constrained MDPs, safety critics, guarded optimization and robust policy learning.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "m026": {
+  "name": "Imitation, transfer and representations for RL",
+  "description": "Learn policies from demonstrations, transfer across tasks, model rewards from preferences and build state representations or world models for RL.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "f058": {
+  "name": "Imitation learning and inverse RL",
+  "description": "Learn policies or rewards from expert demonstrations via behavior cloning, adversarial imitation, inverse RL and world-model guidance.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "f059": {
+  "name": "Generative policies and meta-RL",
+  "description": "Use diffusion or generative behavior models as policies and develop meta-RL, actor designs and generalizable policies.",
+  "coherence": "mixed",
+  "note": "Generative offline policies mixed with meta-RL and policy generalization papers"
+ },
+ "f060": {
+  "name": "Multi-task transfer and preference-based RL",
+  "description": "Transfer skills across tasks via meta and multi-task RL, and learn rewards from noisy human preference feedback.",
+  "coherence": "mixed",
+  "note": "Multi-task/meta transfer RL alongside preference-based reward learning"
+ },
+ "f061": {
+  "name": "State representations and visual RL",
+  "description": "Learn latent state representations, pretrained visual encoders, behavioral priors and world models to improve RL from pixels.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "m027": {
+  "name": "Exploration, hierarchy and planning in RL",
+  "description": "Improve long-horizon decision making through intrinsic exploration, hierarchical options, goal-conditioned policies and model-based planning.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "f062": {
+  "name": "Hierarchical and goal-conditioned RL",
+  "description": "Discover options and subgoals, decompose tasks hierarchically and learn goal-conditioned policies for long-horizon problems.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "f063": {
+  "name": "Model-based planning in RL",
+  "description": "Plan with learned dynamics models, tree search or flow matching, often with safety constraints and reward shaping.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "f064": {
+  "name": "Intrinsic motivation and exploration",
+  "description": "Drive exploration with curiosity and intrinsic rewards, and build environments and benchmarks for memory and procedurally generated tasks.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "m028": {
+  "name": "Multi-agent RL and game theory",
+  "description": "Train cooperating or competing agents, decompose team value functions, and compute equilibria in multi-agent games.",
+  "coherence": "coherent",
+  "note": ""
+ },
+ "f065": {
+  "name": "Cooperative MARL and policy diversity",
+  "description": "Develop cooperative MARL via value decomposition and coordination, plus population, ensemble and quality-diversity policy training.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "f066": {
+  "name": "Decentralized MARL coordination and communication",
+  "description": "Coordinate decentralized agents under partial observability through communication and coordination graphs, applied to networks, robots and UAVs.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "f067": {
+  "name": "Game-theoretic equilibrium learning",
+  "description": "Compute Nash equilibria, self-play strategies and empirical game-theoretic analyses for competitive and team games.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "c08": {
+  "name": "LLM efficiency, sequence models and audio",
+  "description": "Make LLMs cheaper to fine-tune, compress and serve, design sequence architectures, and model speech and music.",
+  "coherence": "mixed",
+  "note": "LLM efficiency and architectures combined with unrelated speech and audio modeling"
+ },
+ "m051": {
+  "name": "LLM pre-training, MoE and LoRA",
+  "description": "Adapt and train LLMs via parameter-efficient fine-tuning, mixture-of-experts, model merging, data mixing and cross-lingual transfer.",
+  "coherence": "mostly_coherent",
+  "note": "",
+  "revised": "Overlapped m040 on 'fine-tuning' and 'merging'"
+ },
+ "f107": {
+  "name": "LLM pre-training, MoE and multilingual transfer",
+  "description": "Study LLM pre-training data mixing, MoE routing, model merging, distillation and multilingual or translation transfer.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "f108": {
+  "name": "LoRA variants for LLM fine-tuning",
+  "description": "Propose LoRA variants, adapters and other parameter-efficient fine-tuning schemes for LLMs and multimodal models.",
+  "coherence": "coherent",
+  "note": "",
+  "revised": "Near-duplicate of f090; specify LLM focus"
+ },
+ "m052": {
+  "name": "Speech and audio modeling",
+  "description": "Build models for speech recognition and synthesis, spoken language models, audio codecs, music and general audio.",
+  "coherence": "coherent",
+  "note": ""
+ },
+ "f109": {
+  "name": "Speech recognition and synthesis",
+  "description": "Develop ASR, text-to-speech, speech separation, neural codecs and spoken dialogue models built on LLMs.",
+  "coherence": "coherent",
+  "note": ""
+ },
+ "f110": {
+  "name": "Music and general audio modeling",
+  "description": "Generate and understand music and general audio with waveform generation, audio codecs, self-supervised audio representations and classification frontends.",
+  "coherence": "coherent",
+  "note": ""
+ },
+ "m053": {
+  "name": "LLM compression and quantization",
+  "description": "Shrink LLMs via pruning, low-rank factorization, sparsity and quantization, and make their training more memory-efficient.",
+  "coherence": "coherent",
+  "note": ""
+ },
+ "f111": {
+  "name": "LLM pruning and efficient training",
+  "description": "Prune or factorize LLMs and MoEs, and propose low-bit or low-rank memory-efficient training and optimizers.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "f112": {
+  "name": "Post-training quantization of LLMs",
+  "description": "Quantize LLM and VLM weights and activations with rotations, mixed precision and novel number formats while preserving accuracy.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "m054": {
+  "name": "Transformer and recurrent sequence architectures",
+  "description": "Design and analyze attention mechanisms, transformers, RNNs and state space models for language and sequence modeling.",
+  "coherence": "coherent",
+  "note": ""
+ },
+ "f113": {
+  "name": "Transformer attention design and analysis",
+  "description": "Propose efficient or sparse attention variants and analyze transformer computations, training dynamics and internal representations.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "f114": {
+  "name": "RNNs, LSTMs and state space models",
+  "description": "Improve recurrent networks, LSTMs and state space models for sequence modeling, including gating, normalization and gradient fixes.",
+  "coherence": "coherent",
+  "note": ""
+ },
+ "m055": {
+  "name": "Efficient LLM inference and serving",
+  "description": "Accelerate LLM inference through speculative decoding, KV cache compression, serving systems and compute-optimal test-time scaling.",
+  "coherence": "coherent",
+  "note": ""
+ },
+ "f115": {
+  "name": "Speculative decoding, serving and test-time scaling",
+  "description": "Speed up generation with speculative and parallel decoding, schedule LLM serving and allocate test-time compute efficiently.",
+  "coherence": "mostly_coherent",
+  "note": "",
+  "revised": "'LLM decoding' prefix duplicated f016; name the speed-up focus"
+ },
+ "f116": {
+  "name": "KV cache compression and long context",
+  "description": "Compress, evict or offload KV caches and use sparse attention to make long-context LLM inference memory-efficient.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "c11": {
+  "name": "Causal inference and biomedical ML",
+  "description": "Estimate causal structure and effects, and apply ML to molecules, proteins, genomics and healthcare data.",
+  "coherence": "mixed",
+  "note": "Causal inference methods alongside unrelated molecular, protein and clinical applications"
+ },
+ "m066": {
+  "name": "Causal discovery and treatment effects",
+  "description": "Learn causal graphs and representations from data and estimate treatment effects under confounding.",
+  "coherence": "coherent",
+  "note": ""
+ },
+ "f135": {
+  "name": "Causal discovery and structure learning",
+  "description": "Recover causal graphs, identify latent causal representations and apply causal models to explanation and recourse.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "f136": {
+  "name": "Treatment effect estimation",
+  "description": "Estimate individual and heterogeneous treatment effects, dose-response curves and counterfactual outcomes, often with instrumental variables or confounders.",
+  "coherence": "coherent",
+  "note": ""
+ },
+ "m067": {
+  "name": "Generative molecule and drug design",
+  "description": "Generate and optimize molecules, peptides and protein binders for drug discovery using diffusion, flows and search.",
+  "coherence": "coherent",
+  "note": ""
+ },
+ "f137": {
+  "name": "Diffusion and flow molecular generation",
+  "description": "Use equivariant diffusion and flow-matching models to generate 3D molecules, protein backbones, docking poses and molecular dynamics.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "f138": {
+  "name": "Molecular optimization for drug discovery",
+  "description": "Optimize molecules and materials via Bayesian, evolutionary and multi-objective search, synthesizability constraints and chemical language models.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "m068": {
+  "name": "Protein and genomic modeling",
+  "description": "Model protein, RNA and DNA sequences and structures with language models, structure-based networks and benchmarks.",
+  "coherence": "coherent",
+  "note": ""
+ },
+ "f139": {
+  "name": "Protein structure and function prediction",
+  "description": "Predict protein structures, conformations, interactions and functions with geometric models, and benchmark biomolecular property prediction.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "f140": {
+  "name": "Protein and genomic language models",
+  "description": "Pretrain and analyze protein and DNA language models and apply them to genomics and bioinformatics tasks.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "m069": {
+  "name": "Molecular and materials property prediction",
+  "description": "Predict molecular, crystal and compound-protein properties with GNNs, pretrained chemical foundation models and multimodal representations.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "f141": {
+  "name": "Molecular and materials property prediction",
+  "description": "Predict molecular, crystal and compound-protein properties with GNNs, pretrained chemical foundation models and multimodal representations.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "m070": {
+  "name": "Clinical ML and single-cell biology",
+  "description": "Model EHRs, medical monitoring and survival outcomes, and analyze single-cell and spatial transcriptomics data.",
+  "coherence": "mixed",
+  "note": "Clinical and EHR prediction combined with single-cell and spatial omics"
+ },
+ "f142": {
+  "name": "Clinical ML and single-cell biology",
+  "description": "Model EHRs, medical monitoring and survival outcomes, and analyze single-cell and spatial transcriptomics data.",
+  "coherence": "mixed",
+  "note": "Clinical and EHR prediction combined with single-cell and spatial omics"
+ },
+ "c15": {
+  "name": "VLM reasoning, knowledge graphs and interpretability",
+  "description": "Evaluate multimodal LLM reasoning, reason over knowledge graphs, learn object-centric representations and explain model predictions.",
+  "coherence": "mixed",
+  "note": "Vision-language benchmarks, knowledge graph reasoning and explainability are distinct themes"
+ },
+ "m082": {
+  "name": "VLM benchmarks and multimodal reasoning",
+  "description": "Benchmark and improve multimodal LLMs on visual question answering, grounding, visual reasoning and spatial understanding.",
+  "coherence": "coherent",
+  "note": "",
+  "revised": "Too close to m061 'Multimodal LLMs for image understanding'"
+ },
+ "f165": {
+  "name": "VLM benchmarks and visual grounding",
+  "description": "Build benchmarks and pipelines for VQA, referring expressions, GUI and document understanding with vision-language models.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "f166": {
+  "name": "Multimodal chain-of-thought reasoning",
+  "description": "Improve and probe multimodal chain-of-thought reasoning, grounding and hallucination in large vision-language models.",
+  "coherence": "coherent",
+  "note": "",
+  "revised": "Hallucination duplicated f128; examples are mainly multimodal reasoning"
+ },
+ "f167": {
+  "name": "Spatial and mathematical visual reasoning",
+  "description": "Evaluate and train MLLMs on spatial intelligence, geometry and math problems, scene programs and GUI grounding.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "m083": {
+  "name": "Knowledge graph completion and reasoning",
+  "description": "Embed knowledge graphs, predict missing links, answer complex logical queries and ground LLM reasoning on graphs.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "f168": {
+  "name": "Knowledge graph completion and reasoning",
+  "description": "Embed knowledge graphs, predict missing links, answer complex logical queries and ground LLM reasoning on graphs.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "m084": {
+  "name": "Object-centric learning and concept interpretability",
+  "description": "Learn slot-based object representations and locate concept signals in models, including vision transformer attributions and brain encoding.",
+  "coherence": "mixed",
+  "note": "Slot-based object-centric learning plus concept attribution and brain encoding"
+ },
+ "f169": {
+  "name": "Object-centric learning and concept interpretability",
+  "description": "Learn slot-based object representations and locate concept signals in models, including vision transformer attributions and brain encoding.",
+  "coherence": "mixed",
+  "note": "Slot-based object-centric learning plus concept attribution and brain encoding"
+ },
+ "m085": {
+  "name": "Explainable AI and counterfactual explanations",
+  "description": "Produce feature attributions, concept-based and counterfactual explanations, and formalize or evaluate the explainability of predictive models.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "f170": {
+  "name": "Explainable AI and counterfactual explanations",
+  "description": "Produce feature attributions, concept-based and counterfactual explanations, and formalize or evaluate the explainability of predictive models.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "c06": {
+  "name": "Robust, continual, transfer and label-efficient learning",
+  "description": "Training under imperfect labels, shifting data or new tasks: noisy labels, continual learning, self-supervision, domain adaptation, fine-tuning, OOD detection, distillation, active learning.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "m036": {
+  "name": "Noisy, weak and imbalanced labels",
+  "description": "Learning when labels are noisy, partial, weak or imbalanced, including spurious correlations, group robustness and robust loss design.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "f080": {
+  "name": "Imbalance, group robustness and sample selection",
+  "description": "Handle class or target imbalance, spurious correlations and covariate shift, often with imbalanced regression, data mixing, or coreset and sample selection.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "f081": {
+  "name": "Weak and semi-supervised label learning",
+  "description": "Learn from incomplete supervision such as partial labels, PU data, label proportions, unlabeled sets, multi-label or semi-supervised settings.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "f082": {
+  "name": "Noisy labels, robust losses and calibration",
+  "description": "Design robust losses, regularizers and calibration techniques so classifiers tolerate label noise and give reliable confidence estimates.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "m037": {
+  "name": "Continual learning and catastrophic forgetting",
+  "description": "Train models on sequential tasks or streams while preventing forgetting, including class-incremental, online and lifelong settings and some unlearning work.",
+  "coherence": "coherent",
+  "note": ""
+ },
+ "f083": {
+  "name": "Stability-plasticity trade-off in continual learning",
+  "description": "Propose gradient projection, regularization or optimization schemes that balance stability and plasticity in online and lifelong continual learning.",
+  "coherence": "mostly_coherent",
+  "note": "",
+  "revised": "Original name exceeded six words"
+ },
+ "f084": {
+  "name": "Class-incremental and replay-based continual learning",
+  "description": "Study class-incremental learning with pretrained models, replay memory selection, unsupervised continual learning and related forgetting or unlearning analyses.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "m038": {
+  "name": "Self-supervised learning and data augmentation",
+  "description": "Learn visual representations with contrastive or self-supervised objectives and improve training through augmentation, mixup and transferability analysis.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "f085": {
+  "name": "Contrastive self-supervised representation learning",
+  "description": "Develop and analyse contrastive and non-contrastive self-supervised objectives, negatives, collapse and clustering for unsupervised visual representations.",
+  "coherence": "coherent",
+  "note": ""
+ },
+ "f086": {
+  "name": "Data augmentation and mixup",
+  "description": "Design automatic, adaptive or mixup-style data augmentations and example reweighting to improve classification, contrastive or regression training.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "m039": {
+  "name": "Domain adaptation and generalization",
+  "description": "Transfer models across distribution shifts via unsupervised, source-free or test-time adaptation, domain generalization and domain translation.",
+  "coherence": "coherent",
+  "note": ""
+ },
+ "f087": {
+  "name": "Unsupervised, source-free and test-time adaptation",
+  "description": "Adapt trained models to unlabeled target domains, often without source data or at test time, for classification, detection and video.",
+  "coherence": "coherent",
+  "note": ""
+ },
+ "f088": {
+  "name": "Domain generalization and domain translation",
+  "description": "Learn domain-invariant representations or reweighting schemes that generalize to unseen domains, plus GAN-based unsupervised domain translation.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "m040": {
+  "name": "Meta-learning, merging and efficient fine-tuning",
+  "description": "Share knowledge across tasks through multi-task learning, meta-learning, model merging and parameter-efficient fine-tuning of pretrained networks.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "f089": {
+  "name": "Multi-task learning, meta-learning and merging",
+  "description": "Optimize multiple tasks jointly, meta-learn fast adaptation, select transferable models, or merge task-specific weights via task arithmetic.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "f090": {
+  "name": "Efficient fine-tuning of pretrained models",
+  "description": "Propose LoRA variants, adapters and efficient fine-tuning or editing schemes that adapt pretrained models cheaply while limiting forgetting.",
+  "coherence": "mostly_coherent",
+  "note": "",
+  "revised": "Near-duplicate of f108 'LoRA and parameter-efficient fine-tuning'"
+ },
+ "m041": {
+  "name": "Out-of-distribution and anomaly detection",
+  "description": "Detect out-of-distribution inputs, anomalies and novelties using scores, outlier exposure, generated outliers or vision-language model prompts.",
+  "coherence": "coherent",
+  "note": ""
+ },
+ "f091": {
+  "name": "Out-of-distribution and anomaly detection",
+  "description": "Detect out-of-distribution inputs, anomalies and novelties using scores, outlier exposure, generated outliers or vision-language model prompts.",
+  "coherence": "coherent",
+  "note": ""
+ },
+ "m042": {
+  "name": "Knowledge and dataset distillation",
+  "description": "Transfer knowledge from teacher to student networks or condense datasets into small synthetic sets, with analyses of why distillation works.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "f092": {
+  "name": "Knowledge and dataset distillation",
+  "description": "Transfer knowledge from teacher to student networks or condense datasets into small synthetic sets, with analyses of why distillation works.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "m043": {
+  "name": "Active learning and label acquisition",
+  "description": "Select which samples or features to label using uncertainty, diversity or coverage criteria, including batch, Bayesian and in-context active learning.",
+  "coherence": "coherent",
+  "note": ""
+ },
+ "f093": {
+  "name": "Active learning and label acquisition",
+  "description": "Select which samples or features to label using uncertainty, diversity or coverage criteria, including batch, Bayesian and in-context active learning.",
+  "coherence": "coherent",
+  "note": ""
+ },
+ "c07": {
+  "name": "Optimization, scientific ML and probabilistic inference",
+  "description": "Optimization algorithms and theory, physics and dynamical-system learning, Bayesian uncertainty, sampling, and quantum machine learning.",
+  "coherence": "mixed",
+  "note": "Spans optimization theory, PDE/physics learning, Bayesian inference and quantum ML."
+ },
+ "m044": {
+  "name": "Neural network optimizers and SGD",
+  "description": "Design and analyse optimizers for training networks, including adaptive, momentum and second-order methods and SGD dynamics.",
+  "coherence": "coherent",
+  "note": ""
+ },
+ "f094": {
+  "name": "Adaptive, momentum and second-order optimizers",
+  "description": "Propose Adam variants, momentum schemes and practical second-order or Newton-type optimizers for training deep networks.",
+  "coherence": "coherent",
+  "note": ""
+ },
+ "f095": {
+  "name": "SGD dynamics and large-scale training",
+  "description": "Analyse SGD batch size, sampling and implicit regularization, and improve stability and communication efficiency of large-scale or distributed training.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "m045": {
+  "name": "PDE learning and physical simulation",
+  "description": "Learn solutions of PDEs and physical systems with neural operators, physics-informed networks and learned simulators for fluids and mechanics.",
+  "coherence": "coherent",
+  "note": ""
+ },
+ "f096": {
+  "name": "Neural operators and physics-informed networks",
+  "description": "Develop neural operators, PINNs and spectral methods to solve or learn PDEs, with training improvements and scientific applications.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "f097": {
+  "name": "Learned fluid and physics simulators",
+  "description": "Build GNN or transformer simulators and benchmark datasets for fluid dynamics, collisions, particles and other physical systems.",
+  "coherence": "coherent",
+  "note": ""
+ },
+ "m046": {
+  "name": "Optimization algorithms and convergence theory",
+  "description": "Analyse convergence and complexity of convex, nonconvex, distributed, bilevel, minimax and multi-objective optimization algorithms.",
+  "coherence": "coherent",
+  "note": ""
+ },
+ "f098": {
+  "name": "Convex, nonconvex and distributed optimization",
+  "description": "Prove convergence rates for stochastic, variance-reduced, decentralized and online optimization algorithms in convex and nonconvex settings.",
+  "coherence": "coherent",
+  "note": ""
+ },
+ "f099": {
+  "name": "Bilevel, minimax and multi-objective optimization",
+  "description": "Study bilevel, min-max, constrained, Pareto and Bayesian optimization problems and learned solvers, with convergence guarantees.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "m047": {
+  "name": "Dynamical systems, neural ODEs and control",
+  "description": "Learn and analyse dynamical systems with neural ODEs, Koopman operators and state-space models, and apply them to control.",
+  "coherence": "coherent",
+  "note": ""
+ },
+ "f100": {
+  "name": "Neural ODEs and dynamical system learning",
+  "description": "Model and reconstruct nonlinear dynamics with neural ODEs, Koopman representations and interpretable state-space models.",
+  "coherence": "coherent",
+  "note": ""
+ },
+ "f101": {
+  "name": "Learning-based control and system identification",
+  "description": "Combine learning with optimal or model predictive control, stability certificates and system identification for dynamical systems.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "m048": {
+  "name": "Bayesian deep learning and uncertainty",
+  "description": "Quantify predictive uncertainty with Bayesian neural networks, Gaussian processes, variational inference and calibration techniques.",
+  "coherence": "coherent",
+  "note": ""
+ },
+ "f102": {
+  "name": "Bayesian neural networks and Gaussian processes",
+  "description": "Develop variational, Laplace and sampling-based inference for Bayesian networks, deep kernels and Gaussian processes, plus Bayesian optimization.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "f103": {
+  "name": "Predictive uncertainty and post-hoc calibration",
+  "description": "Estimate epistemic and predictive uncertainty, calibrate confidence and evaluate uncertainty metrics, often for OOD detection.",
+  "coherence": "mostly_coherent",
+  "note": "",
+  "revised": "Nearly identical to f008 'LLM uncertainty estimation and calibration'"
+ },
+ "m049": {
+  "name": "Sampling, diffusion theory and optimal transport",
+  "description": "Develop and analyse MCMC, Stein and diffusion-based samplers, diffusion convergence theory, and optimal transport computations.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "f104": {
+  "name": "Sampling, diffusion theory and optimal transport",
+  "description": "Develop and analyse MCMC, Stein and diffusion-based samplers, diffusion convergence theory, and optimal transport computations.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "m050": {
+  "name": "Quantum machine learning",
+  "description": "Apply learning to quantum computing and design quantum algorithms, circuits and quantum neural networks for learning tasks.",
+  "coherence": "coherent",
+  "note": ""
+ },
+ "f105": {
+  "name": "Quantum algorithms and quantum state learning",
+  "description": "Give quantum speedups for sampling and optimization, learn or prepare quantum states, and address barren plateaus in variational circuits.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "f106": {
+  "name": "Quantum and hybrid quantum-classical networks",
+  "description": "Design quantum or hybrid quantum-classical neural networks, quantum federated learning and tensor-network-inspired models.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "c14": {
+  "name": "GANs, VAEs, diffusion and flow models",
+  "description": "Develop, train and analyse deep generative models, including GANs, variational autoencoders, diffusion models and flow matching.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "m078": {
+  "name": "Generative adversarial networks",
+  "description": "Propose GAN architectures, objectives and analyses, addressing training stability, mode collapse and evaluation of generated distributions.",
+  "coherence": "coherent",
+  "note": ""
+ },
+ "f158": {
+  "name": "GAN variants and adversarial generative modeling",
+  "description": "Introduce conditional and specialised GAN variants, adversarial OT solvers and related discriminative or generative modelling ideas.",
+  "coherence": "mostly_coherent",
+  "note": "",
+  "revised": "Use American spelling 'modeling' consistently across topics"
+ },
+ "f159": {
+  "name": "GAN training stability and theory",
+  "description": "Analyse GAN convergence, generalization, mode collapse, latent space and evaluation metrics, and propose regularizers for stable training.",
+  "coherence": "coherent",
+  "note": ""
+ },
+ "m079": {
+  "name": "Diffusion model formulation and sampling",
+  "description": "Improve diffusion model training, sampling, guidance and efficiency, and extend diffusion to discrete, sequential and other data.",
+  "coherence": "coherent",
+  "note": "",
+  "revised": "'Diffusion models' alone is vague among many diffusion topics"
+ },
+ "f160": {
+  "name": "Efficient and guided diffusion generation",
+  "description": "Accelerate diffusion inference via pruning, caching and distillation, and improve guidance and inference-time control for image or video generation.",
+  "coherence": "coherent",
+  "note": ""
+ },
+ "f161": {
+  "name": "Diffusion formulations, samplers and analysis",
+  "description": "Develop discrete and score-based diffusion formulations, ODE/SDE samplers and analyses of memorization, noise shift and reproducibility.",
+  "coherence": "coherent",
+  "note": ""
+ },
+ "m080": {
+  "name": "Variational autoencoders and disentanglement",
+  "description": "Design VAE objectives and priors, analyse latent variable models and learn disentangled or structured latent representations.",
+  "coherence": "coherent",
+  "note": ""
+ },
+ "f162": {
+  "name": "VAE objectives and latent variable models",
+  "description": "Propose VAE training objectives, posterior collapse fixes, autoregressive decoders and likelihood analyses for deep latent variable models.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "f163": {
+  "name": "Disentangled and geometric VAE representations",
+  "description": "Study VAE latent geometry, disentanglement, mutual information and clustering structure in learned representations.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "m081": {
+  "name": "Flow matching, normalizing flows and GFlowNets",
+  "description": "Develop flow matching, normalizing flows, GFlowNets and transport-based generative models for images, graphs, tabular and scientific data.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "f164": {
+  "name": "Flow matching, normalizing flows and GFlowNets",
+  "description": "Develop flow matching, normalizing flows, GFlowNets and transport-based generative models for images, graphs, tabular and scientific data.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "c19": {
+  "name": "Representation geometry, clustering and kernel methods",
+  "description": "Clustering and metric learning, manifold, topological and equivariant representations, and kernel, PCA and high-dimensional statistical methods.",
+  "coherence": "mixed",
+  "note": "Combines clustering/metric learning, equivariance/topology, and kernel/statistical theory."
+ },
+ "m095": {
+  "name": "Clustering, metric learning and embeddings",
+  "description": "Learn embeddings and similarity metrics, reduce dimensionality, search nearest neighbors and cluster data, including multi-view and deep clustering.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "f189": {
+  "name": "Metric learning and nearest-neighbor search",
+  "description": "Learn and compare embedding spaces via metric learning, dimensionality reduction, representation similarity and approximate nearest-neighbor search.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "f190": {
+  "name": "Clustering algorithms and coresets",
+  "description": "Develop deep, multi-view, hierarchical and distributed clustering methods, coresets and category discovery with guarantees.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "m096": {
+  "name": "Equivariance, manifolds and topology",
+  "description": "Build symmetry-aware networks and study manifold, topological and geometric structure of data and learned representations.",
+  "coherence": "coherent",
+  "note": ""
+ },
+ "f191": {
+  "name": "Manifold learning and topological representations",
+  "description": "Learn representations on manifolds, hyperbolic or complex domains and use persistent homology and intrinsic dimension to analyse data.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "f192": {
+  "name": "Equivariant and invariant networks",
+  "description": "Design and analyse group-equivariant and permutation-invariant architectures, their expressivity, generalization and computational complexity.",
+  "coherence": "coherent",
+  "note": ""
+ },
+ "m097": {
+  "name": "Kernel methods and high-dimensional statistics",
+  "description": "Analyse kernel regression, random features, PCA/SVD, Gaussian mixtures and Gaussian processes using random matrix and statistical theory.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ },
+ "f193": {
+  "name": "Kernel methods and high-dimensional statistics",
+  "description": "Analyse kernel regression, random features, PCA/SVD, Gaussian mixtures and Gaussian processes using random matrix and statistical theory.",
+  "coherence": "mostly_coherent",
+  "note": ""
+ }
+}

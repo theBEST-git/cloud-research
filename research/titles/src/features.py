@@ -14,7 +14,8 @@ import pandas as pd
 # LaTeX math is common in ML titles (e.g. "S$^6$-DAMON"); strip it before splitting on colons.
 MATH = re.compile(r"\$[^$]*\$")
 WORD = re.compile(r"[A-Za-z][A-Za-z0-9'\-]*|[0-9]+(?:\.[0-9]+)?")
-COLON = re.compile(r"\s*[:：]\s+|\s+[-–—]{1,2}\s+")  # "X: Y" or "X -- Y" / "X — Y" (spaced dash)
+# "X: Y", "X:Y" (no space, but not ratios like 2:4 or N:M), fullwidth colon, or a spaced dash "X -- Y" / "X — Y".
+COLON = re.compile(r"\s*[:：]\s+|(?<=[A-Za-z0-9)\]]{2})[:：](?=[A-Za-z])|\s+[-–—]{1,2}\s+")
 
 FUNCTION_WORDS = {
     "a", "an", "the", "of", "for", "in", "on", "with", "to", "and", "or", "via", "by", "from", "at",
@@ -63,6 +64,38 @@ ACTION_OPENERS = (
     "mitigating", "advancing", "accelerating", "uncovering", "elevating", "redefining", "reimagining",
     "delving", "decoding", "breaking", "pushing", "closing",
 )
+
+
+PLACEHOLDER_TITLES = {"", "title", "withdrawn", "withdraw", "na", "n/a", "xxx", "xxxx", "111", "placeholder", "null"}
+# Typography that LLM output produces but keyboards rarely do: non-breaking hyphen, en dash joining letters.
+LLM_TYPO = re.compile(r"\u2011|[A-Za-z]\u2013[A-Za-z]")
+
+
+def is_placeholder(title: str, abstract: str | None = None) -> bool:
+    t = (title or "").strip().lower()
+    return t in PLACEHOLDER_TITLES or (abstract is not None and len((abstract or "").split()) < 20)
+
+
+def name_orthography(lead: str) -> str:
+    """Orthographic class of a coined lead: all_caps (CRISP), mixed_case (LoRA), paren_acronym, or word (Chameleon)."""
+    if PAREN_ACRONYM.search(lead):
+        return "paren_acronym"
+    letters = [c for c in lead if c.isalpha()]
+    if len(letters) >= 2 and all(c.isupper() for c in letters):
+        return "all_caps"
+    if any(c.isupper() for c in lead[1:]) or any(c.isdigit() for c in lead):
+        return "mixed_case"
+    return "word"
+
+
+def casing_style(title: str) -> str:
+    letters = [c for c in strip_math(title) if c.isalpha()]
+    if len(letters) >= 12 and sum(c.isupper() for c in letters) / len(letters) > 0.8:
+        return "all_caps"
+    share = is_title_case(title)
+    if share != share:  # NaN: too few content words
+        return "other"
+    return "title_case" if share >= 0.75 else "sentence_case" if share <= 0.25 else "mixed"
 
 
 def strip_math(title: str) -> str:
@@ -135,6 +168,9 @@ def title_features(title: str) -> dict:
         "name_colon": coined,
         "phrase_colon": lead is not None and not coined,
         "lead_segment": lead if lead is not None else "",
+        "name_orthography": name_orthography(lead) if coined else "",
+        "casing": casing_style(t),
+        "llm_typography": bool(LLM_TYPO.search(t)),
         "question": "?" in t,
         "question_opener": first in QUESTION_OPENERS and "?" in t,
         "first_word": first,

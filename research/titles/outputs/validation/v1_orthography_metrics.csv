@@ -1,0 +1,64 @@
+block,cls,n_items,est,lo,hi
+2017-19,(accuracy),97,1.0,1.0,1.0
+2017-19,all_caps precision,34,1.0,1.0,1.0
+2017-19,all_caps recall,34,1.0,1.0,1.0
+2017-19,mixed_case precision,34,1.0,1.0,1.0
+2017-19,mixed_case recall,34,1.0,1.0,1.0
+2017-19,word precision,28,1.0,1.0,1.0
+2017-19,word recall,28,1.0,1.0,1.0
+2017-19,paren_acronym precision,1,1.0,1.0,1.0
+2017-19,paren_acronym recall,1,1.0,1.0,1.0
+2020-22,(accuracy),93,1.0,1.0,1.0
+2020-22,all_caps precision,31,1.0,1.0,1.0
+2020-22,all_caps recall,31,1.0,1.0,1.0
+2020-22,mixed_case precision,31,1.0,1.0,1.0
+2020-22,mixed_case recall,31,1.0,1.0,1.0
+2020-22,word precision,26,1.0,1.0,1.0
+2020-22,word recall,26,1.0,1.0,1.0
+2020-22,paren_acronym precision,5,1.0,1.0,1.0
+2020-22,paren_acronym recall,5,1.0,1.0,1.0
+2023,(accuracy),98,1.0,1.0,1.0
+2023,all_caps precision,31,1.0,1.0,1.0
+2023,all_caps recall,31,1.0,1.0,1.0
+2023,mixed_case precision,31,1.0,1.0,1.0
+2023,mixed_case recall,31,1.0,1.0,1.0
+2023,word precision,30,1.0,1.0,1.0
+2023,word recall,30,1.0,1.0,1.0
+2023,paren_acronym precision,6,1.0,1.0,1.0
+2023,paren_acronym recall,6,1.0,1.0,1.0
+2024,(accuracy),95,1.0,1.0,1.0
+2024,all_caps precision,30,1.0,1.0,1.0
+2024,all_caps recall,30,1.0,1.0,1.0
+2024,mixed_case precision,30,1.0,1.0,1.0
+2024,mixed_case recall,30,1.0,1.0,1.0
+2024,word precision,29,1.0,1.0,1.0
+2024,word recall,29,1.0,1.0,1.0
+2024,paren_acronym precision,6,1.0,1.0,1.0
+2024,paren_acronym recall,6,1.0,1.0,1.0
+2025,(accuracy),96,1.0,1.0,1.0
+2025,all_caps precision,28,1.0,1.0,1.0
+2025,all_caps recall,28,1.0,1.0,1.0
+2025,mixed_case precision,27,1.0,1.0,1.0
+2025,mixed_case recall,27,1.0,1.0,1.0
+2025,word precision,26,1.0,1.0,1.0
+2025,word recall,26,1.0,1.0,1.0
+2025,paren_acronym precision,15,1.0,1.0,1.0
+2025,paren_acronym recall,15,1.0,1.0,1.0
+2026,(accuracy),97,0.9998395636130274,0.9995185363505056,1.0
+2026,all_caps precision,26,1.0,1.0,1.0
+2026,all_caps recall,26,1.0,1.0,1.0
+2026,mixed_case precision,26,1.0,1.0,1.0
+2026,mixed_case recall,27,0.9997566317838891,0.9992702505473121,1.0
+2026,word precision,26,1.0,1.0,1.0
+2026,word recall,26,1.0,1.0,1.0
+2026,paren_acronym precision,19,0.9473684210526315,0.8235294117647058,1.0
+2026,paren_acronym recall,18,1.0,1.0,1.0
+all,(accuracy),576,0.9999215169084019,0.9997623810903798,1.0
+all,all_caps precision,180,1.0,1.0,1.0
+all,all_caps recall,180,1.0,1.0,1.0
+all,mixed_case precision,179,1.0,1.0,1.0
+all,mixed_case recall,180,0.9998760726386459,0.9996226578108677,1.0
+all,word precision,165,1.0,1.0,1.0
+all,word recall,165,1.0,1.0,1.0
+all,paren_acronym precision,52,0.9807692307692307,0.9375,1.0
+all,paren_acronym recall,51,1.0,1.0,1.0

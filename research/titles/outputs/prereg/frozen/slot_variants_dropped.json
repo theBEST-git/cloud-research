@@ -1,0 +1,146 @@
+{
+ "rule": "PLAN.md section 3 V2: slot words (variants) whose V2 sense precision is below 0.85 are dropped before the slot inventory is frozen. Precision = design-weighted share (weights N/n over era strata) of sampled titles whose consensus slot_sense is 'y', on the population sampled by WP3a (2018+, slot filled under either opener rule, before the pre-V2 heuristic sense filter).",
+ "generated_by": "analyses/validate_measures.py",
+ "lexicons_sha256": "34ec8f939bfbc2448426d918bd217522c64a42a6f09f31aa2d1a0a54b0737847",
+ "dropped": [
+  {
+   "slot": "exploit",
+   "word": "unlocking",
+   "variant": "llm",
+   "precision_w": 0.2857142857142857,
+   "n": 7,
+   "n_sense_y": 2,
+   "wilson_lo": 0.0822171657090155,
+   "wilson_hi": 0.6410709098517873,
+   "precision_after_prefilter_w": 0.2857142857142857,
+   "swap_preserves_w": 0.2857142857142857
+  },
+  {
+   "slot": "exploit",
+   "word": "enabling",
+   "variant": "neutral",
+   "precision_w": 0.0,
+   "n": 21,
+   "n_sense_y": 0,
+   "wilson_lo": 0.0,
+   "wilson_hi": 0.15464382326420195,
+   "precision_after_prefilter_w": 0.0,
+   "swap_preserves_w": 0.0
+  },
+  {
+   "slot": "reveal",
+   "word": "decoding",
+   "variant": "llm",
+   "precision_w": 0.3875,
+   "n": 8,
+   "n_sense_y": 3,
+   "wilson_lo": 0.13684175946152105,
+   "wilson_hi": 0.6942621454161981,
+   "precision_after_prefilter_w": 0.6326530612244897,
+   "swap_preserves_w": 0.3875
+  }
+ ],
+ "dropped_words": {
+  "exploit": [
+   "enabling",
+   "unlocking"
+  ],
+  "improve": [],
+  "reveal": [
+   "decoding"
+  ],
+  "study_adj": []
+ },
+ "kept_words": {
+  "exploit": [
+   "exploiting",
+   "harnessing",
+   "leveraging",
+   "unleashing",
+   "utilizing"
+  ],
+  "improve": [
+   "advancing",
+   "boosting",
+   "elevating",
+   "empowering",
+   "enhancing",
+   "improving"
+  ],
+  "reveal": [
+   "analysing",
+   "analyzing",
+   "characterising",
+   "characterizing",
+   "demystifying",
+   "explaining",
+   "investigating",
+   "uncovering",
+   "understanding",
+   "unraveling",
+   "unravelling",
+   "unveiling"
+  ],
+  "study_adj": [
+   "comprehensive",
+   "extensive",
+   "large-scale",
+   "systematic"
+  ]
+ },
+ "borderline_kept": [
+  {
+   "slot": "exploit",
+   "word": "harnessing",
+   "precision_w": 0.9666666666666667,
+   "precision_unw": 0.8666666666666667,
+   "n": 15,
+   "precision_pre": 0.75,
+   "n_pre": 8,
+   "precision_post": 1.0,
+   "n_post": 7
+  },
+  {
+   "slot": "exploit",
+   "word": "unleashing",
+   "precision_w": 0.9661016949152542,
+   "precision_unw": 0.8333333333333334,
+   "n": 12,
+   "precision_pre": 0.6,
+   "n_pre": 5,
+   "precision_post": 1.0,
+   "n_post": 7
+  },
+  {
+   "slot": "improve",
+   "word": "boosting",
+   "precision_w": 0.9693333333333333,
+   "precision_unw": 0.8888888888888888,
+   "n": 18,
+   "precision_pre": 0.8333333333333334,
+   "n_pre": 12,
+   "precision_post": 1.0,
+   "n_post": 6
+  }
+ ],
+ "sensitivity_unweighted_rule": {
+  "rule": "drop if the unweighted share of sampled titles in the slot sense is below 0.85",
+  "dropped_words": {
+   "exploit": [
+    "enabling",
+    "unleashing",
+    "unlocking"
+   ],
+   "improve": [],
+   "reveal": [
+    "decoding"
+   ],
+   "study_adj": []
+  }
+ },
+ "notes": [
+  "Dropping a word removes it from both the LLM-favoured and the neutral side of its slot (titles whose opener is that word become 'slot not filled').",
+  "'decoding' fails even after the pre-V2 sense filter (see precision_after_prefilter_w), so the heuristic filter is not sufficient.",
+  "borderline_kept lists kept words whose unweighted precision, or precision in one era (n >= 3), is below 0.85; D3 should run leave-one-variant-out on them. Era-specific sense failures sit mostly in the pre era on the LLM-favoured side, which raises the pre-2024 LLM share and so biases the slot break toward zero."
+ ]
+}

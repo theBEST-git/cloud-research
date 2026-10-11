@@ -1,0 +1,41 @@
+item_id,block,component,title,lead_cons,lead_type_cons,category
+v1_abcb460a,2025,hard,LoRA Recycle: Towards Fine-Tuning-Free Visual Foundation Model via Double-Efficient Data-Free Meta-Learning,LoRA Recycle,descriptive_phrase,two-token descriptive lead with a hyphenated or capitalised modifier
+v1_0a1e2678,2017-19,main,GAN Dissection: Visualizing and Understanding Generative Adversarial Networks,GAN Dissection,descriptive_phrase,two-token descriptive lead with a hyphenated or capitalised modifier
+v1_51f120e1,2026,hard,Human-Prior Correction: Scalable Post-hoc Calibration that Aligns Vision Models with Human Uncertainty,Human-Prior Correction,descriptive_phrase,two-token descriptive lead with a hyphenated or capitalised modifier
+v1_bd693602,2020-22,hard,f-Domain-Adversarial Learning: Theory and Algorithms for Unsupervised Domain Adaptation with Neural Networks,f-Domain-Adversarial Learning,descriptive_phrase,two-token descriptive lead with a hyphenated or capitalised modifier
+v1_2414d2a6,2025,hard,Fine-Grained Verifiers: Preference Modeling as Next-token Prediction in Vision-Language Alignment,Fine-Grained Verifiers,descriptive_phrase,two-token descriptive lead with a hyphenated or capitalised modifier
+v1_c3ae44a6,2020-22,main,Uncertainty - sensitive learning and planning with ensembles,,none,separator misread (spaced hyphen inside a word)
+v1_e3529883,2026,main,Why Less is More (Sometimes): A Theory of Data Curation,Why Less is More (Sometimes),descriptive_phrase,parenthesis read as an acronym
+v1_aa8079d1,2026,main,Death of the Novel(ty): Beyond N-Gram Novelty as a Metric for Textual Creativity,Death of the Novel(ty),descriptive_phrase,parenthesis read as an acronym
+v1_8802e109,2024,main,Multi-attacks: Many images + the same adversarial attack -> many target labels,Multi-attacks,descriptive_phrase,one-word descriptive lead
+v1_5b92eed4,2025,hard,Horizon-Length Prediction: Advancing Fill-in-the-Middle Capabilities for Code Generation with Lookahead Planning,Horizon-Length Prediction,descriptive_phrase,two-token descriptive lead with a hyphenated or capitalised modifier
+v1_6c4bc728,2023,main,Cramming: Training a language model on a single GPU in one day,Cramming,descriptive_phrase,one-word descriptive lead
+v1_4e552e3f,2025,main,Do as I do (Safely): Mitigating Task-Specific Fine-tuning Risks in Large Language Models,Do as I do (Safely),descriptive_phrase,parenthesis read as an acronym
+v1_e88b38ad,2026,main,Improving Block-Wise LLM Quantization by 4-bit Block-Wise Optimal Float (BOF4): Analysis and Variations,Improving Block-Wise LLM Quantization by 4-bit Block-Wise Optimal Float (BOF4),descriptive_phrase,parenthesis read as an acronym
+v1_f7aa1488,2020-22,main,Stiffness: A New Perspective on Generalization in Neural Networks,Stiffness,descriptive_phrase,one-word descriptive lead
+v1_069559b0,2023,hard,"Multi-Rate VAE: Train Once, Get the Full Rate-Distortion Curve",Multi-Rate VAE,descriptive_phrase,two-token descriptive lead with a hyphenated or capitalised modifier
+v1_91fd30bb,2025,main,Physics-Transfer Learning: A Framework to Address the Accuracy-Performance Dilemma in Modeling Complexity Problems in Engineering Sciences,Physics-Transfer Learning,descriptive_phrase,two-token descriptive lead with a hyphenated or capitalised modifier
+v1_801cbc3d,2020-22,main,Symmetric-APL Activations: Training Insights and Robustness to Adversarial Attacks,Symmetric-APL Activations,descriptive_phrase,two-token descriptive lead with a hyphenated or capitalised modifier
+v1_3a129f64,2020-22,main,Attention: Self-Expression Is All You Need,Attention,descriptive_phrase,one-word descriptive lead
+v1_9739fce2,2026,hard,Data-Centric Unlearning: Optimizing Labels and Retain Data via Learning Dynamics,Data-Centric Unlearning,descriptive_phrase,two-token descriptive lead with a hyphenated or capitalised modifier
+v1_507a0b20,2020-22,hard,Omni-Scale CNNs: a simple and effective kernel size configuration for time series classification,Omni-Scale CNNs,descriptive_phrase,two-token descriptive lead with a hyphenated or capitalised modifier
+v1_12c29ac9,2025,hard,Weak-to-Strong Trustworthiness: Eliciting Trustworthiness with Weak Supervision,Weak-to-Strong Trustworthiness,descriptive_phrase,two-token descriptive lead with a hyphenated or capitalised modifier
+v1_20572593,2020-22,main,What Doesn't Kill You Makes You Robust(er): How to Adversarially Train against Data Poisoning,What Doesn't Kill You Makes You Robust(er),descriptive_phrase,parenthesis read as an acronym
+v1_1f985be5,2026,hard,Tri-Agent Driving: Learning to Coordinate Agents via Scenario Complexity Representation for Efficient Autonomous Driving,Tri-Agent Driving,descriptive_phrase,two-token descriptive lead with a hyphenated or capitalised modifier
+v1_39f7cb7f,2017-19,main,ANYTIME MINIBATCH: EXPLOITING STRAGGLERS IN ONLINE DISTRIBUTED OPTIMIZATION,ANYTIME MINIBATCH,descriptive_phrase,all-caps title
+v1_5a1a9839,2024,main,ARCHITECTURE MATTERS: METAFORMER AND GLOBAL-AWARE CONVOLUTION STREAMING FOR IMAGE RESTORATION,ARCHITECTURE MATTERS,descriptive_phrase,all-caps title
+v1_481ebed6,2020-22,main,Transliteration: A Simple Technique For Improving Multilingual Language Modeling,Transliteration,descriptive_phrase,one-word descriptive lead
+v1_d0395f53,2025,hard,Mixture-of-Queries Transformer: Camouflaged Instance Segmentation via Queries Cooperation and Frequency Enhancement,Mixture-of-Queries Transformer,descriptive_phrase,two-token descriptive lead with a hyphenated or capitalised modifier
+v1_8bee6fe0,2024,main,Sum-Product-Set Networks: Deep Tractable Models for Tree-Structured Graphs,Sum-Product-Set Networks,descriptive_phrase,two-token descriptive lead with a hyphenated or capitalised modifier
+v1_7b076eb3,2026,hard,RL's Razor: Why Online Reinforcement Learning Forgets Less,RL's Razor,descriptive_phrase,two-token descriptive lead with a hyphenated or capitalised modifier
+v1_ab54f323,2025,main,Learning on Graphs with Large Language Models (LLMs): A Deep Dive into Model Robustness,Learning on Graphs with Large Language Models (LLMs),descriptive_phrase,parenthesis read as an acronym
+v1_ff2139bb,2026,hard,Forgetting: A New Mechanism Towards Better Large Language Model Fine-tuning,Forgetting,descriptive_phrase,one-word descriptive lead
+v1_10829899,2026,hard,Chain-of-Context Learning: Dynamic Constraint Understanding for Multi-Task VRPs,Chain-of-Context Learning,descriptive_phrase,two-token descriptive lead with a hyphenated or capitalised modifier
+v1_4a892aab,2024,main,Chunking: Forgetting Matters in Continual Learning even without Changing Tasks,Chunking,descriptive_phrase,one-word descriptive lead
+v1_97ca390b,2017-19,main,Time-Agnostic Prediction: Predicting Predictable Video Frames,Time-Agnostic Prediction,descriptive_phrase,two-token descriptive lead with a hyphenated or capitalised modifier
+v1_f12f1066,2017-19,hard,Classifier-to-Generator Attack: Estimation of Training Data Distribution from Classifier,Classifier-to-Generator Attack,descriptive_phrase,two-token descriptive lead with a hyphenated or capitalised modifier
+v1_5b14e5e0,2025,main,Overfitting: An Unexpected Asset in AI‐Generated Image Detection,Overfitting,descriptive_phrase,one-word descriptive lead
+v1_958fcc75,2023,main,Anti-Symmetric DGN: a stable architecture for Deep Graph Networks,Anti-Symmetric DGN,descriptive_phrase,two-token descriptive lead with a hyphenated or capitalised modifier
+v1_e8859b79,2024,main,"Multi-Method Self-Training: Improving Code Generation With Text, And Vice Versa",Multi-Method Self-Training,descriptive_phrase,two-token descriptive lead with a hyphenated or capitalised modifier
+v1_062c6857,2020-22,main,Undistillable: Making A Nasty Teacher That CANNOT teach students,Undistillable,descriptive_phrase,one-word descriptive lead
+v1_46c2c491,2026,hard,CoT Vectors: Transferring and Probing the Reasoning Mechanisms of LLMs,CoT Vectors,descriptive_phrase,two-token descriptive lead with a hyphenated or capitalised modifier

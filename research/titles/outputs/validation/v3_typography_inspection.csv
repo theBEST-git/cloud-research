@@ -1,0 +1,101 @@
+submission_id,year,title,title_nbhyphen,title_endash_compound,cls,also_ascii_hyphen,latex_or_pdf_artefact
+15HYjY5ol7,2026,An AI Agent for Immune Receptor Fingerprint‑Based Diagnosis of Infection of Unknown Origin,True,False,nbh_compound,False,False
+1UpjAvTWOo,2026,Foreground Confusion under Domain Shift: The Hidden Bottleneck in Source‑Free Domain Adaptive Object Detection,True,False,nbh_compound,False,False
+1pAW0y8WLH,2026,DrugTrail: Interpretable Drug Discovery via Structured Reasoning and Druggability‑Tailored Preference Optimization,True,False,nbh_compound,False,False
+2FFhwssQda,2026,Buckingham $\pi$-Invariant Test‑Time Projection for Robust PDE Surrogate Modeling,True,False,nbh_compound,False,False
+3cB9243E9i,2026,Rethinking JEPA: Compute‑Efficient Video Self-Supervised Learning with Frozen Teachers,True,False,nbh_compound,True,False
+3kwMq9b3ri,2026,CEDAR: Agent‑Orchestrated Tree Search for Goal‑Directed Optimization of Complex Systems,True,False,nbh_compound,False,False
+4Ph4ZbfhLd,2026,Prototype‑Guided Hyperbolic Multi‑Scale Learning and Density‑Ratio Analysis for Subtype‑Specific Nuclei Discovery in WSIs,True,False,nbh_compound,False,False
+7BLnSeWuei,2026,CP-Agent: Context‑Aware Multimodal Reasoning for Cellular Morphological Profiling under Chemical Perturbations,True,False,nbh_compound,True,False
+9SOfGEPuNY,2026,Explicitly Bounding Q‑Function Estimates for Offline-to-Online Reinforcement Learning,True,False,nbh_compound,True,False
+9ZzkbyV17M,2026,From Ambiguity to Verdict: A Semiotic‑Grounded Multi‑Perspective Agent for LLM Logical Reasoning,True,False,nbh_compound,False,False
+EzHQZ991im,2026,SONAR: Spectral‑Contrastive Audio Residuals for Robust Deepfake Detection,True,False,nbh_compound,False,False
+F4dntnOqDE,2026,NeuMoSync: End‑to‑End Neuromodulatory Control for Plasticity and Adaptability in Continual Learning,True,False,nbh_compound,False,False
+GYOk55KNeQ,2026,TimeSense: Making Large Language Models Proficient in Time‑Series Analysis,True,False,nbh_compound,False,False
+IZsRyaQ5dY,2026,HebbGate: Local Reward‑Modulated Gating for Continual Learning,True,False,nbh_compound,False,False
+JdiqncU1eK,2026,COFT: Counterfactual–Conformal Decoding for Fair Chain‑of‑Thought Reasoning in Large Language Models,True,True,nbh_compound,False,False
+KUNywR7nQx,2026,Learning Shrinks the Hard Tail: Training‑Dependent Inference Scaling in a Solvable Linear Model,True,False,nbh_compound,False,False
+LZZENDlZt9,2026,Smarter Not Harder: Generative Process Evaluation with Intrinsic-Signal Driving and Ability‑Adaptive Reward Shaping,True,False,nbh_compound,True,False
+NMlF3YjS8E,2026,FZOO: Fast Zeroth-Order Optimizer for Fine‑Tuning Large Language Models towards Adam‑Scale Speed,True,False,nbh_compound,True,False
+Ow3R7zyfYC,2026,"Early Guidance, Late Convergence: Hidden‑State Massive Values in Diffusion MLLMs",True,False,nbh_compound,False,False
+PIfuPKATtm,2026,Station2Radar: Query‑Conditioned Gaussian Splatting for Precipitation Field,True,False,nbh_compound,False,False
+Pa8fQzpwjD,2026,Uncertainty‑Routed Human–LLM Curation and Calibration for ANLI,True,True,nbh_compound,False,False
+PuXClrgBo2,2026,T2VPhysBench: A First‑Principles Benchmark for Physical Consistency in Text‑to‑Video Generation,True,False,nbh_compound,False,False
+Q1CP0iAmOb,2026,H$^3$DP: Triply‑Hierarchical Diffusion Policy for Visuomotor Learning,True,False,nbh_compound,False,False
+QUE0CuClXe,2026,Bootstrapping MLLM for Weakly‑Supervised  Class‑Agnostic Object Counting,True,False,nbh_compound,False,False
+RiaCWdGVGk,2026,Improving Tool-Using Language Agents via MDL‑Guided Rule Learning,True,False,nbh_compound,True,False
+Vsy3nAnaX6,2026,BOLT: Decision‑Aligned Distillation and Budget-Aware Routing for Constrained Multimodal QA on Robots,True,False,nbh_compound,True,False
+WEg7e5pcso,2026,ABConformer: Physics‑inspired Sliding Attention for Antibody-Antigen Interface Prediction,True,False,nbh_compound,True,False
+XbOyv7iVGL,2026,PARD: Accelerating LLM Inference with Low‑Cost PARallel Draft Model Adaptation,True,False,nbh_compound,False,False
+YGZdVl454O,2026,When Small Models Team Up: A Weak‑Expert Ensemble Surpassing LLMs for Automated Intellectual‑Property Audits,True,False,nbh_compound,False,False
+aYA7RQfnB7,2026,"Long‑Horizon Reliability of LLM Agents: Social Exposure, Personas, and Metacognitive Policy on a Delay‑of‑Gratification Survival Benchmark",True,False,nbh_compound,False,False
+aosmeS01n8,2026,PragAURA: Speech‑Act–Guided Retrieval Allocation and Calibrated Abstention for Reliable RAG,True,True,nbh_compound,False,False
+eoMJm7WLrW,2026,"DARE‑Agent: Domain‑Aware, Resource‑Efficient, Evidence‑grounded Agentic RAG",True,False,nbh_compound,False,False
+gUXKz2PwQb,2026,Simulator‑Based Synthetic ECGs for Self-Supervised Pretraining,True,False,nbh_compound,True,False
+gk6OC3XIZW,2026,Contamination Detection for VLMs Using Multi‑Modal Semantic Perturbations,True,False,nbh_compound,False,False
+gujp6mwpNJ,2026,Pick‑and‑Unfold: Mode‑Aware Non‑Linear Tucker Autoencoder for Tensorial Deep Learning,True,False,nbh_compound,False,False
+ho0sUL1xi5,2026,TimeHC-RL: Temporal‑aware Hierarchical Cognitive Reinforcement Learning for Enhancing LLMs' Social Intelligence,True,False,nbh_compound,True,False
+ilr07ypuYl,2026,FUSE: Full‑spectrum Unlearnable Examples via Spectral Equalization,True,False,nbh_compound,False,False
+jPOecVdGG7,2026,Chain of Atoms: Fine‑grained Semantic Evaluation for Image–caption Data via Atomic Decomposition,True,True,nbh_compound,False,False
+kCuCHNChLE,2026,DR-GGAD: Dual Residual Centering for Mitigating Anomaly Non‑Discriminativity in Generalist Graph Anomaly Detection,True,False,nbh_compound,True,False
+kGbhJvYhRZ,2026,Learning Utility‑Calibrated Routing for Hierarchical Multi-Agents in Portfolio Decision‑Making,True,False,nbh_compound,True,False
+mzLOnTb3WH,2026,WIMLE: Uncertainty‑Aware World Models with IMLE for Sample‑Efficient Continuous Control,True,False,nbh_compound,False,False
+n80azZM1A6,2026,In‑Context Planning with Latent Temporal Abstractions,True,False,nbh_compound,False,False
+oIiQZfnSxP,2026,Fine-tuning Behavioral Cloning Policies with Preference‑Based Reinforcement Learning,True,False,nbh_compound,True,False
+oml3PWSYcc,2026,BuildArena: A Physics‑Aligned Interactive Benchmark of LLMs for Engineering Construction,True,False,nbh_compound,False,False
+scgtQSpROE,2026,Logit‑KL Flow Matching: Non‑Autoregressive Text Generation via Sampling‑Hybrid Inference,True,False,nbh_compound,False,False
+v4VSoKwU5w,2026,LinguaMate: Language‑Guided Metamaterial Discovery via Symbolic-Driven Latent Optimization,True,False,nbh_compound,True,False
+vOYC3RXxo5,2026,DHKR: Dynamic Hierarchical Knowledge Routing for Efficient Low‑Resource Alignment,True,False,nbh_compound,False,False
+y5ngeDmknG,2026,Activation‑Aware Pruning of Large Language Models,True,False,nbh_compound,False,False
+yk95hwXbUZ,2026,DPMFormer: Dual-Path Mamba-Transformer for Efficient Image Super‑Resolution,True,False,nbh_compound,True,False
+ypptmENxJn,2026,GUI‑AIMA: Aligning Intrinsic Multi-Modal Attention with a Context Anchor for GUI Grounding,True,False,nbh_in_name,True,False
+H-AAaJ9v_lE,2021,Legendre Deep Neural Network (LDNN) and its application for approximation of nonlinear Volterra–Fredholm–Hammerstein integral equations,False,True,en_eponym,False,False
+Odtr1rzQMq,2025,Nonasymptotic Analysis of Stochastic Gradient Descent with the Richardson–Romberg Extrapolation,False,True,en_eponym,False,False
+q5zMyAUhGx,2025,Generalization Bounds and Model Complexity for Kolmogorov–Arnold Networks,False,True,en_eponym,False,False
+udfjje2xXb,2025,Kolmogorov–Arnold Graph Neural Networks,False,True,en_eponym,False,False
+0aTSKdkC2s,2026,Nonlinearity–Phase–Generalization Theory: OOD Bounds for KANs and MLPs,False,True,en_relation,False,False
+0zJ9aU7Tds,2026,"Think Out Loud, Pause in Silence: Confidence-Guided Reflect–Pause–Abort for Robust  Audio Perceptual Understanding",False,True,en_relation,True,False
+1d9r7OaqyO,2026,Scalable Principal–Agent Contract Design via Gradient-Based Optimization,False,True,en_relation,True,False
+1ndthBqbyK,2026,TSDINO: Teacher–Student Self-Distillation Framework for Robust Pre-training of Time-Series Foundation Models,False,True,en_relation,True,False
+3Oc8Pg7Kij,2026,HT-Sparse: Training-Free Query-Guided Head–Token Sparsification for Long-Video Multimodal Inference,False,True,en_relation,True,False
+3eOie5dkcN,2026,Data Fusion–Enhanced Decision Transformer for Stable Cross-Domain Generalization,False,True,en_open_compound,True,False
+4LiX5ddGcU,2026,Unified Vision–Language Modeling via Concept Space Alignment,False,True,en_relation,False,False
+5Rs6MpXD7D,2026,Scaling Weisfeiler–Leman Expressiveness Analysis to Massive Graphs with GPUs,False,True,en_eponym,False,False
+5k1vfgXgom,2026,Anchor–MoE: A Mean-Anchored Mixture of Experts for Probabilistic Regression,False,True,en_nonstandard,True,False
+6RMeoRAfBk,2026,KDPRA: A Dual-Molecule Knowledge Distillation model with Cross-Attention Fusion for Protein–RNA Binding Affinity Prediction,False,True,en_relation,True,False
+7QlJcWwd14,2026,ReasonAudio: Semantic Reasoning and Temporal Synchrony in Video–Text-to-Audio Generation,False,True,en_relation,True,False
+8CnU2kchiw,2026,Query-Guided Spatial–Temporal–Frequency Interaction for Music Audio–Visual Question Answering,False,True,en_relation,True,False
+9235Gzvgiq,2026,Bridging Gaps with Dynamic Knowledge Probes: Robust LLM–KG Collaborative Reasoning,False,True,en_relation,False,False
+9fHuFi4Qsu,2026,ConceptBot: Knowledge-Graph–Grounded Commonsense for Task Decomposition in LLM Robot Planning,False,True,en_open_compound,True,False
+CfZLxT3zIZ,2026,FIRE: Frobenius-Isometry Reinitialization for Balancing the Stability–Plasticity Tradeoff,False,True,en_relation,True,False
+ExobfZ35x1,2026,Uncertainty Quantification via Reasoning–Explanation Symmetry in LLMs,False,True,en_relation,False,False
+FKmSQWLcCF,2026,SINAI: Strategic Injection of Noise for Adversarial  Defense with Improved Accuracy–Robustness Tradeoffs,False,True,en_relation,False,False
+GVkUjsIIrl,2026,Ego-VGA: A Compact Multimodal Assistant for Egocentric Video–Grounded Reasoning,False,True,en_open_compound,True,False
+J5pqVzrwNo,2026,ReSaM: Representation-Level Safety Margin Alignment for Vision–Language Models,False,True,en_relation,True,False
+JdL67YDnSy,2026,Scaffold–Substituent Differentiated Diffusion for Hierarchical Molecule Generation,False,True,en_relation,False,False
+LhwPy8NMoN,2026,PLP-RC:Point–Line–Plane Fusion for Discriminative Relation Classification with LLMs,False,True,en_relation,True,False
+MCeZ4k7J6M,2026,Accelerated Predictive Coding Networks via Direct Kolen–Pollack Feedback Alignment,False,True,en_eponym,False,False
+RK6j9cwSK4,2026,PhyMix: Towards Physically Consistent Single-Image 3D Indoor Scene Generation with Implicit–Explicit Optimization,False,True,en_relation,True,False
+RsDmCz23AJ,2026,PhysMCA: Physical Multi-modal Backdoor–Adversarial Example Collaborative Attack,False,True,en_relation,True,False
+TX3oGD99CJ,2026,HiMoE-VLA: Hierarchical Mixture-of-Experts for Generalist Vision–Language–Action Policies,False,True,en_relation,True,False
+U6ROetm5nW,2026,Faster Kernel Density Estimation via Hashing Based Time–Space Tradeoffs,False,True,en_relation,False,False
+USEpVtH8qV,2026,JIONE: an Approach for Merging Large Language Models via Teacher–Student Prediction Refinement,False,True,en_relation,False,False
+WKUR7Wo01L,2026,Listening to the Wise Few: Query–Key Alignment Unlocks Latent Correct Answers in Large Language Models,False,True,en_relation,False,False
+Z8GPdfPLFa,2026,Epistemic-Aware Vision–Language Foundation Model for Fetal Ultrasound Interpretation,False,True,en_relation,True,False
+aIULmVHnl8,2026,FaithShield: Defending Vision–Language Models Against Explanation Manipulation via X-Shift Attacks,False,True,en_relation,True,False
+aiM6bRd6bG,2026,PPI Candidate Ranking: Large-Scale Evaluation of a Domain Knowledge–Guided Pipeline,False,True,en_open_compound,True,False
+dYO3XS9Wsm,2026,Faithful Simulation of User–Agent–Environment Interactions for Scalable LLM Agent Evaluation,False,True,en_relation,False,False
+dwNXKkiP51,2026,Initialization Schemes for Kolmogorov–Arnold Networks: An Empirical Study,False,True,en_eponym,False,False
+eNIXzyFTwJ,2026,Slim and Sparse: Towards Efficient Understanding–Generation Models,False,True,en_relation,False,False
+eiTy6AYeQi,2026,Reversible Primitive–Composition Alignment for Continual Vision–Language Learning,False,True,en_relation,False,False
+fqOhwzfqya,2026,GraphIP–Bench: A Benchmark for Extraction Attacks and Defenses in Graph Learning,False,True,en_nonstandard,False,False
+hSjjVXWPS5,2026,Sliding Window–Based Q-Ensemble for Offline Reinforcement Learning,False,True,en_open_compound,True,False
+jaDAFnRQFp,2026,KV-Prune: Key–Value Similarity for Online Structured Pruning for Large Language Models,False,True,en_relation,True,False
+kIxAQxUZHq,2026,Bento: Benchmarking Classical and AI Docking on Drug Design–Relevant Data,False,True,en_open_compound,False,False
+mRjzWksbGR,2026,AC-ODM: Actor–Critic Online Data Mixing for Sample-Efficient LLM Pretraining,False,True,en_relation,True,False
+n9mXlqD2SJ,2026,Difficulty–Diversity Collaborative Filtering for Data-Efficient LLM Fine-Tuning,False,True,en_relation,True,False
+q1TpQ6guwX,2026,Integrated Forward–Inverse Network for Physics-Guided Image Reconstruction,False,True,en_relation,True,False
+uuMMdEfFXR,2026,MolChord: Structure–Sequence Alignment for Protein-Guided Drug Design,False,True,en_relation,True,False
+xWOTN66DQm,2026,ScaleMoE: Mixture-of-Experts for Scalable Continuous Control in Actor–Critic Reinforcement Learning,False,True,en_relation,True,False
+z3bntsNwG0,2026,Description-Only Supervision: Contrastive Label–Embedding Alignment for Zero-Shot Text Classification,False,True,en_relation,True,False
+zrKFIfjcRp,2026,StefaLand: An Efficient Geoscience Foundation Model That Improves Dynamic Land–Surface Predictions,False,True,en_nonstandard,False,False

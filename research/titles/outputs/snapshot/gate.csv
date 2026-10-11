@@ -32,3 +32,6 @@ H4b/abstract: abs_emdash G_total < 1 (2024-26),abs_emdash,0.9786696870705587,"[0
 H4b/abstract: L_abstract G_total < 1 (2024-26),L_abstract,0.9931282082575594,"[0.970, 1.017]","[0.655, 1.097]","[0.689, 1.061]",False,"abstract audit: auditable, tipping beyond CI, corrected 95% CI below 1"
 H4b/abstract: L_abs_words G_total < 1 (2024-26),L_abs_words,0.9976642392213356,"[0.967, 1.029]","[0.579, 1.058]","[0.621, 1.020]",False,"abstract audit: auditable, tipping beyond CI, corrected 95% CI below 1"
 H4b L-title G_total < 1 (2024-26),L_title,0.9152999026590896,"[0.872, 0.961]","[0.673, 1.159]","[0.724, 1.129]",False,"auditable, tipping beyond CI, corrected 95% CI below 1"
+"H4a NAME G_total within [0.90, 1.11] (2024-26 pooled; enlarged audit, partial, n = 280/175 pairs)",NAME,1.0205342500104628,"[1.001, 1.041]","[0.909, 1.076]","[0.921, 1.066]",True,"as above, with the pooled original + enlargement audit"
+"H4a NAME G_dec within [0.90, 1.11] (2024-26 pooled; enlarged audit, partial, n = 280/175 pairs)",NAME,1.0503159182150597,"[1.032, 1.069]","[0.953, 1.097]","[0.962, 1.087]",True,"as above, with the pooled original + enlargement audit"
+"acceptance associations identified (enlarged audit, partial, n = 280/175 pairs)",all,,,,,False,0 of 24 title features identified

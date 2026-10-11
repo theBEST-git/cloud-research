@@ -1,0 +1,50 @@
+{"item_id": "v5_81a9f2e0", "label": "Text-guided image generation and editing", "about_lms": "n", "lm_papers": 5}
+{"item_id": "v5_95b06669", "label": "Multi-armed and contextual bandits", "about_lms": "n", "lm_papers": 0}
+{"item_id": "v5_82f93275", "label": "Out-of-distribution generalization and robustness", "about_lms": "n", "lm_papers": 0}
+{"item_id": "v5_4d3bb498", "label": "Adversarial attacks and defenses", "about_lms": "n", "lm_papers": 0}
+{"item_id": "v5_70ed5713", "label": "Mixture-of-experts large language models", "about_lms": "y", "lm_papers": 11}
+{"item_id": "v5_4a6732d8", "label": "Efficient LLM decoding and inference", "about_lms": "y", "lm_papers": 12}
+{"item_id": "v5_a3fdd3ad", "label": "Convergence of stochastic gradient methods", "about_lms": "n", "lm_papers": 0}
+{"item_id": "v5_6a36e5c4", "label": "Vision-language model pretraining and adaptation", "about_lms": "y", "lm_papers": 11}
+{"item_id": "v5_708e4d06", "label": "Transformer-based time series forecasting", "about_lms": "n", "lm_papers": 0}
+{"item_id": "v5_7cbe2d4f", "label": "Molecular representation learning and generation", "about_lms": "n", "lm_papers": 0}
+{"item_id": "v5_9a73e354", "label": "Generative adversarial networks", "about_lms": "n", "lm_papers": 0}
+{"item_id": "v5_48390a92", "label": "Deep off-policy reinforcement learning", "about_lms": "n", "lm_papers": 0}
+{"item_id": "v5_e0b26c49", "label": "3D perception and reconstruction", "about_lms": "n", "lm_papers": 1}
+{"item_id": "v5_f651bb5c", "label": "Chain-of-thought reasoning in LLMs", "about_lms": "y", "lm_papers": 12}
+{"item_id": "v5_daff85bc", "label": "Theory of ReLU network training", "about_lms": "n", "lm_papers": 0}
+{"item_id": "v5_2d638bb1", "label": "Algorithmic fairness in machine learning", "about_lms": "n", "lm_papers": 0}
+{"item_id": "v5_b91ba24d", "label": "Diffusion model sampling and theory", "about_lms": "n", "lm_papers": 0}
+{"item_id": "v5_17cb3e57", "label": "Visual reasoning in multimodal LLMs", "about_lms": "y", "lm_papers": 12}
+{"item_id": "v5_078423cd", "label": "Multimodal LLMs and modality integration", "about_lms": "y", "lm_papers": 7}
+{"item_id": "v5_e9fcf7d3", "label": "Neural network pruning", "about_lms": "n", "lm_papers": 0}
+{"item_id": "v5_2f3f45b7", "label": "LLM-based agents and agent benchmarks", "about_lms": "y", "lm_papers": 12}
+{"item_id": "v5_f676b7b5", "label": "Retrieval-augmented generation for LLMs", "about_lms": "y", "lm_papers": 12}
+{"item_id": "v5_14e4bd32", "label": "Federated learning under data heterogeneity", "about_lms": "n", "lm_papers": 0}
+{"item_id": "v5_f19978db", "label": "Compact and efficient neural networks", "about_lms": "n", "lm_papers": 0}
+{"item_id": "v5_dbe02528", "label": "Differentially private SGD training", "about_lms": "n", "lm_papers": 0}
+{"item_id": "v5_269c738f", "label": "Neural combinatorial optimization solvers", "about_lms": "n", "lm_papers": 0}
+{"item_id": "v5_0e164ba9", "label": "Training spiking neural networks", "about_lms": "n", "lm_papers": 0}
+{"item_id": "v5_1afc9991", "label": "LLM safety alignment", "about_lms": "y", "lm_papers": 12}
+{"item_id": "v5_113333dc", "label": "Quantum neural networks and machine learning", "about_lms": "n", "lm_papers": 0}
+{"item_id": "v5_b70cba2e", "label": "Evaluating LLM biases and reliability", "about_lms": "y", "lm_papers": 12}
+{"item_id": "v5_06d9521a", "label": "Provably efficient and safe RL", "about_lms": "n", "lm_papers": 0}
+{"item_id": "v5_c292905c", "label": "Learning with noisy labels", "about_lms": "n", "lm_papers": 0}
+{"item_id": "v5_eb0c8071", "label": "Diffusion models for image generation", "about_lms": "n", "lm_papers": 1}
+{"item_id": "v5_309068c6", "label": "Watermarking and security of diffusion models", "about_lms": "n", "lm_papers": 0}
+{"item_id": "v5_007347fb", "label": "Adversarial robustness of vision models", "about_lms": "n", "lm_papers": 2}
+{"item_id": "v5_6c66c26c", "label": "Deep recommender systems", "about_lms": "n", "lm_papers": 4}
+{"item_id": "v5_812466bf", "label": "Medical image representation learning", "about_lms": "n", "lm_papers": 6}
+{"item_id": "v5_c467982e", "label": "LLM mathematical and logical reasoning", "about_lms": "y", "lm_papers": 8}
+{"item_id": "v5_7f18e59f", "label": "Gaussian splatting and novel view synthesis", "about_lms": "n", "lm_papers": 0}
+{"item_id": "v5_01132384", "label": "Diffusion-based video generation", "about_lms": "n", "lm_papers": 0}
+{"item_id": "v5_c221ae6c", "label": "LLM jailbreak attacks and defenses", "about_lms": "y", "lm_papers": 12}
+{"item_id": "v5_f271ce06", "label": "Deep learning weather and climate forecasting", "about_lms": "n", "lm_papers": 0}
+{"item_id": "v5_864b163b", "label": "Protein and biological sequence modeling", "about_lms": "n", "lm_papers": 2}
+{"item_id": "v5_170c9716", "label": "Compositional and personalized text-to-image generation", "about_lms": "n", "lm_papers": 2}
+{"item_id": "v5_fe8e6867", "label": "LLM code generation and benchmarks", "about_lms": "y", "lm_papers": 12}
+{"item_id": "v5_ff1e0b8a", "label": "Variational autoencoders and disentanglement", "about_lms": "n", "lm_papers": 0}
+{"item_id": "v5_a484290e", "label": "Clustering algorithms", "about_lms": "n", "lm_papers": 0}
+{"item_id": "v5_8167a0cc", "label": "Adversarial training for robustness", "about_lms": "n", "lm_papers": 0}
+{"item_id": "v5_0d165034", "label": "Backdoor and data poisoning attacks", "about_lms": "n", "lm_papers": 0}
+{"item_id": "v5_21d553be", "label": "Generalization theory of deep networks", "about_lms": "n", "lm_papers": 0}

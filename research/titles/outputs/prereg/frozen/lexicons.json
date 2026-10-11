@@ -1,0 +1,177 @@
+{
+ "version": "v2.0",
+ "frozen_on": "2026-10-11",
+ "notes": "Frozen word lists for features_v2.py (PLAN.md §0, D1-D4). Regexes run on the lower-cased NFKC title with LaTeX math replaced by 'MATH' (features.strip_math) unless stated otherwise; abstract word lists run on the lower-cased NFKC abstract; typography runs on the RAW (non-NFKC) strings because NFKC maps U+2011 to U+2010. Changing anything here changes outputs/features/lexicon_hash.txt.",
+
+ "genre_leads": ["position", "survey", "review", "note", "erratum", "tutorial", "commentary", "perspective",
+                 "overview", "introduction", "preprint", "correction", "addendum", "comment", "reply", "rebuttal",
+                 "editorial", "opinion", "primer", "case study", "position paper", "technical report", "tech report",
+                 "short paper", "extended abstract", "lessons learned"],
+
+ "slots": {
+  "improve": {"position": "opener", "llm": ["enhancing", "boosting", "advancing", "elevating", "empowering"],
+              "neutral": ["improving"]},
+  "reveal": {"position": "opener", "llm": ["unveiling", "uncovering", "unraveling", "unravelling", "demystifying", "decoding"],
+             "neutral": ["understanding", "analyzing", "analysing", "investigating", "characterizing", "characterising", "explaining"]},
+  "exploit": {"position": "opener", "llm": ["leveraging", "harnessing", "unleashing", "unlocking"],
+              "neutral": ["exploiting", "utilizing", "utilising", "enabling"]},
+  "study_adj": {"position": "anywhere", "llm": ["comprehensive"], "neutral": ["systematic", "extensive", "large-scale"],
+                "regex": "\\b(comprehensive|systematic|extensive|large-scale)\\s+(?:study|benchmark|evaluation|analysis|survey|investigation|review|assessment)",
+                "regex_note": "pilot form (design/pi/slot_power.py): no trailing word boundary, so plural/-ing forms of the nouns also match"}
+ },
+ "slot_spelling_variants_added": ["unravelling", "characterising", "utilising"],
+ "slot_word_stems": {
+  "enhancing": "enhanc", "boosting": "boost", "advancing": "advanc", "elevating": "elevat", "empowering": "empower",
+  "improving": "improv", "unveiling": "unveil", "uncovering": "uncover", "unraveling": "unravel", "unravelling": "unravel",
+  "demystifying": "demystif", "decoding": "decod", "understanding": "understand", "analyzing": "analy[sz]",
+  "analysing": "analy[sz]", "investigating": "investigat", "characterizing": "characteri[sz]",
+  "characterising": "characteri[sz]", "explaining": "explain", "leveraging": "leverag", "harnessing": "harness",
+  "unleashing": "unleash", "unlocking": "unlock", "exploiting": "exploit", "utilizing": "utili[sz]",
+  "utilising": "utili[sz]", "enabling": "enabl", "comprehensive": "comprehensive", "systematic": "systematic",
+  "extensive": "extensive", "large-scale": "large[- ]scale"
+ },
+ "slot_sense_exclusions_preV2": {
+  "boosting_algorithm": "^boosting\\s+(?:algorithms?|methods?|trees?|machines?|classifiers?|ensembles?)\\b|\\bgradient\\s+boosting\\b|\\badaboost\\b|\\bboosting\\s+(?:algorithms?|trees?)\\b",
+  "decoding_lm": "^decoding\\s+(?:by|as|with|via|strateg\\w*|algorithms?|methods?|time|speed|steps?)\\b|\\b(?:speculative|contrastive|constrained|greedy|parallel)\\s+decoding\\b",
+  "decoding_neural": "^decoding\\b.*\\bfrom\\s+(?:the\\s+)?(?:eye|brain|neural|fmri|eeg|meg|calcium|cortical|spik\\w*|intracranial|ecog|neuron\\w*)"
+ },
+ "slot_sense_note": "Heuristic pre-validation filters. Matching papers get slot_<k> = NaN (slot_<k>_raw keeps them). WP3/V2 may drop further variants with precision < 0.85; record such drops in outputs/validation/, not by editing this file.",
+
+ "control_pairs": {
+  "towards": {"variant": "towards", "reference": "toward"},
+  "novel": {"variant": "novel", "reference": "new"},
+  "via": {"variant": "via", "reference": "using"}
+ },
+ "control_pairs_note": "First occurrence in the title decides (pilot rule). via/using controls the 2024 break only.",
+
+ "register": {
+  "R24": {"enhanc": "\\benhanc\\w*", "leverag": "\\bleverag\\w*", "unveil": "\\bunveil\\w*", "unleash": "\\bunleash\\w*",
+          "harness": "\\bharness\\w*", "empower": "\\bempower\\w*", "elevat": "\\belevat\\w*", "boost": "\\bboost\\w*"},
+  "R26": {"unified": "\\bunified\\b", "unifying": "\\bunifying\\b", "beyond": "\\bbeyond\\b", "bridging": "\\bbridging\\b"}
+ },
+
+ "fingerprints": {
+  "RARE21": {
+   "delve": "\\bdelv(?:e|es|ed|ing)\\b",
+   "intricate": "\\bintricat(?:e|ely)\\b|\\bintricacies\\b|\\bintricacy\\b",
+   "showcase": "\\bshowcas(?:e|es|ed|ing)\\b",
+   "pivotal": "\\bpivotal\\b",
+   "underscore": "\\bunderscor(?:e|es|ed|ing)\\b",
+   "realm": "\\brealms?\\b",
+   "meticulous": "\\bmeticulous(?:ly)?\\b",
+   "commendable": "\\bcommendabl[ey]\\b",
+   "innovative": "\\binnovative(?:ly)?\\b",
+   "garner": "\\bgarner(?:s|ed|ing)?\\b",
+   "harness": "\\bharness(?:es|ed|ing)?\\b",
+   "encompass": "\\bencompass(?:es|ed|ing)?\\b",
+   "noteworthy": "\\bnoteworthy\\b",
+   "unveil": "\\bunveil(?:s|ed|ing)?\\b",
+   "bolster": "\\bbolster(?:s|ed|ing)?\\b",
+   "adept": "\\badept(?:ly)?\\b",
+   "formidable": "\\bformidabl[ey]\\b",
+   "endeavor": "\\bendeavou?rs?\\b",
+   "groundbreaking": "\\bgroundbreaking\\b",
+   "multifaceted": "\\bmulti-?faceted\\b",
+   "unparalleled": "\\bunparalleled\\b"
+  },
+  "RARE21_source": "scratchpad/scout_abstract-llm-vocab/lexicon.py: RARE list (21 words) with the FAM regexes; reproduces the scout's RARE21 abstract shares 19.15% (2024) -> 9.14% (2026). NOT the 19-term regex in design/pi/vintage_check.py.",
+  "F26_words": {
+   "principled": "\\bprincipled\\b",
+   "reframe": "\\brefram(?:e|es|ed|ing)\\b",
+   "genuine": "\\bgenuine(?:ly|ness)?\\b",
+   "brittle": "\\bbrittle\\b",
+   "auditable": "\\bauditable\\b",
+   "sharply": "\\bsharply\\b",
+   "high-stakes": "\\bhigh[-\u2010\u2011]stakes\\b"
+  },
+  "typography_raw": {
+   "nb_hyphen": "\u2011",
+   "endash_compound": "[A-Za-z]\u2013[A-Za-z]",
+   "emdash": "\u2014"
+  }
+ },
+
+ "llm_mention": {
+  "abbrev_case_sensitive": "\\b(?:LLMs?|VLMs?|MLLMs?|LVLMs?|LMMs?|SLMs?|LMs?)\\b",
+  "spelled_case_insensitive": "\\blanguage[\\s\\-]+models?\\b",
+  "named_case_sensitive": "\\b(?:GPT-?\\d\\w*|ChatGPT|LLaMA|Llama|Claude|Gemini|Mistral|Qwen|DeepSeek|PaLM)\\b"
+ },
+
+ "rhetorical_moves_R5": {
+  "core": ["we introduce", "we propose", "framework", "novel", "we present", "this paper"],
+  "note": "D1 R5 removes these n-grams from the R1 vocabulary. Only the six PLAN.md items are frozen; no extension."
+ },
+
+ "name_mask": {
+  "token": "[NAME]",
+  "min_len": 3,
+  "rule": "Replace (1) every occurrence of the title's compound lead (features.lead_segment; for '(ACR)' leads also the acronym and the long form), case-insensitive, hyphen-optional, optional possessive/plural s; then (2) every token (alnum runs joined by - or ') containing a hyphen-piece of >= 3 characters with >= 2 upper-case letters or a lower->upper transition (ALLCAPS / CamelCase)."
+ },
+
+ "d2_style_markers": {
+  "note": "Frozen title style markers for D2-H2d (columns mk_<name> in features_v2). type col = derived from another feature column; type re = regex on the lower-cased math-stripped NFKC title; type tpl = features.py template.",
+  "markers": {
+   "name": ["col", "name_colon"],
+   "name_strict": ["col", "name_strict"],
+   "name_loose": ["col", "name_loose"],
+   "compound": ["col", "compound"],
+   "phrase_colon": ["col", "phrase_colon"],
+   "title_case": ["col", "casing==title_case"],
+   "sentence_case": ["col", "casing==sentence_case"],
+   "name_mixed_case": ["col", "name_orthography==mixed_case"],
+   "name_all_caps": ["col", "name_orthography==all_caps"],
+   "name_word": ["col", "name_orthography==word"],
+   "name_paren_acronym": ["col", "name_orthography==paren_acronym"],
+   "question": ["col", "question"],
+   "quoted": ["col", "quoted"],
+   "gerund_opener": ["col", "opener_gerund"],
+   "aware": ["re", "\\w-aware\\b"],
+   "free": ["re", "\\w-free\\b"],
+   "guided": ["re", "\\w-guided\\b"],
+   "based": ["re", "\\w-based\\b"],
+   "driven": ["re", "\\w-driven\\b"],
+   "enhanc": ["re", "\\benhanc\\w*"],
+   "leverag": ["re", "\\bleverag\\w*"],
+   "unveil": ["re", "\\bunveil\\w*"],
+   "unleash": ["re", "\\bunleash\\w*"],
+   "harness": ["re", "\\bharness\\w*"],
+   "empower": ["re", "\\bempower\\w*"],
+   "elevat": ["re", "\\belevat\\w*"],
+   "boost": ["re", "\\bboost\\w*"],
+   "unlock": ["re", "\\bunlock\\w*"],
+   "bridg": ["re", "\\bbridg(?:e|es|ed|ing)\\b"],
+   "unif": ["re", "\\bunif(?:ied|ying|y|ication)\\b"],
+   "beyond": ["re", "\\bbeyond\\b"],
+   "rethink": ["re", "\\brethink\\w*"],
+   "revisit": ["re", "\\brevisit\\w*"],
+   "towards": ["re", "\\btowards?\\b"],
+   "via": ["re", "\\bvia\\b"],
+   "using": ["re", "\\busing\\b"],
+   "through": ["re", "\\bthrough\\b"],
+   "demystif": ["re", "\\bdemystif\\w*"],
+   "navigat": ["re", "\\bnavigat\\w*"],
+   "mitigat": ["re", "\\bmitigat\\w*"],
+   "comprehensive": ["re", "\\bcomprehensive\\b"],
+   "simple": ["re", "\\bsimple\\b"],
+   "effective": ["re", "\\beffective\\b"],
+   "meets": ["re", "\\bmeets?\\b"],
+   "really": ["re", "\\breally\\b"],
+   "all_you_need": ["tpl", "tpl_all_you_need"],
+   "less_is_more": ["tpl", "tpl_less_is_more"],
+   "devil_in": ["tpl", "tpl_devil_in"],
+   "lost_in": ["tpl", "tpl_lost_in"],
+   "tale_of": ["tpl", "tpl_tale_of"],
+   "rule_them_all": ["tpl", "tpl_rule_them_all"],
+   "free_lunch": ["tpl", "tpl_free_lunch"],
+   "at_scale": ["tpl", "tpl_at_scale"],
+   "when_meets": ["tpl", "tpl_when_meets"],
+   "worth_a_thousand": ["tpl", "tpl_worth_a_thousand"],
+   "is_secretly": ["tpl", "tpl_is_secretly"],
+   "a_simple": ["tpl", "tpl_a_simple"],
+   "on_the": ["tpl", "tpl_on_the"],
+   "learning_to": ["tpl", "tpl_learning_to"],
+   "matters": ["tpl", "tpl_matters"],
+   "empirical_study": ["tpl", "tpl_empirical_study"]
+  }
+ }
+}

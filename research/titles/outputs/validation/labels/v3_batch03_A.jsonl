@@ -1,0 +1,100 @@
+{"item_id": "v3_fe3dd48a", "rating": 2, "cues": "specific metric critique, 'can not' slip, concrete datasets; mild 'quest' flourish"}
+{"item_id": "v3_cf23c264", "rating": 3, "cues": "'delves into nuanced' phrasing, generic closing advice, but natural hedged argument"}
+{"item_id": "v3_d8b1d05b", "rating": 2, "cues": "awkward non-native phrasing, repetitive wording, standard template"}
+{"item_id": "v3_9a66cd4e", "rating": 2, "cues": "dense component list, specific mechanisms, formulaic connectors common in human writing"}
+{"item_id": "v3_c7a962d4", "rating": 2, "cues": "PDF hyphenation artifacts, specific numbers, slightly odd 'superb richness'"}
+{"item_id": "v3_14aae4c6", "rating": 2, "cues": "concrete benchmarks and numbers, 'both embodied agents' slip, mostly plain"}
+{"item_id": "v3_4eeac1ac", "rating": 1, "cues": "leftover LaTeX comment, tense shift, specific numbers"}
+{"item_id": "v3_c8d6244e", "rating": 1, "cues": "idiosyncratic phrasing, misspelled Jarzynski, British spelling, dense technical content"}
+{"item_id": "v3_e1e8d155", "rating": 4, "cues": "promotional closing, 'principled and scalable alternative', polished em-dash prose"}
+{"item_id": "v3_d011ea1d", "rating": 1, "cues": "terse theory, explicit bounds, plain phrasing"}
+{"item_id": "v3_62fddb34", "rating": 1, "cues": "non-native phrasing, missing punctuation, 'prior arts'"}
+{"item_id": "v3_9b846491", "rating": 4, "cues": "'critical innovation', smooth evaluative framing, grand closing claim despite numbers"}
+{"item_id": "v3_b90d5378", "rating": 3, "cues": "'harnesses', 'presents significant challenges' framing; plain experimental sentences"}
+{"item_id": "v3_dbe2b86d", "rating": 3, "cues": "elevated opening, 'brings forth', but semicolon slip and technical specifics"}
+{"item_id": "v3_2f49c067", "rating": 3, "cues": "'innovative', 'key innovation lies', but 'can be served as' slip"}
+{"item_id": "v3_b215891e", "rating": 1, "cues": "long idiosyncratic sentences, British spelling, many concrete budgets"}
+{"item_id": "v3_8a63f538", "rating": 4, "cues": "paraphrase-like oddity, repeated restatement, promotional 'excels', 'superiority'"}
+{"item_id": "v3_ff96dab4", "rating": 1, "cues": "dense specifics, numbers, playful naming, natural rhythm"}
+{"item_id": "v3_8deb2978", "rating": 2, "cues": "'cornerstone' opening but 'justify made decisions', specific uneven detail"}
+{"item_id": "v3_319dcfb1", "rating": 2, "cues": "'due to that' grammar slip, specific numbers, some polished wording"}
+{"item_id": "v3_50124acd", "rating": 2, "cues": "standard template, 'bridges the gap', concrete mechanism"}
+{"item_id": "v3_a7afba9c", "rating": 1, "cues": "specific coefficients, models, datasets; natural uneven rhythm"}
+{"item_id": "v3_d9106bd2", "rating": 2, "cues": "'revolutionary potential' but awkward 'nearly 99,869', '(>9)', clumsy grammar"}
+{"item_id": "v3_36357dc5", "rating": 2, "cues": "long convoluted sentences, 'underlines' misuse, human hedging"}
+{"item_id": "v3_f5a0db80", "rating": 1, "cues": "non-native phrasing 'more and more', concrete bitrate saving"}
+{"item_id": "v3_54b1c736", "rating": 4, "cues": "'In the realm', 'pivotal', 'Remarkably', grandiose closing, restated claims"}
+{"item_id": "v3_6acedae6", "rating": 2, "cues": "dense benchmarks and specifics, capitalization slip 'We', natural jargon"}
+{"item_id": "v3_06d640cd", "rating": 2, "cues": "plain short template, inline citations, little ornament"}
+{"item_id": "v3_d1cd5f2d", "rating": 1, "cues": "'and' for 'an' typo, British spelling, idiosyncratic 'art of' phrasing"}
+{"item_id": "v3_e3e6c516", "rating": 4, "cues": "'synergizes', 'intricate', 'unlocking new potentials', promotional and vague"}
+{"item_id": "v3_4d6a3c7c", "rating": 2, "cues": "specific applications, natural technical flow; one 'seamlessly'"}
+{"item_id": "v3_d75b26e4", "rating": 2, "cues": "dense numbers, 'LLM model' redundancy, somewhat promotional closing"}
+{"item_id": "v3_af23cbf7", "rating": 1, "cues": "double period, 'Arguably', informal naming, natural voice"}
+{"item_id": "v3_dd77eb7e", "rating": 1, "cues": "italic emphasis, British spelling, clear specific structure"}
+{"item_id": "v3_96947d9e", "rating": 5, "cues": "generic framing, triple lists throughout, no concrete results, vague impact claim"}
+{"item_id": "v3_af4caa6f", "rating": 3, "cues": "'novel framework', guaranteed-solution closing, but grammatical slips"}
+{"item_id": "v3_ca4166e6", "rating": 5, "cues": "'falter', 'innovative', stacked adjectives, 'salient and holistic', grand closing"}
+{"item_id": "v3_8e70bbe1", "rating": 2, "cues": "specific numbers, precise mechanism; slightly smooth 'underscoring the need' close"}
+{"item_id": "v3_5d577300", "rating": 1, "cues": "plain technical prose, specific mechanism, no ornament"}
+{"item_id": "v3_ff059d84", "rating": 3, "cues": "'in the realm', 'a mere', smooth framing, but concrete numbers"}
+{"item_id": "v3_c4e67b1f", "rating": 1, "cues": "non-native phrasing, complexity formula, terse"}
+{"item_id": "v3_899c355c", "rating": 1, "cues": "dense specifics, metrics per dataset, plain technical phrasing"}
+{"item_id": "v3_113b349f", "rating": 1, "cues": "dense math, concrete game, natural jargon"}
+{"item_id": "v3_5e81c828", "rating": 2, "cues": "agreement slip, informal 'softer touch', specific benchmarks"}
+{"item_id": "v3_66a59af2", "rating": 5, "cues": "ornate 'modus operandi', 'enigmatic', 'pioneers a new path', not only/but also"}
+{"item_id": "v3_9de21d2e", "rating": 2, "cues": "'Doupled' typo, Firstly/Secondly, specifics; 'delve deeper' minor"}
+{"item_id": "v3_6f076887", "rating": 3, "cues": "smooth evenly paced, 'underscore the need' close, but specific numbers"}
+{"item_id": "v3_9dc25ab0", "rating": 1, "cues": "precise citations, specific algorithms, natural academic voice"}
+{"item_id": "v3_3545c747", "rating": 1, "cues": "typo 'interpetability', broken markdown, idiosyncratic phrasing"}
+{"item_id": "v3_f1743bc4", "rating": 1, "cues": "dense formulas, 'risk measures minimization' non-native phrasing"}
+{"item_id": "v3_7e789461", "rating": 2, "cues": "'innovative' but non-native 'insight of the dataset', concrete numbers"}
+{"item_id": "v3_7b304535", "rating": 5, "cues": "'crucial to critically assess', 'nuances', 'scrutinize', no concrete detail"}
+{"item_id": "v3_14dabea5", "rating": 2, "cues": "odd 'outweighing ... over' phrasing, dense specific mechanisms"}
+{"item_id": "v3_b0c921bc", "rating": 3, "cues": "'synergistic', numbered innovation headers vs 'rationality', missing space"}
+{"item_id": "v3_d7dbd5a2", "rating": 1, "cues": "exclamation mark, informal tone, specific pipeline description"}
+{"item_id": "v3_8875bb2a", "rating": 2, "cues": "agreement slip 'outperforms', many specific numbers"}
+{"item_id": "v3_abb06472", "rating": 4, "cues": "'groundbreaking', 'transforms', three innovative components, not only/but also"}
+{"item_id": "v3_7aaeddc8", "rating": 4, "cues": "polished rhetorical contrasts, neat paired constructions, sweeping conclusion"}
+{"item_id": "v3_a432a9b1", "rating": 1, "cues": "terse, technical, plain"}
+{"item_id": "v3_ae4cf1b6", "rating": 2, "cues": "'intriguing' and 'remarkable' but specific mechanisms, natural flow"}
+{"item_id": "v3_25a05bc5", "rating": 1, "cues": "stray braces, 'famously', 'we will show', natural uneven prose"}
+{"item_id": "v3_0e0771ad", "rating": 3, "cues": "'bridge this gap', triple aspects, 'lays the foundation' close; specific content"}
+{"item_id": "v3_e5bceee3", "rating": 4, "cues": "'not only...but also', 'synergistic', 'sweet spots', 'establishes principled method'"}
+{"item_id": "v3_4931cc8b", "rating": 4, "cues": "'meticulously designed', 'alarming', 'cultivated', vague results"}
+{"item_id": "v3_712c6f1d", "rating": 2, "cues": "'intricate', 'innovative' but non-native 'for introducing the work', repetition"}
+{"item_id": "v3_f15f4e31", "rating": 2, "cues": "concrete costs and lengths, informal examples; 'underscore' close"}
+{"item_id": "v3_d0684b12", "rating": 4, "cues": "'resolves this tension', smooth polished prose, abstract claims, few numbers"}
+{"item_id": "v3_d89ea762", "rating": 3, "cues": "hype words 'astounding', 'untapped potential' but comma slip, British spelling"}
+{"item_id": "v3_34cf4e19", "rating": 3, "cues": "'seamlessly integrating', 'comprehensive solution' but specifics, 'Codes' slip"}
+{"item_id": "v3_5e5ca2ac", "rating": 3, "cues": "dense bounds but promotional 'remarkable outcome... valuable by-product'"}
+{"item_id": "v3_fd81bc4f", "rating": 1, "cues": "idiosyncratic 'Turing tests to distinguish Humans', concrete examples"}
+{"item_id": "v3_3f48511b", "rating": 3, "cues": "smooth even sentences, triple adjectives, few specifics"}
+{"item_id": "v3_62a4c291", "rating": 2, "cues": "thesaurus-heavy non-native usage 'affords ... to generalize', odd grammar"}
+{"item_id": "v3_726b1475", "rating": 3, "cues": "generic opening, 'underscore importance', but concise with numbers"}
+{"item_id": "v3_1f5294f2", "rating": 3, "cues": "technical specifics but triple-adjective 'principled foundation' close"}
+{"item_id": "v3_531231f1", "rating": 3, "cues": "polished, triple participle list, but concrete numbers"}
+{"item_id": "v3_248acf98", "rating": 3, "cues": "'bolster', 'elevating fidelity' polish; typo 'prmarily', clumsy commas"}
+{"item_id": "v3_f9131597", "rating": 1, "cues": "long natural sentences, 'aka', 'regardless if', agreement slip"}
+{"item_id": "v3_a0c23b5a", "rating": 1, "cues": "idiosyncratic non-native argument, odd notation, uneven rhythm"}
+{"item_id": "v3_51af83b3", "rating": 3, "cues": "generic opening, 'powerful lens', but missing words and articles"}
+{"item_id": "v3_dbe405fe", "rating": 4, "cues": "'remarkable capabilities', 'paving the way', generic and short"}
+{"item_id": "v3_cd5a5c7e", "rating": 1, "cues": "non-native phrasing, informal 'not that GPU-friendly'"}
+{"item_id": "v3_630cbae6", "rating": 1, "cues": "'evalution' typo, 'can not', specific counts"}
+{"item_id": "v3_a78dbebf", "rating": 2, "cues": "awkward 'importance unification', terse; one generic opening"}
+{"item_id": "v3_9e14bc1e", "rating": 1, "cues": "repeated 'In this paper', technical specifics, plain grammar slips"}
+{"item_id": "v3_716a92fd", "rating": 1, "cues": "detailed mechanism, quoted naming, theory detail, natural voice"}
+{"item_id": "v3_97397602", "rating": 2, "cues": "'pivotal' opening, but concrete numbers, plain description"}
+{"item_id": "v3_ffecb383", "rating": 3, "cues": "'pivotal', 'delivers impressive results', generic phrasing, few specifics"}
+{"item_id": "v3_9e61ddd9", "rating": 1, "cues": "non-native 'achieved certain results', random capitalization"}
+{"item_id": "v3_3198f56e", "rating": 3, "cues": "redundant smooth opening, 'genuine reasoning', but concrete task detail"}
+{"item_id": "v3_ecb5b371", "rating": 1, "cues": "non-native grammar 'equivalent of', 'showcasing its effective'"}
+{"item_id": "v3_3ebbadc9", "rating": 3, "cues": "First/Second/Third structure, 'underscoring' close, but dense specific numbers"}
+{"item_id": "v3_9e2daa84", "rating": 2, "cues": "missing verb slip, standard template, mild 'practical and scalable' close"}
+{"item_id": "v3_2a74ade1", "rating": 2, "cues": "natural phrasing 'waver', specific models, plain template"}
+{"item_id": "v3_a48642ae", "rating": 1, "cues": "terse, 'it's' slip, specific numbers"}
+{"item_id": "v3_6ecaf891", "rating": 1, "cues": "awkward relative clause, specific numbers, natural voice"}
+{"item_id": "v3_9711b98b", "rating": 2, "cues": "specific datasets and numbers; 'underscoring the need' close"}
+{"item_id": "v3_3a031a1f", "rating": 4, "cues": "non-breaking hyphens, 'moving beyond... toward', 'underscoring'; some typos"}
+{"item_id": "v3_00c7a398", "rating": 5, "cues": "'groundbreaking', 'profound' twice, 'unprecedented', grandiose incoherent jargon"}
+{"item_id": "v3_ad66d23f", "rating": 4, "cues": "'urgent need', 'underscore', 'fostering further research', em-dash lists"}

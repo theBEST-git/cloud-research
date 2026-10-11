@@ -1,0 +1,1247 @@
+{
+ "date": "2026-10-11",
+ "mode": "discovery dry run (every CT applied to the discovery split)",
+ "plan": "docs/PLAN.md section 4",
+ "n_discovery_U": 43482,
+ "audit_source": "outputs/prereg/frozen",
+ "note": "Verdicts below are 'as if' the discovery data were the held-out data. They show which decision rules the discovery estimates already meet; they are not confirmations. Projected held-out power assumes the discovery estimate is the truth and a held-out SE of 2 x the discovery SE (held-out ~ 1/4 of discovery per year).",
+ "results": {
+  "CT1": {
+   "id": "CT1",
+   "family": "primary",
+   "estimate": 1.0975088704287634,
+   "ci": [
+    1.0441038086416468,
+    1.153645557750506
+   ],
+   "ci_level": 0.95,
+   "scale": "OR per year",
+   "p_one_sided": 0.00012824279967757834,
+   "min_effect_met": false,
+   "ci_rule_met": true,
+   "contradicted": false,
+   "gate": {
+    "applies": false,
+    "passes": null,
+    "rule": "none (diachronic or camera-ready-free)"
+   },
+   "projected_heldout_power": {
+    "P(confirm) at alpha 0.0083": 0.2856520184591952,
+    "P(confirm) at alpha 0.0500": 0.48223689374241824,
+    "z_heldout_projected": 1.827847778499638
+   },
+   "n": 43482,
+   "details": {
+    "log_or": 0.09304294832975561,
+    "se": 0.025451503518014104,
+    "z": 3.655695556999276,
+    "pre_slope_OR": 1.1245607255790044,
+    "level_OR": 0.9750109230264786,
+    "n_clusters": 100
+   },
+   "seconds": 1.6,
+   "p_adjusted": 0.00076945679806547,
+   "adjustment": "Holm (CT1-CT6)",
+   "verdict": "not confirmed",
+   "verdict_reasons": [
+    "point estimate not beyond the minimal effect"
+   ],
+   "statistical_part_met": false,
+   "wp_reference": {
+    "text": "D1 RESULTS (H1a): slope-change OR 1.098 [1.044, 1.154], one-sided p = 1.3e-4",
+    "value": 1.098,
+    "abs_diff": 0.0004911295712366481
+   }
+  },
+  "CT2": {
+   "id": "CT2",
+   "family": "primary",
+   "estimate": 1.3533628927064156,
+   "ci": [
+    0.02000843274707209,
+    2.7005071317456806
+   ],
+   "ci_level": 0.95,
+   "scale": "pp/yr (mean u 2024-26 minus mean u 2019-23)",
+   "p_one_sided": 0.02498750624687656,
+   "min_effect_met": true,
+   "ci_rule_met": false,
+   "contradicted": false,
+   "gate": {
+    "applies": false,
+    "passes": null,
+    "rule": "none (diachronic or camera-ready-free)"
+   },
+   "projected_heldout_power": {
+    "z_heldout_projected": 1.0008795206598262,
+    "alpha_0.0083": 0.08179473436067858,
+    "alpha_0.05": 0.25979611254684204,
+    "P_share_upper95_below_0p60": 0.05366938428170002
+   },
+   "n": 42329,
+   "details": {
+    "u_pre_pp": 1.5129560644667566,
+    "u_post_pp": 2.8663189571731724,
+    "ratio": 1.894515660098438,
+    "ratio_ci": [
+     0.996819270122294,
+     5.723724450712547
+    ],
+    "content_share_post_steps": 0.5735150204683682,
+    "content_share_ci": [
+     0.5069081880129854,
+     0.6569664174522791
+    ],
+    "diff_se_pp": 0.6760868140324303,
+    "per_year": [
+     {
+      "year": 2019,
+      "n": 1248,
+      "obs": 0.13141,
+      "p_hat": 0.097807,
+      "obs_calib": 0.10013,
+      "shift": 0.137739,
+      "step": 0.03128,
+      "content_step": -0.002323,
+      "unexplained": 0.033603
+     },
+     {
+      "year": 2020,
+      "n": 2070,
+      "obs": 0.157005,
+      "p_hat": 0.138864,
+      "obs_calib": 0.13141,
+      "shift": 0.261364,
+      "step": 0.025595,
+      "content_step": 0.007453,
+      "unexplained": 0.018141
+     },
+     {
+      "year": 2021,
+      "n": 2360,
+      "obs": 0.150424,
+      "p_hat": 0.160032,
+      "obs_calib": 0.157005,
+      "shift": 0.208474,
+      "step": -0.006581,
+      "content_step": 0.003027,
+      "unexplained": -0.009608
+     },
+     {
+      "year": 2022,
+      "n": 2649,
+      "obs": 0.183465,
+      "p_hat": 0.156319,
+      "obs_calib": 0.150424,
+      "shift": 0.078408,
+      "step": 0.033042,
+      "content_step": 0.005896,
+      "unexplained": 0.027146
+     },
+     {
+      "year": 2023,
+      "n": 3872,
+      "obs": 0.202996,
+      "p_hat": 0.19663,
+      "obs_calib": 0.183465,
+      "shift": 0.186001,
+      "step": 0.01953,
+      "content_step": 0.013165,
+      "unexplained": 0.006365
+     },
+     {
+      "year": 2024,
+      "n": 5765,
+      "obs": 0.266088,
+      "p_hat": 0.225594,
+      "obs_calib": 0.202996,
+      "shift": 0.133524,
+      "step": 0.063093,
+      "content_step": 0.022598,
+      "unexplained": 0.040495
+     },
+     {
+      "year": 2025,
+      "n": 8953,
+      "obs": 0.331174,
+      "p_hat": 0.318464,
+      "obs_calib": 0.266088,
+      "shift": 0.120506,
+      "step": 0.065085,
+      "content_step": 0.052375,
+      "unexplained": 0.01271
+     },
+     {
+      "year": 2026,
+      "n": 15412,
+      "obs": 0.40462,
+      "p_hat": 0.371835,
+      "obs_calib": 0.331174,
+      "shift": 0.044647,
+      "step": 0.073446,
+      "content_step": 0.040661,
+      "unexplained": 0.032785
+     }
+    ],
+    "bootstrap": "held-out papers resampled within year; discovery calibration-year papers resampled independently and the shift re-solved"
+   },
+   "seconds": 26.0,
+   "p_adjusted": 0.04997501249375312,
+   "adjustment": "Holm (CT1-CT6)",
+   "verdict": "not confirmed",
+   "verdict_reasons": [
+    "CI rule not met"
+   ],
+   "statistical_part_met": false,
+   "wp_reference": {
+    "text": "D1 results.json (H1c, current): u 1.51 -> 2.87 pp/yr, difference +1.353 pp, conditional CI [0.56, 2.15] (calibration and test roles share one weight vector per year); ratio 1.894; content share 0.574 [0.531, 0.621]. (The WP brief's +1.17 / 1.85 / 0.620 came from an earlier D1 iteration.)",
+    "value": 1.353,
+    "abs_diff": 0.00036289270641565174
+   }
+  },
+  "CT3": {
+   "id": "CT3",
+   "family": "primary",
+   "estimate": 0.9947854866556092,
+   "ci": [
+    0.9431098005077974,
+    1.0502260924079754
+   ],
+   "ci_level": 0.95,
+   "scale": "rho_last",
+   "p_one_sided": 0.000999000999000999,
+   "min_effect_met": true,
+   "ci_rule_met": true,
+   "contradicted": false,
+   "gate": {
+    "applies": false,
+    "passes": null,
+    "rule": "none (diachronic or camera-ready-free)"
+   },
+   "projected_heldout_power": {
+    "z_heldout_projected": 9.106134704002066,
+    "alpha_0.0083": 0.9999999999904114,
+    "alpha_0.05": 0.9999999999999571,
+    "note": "E side is the discovery-held-out union, so the held-out SE is smaller than 2 x the discovery SE; this projection is conservative"
+   },
+   "n": 8710,
+   "details": {
+    "point": {
+     "P_E": 0.19385796545105566,
+     "P_L": 0.37764734854703663,
+     "delta": 0.18378938309598097,
+     "P_SE": 0.18802876480541456,
+     "P_SL": 0.3708597757106842,
+     "s_E": 0.7562380038387716,
+     "s_L": 0.4721310129699557,
+     "delta_S": 0.18283101090526963,
+     "rho": 0.9947854866556092
+    },
+    "counts": {
+     "rows_SE": 4728,
+     "keys_SE": 2306,
+     "wsum_SE": 4728.0,
+     "rows_XE": 1524,
+     "keys_XE": 1271,
+     "wsum_XE": 1524.0,
+     "rows_SL": 11503,
+     "keys_SL": 3503,
+     "wsum_SL": 11503.0,
+     "rows_NL": 12861,
+     "keys_NL": 8303,
+     "wsum_NL": 12861.0,
+     "rows_RL": 0,
+     "keys_RL": 0,
+     "wsum_RL": 0.0
+    },
+    "n_keys_E": 17114,
+    "n_keys_L": 71876,
+    "n_papers_E": 6521,
+    "n_papers_L": 24365,
+    "boot_sd": 0.02716770082690273
+   },
+   "seconds": 0.0,
+   "p_adjusted": 0.002997002997002997,
+   "adjustment": "Holm (CT1-CT6)",
+   "verdict": "confirmed",
+   "verdict_reasons": [],
+   "statistical_part_met": true,
+   "wp_reference": {
+    "text": "D2 RESULTS (H2a): rho_last 0.995 [0.943, 1.050]",
+    "value": 0.995,
+    "abs_diff": 0.00021451334439082093
+   }
+  },
+  "CT4": {
+   "id": "CT4",
+   "family": "primary",
+   "estimate": 2.5514116126559783,
+   "ci": [
+    1.5300021575448128,
+    4.254700678096995
+   ],
+   "ci_level": 0.95,
+   "scale": "OR (slot minus control)",
+   "p_one_sided": 0.00016540318418243802,
+   "min_effect_met": true,
+   "ci_rule_met": true,
+   "contradicted": false,
+   "gate": {
+    "applies": false,
+    "passes": null,
+    "rule": "none (diachronic or camera-ready-free)"
+   },
+   "projected_heldout_power": {
+    "P(confirm) at alpha 0.0083": 0.2745763061665516,
+    "P(confirm) at alpha 0.0500": 0.5596554723877591,
+    "z_heldout_projected": 1.794949399495143
+   },
+   "n": 8847,
+   "details": {
+    "log_or": 0.9366467795955774,
+    "se": 0.2609117504535291,
+    "z": 3.589898798990286,
+    "n_slot_titles": 1922,
+    "n_control_titles": 6925,
+    "slot_share_pre": 0.24879227053140096,
+    "slot_share_post": 0.6319628647214854
+   },
+   "seconds": 0.2,
+   "p_adjusted": 0.0008270159209121901,
+   "adjustment": "Holm (CT1-CT6)",
+   "verdict": "confirmed",
+   "verdict_reasons": [],
+   "statistical_part_met": true,
+   "wp_reference": {
+    "text": "D3 RESULTS (H3a): stacked slot/control OR 2.55 [1.53, 4.25], p1 = 0.0002",
+    "value": 2.55,
+    "abs_diff": 0.0014116126559784448
+   }
+  },
+  "CT5": {
+   "id": "CT5",
+   "family": "primary",
+   "estimate": 1.0205342500104628,
+   "ci": [
+    1.0014070492544387,
+    1.04051313153982
+   ],
+   "ci_level": 0.9,
+   "scale": "G_total (accepted/all)",
+   "p_one_sided": 0.0004997501249375312,
+   "min_effect_met": true,
+   "ci_rule_met": true,
+   "contradicted": false,
+   "gate": {
+    "applies": true,
+    "passes": true,
+    "audit_spec": "title_pooled",
+    "audit_source": "outputs/prereg/frozen",
+    "rule": "editing-corrected 90% CI of G_total (held-out bootstrap x audit net-flip DiD draws, WP4 G1 construction) inside [0.90, 1.11]",
+    "corrected_ci90": [
+     0.9438160709473126,
+     1.0361356782350954
+    ],
+    "audit_interval": [
+     0.9402636388247698,
+     1.0396286721141712
+    ],
+    "tipping_total_pp": 1.036220438406985,
+    "audit_did_pp": 1.48633501316832,
+    "audit_did_ci_pp": [
+     -0.9797272467585401,
+     3.95239727309519
+    ],
+    "auditable": true
+   },
+   "projected_heldout_power": {
+    "P(90% CI inside margin), approx": 0.9823378047394127,
+    "heldout_se_projected": 0.023813370849955304
+   },
+   "n": 30130,
+   "details": {
+    "ci95": [
+     0.9967374407613231,
+     1.0435477238852569
+    ],
+    "G_desk": 0.997599162326374,
+    "G_exit": 0.9739834138300415,
+    "G_dec": 1.0503159182150597,
+    "prevalence_by_stage": {
+     "s0": 0.35628941254563556,
+     "s1": 0.35543401950128195,
+     "s2": 0.34618683970519215,
+     "s3": 0.36360554841892856,
+     "s0n": 0.35302376720766604,
+     "s1n": 0.3517668183257559,
+     "s2n": 0.33401853731562614
+    },
+    "boot_sd": 0.011906685424977652
+   },
+   "seconds": 12.2,
+   "p_adjusted": 0.001999000499750125,
+   "adjustment": "Holm (CT1-CT6)",
+   "verdict": "confirmed",
+   "verdict_reasons": [],
+   "statistical_part_met": true,
+   "wp_reference": {
+    "text": "D4 RESULTS (H4a): NAME G_total 1.021, 90% CI [1.001, 1.041]; WP4 G1 corrected 90% CI [0.885, 1.069] (original audit) / [0.921, 1.066] (254 enlargement records)",
+    "value": 1.021,
+    "abs_diff": 0.0004657499895370787
+   }
+  },
+  "CT6": {
+   "id": "CT6",
+   "family": "primary",
+   "estimate": {
+    "G_total": 0.9751933657831902,
+    "G_desk_x_exit": 0.9814640703584663
+   },
+   "ci": {
+    "G_total": [
+     0.9506742301133542,
+     1.0008987119326473
+    ],
+    "G_desk_x_exit": [
+     0.9718283473185475,
+     0.9917752710755087
+    ]
+   },
+   "ci_level": 0.95,
+   "scale": "gains (L-union)",
+   "p_one_sided": 0.029985007496251874,
+   "min_effect_met": true,
+   "ci_rule_met": true,
+   "contradicted": false,
+   "gate": {
+    "applies": true,
+    "passes": false,
+    "component": "G_total",
+    "rule": "L-union G_total is an acceptance-margin quantity: confirmation needs the L-union to be auditable (>= 10 v1-present pairs in both arms) with the tipping point beyond the audit 95% CI and the editing-corrected 95% CI below 1. The L-union contains the abstract em dash and title typography, which have 0 v1-present pairs in both arms (arXiv stores TeX dashes), so the L-union is unauditable and this gate cannot pass (fixed before held-out access).",
+    "auditable_subunions_info": {
+     "L_title": {
+      "auditable": true,
+      "G_total": 0.9152999026590896,
+      "tip_total_pp": -1.117628793474995,
+      "audit_did_ci_pp": [
+       -3.54469287369615,
+       0.27493810530378
+      ],
+      "identified": false,
+      "corrected_ci95": [
+       0.8868740135677786,
+       1.1734255994671887
+      ]
+     },
+     "L_abstract": {
+      "auditable": true,
+      "G_total": 0.9931282082575594,
+      "tip_total_pp": -0.26307465778421424,
+      "audit_did_ci_pp": [
+       -4.13964252800303,
+       11.311581143724931
+      ],
+      "identified": false,
+      "corrected_ci95": [
+       0.6452454582614323,
+       1.0916731221347222
+      ]
+     }
+    }
+   },
+   "projected_heldout_power": {
+    "z_heldout_projected": {
+     "G_total": 0.9843252575840555,
+     "G_desk_x_exit": 1.8274933721596547
+    },
+    "alpha_0.0083": 0.02264860942314829,
+    "alpha_0.05": 0.14566660008106944
+   },
+   "n": 30130,
+   "details": {
+    "p_G_total": 0.029985007496251874,
+    "p_G_desk_x_exit": 0.0004997501249375312,
+    "G_desk_x_exit_camera_ready_free": 0.9756260553434728,
+    "G_desk_x_exit_camera_ready_free_ci": [
+     0.9610489579003293,
+     0.9913240003326887
+    ],
+    "G_dec": 0.9936108669031707,
+    "prevalence_by_stage": {
+     "s0": 0.3300365084633256,
+     "s1": 0.328829769726666,
+     "s2": 0.32391897496331196,
+     "s3": 0.3218494135196828,
+     "s0n": 0.3335664997950839,
+     "s1n": 0.33199161580883196,
+     "s2n": 0.32543616838980705
+    },
+    "audit_free_component_one_sided_p": 0.0004997501249375312
+   },
+   "seconds": 15.2,
+   "p_adjusted": 0.04997501249375312,
+   "adjustment": "Holm (CT1-CT6)",
+   "verdict": "not confirmed",
+   "verdict_reasons": [
+    "audit gate not passed"
+   ],
+   "statistical_part_met": true,
+   "wp_reference": {
+    "text": "D4 RESULTS (H4b): L-union G_total 0.975 [0.951, 1.001]; G_desk x G_exit 0.982 [0.972, 0.992]",
+    "value": 0.975,
+    "abs_diff": 0.00019336578319018027
+   }
+  },
+  "CT7": {
+   "id": "CT7",
+   "family": "secondary",
+   "estimate": 1.4611845178083358,
+   "ci": [
+    1.1678516684104792,
+    1.8281946696096538
+   ],
+   "ci_level": 0.95,
+   "scale": "OR ratio",
+   "p_one_sided": 0.00045461047413780344,
+   "min_effect_met": true,
+   "ci_rule_met": true,
+   "contradicted": false,
+   "gate": {
+    "applies": false,
+    "passes": null,
+    "rule": "none (diachronic or camera-ready-free)"
+   },
+   "projected_heldout_power": {
+    "z_heldout_projected": 1.6586037009421397,
+    "alpha_0.0083": 0.2310552369859432,
+    "alpha_0.05": 0.5054853130266215
+   },
+   "n": 24283,
+   "details": {
+    "OR_a": 1.1075142491467496,
+    "OR_a_lo": 0.9166313848322143,
+    "OR_a_hi": 1.3381472992959003,
+    "OR_b": 0.7579564631631436,
+    "OR_b_lo": 0.6432817963605102,
+    "OR_b_hi": 0.8930736161059029,
+    "log_ratio": 0.3792474203506481,
+    "se_log_ratio": 0.11432731644552087,
+    "n_y": 1302,
+    "n_xa": 2777,
+    "n_xb": 3090
+   },
+   "seconds": 1.0,
+   "p_adjusted": 0.0009995002498750624,
+   "adjustment": "BH (CT7-CT12)",
+   "verdict": "confirmed",
+   "verdict_reasons": [],
+   "statistical_part_met": true,
+   "wp_reference": {
+    "text": "D3 RESULTS (H3c): ratio 1.46 [1.17, 1.83], p1 = 0.0005",
+    "value": 1.46,
+    "abs_diff": 0.0011845178083358388
+   }
+  },
+  "CT8": {
+   "id": "CT8",
+   "family": "secondary",
+   "estimate": {
+    "RR_R24": 0.7440753370875882,
+    "RR_R26": 1.9444201184187675
+   },
+   "ci": {
+    "RR_R24": [
+     0.6419977223282466,
+     0.862383288922221
+    ],
+    "RR_R26": [
+     1.6723713928783657,
+     2.26072367239221
+    ]
+   },
+   "ci_level": 0.95,
+   "scale": "rate ratio 2026/2025",
+   "p_one_sided": 4.3087972153162735e-05,
+   "min_effect_met": true,
+   "ci_rule_met": true,
+   "contradicted": false,
+   "gate": {
+    "applies": false,
+    "passes": null,
+    "rule": "none (diachronic or camera-ready-free)"
+   },
+   "projected_heldout_power": {
+    "z_heldout_projected": {
+     "R24": 1.9632708687114224,
+     "R26": 4.323563224561325
+    },
+    "alpha_0.0083": 0.3243967538109513,
+    "alpha_0.05": 0.6226065036937237
+   },
+   "n": 22711,
+   "details": {
+    "components": {
+     "r24_any": {
+      "RR": 0.7440753370875882,
+      "RR_ci": [
+       0.6419977223282466,
+       0.862383288922221
+      ],
+      "p_one": 4.3087972153162735e-05,
+      "dispersion": 1.735560653718631,
+      "log_rr": -0.2956129897491167,
+      "se": 0.07528583917285443,
+      "direction": "down",
+      "n_areas_predicted_direction": 14,
+      "n_areas": 16,
+      "rate_2025_per_1k": 65.44064962980654,
+      "rate_2026_per_1k": 49.1734672525633
+     },
+     "r26_any": {
+      "RR": 1.9444201184187675,
+      "RR_ci": [
+       1.6723713928783657,
+       2.26072367239221
+      ],
+      "p_one": 2.6406219653993463e-18,
+      "dispersion": 0.8942618003534231,
+      "log_rr": 0.6649637929875006,
+      "se": 0.07689997329170187,
+      "direction": "up",
+      "n_areas_predicted_direction": 16,
+      "n_areas": 16,
+      "rate_2025_per_1k": 23.52519703845235,
+      "rate_2026_per_1k": 46.38348329497106
+     }
+    },
+    "n_large_areas_used": 16
+   },
+   "seconds": 0.2,
+   "p_adjusted": 0.0002585278329189764,
+   "adjustment": "BH (CT7-CT12)",
+   "verdict": "confirmed",
+   "verdict_reasons": [],
+   "statistical_part_met": true,
+   "wp_reference": {
+    "text": "D3 RESULTS (H3b): RR 2026/2025 R24 0.744, R26 1.945 (2023-26 spec); 2025-26 spec 0.744 [0.642, 0.862], 1.944 [1.672, 2.261]",
+    "value": 0.744,
+    "abs_diff": 7.53370875882231e-05
+   }
+  },
+  "CT9": {
+   "id": "CT9",
+   "family": "secondary",
+   "estimate": 0.9823549673758311,
+   "ci": [
+    0.9607890829193647,
+    1.0038962152515163
+   ],
+   "ci_level": 0.95,
+   "scale": "F=0 rise / total rise (2023->2026)",
+   "p_one_sided": 0.0004997501249375312,
+   "min_effect_met": true,
+   "ci_rule_met": true,
+   "contradicted": false,
+   "gate": {
+    "applies": false,
+    "passes": null,
+    "rule": "none (diachronic or camera-ready-free)"
+   },
+   "projected_heldout_power": {
+    "z_heldout_projected": 12.836530145073407,
+    "alpha_0.0083": 1.0,
+    "alpha_0.05": 1.0
+   },
+   "n": 19284,
+   "details": {
+    "rise_all_pp": 20.162390902870577,
+    "rise_F0_pp": 19.806624857608178,
+    "share_F_2026": 0.1923825590449001,
+    "share_F_2023": 0.02505165289256195,
+    "by_target": {
+     "2024": {
+      "ratio": 1.0001989194584422,
+      "ci": [
+       0.9368589986760002,
+       1.0617228915135237
+      ]
+     },
+     "2025": {
+      "ratio": 0.9984864947322359,
+      "ci": [
+       0.9746525198956602,
+       1.0236082262566037
+      ]
+     },
+     "2026": {
+      "ratio": 0.9823549673758311,
+      "ci": [
+       0.9607890829193647,
+       1.0038962152515163
+      ]
+     }
+    }
+   },
+   "seconds": 6.1,
+   "p_adjusted": 0.0009995002498750624,
+   "adjustment": "BH (CT7-CT12)",
+   "verdict": "confirmed",
+   "verdict_reasons": [],
+   "statistical_part_met": true,
+   "wp_reference": {
+    "text": "D1 RESULTS (H1e): F=0 rise / total rise 2026 0.98 [0.96, 1.00]",
+    "value": 0.98,
+    "abs_diff": 0.002354967375831074
+   }
+  },
+  "CT10": {
+   "id": "CT10",
+   "family": "secondary",
+   "estimate": 0.717069202691203,
+   "ci": [
+    0.4945861765848808,
+    0.8877850131881938
+   ],
+   "ci_level": 0.95,
+   "scale": "bound ratio accepted/all",
+   "p_one_sided": 0.017991004497751123,
+   "min_effect_met": true,
+   "ci_rule_met": true,
+   "contradicted": false,
+   "gate": {
+    "applies": true,
+    "passes": true,
+    "audit_spec": "abstract_v1",
+    "audit_source": "outputs/prereg/frozen",
+    "rule": "tipping point D* = (b_acc - 0.9 b_all)/(1 - 0.9 a0) (net camera-ready change in accepted F24 prevalence, 2024-26, that would lift the ratio to 0.90); passes if the F24 abstract audit is auditable and its net-flip DiD lower 95% bound > D*",
+    "tipping_pp": -2.8641385363204894,
+    "audit_did_pp": 3.5546507986219797,
+    "audit_did_ci_pp": [
+     -1.62257099851708,
+     8.73187259576105
+    ],
+    "auditable": true,
+    "accepted_share_s0": 0.30122206547101393
+   },
+   "projected_heldout_power": {
+    "z_heldout_projected": 0.8943918734470897,
+    "alpha_0.0083": 0.06686058855087681,
+    "alpha_0.05": 0.22648832519220907
+   },
+   "n": 39011,
+   "details": {
+    "bound_all_pp": 11.412353818484497,
+    "bound_acc_pp": 8.183447453450585,
+    "by_year": {
+     "2024": {
+      "all_pp": 16.02504336513443,
+      "acc_pp": 12.82591028356399,
+      "ratio": 0.8003666505807547
+     },
+     "2025": {
+      "all_pp": 12.188302803529544,
+      "acc_pp": 8.703445476412675,
+      "ratio": 0.7140818222773635
+     },
+     "2026": {
+      "all_pp": 6.023715286789515,
+      "acc_pp": 3.020986600375089,
+      "ratio": 0.5015155027330644
+     }
+    }
+   },
+   "seconds": 5.7,
+   "p_adjusted": 0.02158920539730135,
+   "adjustment": "BH (CT7-CT12)",
+   "verdict": "confirmed",
+   "verdict_reasons": [],
+   "statistical_part_met": true,
+   "wp_reference": {
+    "text": "D4 kobak_bounds.csv: F24 cons 2024-26 mean ratio 0.717 [0.495, 0.888], P(ratio >= 0.9) = 0.0175",
+    "value": 0.717,
+    "abs_diff": 6.920269120302969e-05
+   }
+  },
+  "CT11": {
+   "id": "CT11",
+   "family": "secondary",
+   "estimate": {
+    "ACC-REJ": -0.06083384466530439,
+    "ACC-WD": -0.050387319847440576,
+    "REJ-WD": 0.010446524817863817
+   },
+   "ci": {
+    "ACC-REJ": [
+     -0.14836155091483402,
+     0.026693861584225237
+    ],
+    "ACC-WD": [
+     -0.16965206564526963,
+     0.0688774259503885
+    ],
+    "REJ-WD": [
+     -0.10077064686874566,
+     0.1216636965044733
+    ]
+   },
+   "ci_level": 0.9,
+   "scale": "difference in slope-change log OR",
+   "p_one_sided": 0.2469121123130153,
+   "min_effect_met": false,
+   "ci_rule_met": false,
+   "contradicted": false,
+   "gate": {
+    "applies": true,
+    "passes": false,
+    "audit_spec": "title_pooled",
+    "audit_source": "outputs/prereg/frozen",
+    "rule": "ACC-pool pairs (camera-ready titles): widen each pairwise 90% CI by b_max = (D_hi - D_lo) / (2 p(1-p)), the largest slope-change bias that post-year editing inside the NAME audit's 95% net-flip CI [D_lo, D_hi] could create (p = ACC NAME share 2024-26); passes if every widened ACC-pair CI lies inside (-0.1, 0.1). The REJ-WD pair is audit-free.",
+    "b_max_logOR": 0.10698294019701589,
+    "acc_name_share_post": 0.3603929095630575,
+    "audit_did_ci_pp": [
+     -0.9797272467585401,
+     3.95239727309519
+    ],
+    "widened_acc_pairs": [
+     {
+      "a": "ACC",
+      "b": "REJ",
+      "lo90": -0.2553444911118499,
+      "hi90": 0.13367680178124114
+     },
+     {
+      "a": "ACC",
+      "b": "WD",
+      "lo90": -0.2766350058422855,
+      "hi90": 0.17586036614740438
+     }
+    ]
+   },
+   "projected_heldout_power": {
+    "P(pair equivalent), approx, per pair": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "heldout_se_projected": [
+     0.10642613399193598,
+     0.14501563402802128,
+     0.13523047870555682
+    ]
+   },
+   "n": 42144,
+   "details": {
+    "pools": {
+     "ACC": {
+      "OR": 1.0525855420725951,
+      "ci": [
+       0.9767614320599667,
+       1.134295731807968
+      ],
+      "nobs": 12899
+     },
+     "REJ": {
+      "OR": 1.118606151936666,
+      "ci": [
+       1.0371319683437947,
+       1.206480719275036
+      ],
+      "nobs": 19291
+     },
+     "WD": {
+      "OR": 1.106981429700568,
+      "ci": [
+       0.9918723707578623,
+       1.235449158408973
+      ],
+      "nobs": 9954
+     }
+    },
+    "wald_equality_p": 0.5104084047782451,
+    "pairs": [
+     {
+      "a": "ACC",
+      "b": "REJ",
+      "dlogOR": -0.06083384466530439,
+      "se": 0.05321306699596799,
+      "lo95": -0.16512953948431866,
+      "hi95": 0.043461850153709874,
+      "lo90": -0.14836155091483402,
+      "hi90": 0.026693861584225237,
+      "p_diff": 0.252950363382185,
+      "tost_p": 0.23085769778513737,
+      "equivalent_0p1": false
+     },
+     {
+      "a": "ACC",
+      "b": "WD",
+      "dlogOR": -0.050387319847440576,
+      "se": 0.07250781701401064,
+      "lo95": -0.192500029792522,
+      "hi95": 0.09172539009764086,
+      "lo90": -0.16965206564526963,
+      "hi90": 0.0688774259503885,
+      "p_diff": 0.4871038161818454,
+      "tost_p": 0.2469121123130153,
+      "equivalent_0p1": false
+     },
+     {
+      "a": "REJ",
+      "b": "WD",
+      "dlogOR": 0.010446524817863817,
+      "se": 0.06761523935277841,
+      "lo95": -0.12207690911963723,
+      "hi95": 0.14296995875536486,
+      "lo90": -0.10077064686874566,
+      "hi90": 0.1216636965044733,
+      "p_diff": 0.8772158570903342,
+      "tost_p": 0.0926756620706844,
+      "equivalent_0p1": false
+     }
+    ]
+   },
+   "seconds": 1.6,
+   "p_adjusted": 0.24691211231301527,
+   "adjustment": "BH (CT7-CT12)",
+   "verdict": "not confirmed",
+   "verdict_reasons": [
+    "adjusted p >= .05",
+    "point estimate not beyond the minimal effect",
+    "CI rule not met",
+    "audit gate not passed"
+   ],
+   "statistical_part_met": false,
+   "wp_reference": {
+    "text": "D4 RESULTS (H4a): ACC 1.053, REJ 1.119, WD 1.107; Wald equality p = 0.51; no pair TOST-equivalent",
+    "value": null,
+    "abs_diff": null
+   }
+  },
+  "CT12": {
+   "id": "CT12",
+   "family": "secondary",
+   "estimate": -0.47014762182726655,
+   "ci": [
+    -0.6022087808540594,
+    -0.359315341121533
+   ],
+   "ci_level": 0.95,
+   "scale": "rho_first - rho_last",
+   "p_one_sided": 0.000999000999000999,
+   "min_effect_met": true,
+   "ci_rule_met": true,
+   "contradicted": false,
+   "gate": {
+    "applies": false,
+    "passes": null,
+    "rule": "none (diachronic or camera-ready-free)"
+   },
+   "projected_heldout_power": {
+    "z_heldout_projected": 3.679906379391737,
+    "alpha_0.0083": 0.9007656567679507,
+    "alpha_0.05": 0.9790772173436162
+   },
+   "n": 8710,
+   "details": {
+    "rho_first": 0.5246378648283426,
+    "rho_first_ci": [
+     0.41354505473064657,
+     0.6331738691221225
+    ],
+    "rho_last": 0.9947854866556092,
+    "first_point": {
+     "P_E": 0.1944314823456214,
+     "P_L": 0.37764734854703663,
+     "delta": 0.18321586620141522,
+     "P_SE": 0.19367238320520402,
+     "P_SL": 0.2897943640517898,
+     "s_E": 0.5260538186343132,
+     "s_L": 0.10778197340338204,
+     "delta_S": 0.0961219808465858,
+     "rho": 0.5246378648283426
+    },
+    "first_counts": {
+     "rows_SE": 3382,
+     "keys_SE": 2855,
+     "wsum_SE": 3382.0,
+     "rows_XE": 3047,
+     "keys_XE": 2798,
+     "wsum_XE": 3047.0,
+     "rows_SL": 2626,
+     "keys_SL": 1973,
+     "wsum_SL": 2626.0,
+     "rows_NL": 21738,
+     "keys_NL": 18713,
+     "wsum_NL": 21738.0,
+     "rows_RL": 0,
+     "keys_RL": 0,
+     "wsum_RL": 0.0
+    },
+    "boot_sd": 0.06388037810692601
+   },
+   "seconds": 0.0,
+   "p_adjusted": 0.0014985014985014985,
+   "adjustment": "BH (CT7-CT12)",
+   "verdict": "confirmed",
+   "verdict_reasons": [],
+   "statistical_part_met": true,
+   "wp_reference": {
+    "text": "D2 RESULTS (H2b): rho_first - rho_last = -0.470 [-0.602, -0.359]",
+    "value": -0.47,
+    "abs_diff": 0.00014762182726657525
+   }
+  }
+ },
+ "summary": [
+  {
+   "id": "CT1",
+   "title": "D1 break (H1a)",
+   "family": "primary",
+   "estimate": 1.0975088704287634,
+   "ci": [
+    1.0441038086416468,
+    1.153645557750506
+   ],
+   "ci_level": 0.95,
+   "p_one_sided": 0.00012824279967757834,
+   "p_adjusted": 0.00076945679806547,
+   "gate_applies": false,
+   "gate_passes": null,
+   "verdict_as_if": "not confirmed",
+   "reasons": [
+    "point estimate not beyond the minimal effect"
+   ]
+  },
+  {
+   "id": "CT2",
+   "title": "D1 acceleration of unexplained drift (H1c)",
+   "family": "primary",
+   "estimate": 1.3533628927064156,
+   "ci": [
+    0.02000843274707209,
+    2.7005071317456806
+   ],
+   "ci_level": 0.95,
+   "p_one_sided": 0.02498750624687656,
+   "p_adjusted": 0.04997501249375312,
+   "gate_applies": false,
+   "gate_passes": null,
+   "verdict_as_if": "not confirmed",
+   "reasons": [
+    "CI rule not met"
+   ]
+  },
+  {
+   "id": "CT3",
+   "title": "D2 communal change at the last list position (H2a)",
+   "family": "primary",
+   "estimate": 0.9947854866556092,
+   "ci": [
+    0.9431098005077974,
+    1.0502260924079754
+   ],
+   "ci_level": 0.95,
+   "p_one_sided": 0.000999000999000999,
+   "p_adjusted": 0.002997002997002997,
+   "gate_applies": false,
+   "gate_passes": null,
+   "verdict_as_if": "confirmed",
+   "reasons": []
+  },
+  {
+   "id": "CT4",
+   "title": "D3 meaning-fixed slot break (H3a)",
+   "family": "primary",
+   "estimate": 2.5514116126559783,
+   "ci": [
+    1.5300021575448128,
+    4.254700678096995
+   ],
+   "ci_level": 0.95,
+   "p_one_sided": 0.00016540318418243802,
+   "p_adjusted": 0.0008270159209121901,
+   "gate_applies": false,
+   "gate_passes": null,
+   "verdict_as_if": "confirmed",
+   "reasons": []
+  },
+  {
+   "id": "CT5",
+   "title": "D4 neutral filter for NAME (H4a)",
+   "family": "primary",
+   "estimate": 1.0205342500104628,
+   "ci": [
+    1.0014070492544387,
+    1.04051313153982
+   ],
+   "ci_level": 0.9,
+   "p_one_sided": 0.0004997501249375312,
+   "p_adjusted": 0.001999000499750125,
+   "gate_applies": true,
+   "gate_passes": true,
+   "verdict_as_if": "confirmed",
+   "reasons": []
+  },
+  {
+   "id": "CT6",
+   "title": "D4 depletion of LLM markers (H4b)",
+   "family": "primary",
+   "estimate": {
+    "G_total": 0.9751933657831902,
+    "G_desk_x_exit": 0.9814640703584663
+   },
+   "ci": {
+    "G_total": [
+     0.9506742301133542,
+     1.0008987119326473
+    ],
+    "G_desk_x_exit": [
+     0.9718283473185475,
+     0.9917752710755087
+    ]
+   },
+   "ci_level": 0.95,
+   "p_one_sided": 0.029985007496251874,
+   "p_adjusted": 0.04997501249375312,
+   "gate_applies": true,
+   "gate_passes": false,
+   "verdict_as_if": "not confirmed",
+   "reasons": [
+    "audit gate not passed"
+   ]
+  },
+  {
+   "id": "CT7",
+   "title": "D3 vintage alignment (H3c)",
+   "family": "secondary",
+   "estimate": 1.4611845178083358,
+   "ci": [
+    1.1678516684104792,
+    1.8281946696096538
+   ],
+   "ci_level": 0.95,
+   "p_one_sided": 0.00045461047413780344,
+   "p_adjusted": 0.0009995002498750624,
+   "gate_applies": false,
+   "gate_passes": null,
+   "verdict_as_if": "confirmed",
+   "reasons": []
+  },
+  {
+   "id": "CT8",
+   "title": "D3 register turnover (H3b)",
+   "family": "secondary",
+   "estimate": {
+    "RR_R24": 0.7440753370875882,
+    "RR_R26": 1.9444201184187675
+   },
+   "ci": {
+    "RR_R24": [
+     0.6419977223282466,
+     0.862383288922221
+    ],
+    "RR_R26": [
+     1.6723713928783657,
+     2.26072367239221
+    ]
+   },
+   "ci_level": 0.95,
+   "p_one_sided": 4.3087972153162735e-05,
+   "p_adjusted": 0.0002585278329189764,
+   "gate_applies": false,
+   "gate_passes": null,
+   "verdict_as_if": "confirmed",
+   "reasons": []
+  },
+  {
+   "id": "CT9",
+   "title": "D1 tool bound (H1e(i))",
+   "family": "secondary",
+   "estimate": 0.9823549673758311,
+   "ci": [
+    0.9607890829193647,
+    1.0038962152515163
+   ],
+   "ci_level": 0.95,
+   "p_one_sided": 0.0004997501249375312,
+   "p_adjusted": 0.0009995002498750624,
+   "gate_applies": false,
+   "gate_passes": null,
+   "verdict_as_if": "confirmed",
+   "reasons": []
+  },
+  {
+   "id": "CT10",
+   "title": "D4 published-only understatement of LLM use (H4c)",
+   "family": "secondary",
+   "estimate": 0.717069202691203,
+   "ci": [
+    0.4945861765848808,
+    0.8877850131881938
+   ],
+   "ci_level": 0.95,
+   "p_one_sided": 0.017991004497751123,
+   "p_adjusted": 0.02158920539730135,
+   "gate_applies": true,
+   "gate_passes": true,
+   "verdict_as_if": "confirmed",
+   "reasons": []
+  },
+  {
+   "id": "CT11",
+   "title": "D4 pool invariance of the break (H4a(iii))",
+   "family": "secondary",
+   "estimate": {
+    "ACC-REJ": -0.06083384466530439,
+    "ACC-WD": -0.050387319847440576,
+    "REJ-WD": 0.010446524817863817
+   },
+   "ci": {
+    "ACC-REJ": [
+     -0.14836155091483402,
+     0.026693861584225237
+    ],
+    "ACC-WD": [
+     -0.16965206564526963,
+     0.0688774259503885
+    ],
+    "REJ-WD": [
+     -0.10077064686874566,
+     0.1216636965044733
+    ]
+   },
+   "ci_level": 0.9,
+   "p_one_sided": 0.2469121123130153,
+   "p_adjusted": 0.24691211231301527,
+   "gate_applies": true,
+   "gate_passes": false,
+   "verdict_as_if": "not confirmed",
+   "reasons": [
+    "adjusted p >= .05",
+    "point estimate not beyond the minimal effect",
+    "CI rule not met",
+    "audit gate not passed"
+   ]
+  },
+  {
+   "id": "CT12",
+   "title": "D2 role gradient (H2b)",
+   "family": "secondary",
+   "estimate": -0.47014762182726655,
+   "ci": [
+    -0.6022087808540594,
+    -0.359315341121533
+   ],
+   "ci_level": 0.95,
+   "p_one_sided": 0.000999000999000999,
+   "p_adjusted": 0.0014985014985014985,
+   "gate_applies": false,
+   "gate_passes": null,
+   "verdict_as_if": "confirmed",
+   "reasons": []
+  }
+ ],
+ "runtime_s": 78.1,
+ "bundle_hash": "f69fdb468702fe11e336b81476869531a71acb1d4f922b8bd1d479934bbac628",
+ "bundle_note": "bundle hash = SHA-256 of outputs/prereg/bundle.sha256; dryrun.json and prereg.md are written after it and are not inside the bundle"
+}

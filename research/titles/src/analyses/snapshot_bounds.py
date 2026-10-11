@@ -46,7 +46,8 @@ T4_2_flip_matrices.csv, T4_2_flip_multiclass.csv, T4_2_tipping_points.csv, T4_2_
 T4_2_identification_by_spec.csv, abstract_audit.csv, gate.csv, route_validation.csv, route_pairs.csv,
 results.json, figures fig_S*.{pdf,png,csv}, snapshot_bounds.log.
 
-Run:  cd research/titles/src && OMP_NUM_THREADS=2 /home/user/venv/bin/python -m analyses.snapshot_bounds
+Run:  cd research/titles/src && OMP_NUM_THREADS=2 /home/user/venv/bin/python -m analyses.snapshot_bounds [--enlarge-n N]
+      (the reported run used --enlarge-n 254: the first 254 records of the still-growing enlargement cache)
 """
 from __future__ import annotations
 
@@ -797,16 +798,16 @@ def fig_route(rv: pd.DataFrame):
     axes[0].set_ylim(0, 1.02)
     axes[0].set_ylabel("Found on arXiv")
     axes[0].set_title("a  Found rate by retrieval route", loc="left")
-    axes[0].legend(loc="lower right", fontsize=7)
     axes[1].set_xticks(range(4), ["v1\nroute A", "v1\nroute B", "latest\nroute A", "latest\nroute B"])
     axes[1].set_xlabel("arXiv title compared with the stored title")
     axes[1].set_ylim(0, None)
     axes[1].set_ylabel("Share with a different title")
     axes[1].set_title("b  Title stability by route", loc="left")
-    axes[1].legend(loc="upper left", fontsize=7)
     for ax in axes:
         ax.grid(axis="x", visible=False)
-    fig.tight_layout()
+    h, lab = axes[0].get_legend_handles_labels()
+    fig.legend(h, lab, loc="lower center", ncol=2, fontsize=7, bbox_to_anchor=(0.5, 0.0))
+    fig.tight_layout(rect=(0, 0.08, 1, 1))
     C.save_fig(fig, "fig_S3_route_validation", OUTDIR, data=pd.DataFrame(rows))
 
 
@@ -968,13 +969,18 @@ def compose_results(core: dict, tp, flips, fm, fr, rt, rt_extra, idt, rv, rv_sum
     hyps.append(dict(
         id="G1", statement="Gate for D4-H4a: NAME neutrality (pooled 2024-26 G_total inside [0.90, 1.11]) survives "
         "camera-ready uncertainty (editing-corrected 90% CI combining universe bootstrap and audit).",
-        verdict="supported" if bool(gt.loc[k1, "passes"]) else "not_supported",
+        verdict=("supported" if bool(gt.loc[k1, "passes"]) else
+                 "partially_supported" if any(bool(gt.loc[c, "passes"]) for c in gt.index
+                                              if c.startswith("H4a NAME G_total") and "enlarged" in c)
+                 else "not_supported"),
         estimate=(f"G_total observed {_fmt(gt.loc[k1, 'observed'], 3)} 90% CI {gt.loc[k1, 'obs_ci90']}; audit-implied "
                   f"{gt.loc[k1, 'audit_interval']}; corrected 90% CI {gt.loc[k1, 'corrected_ci90']}. G_dec: observed "
                   f"{_fmt(gt.loc[k2, 'observed'], 3)}, corrected 90% CI {gt.loc[k2, 'corrected_ci90']} "
                   f"({'inside' if bool(gt.loc[k2, 'passes']) else 'outside'} the margins)"),
         notes="G_total is more sensitive to editing than G_dec because accepted papers are a smaller share of s0 "
-              "(a0) than of s2 (a2)."))
+              "(a0) than of s2 (a2). Enlarged-audit gate: " + "; ".join(
+                  f"{c.split('(')[1].rstrip(')')}: corrected 90% CI {gt.loc[c, 'corrected_ci90']}, passes="
+                  f"{bool(gt.loc[c, 'passes'])}" for c in gt.index if c.startswith("H4a NAME G_total") and "enlarged" in c)))
     lt = gate[gate.feature.isin(["L_title"])].iloc[0]
     hyps.append(dict(
         id="G2", statement="Gate for D4-H4b: depletion of title LLM markers (L-title G_total < 1, 2024-26) "
@@ -1036,7 +1042,8 @@ def compose_results(core: dict, tp, flips, fm, fr, rt, rt_extra, idt, rv, rv_sum
     return core
 
 # ------------------------------------------------------------------------------------------------
-def main():
+def main(enlarge_n: int | None = None):
+    """enlarge_n: use only the first N lines of the (append-only) enlargement cache, for a reproducible freeze."""
     t0 = time.time()
     OUTDIR.mkdir(parents=True, exist_ok=True)
     U = C.load_universe(["submission_id", "year", "title", "title_nfkc", "abstract", "ACC", "REJ"])
@@ -1082,7 +1089,9 @@ def main():
 
     # enlarged audit (partial)
     enl = read_jsonl(ENLARGE_PATH)
-    enl_info = {"n_records": 0}
+    if enlarge_n is not None and not enl.empty:
+        enl = enl.head(enlarge_n)
+    enl_info = {"n_records": 0, "enlarge_n_cap": enlarge_n}
     if not enl.empty:
         enl = enl[enl.error.isna()] if "error" in enl else enl
         enl = enl.drop_duplicates("submission_id", keep="last")
@@ -1091,7 +1100,7 @@ def main():
         fr = pd.concat([fr, fre, found_rate_table(pd.concat([d, de], ignore_index=True), "original+enlarge")],
                        ignore_index=True)
         Pe = build_pairs(enl, U, "enlarge")
-        enl_info = dict(n_records=int(len(enl)), n_found=int(de.found.sum()), n_usable=int(len(Pe)),
+        enl_info = dict(n_records=int(len(enl)), enlarge_n_cap=enlarge_n, n_found=int(de.found.sum()), n_usable=int(len(Pe)),
                         by_cell=enl.groupby(["year", "decision"]).size().to_dict())
         if len(Pe):
             Pall = pd.concat([P, Pe], ignore_index=True)
@@ -1232,6 +1241,21 @@ def main():
                      corrected_ci90=f"[{r.G_total_corr_lo90:.3f}, {r.G_total_corr_hi90:.3f}]",
                      passes=bool(r.G_total_identified and r.G_total_corr_hi95 < 1),
                      rule="auditable, tipping beyond CI, corrected 95% CI below 1"))
+    if "enlarged" in set(idt.spec):
+        ne = idt[(idt.spec == "enlarged") & (idt.feature == "NAME")].iloc[0]
+        ntag = f"enlarged audit, partial, n = {int(ne.n_acc)}/{int(ne.n_rej)} pairs"
+        for nm_, col in [("G_total", "total"), ("G_dec", "dec")]:
+            gate.append(dict(claim=f"H4a NAME {nm_} within [0.90, 1.11] (2024-26 pooled; {ntag})", feature="NAME",
+                             observed=ne[f"G_{col}_obs"],
+                             obs_ci90=f"[{ne[f'G_{col}_lo90']:.3f}, {ne[f'G_{col}_hi90']:.3f}]",
+                             audit_interval=f"[{ne[f'G_{col}_audit_lo']:.3f}, {ne[f'G_{col}_audit_hi']:.3f}]",
+                             corrected_ci90=f"[{ne[f'G_{col}_corr_lo90']:.3f}, {ne[f'G_{col}_corr_hi90']:.3f}]",
+                             passes=bool(0.90 <= ne[f"G_{col}_corr_lo90"] and ne[f"G_{col}_corr_hi90"] <= 1.11),
+                             rule="as above, with the pooled original + enlargement audit"))
+        n_id = int(idt[(idt.spec == "enlarged")].G_dec_identified.sum())
+        gate.append(dict(claim=f"acceptance associations identified ({ntag})", feature="all", observed=np.nan,
+                         obs_ci90="", audit_interval="", corrected_ci90="", passes=bool(n_id > 0),
+                         rule=f"{n_id} of {len(keys_t)} title features identified"))
     gate = pd.DataFrame(gate)
     log("gate:\n" + gate[["claim", "observed", "audit_interval", "corrected_ci90", "passes"]].to_string())
 
@@ -1299,4 +1323,8 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    import argparse
+    ap = argparse.ArgumentParser(description="WP4 snapshot bounds")
+    ap.add_argument("--enlarge-n", type=int, default=None,
+                    help="use only the first N lines of cache/arxiv_audit_enlarge.jsonl (default: all)")
+    main(ap.parse_args().enlarge_n)

@@ -35,13 +35,13 @@ Work package WP4. Pre-registered in `docs/PLAN.md` §D4 ("Decision-stage bound")
 | ID | Claim tested | Estimate (95% CI unless stated) | Criterion | Verdict |
 |---|---|---|---|---|
 | SB1 | PLAN D4: NAME G_dec is not identified by the current audit (pilot: tip ≈ 1.8 pp vs DiD +2.1, se 2.4) | DiD **+2.09 pp [−3.16, 7.33]**. Plain Wald se 2.37, CI [−2.57, 6.74]. Tip **D\* = 2.92 pp**. G_dec 1.050 [1.027, 1.073]; audit-implied submission-stage G_dec [0.917, 1.101] | Identified iff D\* > upper CI | **Supported** (not identified) |
-| SB2 | Gate §4: some title feature's acceptance association (G_dec ≠ 1) survives the audit | **0 of 24** features pass. 10 are auditable; none is identified under any of 5 audit specifications | Auditable, D\* beyond the audit CI, and observed G_dec CI excludes 1 | **Not supported** |
+| SB2 | Gate §4: some title feature's acceptance association (G_dec ≠ 1) survives the audit | **0 of 24** features pass. 10 are auditable; none is identified under any of 6 audit specifications | Auditable, D\* beyond the audit CI, and observed G_dec CI excludes 1 | **Not supported** |
 | SB3 | V7: rare lexical features are unauditable (< 10 v1-present titles in an arm) | v1-present accepted/rejected: 'using' **4**/5, R24 6/3, R26 8/0, LLM slot word 6/2, title typography 0/0 | Pre-stated threshold of 10 per arm | **Supported** |
 | SB4 | Accepted papers are more findable; IPW leaves the NAME bound unchanged | Found 88.6% vs 56.3%. OR(accepted) **6.16 [4.02, 9.44]**, OR(NAME) 1.37 [0.86, 2.20]. IPW × population NAME DiD 2.01 [−3.71, 7.74] | Not pre-registered; descriptive | **Supported** |
 | SB5 | Camera-ready retitling: accepted papers retitle more than rejected ones | 29.6% vs 23.2%: **+6.4 pp [−3.6, 15.7]**. 2024–26: +10.1 pp [−1.2, 20.4] | CI excludes 0 | **Not supported** (direction as expected) |
 | V7a | A title-free route finds papers at a similar rate; the findability gap is not a title-route artefact | n = 300 (150/150). Found by route A / route B: accepted 88.7% / 84.7%, rejected 52.7% / 48.7%. Gap 0.36 on both routes; difference 0.00 [−0.06, 0.06]. arXiv-id agreement 99.5% | Gap B CI > 0 and gap difference CI includes 0 | **Supported** |
 | V7b | The title route does not select on title stability | Retitled: route A 24.4% (n = 160), route B 26.5% (n = 155). Papers only route B finds: 4 of 6 retitled. Union-route NAME DiD 1.25 [−4.10, 6.60] | Rule in `results.json` | **Partially supported** |
-| G1 | Gate for D4-H4a: NAME neutrality (pooled 2024–26 G_total in [0.90, 1.11]) survives camera-ready uncertainty | G_total 1.021, 90% CI [1.001, 1.041]. Audit-implied [0.867, 1.081]. **Editing-corrected 90% CI [0.885, 1.069]**. G_dec corrected 90% CI [0.930, 1.089] (inside the margins) | Corrected 90% CI inside the margins | **Not supported** for G_total; passes for G_dec |
+| G1 | Gate for D4-H4a: NAME neutrality (pooled 2024–26 G_total in [0.90, 1.11]) survives camera-ready uncertainty | G_total 1.021, 90% CI [1.001, 1.041]. Original audit: audit-implied [0.867, 1.081], **editing-corrected 90% CI [0.885, 1.069]** (fails). Partially enlarged audit (455 pairs): corrected 90% CI **[0.921, 1.066]** (passes). G_dec passes in both: [0.930, 1.089] and [0.962, 1.087] | Corrected 90% CI inside the margins | **Partially supported** (passes only with the enlarged audit) |
 | G2 | Gate for D4-H4b: depletion of title LLM markers (L-title G_total < 1) survives the audit | G_total 0.915, 90% CI [0.872, 0.961]. L-title is unauditable (v1-present 14/3). Audit-implied [0.673, 1.159] | Identified and corrected CI < 1 | **Not supported** (not auditable) |
 | G3 | Abstract audit (extension): depletion of arXiv-measurable abstract LLM markers (F24 or F26 words, G_total < 1) survives the audit | F24 or F26 words: G_total **0.998** [0.960, 1.034]; DiD +3.88 pp [−1.61, 9.38]; tip −0.06 pp. F24: G_total 0.963 [0.916, 1.007], tip −0.67 pp, DiD +3.55 [−1.62, 8.73]. Em dash unauditable (0 v1-present: arXiv writes TeX dashes) | Identified and corrected CI < 1 | **Not supported** (little pooled depletion to protect, and not identified) |
 | G4 | D4-H4c direction assumption: camera-ready polishing does not *lower* accepted papers' RARE21 rates | F24 net flips: accepted +1.94 pp (8 adds / 4 drops; v1-present 20), rejected −1.61 pp (1 / 3; v1-present 13). **DiD +3.55 pp [−1.62, 8.73]** | Sign of DiD (CI > 0 = supported) | **Partially supported** (right sign, CI includes 0) |
@@ -53,13 +53,14 @@ Work package WP4. Pre-registered in `docs/PLAN.md` §D4 ("Decision-stage bound")
 - What the audit does show:
   1. Accepted papers are found on arXiv six times more often (odds) than rejected ones. This depends neither on NAME nor on title length, nor on the retrieval route.
   2. Camera-ready editing moves features in both directions at similar rates. Accepted NAME: 7 adds and 6 drops among 206 pairs. There is no sign that review-stage acceptance is manufactured by post-decision renaming.
-  3. Two D4 claims are not yet robust to editing at the current audit size: NAME *G_total* neutrality (TOST) and title-LLM-marker depletion.
-- These conclusions are unchanged under:
+  3. D4-H4a's NAME G_total TOST fails on the original audit (editing-corrected 90% CI lower bound 0.885). It passes on the partially enlarged audit (0.921), so it rests on the enlargement. The G_dec form passes in both.
+  4. Title-LLM-marker depletion (D4-H4b, decision-stage part) cannot be made audit-robust: the markers are too rare in v1 titles to audit.
+- The non-identification of every acceptance association is unchanged under:
   - the 2024–26-only audit;
   - findability IPW, with and without population design weights;
   - a union of the two retrieval routes;
   - plain Wald and bootstrap CIs;
-  - ENLARGED_HEADLINE.
+  - a partially enlarged audit of 455 pairs.
 
 ---
 
@@ -229,13 +230,13 @@ The (ACR)-name, word-name, mixed-casing and question-opener rows are in the CSV;
 | IPW for findability | 197 / 125 | +2.29 [−3.16, 7.74] | no |
 | IPW × population design weights (2023–26) | 197 / 125 | +2.01 [−3.71, 7.74] | no |
 | Union of retrieval routes (adds route-B-only pairs) | 207 / 130 | +1.25 [−4.10, 6.60] | no |
-| ENLARGED_ROW | | | |
+| Original + enlargement (partial: first 254 enlargement records) | 280 / 175 | +1.29 [−2.87, 5.44] | no |
 | Plain Wald / bootstrap CI (primary pairs) | 206 / 125 | [−2.57, 6.74] / [−2.57, 6.94] | no / no |
 
 No feature is identified in any specification, under any CI type.
 
 **Per-year bounds** (`T4_2_tipping_by_year.csv`).
-- Year-specific DiDs use 27–56 pairs per arm, so their CIs are ±10–17 pp. Example: NAME in 2025, DiD +2.9 [−9.9, 15.8] against a tip of 4.5 pp.
+- Year-specific DiDs use 27–56 pairs per arm, so their CIs are about ±9–18 pp. Example: NAME in 2025, DiD +2.9 [−9.9, 15.8] against a tip of 4.5 pp.
 - No per-year acceptance association is identified.
 - **H4a's per-year G_total claims for 2018–2023 have no audit at all.** No decision dates were used before 2022, and pre-2023 cells are tiny.
 
@@ -244,7 +245,7 @@ No feature is identified in any specification, under any CI type.
 - The tipping point is 2.92 pp, not 1.8 pp. It is computed with D4's year-standardised 2024–26 prevalences and is identical to D4's interim value. The pilot used a different pooling.
 - The conclusion is unchanged: NAME G_dec is **not identified**.
 - How large an audit would be needed:
-  - If the true DiD were 0, about 3.2× the current number of usable pairs (≈ 1,070) would be required. The planned 2,000-paper enlargement would add about 1,080 usable pairs at the observed 54% usable rate, about 4.3× the current pairs in total, which would suffice.
+  - If the true DiD were 0, about 3.2× the current number of usable pairs (≈ 1,070) would be required. With the partial enlargement the multiplier falls to 2.0×. The planned 2,000-paper enlargement would add about 1,080 usable pairs at the observed 54% usable rate, about 4.3× the current pairs in total, which would suffice.
   - At the observed point estimate (+2.1 pp, close to D\*), no audit size would identify NAME G_dec.
 
 ## 5. Gate for D4 claims (PLAN §4; `gate.csv`)
@@ -254,7 +255,8 @@ No feature is identified in any specification, under any CI type.
 - G_total does not: corrected 90% CI [0.885, 1.069].
   - A net camera-ready NAME addition at the audit's upper bound (+7.3 pp) would put the submission-stage G_total at 0.867.
   - G_total is more editing-sensitive than G_dec because accepted papers are a smaller share of s0 (a₀ = 0.29) than of s2 (a₂ = 0.40).
-- So H4a's G_total TOST is **not confirmed robust to camera-ready editing** at the current audit size. Its G_dec form is.
+- So H4a's G_total TOST is **not robust to camera-ready editing on the original audit**. It becomes robust once the audit is enlarged: with the partial enlargement (280/175 pairs), the corrected 90% CI is [0.921, 1.066] (G_dec [0.962, 1.087]). The G_dec form passes in both.
+- This verdict should be re-checked when the enlargement finishes; see §8 on fragility.
 
 **H4b (depletion of LLM and outsider markers).**
 - The title parts (L-title, ALL-CAPS title, sentence case) are unauditable, so their decision-stage parts cannot pass the gate.
@@ -338,7 +340,45 @@ No feature is identified in any specification, under any CI type.
 
 ## 8. Enlarged audit (partial; `audit_v2.py` phase 2)
 
-ENLARGE_SECTION
+**Status at the analysis freeze.**
+- Done: 254 of the 2,000 queued papers. They are interleaved across the 8 year × decision cells, 23–43 per cell.
+- Same title route as the original audit; written to `cache/arxiv_audit_enlarge.jsonl`.
+- The job continues in the background. It is resumable and rate-limited, and the lock file prevents a second instance.
+- `snapshot_bounds.py` picks up whatever has finished. `--enlarge-n N` freezes a run; the reported run used `--enlarge-n 254`.
+- Throughput is about 375 papers per hour. Each paper needs 2–4 requests at ≥ 3.2 s apart, so the PLAN's "1k papers/hour" is not achievable within the rate limit.
+
+**Findability replicates out of sample.**
+- New papers: found 81.2% [73.2, 87.2] accepted vs 50.4% [42.1, 58.6] rejected.
+- Pooled with the original (2023–26, n = 854):
+  - OR(accepted) 5.47 [3.89, 7.69];
+  - OR(NAME) 1.27 [0.86, 1.85];
+  - OR(log title words) 0.93 [0.56, 1.53];
+  - pre-decision v1 given found, OR(accepted) 1.11 [0.76, 1.62].
+
+**Pairs.** 124 new usable pairs (74 accepted, 50 rejected), giving **455 pooled pairs (280 / 175)**.
+
+**Retitling (pooled).** 28.2% vs 25.1%: +3.1 pp [−5.4, 11.1]. For 2024–26: +4.4 pp [−5.4, 13.6]. The accepted excess shrinks as data accrue.
+
+**Flips (pooled).**
+
+| Feature | Net-flip DiD (pp) [95%] | Note |
+|---|---|---|
+| NAME | **+1.29 [−2.87, 5.44]** | Accepted 71 v1-present, +9/−7; rejected 53, +2/−3. Tip 2.92 pp, so **not identified**. Audit-implied G_dec [0.953, 1.097] |
+| Compound | −0.86 [−5.56, 3.85] | |
+| Title Case | +1.21 [−3.14, 5.57] | |
+| Mixed-case name | +1.14 [−2.34, 4.63] | |
+| 'via' | +1.29 [−2.30, 4.87] | |
+| O-union | +1.07 [−3.00, 5.14] | |
+
+**Auditability.**
+- The same 10 features are auditable.
+- 'using' (5/8), R26 (8/0) and title typography (0/0) remain unauditable.
+- R24 (11/4) and the LLM slot word (10/2) now reach 10 accepted v1 titles but not 10 rejected ones.
+- **No acceptance association is identified.**
+
+**Gate.** The H4a NAME G_total gate passes with the enlarged audit (§5).
+
+**Fragility.** Flips are rare events. Between a run with the first 248 and the first 254 enlargement records, the NAME DiD moved from +1.89 [−2.17, 5.94] to +1.29 [−2.87, 5.44] pp. Results that use the partial enlargement are interim; rerun `snapshot_bounds.py` when the background job completes.
 
 ---
 
@@ -362,7 +402,8 @@ ENLARGE_SECTION
    - Target: 250 per year × decision cell for 2023–26 (2,000 papers), title route identical to the original.
    - Written to a new file, `cache/arxiv_audit_enlarge.jsonl`; `cache/arxiv_audit.jsonl` is untouched.
    - The queue is interleaved across cells so that a partial run stays balanced.
-   - ENLARGE_DEVIATION
+   - At the freeze, 254 of 2,000 papers were done. The job keeps running in the background.
+   - The PLAN's enlargement rate (~1k papers/hour) is infeasible under the 3.2 s rate limit; the observed rate is about 375 papers/hour.
 7. **IPW models** are fitted on 2023–26 (600 papers), because 2022 has accepted papers only.
 8. **G intervals clip D to the feasible range** [P₃ − 1, P₃]. Without this, rare features produce negative or undefined G values.
 9. **Tipping points for H4a's per-year claims 2018–2023 are not computable.** The audit covers 2022–26 only.

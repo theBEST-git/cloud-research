@@ -1,0 +1,11 @@
+stratum,n,det_name,cons_name,agree_name,det_compound,cons_compound,agree_compound
+hard|dash|dash_detected,25,9,11,0.92,25,24,0.96
+hard|dash|dash_undetected,25,0,0,1.0,0,4,0.84
+hard|genre_lead|dict_word_lead,30,30,29,0.9666666666666667,30,30,1.0
+hard|genre_lead|genre_word_lead,20,1,0,0.95,20,20,1.0
+hard|latex|latex_post,25,12,13,0.96,16,16,1.0
+hard|latex|latex_pre,25,11,11,1.0,16,16,1.0
+hard|two_token_lead|name_post,12,12,2,0.16666666666666666,12,12,1.0
+hard|two_token_lead|name_pre,12,12,8,0.6666666666666666,12,12,1.0
+hard|two_token_lead|nonname_post,13,0,3,0.7692307692307693,13,13,1.0
+hard|two_token_lead|nonname_pre,13,0,3,0.7692307692307693,13,13,1.0

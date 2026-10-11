@@ -1,0 +1,50 @@
+{"item_id": "v5_63153f74", "label": "Few-shot meta-learning", "about_lms": "n", "lm_papers": 0}
+{"item_id": "v5_69ebbc54", "label": "Vision transformers for dense prediction", "about_lms": "n", "lm_papers": 1}
+{"item_id": "v5_e8587514", "label": "Video understanding with multimodal LLMs", "about_lms": "y", "lm_papers": 11}
+{"item_id": "v5_236859ce", "label": "Variational inference for Bayesian deep learning", "about_lms": "n", "lm_papers": 0}
+{"item_id": "v5_1dd822b6", "label": "Knowledge distillation for model compression", "about_lms": "n", "lm_papers": 4}
+{"item_id": "v5_dd2ef847", "label": "LLM-generated text detection", "about_lms": "y", "lm_papers": 12}
+{"item_id": "v5_364a0c46", "label": "Continual learning and catastrophic forgetting", "about_lms": "n", "lm_papers": 0}
+{"item_id": "v5_3e36ffb7", "label": "Offline reinforcement learning", "about_lms": "n", "lm_papers": 0}
+{"item_id": "v5_935eb5d1", "label": "Deep active learning", "about_lms": "n", "lm_papers": 0}
+{"item_id": "v5_80946771", "label": "EEG foundation models for brain decoding", "about_lms": "n", "lm_papers": 1}
+{"item_id": "v5_cd0d7857", "label": "Unsupervised domain adaptation", "about_lms": "n", "lm_papers": 0}
+{"item_id": "v5_73269f86", "label": "Trajectory prediction for autonomous driving", "about_lms": "n", "lm_papers": 2}
+{"item_id": "v5_59585d94", "label": "Membership inference and privacy defenses", "about_lms": "n", "lm_papers": 0}
+{"item_id": "v5_dc5e48f8", "label": "Deep anomaly detection", "about_lms": "n", "lm_papers": 0}
+{"item_id": "v5_8a43571c", "label": "Causal discovery and representation learning", "about_lms": "n", "lm_papers": 0}
+{"item_id": "v5_68034e46", "label": "Efficient long-context LLM attention", "about_lms": "y", "lm_papers": 12}
+{"item_id": "v5_f8586d95", "label": "Fine-tuning and adapting large language models", "about_lms": "y", "lm_papers": 12}
+{"item_id": "v5_02b78603", "label": "Sentence embeddings and text representations", "about_lms": "y", "lm_papers": 7}
+{"item_id": "v5_15ec109e", "label": "Recurrent neural networks for sequence modeling", "about_lms": "n", "lm_papers": 2}
+{"item_id": "v5_95a5e01f", "label": "Vision-language-action models for robotics", "about_lms": "y", "lm_papers": 11}
+{"item_id": "v5_8915bbba", "label": "Preference alignment of language models", "about_lms": "y", "lm_papers": 12}
+{"item_id": "v5_06f3948e", "label": "3D molecule generation for drug design", "about_lms": "n", "lm_papers": 0}
+{"item_id": "v5_7547b875", "label": "Transformer architecture and attention design", "about_lms": "n", "lm_papers": 3}
+{"item_id": "v5_1a817d85", "label": "Neural representations in brains and networks", "about_lms": "n", "lm_papers": 1}
+{"item_id": "v5_1ebf8366", "label": "Graph embedding and node representation learning", "about_lms": "n", "lm_papers": 0}
+{"item_id": "v5_c0081b66", "label": "Robust deep image classification", "about_lms": "n", "lm_papers": 0}
+{"item_id": "v5_dcd9b3bb", "label": "Imitation learning from demonstrations", "about_lms": "n", "lm_papers": 0}
+{"item_id": "v5_03efc0f7", "label": "Contrastive self-supervised representation learning", "about_lms": "n", "lm_papers": 0}
+{"item_id": "v5_87051561", "label": "Multi-task learning and model merging", "about_lms": "n", "lm_papers": 1}
+{"item_id": "v5_220d423b", "label": "Image restoration and super-resolution", "about_lms": "n", "lm_papers": 0}
+{"item_id": "v5_890c5416", "label": "Low-rank adaptation for LLM fine-tuning", "about_lms": "y", "lm_papers": 12}
+{"item_id": "v5_d55a2976", "label": "Sample-efficient self-supervised reinforcement learning", "about_lms": "n", "lm_papers": 0}
+{"item_id": "v5_d2c11118", "label": "Speech and audio generation", "about_lms": "n", "lm_papers": 2}
+{"item_id": "v5_51f7c040", "label": "Efficient LLM training and inference", "about_lms": "y", "lm_papers": 12}
+{"item_id": "v5_95ee0fb5", "label": "Uncertainty quantification and conformal prediction", "about_lms": "n", "lm_papers": 0}
+{"item_id": "v5_6072bbdf", "label": "Robot manipulation policy learning", "about_lms": "n", "lm_papers": 2}
+{"item_id": "v5_f0f5ed51", "label": "Exploration in reinforcement learning", "about_lms": "n", "lm_papers": 1}
+{"item_id": "v5_acb5e885", "label": "Reinforcement learning for LLM reasoning", "about_lms": "y", "lm_papers": 12}
+{"item_id": "v5_731729f2", "label": "Post-hoc explanations and feature attribution", "about_lms": "n", "lm_papers": 0}
+{"item_id": "v5_041abcab", "label": "Neural architecture search", "about_lms": "n", "lm_papers": 0}
+{"item_id": "v5_a1c1f473", "label": "Adaptive gradient optimizers for deep learning", "about_lms": "n", "lm_papers": 0}
+{"item_id": "v5_7230e728", "label": "Neural PDE solvers and operators", "about_lms": "n", "lm_papers": 0}
+{"item_id": "v5_df1f58fd", "label": "Bayesian and black-box optimization", "about_lms": "n", "lm_papers": 3}
+{"item_id": "v5_4d1e63fb", "label": "Cooperative multi-agent reinforcement learning", "about_lms": "n", "lm_papers": 2}
+{"item_id": "v5_890a86a0", "label": "Low-bit neural network quantization", "about_lms": "y", "lm_papers": 7}
+{"item_id": "v5_90099684", "label": "Geometric manifold representation learning", "about_lms": "n", "lm_papers": 0}
+{"item_id": "v5_50dfae31", "label": "LLM evaluation and benchmark generation", "about_lms": "y", "lm_papers": 12}
+{"item_id": "v5_1545c9c3", "label": "Irregular clinical time series modeling", "about_lms": "n", "lm_papers": 0}
+{"item_id": "v5_4a8e2a00", "label": "Graph neural network expressivity and design", "about_lms": "n", "lm_papers": 0}
+{"item_id": "v5_2aaa2b33", "label": "Knowledge graph reasoning and completion", "about_lms": "n", "lm_papers": 5}

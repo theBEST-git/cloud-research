@@ -1,0 +1,100 @@
+{"item_id": "v3_64758c98", "rating": 4, "cues": "ornate register, 'first and foremost', 'substantiate the superiority', 'underscore'; minor slips"}
+{"item_id": "v3_cabf947e", "rating": 5, "cues": "stacked evaluatives, 'innovative', 'rigorously', generic 'new paradigm' closing, smooth pacing"}
+{"item_id": "v3_de53a5b3", "rating": 2, "cues": "dense technical mechanisms, named PDEs, slightly awkward phrasing"}
+{"item_id": "v3_d469bc79", "rating": 1, "cues": "idiosyncratic voice, '(unfortunately)/(fortunately)' asides, citations, journey narrative"}
+{"item_id": "v3_02f91b04", "rating": 2, "cues": "non-native phrasing ('Eventually', 'genuine real data'), uneven rhythm"}
+{"item_id": "v3_c7cef516", "rating": 3, "cues": "concrete counts but smooth generic framing and closing insight claim"}
+{"item_id": "v3_63d55e25", "rating": 1, "cues": "non-native grammar, awkward constructions, inline math, terse"}
+{"item_id": "v3_ed439180", "rating": 4, "cues": "'remarkable', 'promising path', 'Crucially', 'compelling evidence', 'not just...but also'"}
+{"item_id": "v3_008965fe", "rating": 2, "cues": "idiosyncratic italic opener, natural rhythm, specific findings"}
+{"item_id": "v3_2b55d65f", "rating": 4, "cues": "'pioneers', 'master controller', 'actionable insights' closing; grammar slip, bold numbers"}
+{"item_id": "v3_63bec88c", "rating": 2, "cues": "'to our best knowledge', concrete results, natural jargon, numbered contributions"}
+{"item_id": "v3_f2a62ff9", "rating": 1, "cues": "idiosyncratic math jargon ('moduli space', 'glueing'), precise mechanism, informal aside"}
+{"item_id": "v3_02e07cb3", "rating": 3, "cues": "technical detail but smooth em-dashes and generic 'deeper understanding' closing"}
+{"item_id": "v3_0144c421", "rating": 2, "cues": "specific counts, 'Unfortunately', odd quote marks, natural phrasing"}
+{"item_id": "v3_ed82047c", "rating": 1, "cues": "terse, concrete mechanism and claims, economical jargon"}
+{"item_id": "v3_b36fe172", "rating": 1, "cues": "missing period, grammatical slips, missing noun, 'Second' without first"}
+{"item_id": "v3_9f513551", "rating": 5, "cues": "'cornerstone', 'Remarkably', 'showcasing its prowess', 'seamlessly', resilient-frameworks closing"}
+{"item_id": "v3_d3ccb171", "rating": 2, "cues": "repetitive phrasing, grammar slip ('will ease...and leads'), plain register"}
+{"item_id": "v3_58667c0e", "rating": 4, "cues": "'innovative', 'empowers individuals', 'personal comprehension', inflated word choices, little detail"}
+{"item_id": "v3_7c132db4", "rating": 4, "cues": "'consistently demonstrated', 'substantiate the efficacy', 'rigorously', smooth even sentences"}
+{"item_id": "v3_2d9fa1e5", "rating": 4, "cues": "parallel triples, 'rigorously', 'underscoring the need', broad closing; concrete numbers"}
+{"item_id": "v3_7a87356c", "rating": 3, "cues": "'innovative', 'remarkable', 'fresh perspective' vs concrete KITTI results"}
+{"item_id": "v3_69e18f2b", "rating": 1, "cues": "long detailed mechanisms, awkward 'generated one', informal aside, code link"}
+{"item_id": "v3_51053bcf", "rating": 2, "cues": "natural hedging ('somewhat atypical'), 'kickstart', British spelling, concrete Elo"}
+{"item_id": "v3_2116bb15", "rating": 2, "cues": "informal dashes, 'for free', specific sizes and datasets"}
+{"item_id": "v3_22acdd6e", "rating": 4, "cues": "'hinges on deciphering', 'intricate' twice, 'emerges as powerful tool', grand closing"}
+{"item_id": "v3_17f36777", "rating": 3, "cues": "'underscore the unique advantages', vague results; awkward 'benchmark prior works'"}
+{"item_id": "v3_49fef168", "rating": 2, "cues": "italic emphasis, LaTeX dashes, specific methods; mild 'underscore' closing"}
+{"item_id": "v3_eeff638f", "rating": 4, "cues": "'pioneering', 'excels', 'significant stride' closing; some grammar slips"}
+{"item_id": "v3_d9935dd5", "rating": 1, "cues": "idiosyncratic opener, awkward 'complements well with', uneven rhythm, domain detail"}
+{"item_id": "v3_3ee822ab", "rating": 1, "cues": "dense technical exposition, precise mechanism, natural jargon"}
+{"item_id": "v3_4b60bc84", "rating": 2, "cues": "specific numbers, plain register, modest closing"}
+{"item_id": "v3_001e9072", "rating": 3, "cues": "generic framing, triple list, 'showcasing potential'; run-on grammar slip, numbers"}
+{"item_id": "v3_6b82af96", "rating": 4, "cues": "'innovative strategy', 'spectrum', 'fostering', ornate metaphors, triple-adjective closing"}
+{"item_id": "v3_90fcde7f", "rating": 4, "cues": "non-breaking hyphens, 'intricate', 'nuanced', 'robustness and effectiveness'; grammar slip"}
+{"item_id": "v3_c2843cf6", "rating": 4, "cues": "'compelling insight', 'simple yet effective', 'new paradigm' closing, evaluative stacking"}
+{"item_id": "v3_25a5011a", "rating": 3, "cues": "'vital', 'Remarkably', 'not only...but also' vs detailed mechanism"}
+{"item_id": "v3_11f6f3cf", "rating": 2, "cues": "idiosyncratic 'interestingly, affords a noteworthy connection', plain technical prose"}
+{"item_id": "v3_cb5dd5c8", "rating": 3, "cues": "smooth framing, 'underscoring potential' closing, but concrete dataset numbers"}
+{"item_id": "v3_b0c8d1ab", "rating": 3, "cues": "'innovative approach', 'authentic', 'comprehensive' vs concrete counts, plain ending"}
+{"item_id": "v3_b7edb780", "rating": 1, "cues": "non-native phrasing ('evoked attention', 'despite...remains'), uneven structure"}
+{"item_id": "v3_0343070e", "rating": 5, "cues": "'amalgamates', 'array', 'thorough appraisal', 'harnessed', 'strives', restated contributions"}
+{"item_id": "v3_ae2daca6", "rating": 1, "cues": "'phenomenons' slip, vivid idiosyncratic analogy, specific technical detail"}
+{"item_id": "v3_65ff8944", "rating": 3, "cues": "concrete metrics vs smooth 'richer relevance' claims, reproducibility boilerplate"}
+{"item_id": "v3_f8455710", "rating": 2, "cues": "specific findings, plain register, natural phrasing"}
+{"item_id": "v3_75332437", "rating": 1, "cues": "non-native slips ('worst surrogate', 'One of such'), specific numbers"}
+{"item_id": "v3_f0f28a53", "rating": 4, "cues": "smooth even pacing, 'Overall, this work shifts', 'actionable tools' closing"}
+{"item_id": "v3_95c9b472", "rating": 3, "cues": "'excel', 'bolsters', 'robustifying' mixed with non-native 'arising by'"}
+{"item_id": "v3_b67c0614", "rating": 2, "cues": "dense specifics, named models, long uneven list"}
+{"item_id": "v3_2bc43b9d", "rating": 4, "cues": "'innovative framework specifically crafted', 'reflective engagement', 'not only...but also'"}
+{"item_id": "v3_e278c26a", "rating": 1, "cues": "terse technical detail, math notation, precise setting"}
+{"item_id": "v3_54009381", "rating": 2, "cues": "grammar slips ('win or lose', 'and then incorporating'), awkward phrasing"}
+{"item_id": "v3_22051a21", "rating": 3, "cues": "restates contribution repeatedly, generic claims; missing parentheses slip"}
+{"item_id": "v3_fc5d7d75", "rating": 2, "cues": "informal dash, parenthetical asides, concrete benchmark description"}
+{"item_id": "v3_df8a6dec", "rating": 3, "cues": "'pivotal role', smooth even sentences, 'superiority'; moderate detail"}
+{"item_id": "v3_0a294754", "rating": 3, "cues": "smooth generic framing, 'new opportunities'; apostrophe slip, case-study detail"}
+{"item_id": "v3_9fd9493d", "rating": 1, "cues": "non-native ('to retrieval', 'next next token'), markdown emphasis, specific numbers"}
+{"item_id": "v3_3bb4faa9", "rating": 3, "cues": "'intricate interdependencies', 'rich intermodal' vs awkward 'across multilayers'"}
+{"item_id": "v3_b45a63d7", "rating": 3, "cues": "'exceptional' repeated, 'underscoring its potential'; awkward 'performances'"}
+{"item_id": "v3_d35fb067", "rating": 1, "cues": "plain concise claims, macro placeholder, specific benchmarks"}
+{"item_id": "v3_dad5d133", "rating": 4, "cues": "vague generic claims, 'refined perspective', 'harness creative potential' closing"}
+{"item_id": "v3_b30942e2", "rating": 3, "cues": "three-item innovation list, 'critical limitation' repeated vs concrete results"}
+{"item_id": "v3_3e6416c1", "rating": 2, "cues": "non-native slips ('their limited', 'consistently are directed'), tense shift"}
+{"item_id": "v3_71c71e97", "rating": 3, "cues": "dense specifics and slips vs 'principled', 'diverse, high-quality', triple list"}
+{"item_id": "v3_e6630dfa", "rating": 1, "cues": "natural explanatory voice, British spelling, italic emphasis, specific claims"}
+{"item_id": "v3_1181f8da", "rating": 3, "cues": "'circumvent', 'showcase superior' vs typo 'access the trustworthiness'"}
+{"item_id": "v3_7a380174", "rating": 3, "cues": "'Crucially', non-breaking hyphen vs specific tasks and theory"}
+{"item_id": "v3_3f584a15", "rating": 3, "cues": "smooth, 'principled, hierarchical, diversity-promoting' triple vs concrete details"}
+{"item_id": "v3_3b20af9c", "rating": 2, "cues": "long awkward sentences, missing comma, plain technical register"}
+{"item_id": "v3_0e650169", "rating": 3, "cues": "'bridge this gap', 'harness' vs specific numbers, odd 'Newtonian framework'"}
+{"item_id": "v3_759d9cb0", "rating": 2, "cues": "non-native ('as humans crafted', 'typology'), plain detail"}
+{"item_id": "v3_f07765bf", "rating": 2, "cues": "specific counts, named functionals, plain register"}
+{"item_id": "v3_e9851029", "rating": 2, "cues": "plain repetitive phrasing, 'enjoys lower costs', modest claims"}
+{"item_id": "v3_e04d660f", "rating": 2, "cues": "idiosyncratic non-native vocabulary ('majorly', 'theoretic'), specific percentages"}
+{"item_id": "v3_7c8d1265", "rating": 3, "cues": "'fundamental challenge', 'intricate landscapes' vs tense shifts, no results"}
+{"item_id": "v3_3c245200", "rating": 3, "cues": "'Theoretically grounded and compact', 'step toward' closing vs dense detail"}
+{"item_id": "v3_70b1471f", "rating": 3, "cues": "concise technical detail but triple-noun closing, polished em-dashes"}
+{"item_id": "v3_1f72096e", "rating": 5, "cues": "'powerful paradigm', 'immense complexity', 'brittle, bespoke', 'significant step' closing"}
+{"item_id": "v3_70120198", "rating": 2, "cues": "terse technical claims, complexity bounds, modest closing"}
+{"item_id": "v3_ae9ad379", "rating": 2, "cues": "detailed method, specific dataset count, natural argumentative flow"}
+{"item_id": "v3_c0d1d64b", "rating": 3, "cues": "'intricacies', 'faithfully', 'comprehensive' vs moderate technical detail"}
+{"item_id": "v3_faf38692", "rating": 2, "cues": "specific findings and numbers, dash misuse, plain listing"}
+{"item_id": "v3_03dac826", "rating": 2, "cues": "grammar slip ('Much of prior efforts'), specific ordering result"}
+{"item_id": "v3_e989a48a", "rating": 3, "cues": "'actionable insights', triple lists vs specific counts, odd quotes"}
+{"item_id": "v3_91276468", "rating": 4, "cues": "'not only...but also', 'precise and flexible', 'deeper insights', restated contribution"}
+{"item_id": "v3_b05586de", "rating": 1, "cues": "terse technical setting, 'performances' slip, precise claims"}
+{"item_id": "v3_68d24b23", "rating": 3, "cues": "'inherent rigidity', 'navigate trade-off' vs slips ('a 80%', stray comma)"}
+{"item_id": "v3_85b2e7f0", "rating": 1, "cues": "plain register, concrete weed task, modest claim"}
+{"item_id": "v3_d9e77747", "rating": 2, "cues": "plain, 'some interesting findings', specific counts"}
+{"item_id": "v3_1fd16f70", "rating": 2, "cues": "dense specific findings, mostly plain; mild 'underscoring'"}
+{"item_id": "v3_42a4bb1e", "rating": 3, "cues": "generic reliability closing vs specific counts, awkward 'truly truthful'"}
+{"item_id": "v3_77f8b034", "rating": 2, "cues": "technical mechanism, plain register, modest claims"}
+{"item_id": "v3_8edfef2f", "rating": 5, "cues": "dramatic register, 'excel...falter', 'coherent scaffold', triple closing, no specifics"}
+{"item_id": "v3_53d58e08", "rating": 5, "cues": "'meteoric rise', 'transcend', 'predicated', 'architects bespoke', 'Crucially', ornate"}
+{"item_id": "v3_c1c3c67d", "rating": 4, "cues": "smooth generic prose, 'superior balance', 'underscore the importance' closing"}
+{"item_id": "v3_2f5ed004", "rating": 3, "cues": "'showcasing emergent consistency', smooth framing vs 'Codes are available'"}
+{"item_id": "v3_ee49798f", "rating": 3, "cues": "'garnered', 'valuable insights' boilerplate vs specific counts"}
+{"item_id": "v3_06d0098b", "rating": 3, "cues": "'new frontier', 'innovative' vs concrete numbers and training detail"}
+{"item_id": "v3_68c3ded9", "rating": 2, "cues": "rhetorical question, awkward 'correspondingly increasingly', specific percentages"}
+{"item_id": "v3_c687f935", "rating": 4, "cues": "'burgeoning', 'imperative', 'safeguard', 'shield', elevated register, vague results"}

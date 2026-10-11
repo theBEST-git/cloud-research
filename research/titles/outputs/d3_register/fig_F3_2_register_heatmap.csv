@@ -1,0 +1,137 @@
+family,area,year,n,k,rate_per_1k,shown,area_imputed
+r24_any,All areas,2023,3872,90,23.24380165289256,True,True
+r24_any,"applications to computer vision, audio, language, and other modalities",2023,407,17,41.76904176904177,True,True
+r24_any,"foundation or frontier models, including LLMs",2023,186,5,26.881720430107528,True,True
+r24_any,generative models,2023,156,1,6.410256410256411,True,True
+r24_any,"alignment, fairness, safety, privacy, and societal considerations",2023,410,17,41.46341463414634,True,True
+r24_any,datasets and benchmarks,2023,61,1,16.39344262295082,True,True
+r24_any,"unsupervised, self-supervised, semi-supervised, and supervised representation learning",2023,725,20,27.586206896551722,True,True
+r24_any,reinforcement learning,2023,438,6,13.698630136986301,True,True
+r24_any,"applications to physical sciences (physics, chemistry, biology, etc.)",2023,190,6,31.57894736842105,True,True
+r24_any,"other topics in machine learning (i.e., none of the above)",2023,103,1,9.70873786407767,True,True
+r24_any,interpretability and explainable AI,2023,130,0,0.0,True,True
+r24_any,optimization,2023,297,6,20.2020202020202,True,True
+r24_any,"transfer learning, meta learning, and lifelong learning",2023,142,0,0.0,True,True
+r24_any,learning on graphs and other geometries & topologies,2023,227,8,35.242290748898675,True,True
+r24_any,learning theory,2023,128,0,0.0,True,True
+r24_any,"applications to robotics, autonomy, planning",2023,45,1,22.22222222222222,True,True
+r24_any,learning on time series and dynamical systems,2023,90,0,0.0,True,True
+r24_any,All areas,2024,5765,288,49.956634865568084,True,False
+r24_any,"applications to computer vision, audio, language, and other modalities",2024,833,70,84.03361344537815,True,False
+r24_any,"foundation or frontier models, including LLMs",2024,0,0,,False,False
+r24_any,generative models,2024,603,30,49.75124378109453,True,False
+r24_any,"alignment, fairness, safety, privacy, and societal considerations",2024,429,18,41.95804195804196,True,False
+r24_any,datasets and benchmarks,2024,211,5,23.696682464454977,True,False
+r24_any,"unsupervised, self-supervised, semi-supervised, and supervised representation learning",2024,716,48,67.0391061452514,True,False
+r24_any,reinforcement learning,2024,511,21,41.0958904109589,True,False
+r24_any,"applications to physical sciences (physics, chemistry, biology, etc.)",2024,247,13,52.63157894736842,True,False
+r24_any,"other topics in machine learning (i.e., none of the above)",2024,620,26,41.935483870967744,True,False
+r24_any,interpretability and explainable AI,2024,170,5,29.41176470588235,True,False
+r24_any,optimization,2024,242,8,33.05785123966942,True,False
+r24_any,"transfer learning, meta learning, and lifelong learning",2024,290,15,51.724137931034484,True,False
+r24_any,learning on graphs and other geometries & topologies,2024,146,8,54.794520547945204,True,False
+r24_any,learning theory,2024,166,5,30.120481927710845,True,False
+r24_any,"applications to robotics, autonomy, planning",2024,143,5,34.96503496503497,True,False
+r24_any,learning on time series and dynamical systems,2024,0,0,,False,False
+r24_any,All areas,2025,8953,565,63.10733832235005,True,False
+r24_any,"applications to computer vision, audio, language, and other modalities",2025,1055,98,92.8909952606635,True,False
+r24_any,"foundation or frontier models, including LLMs",2025,977,77,78.81269191402252,True,False
+r24_any,generative models,2025,804,48,59.701492537313435,True,False
+r24_any,"alignment, fairness, safety, privacy, and societal considerations",2025,801,48,59.9250936329588,True,False
+r24_any,datasets and benchmarks,2025,589,18,30.560271646859082,True,False
+r24_any,"unsupervised, self-supervised, semi-supervised, and supervised representation learning",2025,687,56,81.51382823871907,True,False
+r24_any,reinforcement learning,2025,524,26,49.61832061068702,True,False
+r24_any,"applications to physical sciences (physics, chemistry, biology, etc.)",2025,419,24,57.279236276849645,True,False
+r24_any,"other topics in machine learning (i.e., none of the above)",2025,424,44,103.77358490566037,True,False
+r24_any,interpretability and explainable AI,2025,398,30,75.37688442211055,True,False
+r24_any,optimization,2025,391,14,35.80562659846547,True,False
+r24_any,"transfer learning, meta learning, and lifelong learning",2025,294,17,57.82312925170068,True,False
+r24_any,learning on graphs and other geometries & topologies,2025,327,19,58.103975535168196,True,False
+r24_any,learning theory,2025,272,8,29.41176470588235,True,False
+r24_any,"applications to robotics, autonomy, planning",2025,202,11,54.45544554455446,True,False
+r24_any,learning on time series and dynamical systems,2025,210,10,47.61904761904762,True,False
+r24_any,All areas,2026,15412,737,47.819880612509735,True,False
+r24_any,"applications to computer vision, audio, language, and other modalities",2026,2141,169,78.93507706679122,True,False
+r24_any,"foundation or frontier models, including LLMs",2026,2043,113,55.31081742535487,True,False
+r24_any,generative models,2026,1310,57,43.51145038167939,True,False
+r24_any,"alignment, fairness, safety, privacy, and societal considerations",2026,1276,56,43.8871473354232,True,False
+r24_any,datasets and benchmarks,2026,1229,24,19.52807160292921,True,False
+r24_any,"unsupervised, self-supervised, semi-supervised, and supervised representation learning",2026,911,42,46.10318331503842,True,False
+r24_any,reinforcement learning,2026,844,40,47.39336492890995,True,False
+r24_any,"applications to physical sciences (physics, chemistry, biology, etc.)",2026,658,37,56.23100303951368,True,False
+r24_any,"other topics in machine learning (i.e., none of the above)",2026,618,38,61.48867313915858,True,False
+r24_any,interpretability and explainable AI,2026,618,11,17.79935275080906,True,False
+r24_any,optimization,2026,580,19,32.758620689655174,True,False
+r24_any,"transfer learning, meta learning, and lifelong learning",2026,453,20,44.150110375275936,True,False
+r24_any,learning on graphs and other geometries & topologies,2026,418,26,62.20095693779904,True,False
+r24_any,learning theory,2026,413,4,9.685230024213075,True,False
+r24_any,"applications to robotics, autonomy, planning",2026,461,23,49.891540130151846,True,False
+r24_any,learning on time series and dynamical systems,2026,364,26,71.42857142857143,True,False
+r26_any,All areas,2023,3872,79,20.40289256198347,True,True
+r26_any,"applications to computer vision, audio, language, and other modalities",2023,407,16,39.31203931203931,True,True
+r26_any,"foundation or frontier models, including LLMs",2023,186,3,16.129032258064516,True,True
+r26_any,generative models,2023,156,3,19.23076923076923,True,True
+r26_any,"alignment, fairness, safety, privacy, and societal considerations",2023,410,6,14.634146341463415,True,True
+r26_any,datasets and benchmarks,2023,61,2,32.78688524590164,True,True
+r26_any,"unsupervised, self-supervised, semi-supervised, and supervised representation learning",2023,725,13,17.93103448275862,True,True
+r26_any,reinforcement learning,2023,438,7,15.981735159817351,True,True
+r26_any,"applications to physical sciences (physics, chemistry, biology, etc.)",2023,190,1,5.2631578947368425,True,True
+r26_any,"other topics in machine learning (i.e., none of the above)",2023,103,2,19.41747572815534,True,True
+r26_any,interpretability and explainable AI,2023,130,3,23.076923076923077,True,True
+r26_any,optimization,2023,297,6,20.2020202020202,True,True
+r26_any,"transfer learning, meta learning, and lifelong learning",2023,142,3,21.12676056338028,True,True
+r26_any,learning on graphs and other geometries & topologies,2023,227,7,30.837004405286343,True,True
+r26_any,learning theory,2023,128,3,23.4375,True,True
+r26_any,"applications to robotics, autonomy, planning",2023,45,2,44.44444444444444,True,True
+r26_any,learning on time series and dynamical systems,2023,90,0,0.0,True,True
+r26_any,All areas,2024,5765,147,25.498699045967044,True,False
+r26_any,"applications to computer vision, audio, language, and other modalities",2024,833,23,27.611044417767108,True,False
+r26_any,"foundation or frontier models, including LLMs",2024,0,0,,False,False
+r26_any,generative models,2024,603,14,23.217247097844112,True,False
+r26_any,"alignment, fairness, safety, privacy, and societal considerations",2024,429,7,16.317016317016318,True,False
+r26_any,datasets and benchmarks,2024,211,8,37.91469194312796,True,False
+r26_any,"unsupervised, self-supervised, semi-supervised, and supervised representation learning",2024,716,19,26.536312849162012,True,False
+r26_any,reinforcement learning,2024,511,14,27.397260273972602,True,False
+r26_any,"applications to physical sciences (physics, chemistry, biology, etc.)",2024,247,8,32.388663967611336,True,False
+r26_any,"other topics in machine learning (i.e., none of the above)",2024,620,16,25.806451612903224,True,False
+r26_any,interpretability and explainable AI,2024,170,7,41.1764705882353,True,False
+r26_any,optimization,2024,242,2,8.264462809917354,True,False
+r26_any,"transfer learning, meta learning, and lifelong learning",2024,290,6,20.689655172413794,True,False
+r26_any,learning on graphs and other geometries & topologies,2024,146,5,34.24657534246575,True,False
+r26_any,learning theory,2024,166,2,12.048192771084338,True,False
+r26_any,"applications to robotics, autonomy, planning",2024,143,4,27.972027972027973,True,False
+r26_any,learning on time series and dynamical systems,2024,0,0,,False,False
+r26_any,All areas,2025,8953,209,23.344130459064,True,False
+r26_any,"applications to computer vision, audio, language, and other modalities",2025,1055,29,27.488151658767773,True,False
+r26_any,"foundation or frontier models, including LLMs",2025,977,20,20.470829068577277,True,False
+r26_any,generative models,2025,804,24,29.850746268656717,True,False
+r26_any,"alignment, fairness, safety, privacy, and societal considerations",2025,801,10,12.484394506866417,True,False
+r26_any,datasets and benchmarks,2025,589,16,27.164685908319186,True,False
+r26_any,"unsupervised, self-supervised, semi-supervised, and supervised representation learning",2025,687,21,30.56768558951965,True,False
+r26_any,reinforcement learning,2025,524,13,24.80916030534351,True,False
+r26_any,"applications to physical sciences (physics, chemistry, biology, etc.)",2025,419,8,19.09307875894988,True,False
+r26_any,"other topics in machine learning (i.e., none of the above)",2025,424,9,21.22641509433962,True,False
+r26_any,interpretability and explainable AI,2025,398,11,27.63819095477387,True,False
+r26_any,optimization,2025,391,7,17.902813299232736,True,False
+r26_any,"transfer learning, meta learning, and lifelong learning",2025,294,4,13.605442176870747,True,False
+r26_any,learning on graphs and other geometries & topologies,2025,327,10,30.581039755351682,True,False
+r26_any,learning theory,2025,272,7,25.735294117647058,True,False
+r26_any,"applications to robotics, autonomy, planning",2025,202,3,14.851485148514852,True,False
+r26_any,learning on time series and dynamical systems,2025,210,5,23.80952380952381,True,False
+r26_any,All areas,2026,15412,715,46.39242148974825,True,False
+r26_any,"applications to computer vision, audio, language, and other modalities",2026,2141,139,64.92293320878095,True,False
+r26_any,"foundation or frontier models, including LLMs",2026,2043,85,41.60548213411649,True,False
+r26_any,generative models,2026,1310,64,48.85496183206107,True,False
+r26_any,"alignment, fairness, safety, privacy, and societal considerations",2026,1276,51,39.96865203761755,True,False
+r26_any,datasets and benchmarks,2026,1229,50,40.68348250610252,True,False
+r26_any,"unsupervised, self-supervised, semi-supervised, and supervised representation learning",2026,911,44,48.298572996706916,True,False
+r26_any,reinforcement learning,2026,844,32,37.91469194312796,True,False
+r26_any,"applications to physical sciences (physics, chemistry, biology, etc.)",2026,658,30,45.59270516717325,True,False
+r26_any,"other topics in machine learning (i.e., none of the above)",2026,618,24,38.83495145631068,True,False
+r26_any,interpretability and explainable AI,2026,618,21,33.980582524271846,True,False
+r26_any,optimization,2026,580,24,41.37931034482759,True,False
+r26_any,"transfer learning, meta learning, and lifelong learning",2026,453,14,30.90507726269316,True,False
+r26_any,learning on graphs and other geometries & topologies,2026,418,13,31.10047846889952,True,False
+r26_any,learning theory,2026,413,18,43.583535108958834,True,False
+r26_any,"applications to robotics, autonomy, planning",2026,461,37,80.26030368763557,True,False
+r26_any,learning on time series and dynamical systems,2026,364,19,52.1978021978022,True,False

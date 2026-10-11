@@ -1,0 +1,44 @@
+{
+ "frozen_on": "2026-10-11 19:52:40",
+ "original": {
+  "path": "cache/arxiv_audit.jsonl",
+  "n_lines": 616,
+  "sha256": "4be6f3f65231cca61a882f978078585e85b0564042f2d8b69a86c1286cca6363",
+  "n_pairs": 331,
+  "pairs_by_decision": {
+   "accepted": 206,
+   "rejected": 125
+  }
+ },
+ "enlargement": {
+  "path": "cache/arxiv_audit_enlarge.jsonl",
+  "n_lines_used": 1261,
+  "sha256_of_lines_used": "776341067801e217ef8ab52b91ae20bd307d3f85a32a3622178acf351ba18cfb",
+  "n_records": 1257,
+  "n_pairs": 634,
+  "note": "append-only file written by the background audit_v2 job; only the first 1261 complete lines were used"
+ },
+ "pooled": {
+  "n_pairs": 965,
+  "pairs_by_decision": {
+   "accepted": 598,
+   "rejected": 367
+  }
+ },
+ "v1_abstracts": {
+  "path": "cache/arxiv_audit_v1abs.jsonl",
+  "n_lines": 331,
+  "sha256": "5b72ec8a40ecbb01decf983888f2921c3a1e5b1a60034aeac22499a538703778",
+  "n_pairs": 330,
+  "pairs_by_decision": {
+   "accepted": 206,
+   "rejected": 124
+  }
+ },
+ "specs": {
+  "title_original": "original 616-paper audit, usable pre-decision pairs",
+  "title_pooled": "original + enlargement (gate spec for title features)",
+  "abstract_v1": "arXiv v1 abstracts of the original pairs (gate spec for abstract markers)"
+ },
+ "ci": "primary net-flip DiD 95% CI: Wald with the pseudo-flip variance floor (WP4); bootstrap B = 2,000 stratified by year x decision for the combined (editing-corrected) intervals"
+}

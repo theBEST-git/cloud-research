@@ -1,0 +1,246 @@
+submission_id,year,lead_raw,token,category
+BJlc6iA5YX,2019,ACE,space,"lead letters inside a longer word (coincidental: space, complex)"
+Hyg74h05tX,2019,Flow++,flow-based,"lead letters + suffix (mostly ordinary words: flow-based, stitching, divergence)"
+SJgEl3A5tm,2019,CAMOU,camouflage,"lead letters + suffix (mostly ordinary words: flow-based, stitching, divergence)"
+r1xkIjA9tX,2019,q-Neurons,"$q$-neurons,","variant spelling of the lead (LaTeX, markdown, Unicode hyphen; or its plural)"
+ryf7ioRqFX,2019,h-detach,(\textit{h}-detach),"variant spelling of the lead (LaTeX, markdown, Unicode hyphen; or its plural)"
+SyeMblBtwr,2020,CrossNorm,cross-normalization.,"lead letters + suffix (mostly ordinary words: flow-based, stitching, divergence)"
+SyliaANtwH,2020,MetaPoison,meta-poisoning,"lead letters + suffix (mostly ordinary words: flow-based, stitching, divergence)"
+Syxwsp4KDB,2020,TED,generated,"lead letters inside a longer word (coincidental: space, complex)"
+r1g7xT4Kwr,2020,PLEX,complex,"lead letters inside a longer word (coincidental: space, complex)"
+r1xMnCNYvB,2020,JAX MD,github.com/jaxmd/[name],URL or handle containing the lead
+rJxlc0EtDr,2020,MEMO,memory,"lead letters + suffix (mostly ordinary words: flow-based, stitching, divergence)"
+O6LPudowNQm,2021,INT,introduce,"lead letters + suffix (mostly ordinary words: flow-based, stitching, divergence)"
+QoWatN-b8T,2021,Kanerva++,kanerva,"variant spelling of the lead (LaTeX, markdown, Unicode hyphen; or its plural)"
+RB0iNPXIj60,2021,BBRefinement,https://gitlab.com/irafm-ai/bb-refinement.,URL or handle containing the lead
+T6AxtOaWydQ,2021,$i$-Mix,"i-mix,","variant spelling of the lead (LaTeX, markdown, Unicode hyphen; or its plural)"
+piLPYqxtWuA,2021,FastSpeech 2,https://speechresearch.github.io/fastspeech2/.,URL or handle containing the lead
+szXGN2CLjwf,2021,Adam$^+$,adam,"variant spelling of the lead (LaTeX, markdown, Unicode hyphen; or its plural)"
+yNFwsrcEtO0,2021,Demon,demonstrated,"lead letters + suffix (mostly ordinary words: flow-based, stitching, divergence)"
+HmFBdvBkUUY,2022,SpecTRA,spectral,"lead letters + suffix (mostly ordinary words: flow-based, stitching, divergence)"
+YDud6vPh2V,2022,Xi-learning,"$\xi$-learning,","lead letters inside a longer word (coincidental: space, complex)"
+dIVrWHP9_1i,2022,G-Mixup,$\mathcal{g}$-mixup,"variant spelling of the lead (LaTeX, markdown, Unicode hyphen; or its plural)"
+vPK-G5HbnWg,2022,PACE,spaces,"lead letters inside a longer word (coincidental: space, complex)"
+4daKS8wEze5,2023,ResGrad,\url{https://resgrad1.github.io/}.,URL or handle containing the lead
+7EUu177KXY,2023,D3C2-Net,($\mathrm{d^3c^2}$-net),"variant spelling of the lead (LaTeX, markdown, Unicode hyphen; or its plural)"
+AwWaBXLIJE,2023,Q-Pensieve,"$q$-pensieve,","variant spelling of the lead (LaTeX, markdown, Unicode hyphen; or its plural)"
+Cp-io_BoFaE,2023,FluidLab,https://fluidlab2023.github.io.,URL or handle containing the lead
+JdTnc9gjVfJ,2023,MoDem,https://nicklashansen.github.io/modemrl.,URL or handle containing the lead
+L5yBcwO1yKH,2023,MixMask,mix-masking,"lead letters + suffix (mostly ordinary words: flow-based, stitching, divergence)"
+PhkWyijGi5b,2023,Choreographer,https://skillchoreographer.github.io/,URL or handle containing the lead
+U7LLhh3VFxH,2023,ESP,despite,"lead letters inside a longer word (coincidental: space, complex)"
+ZXu1S-wdy6d,2023,EMO,"memory,","lead letters inside a longer word (coincidental: space, complex)"
+isiQ5KIXbjj,2023,QuAnt,quantum,"lead letters + suffix (mostly ordinary words: flow-based, stitching, divergence)"
+lRXSMYJtXwT,2023,MET,method,"lead letters + suffix (mostly ordinary words: flow-based, stitching, divergence)"
+pXU-5s9yUi1,2023,MINI,mining,"lead letters + suffix (mostly ordinary words: flow-based, stitching, divergence)"
+q4qocCgE3uM,2023,MARLlib,documentation\footnote{\url{https://iclr2023marllib.readthedocs.io/}},URL or handle containing the lead
+wIzVS-RJjCB,2023,VER,verbalizing,"lead letters + suffix (mostly ordinary words: flow-based, stitching, divergence)"
+1nfqABOIwQ,2024,RIME,experiments,"lead letters inside a longer word (coincidental: space, complex)"
+3Z1gxuAQrA,2024,PoSE,propose,"lead letters inside a longer word (coincidental: space, complex)"
+5rrYpa2vts,2024,EA2N,"ea$^2$n,","variant spelling of the lead (LaTeX, markdown, Unicode hyphen; or its plural)"
+6CZ50WgfCG,2024,DrS,page](https://sites.google.com/view/iclr24drs),URL or handle containing the lead
+COYDmKkQH4,2024,AutoCast++,https://github.com/[name]/autocast-plus-plus.,URL or handle containing the lead
+JAKcnjzQI3,2024,MaSS,massive,"lead letters + suffix (mostly ordinary words: flow-based, stitching, divergence)"
+JauBLBEjOy,2024,AvatarStudio,https://avatarstudio3d.github.io/.,URL or handle containing the lead
+JbcwfmYrob,2024,SEA,search,"lead letters + suffix (mostly ordinary words: flow-based, stitching, divergence)"
+KZZbdJ4wff,2024,PRO,propose,"lead letters + suffix (mostly ordinary words: flow-based, stitching, divergence)"
+NsCXDyv2Bn,2024,PromptTTS 2,(https://speechresearch.github.io/prompttts2).,URL or handle containing the lead
+OI3RoHoWAN,2024,GenSim,(https://gen-sim.github.io),URL or handle containing the lead
+RIbH5ekQpr,2024,IMP,impact,"lead letters + suffix (mostly ordinary words: flow-based, stitching, divergence)"
+S1hTxWE7cJ,2024,X-SHOT,"$x$-shot,","variant spelling of the lead (LaTeX, markdown, Unicode hyphen; or its plural)"
+SUUckMrHNY,2024,α-Former,"transformer,","lead letters inside a longer word (coincidental: space, complex)"
+V1VORwPwnd,2024,InCo,incorrect,"lead letters + suffix (mostly ordinary words: flow-based, stitching, divergence)"
+YH5w12OUuU,2024,TEMPO,temporal,"lead letters + suffix (mostly ordinary words: flow-based, stitching, divergence)"
+cLdSQOzPp3,2024,SSIF,classification),"lead letters inside a longer word (coincidental: space, complex)"
+gisAooH2TG,2024,RePLan,replanning,"lead letters + suffix (mostly ordinary words: flow-based, stitching, divergence)"
+k1wlmtPGLq,2024,TAB,establishing,"lead letters inside a longer word (coincidental: space, complex)"
+kDoKXaucJV,2024,Sparse-Guard,"$sparse$-$guard$,","variant spelling of the lead (LaTeX, markdown, Unicode hyphen; or its plural)"
+nhgTmx1TZJ,2024,UniAudio,released\footnote{\url{https://uniaudio666.github.io/demo_[name]/}},URL or handle containing the lead
+nliDYxirqq,2024,EduGym,"https://sites.google.com/view/edu-gym/home,",URL or handle containing the lead
+oDdzXQzP2F,2024,Transformer-VQ,\url{https://github.com/[name]/transformer_vq},URL or handle containing the lead
+pETSfWMUzy,2024,RAIN,pre-trained,"lead letters inside a longer word (coincidental: space, complex)"
+pYmQId95iR,2024,RLP,https://github.com/rlppaper/[name].,URL or handle containing the lead
+qHGgNyQk31,2024,Seer,https://seervideodiffusion.github.io/,URL or handle containing the lead
+qNrJJZAKI3,2024,FairSeg,https://ophai.hms.harvard.edu/datasets/harvard-fairseg10k.,URL or handle containing the lead
+rMId7iPDOH,2024,Stylist,stylistic,"lead letters + suffix (mostly ordinary words: flow-based, stitching, divergence)"
+rWVlkLgP3q,2024,BOOT,bootstrapping,"lead letters + suffix (mostly ordinary words: flow-based, stitching, divergence)"
+t7izmSufIi,2024,TETA,\url{https://teta2023.github.io/}.,URL or handle containing the lead
+vLJcd43U7a,2024,SYMBOL,symbolic,"lead letters + suffix (mostly ordinary words: flow-based, stitching, divergence)"
+0bcRCD7YUx,2025,VALL-E 2,https://anonymous/valle2,URL or handle containing the lead
+0nxocR2qx4,2025,ROPO,propose,"lead letters inside a longer word (coincidental: space, complex)"
+3Oli4u6q3p,2025,RelitLRM,https://relit-lrm.github.io/.,URL or handle containing the lead
+4GSOESJrk6,2025,DreamBench++,\dreambench,"lead letters inside a longer word (coincidental: space, complex)"
+4NRjdISWby,2025,LoCA,location-aware,"lead letters + suffix (mostly ordinary words: flow-based, stitching, divergence)"
+4W1wTg7q9o,2025,UrbanWorld,https://github.com/urban-world/[name].,URL or handle containing the lead
+5cPEkoHHyG,2025,MetaInv,meta-inverse,"lead letters + suffix (mostly ordinary words: flow-based, stitching, divergence)"
+63r2sTjkCv,2025,KinDEL,https://kin-del-2024.s3.us-west-2.amazonaws.com/[name].zip,URL or handle containing the lead
+7WaRh4gCXp,2025,NextBestPath,next-best-path,"variant spelling of the lead (LaTeX, markdown, Unicode hyphen; or its plural)"
+868masI331,2025,HALL-E,challenge,"lead letters inside a longer word (coincidental: space, complex)"
+9Hxdixed7p,2025,3D-Properties,\textbf{3d}-properties—that,"lead letters + suffix (mostly ordinary words: flow-based, stitching, divergence)"
+9kFaNwX6rv,2025,SIMPL,simply,"lead letters + suffix (mostly ordinary words: flow-based, stitching, divergence)"
+B2N0nCVC91,2025,FLIP,https://nus-lins-lab.github.io/flipweb/.,URL or handle containing the lead
+CjXaMI2kUH,2025,MrSteve,https://sites.google.com/view/mr-steve.,URL or handle containing the lead
+CpgWRFqxhD,2025,MEMO,**m**emory-guided,"lead letters + suffix (mostly ordinary words: flow-based, stitching, divergence)"
+CpiJWKFdHN,2025,ROS,across,"lead letters inside a longer word (coincidental: space, complex)"
+DuyuAHBk1t,2025,AIR,pair,"lead letters inside a longer word (coincidental: space, complex)"
+E77uvbOTtp,2025,CFG++,https://cfgpp-diffusion.github.io/anon,URL or handle containing the lead
+EO2hZTtK3M,2025,CM^2,"(cm$^2$),","variant spelling of the lead (LaTeX, markdown, Unicode hyphen; or its plural)"
+ExHUtB2vnz,2025,INFER,inference,"lead letters + suffix (mostly ordinary words: flow-based, stitching, divergence)"
+HF1UmIVv6a,2025,ADAPT,adaptation,"lead letters + suffix (mostly ordinary words: flow-based, stitching, divergence)"
+IIVYiJ1ggK,2025,Rodimus*,rodimus,"variant spelling of the lead (LaTeX, markdown, Unicode hyphen; or its plural)"
+KZgo2YQbhc,2025,PaRa,parameter,"lead letters + suffix (mostly ordinary words: flow-based, stitching, divergence)"
+KfkmwYQXWh,2025,InterDance,https://inter-dance.github.io/.,URL or handle containing the lead
+LjvIJFCa5J,2025,CityNav,https://anonymous.4open.science/w/city-nav-77e3/.,URL or handle containing the lead
+MwIbzfu93a,2025,TIM,time,"lead letters + suffix (mostly ordinary words: flow-based, stitching, divergence)"
+N6SccBt3EF,2025,EVA,evaluation.,"lead letters + suffix (mostly ordinary words: flow-based, stitching, divergence)"
+Nh8NLlIfBv,2025,xTED,experiments](https://xted24.github.io/[name]/).,URL or handle containing the lead
+OJsMGsO6yn,2025,SIM,simulate,"lead letters + suffix (mostly ordinary words: flow-based, stitching, divergence)"
+QKywN4BbqA,2025,$E^3$former,https://anonymous.4open.science/r/e3former-207e,URL or handle containing the lead
+RInisw1yin,2025,SRSA,https://srsa2024.github.io/.,URL or handle containing the lead
+Rx5LhMMr0c,2025,DeCo,''`\textbf{de}couple,"lead letters + suffix (mostly ordinary words: flow-based, stitching, divergence)"
+Se2aTG9Oui,2025,CoNNect,connectivity,"lead letters + suffix (mostly ordinary words: flow-based, stitching, divergence)"
+SvpwQfO9H1,2025,ADAPT,adaptively,"lead letters + suffix (mostly ordinary words: flow-based, stitching, divergence)"
+SwRlpDKrY9,2025,ReDebias,"re-debias,","variant spelling of the lead (LaTeX, markdown, Unicode hyphen; or its plural)"
+TnlLMYPfx5,2025,BounDr.E,https://anonymous.4open.science/r/boundr_e.,URL or handle containing the lead
+UnpxRLMMAu,2025,RATE,demonstrate,"lead letters inside a longer word (coincidental: space, complex)"
+X7XgNI0Eym,2025,MVGS,\href{https://mvgs666.github.io/}{\textcolor{magenta}{codes,URL or handle containing the lead
+Y6aHdDNQYD,2025,MOS,most,"lead letters + suffix (mostly ordinary words: flow-based, stitching, divergence)"
+YxOG4FjZLd,2025,🤔Emoji2Idiom,(emoji2idiom),"variant spelling of the lead (LaTeX, markdown, Unicode hyphen; or its plural)"
+ZGqd0cbBvm,2025,InsightBench,https://github.com/[name]/insight-bench.,URL or handle containing the lead
+ZeaTvXw080,2025,Add-it,"""additing","lead letters + suffix (mostly ordinary words: flow-based, stitching, divergence)"
+ZkFMe3OPfw,2025,InstantPortrait,instant-portrait,"variant spelling of the lead (LaTeX, markdown, Unicode hyphen; or its plural)"
+cPD2hU35x3,2025,ChatQA 2,https://chatqa2-project.github.io/,URL or handle containing the lead
+dTGH9vUVdf,2025,FreeVS,https://freevs24.github.io/.,URL or handle containing the lead
+eNCyY81aW6,2025,FACTOR,(\textbf{f}actoring,"lead letters + suffix (mostly ordinary words: flow-based, stitching, divergence)"
+fp6t3F669F,2025,BALROG,balrogai.com,URL or handle containing the lead
+igiQUYs53F,2025,CrossQuant,cross-quantizes,"lead letters + suffix (mostly ordinary words: flow-based, stitching, divergence)"
+il5yUQsrjC,2025,AndroidWorld,https://github.com/google-research/android_world.,URL or handle containing the lead
+j0KjevdhkH,2025,SIG,significantly,"lead letters + suffix (mostly ordinary words: flow-based, stitching, divergence)"
+j80J5cyyqP,2025,SPA,spatial,"lead letters + suffix (mostly ordinary words: flow-based, stitching, divergence)"
+jpypMKAsO6,2025,GridAgent,https://iclr2025gridagent.github.io/[name]-website.,URL or handle containing the lead
+mUMvr33FTu,2025,CipherPrune,https://github.com/[name]/cipher-prune-inference.,URL or handle containing the lead
+oCIEUHJjNj,2025,OMCAT,https://om-cat.github.io.,URL or handle containing the lead
+oJA1GUqRww,2025,FaceShot,https://faceshot2024.github.io/[name]/.,URL or handle containing the lead
+oOQavkQLQZ,2025,FrameBridge,https://framebridgei2v.github.io/.,URL or handle containing the lead
+oSEsSDFxyw,2025,DETER,deterring,"lead letters + suffix (mostly ordinary words: flow-based, stitching, divergence)"
+plgLA2YBLH,2025,ESE,representations,"lead letters inside a longer word (coincidental: space, complex)"
+roNSXZpUDN,2025,{$\tau$}-bench,"$\tau$-bench,","lead letters inside a longer word (coincidental: space, complex)"
+sLKDbuyq99,2025,Flow,workflows,"lead letters inside a longer word (coincidental: space, complex)"
+sNoJSfGh6y,2025,RED,reducing,"lead letters + suffix (mostly ordinary words: flow-based, stitching, divergence)"
+sceqRsa0oo,2025,SPEED,speedup,"lead letters + suffix (mostly ordinary words: flow-based, stitching, divergence)"
+uOb7rij7sR,2025,CryoGEN,cryogenic,"lead letters + suffix (mostly ordinary words: flow-based, stitching, divergence)"
+weM4YBicIP,2025,Loopy,https://loopyavataranony.github.io/,URL or handle containing the lead
+0WGl8PNMSA,2026,Retro*,"**retro\***,","variant spelling of the lead (LaTeX, markdown, Unicode hyphen; or its plural)"
+1W7RRQl3lH,2026,Disco,discovery:,"lead letters + suffix (mostly ordinary words: flow-based, stitching, divergence)"
+1vAte8dsap,2026,pi-Flow,($\pi$-flow).,"lead letters inside a longer word (coincidental: space, complex)"
+3MifB0f7qR,2026,QuestA,https://anonymous.4open.science/r/questa932.,URL or handle containing the lead
+3m3E1TEjtb,2026,MODE,model,"lead letters + suffix (mostly ordinary words: flow-based, stitching, divergence)"
+4cwbfwamtw,2026,ARA,separated,"lead letters inside a longer word (coincidental: space, complex)"
+5YP10Otu4U,2026,FOCUS,"focused,","lead letters + suffix (mostly ordinary words: flow-based, stitching, divergence)"
+5ehfdGyfig,2026,AGE,language,"lead letters inside a longer word (coincidental: space, complex)"
+66VOAHVLv6,2026,S-Former,transformers,"lead letters inside a longer word (coincidental: space, complex)"
+6KeQR225Hw,2026,Re2IC,"re$^2$ic,","variant spelling of the lead (LaTeX, markdown, Unicode hyphen; or its plural)"
+7dTqUaY2Kl,2026,JailNewsBench,https://github.com/kanekomasahiro/jail_news_bench.,URL or handle containing the lead
+8fxgi5Vfpz,2026,PrecogUI,"\textbf{precog-ui},","variant spelling of the lead (LaTeX, markdown, Unicode hyphen; or its plural)"
+8wcLQlfWdz,2026,UniCoD,\href{https://sites.google.com/view/uni-cod}{our,URL or handle containing the lead
+93LGsNwfMW,2026,DexMan,https://dexman2026.github.io/,URL or handle containing the lead
+9BKg0BAWrb,2026,K2-Agent,k$^2$-agent,"variant spelling of the lead (LaTeX, markdown, Unicode hyphen; or its plural)"
+9MnfWtlqFs,2026,DIVER,divergence,"lead letters + suffix (mostly ordinary words: flow-based, stitching, divergence)"
+9f3Nukn6BA,2026,Fastcar,https://github.com/shawnricecake/fast-car,URL or handle containing the lead
+APjCXYORXO,2026,R&D-Agent,"r\&d-agent,","variant spelling of the lead (LaTeX, markdown, Unicode hyphen; or its plural)"
+ARXIoso9D3,2026,NAB,unable,"lead letters inside a longer word (coincidental: space, complex)"
+BJae5Mx7oc,2026,CAT,applications.,"lead letters inside a longer word (coincidental: space, complex)"
+CIQ8uE3NyZ,2026,SELECT,selection,"lead letters + suffix (mostly ordinary words: flow-based, stitching, divergence)"
+CTdweIFocz,2026,LINK,linking,"lead letters + suffix (mostly ordinary words: flow-based, stitching, divergence)"
+DBqOInhRkG,2026,RARE,rarely,"lead letters + suffix (mostly ordinary words: flow-based, stitching, divergence)"
+DTQIjngDta,2026,$\pi^3$,https://github.com/yyfz/pi3.,URL or handle containing the lead
+DzvPiqh23f,2026,Self-Forcing++,http://self-forcing-plus-plus.github.io/,URL or handle containing the lead
+EJ680UQeZG,2026,Pinet,"$\pi$net,","lead letters inside a longer word (coincidental: space, complex)"
+ER9BElK8He,2026,HiddenEcho,https://github.com/liwh011/hidden-echo.,URL or handle containing the lead
+EtzJy9yI5J,2026,DAComp,\url{da-comp.github.io}.,URL or handle containing the lead
+F7GmbfyVg9,2026,FlexiVoice,https://flexi-voice.github.io/.,URL or handle containing the lead
+Fw6PBELcFs,2026,HINT,hinting,"lead letters + suffix (mostly ordinary words: flow-based, stitching, divergence)"
+FwtKMYHov7,2026,STANCE,instance,"lead letters inside a longer word (coincidental: space, complex)"
+Gmq7rQllpD,2026,OPTIMA,optimality,"lead letters + suffix (mostly ordinary words: flow-based, stitching, divergence)"
+HJ3vgg7TYQ,2026,RePrompt,reprompting,"lead letters + suffix (mostly ordinary words: flow-based, stitching, divergence)"
+HTlkxdEDWo,2026,SCORE,underscore,"lead letters inside a longer word (coincidental: space, complex)"
+IZWJhdK2o7,2026,APT,adaptive,"lead letters inside a longer word (coincidental: space, complex)"
+IhuvSLIsUN,2026,D-AR,standard,"lead letters inside a longer word (coincidental: space, complex)"
+Ii4UcmxbmJ,2026,K^*-means,"k*-means,","variant spelling of the lead (LaTeX, markdown, Unicode hyphen; or its plural)"
+IpOlERVGgv,2026,RefGrader,\href{https://github.com/ref-grader/ref-grader}{https://github.com/ref-grader/ref-grader,URL or handle containing the lead
+L3ETLxmb7N,2026,MoDE,models,"lead letters + suffix (mostly ordinary words: flow-based, stitching, divergence)"
+L47lYCynd7,2026,PLA,replacing,"lead letters inside a longer word (coincidental: space, complex)"
+L6bEitSMeu,2026,InternSpatial,https://github.com/dengnianchen/intern-spatial.,URL or handle containing the lead
+L7rVSAv1b4,2026,CONCUR,concurrent,"lead letters + suffix (mostly ordinary words: flow-based, stitching, divergence)"
+LIG31I6ArY,2026,IntE,inter-response,"lead letters + suffix (mostly ordinary words: flow-based, stitching, divergence)"
+LWS5Gkx0mT,2026,PI-Light,"($\pi$-light,","lead letters inside a longer word (coincidental: space, complex)"
+Q1CP0iAmOb,2026,H$^3$DP,https://h3-dp.github.io/.,URL or handle containing the lead
+QCCMvWYwPN,2026,M$^3$Ret,"$\mathbf{\mathsf{m^3ret}}$,","variant spelling of the lead (LaTeX, markdown, Unicode hyphen; or its plural)"
+QZvGqaNBlU,2026,PERSONA,personality,"lead letters + suffix (mostly ordinary words: flow-based, stitching, divergence)"
+QqlWLkfbq2,2026,EVA-MILP,\url{https://github.com/iclr2026evamilp/[name]}.,URL or handle containing the lead
+R7NywZ5G0e,2026,Duet,[https://duetreview.github.io/](https://duetreview.github.io/).,URL or handle containing the lead
+RNfLfgul4e,2026,REG,regularize,"lead letters + suffix (mostly ordinary words: flow-based, stitching, divergence)"
+SjInfpK5RM,2026,d$^2$Cache,\url{https://anonymous.4open.science/r/d2cache-5538}.,URL or handle containing the lead
+SuJdcjOjgP,2026,NLI,nonlinear,"lead letters inside a longer word (coincidental: space, complex)"
+Ty8Z51mjgd,2026,UniFy,**uni**fying,"lead letters + suffix (mostly ordinary words: flow-based, stitching, divergence)"
+UOYkiemcUP,2026,READ,already,"lead letters inside a longer word (coincidental: space, complex)"
+Vr0VniKoen,2026,MiST,chemistry.,"lead letters inside a longer word (coincidental: space, complex)"
+VsC5yWbpxr,2026,CAT,publication,"lead letters inside a longer word (coincidental: space, complex)"
+WSoBhpZpdD,2026,DisCo,discourages,"lead letters + suffix (mostly ordinary words: flow-based, stitching, divergence)"
+Wzn3wFFv7w,2026,MuEdit,mu-edit,"variant spelling of the lead (LaTeX, markdown, Unicode hyphen; or its plural)"
+XdGnm08ubz,2026,Dejavu,https://dejavu2025.github.io/.,URL or handle containing the lead
+Xn7w0MLr1a,2026,UniFlow-Audio,https://anonymous3387a8c.github.io/uniflow_audio.,URL or handle containing the lead
+XxYNlbTFYS,2026,ReAlign,re-aligning,"lead letters + suffix (mostly ordinary words: flow-based, stitching, divergence)"
+YAhTj2VgBw,2026,InT,intermediate,"lead letters + suffix (mostly ordinary words: flow-based, stitching, divergence)"
+YDmkmdoC3M,2026,Enumerate-Conjecture-Prove,enumerate–conjecture–prove,"variant spelling of the lead (LaTeX, markdown, Unicode hyphen; or its plural)"
+YLTQbMoAaX,2026,HYPER,hypergraphs,"lead letters + suffix (mostly ordinary words: flow-based, stitching, divergence)"
+YjfkCtSNs1,2026,Stitch,stitching,"lead letters + suffix (mostly ordinary words: flow-based, stitching, divergence)"
+Z1zHgGGG3B,2026,Self-Aug,self-augmentation,"lead letters + suffix (mostly ordinary words: flow-based, stitching, divergence)"
+ZUVJJzBWXj,2026,Know‐the‐Ropes,know-the-ropes,"variant spelling of the lead (LaTeX, markdown, Unicode hyphen; or its plural)"
+aOjy0qREsu,2026,Norm$\times$Direction,norm\$\times\$direction,"lead letters inside a longer word (coincidental: space, complex)"
+aQLqieZC5r,2026,AME,([name]).,"lead letters inside a longer word (coincidental: space, complex)"
+aZs6DkGM2I,2026,STAN,distance,"lead letters inside a longer word (coincidental: space, complex)"
+aakcTRJIWE,2026,ImagineBench,https://anonymous.4open.science/r/imagine_bench_[name],URL or handle containing the lead
+adacb4JTIv,2026,AlphaFlow,"$\alpha$-flow,","lead letters inside a longer word (coincidental: space, complex)"
+aoorNQFpM6,2026,VER,"moreover,","lead letters inside a longer word (coincidental: space, complex)"
+e9cV4xSjbR,2026,ATOM,atomistic,"lead letters + suffix (mostly ordinary words: flow-based, stitching, divergence)"
+eUuxWAQA5F,2026,AgentRace,https://agent-race.github.io/.,URL or handle containing the lead
+fkf7tlkN8q,2026,RNE,kernels,"lead letters inside a longer word (coincidental: space, complex)"
+fugnQxbvMm,2026,REMem,remembering,"lead letters + suffix (mostly ordinary words: flow-based, stitching, divergence)"
+gLPxpqYRqH,2026,MoDA,multimodal,"lead letters inside a longer word (coincidental: space, complex)"
+gSNq3jcNCW,2026,ImbalancE,imbalanced,"lead letters + suffix (mostly ordinary words: flow-based, stitching, divergence)"
+gu3DRaDWiI,2026,ROVER,https://roverbench.github.io,URL or handle containing the lead
+gujp6mwpNJ,2026,Pick‐and‐Unfold,pick-and-unfold,"variant spelling of the lead (LaTeX, markdown, Unicode hyphen; or its plural)"
+hYv2hBrTQm,2026,Medaka,https://github.com/medaka25/[name]-25.,URL or handle containing the lead
+hqFNqVQEUd,2026,ERA,interaction,"lead letters inside a longer word (coincidental: space, complex)"
+htIO088ZZF,2026,SURE,ensures,"lead letters inside a longer word (coincidental: space, complex)"
+iEelSbUsSy,2026,One2Scene,https://one2scene5406.github.io,URL or handle containing the lead
+iaup80uMS3,2026,BusMA,https://anonymous.4open.science/r/bus-ma-370e.,URL or handle containing the lead
+jKLvOzsMH7,2026,Ori,algorithm,"lead letters inside a longer word (coincidental: space, complex)"
+jSs8CDsF0A,2026,TrainRef,https://sites.google.com/view/train-ref.,URL or handle containing the lead
+k5PgSlNc4E,2026,PACE,subspace-orthogonal,"lead letters inside a longer word (coincidental: space, complex)"
+kcFEpBagea,2026,OpenPros,https://open-pros.github.io/.,URL or handle containing the lead
+lVmeipqOXV,2026,ACT,"practice,","lead letters inside a longer word (coincidental: space, complex)"
+lifeoGrKRB,2026,AGENT*,multi-agent,"lead letters inside a longer word (coincidental: space, complex)"
+mEqsCVI5sN,2026,SpaceControl,https://spacecontrol3d.github.io/,URL or handle containing the lead
+mVCsM9xJMd,2026,TALES,https://github.com/tale-suite/tale-suite-anonymized.,URL or handle containing the lead
+nIrF8xF0uN,2026,Ovi,audio–video,"lead letters inside a longer word (coincidental: space, complex)"
+neE8pqIqyR,2026,PRO,protect,"lead letters + suffix (mostly ordinary words: flow-based, stitching, divergence)"
+nwXCmnZ35w,2026,Agent2,"agent$^2$,","variant spelling of the lead (LaTeX, markdown, Unicode hyphen; or its plural)"
+o0YMFmWfml,2026,MODE,modeling,"lead letters + suffix (mostly ordinary words: flow-based, stitching, divergence)"
+p4ERSIzHdL,2026,CrossPL,cross-platform,"lead letters + suffix (mostly ordinary words: flow-based, stitching, divergence)"
+qTTmUJFG38,2026,Speak-to-Structure,**s**peak-to-**s**tructure,"variant spelling of the lead (LaTeX, markdown, Unicode hyphen; or its plural)"
+qUJZX8LwMp,2026,Ditto,"editto,","lead letters inside a longer word (coincidental: space, complex)"
+qrSYVqY367,2026,ERA,leverages,"lead letters inside a longer word (coincidental: space, complex)"
+rK7yOLa15z,2026,SPECTRA,spectral,"lead letters + suffix (mostly ordinary words: flow-based, stitching, divergence)"
+sInaRNx2dt,2026,Un-Attributability,*un*-attributability,"variant spelling of the lead (LaTeX, markdown, Unicode hyphen; or its plural)"
+sy2Pp7bXxl,2026,PEAR,appearance.,"lead letters inside a longer word (coincidental: space, complex)"
+tIqXQJvMrs,2026,USE,because,"lead letters inside a longer word (coincidental: space, complex)"
+tjZHVvgmZt,2026,Rustify,https://github.com/rustify712/[name].,URL or handle containing the lead
+vRwonhcrbA,2026,DeL,models,"lead letters inside a longer word (coincidental: space, complex)"
+wb7Yet4e2F,2026,Dchi-Stencil,"$d_\chi$-stencil,","lead letters inside a longer word (coincidental: space, complex)"
+wo5y09nns1,2026,SAFE,safety,"lead letters + suffix (mostly ordinary words: flow-based, stitching, divergence)"
+xJRFGDvFoq,2026,BrainAlign,brain-aligned,"lead letters + suffix (mostly ordinary words: flow-based, stitching, divergence)"
+yBFXOZPESZ,2026,Ano,"anolog,","lead letters + suffix (mostly ordinary words: flow-based, stitching, divergence)"
+yza9TlepdI,2026,RED,reduced,"lead letters + suffix (mostly ordinary words: flow-based, stitching, divergence)"
+zCadrJ32Xn,2026,DualMap,dual-mapping,"lead letters + suffix (mostly ordinary words: flow-based, stitching, divergence)"

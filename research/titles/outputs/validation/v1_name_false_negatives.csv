@@ -1,0 +1,30 @@
+item_id,block,component,title,lead_cons,compound_cons,d_compound,category
+v1_1b5bde8f,2023,main,Sorted eigenvalue comparison $d_{\mathsf{Eig}}$: A simple alternative to $d_{\mathsf{FID}}$,Sorted eigenvalue comparison $d_{\mathsf{Eig}}$,y,1,lead of 3+ tokens headed by a name
+v1_2eea8204,2020-22,main,Contrastive Quant: Quantization Makes Stronger Contrastive Learning,Contrastive Quant,y,1,two ordinary words used as a name
+v1_8d3d20df,2020-22,main,Feature Shapley: A general framework to discovering useful feature interactions,Feature Shapley,y,1,two ordinary words used as a name
+v1_f9e925f1,2017-19,hard,"Snapshot Ensembles: Train 1, Get M for Free",Snapshot Ensembles,y,1,two ordinary words used as a name
+v1_70b05812,2024,main,Skill Machines: Temporal Logic Skill Composition in Reinforcement Learning,Skill Machines,y,1,two ordinary words used as a name
+v1_d403700b,2025,main,Neural Slot Interpreters: Grounding Object Semantics in Emergent Slot Representations,Neural Slot Interpreters,y,1,lead of 3+ tokens headed by a name
+v1_32944a41,2023,main,Knowledge Cascade: Reverse Knowledge Distillation,Knowledge Cascade,y,1,two ordinary words used as a name
+v1_567f15aa,2017-19,main,The Predictron: End-To-End Learning and Planning,The Predictron,y,1,lead starts with an article or function word
+v1_502e479a,2023,main,Contrastive Value Learning: Implicit Models for Simple Offline RL,Contrastive Value Learning,y,1,lead of 3+ tokens headed by a name
+v1_382b8c1d,2026,main,Ambient Dataloops: Generative Models for Dataset Refinement,Ambient Dataloops,y,1,two ordinary words used as a name
+v1_bab88c2a,2026,hard,Frame Guidance: Training-Free Guidance for Frame-Level Control in Video Diffusion Models,Frame Guidance,y,1,two ordinary words used as a name
+v1_ee0755be,2017-19,main,Fixup Initialization: Residual Learning Without Normalization,Fixup Initialization,y,1,two ordinary words used as a name
+v1_ab5688e3,2020-22,main,Visual TransforMatcher: Efficient Match-to-Match Attention for Visual Correspondence,Visual TransforMatcher,y,1,ordinary first word + coined token
+v1_e640d760,2023,main,The GANfather: Controllable generation of malicious activity to expose detection weaknesses and improve defence systems.,The GANfather,y,1,lead starts with an article or function word
+v1_1fc9017e,2025,hard,Continual LLaVA: Continual Instruction Tuning in Large Vision-Language Models,Continual LLaVA,y,1,ordinary first word + coined token
+v1_bb4327f4,2025,main,Slashed Normal: Parameterize Normal Posterior Distributions with KL Amplitude,Slashed Normal,y,1,two ordinary words used as a name
+v1_83c81a08,2024,main,Balance Beam: adaptive computation for affordable training and inference with high-throughput offloading for LLMs,Balance Beam,y,1,two ordinary words used as a name
+v1_cd4c8f70,2025,hard,Param$\Delta$ for Direct Mixing: Post-Train Large Language Model At Zero Cost,Param$\Delta$ for Direct Mixing,y,1,lead of 3+ tokens headed by a name
+v1_7b874b73,2023,hard,Artificial Replay: A Meta-Algorithm for Harnessing Historical Data in Bandits,Artificial Replay,y,1,two ordinary words used as a name
+v1_3a4963d6,2025,hard,Report Cards: Qualitative Evaluation of Language Models Using Natural Language Summaries,Report Cards,y,1,two ordinary words used as a name
+v1_fb6cec63,2020-22,main,Pretrained Encyclopedia: Weakly Supervised Knowledge-Pretrained Language Model,Pretrained Encyclopedia,y,1,two ordinary words used as a name
+v1_1169b9ce,2025,hard,Secure FLOATING - Scalable Federated Learning Framework for Real-time Trust in Mobility Data using Secure Multi-Party Computation and Blockchain,Secure FLOATING,y,1,ordinary first word + coined token
+v1_cecb15f2,2026,main,Deep FlexQP: Accelerated Nonlinear Programming via Deep Unfolding,Deep FlexQP,y,1,ordinary first word + coined token
+v1_cbcb9154,2024,main,Sheared LLaMA: Accelerating Language Model Pre-training via Structured Pruning,Sheared LLaMA,y,1,ordinary first word + coined token
+v1_0e20d3b8,2017-19,main,Countdown Regression: Sharp and Calibrated Survival Predictions,Countdown Regression,y,1,two ordinary words used as a name
+v1_f3e7f384,2023,main,Human MotionFormer: Transferring Human Motions with Vision Transformers,Human MotionFormer,y,1,ordinary first word + coined token
+v1_02f2a07e,2025,hard,CAN - CONTINUOUSLY ADAPTING NETWORKS,CAN,y,1,lead starts with an article or function word
+v1_a9682827,2024,main,Smooth ECE: Principled Reliability Diagrams via Kernel Smoothing,Smooth ECE,y,1,ordinary first word + coined token
+v1_53569758,2023,hard,Cold Diffusion: Inverting Arbitrary Image Transforms Without Noise,Cold Diffusion,y,1,two ordinary words used as a name

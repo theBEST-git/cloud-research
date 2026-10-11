@@ -50,7 +50,7 @@ def main() -> None:
         (ANNOTATION / f"naming_batch_{b}.md").write_text("\n".join(out) + "\n")
         print(f"batch {b}: broad topics {sorted(members)} ({load[b - 1]} fine topics)")
 
-    check = corpus.groupby("fine", group_keys=False).apply(lambda g: g.sample(1, random_state=7)).sample(frac=1, random_state=7)
+    check = corpus.groupby("fine").sample(1, random_state=7).sample(frac=1, random_state=7)
     lines, truth = [], {}
     for i, r in enumerate(check.itertuples(), 1):
         pid = f"p{i:03d}"

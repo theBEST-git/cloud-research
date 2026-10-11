@@ -1,10 +1,11 @@
-"""Place new papers (for example the held-out confirmation split) into the frozen topics.
+"""Place papers into the frozen topics (also used by build_topics.py for the discovery split).
 
-Input: a CSV with submission_id, title, abstract. Nothing is refitted: papers are embedded with the
-same pinned SPECTER2 model and assigned to the nearest saved fine topic, whose parents give the
-middle and broad topics.
+Rule: nearest middle centroid, then the nearest fine centroid inside that middle topic; the broad topic
+is the middle topic's parent. Nothing is refitted, so held-out papers (e.g. the confirmation split) get
+topics comparable with the discovery papers.
 
     python research/topics/assign_topics.py --input new_papers.csv --output new_assignments.csv
+    (input columns: submission_id, title, abstract)
 """
 from __future__ import annotations
 
@@ -16,17 +17,30 @@ import pandas as pd
 from common import MIN_ABSTRACT_WORDS, OUTPUT
 
 
+def project(embeddings: np.ndarray, model) -> np.ndarray:
+    x = embeddings / np.linalg.norm(embeddings, axis=1, keepdims=True)
+    z = (x - model["pca_mean"]) @ model["pca_components"].T
+    return z / np.linalg.norm(z, axis=1, keepdims=True)
+
+
+def assign_projected(z: np.ndarray, model) -> pd.DataFrame:
+    rows = np.arange(len(z))
+    ms = z @ model["mid_centroids"].T
+    mi = ms.argmax(axis=1)
+    own = ms[rows, mi].copy()
+    ms[rows, mi] = -np.inf
+    mid_codes = model["mid_codes"][mi]
+    fs = z @ model["fine_centroids"].T
+    fs[model["fine_parent"][None, :] != mid_codes[:, None]] = -np.inf     # only fine topics inside the chosen middle topic
+    fi = fs.argmax(axis=1)
+    return pd.DataFrame({"fine": model["fine_codes"][fi], "mid": mid_codes, "coarse": model["coarse_of_mid"][mi],
+                         "mid_similarity": own.round(4), "mid_margin": (own - ms.max(axis=1)).round(4),
+                         "fine_similarity": fs[rows, fi].round(4)})
+
+
 def assign(embeddings: np.ndarray, model_path=OUTPUT / "topic_model.npz") -> pd.DataFrame:
-    m = np.load(model_path)
-    z = embeddings / np.linalg.norm(embeddings, axis=1, keepdims=True)
-    z = (z - m["pca_mean"]) @ m["pca_components"].T
-    z /= np.linalg.norm(z, axis=1, keepdims=True)
-    sims = z @ m["fine_centroids"].T
-    best = sims.argmax(axis=1)
-    own = sims[np.arange(len(z)), best]
-    sims[np.arange(len(z)), best] = -np.inf
-    return pd.DataFrame({"fine": m["fine_codes"][best], "mid": m["mid_codes"][best], "coarse": m["coarse_codes"][best],
-                         "fine_similarity": own.round(4), "fine_margin": (own - sims.max(axis=1)).round(4)})
+    model = np.load(model_path)
+    return assign_projected(project(embeddings.astype(np.float64), model), model)
 
 
 def main() -> None:

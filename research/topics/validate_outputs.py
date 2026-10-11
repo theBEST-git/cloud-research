@@ -33,8 +33,13 @@ def main() -> None:
     check(a.submission_id.is_unique and a.submission_id.equals(corpus.submission_id),
           f"every paper with a real abstract has exactly one topic ({len(a)} papers)")
     for level, k in LEVEL_SIZES.items():
-        check(a[level].nunique() == k and set(a[level]) == set(cat[cat.level == level].topic),
-              f"{k} {level} topics, all described in the catalog")
+        n = a[level].nunique()
+        right_count = n == k if level != "fine" else 0.9 * k <= n <= k      # small fine pieces are folded into siblings
+        check(right_count and set(a[level]) == set(cat[cat.level == level].topic), f"{n} {level} topics, all described in the catalog")
+    check(cat[cat.level == "fine"].papers.min() >= 60, "every fine topic has at least 60 papers")
+    stab = pd.read_csv(OUTPUT / "paper_topic_stability.csv.gz")
+    check(stab.submission_id.equals(a.submission_id) and stab.drop(columns="submission_id").stack().between(0, 1).all(),
+          "per-paper stability covers every paper and lies in [0, 1]")
     check((a.groupby("fine").mid.nunique() == 1).all() and (a.groupby("mid").coarse.nunique() == 1).all(),
           "levels nest: each fine topic sits in one middle topic, each middle topic in one broad topic")
     named = cat.name.str.strip().ne("")

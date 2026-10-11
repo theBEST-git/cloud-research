@@ -1,11 +1,12 @@
 """Outcome-blind quality checks for the topic layer, against a word-count (TF-IDF/LSA) baseline.
 
-Metrics, per level (broad / middle / fine):
-- stability: adjusted Rand index between the final topics and a refit with different random seeds
-- primary-area agreement: NMI with ICLR's author-chosen primary areas (2024-2026 only; an outside reference)
+Both spaces use the same fitting procedure (build_topics.fit_hierarchy). Metrics per level:
+- stability: adjusted Rand index between the final topics and refits with other random seeds
+- primary-area agreement: NMI with ICLR's author-chosen primary areas (2024-2026; an outside reference)
 - keyword coherence: share of a topic's papers listing its most common specific keyword (size-weighted)
-- synonym overlap: how much the topic distributions of near-synonymous keywords overlap (1 = identical)
-- size rules: smallest topic and how many topics have >=30 papers in >=3 years
+- synonym overlap: overlap of the topic distributions of near-synonymous keywords (1 = identical)
+- size rules: smallest topic, and topics with >=30 papers in >=3 years
+Also writes per-topic and per-paper stability (how consistently papers stay together across refits).
 
     python research/topics/evaluate_topics.py
 """
@@ -16,15 +17,17 @@ import json
 
 import numpy as np
 import pandas as pd
-from sklearn.cluster import AgglomerativeClustering, KMeans
 from sklearn.decomposition import PCA, TruncatedSVD
 from sklearn.feature_extraction.text import ENGLISH_STOP_WORDS, TfidfVectorizer
 from sklearn.metrics import adjusted_rand_score, normalized_mutual_info_score
 from sklearn.preprocessing import normalize
 
-from common import LEVEL_SIZES, OUTPUT, embedded_corpus, load_embeddings
-from build_topics import N_INIT, PCA_DIM
+from assign_topics import project
+from build_topics import PCA_DIM, fit_hierarchy
+from common import OUTPUT, embedded_corpus, load_embeddings, write_csv_gz
 
+LEVELS = ("coarse", "mid", "fine")
+REFIT_SEEDS = [(10, 11, 12), (20, 21, 22), (30, 31, 32)]
 GENERIC = {"deep learning", "machine learning", "neural networks", "neural network", "deep neural networks",
            "deep neural network", "artificial intelligence"}
 SYNONYMS = [("large language models", "language models"), ("large language models", "llm"),
@@ -36,16 +39,6 @@ BOILER = ("propose proposed proposes show shows shown demonstrate demonstrates m
           "significantly significant extensive address based using use used problem problems framework").split()
 
 
-def hierarchy(z: np.ndarray, seed_list: tuple[int, ...]) -> dict[str, np.ndarray]:
-    km = min((KMeans(LEVEL_SIZES["fine"], n_init=N_INIT, random_state=s, max_iter=300).fit(z) for s in seed_list),
-             key=lambda f: f.inertia_)
-    c = normalize(km.cluster_centers_)
-    out = {"fine": km.labels_}
-    for lvl in ("mid", "coarse"):
-        out[lvl] = AgglomerativeClustering(n_clusters=LEVEL_SIZES[lvl], linkage="ward").fit(c).labels_[km.labels_]
-    return out
-
-
 def tfidf_space(corpus: pd.DataFrame) -> np.ndarray:
     vec = TfidfVectorizer(stop_words=list(ENGLISH_STOP_WORDS.union(BOILER)), ngram_range=(1, 2), min_df=5, max_df=0.3,
                           sublinear_tf=True, max_features=120000, token_pattern=r"(?u)\b[a-zA-Z][a-zA-Z0-9\-]+\b")
@@ -53,12 +46,12 @@ def tfidf_space(corpus: pd.DataFrame) -> np.ndarray:
     return normalize(TruncatedSVD(256, random_state=0, n_iter=7).fit_transform(vec.fit_transform(docs)))
 
 
-def metrics(labels: np.ndarray, corpus: pd.DataFrame, pairs: list[tuple[str, str]]) -> dict:
-    labels = pd.factorize(labels)[0]
+def metrics(labels, corpus: pd.DataFrame, pairs) -> dict:
+    labels = pd.factorize(np.asarray(labels))[0]
     k = labels.max() + 1
     sizes = np.bincount(labels, minlength=k)
     years = pd.crosstab(labels, corpus.year.values)
-    trackable = (years >= 30).sum(axis=1) >= 3
+    trackable = ((years >= 30).sum(axis=1) >= 3).values
     area = corpus.primary_area.fillna("").ne("").values
     top_share = []
     for c in range(k):
@@ -69,13 +62,23 @@ def metrics(labels: np.ndarray, corpus: pd.DataFrame, pairs: list[tuple[str, str
         m = corpus.keywords.map(lambda kws: word in kws).values
         v = np.bincount(labels[m], minlength=k).astype(float)
         return v / v.sum()
-    return {
-        "topics": int(k), "smallest": int(sizes.min()), "largest": int(sizes.max()),
-        "trackable_topics": int(trackable.sum()), "trackable_paper_share": round(float(sizes[trackable.values].sum() / len(labels)), 3),
-        "nmi_primary_area_2024_2026": round(float(normalized_mutual_info_score(corpus.primary_area.values[area], labels[area])), 3),
-        "keyword_coherence": round(float(np.dot(top_share, sizes) / sizes.sum()), 3),
-        "synonym_overlap": round(float(np.mean([np.minimum(dist(a), dist(b)).sum() for a, b in pairs])), 3),
-    }
+    return {"topics": int(k), "smallest": int(sizes.min()), "largest": int(sizes.max()),
+            "trackable_topics": int(trackable.sum()), "trackable_paper_share": round(float(sizes[trackable].sum() / len(labels)), 3),
+            "nmi_primary_area_2024_2026": round(float(normalized_mutual_info_score(corpus.primary_area.values[area], labels[area])), 3),
+            "keyword_coherence": round(float(np.dot(top_share, sizes) / sizes.sum()), 3),
+            "synonym_overlap": round(float(np.mean([np.minimum(dist(a), dist(b)).sum() for a, b in pairs])), 3)}
+
+
+def matched(final: np.ndarray, refit: np.ndarray):
+    """For each final topic: best-matching refit cluster (Jaccard) and whether each paper stayed in it."""
+    f_codes, f = np.unique(final, return_inverse=True)
+    _, r = np.unique(refit, return_inverse=True)
+    inter = np.zeros((f.max() + 1, r.max() + 1))
+    np.add.at(inter, (f, r), 1)
+    union = inter.sum(1, keepdims=True) + inter.sum(0, keepdims=True) - inter
+    jac = inter / union
+    best = jac.argmax(axis=1)
+    return dict(zip(f_codes, jac.max(axis=1))), (r == best[f])
 
 
 def main() -> None:
@@ -87,19 +90,33 @@ def main() -> None:
     if not final.submission_id.equals(corpus.submission_id):
         raise RuntimeError("Assignments are out of date; rerun build_topics.py")
 
-    z = normalize(PCA(PCA_DIM, svd_solver="full").fit_transform(normalize(emb)))
-    refit = hierarchy(z, (10, 11, 12))
+    emb = emb.astype(np.float64)
+    pca = PCA(PCA_DIM, svd_solver="full").fit(normalize(emb))
+    z = project(emb, {"pca_mean": pca.mean_, "pca_components": pca.components_})
+    refits = [fit_hierarchy(z, seeds) for seeds in REFIT_SEEDS]
     lsa = tfidf_space(corpus)
-    base = hierarchy(lsa, (0, 1, 2))
-    base_refit = hierarchy(lsa, (10, 11, 12))
-    report = {"synonym_pairs": pairs, "levels": {}}
-    for lvl in ("coarse", "mid", "fine"):
+    base, base_refit = fit_hierarchy(lsa), fit_hierarchy(lsa, REFIT_SEEDS[0])
+
+    report = {"synonym_pairs": pairs, "refit_seeds": REFIT_SEEDS, "levels": {}}
+    topic_rows, paper = [], {"submission_id": corpus.submission_id}
+    for lvl in LEVELS:
+        aris, jac_runs, stay_runs = [], [], []
+        for h in refits:
+            aris.append(adjusted_rand_score(final[lvl], h[lvl]))
+            jac, stay = matched(final[lvl].values, h[lvl])
+            jac_runs.append(jac)
+            stay_runs.append(stay)
+        paper[f"{lvl}_stability"] = np.mean(stay_runs, axis=0).round(3)
+        for t in sorted(jac_runs[0]):
+            topic_rows.append({"level": lvl, "topic": t, "stability_jaccard": round(float(np.mean([j[t] for j in jac_runs])), 3)})
         report["levels"][lvl] = {
-            "specter2": {**metrics(final[lvl].values, corpus, pairs),
-                         "stability_ari": round(float(adjusted_rand_score(final[lvl], refit[lvl])), 3)},
+            "specter2": {**metrics(final[lvl], corpus, pairs), "stability_ari_mean": round(float(np.mean(aris)), 3),
+                         "stability_ari_range": [round(float(min(aris)), 3), round(float(max(aris)), 3)]},
             "tfidf_baseline": {**metrics(base[lvl], corpus, pairs),
-                               "stability_ari": round(float(adjusted_rand_score(base[lvl], base_refit[lvl])), 3)},
+                               "stability_ari_mean": round(float(adjusted_rand_score(base[lvl], base_refit[lvl])), 3)},
         }
+    pd.DataFrame(topic_rows).to_csv(OUTPUT / "topic_stability.csv", index=False)
+    write_csv_gz(pd.DataFrame(paper), OUTPUT / "paper_topic_stability.csv.gz")
     (OUTPUT / "quality_metrics.json").write_text(json.dumps(report, indent=2) + "\n")
     for lvl, r in report["levels"].items():
         for name, m in r.items():

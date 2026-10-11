@@ -1,8 +1,13 @@
 """Fit the nested topic layer from cached SPECTER2 embeddings.
 
-Embeddings -> unit length -> PCA(128) -> unit length -> k-means (200 fine topics, best of 3 seeds x 5 inits)
--> Ward merge of the fine centroids into 100 middle and 20 broad topics, so the levels nest exactly.
-Topic codes are numbered by size so they are readable and stable across identical runs.
+The middle level (100 topics) is the analysis level, so it is fitted directly and the other levels
+are built around it:
+- middle: spherical k-means on unit-length PCA(128) embeddings, best of 3 seeds x 20 initialisations
+- broad:  Ward merge of the 100 middle centroids into 20 groups (each middle topic has one parent)
+- fine:   each middle topic split by k-means in proportion to its size (~200 in total); pieces under
+          60 papers are folded into their nearest sibling, so fine topics stay analysable
+Every paper goes to its nearest middle centroid, then to the nearest fine centroid inside that middle
+topic; assign_topics.py applies the same rule to new papers. Codes are numbered by size.
 
     python research/topics/build_topics.py
 """
@@ -19,11 +24,51 @@ from sklearn.preprocessing import normalize
 
 from common import LEVEL_SIZES, OUTPUT, embedded_corpus, load_embeddings, write_csv_gz
 
-PCA_DIM, SEEDS, N_INIT, EXAMPLES = 128, (0, 1, 2), 5, 8
+PCA_DIM, SEEDS, N_INIT_MID, N_INIT_FINE, MIN_FINE, EXAMPLES = 128, (0, 1, 2), 20, 10, 60, 8
 
 
-def project(emb: np.ndarray, mean: np.ndarray, components: np.ndarray) -> np.ndarray:
-    return normalize((normalize(emb) - mean) @ components.T)
+def allocate(sizes: np.ndarray, total: int) -> np.ndarray:
+    """Split counts proportional to size (largest remainder), at least one per middle topic."""
+    raw = sizes / sizes.sum() * total
+    n = np.maximum(1, np.floor(raw)).astype(int)
+    for i in np.argsort(-(raw - np.floor(raw)), kind="stable"):
+        if n.sum() >= total:
+            break
+        n[i] += 1
+    while n.sum() > total:
+        n[np.argmax(n)] -= 1
+    return n
+
+
+def fit_hierarchy(z: np.ndarray, seeds: tuple[int, ...] = SEEDS) -> dict:
+    k_mid = LEVEL_SIZES["mid"]
+    km = min((KMeans(k_mid, n_init=N_INIT_MID, random_state=s, max_iter=300).fit(z) for s in seeds),
+             key=lambda f: f.inertia_)
+    mid_c = normalize(km.cluster_centers_)
+    mid = (z @ mid_c.T).argmax(axis=1)
+    if len(np.unique(mid)) != k_mid:
+        raise RuntimeError("A middle topic became empty")
+    coarse_of_mid = AgglomerativeClustering(n_clusters=LEVEL_SIZES["coarse"], linkage="ward").fit(mid_c).labels_
+    splits = allocate(np.bincount(mid, minlength=k_mid), LEVEL_SIZES["fine"])
+    fine = np.empty(len(z), dtype=int)
+    fine_c, fine_parent = [], []
+    for m in range(k_mid):
+        idx = np.where(mid == m)[0]
+        cc = mid_c[m:m + 1]
+        if splits[m] > 1:
+            cc = normalize(KMeans(splits[m], n_init=N_INIT_FINE, random_state=seeds[0], max_iter=300).fit(z[idx]).cluster_centers_)
+        while True:                                   # fold the smallest piece into its siblings until all are big enough
+            local = (z[idx] @ cc.T).argmax(axis=1)
+            sizes = np.bincount(local, minlength=len(cc))
+            j = int(np.argmin(sizes))
+            if len(cc) == 1 or sizes[j] >= MIN_FINE:
+                break
+            cc = np.delete(cc, j, axis=0)
+        fine[idx] = len(fine_c) + local
+        fine_c.extend(cc)
+        fine_parent.extend([m] * len(cc))
+    return {"mid": mid, "coarse": coarse_of_mid[mid], "fine": fine, "mid_centroids": mid_c,
+            "coarse_of_mid": coarse_of_mid, "fine_centroids": np.array(fine_c), "fine_parent": np.array(fine_parent)}
 
 
 def keyword_signature(keyword_lists: pd.Series, global_counts: collections.Counter, n_total: int, k: int = 6) -> str:
@@ -34,62 +79,50 @@ def keyword_signature(keyword_lists: pd.Series, global_counts: collections.Count
     return " · ".join(w for w, _ in sorted(score.items(), key=lambda x: (-x[1], x[0]))[:k])
 
 
+def codes(h: dict) -> dict:
+    """Readable codes: broad by size; middle grouped under broad, then by size; fine grouped under middle."""
+    mid_size = np.bincount(h["mid"])
+    coarse_size = pd.Series(h["coarse"]).value_counts()
+    coarse_code = {c: f"c{i + 1:02d}" for i, c in enumerate(coarse_size.index)}
+    mid_order = sorted(range(len(mid_size)), key=lambda m: (coarse_code[h["coarse_of_mid"][m]], -mid_size[m], m))
+    mid_code = {m: f"m{i + 1:03d}" for i, m in enumerate(mid_order)}
+    fine_size = np.bincount(h["fine"])
+    fine_order = sorted(range(len(fine_size)), key=lambda f: (mid_code[h["fine_parent"][f]], -fine_size[f], f))
+    fine_code = {f: f"f{i + 1:03d}" for i, f in enumerate(fine_order)}
+    return {"coarse": coarse_code, "mid": mid_code, "fine": fine_code, "mid_order": mid_order, "fine_order": fine_order}
+
+
 def main() -> None:
     OUTPUT.mkdir(exist_ok=True)
     corpus = embedded_corpus()
     emb, ids = load_embeddings()
     if not ids.equals(corpus.submission_id):
         raise RuntimeError("Embedding cache does not match the current corpus; rerun embed_specter2.py")
-
+    from assign_topics import assign_projected, project
+    emb = emb.astype(np.float64)
     pca = PCA(PCA_DIM, svd_solver="full").fit(normalize(emb))
-    z = project(emb, pca.mean_, pca.components_)
-    km = min((KMeans(LEVEL_SIZES["fine"], n_init=N_INIT, random_state=s, max_iter=300).fit(z) for s in SEEDS),
-             key=lambda f: f.inertia_)
-    centroids = normalize(km.cluster_centers_)
-    # Final step of spherical k-means: nearest unit centroid. assign_topics.py uses the same rule for new papers.
-    raw_fine = (z @ centroids.T).argmax(axis=1)
-    if len(np.unique(raw_fine)) != LEVEL_SIZES["fine"]:
-        raise RuntimeError("A fine topic became empty after reassignment")
-    merged = {lvl: AgglomerativeClustering(n_clusters=LEVEL_SIZES[lvl], linkage="ward").fit(centroids).labels_
-              for lvl in ("mid", "coarse")}
-    # Both cuts come from the same Ward merge sequence, so every middle topic sits inside one broad topic.
-    if (pd.DataFrame(merged).groupby("mid").coarse.nunique() > 1).any():
-        raise RuntimeError("Middle topics do not nest inside broad topics")
+    z = project(emb, {"pca_mean": pca.mean_, "pca_components": pca.components_})   # same formula as for new papers
+    h = fit_hierarchy(z)
+    c = codes(h)
 
-    # Readable codes: broad topics by size; middle and fine topics grouped under their parent, then by size.
-    size = pd.Series(raw_fine).value_counts()
-    coarse_size = pd.Series(merged["coarse"][raw_fine]).value_counts()
-    coarse_code = {c: f"c{i + 1:02d}" for i, c in enumerate(coarse_size.index)}
-    mid_size = pd.Series(merged["mid"][raw_fine]).value_counts()
-    mid_order = sorted(mid_size.index, key=lambda m: (coarse_code[merged["coarse"][np.argmax(merged["mid"] == m)]], -mid_size[m], m))
-    mid_code = {m: f"m{i + 1:03d}" for i, m in enumerate(mid_order)}
-    fine_order = sorted(size.index, key=lambda f: (mid_code[merged["mid"][f]], -size[f], f))
-    fine_code = {f: f"f{i + 1:03d}" for i, f in enumerate(fine_order)}
-
-    sims = z @ centroids.T
-    own = sims[np.arange(len(z)), raw_fine]
-    sims[np.arange(len(z)), raw_fine] = -np.inf
-    assign = pd.DataFrame({
-        "submission_id": corpus.submission_id, "year": corpus.year,
-        "fine": [fine_code[f] for f in raw_fine],
-        "mid": [mid_code[merged["mid"][f]] for f in raw_fine],
-        "coarse": [coarse_code[merged["coarse"][f]] for f in raw_fine],
-        "fine_similarity": own.round(4), "fine_margin": (own - sims.max(axis=1)).round(4),
-    })
+    model = {"pca_mean": pca.mean_, "pca_components": pca.components_,       # float64 so reassignment is exact
+             "mid_centroids": h["mid_centroids"][c["mid_order"]],
+             "mid_codes": np.array([c["mid"][m] for m in c["mid_order"]]),
+             "coarse_of_mid": np.array([c["coarse"][h["coarse_of_mid"][m]] for m in c["mid_order"]]),
+             "fine_centroids": h["fine_centroids"][c["fine_order"]],
+             "fine_codes": np.array([c["fine"][f] for f in c["fine_order"]]),
+             "fine_parent": np.array([c["mid"][h["fine_parent"][f]] for f in c["fine_order"]])}
+    np.savez_compressed(OUTPUT / "topic_model.npz", **model)
+    assign = pd.concat([corpus[["submission_id", "year"]], assign_projected(z, model)], axis=1)
+    expected = [c["fine"][f] for f in h["fine"]]
+    if (assign.fine.values != np.array(expected)).any():
+        raise RuntimeError("Saved model does not reproduce the fitted assignment")
     write_csv_gz(assign, OUTPUT / "topic_assignments.csv.gz")
 
-    # Model needed to place new (e.g. held-out confirmation) papers into the same topics.
-    order = [f for f in sorted(fine_code, key=fine_code.get)]
-    np.savez_compressed(OUTPUT / "topic_model.npz", pca_mean=pca.mean_.astype(np.float32),
-                        pca_components=pca.components_.astype(np.float32),
-                        fine_centroids=centroids[order].astype(np.float32),
-                        fine_codes=np.array([fine_code[f] for f in order]),
-                        mid_codes=np.array([mid_code[merged["mid"][f]] for f in order]),
-                        coarse_codes=np.array([coarse_code[merged["coarse"][f]] for f in order]))
-
     global_counts = collections.Counter(w for kws in corpus.keywords for w in set(kws))
-    rows, frame = [], corpus.assign(fine=assign.fine, mid=assign.mid, coarse=assign.coarse, sim=assign.fine_similarity)
+    frame = corpus.assign(fine=assign.fine, mid=assign.mid, coarse=assign.coarse, sim=assign.mid_similarity)
     years = sorted(frame.year.unique())
+    rows = []
     for level in ("coarse", "mid", "fine"):
         for code, g in frame.groupby(level):
             per_year = g.year.value_counts()
@@ -98,18 +131,17 @@ def main() -> None:
                 "parent_mid": g.mid.iloc[0] if level == "fine" else "",
                 "parent_coarse": g.coarse.iloc[0] if level != "coarse" else "",
                 "papers": len(g), **{f"y{y}": int(per_year.get(y, 0)) for y in years},
-                "mean_fine_similarity": round(float(g.sim.mean()), 4),
+                "mean_mid_similarity": round(float(g.sim.mean()), 4),
                 "keyword_signature": keyword_signature(g.keywords, global_counts, len(frame)),
                 "example_titles": " | ".join(g.sample(min(EXAMPLES, len(g)), random_state=0).title.str.slice(0, 120)),
             })
     catalog = pd.DataFrame(rows)
     catalog.to_csv(OUTPUT / "topic_catalog_auto.csv", index=False)
     for level in ("coarse", "mid", "fine"):
-        c = catalog[catalog.level == level]
-        yt = c[[f"y{y}" for y in years]]
-        trackable = (yt >= 30).sum(axis=1) >= 3
-        print(f"{level:6s}: {len(c)} topics | papers min {c.papers.min()}, median {int(c.papers.median())}, max {c.papers.max()} | "
-              f"{trackable.sum()} with >=30 papers in >=3 years ({c.papers[trackable].sum() / len(frame):.0%} of papers)")
+        cat = catalog[catalog.level == level]
+        trackable = (cat[[f"y{y}" for y in years]] >= 30).sum(axis=1) >= 3
+        print(f"{level:6s}: {len(cat)} topics | papers min {cat.papers.min()}, median {int(cat.papers.median())}, max {cat.papers.max()} | "
+              f"{trackable.sum()} with >=30 papers in >=3 years ({cat.papers[trackable].sum() / len(frame):.0%} of papers)")
     print(json.dumps({"papers": len(frame), "pca_explained_variance": round(float(pca.explained_variance_ratio_.sum()), 3)}))
 
 

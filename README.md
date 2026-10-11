@@ -86,3 +86,9 @@ streaming and disabled network/subprocess operations. It refuses to overwrite an
 existing export. Small consumed files are fully checksum verified; large database
 preservation is checked through sealed manifests, size and mtime, not a new full
 raw-corpus checksum audit. See `validation.json` and `reproduction.json` in `data/`.
+
+## Derived layers
+
+- [research/topics/](research/topics/README.md): outcome-blind content topics for every discovery paper
+  (20 broad / 100 middle / 198 fine), typed author keywords and a breakdown of generic keywords. Built on
+  top of this package; not part of the sealed export.

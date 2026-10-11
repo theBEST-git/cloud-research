@@ -1,0 +1,115 @@
+{
+  "synonym_pairs": [
+    [
+      "large language models",
+      "language models"
+    ],
+    [
+      "multimodal large language models",
+      "vision-language model"
+    ]
+  ],
+  "refit_seeds": [
+    [
+      10,
+      11,
+      12
+    ],
+    [
+      20,
+      21,
+      22
+    ],
+    [
+      30,
+      31,
+      32
+    ]
+  ],
+  "levels": {
+    "coarse": {
+      "specter2": {
+        "topics": 20,
+        "smallest": 897,
+        "largest": 4051,
+        "trackable_topics": 20,
+        "trackable_paper_share": 1.0,
+        "nmi_primary_area_2024_2026": 0.278,
+        "keyword_coherence": 0.214,
+        "synonym_overlap": 0.821,
+        "stability_ari_mean": 0.522,
+        "stability_ari_range": [
+          0.475,
+          0.556
+        ]
+      },
+      "tfidf_baseline": {
+        "topics": 20,
+        "smallest": 488,
+        "largest": 5906,
+        "trackable_topics": 20,
+        "trackable_paper_share": 1.0,
+        "nmi_primary_area_2024_2026": 0.245,
+        "keyword_coherence": 0.224,
+        "synonym_overlap": 0.845,
+        "stability_ari_mean": 0.532
+      }
+    },
+    "mid": {
+      "specter2": {
+        "topics": 100,
+        "smallest": 127,
+        "largest": 1121,
+        "trackable_topics": 91,
+        "trackable_paper_share": 0.941,
+        "nmi_primary_area_2024_2026": 0.302,
+        "keyword_coherence": 0.292,
+        "synonym_overlap": 0.67,
+        "stability_ari_mean": 0.661,
+        "stability_ari_range": [
+          0.63,
+          0.694
+        ]
+      },
+      "tfidf_baseline": {
+        "topics": 100,
+        "smallest": 143,
+        "largest": 1306,
+        "trackable_topics": 90,
+        "trackable_paper_share": 0.922,
+        "nmi_primary_area_2024_2026": 0.272,
+        "keyword_coherence": 0.341,
+        "synonym_overlap": 0.464,
+        "stability_ari_mean": 0.666
+      }
+    },
+    "fine": {
+      "specter2": {
+        "topics": 198,
+        "smallest": 65,
+        "largest": 365,
+        "trackable_topics": 94,
+        "trackable_paper_share": 0.567,
+        "nmi_primary_area_2024_2026": 0.295,
+        "keyword_coherence": 0.306,
+        "synonym_overlap": 0.637,
+        "stability_ari_mean": 0.532,
+        "stability_ari_range": [
+          0.512,
+          0.554
+        ]
+      },
+      "tfidf_baseline": {
+        "topics": 193,
+        "smallest": 61,
+        "largest": 480,
+        "trackable_topics": 92,
+        "trackable_paper_share": 0.598,
+        "nmi_primary_area_2024_2026": 0.272,
+        "keyword_coherence": 0.365,
+        "synonym_overlap": 0.439,
+        "stability_ari_mean": 0.644
+      }
+    }
+  }
+}

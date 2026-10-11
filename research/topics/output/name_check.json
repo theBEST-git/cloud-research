@@ -1,0 +1,8 @@
+{
+  "papers": 198,
+  "answered": 198,
+  "fine_accuracy": 0.611,
+  "mid_accuracy": 0.803,
+  "chance_fine_accuracy": 0.101,
+  "note": "one random paper per fine topic; checker saw only title + abstract opening and the fine-topic names inside the paper's broad topic"
+}

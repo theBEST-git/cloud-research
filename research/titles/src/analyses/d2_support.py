@@ -11,6 +11,10 @@ S2.1 Within-paper retitling across resubmission.
   against the population drift implied by each pair's years, never transition rates as behaviour.
   Purity: matches per source paper among accepted sources (which should not be resubmitted) relative to
   non-accepted sources, 2018-25 sources.
+  Benchmarks (audit D2-C7, D2-R7): a resubmission holds content roughly fixed, so besides the raw population
+  drift the pair change is compared with (a) the drift of the topic100-adjusted outcome (LPM on year + topic100
+  dummies over U; year effects kept), (b) the drift within the source paper's topic100 cluster, and (c) the same
+  shared keys' other papers in the two years.
 
 S2.2 Future-tie placebo (C15), author-year panel of profile keys, 2021-26.
   For focal key k with a paper j in year T: past exposure = outcome share among the T-1 papers of k's T-1
@@ -19,7 +23,8 @@ S2.2 Future-tie placebo (C15), author-year panel of profile keys, 2021-26.
   collaborator of k. Model (C15 operationalisation): y_j ~ past + future + own_prev + llm_topic + log authors
   | year + topic100, SEs clustered by key. Prediction: past <= future (homophily, not tie contagion).
   Positive control: the same design with llm_topic as outcome and exposure. MDE = 2.8 x SE (80% power,
-  two-sided 5%). Framed only as falsifying a tie-contagion account; no influence claims.
+  two-sided 5%). Framed only as falsifying a tie-contagion account; no influence claims. The past <= future
+  ordering is read as informative only in a specification where the positive control is detected (audit D2-C6).
 
 Outputs: resub_pairs.parquet, s2_1_resubmission.csv, s2_2_future_tie.csv, T2_3_support.csv,
          fig_S2_2_future_tie.{pdf,png,csv}, support_results.json
@@ -50,7 +55,7 @@ MDE_K = stats.norm.ppf(0.975) + stats.norm.ppf(0.80)  # 2.80
 def resub_pairs() -> tuple[pd.DataFrame, dict]:
     u = C.load_analysis_frame(feature_cols=["name_primary", "name_compound", "mk_title_case"],
                               universe_cols=["submission_id", "year", "emb_row", "title", "ACC", "NA", "REJ", "WD",
-                                             "DR", "pool"])
+                                             "DR", "pool", "topic100"])
     a = read_table("submission_authors")[["submission_id", "year", "declared_id_key"]]
     a = a[a.declared_id_key.notna() & a.submission_id.isin(set(u.submission_id))].drop_duplicates()
     nk = a.groupby("declared_id_key").submission_id.transform("size")
@@ -91,6 +96,19 @@ def resub_pairs() -> tuple[pd.DataFrame, dict]:
     pop = u.groupby("year")[["name_primary", "name_compound", "mk_title_case"]].mean()
     for c in ["name_primary", "name_compound", "mk_title_case"]:
         df["drift_" + c] = pop[c].reindex(df.yj).to_numpy() - pop[c].reindex(df.yi).to_numpy()
+    # content-held-fixed benchmarks: topic100-adjusted population drift and drift within the source's topic100 cluster
+    from analyses.d2_shiftshare import adjust_outcome
+    tp = u.topic100.to_numpy()
+    df["topic_i"] = tp[df.i]
+    for c in ["name_primary", "name_compound"]:
+        uu = u.assign(**{c: u[c].astype(float)})
+        adj = adjust_outcome(uu, c, "topic100")
+        popa = adj.groupby(u.year).mean()
+        df["drift_topicadj_" + c] = popa.reindex(df.yj).to_numpy() - popa.reindex(df.yi).to_numpy()
+        cell = uu.groupby(["topic100", "year"])[c].mean()
+        a_ = cell.reindex(list(zip(df.topic_i, df.yj))).to_numpy()
+        b_ = cell.reindex(list(zip(df.topic_i, df.yi))).to_numpy()
+        df["drift_intopic_" + c] = a_ - b_
     # same shared keys' OTHER papers in yj vs yi (context: within-key drift on new papers)
     sel = df[df.union].copy()
     sel["pair"] = np.arange(len(sel))
@@ -143,12 +161,22 @@ def s2_1_table(df: pd.DataFrame) -> pd.DataFrame:
                           f"{c}_change_minus_drift_se": float(dd.std(ddof=1) / np.sqrt(len(g))),
                           f"{c}_p_change_minus_drift": float(2 * stats.t.sf(abs(dd.mean() / (dd.std(ddof=1) / np.sqrt(len(g)))), len(g) - 1)),
                           f"{c}_mde": float(MDE_K * se)})
+                if c in ("name_primary", "name_compound"):
+                    for bm in ("topicadj", "intopic"):
+                        dd2 = (dv - g[f"drift_{bm}_" + c]).dropna()
+                        se2 = dd2.std(ddof=1) / np.sqrt(len(dd2))
+                        r.update({f"{c}_implied_drift_{bm}": float(g[f"drift_{bm}_" + c].mean()),
+                                  f"{c}_change_minus_drift_{bm}": float(dd2.mean()),
+                                  f"{c}_change_minus_drift_{bm}_se": float(se2),
+                                  f"{c}_p_change_minus_drift_{bm}": float(2 * stats.t.sf(abs(dd2.mean() / se2), len(dd2) - 1))})
             ok = g.other_name_i.notna() & g.other_name_j.notna()
             od = (g.other_name_j - g.other_name_i)[ok]
+            wps = (g.d_name_primary[ok] - od)
+            wps_se = wps.std(ddof=1) / np.sqrt(max(ok.sum(), 1))
             r.update(samekey_other_papers_pairs=int(ok.sum()), samekey_other_papers_name_change=float(od.mean()),
                      samekey_other_papers_se=float(od.std(ddof=1) / np.sqrt(max(ok.sum(), 1))),
-                     within_pair_minus_samekey=float((g.d_name_primary[ok] - od).mean()),
-                     within_pair_minus_samekey_se=float((g.d_name_primary[ok] - od).std(ddof=1) / np.sqrt(max(ok.sum(), 1))))
+                     within_pair_minus_samekey=float(wps.mean()), within_pair_minus_samekey_se=float(wps_se),
+                     p_within_pair_minus_samekey=float(2 * stats.t.sf(abs(wps.mean() / wps_se), max(ok.sum() - 1, 1))))
             rows.append(r)
     return pd.DataFrame(rows)
 
@@ -252,12 +280,14 @@ def fig_future_tie(ft: pd.DataFrame):
             for kind in ("past", "future"):
                 b, se = r[f"b_expo_{kind}"], r[f"se_expo_{kind}"]
                 rows.append(dict(spec=ptitle, outcome=labs[o], exposure=kind, est=b, lo=b - 1.96 * se, hi=b + 1.96 * se,
-                                 nobs=int(r.nobs)))
+                                 nobs=int(r.nobs), mde_past=float(r.mde_expo_past), mde_diff=float(r.mde_diff)))
     d = pd.DataFrame(rows)
-    fig, axes = C.new_fig("double", height=2.4, ncols=2, sharey=True)
+    fig, axes = C.new_fig("double", height=2.6, ncols=2, sharey=True, sharex=True)
     cols = {"past": C.COLORS[0], "future": C.COLORS[1]}
     for ax, (_, ptitle) in zip(axes, panels):
         for i, o in enumerate(labs.values()):
+            mde = d[(d.spec == ptitle) & (d.outcome == o)].mde_past.iat[0]
+            ax.fill_between([-mde, mde], [(2 - i) - 0.35] * 2, [(2 - i) + 0.35] * 2, color="#ecebe7", lw=0, zorder=0)
             for kind in ("past", "future"):
                 r = d[(d.spec == ptitle) & (d.outcome == o) & (d.exposure == kind)].iloc[0]
                 yv = (2 - i) + (0.15 if kind == "past" else -0.15)
@@ -272,6 +302,10 @@ def fig_future_tie(ft: pd.DataFrame):
     axes[0].set_yticks([2, 1, 0], list(labs.values()))
     h, l = axes[0].get_legend_handles_labels()
     fig.legend(h, l, loc="lower center", ncol=2, fontsize=7.5, bbox_to_anchor=(0.55, 0.99))
+    fig.text(0.01, -0.13, "Shared x-axis. Grey band: \u00b1 MDE of the past-exposure coefficient (80% power, two-sided 5%). "
+             "MDE of past \u2212 future (NAME): " + ", ".join(f"{p[1].split(' (')[0]} {d[(d.spec == p[1]) & (d.outcome == 'NAME')].mde_diff.iat[0]:.3f}"
+                                                         for p in panels) + ". Bars: 95% CIs, SEs clustered by key.",
+             fontsize=6.5, color=C.TEXT2, ha="left", va="top")
     C.save_fig(fig, "fig_S2_2_future_tie", OUTDIR, data=d)
 
 

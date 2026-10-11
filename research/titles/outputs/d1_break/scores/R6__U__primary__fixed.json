@@ -32,6 +32,8 @@
    },
    "n_features": 101,
    "r5_removed": null,
+   "year_fe_years": null,
+   "prediction": "fold ensemble: mean over the 5 CV fold models of expit(s_k + c); c solved on the same fold models' OOF scores of the calibration year",
    "seconds": 0.6
   }
  }

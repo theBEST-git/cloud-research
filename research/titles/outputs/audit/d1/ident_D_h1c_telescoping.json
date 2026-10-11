@@ -1,0 +1,58 @@
+{
+ "R1": {
+  "diff_direct_pp": 1.171518355971321,
+  "diff_telescoped_pp": 1.1715183559713271
+ },
+ "R3": {
+  "diff_direct_pp": 1.2583517910547248,
+  "diff_telescoped_pp": 1.2583517910547333
+ },
+ "R5": {
+  "diff_direct_pp": 1.2247886380535027,
+  "diff_telescoped_pp": 1.224788638053503
+ },
+ "year_shock_inflated_inference_R1": {
+  "tau_LPM_adj": {
+   "sd_diff_from_year_shocks_pp": 0.42122975116885225,
+   "se_refit_boot_pp": 0.4454120521393592,
+   "se_total_pp": 0.6130468166957304,
+   "z": 1.9109769826156247,
+   "p_one_sided": 0.028003769457388205,
+   "ci95_pp": [
+    -0.030053404752310685,
+    2.3730901166949523
+   ],
+   "holm_x3_p (H1c would be ranked 3rd of the 4 passing tests)": 0.08401130837216461
+  },
+  "tau_logit_adj": {
+   "sd_diff_from_year_shocks_pp": 0.5264350308597721,
+   "se_refit_boot_pp": 0.4454120521393592,
+   "se_total_pp": 0.6895837424905871,
+   "z": 1.6988775746657228,
+   "p_one_sided": 0.04467112658120946,
+   "ci95_pp": [
+    -0.1800657793102298,
+    2.523102491252872
+   ],
+   "holm_x3_p (H1c would be ranked 3rd of the 4 passing tests)": 0.13401337974362837
+  }
+ },
+ "tau": {
+  "lpm_pp": 0.638259457476466,
+  "logit": 0.04414354878589176
+ },
+ "sens_2023_cohort": {
+  "logit-interpolation of 2022 and 2024": {
+   "obs_2023": 0.202995867768595,
+   "counterfactual_2023": 0.22204282043615706,
+   "shift_pp": 1.9046952667562067,
+   "diff_pp_new": 0.15568088036801067
+  },
+  "segmented-2024 WLS fitted 2023": {
+   "obs_2023": 0.202995867768595,
+   "counterfactual_2023": 0.20358864558460363,
+   "shift_pp": 0.05927778160086383,
+   "diff_pp_new": 1.1399035391175267
+  }
+ }
+}

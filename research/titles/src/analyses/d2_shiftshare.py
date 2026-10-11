@@ -20,9 +20,24 @@ NA pool, non-LLM papers, excluding 2026, 2023 -> 2026, top-1% trim, topic100 / s
 partition-specific stayer status, team-type shift-share (rolling, fixed 2021-22 base, lag-1; x size bins),
 H2c author-FE LPMs (T2.2) and the H2e email-key replication (2018 -> 2020).
 
+Audit additions (outputs/audit/d2/fix_log.md):
+  * shared-outcome generational null (ID-1): a title is shared by all co-authors, so rho is also computed for
+    indicator outcomes that change ONLY on L papers with an entrant first author (null_Nfirst), an entrant or
+    returner first author (null_NRfirst) or any entrant key (null_anyN). For such an outcome rho equals the
+    share of stayer rows on those papers relative to the population share, i.e. the rho a purely generational
+    world with the observed co-authorship structure would produce. obs - null differences use the same draws.
+  * restricted alias collapse (aliases merging <= 3 keys and <= 40 papers per alias-year), email-keyed-position
+    sensitivity (papers with any email-keyed position dropped), rho_noR CIs;
+  * all-prior team ratios (H2c(ii)) under rolling, lag-1, fixed 2021-22 base and symmetric 2-year lookback
+    definitions, and on NA-pool papers (T2_2b_allprior.csv);
+  * H2c(i) with two-way (key, paper) CGM-clustered SEs, ratio CIs for every variant (with and without the
+    uncertainty of the population change) and one-sided tests at the falsification (0.3x) and prediction (0.5x)
+    boundaries.
+
 Outputs (outputs/d2_carriers/): T2_1_decomposition.csv, decomposition_long.csv, team_type_shiftshare.csv,
-team_type_rates.csv, removal_simulation.csv, ipw_balance.csv, T2_2_author_fe.csv, h2e_email.csv,
-fig_F2_2_decomposition.{pdf,png,csv}, fig_F2_3_levels.{pdf,png,csv}, shiftshare_results.json
+team_type_rates.csv, removal_simulation.csv, ipw_balance.csv, T2_2_author_fe.csv, T2_2b_allprior.csv,
+h2e_email.csv, fig_F2_3_levels.{pdf,png,csv}, shiftshare_results.json
+(F2.2 is drawn by d2_ident, which adds the two-way SEs, the null benchmarks and the newcomer-free contrasts.)
 
 Run:  cd research/titles/src && OMP_NUM_THREADS=2 /home/user/venv/bin/python -m analyses.d2_shiftshare [n_boot]
 """
@@ -39,6 +54,7 @@ from scipy import stats
 
 from analyses import _core as C
 from analyses import d2_panel as P
+from common import read_table
 
 OUTDIR = P.OUTDIR
 E_WIN, L_WIN = P.E_WIN, P.L_WIN
@@ -76,6 +92,39 @@ def adjust_outcome(papers: pd.DataFrame, y: str, fe: str) -> pd.Series:
     out = pd.Series(np.nan, index=papers.index)
     out.loc[d.index] = d[y].to_numpy(float) - eff + eff.mean()
     return out
+
+
+NULLS = ["null_Nfirst", "null_NRfirst", "null_anyN"]
+
+
+def null_outcomes(prof: pd.DataFrame, papers: pd.DataFrame, groups: pd.DataFrame, E, L) -> pd.DataFrame:
+    """Paper-level indicator outcomes of the shared-outcome generational null (audit ID-1).
+
+    Each indicator is 0 on every E paper and 1 only on L papers whose change a purely generational world would
+    carry: entrant (N) first list position (null_Nfirst), entrant or returner first position (null_NRfirst), or
+    any entrant key on the paper (null_anyN). Because P_E = 0, rho of the indicator = P_SL / P_L: the change that
+    stayer keys would show if they had kept their own style and only newcomer-carried papers had changed
+    (calibration-free: rho is invariant to the size of the assumed change)."""
+    r = prof[prof.year.isin(E + L)][["submission_id", "key_code", "year", "is_first"]]
+    g = groups.reindex(np.arange(int(prof.key_code.max()) + 1)).fillna(False)
+    kc = r.key_code.to_numpy()
+    grp = np.select([g.S.to_numpy(bool)[kc], g.X.to_numpy(bool)[kc], g.N.to_numpy(bool)[kc], g.R.to_numpy(bool)[kc]],
+                    ["S", "X", "N", "R"], "o")
+    r = r.assign(grp=grp)
+    fg = r[r.is_first].drop_duplicates("submission_id").set_index("submission_id").grp
+    anyN = r.assign(n=r.grp.eq("N")).groupby("submission_id").n.any()
+    out = pd.DataFrame({"submission_id": papers.submission_id})
+    Lp = papers.year.isin(L).to_numpy()
+    f = papers.submission_id.map(fg).fillna("none").to_numpy()
+    out["null_Nfirst"] = (Lp & (f == "N")).astype(float)
+    out["null_NRfirst"] = (Lp & np.isin(f, ["N", "R"])).astype(float)
+    out["null_anyN"] = (Lp & papers.submission_id.map(anyN).fillna(False).to_numpy(bool)).astype(float)
+    return out
+
+
+def with_nulls(papers, prof, groups, E, L) -> pd.DataFrame:
+    return papers.drop(columns=[c for c in NULLS if c in papers.columns]).merge(
+        null_outcomes(prof, papers, groups, E, L), on="submission_id", how="left")
 
 
 def part_rows(prof: pd.DataFrame, papers: pd.DataFrame, E, L, partition: str, outcomes: list[str],
@@ -264,14 +313,38 @@ def team_shiftshare(papers, prof, defs=("roll", "fixed", "lag1"), n_boot=N_BOOT,
     return pd.DataFrame(rows), pd.DataFrame(rates)
 
 
-def allprior_ratio(papers, prof, n_boot=N_BOOT, seed=SEED) -> list[dict]:
-    """H2c(ii): NAME change of all-prior (rolling) teams relative to the population change (paper level)."""
+def add_team_sym2(papers, prof) -> pd.DataFrame:
+    """Symmetric 2-year lookback team type (audit ID-2/ID-4): prior = key seen (any role) in year-1 or year-2.
+    Defined for papers 2023+ only, so that every year has a full two-year lookback inside the panel."""
+    r = prof[["submission_id", "key", "year"]]
+    ky = set(zip(r.key, r.year))
+    prior = np.array([((k, y - 1) in ky) or ((k, y - 2) in ky) for k, y in zip(r.key, r.year)])
+    s = pd.Series(prior, index=r.index).groupby(r.submission_id).mean()
+    papers = papers.copy()
+    sh = papers.submission_id.map(s)
+    papers["share_sym2"] = sh
+    team = np.select([sh.eq(1.0).to_numpy(bool), sh.eq(0.0).to_numpy(bool)], ["all_prior", "all_new"], "mixed").astype(object)
+    team[(sh.isna() | (papers.year < 2023)).to_numpy(bool)] = None
+    papers["team_sym2"] = pd.Series(team, index=papers.index, dtype=object)
+    return papers
+
+
+def allprior_ratio(papers, prof, n_boot=N_BOOT, seed=SEED, definitions=("roll",), windows=None,
+                   samples=("all",)) -> list[dict]:
+    """H2c(ii): NAME change of all-prior teams relative to the population change (paper level, last-key cluster
+    bootstrap). The population is the set of papers on which the team type is defined in the same windows."""
     last_key = prof[prof.is_last].drop_duplicates("submission_id").set_index("submission_id").key_code
+    windows = windows or [(E_WIN, L_WIN, "main"), ((2023,), (2026,), "2023to2026")]
     out = []
-    for E, L, tag in [(E_WIN, L_WIN, "main"), ((2023,), (2026,), "2023to2026")]:
-        pp = papers[papers.year.isin(E + L) & papers.team_roll.notna()].copy()
+    for d_, (E, L, tag), smp in [(d_, w, s) for d_ in definitions for w in windows for s in samples]:
+        col = f"team_{d_}"
+        pp = papers[papers.year.isin(E + L) & papers[col].notna()].copy()
+        if smp == "NA_pool":
+            pp = pp[pp.NA.eq(1)]
         Ein = pp.year.isin(E).to_numpy()
-        ap = pp.team_roll.eq("all_prior").to_numpy()
+        if Ein.sum() == 0 or (~Ein).sum() == 0:
+            continue
+        ap = pp[col].eq("all_prior").to_numpy()
         y = pp.name_primary.to_numpy(float)
         A = np.column_stack([Ein, Ein * y, ~Ein, (~Ein) * y, Ein & ap, (Ein & ap) * y, (~Ein) & ap,
                              ((~Ein) & ap) * y]).astype(np.float32)
@@ -286,20 +359,34 @@ def allprior_ratio(papers, prof, n_boot=N_BOOT, seed=SEED) -> list[dict]:
         D0, Dap0, r0 = st(A.sum(0, dtype=np.float64))
         bs = [st((W @ A).astype(np.float64)) for W in C.boot_weights(len(pp), n_boot, clusters=cl, seed=seed, chunk=100)]
         bD = np.concatenate([b[0] for b in bs]); bA = np.concatenate([b[1] for b in bs]); bR = np.concatenate([b[2] for b in bs])
-        out.append(dict(window=tag, E="-".join(map(str, E)), L="-".join(map(str, L)),
+        bR = bR[np.isfinite(bR)]
+        out.append(dict(definition=d_, window=tag, sample=smp, E="-".join(map(str, sorted(pp.year[Ein].unique()))),
+                        L="-".join(map(str, sorted(pp.year[~Ein].unique()))),
                         pop_change=float(D0[0]), pop_lo=float(np.quantile(bD, .025)), pop_hi=float(np.quantile(bD, .975)),
                         allprior_change=float(Dap0[0]), allprior_lo=float(np.quantile(bA, .025)),
                         allprior_hi=float(np.quantile(bA, .975)), ratio=float(r0[0]),
                         ratio_lo=float(np.quantile(bR, .025)), ratio_hi=float(np.quantile(bR, .975)),
+                        p_ratio_le_0_3=float((np.sum(bR <= 0.3) + 1) / (len(bR) + 1)),
+                        p_ratio_ge_0_5=float((np.sum(bR >= 0.5) + 1) / (len(bR) + 1)),
                         allprior_P_E=float(A[:, 5].sum() / A[:, 4].sum()), allprior_P_L=float(A[:, 7].sum() / A[:, 6].sum()),
-                        n_allprior_E=int((Ein & ap).sum()), n_allprior_L=int(((~Ein) & ap).sum())))
+                        n_allprior_E=int((Ein & ap).sum()), n_allprior_L=int(((~Ein) & ap).sum()),
+                        share_allprior_E=float((Ein & ap).sum() / Ein.sum()),
+                        share_allprior_L=float(((~Ein) & ap).sum() / (~Ein).sum())))
     return out
 
 
 # --------------------------------------------------------------------------------------------
 # H2c author-FE LPMs (T2.2)
 # --------------------------------------------------------------------------------------------
-def h2c_models(prof, papers, groups, pop_change: float) -> pd.DataFrame:
+def h2c_models(prof, papers, groups, pop_change: float, pop_se: float = 0.0) -> pd.DataFrame:
+    """H2c(i) author-FE LPMs on stayer keys' author-paper rows (T2.2).
+
+    Inference (audit D2-C3): rows are (key, paper) pairs and co-author stayers share one paper-level outcome, so
+    the primary SE is two-way clustered by key and paper (Cameron-Gelbach-Miller: V_key + V_paper - V_row);
+    key-only SEs are kept for comparison. Ratio CIs are given with the population change held fixed and, via the
+    delta method, with its key-cluster bootstrap SE added (treated as independent). One-sided tests are reported
+    at the falsification boundary (H0: change <= 0.3 x population change) and against the prediction
+    (H0: change >= 0.5 x population change)."""
     stay_codes = set(groups.index[groups.S])
     r = prof[prof.key_code.isin(stay_codes) & prof.year.between(2022, 2026)].merge(
         papers[["submission_id", "name_primary", "log_authors", "llm_topic", "topic100", "NA"]], on="submission_id")
@@ -307,11 +394,14 @@ def h2c_models(prof, papers, groups, pop_change: float) -> pd.DataFrame:
     for y in [2023, 2024, 2025, 2026]:
         r[f"y{y}"] = (r.year == y).astype(int)
     r["w_stay"] = 1.0 / r.groupby("submission_id").key_code.transform("size")
+    r["pid"] = pd.factorize(r.submission_id)[0]
+    r["rowid"] = np.arange(len(r))
     out = []
     specs = [
         ("primary: key+topic100 FE, rolling new", "share_new_coauth_roll", ["key_code", "topic100"], None, None),
         ("lag-1 new-coauthor definition", "share_new_coauth_lag1", ["key_code", "topic100"], None, None),
         ("no topic100 FE", "share_new_coauth_roll", ["key_code"], None, None),
+        ("lag-1, no topic100 FE", "share_new_coauth_lag1", ["key_code"], None, None),
         ("rows weighted 1/#stayer keys on paper", "share_new_coauth_roll", ["key_code", "topic100"], "w_stay", None),
         ("NA-pool papers only", "share_new_coauth_roll", ["key_code", "topic100"], None, "NA"),
     ]
@@ -321,22 +411,43 @@ def h2c_models(prof, papers, groups, pop_change: float) -> pd.DataFrame:
         x = ["y2023", "y2024", "y2025", "y2026", "sn", "post_sn", "log_authors", "llm_topic"]
         d = d.assign(llm_topic=d.llm_topic.astype(float))
         res = C.feols(d, "name_primary", x, fe=fe, cluster="key_code", weights=wcol)
+        res_p = C.feols(d, "name_primary", x, fe=fe, cluster="pid", weights=wcol)
+        res_r = C.feols(d, "name_primary", x, fe=fe, cluster="rowid", weights=wcol)
+        V2 = res.vcov + res_p.vcov - res_r.vcov
         cvec = pd.Series(0.0, index=res.params.index)
         cvec[["y2025", "y2026"]] = 0.5
         cvec["y2023"] = -0.5
         est = float(cvec @ res.params)
-        se = float(np.sqrt(cvec @ res.vcov @ cvec))
-        tcrit = stats.t.ppf(0.975, res.df_resid)
+        se_key = float(np.sqrt(cvec @ res.vcov @ cvec))
+        se_pap = float(np.sqrt(cvec @ res_p.vcov @ cvec))
+        v2 = float(cvec @ V2 @ cvec)
+        se = float(np.sqrt(v2)) if v2 > 0 else max(se_key, se_pap)
+        e_ps = pd.Series(0.0, index=res.params.index); e_ps["post_sn"] = 1.0
+        v2ps = float(e_ps @ V2 @ e_ps)
+        se_ps = float(np.sqrt(v2ps)) if v2ps > 0 else max(float(res.se["post_sn"]), float(res_p.se["post_sn"]))
+        dfr = min(res.n_clusters, res_p.n_clusters) - 1
+        tcrit = stats.t.ppf(0.975, dfr)
+        tk = stats.t.ppf(0.975, res.df_resid)
+        rse_pop = np.sqrt(se ** 2 / pop_change ** 2 + est ** 2 * pop_se ** 2 / pop_change ** 4)
+        ratio = est / pop_change
         out.append(dict(model=lab, nobs=res.nobs, n_keys=res.n_clusters, n_papers=int(d.submission_id.nunique()),
-                        b_post_x_share_new=float(res.params["post_sn"]), se_post_x_share_new=float(res.se["post_sn"]),
+                        b_post_x_share_new=float(res.params["post_sn"]), se_post_x_share_new=se_ps,
+                        se_post_x_share_new_keyonly=float(res.se["post_sn"]),
                         b_share_new=float(res.params["sn"]), se_share_new=float(res.se["sn"]),
-                        change_EtoL_at_share_new0=est, se_change=se, lo_change=est - tcrit * se, hi_change=est + tcrit * se,
-                        p_change_le0=float(stats.t.sf(est / se, res.df_resid)),
-                        pop_change=pop_change, ratio_to_pop=est / pop_change, ratio_lo=(est - tcrit * se) / pop_change,
-                        ratio_hi=(est + tcrit * se) / pop_change,
+                        change_EtoL_at_share_new0=est, se_change=se, se_change_keyonly=se_key,
+                        se_change_paperonly=se_pap, lo_change=est - tcrit * se, hi_change=est + tcrit * se,
+                        lo_change_keyonly=est - tk * se_key, hi_change_keyonly=est + tk * se_key,
+                        p_change_le0=float(stats.t.sf(est / se, dfr)),
+                        p_ratio_le_0_3=float(stats.t.sf((est - 0.3 * pop_change) / se, dfr)),
+                        p_ratio_ge_0_5=float(stats.t.cdf((est - 0.5 * pop_change) / se, dfr)),
+                        pop_change=pop_change, pop_change_se=pop_se, ratio_to_pop=ratio,
+                        ratio_lo=(est - tcrit * se) / pop_change, ratio_hi=(est + tcrit * se) / pop_change,
+                        ratio_lo_keyonly=(est - tk * se_key) / pop_change, ratio_hi_keyonly=(est + tk * se_key) / pop_change,
+                        ratio_lo_popunc=ratio - 1.96 * rse_pop, ratio_hi_popunc=ratio + 1.96 * rse_pop,
                         **{f"b_{k}": float(res.params[k]) for k in ["y2023", "y2024", "y2025", "y2026"]},
                         mean_share_new_E=float(d.loc[d.year.isin(E_WIN), "sn"].mean()),
-                        mean_share_new_L=float(d.loc[d.year.isin(L_WIN), "sn"].mean())))
+                        mean_share_new_L=float(d.loc[d.year.isin(L_WIN), "sn"].mean()),
+                        **{f"mean_share_new_{y}": float(d.loc[d.year.eq(y), "sn"].mean()) for y in range(2022, 2027)}))
     return pd.DataFrame(out)
 
 
@@ -379,61 +490,19 @@ def yearly_levels(prof, papers, groups, K, n_boot=N_BOOT, seed=SEED) -> pd.DataF
 # --------------------------------------------------------------------------------------------
 # Figures
 # --------------------------------------------------------------------------------------------
-def fig_decomposition(summ: pd.DataFrame, team: pd.DataFrame):
-    import matplotlib.pyplot as plt
-    rows = []
-    for part, lab in [("last", "Last list position"), ("any", "Any role (1/#keys)"), ("first", "First list position")]:
-        g = lambda st: summ[(summ.spec == f"main|{part}|paper") & (summ.outcome == "name_primary") & (summ.stat == st)].iloc[0]
-        rho, ipw, ba, bb = g("rho"), g("rho_ipw"), g("bound_a"), g("bound_b")
-        rows.append(dict(label=lab, est=rho.est, lo=rho.lo, hi=rho.hi, ipw=ipw.est, ipw_lo=ipw.lo, ipw_hi=ipw.hi,
-                         bound_a=ba.est, bound_b=bb.est, kind="stayer"))
-    for d, lab in [("roll", "Team type, rolling"), ("fixed", "Team type, fixed 2021-22 base"),
-                   ("lag1", "Team type, 1-year lookback")]:
-        t = team[(team.definition == d) & (team.window == "main") & (team.cells == "type") & (team.stat == "within_share")].iloc[0]
-        rows.append(dict(label=lab, est=t.est, lo=t.lo, hi=t.hi, ipw=np.nan, ipw_lo=np.nan, ipw_hi=np.nan,
-                         bound_a=np.nan, bound_b=np.nan, kind="team"))
-    t = team[(team.definition == "roll") & (team.window == "main") & (team.cells == "type_x_size") & (team.stat == "within_share")].iloc[0]
-    rows.append(dict(label="Team type x size, rolling", est=t.est, lo=t.lo, hi=t.hi, ipw=np.nan, ipw_lo=np.nan,
-                     ipw_hi=np.nan, bound_a=np.nan, bound_b=np.nan, kind="team"))
-    d = pd.DataFrame(rows)
-    fig, ax = C.new_fig("double", height=3.0)
-    ypos = np.arange(len(d))[::-1]
-    for yv, r in zip(ypos, d.itertuples()):
-        if np.isfinite(r.bound_a):
-            ax.plot([r.bound_a, r.bound_b], [yv - 0.22, yv - 0.22], color=C.GREY, lw=4, solid_capstyle="butt", alpha=0.55)
-        col = C.COLORS[0] if r.kind == "stayer" else C.COLORS[2]
-        ax.plot([r.lo, r.hi], [yv, yv], color=col, lw=2)
-        ax.plot([r.est], [yv], "o", color=col, ms=6)
-        if np.isfinite(r.ipw):
-            ax.plot([r.ipw], [yv + 0.22], "D", color=C.COLORS[1], ms=5)
-    ax.axvline(1.0, color=C.GREY, lw=0.8, ls="--", zorder=0)
-    ax.axvline(0.0, color=C.TEXT2, lw=0.6, zorder=0)
-    ax.set_yticks(ypos, d.label)
-    ax.grid(axis="y", visible=False)
-    ax.tick_params(axis="y", length=0)
-    ax.set_xlabel("Share of the 2022-23 to 2025-26 NAME rise (within stayers / within team types)")
-    from matplotlib.lines import Line2D
-    h = [Line2D([], [], color=C.COLORS[0], marker="o", lw=2, label="Within-stayer share ρ (95% CI)"),
-         Line2D([], [], color=C.COLORS[1], marker="D", lw=0, label="ρ with IPW for staying"),
-         Line2D([], [], color=C.GREY, lw=4, alpha=0.55, label="Bounds: exiters frozen (left) / at entrant level (right)"),
-         Line2D([], [], color=C.COLORS[2], marker="o", lw=2, label="Within-team-type share (95% CI)")]
-    ax.legend(handles=h, loc="lower left", fontsize=7)
-    xmin = min(0, np.nanmin(d[["lo", "bound_a"]].to_numpy()) - 0.05)
-    ax.set_xlim(xmin, max(1.25, np.nanmax(d[["hi", "bound_b", "ipw"]].to_numpy()) + 0.05))
-    C.save_fig(fig, "fig_F2_2_decomposition", OUTDIR, data=d)
-
-
 def fig_levels(lev: pd.DataFrame):
-    fig, axes = C.new_fig("double", height=2.5, ncols=3, sharey=True)
-    cols = {"stayers": C.COLORS[0], "entrants": C.COLORS[1], "exiters": C.COLORS[2]}
+    fig, axes = C.new_fig("double", height=2.8, ncols=3, sharey=True)
+    cols = {"stayers": C.COLORS[0], "entrants": C.COLORS[1], "exiters": C.COLORS[2], "returners": C.COLORS[3]}
     for ax, (part, lab) in zip(axes, [("last", "Last list position"), ("first", "First list position"),
                                        ("any", "Any role (1/#keys)")]):
         a = lev[(lev.partition == part) & (lev.group == "all")]
-        ax.plot(a.year, a.NAME, color=C.GREY, lw=1.5, marker="o", ms=3.5, label="All panel rows", zorder=1)
+        ax.plot(a.year, a.NAME, color=C.GREY, lw=1.5, marker="o", ms=3.5, label="All panel rows (all groups)", zorder=1)
         for g, c in cols.items():
             s = lev[(lev.partition == part) & (lev.group == g)].sort_values("year")
             ax.fill_between(s.year, s.lo, s.hi, color=c, alpha=0.15, lw=0)
-            ax.plot(s.year, s.NAME, color=c, marker="o", ms=5, label=g.capitalize())
+            ax.plot(s.year, s.NAME, color=c, marker="o" if g != "returners" else "s", ms=5 if g != "returners" else 3.5,
+                    lw=1.5 if g != "returners" else 1.0, ls="-" if g != "returners" else ":",
+                    label=g.capitalize())
         ax.axvspan(2021.6, 2023.4, color="#f0efec", zorder=0, lw=0)
         ax.axvspan(2024.6, 2026.4, color="#f0efec", zorder=0, lw=0)
         tr = ax.get_xaxis_transform()
@@ -443,7 +512,11 @@ def fig_levels(lev: pd.DataFrame):
         ax.set_xticks(list(P.PANEL_YEARS), [str(y)[2:] if y not in (2021, 2026) else str(y) for y in P.PANEL_YEARS])
         ax.set_xlim(2020.6, 2026.4)
     axes[0].set_ylabel("NAME share of titles")
-    axes[0].legend(loc="upper left", fontsize=7)
+    axes[0].set_ylim(0, None)
+    axes[0].legend(loc="upper left", fontsize=6.5)
+    fig.text(0.01, -0.02, "Bands: 95% key-cluster bootstrap CIs (1,000 reps). Groups are fixed from presence in E = 2022-23 and "
+             "L = 2025-26; returners are keys absent from E but seen in 2021 or 2024. Any role: rows weighted 1/#keys.",
+             fontsize=6.5, color=C.TEXT2, ha="left", va="top")
     C.save_fig(fig, "fig_F2_3_levels", OUTDIR, data=lev)
 
 
@@ -470,10 +543,23 @@ def main():
     papers["name_adj_size"] = np.nan
     papers.loc[EL, "name_adj_size"] = adjust_outcome(papers[EL], "name_primary", "size_bin")
 
+    # ---------- shared-outcome null outcomes (audit ID-1) and symmetric-lookback team type ----------
+    papers = with_nulls(papers, prof, g_main, E_WIN, L_WIN)
+    papers = add_team_sym2(papers, prof)
+    # papers carrying any email-keyed list position (audit D2-C12): such a person is invisible to the profile panel
+    au = read_table("submission_authors")[["submission_id", "native_id_kind"]]
+    has_email = set(au.loc[au.native_id_kind.eq("email"), "submission_id"])
+    log["email_position_papers"] = {int(y): int(papers[papers.year.eq(y)].submission_id.isin(has_email).sum())
+                                    for y in P.PANEL_YEARS}
+
     # ---------- specs ----------
     specs = []
-    specs += make_specs(prof, papers, idx, g_main, tag="main", weightings=("paper", "author"), ipw=ipw)
-    specs += make_specs(prof, papers, idx, g_main, tag="NA_pool", paper_mask=papers.NA.eq(1), outcomes=["name_primary", "name_compound"])
+    specs += make_specs(prof, papers, idx, g_main, tag="main", weightings=("paper", "author"), ipw=ipw,
+                        outcomes=NAMES + NULLS)
+    specs += make_specs(prof, papers, idx, g_main, tag="NA_pool", paper_mask=papers.NA.eq(1),
+                        outcomes=["name_primary", "name_compound"] + NULLS)
+    specs += make_specs(prof, papers, idx, g_main, tag="no_email_papers", paper_mask=~papers.submission_id.isin(has_email),
+                        outcomes=["name_primary", "name_compound"])
     specs += make_specs(prof, papers, idx, g_main, tag="non_llm", paper_mask=papers.llm_topic.eq(0), outcomes=["name_primary", "name_compound"])
     g_x26 = groups_coded(prof, (2021, 2022), (2024, 2025), idx)
     specs += make_specs(prof, papers, idx, g_x26, E=(2021, 2022), L=(2024, 2025), tag="excl2026", outcomes=["name_primary", "name_compound"])
@@ -513,7 +599,26 @@ def main():
     specsA = make_specs(profA, papers, idxA, gA, tag="alias_collapse", outcomes=["name_primary", "name_compound"])
     resA = P.run_specs(specsA, len(idxA), n_boot=N_BOOT, seed=SEED)
     summ = pd.concat([summ, P.summarise(resA)], ignore_index=True)
-    log["alias"] = dict(n_alias_keys=len(idxA), stayers=int(gA.S.sum()), stayers_main=int(g_main.S.sum()))
+    ak = prof.groupby("alias").key.nunique()
+    log["alias"] = dict(n_alias_keys=len(idxA), stayers=int(gA.S.sum()), stayers_main=int(g_main.S.sum()),
+                        n_aliases_merging=int((ak > 1).sum()), n_keys_in_merged_aliases=int(ak[ak > 1].sum()),
+                        max_keys_per_alias=int(ak.max()))
+
+    # ---------- restricted alias collapse (audit D2-C11): only aliases merging <= 3 keys and <= 40 papers/year ----------
+    apy = prof.groupby(["alias", "year"]).submission_id.nunique().groupby("alias").max()
+    ok_alias = set(ak.index[(ak <= 3) & (apy.reindex(ak.index) <= 40)])
+    profR = prof.drop(columns=["key_code"]).assign(alias_r=np.where(prof.alias.isin(ok_alias), prof.alias, prof.key))
+    profR, idxR = code_keys(profR, key="alias_r")
+    gR = groups_coded(profR, E_WIN, L_WIN, idxR, key="alias_r")
+    profR = (profR.sort_values("pos").groupby(["submission_id", "key_code"], as_index=False)
+             .agg(year=("year", "first"), is_first=("is_first", "max"), is_last=("is_last", "max"),
+                  w_any=("w_any", "sum")))
+    specsR = make_specs(profR, papers, idxR, gR, tag="alias_restricted", outcomes=["name_primary", "name_compound"])
+    resR = P.run_specs(specsR, len(idxR), n_boot=N_BOOT, seed=SEED)
+    summ = pd.concat([summ, P.summarise(resR)], ignore_index=True)
+    log["alias_restricted"] = dict(rule="collapse ~First_LastN only for aliases with <= 3 profile keys and <= 40 papers "
+                                        "in every alias-year", n_aliases_collapsed=int(sum(ak.reindex(list(ok_alias)) > 1)),
+                                   n_units=len(idxR), stayers=int(gR.S.sum()))
 
     # ---------- joint differences (first - last) from the same bootstrap draws ----------
     def joint(spec_a, spec_b, o="name_primary", st="rho"):
@@ -530,7 +635,19 @@ def main():
         "rho_first_minus_last_excl2026": joint("excl2026|first|paper", "excl2026|last|paper"),
         "rho_any_minus_last": joint("main|any|paper", "main|last|paper"),
     }
+    # observed rho minus the shared-outcome generational-null rho (same draws; audit ID-1)
+    def joint_o(spec, oa, ob, st="rho"):
+        a = res[spec]
+        est = float(a["point"][oa][st][0] - a["point"][ob][st][0])
+        bd = a["boot"][oa][st] - a["boot"][ob][st]
+        bd = bd[np.isfinite(bd)]
+        return dict(est=est, se=float(bd.std(ddof=1)), lo=float(np.quantile(bd, .025)), hi=float(np.quantile(bd, .975)),
+                    p_le0=float((np.sum(bd <= 0) + 1) / (len(bd) + 1)))
+    obs_minus_null = {f"{tag}|{part}|{nl}": joint_o(f"{tag}|{part}|paper", "name_primary", nl)
+                      for tag in ("main", "NA_pool") for part in ("last", "any", "first") for nl in NULLS
+                      if not (part == "first" and nl != "null_anyN")}
     log["joint_differences"] = diffs
+    log["obs_minus_null"] = obs_minus_null
 
     # ---------- removal simulation ----------
     t1 = time.time()
@@ -546,13 +663,18 @@ def main():
     team, rates = team_shiftshare(papers, prof)
     team.to_csv(OUTDIR / "team_type_shiftshare.csv", index=False)
     rates.to_csv(OUTDIR / "team_type_rates.csv", index=False)
-    ap = allprior_ratio(papers, prof)
+    wins = [(E_WIN, L_WIN, "main"), ((2023,), L_WIN, "E2023"), ((2023,), (2026,), "2023to2026")]
+    ap = [a for a in allprior_ratio(papers, prof, definitions=("roll", "lag1", "fixed", "sym2"), windows=wins,
+                                    samples=("all", "NA_pool"))
+          if not (a["definition"] in ("fixed", "sym2") and a["window"] == "main")]  # identical to E2023 (no 2022 type)
+    pd.DataFrame(ap).to_csv(OUTDIR / "T2_2b_allprior.csv", index=False)
     log["allprior_ratio"] = ap
     print(f"team types {time.time() - t1:.0f}s", flush=True)
 
     # ---------- H2c author-FE models ----------
-    pop_any = float(summ[(summ.spec == "main|any|paper") & (summ.outcome == "name_primary") & (summ.stat == "delta")].est.iat[0])
-    fe = h2c_models(prof, papers, g_main, pop_any)
+    prow = summ[(summ.spec == "main|any|paper") & (summ.outcome == "name_primary") & (summ.stat == "delta")].iloc[0]
+    pop_any, pop_se = float(prow.est), float(prow.se)
+    fe = h2c_models(prof, papers, g_main, pop_any, pop_se)
     fe.to_csv(OUTDIR / "T2_2_author_fe.csv", index=False)
     print(fe[["model", "nobs", "change_EtoL_at_share_new0", "lo_change", "hi_change", "ratio_to_pop", "b_post_x_share_new", "se_post_x_share_new"]].to_string())
 
@@ -562,9 +684,19 @@ def main():
     hspecs = []
     for E, L, tag in [((2018,), (2020,), "email_2018to2020"), ((2017, 2018), (2019, 2020), "email_1718to1920")]:
         gE = groups_coded(emailc, E, L, idxE)
-        hspecs += make_specs(emailc, papers, idxE, gE, E=E, L=L, tag=tag, outcomes=["name_primary", "name_compound"],
-                             weightings=("paper", "author"))
+        hspecs += make_specs(emailc, with_nulls(papers, emailc, gE, E, L), idxE, gE, E=E, L=L, tag=tag,
+                             outcomes=["name_primary", "name_compound"] + NULLS, weightings=("paper", "author"))
     resE = P.run_specs(hspecs, len(idxE), n_boot=N_BOOT, seed=SEED)
+    for tag in ("email_2018to2020", "email_1718to1920"):
+        a = resE[f"{tag}|any|paper"]
+        for nl in ("null_Nfirst", "null_NRfirst"):
+            for o in ("name_primary", "name_compound"):
+                bd = a["boot"][o]["rho"] - a["boot"][nl]["rho"]
+                bd = bd[np.isfinite(bd)]
+                obs_minus_null[f"{tag}|any|{nl}|{o}"] = dict(
+                    est=float(a["point"][o]["rho"][0] - a["point"][nl]["rho"][0]), se=float(bd.std(ddof=1)),
+                    lo=float(np.quantile(bd, .025)), hi=float(np.quantile(bd, .975)),
+                    p_le0=float((np.sum(bd <= 0) + 1) / (len(bd) + 1)))
     summE = P.summarise(resE)
     summE.to_csv(OUTDIR / "h2e_email.csv", index=False)
     summ = pd.concat([summ, summE], ignore_index=True)
@@ -584,18 +716,18 @@ def main():
         for st in keep:
             if st in gi.index:
                 row[st] = gi.loc[st, "est"]
-                if st in ("rho", "delta", "rho_ipw", "gap_NS_L", "gap_XS_E", "kit_within_share", "bound_a", "bound_b"):
+                if st in ("rho", "delta", "rho_ipw", "gap_NS_L", "gap_XS_E", "kit_within_share", "bound_a", "bound_b",
+                          "rho_noR"):
                     row[st + "_lo"] = gi.loc[st, "lo"] if "lo" in gi.columns else np.nan
                     row[st + "_hi"] = gi.loc[st, "hi"] if "hi" in gi.columns else np.nan
-        allres = {**res, **resA, **resE}
+        allres = {**res, **resA, **resR, **resE}
         if spec in allres:
             row.update(allres[spec]["counts"])
         t21.append(row)
     t21 = pd.DataFrame(t21)
     t21.to_csv(OUTDIR / "T2_1_decomposition.csv", index=False)
 
-    # ---------- figures ----------
-    fig_decomposition(summ, team)
+    # ---------- figures (F2.2 is drawn by d2_ident) ----------
     fig_levels(lev)
 
     # ---------- results json ----------
@@ -613,26 +745,35 @@ def main():
         variants={tag: {part: {st: pick(f"{tag}|{part}|paper", st) for st in ["rho", "delta", "P_SE", "P_SL", "gap_NS_L"]}
                         for part in ("last", "first", "any")}
                   for tag in ["NA_pool", "non_llm", "excl2026", "2023to2026", "trim_top1pct", "adj_topic100",
-                              "adj_size_bin", "partition_specific_stayers", "alias_collapse", "L2025_only", "L2026_only"]},
+                              "adj_size_bin", "partition_specific_stayers", "alias_collapse", "alias_restricted",
+                              "no_email_papers", "L2025_only", "L2026_only"]},
+        null_rho={tag: {part: {nl: pick(f"{tag}|{part}|paper", "rho", nl) for nl in NULLS}
+                        for part in ("last", "first", "any")}
+                  for tag in ("main", "NA_pool", "email_2018to2020", "email_1718to1920")},
         compound_main={part: {st: pick(f"main|{part}|paper", st, "name_compound") for st in ["rho", "delta"]}
                        for part in ("last", "first", "any")},
         name_defs={o: {part: pick(f"main|{part}|paper", "rho", o) for part in ("last", "first", "any")} for o in NAMES},
-        h2e={tag: {o: {part: {st: pick(f"{tag}|{part}|paper", st, o) for st in ["rho", "delta", "P_SE", "P_SL"]}
+        h2e={tag: {o: {part: {st: pick(f"{tag}|{part}|paper", st, o) for st in ["rho", "delta", "P_SE", "P_SL",
+                                                                                "kit_within_share"]}
                        for part in ("any", "last", "first")} for o in ("name_primary", "name_compound")}
              for tag in ["email_2018to2020", "email_1718to1920"]},
+        h2e_author={tag: {o: {part: {st: pick(f"{tag}|{part}|author", st, o) for st in ["rho", "kit_within_share"]}
+                              for part in ("any",)} for o in ("name_primary", "name_compound")}
+                    for tag in ["email_2018to2020", "email_1718to1920"]},
         h2e_counts={k: v["counts"] for k, v in resE.items()},
         team_types=team.to_dict(orient="records"), allprior=ap, author_fe=fe.to_dict(orient="records"),
         **log, elapsed_s=round(time.time() - t0, 1))
     (OUTDIR / "shiftshare_results.json").write_text(json.dumps(out, indent=1, default=float))
     # bootstrap draws of the key statistics (for Holm p-values in d2_collect)
     draws = {}
-    for allres in (res, resA, resE):
+    for allres in (res, resA, resR, resE):
         for spec, r in allres.items():
             if r["boot"] is None:
                 continue
             for o in r["boot"]:
                 if True:
-                    for st in ("rho", "delta", "delta_S", "gap_NS_L", "gap_XS_E", "rho_ipw", "P_SL", "P_NL"):
+                    for st in ("rho", "delta", "delta_S", "gap_NS_L", "gap_XS_E", "rho_ipw", "P_SL", "P_NL",
+                               "kit_within_share"):
                         if st in r["boot"][o]:
                             draws[f"{spec}::{o}::{st}"] = r["boot"][o][st].astype(np.float32)
     np.savez_compressed(OUTDIR / "shiftshare_boot_draws.npz", **draws)

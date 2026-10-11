@@ -1,0 +1,49 @@
+# T4.2 Camera-ready audit: flip matrices and decision-stage tipping points
+
+331 arXiv pairs with a pre-decision v1 ({'accepted': 206, 'rejected': 125}). adds = absent in v1, present in the stored title; drops = the reverse; net = (adds - drops)/n.
+
+## Flip matrices (primary, all audit years)
+
+| feature | n_acc | v1_present_acc | adds_acc | drops_acc | n_rej | v1_present_rej | adds_rej | drops_rej | net_acc | net_rej | did | did_se | auditable |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| NAME | 206 | 52 | 7 | 6 | 125 | 42 | 1 | 3 | 0.0049 | -0.0160 | 0.0209 | 0.0237 | True |
+| compound | 206 | 93 | 6 | 8 | 125 | 63 | 1 | 4 | -0.0097 | -0.0240 | 0.0143 | 0.0255 | True |
+| phrase_colon | 206 | 41 | 2 | 5 | 125 | 21 | 1 | 2 | -0.0146 | -0.0080 | -0.0066 | 0.0189 | True |
+| mixed_case_name | 206 | 37 | 3 | 3 | 125 | 22 | 1 | 3 | 0.0000 | -0.0160 | 0.0160 | 0.0200 | True |
+| title_case | 206 | 196 | 2 | 3 | 125 | 117 | 3 | 5 | -0.0049 | -0.0160 | 0.0111 | 0.0251 | True |
+| all_caps_title | 206 | 0 | 0 | 0 | 125 | 0 | 3 | 0 | 0.0000 | 0.0240 | -0.0240 | 0.0137 | False |
+| sentence_case | 206 | 7 | 3 | 2 | 125 | 8 | 0 | 4 | 0.0049 | -0.0320 | 0.0369 | 0.0192 | False |
+| question_opener | 206 | 5 | 0 | 0 | 125 | 3 | 0 | 0 | 0.0000 | 0.0000 | 0.0000 | 0.0000 | False |
+| O_union | 206 | 12 | 3 | 2 | 125 | 10 | 3 | 4 | 0.0049 | -0.0080 | 0.0129 | 0.0239 | True |
+| title_typo | 206 | 0 | 1 | 0 | 125 | 0 | 1 | 0 | 0.0049 | 0.0080 | -0.0031 | 0.0094 | False |
+| R24 | 206 | 6 | 0 | 0 | 125 | 3 | 0 | 0 | 0.0000 | 0.0000 | 0.0000 | 0.0000 | False |
+| R26 | 206 | 8 | 1 | 0 | 125 | 0 | 0 | 0 | 0.0049 | 0.0000 | 0.0049 | 0.0049 | False |
+| L_title | 206 | 14 | 1 | 0 | 125 | 3 | 1 | 0 | 0.0049 | 0.0080 | -0.0031 | 0.0094 | True |
+| NAME_strict | 206 | 50 | 7 | 5 | 125 | 41 | 1 | 3 | 0.0097 | -0.0160 | 0.0257 | 0.0232 | True |
+| NAME_loose | 206 | 57 | 9 | 6 | 125 | 46 | 1 | 3 | 0.0146 | -0.0160 | 0.0306 | 0.0247 | True |
+| allcaps_name | 206 | 13 | 4 | 2 | 125 | 15 | 1 | 1 | 0.0097 | 0.0000 | 0.0097 | 0.0165 | True |
+| snowclone | 206 | 2 | 0 | 0 | 125 | 2 | 0 | 0 | 0.0000 | 0.0000 | 0.0000 | 0.0000 | False |
+| llm_abbrev_only | 206 | 11 | 2 | 0 | 125 | 8 | 1 | 0 | 0.0097 | 0.0080 | 0.0017 | 0.0105 | True |
+
+## Decision-stage bound (2024-26, year-standardised prevalences; DiD in pp)
+
+| feature | auditable | P_s2 | P_s3 | G_dec_obs | did_pp | did_lo95_pp | did_hi95_pp | tip_dec_pp | G_dec_interval_lo | G_dec_interval_hi | G_dec_identified | G_total_obs | tip_total_pp | G_total_identified |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| NAME | True | 0.346 | 0.364 | 1.050 | 2.085 | -2.568 | 6.739 | 2.916 | 0.928 | 1.092 | False | 1.021 | 1.036 | False |
+| compound | True | 0.523 | 0.543 | 1.037 | 1.429 | -3.564 | 6.422 | 3.241 | 0.962 | 1.076 | False | 1.018 | 1.349 | False |
+| phrase_colon | True | 0.177 | 0.179 | 1.011 | -0.656 | -4.364 | 3.051 | 0.324 | 0.901 | 1.144 | False | 1.012 | 0.313 | False |
+| mixed_case_name | True | 0.226 | 0.246 | 1.087 | 1.600 | -2.311 | 5.511 | 3.286 | 0.935 | 1.142 | False | 1.059 | 1.947 | False |
+| title_case | True | 0.930 | 0.945 | 1.017 | 1.115 | -3.814 | 6.043 | 2.593 | 0.977 | 1.040 | False | 1.018 | 2.308 | False |
+| all_caps_title | False | 0.011 | 0.005 | 0.435 | -2.400 | -5.094 | 0.294 | -1.036 | 0.187 | 1.770 | False | 0.361 | -1.195 | False |
+| sentence_case | False | 0.042 | 0.037 | 0.868 | 3.685 | -0.075 | 7.446 | -0.935 | -3.104 | 0.879 | False | 0.905 | -0.543 | False |
+| question_opener | False | 0.017 | 0.016 | 0.911 | 0.000 | 0.000 | 0.000 | -0.258 | 0.911 | 0.911 | False | 0.899 | -0.250 | False |
+| O_union | True | 0.068 | 0.056 | 0.812 | 1.285 | -3.391 | 5.962 | -2.148 | -0.093 | 1.091 | False | 0.807 | -1.879 | False |
+| title_typo | False | 0.007 | 0.007 | 0.975 | -0.315 | -2.149 | 1.520 | -0.029 | -11.611 | 1.817 | False | 0.936 | -0.065 | False |
+| R24 | False | 0.048 | 0.043 | 0.896 | 0.000 | 0.000 | 0.000 | -0.828 | 0.896 | 0.896 | False | 0.807 | -1.446 | False |
+| R26 | False | 0.034 | 0.038 | 1.093 | 0.485 | -0.466 | 1.437 | 0.539 | 0.813 | 1.165 | False | 1.060 | 0.301 | False |
+| L_title | True | 0.087 | 0.085 | 0.980 | -0.315 | -2.149 | 1.520 | -0.291 | 0.866 | 1.116 | False | 0.915 | -1.118 | False |
+| NAME_strict | True | 0.336 | 0.354 | 1.053 | 2.571 | -1.982 | 7.124 | 2.987 | 0.920 | 1.086 | False | 1.023 | 1.133 | False |
+| NAME_loose | True | 0.369 | 0.387 | 1.050 | 3.056 | -1.785 | 7.898 | 3.061 | 0.914 | 1.077 | False | 1.022 | 1.191 | False |
+| allcaps_name | True | 0.102 | 0.099 | 0.966 | 0.971 | -2.254 | 4.195 | -0.587 | 0.666 | 1.089 | False | 0.922 | -1.181 | False |
+| snowclone | False | 0.010 | 0.010 | 0.941 | 0.000 | 0.000 | 0.000 | -0.102 | 0.941 | 0.941 | False | 0.908 | -0.141 | False |
+| llm_abbrev_only | True | 0.092 | 0.095 | 1.036 | 0.171 | -1.893 | 2.235 | 0.552 | 0.878 | 1.147 | False | 1.026 | 0.344 | False |

@@ -1,0 +1,260 @@
+{
+ "rep": "R3yfe",
+ "design": "rolling",
+ "pop": "U",
+ "outcome": "primary",
+ "windows": {
+  "roll2019": {
+   "train_years": [
+    2016,
+    2017,
+    2018
+   ],
+   "calib_year": 2018,
+   "test_years": [
+    2019
+   ],
+   "n_train": 769,
+   "n_test": 1248,
+   "C": 10.0,
+   "C_at_grid_edge": false,
+   "cv_logloss": {
+    "0.3": 0.31917554561393124,
+    "1.0": 0.31203699714039446,
+    "3.0": 0.3048292781488544,
+    "10.0": 0.3046544367767998,
+    "30.0": 0.3250950629913712,
+    "100.0": 0.3894382112558182,
+    "300.0": 0.5032581899466563
+   },
+   "n_features": 384,
+   "r5_removed": null,
+   "year_fe_years": [],
+   "prediction": "fold ensemble: mean over the 5 CV fold models of expit(s_k + c); c solved on the same fold models' OOF scores of the calibration year",
+   "seconds": 0.4
+  },
+  "roll2020": {
+   "train_years": [
+    2017,
+    2018,
+    2019
+   ],
+   "calib_year": 2019,
+   "test_years": [
+    2020
+   ],
+   "n_train": 2017,
+   "n_test": 2070,
+   "C": 3.0,
+   "C_at_grid_edge": false,
+   "cv_logloss": {
+    "0.3": 0.35531327951825065,
+    "1.0": 0.34713569258080423,
+    "3.0": 0.34407897704751184,
+    "10.0": 0.35512963591917723,
+    "30.0": 0.3853193216210707,
+    "100.0": 0.44837107604375714,
+    "300.0": 0.541651844882513
+   },
+   "n_features": 384,
+   "r5_removed": null,
+   "year_fe_years": [
+    2019
+   ],
+   "prediction": "fold ensemble: mean over the 5 CV fold models of expit(s_k + c); c solved on the same fold models' OOF scores of the calibration year",
+   "seconds": 3.7
+  },
+  "roll2021": {
+   "train_years": [
+    2018,
+    2019,
+    2020
+   ],
+   "calib_year": 2020,
+   "test_years": [
+    2021
+   ],
+   "n_train": 4087,
+   "n_test": 2360,
+   "C": 3.0,
+   "C_at_grid_edge": false,
+   "cv_logloss": {
+    "0.3": 0.3816243685485176,
+    "1.0": 0.3721361292861469,
+    "3.0": 0.3694591914900972,
+    "10.0": 0.3756601029224754,
+    "30.0": 0.3898020019957785,
+    "100.0": 0.4114254523445348,
+    "300.0": 0.42989570455611487
+   },
+   "n_features": 384,
+   "r5_removed": null,
+   "year_fe_years": [
+    2019,
+    2020
+   ],
+   "prediction": "fold ensemble: mean over the 5 CV fold models of expit(s_k + c); c solved on the same fold models' OOF scores of the calibration year",
+   "seconds": 9.5
+  },
+  "roll2022": {
+   "train_years": [
+    2019,
+    2020,
+    2021
+   ],
+   "calib_year": 2021,
+   "test_years": [
+    2022
+   ],
+   "n_train": 5678,
+   "n_test": 2649,
+   "C": 3.0,
+   "C_at_grid_edge": false,
+   "cv_logloss": {
+    "0.3": 0.396103386395808,
+    "1.0": 0.3875668417035802,
+    "3.0": 0.3855360302044924,
+    "10.0": 0.39020223303456075,
+    "30.0": 0.4002946322980032,
+    "100.0": 0.4130716894665685,
+    "300.0": 0.4212721816549184
+   },
+   "n_features": 384,
+   "r5_removed": null,
+   "year_fe_years": [
+    2020,
+    2021
+   ],
+   "prediction": "fold ensemble: mean over the 5 CV fold models of expit(s_k + c); c solved on the same fold models' OOF scores of the calibration year",
+   "seconds": 13.1
+  },
+  "roll2023": {
+   "train_years": [
+    2020,
+    2021,
+    2022
+   ],
+   "calib_year": 2022,
+   "test_years": [
+    2023
+   ],
+   "n_train": 7079,
+   "n_test": 3872,
+   "C": 3.0,
+   "C_at_grid_edge": false,
+   "cv_logloss": {
+    "0.3": 0.41361769992938985,
+    "1.0": 0.40591059622386394,
+    "3.0": 0.4053032401889293,
+    "10.0": 0.4112582979060998,
+    "30.0": 0.42043807426900637,
+    "100.0": 0.42927094373409774,
+    "300.0": 0.43416914275397434
+   },
+   "n_features": 384,
+   "r5_removed": null,
+   "year_fe_years": [
+    2021,
+    2022
+   ],
+   "prediction": "fold ensemble: mean over the 5 CV fold models of expit(s_k + c); c solved on the same fold models' OOF scores of the calibration year",
+   "seconds": 15.8
+  },
+  "roll2024": {
+   "train_years": [
+    2021,
+    2022,
+    2023
+   ],
+   "calib_year": 2023,
+   "test_years": [
+    2024
+   ],
+   "n_train": 8881,
+   "n_test": 5765,
+   "C": 3.0,
+   "C_at_grid_edge": false,
+   "cv_logloss": {
+    "0.3": 0.4315641488769958,
+    "1.0": 0.42346736932715606,
+    "3.0": 0.42255571789410445,
+    "10.0": 0.427826499841131,
+    "30.0": 0.43481400108103235,
+    "100.0": 0.4406343414091405,
+    "300.0": 0.4429553479576515
+   },
+   "n_features": 384,
+   "r5_removed": null,
+   "year_fe_years": [
+    2022,
+    2023
+   ],
+   "prediction": "fold ensemble: mean over the 5 CV fold models of expit(s_k + c); c solved on the same fold models' OOF scores of the calibration year",
+   "seconds": 18.3
+  },
+  "roll2025": {
+   "train_years": [
+    2022,
+    2023,
+    2024
+   ],
+   "calib_year": 2024,
+   "test_years": [
+    2025
+   ],
+   "n_train": 12286,
+   "n_test": 8953,
+   "C": 3.0,
+   "C_at_grid_edge": false,
+   "cv_logloss": {
+    "0.3": 0.4713063478922024,
+    "1.0": 0.46308733592681506,
+    "3.0": 0.46150780304622335,
+    "10.0": 0.46426340050601633,
+    "30.0": 0.46773542069703655,
+    "100.0": 0.4703006030481119,
+    "300.0": 0.4713384420881567
+   },
+   "n_features": 384,
+   "r5_removed": null,
+   "year_fe_years": [
+    2023,
+    2024
+   ],
+   "prediction": "fold ensemble: mean over the 5 CV fold models of expit(s_k + c); c solved on the same fold models' OOF scores of the calibration year",
+   "seconds": 29.1
+  },
+  "roll2026": {
+   "train_years": [
+    2023,
+    2024,
+    2025
+   ],
+   "calib_year": 2025,
+   "test_years": [
+    2026
+   ],
+   "n_train": 18590,
+   "n_test": 15412,
+   "C": 3.0,
+   "C_at_grid_edge": false,
+   "cv_logloss": {
+    "0.3": 0.5074849255793703,
+    "1.0": 0.5004158747972939,
+    "3.0": 0.4994450512270963,
+    "10.0": 0.5013564062262568,
+    "30.0": 0.5034654675620704,
+    "100.0": 0.5045729972175222,
+    "300.0": 0.5050020554133069
+   },
+   "n_features": 384,
+   "r5_removed": null,
+   "year_fe_years": [
+    2024,
+    2025
+   ],
+   "prediction": "fold ensemble: mean over the 5 CV fold models of expit(s_k + c); c solved on the same fold models' OOF scores of the calibration year",
+   "seconds": 53.8
+  }
+ }
+}

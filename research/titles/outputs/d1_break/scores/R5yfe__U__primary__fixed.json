@@ -1,0 +1,42 @@
+{
+ "rep": "R5yfe",
+ "design": "fixed",
+ "pop": "U",
+ "outcome": "primary",
+ "windows": {
+  "fixed": {
+   "train_years": [
+    2021,
+    2022,
+    2023
+   ],
+   "calib_year": 2023,
+   "test_years": [
+    2024,
+    2025,
+    2026
+   ],
+   "n_train": 8881,
+   "n_test": 30130,
+   "C": 2.0,
+   "C_at_grid_edge": false,
+   "cv_logloss": {
+    "0.25": 0.4507961196255226,
+    "0.5": 0.44153898829111465,
+    "1.0": 0.4342191518347875,
+    "2.0": 0.4313939695698788,
+    "4.0": 0.4355351464608017,
+    "8.0": 0.4485491051936475,
+    "16.0": 0.47148482246098156
+   },
+   "n_features": 45817,
+   "r5_removed": 294,
+   "year_fe_years": [
+    2022,
+    2023
+   ],
+   "prediction": "fold ensemble: mean over the 5 CV fold models of expit(s_k + c); c solved on the same fold models' OOF scores of the calibration year",
+   "seconds": 50.2
+  }
+ }
+}

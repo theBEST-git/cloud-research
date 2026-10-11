@@ -13,6 +13,11 @@ Statistics (key-cluster bootstrap, 1,000 reps, markers fixed):
   * per channel, the through-origin slope b_g = sum(dS d) / sum(d^2) and the generational increment share
     G_g = 1 - b_g ("1 - within/pop"); the aggregate ratio sum(sign(d) dS) / sum(|d|) as a second summary;
   * G_style - G_topic (prediction > 0; falsified if topic is significantly larger).
+Audit additions (D2-C5, D2-R14, D2-R19): the d^2 weight share of each marker in its channel's through-origin slope
+(markers_weight_shares.csv); a variant dropping both llm_topic and the NAME family; an equal-weight version
+(median per-marker rho = dS/d within each channel, over all markers and over markers with |d| >= 1 pp) with
+bootstrap CIs; the count of markers on the generational side (|dS| < |d|); F2.1 labels the partition and the
+three overlapping NAME variants.
 
 Outputs: outputs/d2_carriers/markers_changes.csv, fig_F2_1_marker_scatter.{pdf,png,csv}, markers_results.json
 
@@ -91,6 +96,17 @@ def subset_stats(dS, d, markers, is_style) -> dict:
     out.update({f"nollm__{k}": v for k, v in channel_stats(dS[:, m], d[:, m], is_style[m]).items()})
     m = np.array([x not in NAME_FAMILY for x in markers])
     out.update({f"nonamefam__{k}": v for k, v in channel_stats(dS[:, m], d[:, m], is_style[m]).items()})
+    m = np.array([x not in NAME_FAMILY and x != "llm_topic" for x in markers])
+    out.update({f"nollm_nonamefam__{k}": v for k, v in channel_stats(dS[:, m], d[:, m], is_style[m]).items()})
+    # equal-weight summaries: median per-marker rho within channel (all markers; markers with |d| >= 1 pp)
+    with np.errstate(divide="ignore", invalid="ignore"):
+        rho = dS / d
+    for g, cm in [("style", is_style), ("topic", ~is_style)]:
+        out[f"median_rho_{g}"] = np.nanmedian(np.where(cm[None, :], rho, np.nan), axis=1)
+        big = cm[None, :] & (np.abs(d) >= 0.01)
+        out[f"median_rho_big_{g}"] = np.nanmedian(np.where(big, rho, np.nan), axis=1)
+    out["median_rho_style_minus_topic"] = out["median_rho_style"] - out["median_rho_topic"]
+    out["median_rho_big_style_minus_topic"] = out["median_rho_big_style"] - out["median_rho_big_topic"]
     return out
 
 
@@ -98,6 +114,8 @@ def summarize(point: dict, boot: dict) -> dict:
     res = {}
     for k, v in point.items():
         b = boot[k][np.isfinite(boot[k])]
+        if len(b) < 2:
+            continue
         res[k] = dict(est=float(v[0]), se=float(b.std(ddof=1)), lo=float(np.quantile(b, .025)),
                       hi=float(np.quantile(b, .975)), p_le0=float(np.mean(b <= 0)), p_ge0=float(np.mean(b >= 0)))
     return res
@@ -107,7 +125,7 @@ def fig_scatter(ch: pd.DataFrame, st: dict):
     fig, axes = C.new_fig("double", height=3.3, ncols=2)
     d = ch[ch.partition.eq("any")].copy()
     d["x"], d["y"] = 100 * d.delta, 100 * d.delta_S
-    lab_pts = {"mk_name": "NAME", "mk_compound": "compound", "mk_title_case": "Title Case",
+    lab_pts = {"mk_name": "NAME (3 overlapping variants)", "mk_compound": "compound", "mk_title_case": "Title Case",
                "mk_sentence_case": "sentence case", "llm_topic": "LLM topic", "mk_name_mixed_case": "mixed-case NAME",
                "mk_via": "via", "mk_using": "using", "mk_enhanc": "enhanc*", "mk_gerund_opener": "gerund opener",
                "mk_phrase_colon": "phrase colon"}
@@ -123,17 +141,26 @@ def fig_scatter(ch: pd.DataFrame, st: dict):
                     alpha=0.9, mec="white", mew=0.4)
         keep = lab_pts if k == 0 else {m: v for m, v in lab_pts.items() if m in ("mk_title_case", "mk_sentence_case",
                                                                                "mk_via", "mk_using", "mk_phrase_colon")}
+        nudge = {"mk_using": (6, 6), "mk_sentence_case": (6, -10), "mk_title_case": (6, 4), "mk_via": (6, -9),
+                 "mk_phrase_colon": (6, 4)} if k == 1 else {}
         if k == 0:
             keep = {m: v for m, v in keep.items() if m in ("mk_name", "mk_compound", "llm_topic", "mk_name_mixed_case",
                                                          "mk_sentence_case")}
         for _, r in dd[dd.marker.isin(keep)].iterrows():
             left = r.marker == "llm_topic"
-            ax.annotate(keep[r.marker], (r.x, r.y), xytext=(-5 if left else 4, -6), textcoords="offset points",
-                        fontsize=6.5, color=C.TEXT2, ha="right" if left else "left")
+            off = nudge.get(r.marker, (-5 if left else 4, -6))
+            ax.annotate(keep[r.marker], (r.x, r.y), xytext=off, textcoords="offset points",
+                        fontsize=6.5, color=C.TEXT2, ha="right" if left else "left",
+                        arrowprops=dict(arrowstyle="-", color=C.GREY, lw=0.4) if k == 1 else None)
         ax.set_xlim(lim); ax.set_ylim(lim)
         ax.set_xlabel("Population change, 2022-23 to 2025-26 (pp)")
         ax.set_title("All markers" if k == 0 else "Zoom: |change| \u2264 6 pp", fontsize=8.5)
     axes[0].set_ylabel("Within-stayer change (pp)")
+    fig.suptitle("Any-role partition (rows weighted 1/#keys, paper-weighted), E = 2022-23 to L = 2025-26",
+                 fontsize=8, color=C.TEXT2, y=1.0)
+    fig.text(0.01, -0.02, "Vertical bars: 95% key-cluster bootstrap CIs of the within-stayer change (population change "
+             "has its own CI in the CSV). NAME, NAME strict and NAME loose overlap at about (18, 15).",
+             fontsize=6.5, color=C.TEXT2, ha="left", va="top")
     sa = st["any"]
     axes[0].text(0.03, 0.97, f"OLS slope {sa['slope_all']['est']:.2f} [{sa['slope_all']['lo']:.2f}, "
                  f"{sa['slope_all']['hi']:.2f}]\nr = {sa['r_all']['est']:.3f}"
@@ -178,12 +205,27 @@ def main():
                              gap_NS_L=pt["gap_NS_L"][0]))
     ch = pd.DataFrame(rows)
     ch.to_csv(OUTDIR / "markers_changes.csv", index=False)
+    ws = []
+    for (part, chn), gch in ch.groupby(["partition", "channel"]):
+        w2 = gch.delta ** 2
+        for _, r in gch.assign(w=w2 / w2.sum()).sort_values("w", ascending=False).iterrows():
+            ws.append(dict(partition=part, channel=chn, marker=r.marker, delta=r.delta, delta_S=r.delta_S,
+                           weight_share_d2=r.w, generational_side=bool(abs(r.delta_S) < abs(r.delta))))
+    ws = pd.DataFrame(ws)
+    ws.to_csv(OUTDIR / "markers_weight_shares.csv", index=False)
     sel.to_csv(OUTDIR / "markers_selection.csv", index=False)
     fig_scatter(ch, stats_out)
     out = dict(n_boot=N_BOOT, min_prevalence=MIN_PREV, min_topic_dshare=MIN_TOPIC_DSHARE,
                n_style=len(style), n_topic=len(topic), style_markers=style, topic_markers=topic,
                dropped_style=[m for m in sel.marker[sel.channel.eq("style") & ~sel.kept]],
-               stats=stats_out, elapsed_s=round(time.time() - t0, 1))
+               stats=stats_out,
+               weight_shares_any={chn: {r.marker: round(float(r.weight_share_d2), 4)
+                                        for r in ws[(ws.partition == "any") & (ws.channel == chn)].head(6).itertuples()}
+                                  for chn in ("style", "topic")},
+               n_generational_side={part: {chn: dict(n=int(len(g_)), generational_side=int(g_.generational_side.sum()))
+                                           for chn, g_ in ws[ws.partition == part].groupby("channel")}
+                                    for part in ("any", "last", "first")},
+               elapsed_s=round(time.time() - t0, 1))
     (OUTDIR / "markers_results.json").write_text(json.dumps(out, indent=1))
     np.savez_compressed(OUTDIR / "markers_boot_draws.npz", **draws)
     for part in ("any", "last", "first"):

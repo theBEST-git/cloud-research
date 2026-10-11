@@ -29,7 +29,9 @@
    },
    "n_features": 7300,
    "r5_removed": 13,
-   "seconds": 2.0
+   "year_fe_years": null,
+   "prediction": "fold ensemble: mean over the 5 CV fold models of expit(s_k + c); c solved on the same fold models' OOF scores of the calibration year",
+   "seconds": 1.7
   },
   "roll2020": {
    "train_years": [
@@ -56,7 +58,9 @@
    },
    "n_features": 14029,
    "r5_removed": 26,
-   "seconds": 2.9
+   "year_fe_years": null,
+   "prediction": "fold ensemble: mean over the 5 CV fold models of expit(s_k + c); c solved on the same fold models' OOF scores of the calibration year",
+   "seconds": 3.9
   },
   "roll2021": {
    "train_years": [
@@ -83,7 +87,9 @@
    },
    "n_features": 22218,
    "r5_removed": 48,
-   "seconds": 5.9
+   "year_fe_years": null,
+   "prediction": "fold ensemble: mean over the 5 CV fold models of expit(s_k + c); c solved on the same fold models' OOF scores of the calibration year",
+   "seconds": 6.3
   },
   "roll2022": {
    "train_years": [
@@ -110,7 +116,9 @@
    },
    "n_features": 29950,
    "r5_removed": 62,
-   "seconds": 9.0
+   "year_fe_years": null,
+   "prediction": "fold ensemble: mean over the 5 CV fold models of expit(s_k + c); c solved on the same fold models' OOF scores of the calibration year",
+   "seconds": 11.6
   },
   "roll2023": {
    "train_years": [
@@ -137,7 +145,9 @@
    },
    "n_features": 36874,
    "r5_removed": 97,
-   "seconds": 12.5
+   "year_fe_years": null,
+   "prediction": "fold ensemble: mean over the 5 CV fold models of expit(s_k + c); c solved on the same fold models' OOF scores of the calibration year",
+   "seconds": 16.8
   },
   "roll2024": {
    "train_years": [
@@ -164,7 +174,9 @@
    },
    "n_features": 45973,
    "r5_removed": 138,
-   "seconds": 16.2
+   "year_fe_years": null,
+   "prediction": "fold ensemble: mean over the 5 CV fold models of expit(s_k + c); c solved on the same fold models' OOF scores of the calibration year",
+   "seconds": 20.2
   },
   "roll2025": {
    "train_years": [
@@ -191,7 +203,9 @@
    },
    "n_features": 49838,
    "r5_removed": 162,
-   "seconds": 23.5
+   "year_fe_years": null,
+   "prediction": "fold ensemble: mean over the 5 CV fold models of expit(s_k + c); c solved on the same fold models' OOF scores of the calibration year",
+   "seconds": 29.6
   },
   "roll2026": {
    "train_years": [
@@ -218,7 +232,9 @@
    },
    "n_features": 49821,
    "r5_removed": 179,
-   "seconds": 39.7
+   "year_fe_years": null,
+   "prediction": "fold ensemble: mean over the 5 CV fold models of expit(s_k + c); c solved on the same fold models' OOF scores of the calibration year",
+   "seconds": 47.7
   }
  }
 }

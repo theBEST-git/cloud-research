@@ -10,7 +10,19 @@ Outputs (outputs/d1_break/):
     its_year_deviation.csv    year-dummy variant: deviations of 2024/25/26 from the extrapolated 2017-23 logit trend
     its_break_scan.csv        break at every candidate year (full data) and placebo breaks (pre-2024 data only)
     its_results.json          machine-readable H1a estimates and verdict inputs
-    fig_its_scan.{pdf,png,csv} supplementary: slope-change OR by candidate break year
+    fig_its_scan.{pdf,png,csv} supplementary: (a) slope-change OR by candidate break year (log axis), (b) LR vs the
+                              linear-trend logit for the level+slope and kink-only scans
+    its_year_level.csv        year-level inference (audit fix D1-C4 / ID-1 / ID-2): REML random-effects
+                              meta-regression of the segmented trend on covariate-adjusted year effects (t, 6 df),
+                              quasi-binomial year-level dispersion, smooth-vs-break GLS comparison
+
+Year-level inference. The slope change varies only across 10 annual cohorts, so the topic100-clustered Wald test
+treats ~43k papers as independent draws around the trend and ignores shocks common to all papers in a year. The
+primary H1a test is therefore the random-effects meta-regression: the covariate-adjusted logit year effects (with
+their full sampling covariance from the paper-level model) are regressed on the segmented design, with an extra
+year-shock variance tau^2 estimated by REML; inference uses t with 10 - 4 = 6 df. The paper-level Wald test is kept
+as a secondary statistic. Pool labels in the CSV outputs read 'NApool' (not 'NA') so default CSV readers do not turn
+them into missing values.
 
 Run:  cd research/titles/src && OMP_NUM_THREADS=2 /home/user/venv/bin/python -m analyses.d1_its
 """
@@ -130,6 +142,166 @@ def year_deviation(d: pd.DataFrame, outcome: str, fe: str | None = "topic100",
     return pd.DataFrame(rows)
 
 
+YRS = np.arange(2017, 2027)
+
+
+def year_effects_logit(d: pd.DataFrame, outcome="name_primary", controls=("log_authors", "llm_topic"),
+                       fe="topic100", cluster="topic100"):
+    """Covariate-adjusted logit year effects (year intercepts in a paper-level logit with controls and topic FE) and
+    their cluster-robust covariance."""
+    yrs = np.array(sorted(d.year.unique()))
+    ctr = [c for c in controls if d[c].nunique() > 1]
+    r = C.logit(f"{outcome} ~ 0 + C(year) + " + " + ".join(ctr + [f"C({fe})"]), d, cluster=cluster)
+    names = [f"C(year)[{y}]" for y in yrs]
+    return yrs, r.params[names].to_numpy(), r.cov_params().loc[names, names].to_numpy()
+
+
+def year_effects_lpm(d: pd.DataFrame, outcome="name_primary", controls=("log_authors", "llm_topic"),
+                     fe="topic100", cluster="topic100"):
+    """Same on the LPM (probability) scale: year dummies (first year = reference) with controls and topic FE; the
+    reference year's binomial sampling variance is added as a common component."""
+    dd = d.copy()
+    yrs = np.array(sorted(dd.year.unique()))
+    cols = [f"y{y}" for y in yrs[1:]]
+    for y, c in zip(yrs[1:], cols):
+        dd[c] = (dd.year == y).astype(float)
+    ctr = [c for c in controls if dd[c].nunique() > 1]
+    fr = C.feols(dd, outcome, cols + ctr, fe=[fe], cluster=cluster)
+    y = np.array([0.0] + [float(fr.params[c]) for c in cols])
+    V = np.zeros((len(yrs), len(yrs)))
+    V[1:, 1:] = fr.vcov.loc[cols, cols].to_numpy()
+    s0 = dd.loc[dd.year == yrs[0], outcome].mean()
+    V[0, 0] = s0 * (1 - s0) / (dd.year == yrs[0]).sum()
+    return yrs, y, V
+
+
+def seg_design(yrs, B=2024, level=True):
+    t = yrs - (B - 1)
+    post = (yrs >= B).astype(float)
+    cols = [np.ones(len(yrs)), t] + ([post] if level else []) + [post * t]
+    return np.column_stack(cols).astype(float)
+
+
+def gls(y, V, X, tau2=0.0):
+    S = V + tau2 * np.eye(len(y))
+    Si = np.linalg.inv(S)
+    Vb = np.linalg.inv(X.T @ Si @ X)
+    b = Vb @ X.T @ Si @ y
+    e = y - X @ b
+    return b, Vb, float(e @ Si @ e)
+
+
+def reml_tau2(y, V, X):
+    from scipy import optimize
+
+    def negll(lt):
+        S = V + np.exp(lt) * np.eye(len(y))
+        Si = np.linalg.inv(S)
+        XtSiX = X.T @ Si @ X
+        b = np.linalg.solve(XtSiX, X.T @ Si @ y)
+        r = y - X @ b
+        return 0.5 * (np.linalg.slogdet(S)[1] + np.linalg.slogdet(XtSiX)[1] + r @ Si @ r)
+    opt = optimize.minimize_scalar(negll, bounds=(-20, 2), method="bounded")
+    return float(np.exp(opt.x))
+
+
+def re_metareg(yrs, y, V, B=2024, scale="logit") -> dict:
+    """Random-effects meta-regression of the segmented trend (level + slope change at B) on year effects."""
+    X = seg_design(yrs, B)
+    dfree = len(yrs) - X.shape[1]
+    tau2 = reml_tau2(y, V, X)
+    b, Vb, q = gls(y, V, X, tau2)
+    b0, Vb0, q0 = gls(y, V, X, 0.0)
+    se, se0 = float(np.sqrt(Vb[-1, -1])), float(np.sqrt(Vb0[-1, -1]))
+    tq = stats.t.ppf(0.975, dfree)
+    out = {"scale": scale, "break_year": B, "n_years": int(len(yrs)), "df": int(dfree), "tau_year_shock": float(np.sqrt(tau2)),
+           "slope_change": float(b[-1]), "se": se, "t": float(b[-1] / se),
+           "p_one_sided_t": float(stats.t.sf(b[-1] / se, dfree)), "p_one_sided_z": float(stats.norm.sf(b[-1] / se)),
+           "slope_change_tau0": float(b0[-1]), "se_tau0": se0, "z_tau0": float(b0[-1] / se0),
+           "pre_slope": float(b[1]), "Q_generalised": q}
+    if scale == "logit":
+        out.update(OR=float(np.exp(b[-1])), OR_lo=float(np.exp(b[-1] - tq * se)), OR_hi=float(np.exp(b[-1] + tq * se)),
+                   OR_tau0=float(np.exp(b0[-1])), pre_slope_OR=float(np.exp(b[1])))
+    else:
+        out.update(pp=100 * float(b[-1]), pp_lo=100 * float(b[-1] - tq * se), pp_hi=100 * float(b[-1] + tq * se),
+                   pre_slope_pp=100 * float(b[1]))
+    return out
+
+
+def smooth_vs_break(yrs, y, V, tau2: float) -> dict:
+    """GLS on the adjusted logit year effects: generalised residual Q for a linear trend, a quadratic trend,
+    segmented (level + slope) breaks at 2022-2025, a kink at 2024, and quadratic + post x t (audit ID-2)."""
+    t = (yrs - 2023).astype(float)
+    out = {}
+    for lab, X in [("linear (2 par)", np.column_stack([np.ones(len(t)), t])),
+                   ("quadratic (3 par)", np.column_stack([np.ones(len(t)), t, t ** 2])),
+                   ("kink at 2024 (3 par)", np.column_stack([np.ones(len(t)), t, np.maximum(t, 0)])),
+                   *[(f"segmented at {B} (4 par)", seg_design(yrs, B)) for B in (2022, 2023, 2024, 2025)],
+                   ("quadratic + post x t (4 par)", np.column_stack([np.ones(len(t)), t, t ** 2, (yrs >= 2024) * t]))]:
+        b, Vb, q = gls(y, V, X, tau2)
+        r = {"Q": q, "n_par": int(X.shape[1])}
+        if X.shape[1] >= 3:
+            r["last_coef"] = float(b[-1])
+            r["last_coef_z"] = float(b[-1] / np.sqrt(Vb[-1, -1]))
+        out[lab] = r
+    return out
+
+
+def quasi_dispersion(d: pd.DataFrame, B=2024) -> dict:
+    """Year-level Pearson X2 of observed vs fitted yearly NAME counts from the paper-level segmented logit, on
+    (#years - 4) df; the slope-change SE is inflated by sqrt(phi) and tested with t(df) (code audit D1-C4)."""
+    res = its_fit(d, "name_primary", B)
+    dd = _design(d, B).loc[res.model_rows]
+    p = np.asarray(res.predict())
+    g = pd.DataFrame({"year": dd.year.values, "y": dd.name_primary.values, "p": p, "v": p * (1 - p)}).groupby("year").sum()
+    X2 = float((((g.y - g.p) ** 2) / g.v).sum())
+    dof = len(g) - 4
+    phi = X2 / dof
+    b, se = float(res.params["post_t"]), float(res.bse["post_t"])
+    se_q = se * np.sqrt(max(phi, 1.0))
+    tq = stats.t.ppf(0.975, dof)
+    return {"X2": X2, "df": int(dof), "phi": phi, "OR": float(np.exp(b)), "OR_lo": float(np.exp(b - tq * se_q)),
+            "OR_hi": float(np.exp(b + tq * se_q)), "p_one_sided_t": float(stats.t.sf(b / se_q, dof))}
+
+
+def year_level(df: pd.DataFrame) -> tuple[dict, pd.DataFrame]:
+    out, rows = {}, []
+    pops = [("U", df, ("log_authors", "llm_topic")), ("NA pool", df[df.NA == 1], ("log_authors", "llm_topic")),
+            ("non-LLM subset", df[df.non_llm == 1], ("log_authors", "llm_topic")),
+            ("U excluding 2026", df[df.year <= 2025], ("log_authors", "llm_topic"))]
+    for lab, d, ctr in pops:
+        yrs, y, V = year_effects_logit(d, controls=ctr)
+        rl = re_metareg(yrs, y, V, scale="logit")
+        yrs2, y2, V2 = year_effects_lpm(d, controls=ctr)
+        rp = re_metareg(yrs2, y2, V2, scale="pp")
+        qd = quasi_dispersion(d)
+        e = {"re_logit": rl, "re_lpm": rp, "quasi_binomial": qd}
+        if lab in ("U", "NA pool"):
+            e["smooth_vs_break_tau0"] = smooth_vs_break(yrs, y, V, 0.0)
+            e["smooth_vs_break_tauREML"] = smooth_vs_break(yrs, y, V, rl["tau_year_shock"] ** 2)
+        e["year_effects_logit"] = {int(a): float(b) for a, b in zip(yrs, y)}
+        out[lab] = e
+        rows.append(dict(population=lab, n_years=rl["n_years"], df=rl["df"], tau_logit=rl["tau_year_shock"],
+                         OR_RE=rl["OR"], OR_RE_lo=rl["OR_lo"], OR_RE_hi=rl["OR_hi"], p_RE_t=rl["p_one_sided_t"],
+                         OR_tau0=rl["OR_tau0"], z_tau0=rl["z_tau0"], tau_pp=100 * rp["tau_year_shock"],
+                         lpm_pp_RE=rp["pp"], lpm_pp_RE_lo=rp["pp_lo"], lpm_pp_RE_hi=rp["pp_hi"],
+                         p_lpm_RE_t=rp["p_one_sided_t"], quasi_phi=qd["phi"], quasi_OR_lo=qd["OR_lo"],
+                         quasi_OR_hi=qd["OR_hi"], quasi_p_t=qd["p_one_sided_t"]))
+        print(f"year-level {lab}: OR_RE={rl['OR']:.3f} [{rl['OR_lo']:.3f},{rl['OR_hi']:.3f}] p={rl['p_one_sided_t']:.4f} "
+              f"tau={rl['tau_year_shock']:.4f}; LPM {rp['pp']:.2f} [{rp['pp_lo']:.2f},{rp['pp_hi']:.2f}]pp; "
+              f"phi={qd['phi']:.2f} p_quasi={qd['p_one_sided_t']:.4f}", flush=True)
+    return out, pd.DataFrame(rows)
+
+
+def napool(df_: pd.DataFrame, cols) -> pd.DataFrame:
+    """Rename the pool label 'NA' to 'NApool' in CSV outputs (REP-16)."""
+    df_ = df_.copy()
+    for c in cols:
+        if c in df_.columns:
+            df_[c] = df_[c].replace({"NA": "NApool"})
+    return df_
+
+
 def main():
     t0 = time.time()
     OUTDIR.mkdir(parents=True, exist_ok=True)
@@ -193,7 +365,7 @@ def main():
               f"[{r['slope_change_OR_lo']:.3f},{r['slope_change_OR_hi']:.3f}] lpm={r['lpm_slope_change_pp']:.2f}pp "
               f"{time.time() - t0:.0f}s", flush=True)
     T = pd.DataFrame(rows)
-    T.to_csv(OUTDIR / "T1_1_its.csv", index=False)
+    napool(T, ["pool"]).to_csv(OUTDIR / "T1_1_its.csv", index=False)
 
     # ---------------- year-dummy variant ----------------
     devs = []
@@ -202,7 +374,11 @@ def main():
         dv.insert(0, "population", lab)
         devs.append(dv)
     DV = pd.concat(devs)
-    DV.to_csv(OUTDIR / "its_year_deviation.csv", index=False)
+    napool(DV, ["population"]).to_csv(OUTDIR / "its_year_deviation.csv", index=False)
+
+    # ---------------- year-level inference (primary for H1a after audit) ----------------
+    YL, YLt = year_level(df)
+    YLt.to_csv(OUTDIR / "its_year_level.csv", index=False)
     print(DV.round(3).to_string(), flush=True)
 
     # ---------------- break scan (full data), randomization p, placebo breaks (pre data) ----------------
@@ -267,7 +443,13 @@ def main():
         "placebos_null": bool(((placebo.slope_change_OR_lo <= 1) & (placebo.slope_change_OR_hi >= 1)).all()),
         "no_placebo_as_large": bool(max_placebo_or < prim.slope_change_OR),
     }
-    falsified = (not crit["NA_pool_CI_excludes_1"]) or (not crit["no_placebo_as_large"])
+    yl_u, yl_na = YL["U"]["re_logit"], YL["NA pool"]["re_logit"]
+    crit["U_year_level_CI_excludes_1"] = bool(yl_u["OR_lo"] > 1)
+    crit["NA_pool_year_level_CI_excludes_1"] = bool(yl_na["OR_lo"] > 1)
+    # pre-registered rule (NA CI includes 1, or a placebo at least as large), applied to paper-level and to
+    # year-level inference; falsified if either version meets it
+    falsified = (not crit["NA_pool_CI_excludes_1"]) or (not crit["NA_pool_year_level_CI_excludes_1"]) or \
+        (not crit["no_placebo_as_large"])
     res_json = {
         "H1a": {
             "primary": {k: (float(v) if isinstance(v, (int, float, np.floating, np.integer)) else v)
@@ -293,12 +475,18 @@ def main():
             "criteria": crit,
             "falsified": falsified,
             "p_one_sided_primary": float(prim.slope_change_p_one_sided),
+            "p_one_sided_paper_level_wald": float(prim.slope_change_p_one_sided),
+            "p_one_sided_year_level": float(yl_u["p_one_sided_t"]),
+            "year_level": YL,
+            "inference_note": "primary H1a p = one-sided t(6) test of the slope change in the REML random-effects "
+                              "meta-regression on adjusted logit year effects (year-shock variance tau^2); the "
+                              "topic100-clustered paper-level Wald p is secondary",
         }
     }
     (OUTDIR / "its_results.json").write_text(json.dumps(res_json, indent=1, default=float))
 
-    # ---------------- supplementary figure: slope-change OR by candidate break ----------------
-    fig, ax = C.new_fig("single", 2.4)
+    # ---------------- supplementary figure: (a) slope-change OR by candidate break, (b) sup-LR scans ----------
+    fig, (ax, ax2) = C.new_fig("double", 2.6, ncols=2)
     fs = S[S["sample"].isin(["full 2017-2026", "placebo, pre-2024 data 2017-2023"])].copy()
     for i, (samp, lab) in enumerate([("full 2017-2026", "full data 2017-26"),
                                      ("placebo, pre-2024 data 2017-2023", "pre-2024 data only (placebo)")]):
@@ -308,13 +496,31 @@ def main():
         ax.errorbar(g.break_year + off, g.slope_change_OR,
                     yerr=[g.slope_change_OR - g.slope_change_OR_lo, g.slope_change_OR_hi - g.slope_change_OR],
                     fmt="o", color=col, ms=5, lw=1.4, capsize=0, label=lab)
+    ax.set_yscale("log")
     ax.axhline(1, color=C.GREY, lw=0.8, ls="--", zorder=0)
+    ax.set_yticks([0.6, 0.8, 1.0, 1.25, 1.6])
+    ax.set_yticklabels(["0.6", "0.8", "1.0", "1.25", "1.6"])
+    ax.minorticks_off()
     ax.set_xlabel("candidate break year")
-    ax.set_ylabel("slope-change OR per year")
+    ax.set_ylabel("slope-change OR per year (log scale)")
     ax.set_xticks(range(2019, 2026))
-    ax.legend(loc="upper left")
-    C.save_fig(fig, "fig_its_scan", OUTDIR, data=fs[["sample", "break_year", "slope_change_OR", "slope_change_OR_lo",
-                                                      "slope_change_OR_hi", "slope_change_p", "LR_vs_linear"]])
+    ax.legend(loc="lower right", fontsize=6.5)
+    ax.set_title("(a) slope change; whiskers: 95% CI (topic100-clustered)", fontsize=7, loc="left")
+    ls = S[S["sample"] == "full 2017-2026"].set_index("break_year").loc[2020:2025, "LR_vs_linear"]
+    lk = S[S["sample"] == "full 2017-2026, kink only (no level shift)"].set_index("break_year").LR_vs_linear
+    ax2.plot(ls.index, ls.values, "-o", color=C.color(0), ms=4, lw=1.3, label="level + slope (pre-registered)")
+    ax2.plot(lk.index, lk.values, "--s", color=C.GREY, ms=4, lw=1.3, label="kink only (robustness)")
+    for ser, col in [(ls, C.color(0)), (lk, C.GREY)]:
+        ax2.plot([ser.idxmax()], [ser.max()], "o", ms=9, mfc="none", mec=col, mew=1.2)
+    ax2.set_xlabel("candidate break year")
+    ax2.set_ylabel("LR vs linear-trend logit")
+    ax2.set_xticks(range(2020, 2026))
+    ax2.legend(loc="lower right", fontsize=6.5)
+    ax2.set_title("(b) sup-LR scans; circles mark the maximum", fontsize=7, loc="left")
+    scan_data = S[S["sample"].isin(["full 2017-2026", "placebo, pre-2024 data 2017-2023",
+                                    "full 2017-2026, kink only (no level shift)"])]
+    C.save_fig(fig, "fig_its_scan", OUTDIR, data=scan_data[["sample", "break_year", "slope_change_OR", "slope_change_OR_lo",
+                                                           "slope_change_OR_hi", "slope_change_p", "LR_vs_linear"]])
     print(json.dumps(res_json["H1a"]["criteria"], indent=1), "falsified:", falsified)
     print(f"done {time.time() - t0:.0f}s")
 

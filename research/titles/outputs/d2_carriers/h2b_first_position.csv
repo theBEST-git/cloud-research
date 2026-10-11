@@ -1,0 +1,7 @@
+analysis,spec,est,se,lo,hi,nobs,n_lastkeys
+"L entrant-first minus stayer-first (D2 groups; multi-key papers, first key != last key)",raw,0.10324808487845667,0.010581153346915936,0.08250902431850143,0.12398714543841191,21113,10729
+"L entrant-first minus stayer-first (D2 groups; multi-key papers, first key != last key)",size-bin + topic100 FE,0.07788551583224389,0.009860263516364967,0.05855939934016855,0.09721163232431923,21113,10729
+"L entrant-first minus stayer-first (D2 groups; multi-key papers, first key != last key)",last-key FE,0.0670069213975381,0.014215389362930972,0.039144758246193394,0.09486908454888279,21113,10729
+"L entrant-first minus stayer-first (D2 groups; multi-key papers, first key != last key)",last-key + size-bin + topic100 FE,0.0490273107696198,0.0137776011424002,0.022023212530515413,0.0760314090087242,21113,10729
+"symmetric 2-year-lookback newcomer premium at first position, change 2025-26 vs 2023",last-key + year + size-bin + topic100 FE,0.04337118636345254,0.02075219495214088,0.002696884257256414,0.08404548846964865,27482,12382
+"symmetric 2-year-lookback newcomer premium at first position, 2023",last-key + year + size-bin + topic100 FE,-0.022902180408372975,0.01944710409510856,-0.06101850443478575,0.0152141436180398,27482,12382

@@ -4,13 +4,23 @@ new-topic placebo, V4 leakage diagnostics.
 Representations (PLAN D1; L2 logit, C chosen by 5-fold CV (log loss) inside each training window):
     R1  name-masked abstract TF-IDF, 1-2-grams (features_v2.mask_abstract_lower: lead removed, lowercase tokens only;
         min_df 5, max_df 0.5, 50k features, sublinear tf)                                  [primary, name-masked]
-    R2  keyword TF-IDF on normalized_keywords_json (each keyword phrase is one token)       [lower]
+    R2  keyword TF-IDF on normalized_keywords_json (each keyword phrase is one token); papers WITH keywords only
+        (keywords are missing for 8-16% of 2017-23 papers and 0% of 2024-26; audit fix D1-C8)  [lower]
     R3  bge-small embeddings of R3-masked abstracts (outputs/topics/emb_masked_bge.npy)     [name-masked]
     R4  bge-small embeddings of unmasked abstracts (cache)                                  [upper, leaky]
     R5  R1 vocabulary minus the frozen rhetorical-move n-grams (lexicons.json)              [name-masked, genre-stripped]
     R6  topic100 one-hot (MiniLM) + llm_topic                                               [coarse]
     R6b topic100 one-hot (bge) + llm_topic_bge                                              [coarse, replication]
     R1u unmasked abstract TF-IDF (all tokens, lead kept): V4 masked-vs-unmasked diagnostic only
+    R1yfe/R3yfe/R5yfe  R1/R3/R5 plus training-year fixed effects (dummies scaled x5 so the L2 penalty on them is
+        negligible; test rows are scored at the calibration year y-1). Audit sensitivity (D1-C2/ID-5): content
+        coefficients are identified within training year only, so tokens that merely trend with NAME inside the
+        3-year window do not carry the within-window time trend into the content step.
+
+Prediction (audit fix D1-C1): the intercept shift c is solved on the 5-fold out-of-fold scores of the calibration
+year; the SAME five fold models score the test rows and the calibrated test probability is the mean over folds of
+expit(s_k + c). (The first pipeline version added c to a separately fitted full-data model, whose scores are more
+dispersed at the same C; that mismatch inflated every content step.)
 
 Designs:
     rolling  train y-3..y-1, test y (2019..2026); intercept recalibrated so cross-fitted (OOF) predictions of
@@ -25,11 +35,14 @@ Stages (each well under 20 min with 1-2 threads). Full reproduction sequence for
     python -m analyses.d1_content_cf fit reps=R4,R2,R1u          # (~5 min)
     python -m analyses.d1_content_cf fit reps=R1@0.5,R1n         # labelled sensitivities / V4 diagnostic (~3 min)
     python -m analyses.d1_content_cf fit variants                # R1 on NA / non-LLM and strict/loose/compound (~8 min)
-    python -m analyses.d1_content_cf fit r3                      # R3 (needs outputs/topics/emb_masked_bge.npy; ~2 min)
-    python -m analyses.d1_decompose fit                          # people (P) and R1+people (R1P) fixed-window fits
-    python -m analyses.d1_content_cf summarise 2000              # bootstraps, T1.2, new-topic placebo, V4 (~6 min)
-    python -m analyses.d1_content_cf refit_boot 300 R1           # refit bootstrap for H1c (~25 min, checkpointed)
-    python -m analyses.d1_decompose all                          # DFL, Shapley, tool bound (~3 min)
+    python -m analyses.d1_content_cf fit reps=R3,R3yfe           # R3 (needs outputs/topics/emb_masked_bge.npy; ~4 min)
+    python -m analyses.d1_content_cf fit reps=R1yfe,R5yfe        # audit year-FE sensitivities (~10 min)
+    python -m analyses.d1_decompose fit                          # composition (P) and R1+composition (R1P) fixed fits
+    python -m analyses.d1_content_cf summarise 2000              # bootstraps, T1.2, new-topic placebo, V4 (~10 min)
+    python -m analyses.d1_content_cf refit_boot 300 R1           # refit bootstrap for H1c (~35 min, checkpointed;
+                                                                 #   delete refit_boot_R1.csv to restart)
+    python -m analyses.d1_decompose refit_boot 200               # refit bootstrap, fixed-window R1/P/R1P (~10 min)
+    python -m analyses.d1_decompose all                          # DFL, Shapley, tool bound (~5 min)
     python -m analyses.d1_summary                                # results.json, Holm, F1.1-F1.3
 """
 from __future__ import annotations
@@ -58,7 +71,7 @@ GRID_ONEHOT = (0.003, 0.01, 0.03, 0.1, 0.3, 1.0, 3.0, 10.0)
 GRID_KW = (0.03, 0.0625, 0.125, 0.25, 0.5, 1.0, 2.0, 4.0, 8.0)  # keywords: optimum sits below the text grid
 REP_INFO = {
     "R1": ("name-masked abstract TF-IDF", "masked"),
-    "R2": ("keyword TF-IDF", "lower"),
+    "R2": ("keyword TF-IDF (papers with keywords only)", "lower"),
     "R3": ("bge, name-masked abstract", "masked"),
     "R4": ("bge, unmasked abstract", "upper (leaky)"),
     "R5": ("R1 minus rhetorical moves", "masked"),
@@ -67,11 +80,24 @@ REP_INFO = {
     "R1u": ("unmasked abstract TF-IDF (V4 diagnostic)", "diagnostic"),
     "R1@0.5": ("R1 at the pilot's fixed C = 0.5 (sensitivity, not CV-chosen)", "sensitivity"),
     "R1n": ("R1 minus naming-announcement/LaTeX-format tokens (exploratory V4 diagnostic)", "diagnostic"),
+    "R1yfe": ("R1 + training-year FE (audit sensitivity)", "masked, year-FE"),
+    "R3yfe": ("R3 + training-year FE (audit sensitivity)", "masked, year-FE"),
+    "R5yfe": ("R5 + training-year FE (audit sensitivity)", "masked, year-FE"),
 }
+
+
+def base_rep(rep: str) -> str:
+    """'R1@0.5' -> 'R1', 'R3yfe' -> 'R3'."""
+    b = rep.split("@")[0]
+    return b[:-3] if b.endswith("yfe") else b
 # Exploratory (not pre-registered) V4 follow-up: abstract tokens that announce a coined name or typeset it.
 NAMING_TOKENS = ["named", "called", "dubbed", "termed", "coined", "textbf", "textsc", "textit", "texttt", "emph",
                  "mathtt", "mathsf"]
 MASKED_REPS = ("R1", "R3", "R5")
+YFE_REPS = ("R1yfe", "R3yfe", "R5yfe")   # audit sensitivity: masked reps with training-year fixed effects
+N_FOLDS = 5
+FOLD_COLS = [f"s{k}" for k in range(N_FOLDS)]
+YFE_SCALE = 5.0
 PRE_Y, POST_Y = (2019, 2020, 2021, 2022, 2023), (2024, 2025, 2026)
 
 
@@ -128,13 +154,14 @@ class Reps:
     def __init__(self, df: pd.DataFrame, need=("R1", "R1u", "R2", "R4", "R5", "R6", "R6b")):
         self.df = df
         self.texts = {}
-        need = {n.split("@")[0] for n in need}
+        need = {base_rep(n) for n in need}
         if {"R1", "R5", "R1n"} & set(need):
             self.texts["R1"] = r1_texts(df)
         if "R1u" in need:
             self.texts["R1u"] = df.abstract.fillna("").to_numpy(dtype=object)
         if "R2" in need:
             self.kw = kw_lists(df)
+            self.has_kw = np.array([len(k) > 0 for k in self.kw], dtype=bool)
         if "R4" in need:
             self.E4 = C.load_embedding(df, "abstract", "bge-small-en-v1.5")
         if "R3" in need:
@@ -143,21 +170,45 @@ class Reps:
         self.moves = [m.split() for m in lexicon()["rhetorical_moves_R5"]["core"]]
 
     def available(self, rep: str) -> np.ndarray:
-        if rep.split("@")[0] == "R3":
+        b = base_rep(rep)
+        if b == "R3":
             return self.found3
+        if b == "R2":  # audit fix D1-C8: keyword rep restricted to papers that have keywords
+            return self.has_kw
         return np.ones(len(self.df), dtype=bool)
 
     def grid(self, rep):
         if "@" in rep:  # fixed-C sensitivity, e.g. 'R1@0.5'
             return (float(rep.split("@")[1]),)
-        return {"R3": GRID_DENSE, "R4": GRID_DENSE, "R6": GRID_ONEHOT, "R6b": GRID_ONEHOT, "R2": GRID_KW}.get(rep, GRID_SPARSE)
+        return {"R3": GRID_DENSE, "R4": GRID_DENSE, "R6": GRID_ONEHOT, "R6b": GRID_ONEHOT,
+                "R2": GRID_KW}.get(base_rep(rep), GRID_SPARSE)
 
     def build(self, rep: str, tr: np.ndarray, te: np.ndarray):
-        """Return X_train, X_test, info. tr/te are integer row indices."""
+        """Return X_train, X_test, info. tr/te are integer row indices. For '<rep>yfe', training-year dummies
+        (first training year dropped, scaled by YFE_SCALE) are appended and every test row is coded as the
+        calibration year (the last training year), so test scores carry the y-1 year effect."""
+        Xtr, Xte, info = self._build(base_rep(rep), tr, te)
+        if base_rep(rep) != rep.split("@")[0]:  # year-FE variant
+            from scipy import sparse
+            yrs = self.df.year.to_numpy()
+            tyears = sorted(set(yrs[tr]))
+            cal = max(tyears)
+            def ydum(v):
+                cols = [(v == yy).astype(np.float32) * YFE_SCALE for yy in tyears[1:]]
+                return np.column_stack(cols) if cols else np.zeros((len(v), 0), np.float32)
+            Dtr, Dte = ydum(yrs[tr]), ydum(np.full(len(te), cal))
+            if sparse.issparse(Xtr):
+                Xtr = sparse.hstack([Xtr, sparse.csr_matrix(Dtr)]).tocsr()
+                Xte = sparse.hstack([Xte, sparse.csr_matrix(Dte)]).tocsr()
+            else:
+                Xtr, Xte = np.hstack([Xtr, Dtr]), np.hstack([Xte, Dte])
+            info["year_fe_years"] = [int(y) for y in tyears[1:]]
+        return Xtr, Xte, info
+
+    def _build(self, rep: str, tr: np.ndarray, te: np.ndarray):
         from scipy import sparse
         from sklearn.feature_extraction.text import TfidfVectorizer
         info = {}
-        rep = rep.split("@")[0]
         if rep in ("R1", "R5", "R1u", "R1n"):
             docs = self.texts["R1" if rep in ("R5", "R1n") else rep]
             vec = TfidfVectorizer(min_df=5, max_df=0.5, ngram_range=(1, 2), sublinear_tf=True, max_features=50000,
@@ -205,25 +256,49 @@ def _lr(Cv, rep):
     return LogisticRegression(C=Cv, max_iter=5000, tol=1e-5)
 
 
-def cv_select(X, y, grid, rep, seed=0, sample_weight=None, folds=None):
-    """5-fold CV over the C grid (log loss); returns best C, OOF decision scores at best C, log-loss table."""
+def cv_select(X, y, grid, rep, seed=0, sample_weight=None, folds=None, Xte=None):
+    """5-fold CV over the C grid (log loss); returns best C, OOF decision scores at best C, log-loss table and,
+    if Xte is given, the (N_FOLDS x n_test) decision scores of the five fold models at the best C (the models
+    whose OOF scores calibrate the intercept also score the test rows: audit fix D1-C1)."""
     from sklearn.model_selection import StratifiedKFold
     n = len(y)
     if folds is None:
-        folds = list(StratifiedKFold(5, shuffle=True, random_state=seed).split(np.zeros(n), y))
+        folds = list(StratifiedKFold(N_FOLDS, shuffle=True, random_state=seed).split(np.zeros(n), y))
     oof = {Cv: np.zeros(n) for Cv in grid}
+    te_s = {Cv: [] for Cv in grid}
     for trf, vaf in folds:
         for Cv in grid:
             sw = None if sample_weight is None else sample_weight[trf]
             m = _lr(Cv, rep).fit(X[trf], y[trf], sample_weight=sw)
             oof[Cv][vaf] = m.decision_function(X[vaf])
+            if Xte is not None:
+                te_s[Cv].append(m.decision_function(Xte))
     ll = {}
     for Cv in grid:
         p = np.clip(expit(oof[Cv]), 1e-9, 1 - 1e-9)
         w = np.ones(n) if sample_weight is None else sample_weight
         ll[Cv] = float(-(w * (y * np.log(p) + (1 - y) * np.log(1 - p))).sum() / w.sum())
     best = min(ll, key=ll.get)
-    return best, oof[best], ll
+    return best, oof[best], ll, (np.array(te_s[best]) if Xte is not None else None)
+
+
+def fold_scores(t: pd.DataFrame) -> np.ndarray:
+    """(K x n) fold-model decision scores of test rows; falls back to the single 'score' column (K = 1)."""
+    cols = [c for c in FOLD_COLS if c in t.columns]
+    if cols and t[cols].notna().all().all():
+        return t[cols].to_numpy(dtype=float).T
+    return t.score.to_numpy(dtype=float)[None, :]
+
+
+def ens_prob(Sk: np.ndarray, c) -> np.ndarray:
+    """Calibrated fold-ensemble probability mean_k expit(s_k + c). c scalar -> (n,); c of shape (b,) -> (b, n)."""
+    c = np.asarray(c, dtype=float)
+    if c.ndim == 0:
+        return expit(Sk + c).mean(0)
+    out = np.zeros((len(c), Sk.shape[1]))
+    for k in range(Sk.shape[0]):
+        out += expit(Sk[k][None, :] + c[:, None])
+    return out / Sk.shape[0]
 
 
 def windows(design: str):
@@ -256,15 +331,16 @@ def run_fit(R: Reps, rep: str, design: str, pop: str = "U", outcomes=("primary",
         for o in outcomes:
             y = df[OUTCOMES[o]].to_numpy()
             ytr = y[tr]
-            best, oof, ll = cv_select(Xtr, ytr, R.grid(rep), rep)
-            m = _lr(best, rep).fit(Xtr, ytr)
-            s_te = m.decision_function(Xte)
+            best, oof, ll, te_k = cv_select(Xtr, ytr, R.grid(rep), rep, Xte=Xte)
             calib_rows = yrs[tr] == w["calib"]
             parts[o].append(pd.DataFrame({"window": w["name"], "role": "calib", "row": tr[calib_rows],
                                           "year": yrs[tr][calib_rows], "y": ytr[calib_rows],
                                           "score": oof[calib_rows]}))
-            parts[o].append(pd.DataFrame({"window": w["name"], "role": "test", "row": te, "year": yrs[te],
-                                          "y": y[te], "score": s_te}))
+            tdf = pd.DataFrame({"window": w["name"], "role": "test", "row": te, "year": yrs[te], "y": y[te],
+                                "score": te_k.mean(0)})
+            for k in range(te_k.shape[0]):
+                tdf[FOLD_COLS[k]] = te_k[k].astype(np.float32)
+            parts[o].append(tdf)
             # also keep OOF scores for all training rows (for training-window diagnostics)
             parts[o].append(pd.DataFrame({"window": w["name"], "role": "train_oof", "row": tr, "year": yrs[tr],
                                           "y": ytr, "score": oof}))
@@ -275,8 +351,12 @@ def run_fit(R: Reps, rep: str, design: str, pop: str = "U", outcomes=("primary",
                 "C_at_grid_edge": bool(best in (grid[0], grid[-1])),
                 "cv_logloss": {str(k): v for k, v in ll.items()},
                 "n_features": info.get("n_features"), "r5_removed": info.get("r5_removed"),
+                "year_fe_years": info.get("year_fe_years"),
+                "prediction": "fold ensemble: mean over the 5 CV fold models of expit(s_k + c); c solved on the "
+                              "same fold models' OOF scores of the calibration year",
                 "seconds": round(time.time() - t0, 1)}
-            if keep_model:
+            if keep_model:  # full-data model only for the V4 feature listing
+                m = _lr(best, rep).fit(Xtr, ytr)
                 models[(w["name"], o)] = (m, info)
         print(f"  {rep} {design} {pop} {w['name']}: n_tr={len(tr)} n_te={len(te)} "
               f"C={[metas[o]['windows'][w['name']]['C'] for o in outcomes]} {time.time() - t0:.1f}s", flush=True)
@@ -331,10 +411,11 @@ def point_summary(S: pd.DataFrame) -> pd.DataFrame:
         cal = g[g.role == "calib"]
         c = shift_for(cal.score.to_numpy(), cal.y.mean())
         for yv, t in g[g.role == "test"].groupby("year"):
-            s = t.score.to_numpy() + c
-            ph = expit(s)
+            Sk = fold_scores(t)
+            ph = ens_prob(Sk, c)
+            s = _logit(np.clip(ph, 1e-12, 1 - 1e-12))
             try:
-                auc = roc_auc_score(t.y, t.score)
+                auc = roc_auc_score(t.y, ph)
             except ValueError:
                 auc = np.nan
             try:
@@ -344,8 +425,31 @@ def point_summary(S: pd.DataFrame) -> pd.DataFrame:
             except Exception:
                 cs = np.nan
             rows.append(dict(window=wname, year=int(yv), calib_year=int(cal.year.iloc[0]), n=len(t),
-                             obs=float(t.y.mean()), p_hat=float(ph.mean()), p_hat_uncal=float(expit(t.score).mean()),
-                             obs_calib=float(cal.y.mean()), shift=c, auc=auc, cal_slope=float(cs)))
+                             obs=float(t.y.mean()), p_hat=float(ph.mean()), p_hat_uncal=float(ens_prob(Sk, 0.0).mean()),
+                             obs_calib=float(cal.y.mean()), shift=c, auc=auc, cal_slope=float(cs),
+                             n_fold_models=int(Sk.shape[0])))
+    P = pd.DataFrame(rows)
+    P["step"] = P.obs - P.obs_calib
+    P["content_step"] = P.p_hat - P.obs_calib
+    P["unexplained"] = P.obs - P.p_hat
+    return P
+
+
+def slope_recal_summary(S: pd.DataFrame) -> pd.DataFrame:
+    """Sensitivity (audit response to REP-9): logistic intercept+slope recalibration on the calibration year's OOF
+    scores (logit y ~ a + b s), applied to every fold model's test scores; p_hat = mean_k expit(a + b s_k).
+    b > 1 means the CV-regularised scores are under-dispersed; the pre-registered recalibration is intercept-only."""
+    import statsmodels.api as sm
+    rows = []
+    for wname, g in S.groupby("window", sort=False):
+        cal = g[g.role == "calib"]
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore")
+            a, b = sm.Logit(cal.y.to_numpy(), sm.add_constant(cal.score.to_numpy())).fit(disp=0).params
+        for yv, t in g[g.role == "test"].groupby("year"):
+            ph = expit(a + b * fold_scores(t)).mean(0)
+            rows.append(dict(window=wname, year=int(yv), obs=float(t.y.mean()), obs_calib=float(cal.y.mean()),
+                             p_hat=float(ph.mean()), recal_slope=float(b)))
     P = pd.DataFrame(rows)
     P["step"] = P.obs - P.obs_calib
     P["content_step"] = P.p_hat - P.obs_calib
@@ -406,7 +510,7 @@ def boot_runs(S: pd.DataFrame, n_boot: int = 2000, seed: int = 0, chunk: int = 2
             for yv, t in g[g.role == "test"].groupby("year"):
                 yv = int(yv)
                 Wt = Wy[yv][:, pos[yv].loc[t.row.to_numpy()].to_numpy()]
-                Pt = expit(t.score.to_numpy()[None, :] + cb[:, None])
+                Pt = ens_prob(fold_scores(t), cb)
                 ws = Wt.sum(1)
                 ob = (Wt @ t.y.to_numpy().astype(float)) / ws
                 ph = (Wt * Pt).sum(1) / ws
@@ -501,43 +605,66 @@ def fast_clusters(df: pd.DataFrame, train_years, test_year, tcol="topic100", rat
 
 def new_topic_placebo(df: pd.DataFrame, S: pd.DataFrame, P: pd.DataFrame, years, n_boot=2000, tcol="topic100",
                       seed=1) -> dict:
-    """Pooled over test `years`: |obs - p_hat| among papers in fast-growing clusters vs elsewhere."""
-    rows = []
+    """Calibration-in-the-large in fast-growing topic clusters (share >= 3x the training window) vs elsewhere.
+
+    Audit fix D1-C7: residuals (obs - calibrated p_hat) are averaged within each test year, the absolute values are
+    taken per year, and the per-year values are averaged over the test years with weights = number of fast-cluster
+    papers in the year (so the 'elsewhere' baseline is year-matched). Pass if mean_y|res_fast| <= mean_y|res_else|
+    + 2 pp. The bootstrap is the conditional paper bootstrap stratified by year and recomputes the recalibration
+    shift in every replicate (boot_runs). Pooled signed residuals are kept for the established-topics split."""
     shifts = P.set_index(["window", "year"])["shift"]
-    flags = {}
-    for (wname, yv), t in S[S.role == "test"].groupby(["window", "year"]):
-        if yv not in years:
-            continue
+    test = S[(S.role == "test") & S.year.isin(list(years))]
+    keep_w = sorted(test.window.unique())
+    Ssub = S[S.window.isin(keep_w)]
+    fastmask, rows, flags = {}, [], {}
+    for (wname, yv), t in Ssub[(Ssub.role == "test") & Ssub.year.isin(list(years))].groupby(["window", "year"]):
         wins = windows("rolling") if wname.startswith("roll") else windows(wname)
         w = [x for x in wins if x["name"] == wname][0]
         fc = fast_clusters(df, w["train"], yv, tcol)
-        f = df[tcol].to_numpy()[t.row.to_numpy()]
-        fast = np.isin(f, list(fc))
-        ph = expit(t.score.to_numpy() + shifts.loc[(wname, yv)])
-        res = t.y.to_numpy() - ph
-        rows.append(pd.DataFrame({"window": wname, "year": yv, "fast": fast, "res": res, "row": t.row.to_numpy()}))
-        flags[(wname, yv)] = (fast, len(fc))
+        fast = np.isin(df[tcol].to_numpy()[t.row.to_numpy()], list(fc))
+        fastmask[(wname, int(yv))] = fast
+        ph = ens_prob(fold_scores(t), shifts.loc[(wname, yv)])
+        rows.append(pd.DataFrame({"window": wname, "year": int(yv), "fast": fast, "res": t.y.to_numpy() - ph}))
+        flags[(wname, int(yv))] = len(fc)
     D = pd.concat(rows, ignore_index=True)
     by_year = {int(yv): {"res_fast": float(g.loc[g.fast, "res"].mean()) if g.fast.any() else None,
                          "res_else": float(g.loc[~g.fast, "res"].mean()), "n_fast": int(g.fast.sum()),
                          "n_else": int((~g.fast).sum())} for yv, g in D.groupby("year")}
-    gf = abs(D.loc[D.fast, "res"].mean()) if D.fast.any() else np.nan
-    ge = abs(D.loc[~D.fast, "res"].mean())
-    # bootstrap (stratified by year x fast; residuals held at the point calibration)
-    strata = (D.year.astype(str) + D.fast.astype(str)).to_numpy()
-    fm = D.fast.to_numpy()
-    r = D.res.to_numpy()
-    bf_, be_ = [], []
-    for W in C.boot_weights(len(D), n_boot, strata=strata, seed=seed, chunk=200):
-        bf_.append(np.abs((W[:, fm] @ r[fm]) / W[:, fm].sum(1)) if fm.any() else np.full(len(W), np.nan))
-        be_.append(np.abs((W[:, ~fm] @ r[~fm]) / W[:, ~fm].sum(1)))
-    gap = np.concatenate(bf_) - np.concatenate(be_)
+    yl = [y for y in sorted(by_year) if by_year[y]["n_fast"] > 0]
+    wy = np.array([by_year[y]["n_fast"] for y in yl], float)
+    wy = wy / wy.sum() if len(wy) else wy
+    rf = np.array([by_year[y]["res_fast"] for y in yl], float)
+    re_ = np.array([by_year[y]["res_else"] for y in yl], float)
+    gf, ge = float(wy @ np.abs(rf)), float(wy @ np.abs(re_))
+    sgap = float(wy @ (rf - re_))
+
+    def extra(wname, yv, t, Wt, Pt):
+        fm = fastmask.get((wname, int(yv)))
+        if fm is None:
+            return None
+        yy = t.y.to_numpy().astype(float)
+        R = yy[None, :] - Pt
+        f = (Wt[:, fm] * R[:, fm]).sum(1) / Wt[:, fm].sum(1) if fm.any() else np.full(len(Wt), np.nan)
+        e = (Wt[:, ~fm] * R[:, ~fm]).sum(1) / Wt[:, ~fm].sum(1)
+        return np.column_stack([f, e])
+    _, ex = boot_runs(Ssub, n_boot=n_boot, seed=seed, extra=extra)
+    yb = {int(k[1]): v for k, v in ex.items()}
+    if yl:
+        Fb = np.column_stack([yb[y][:, 0] for y in yl])
+        Eb = np.column_stack([yb[y][:, 1] for y in yl])
+        gap_b = np.abs(Fb) @ wy - np.abs(Eb) @ wy
+        sgap_b = (Fb - Eb) @ wy
+    else:
+        gap_b = sgap_b = np.full(n_boot, np.nan)
     return {"years": [int(y) for y in years], "n_fast": int(D.fast.sum()), "n_else": int((~D.fast).sum()),
-            "n_fast_clusters_by_year": {f"{k[0]}:{k[1]}": int(v[1]) for k, v in flags.items()},
+            "n_fast_clusters_by_year": {f"{k[0]}:{k[1]}": int(v) for k, v in flags.items()},
             "signed_res_fast": float(D.loc[D.fast, "res"].mean()) if D.fast.any() else np.nan,
             "signed_res_else": float(D.loc[~D.fast, "res"].mean()),
-            "abs_gap_fast": float(gf), "abs_gap_else": float(ge), "gap_diff": float(gf - ge),
-            "gap_diff_ci": ci(gap), "pass": bool(gf <= ge + 0.02), "topics": tcol, "by_year": by_year}
+            "abs_gap_fast": gf, "abs_gap_else": ge, "gap_diff": float(gf - ge), "gap_diff_ci": ci(gap_b),
+            "signed_gap_diff": sgap, "signed_gap_diff_ci": ci(sgap_b), "pass": bool(gf <= ge + 0.02),
+            "topics": tcol, "by_year": by_year,
+            "method": "per-year |mean residual| averaged over test years with weights = fast-cluster papers per "
+                      "year; bootstrap recomputes the recalibration shift (audit fix D1-C7)"}
 
 
 # ------------------------------------------------------------------------------------------------
@@ -628,6 +755,14 @@ def stage_summarise(n_boot: int = 2000):
                  "C_by_window": {k: v["C"] for k, v in meta["windows"].items()},
                  "C_at_grid_edge": [k for k, v in meta["windows"].items() if v["C_at_grid_edge"]],
                  "auc_mean": float(P.auc.mean()), "cal_slope_mean": float(P.cal_slope.mean())}
+        if base_rep(rep) in ("R1", "R3", "R5"):  # intercept+slope recalibration sensitivity (point estimates)
+            Ps = slope_recal_summary(S)
+            entry["slope_recal_mean_b"] = float(Ps.recal_slope.mean())
+            if design == "rolling":
+                entry["slope_recal"] = {k: v for k, v in rolling_stats(Ps).items() if k in
+                                        ("u_pre", "u_post", "diff", "ratio", "content_share_post_steps")}
+            else:
+                entry["slope_recal"] = {k: v for k, v in fixed_stats(Ps).items() if k.startswith("share_")}
         if design == "rolling":
             st = rolling_stats(P)
             st.update(rolling_boot_stats(Bt))
@@ -674,10 +809,11 @@ def stage_summarise(n_boot: int = 2000):
                     df, S, P, PRE_Y, tcol="topic100_bge")
 
     # ---- tables ----
+    # pool label 'NA' is written as 'NApool' so default CSV readers do not read it as missing (REP-16)
     if steps_rows:
-        pd.concat(steps_rows).to_csv(OUTDIR / "cf_rolling_steps.csv", index=False)
+        pd.concat(steps_rows).replace({"pop": {"NA": "NApool"}}).to_csv(OUTDIR / "cf_rolling_steps.csv", index=False)
     if fixed_rows:
-        pd.concat(fixed_rows).to_csv(OUTDIR / "cf_fixed_paths.csv", index=False)
+        pd.concat(fixed_rows).replace({"pop": {"NA": "NApool"}}).to_csv(OUTDIR / "cf_fixed_paths.csv", index=False)
     for key, e in res["representations"].items():
         rep, pop, o, design = key.split("|")
         if e.get("status") != "done":
@@ -731,14 +867,16 @@ def stage_summarise(n_boot: int = 2000):
 
 def stage_refit_boot(B: int = 100, rep: str = "R1", seed: int = 7):
     """Refit bootstrap for the rolling design: resample papers within year (stratified), refit the L2 logit at the
-    window's chosen C on the window's original vocabulary (sample weights = bootstrap counts), recompute
-    5-fold OOF scores with paper-level folds, recalibrate on the resampled y-1 rows and predict the resampled
-    test rows. Captures model-estimation uncertainty that the conditional bootstrap ignores. Checkpointed."""
+    window's chosen C on the window's original vocabulary (sample weights = bootstrap counts) in each of the 5
+    paper-level CV folds, recalibrate on the fold models' OOF scores of the resampled y-1 rows and predict the
+    resampled test rows with the same fold models (fold ensemble, as in run_fit). Captures model-estimation
+    uncertainty that the conditional bootstrap ignores. Checkpointed (delete the csv to restart)."""
     from sklearn.model_selection import StratifiedKFold
     t0 = time.time()
     df = load_frame()
     R = Reps(df, need=(rep,))
     meta = json.loads((SCORES / f"{rep}__U__primary__rolling.json").read_text())
+    assert "fold ensemble" in str(meta["windows"]["roll2026"].get("prediction", "")), "refit the rolling scores first"
     yrs = df.year.to_numpy()
     y = df.name_primary.to_numpy()
     ck = OUTDIR / f"refit_boot_{rep}.csv"
@@ -764,19 +902,18 @@ def stage_refit_boot(B: int = 100, rep: str = "R1", seed: int = 7):
             sw = wgt[tr]
             keep = sw > 0
             oof = np.zeros(len(tr))
+            st = []
             for trf, vaf in folds:
                 trf = trf[keep[trf]]
                 m = _lr(Cv, rep).fit(Xtr[trf], y[tr][trf], sample_weight=sw[trf])
                 oof[vaf] = m.decision_function(Xtr[vaf])
-            kk = np.where(keep)[0]
-            m = _lr(Cv, rep).fit(Xtr[kk], y[tr][kk], sample_weight=sw[kk])
+                st.append(m.decision_function(Xte))
             cal = (yrs[tr] == w["calib"]) & keep
             c = shift_for(oof[cal], np.average(y[tr][cal], weights=sw[cal]), w=sw[cal])
-            st = m.decision_function(Xte)
             wt = wgt[te]
             yy = w["test"][0]
             rec[f"obs_{yy}"] = float(np.average(y[te], weights=wt))
-            rec[f"phat_{yy}"] = float(np.average(expit(st + c), weights=wt))
+            rec[f"phat_{yy}"] = float(np.average(ens_prob(np.array(st), c), weights=wt))
             rec[f"obscal_{yy}"] = float(np.average(y[tr][cal], weights=sw[cal]))
         pd.DataFrame([rec]).to_csv(ck, mode="a", header=not ck.exists(), index=False)
         if b % 5 == 0:
@@ -788,7 +925,8 @@ def stage_refit_boot(B: int = 100, rep: str = "R1", seed: int = 7):
     up = np.mean([u[yy] for yy in PRE_Y], axis=0)
     uq = np.mean([u[yy] for yy in POST_Y], axis=0)
     share = np.sum([cs[yy] for yy in POST_Y], axis=0) / np.sum([st_[yy] for yy in POST_Y], axis=0)
-    out = {"rep": rep, "B": int(len(D)), "diff_ci": ci(uq - up), "diff_se": float(np.std(uq - up, ddof=1)),
+    out = {"rep": rep, "B": int(len(D)), "prediction": "fold ensemble (audit fix D1-C1)",
+           "diff_ci": ci(uq - up), "diff_se": float(np.std(uq - up, ddof=1)),
            "p_diff_le0": float(np.mean(uq - up <= 0)), "ratio_ci": ci(uq / up),
            "u_pre_ci": ci(up), "u_post_ci": ci(uq), "content_share_post_steps_ci": ci(share),
            "p_share_ge_0_6": float(np.mean(share >= 0.6)),

@@ -1,0 +1,117 @@
+{
+ "n_U": 43482,
+ "name_share_by_year": {
+  "2017": 0.0885,
+  "2018": 0.1001,
+  "2019": 0.1314,
+  "2020": 0.157,
+  "2021": 0.1504,
+  "2022": 0.1835,
+  "2023": 0.203,
+  "2024": 0.2661,
+  "2025": 0.3312,
+  "2026": 0.4046
+ },
+ "dNAME_2023_2026_pp": 20.16,
+ "mean_declared_authors": {
+  "2023": 4.557,
+  "2026": 5.671
+ },
+ "mean_share_new": {
+  "2023": 0.594,
+  "2026": 0.525
+ },
+ "llm_topic_share": {
+  "2023": 0.106,
+  "2026": 0.482
+ },
+ "F_d1_share_by_year": {
+  "2023": 0.0251,
+  "2024": 0.0715,
+  "2025": 0.0522,
+  "2026": 0.1924
+ },
+ "missing_share_new_by_year": {
+  "2017": 2,
+  "2018": 1,
+  "2026": 1
+ },
+ "name_F0_F1_2023_2026": {
+  "2023|F0": 0.2029,
+  "2023|F1": 0.2062,
+  "2026|F0": 0.401,
+  "2026|F1": 0.4199
+ },
+ "n_by_subset_2024_26": {
+  "U": 30130,
+  "NA": 21273,
+  "non_llm": 18005
+ },
+ "NAME_rate_by_title_typo_2024_26": {
+  "0": 0.355,
+  "1": 0.516
+ },
+ "title_typo_n_2024_26": 215,
+ "dfl_primary_2026_recomputed": 0.2458,
+ "dfl_dropped_rows_2023_2026": 1,
+ "H1c_perm_p_recomputed": 0.1786,
+ "H1c_welch_recomputed": {
+  "t": 0.991,
+  "p": 0.184
+ },
+ "H1c_content_step_means_pp": {
+  "pre": 0.68,
+  "post": 4.17
+ },
+ "H1c_observed_step_means_pp": {
+  "pre": 2.06,
+  "post": 6.72
+ },
+ "refit_boot": {
+  "B": 300,
+  "diff_ci": [
+   0.0024,
+   0.02
+  ],
+  "ratio_ci": [
+   1.132,
+   3.035
+  ],
+  "P_ratio_lt_1.2": 0.05,
+  "P_ratio_lt_1.5": 0.2167,
+  "P_upre_le_0": 0.0
+ },
+ "H1c_ratio_ci_conditional_raw": [
+  1.2145515992456115,
+  3.14188437899991
+ ],
+ "holm_recomputed": {
+  "H1a": 0.00064,
+  "H1d": 0.002,
+  "H1e": 0.002,
+  "H1c": 0.00664,
+  "H1b": 0.8076
+ },
+ "spot_checks": {
+  "R1@0.5 rolling share (T1_2)": {
+   "value": 0.4821,
+   "string_in_RESULTS": true
+  },
+  "F_any 2024 F0 ratio": {
+   "value": 0.8546,
+   "string_in_RESULTS": true
+  },
+  "content step 2025 pp": {
+   "value": 5.6476,
+   "string_in_RESULTS": true
+  },
+  "fixed new-topic gap pp": {
+   "value": 8.8304,
+   "string_in_RESULTS": true
+  },
+  "conditional ratio lo": {
+   "value": 1.2146,
+   "string_in_RESULTS": true
+  }
+ }
+}

@@ -1,0 +1,200 @@
+{"item_id": "v1_e77e34a0", "compound": "y", "lead": "Learning to Attend On Essential Terms", "lead_type": "descriptive_phrase", "lead_orthography": "na", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_7f975a89", "compound": "y", "lead": "Federated Learning with Heterogeneous Label Noise", "lead_type": "descriptive_phrase", "lead_orthography": "na", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_051eba06", "compound": "y", "lead": "Dynamic Incremental Code Embeddings (DICE)", "lead_type": "coined_name", "lead_orthography": "paren_acronym", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_fdd8a67c", "compound": "y", "lead": "Judge's Verdict", "lead_type": "coined_name", "lead_orthography": "mixed_case", "casing": "title_case", "question": "n", "note": "Benchmark-style name; borderline versus descriptive."}
+{"item_id": "v1_00725d28", "compound": "n", "lead": "", "lead_type": "none", "lead_orthography": "na", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_9f54124f", "compound": "y", "lead": "Proposer-Agent-Evaluator (PAE)", "lead_type": "coined_name", "lead_orthography": "paren_acronym", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_2eea8204", "compound": "y", "lead": "Contrastive Quant", "lead_type": "coined_name", "lead_orthography": "mixed_case", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_da5a1311", "compound": "y", "lead": "Classification as Decoder", "lead_type": "descriptive_phrase", "lead_orthography": "na", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_d691f709", "compound": "y", "lead": "Knockout", "lead_type": "coined_name", "lead_orthography": "word", "casing": "sentence_case", "question": "n", "note": ""}
+{"item_id": "v1_be4c8304", "compound": "y", "lead": "Lotus", "lead_type": "coined_name", "lead_orthography": "word", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_b2c1dbb4", "compound": "y", "lead": "AURA", "lead_type": "coined_name", "lead_orthography": "all_caps", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_8d3d20df", "compound": "y", "lead": "Feature Shapley", "lead_type": "coined_name", "lead_orthography": "mixed_case", "casing": "sentence_case", "question": "n", "note": ""}
+{"item_id": "v1_8e4b53aa", "compound": "y", "lead": "Lemon", "lead_type": "coined_name", "lead_orthography": "word", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_6d4c4832", "compound": "n", "lead": "", "lead_type": "none", "lead_orthography": "na", "casing": "title_case", "question": "n", "note": "Hyphen joins math expression and Smooth."}
+{"item_id": "v1_7e3caed6", "compound": "y", "lead": "OFFSIDE", "lead_type": "coined_name", "lead_orthography": "all_caps", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_cd70d6ee", "compound": "y", "lead": "Apprentice", "lead_type": "coined_name", "lead_orthography": "word", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_3a69aa05", "compound": "y", "lead": "Measuring causal influence with back-to-back regression", "lead_type": "descriptive_phrase", "lead_orthography": "na", "casing": "sentence_case", "question": "n", "note": ""}
+{"item_id": "v1_d49f7231", "compound": "n", "lead": "", "lead_type": "none", "lead_orthography": "na", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_27067f96", "compound": "y", "lead": "Model-diff", "lead_type": "coined_name", "lead_orthography": "word", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_c7409e60", "compound": "y", "lead": "Datatype tagging and prompt alignment", "lead_type": "descriptive_phrase", "lead_orthography": "na", "casing": "sentence_case", "question": "n", "note": ""}
+{"item_id": "v1_51f34bd2", "compound": "y", "lead": "CoT-PL", "lead_type": "coined_name", "lead_orthography": "mixed_case", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_858cb466", "compound": "n", "lead": "", "lead_type": "none", "lead_orthography": "na", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_82b08511", "compound": "y", "lead": "DATNet", "lead_type": "coined_name", "lead_orthography": "mixed_case", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_6ed6d147", "compound": "y", "lead": "Recovery of Training Data from Overparameterized Autoencoders", "lead_type": "descriptive_phrase", "lead_orthography": "na", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_d4f82142", "compound": "n", "lead": "", "lead_type": "none", "lead_orthography": "na", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_3e8c9c0b", "compound": "y", "lead": "SELECTFORMER", "lead_type": "coined_name", "lead_orthography": "all_caps", "casing": "all_caps", "question": "n", "note": ""}
+{"item_id": "v1_0e6e8e3e", "compound": "y", "lead": "Noise against noise", "lead_type": "descriptive_phrase", "lead_orthography": "na", "casing": "sentence_case", "question": "n", "note": ""}
+{"item_id": "v1_4d3a26be", "compound": "n", "lead": "", "lead_type": "none", "lead_orthography": "na", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_f26b09ea", "compound": "y", "lead": "Capsa", "lead_type": "coined_name", "lead_orthography": "word", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_d6eb98c4", "compound": "y", "lead": "Hyden", "lead_type": "coined_name", "lead_orthography": "word", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_d2edf075", "compound": "n", "lead": "", "lead_type": "none", "lead_orthography": "na", "casing": "all_caps", "question": "n", "note": ""}
+{"item_id": "v1_9ae40308", "compound": "y", "lead": "Palette", "lead_type": "coined_name", "lead_orthography": "word", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_21935159", "compound": "y", "lead": "DSparsE", "lead_type": "coined_name", "lead_orthography": "mixed_case", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_014fa854", "compound": "y", "lead": "Backdrop", "lead_type": "coined_name", "lead_orthography": "word", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_a7ea6079", "compound": "y", "lead": "Frequency Principle", "lead_type": "descriptive_phrase", "lead_orthography": "na", "casing": "title_case", "question": "n", "note": "Named finding but ordinary-language phrase; borderline."}
+{"item_id": "v1_6d07b239", "compound": "n", "lead": "", "lead_type": "none", "lead_orthography": "na", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_aad3bef2", "compound": "n", "lead": "", "lead_type": "none", "lead_orthography": "na", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_824082e7", "compound": "y", "lead": "Generalizing Cross Entropy Loss with a Beta Proper Composite Loss", "lead_type": "descriptive_phrase", "lead_orthography": "na", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_6e819759", "compound": "y", "lead": "CRAFT", "lead_type": "coined_name", "lead_orthography": "all_caps", "casing": "other", "question": "n", "note": "Two of five countable words capitalised."}
+{"item_id": "v1_adaf34c2", "compound": "y", "lead": "Fork-Merge Decoding", "lead_type": "coined_name", "lead_orthography": "mixed_case", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_429a5545", "compound": "y", "lead": "pFedKT", "lead_type": "coined_name", "lead_orthography": "mixed_case", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_c3ae44a6", "compound": "n", "lead": "", "lead_type": "none", "lead_orthography": "na", "casing": "sentence_case", "question": "n", "note": "Spaced hyphen only joins uncertainty-sensitive; not a break."}
+{"item_id": "v1_7f7eebda", "compound": "n", "lead": "", "lead_type": "none", "lead_orthography": "na", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_f9e925f1", "compound": "y", "lead": "Snapshot Ensembles", "lead_type": "coined_name", "lead_orthography": "mixed_case", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_85402ce9", "compound": "y", "lead": "Dopamine", "lead_type": "coined_name", "lead_orthography": "word", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_f42530db", "compound": "y", "lead": "GOFA", "lead_type": "coined_name", "lead_orthography": "all_caps", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_c00807f2", "compound": "n", "lead": "", "lead_type": "none", "lead_orthography": "na", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_6ffcedcb", "compound": "y", "lead": "Comet", "lead_type": "coined_name", "lead_orthography": "word", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_684eeeef", "compound": "y", "lead": "Noisy Machines", "lead_type": "descriptive_phrase", "lead_orthography": "na", "casing": "sentence_case", "question": "n", "note": "Catchy phrase, not clearly a name; borderline."}
+{"item_id": "v1_f40409c0", "compound": "y", "lead": "Conceptrol", "lead_type": "coined_name", "lead_orthography": "word", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_63abb1c6", "compound": "y", "lead": "LCA-on-the-Line", "lead_type": "coined_name", "lead_orthography": "mixed_case", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_0429ad0a", "compound": "n", "lead": "", "lead_type": "none", "lead_orthography": "na", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_71d53952", "compound": "n", "lead": "", "lead_type": "none", "lead_orthography": "na", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_6dc1dd60", "compound": "y", "lead": "Unpicking Data at the Seams", "lead_type": "descriptive_phrase", "lead_orthography": "na", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_7f4ba4a3", "compound": "y", "lead": "AutoSparse", "lead_type": "coined_name", "lead_orthography": "mixed_case", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_8cbc5f85", "compound": "y", "lead": "Jumpout", "lead_type": "coined_name", "lead_orthography": "word", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_ce98cb63", "compound": "y", "lead": "Omnigrok", "lead_type": "coined_name", "lead_orthography": "word", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_70b05812", "compound": "y", "lead": "Skill Machines", "lead_type": "coined_name", "lead_orthography": "mixed_case", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_9d56c679", "compound": "y", "lead": "DySR", "lead_type": "coined_name", "lead_orthography": "mixed_case", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_a6acb7a4", "compound": "y", "lead": "PromptSum", "lead_type": "coined_name", "lead_orthography": "mixed_case", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_03841394", "compound": "y", "lead": "LatentKeypointGAN", "lead_type": "coined_name", "lead_orthography": "mixed_case", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_831c0865", "compound": "y", "lead": "Neural implicit mapping via nested neighborhoods", "lead_type": "descriptive_phrase", "lead_orthography": "na", "casing": "sentence_case", "question": "n", "note": ""}
+{"item_id": "v1_b222a441", "compound": "y", "lead": "UNICORN", "lead_type": "coined_name", "lead_orthography": "all_caps", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_cc41f7f8", "compound": "n", "lead": "", "lead_type": "none", "lead_orthography": "na", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_723c2895", "compound": "y", "lead": "Vlearn", "lead_type": "coined_name", "lead_orthography": "word", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_af131765", "compound": "y", "lead": "Graphical-TS", "lead_type": "coined_name", "lead_orthography": "mixed_case", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_bafba3fc", "compound": "y", "lead": "Dropout", "lead_type": "coined_name", "lead_orthography": "word", "casing": "title_case", "question": "n", "note": "Existing technique name still counts as a name."}
+{"item_id": "v1_902f04d6", "compound": "y", "lead": "$X$-Planes", "lead_type": "coined_name", "lead_orthography": "mixed_case", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_5e9fffaf", "compound": "y", "lead": "Orthogonal Drift Correction (ODC)", "lead_type": "coined_name", "lead_orthography": "paren_acronym", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_1719c904", "compound": "y", "lead": "Repair Aware Forgetting", "lead_type": "descriptive_phrase", "lead_orthography": "na", "casing": "title_case", "question": "n", "note": "Ordinary-language approach description; borderline versus name."}
+{"item_id": "v1_f96da2b1", "compound": "y", "lead": "Sync4D", "lead_type": "coined_name", "lead_orthography": "mixed_case", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_1b728648", "compound": "y", "lead": "Position", "lead_type": "genre_label", "lead_orthography": "na", "casing": "title_case", "question": "y", "note": ""}
+{"item_id": "v1_7a773587", "compound": "n", "lead": "", "lead_type": "none", "lead_orthography": "na", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_2209290f", "compound": "y", "lead": "PRNet", "lead_type": "coined_name", "lead_orthography": "mixed_case", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_bc53579c", "compound": "y", "lead": "See It from My Perspective", "lead_type": "descriptive_phrase", "lead_orthography": "na", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_2e72fe40", "compound": "y", "lead": "Hadamard Representations", "lead_type": "descriptive_phrase", "lead_orthography": "na", "casing": "title_case", "question": "n", "note": "Technique-type phrase; borderline versus name."}
+{"item_id": "v1_511bfd00", "compound": "y", "lead": "Good Better Best", "lead_type": "descriptive_phrase", "lead_orthography": "na", "casing": "title_case", "question": "n", "note": "Slogan-like phrase; borderline."}
+{"item_id": "v1_a49703da", "compound": "n", "lead": "", "lead_type": "none", "lead_orthography": "na", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_f0d995ca", "compound": "n", "lead": "", "lead_type": "none", "lead_orthography": "na", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_4883f09f", "compound": "y", "lead": "Towards Effective and Interpretable Human-Agent Collaboration in MOBA Games", "lead_type": "descriptive_phrase", "lead_orthography": "na", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_45a3e5ac", "compound": "n", "lead": "", "lead_type": "none", "lead_orthography": "na", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_43278c32", "compound": "n", "lead": "", "lead_type": "none", "lead_orthography": "na", "casing": "title_case", "question": "n", "note": "Math token $k$-shot set aside for casing."}
+{"item_id": "v1_34a4611d", "compound": "y", "lead": "Towards zero shot multivariate time series anomaly detection", "lead_type": "descriptive_phrase", "lead_orthography": "na", "casing": "sentence_case", "question": "n", "note": "Spaced hyphen acts as break."}
+{"item_id": "v1_d9bab878", "compound": "n", "lead": "", "lead_type": "none", "lead_orthography": "na", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_68deed05", "compound": "y", "lead": "NAIL", "lead_type": "coined_name", "lead_orthography": "all_caps", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_ff13f349", "compound": "n", "lead": "", "lead_type": "none", "lead_orthography": "na", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_b75141c1", "compound": "y", "lead": "RFold", "lead_type": "coined_name", "lead_orthography": "mixed_case", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_e9b6ac58", "compound": "y", "lead": "Renamer", "lead_type": "coined_name", "lead_orthography": "word", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_5bc50ea4", "compound": "y", "lead": "Visual Sparse Steering (VS2)", "lead_type": "coined_name", "lead_orthography": "paren_acronym", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_c529f3fb", "compound": "n", "lead": "", "lead_type": "none", "lead_orthography": "na", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_93d1bcd1", "compound": "y", "lead": "DARTS", "lead_type": "coined_name", "lead_orthography": "all_caps", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_46075b96", "compound": "y", "lead": "Mockingbird", "lead_type": "coined_name", "lead_orthography": "word", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_3fe25b15", "compound": "y", "lead": "Position", "lead_type": "genre_label", "lead_orthography": "na", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_04d47195", "compound": "y", "lead": "STay-On-the-Ridge (STON'R)", "lead_type": "coined_name", "lead_orthography": "paren_acronym", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_b0f05647", "compound": "y", "lead": "CLOOB", "lead_type": "coined_name", "lead_orthography": "all_caps", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_cad9b553", "compound": "y", "lead": "Shape or Texture", "lead_type": "descriptive_phrase", "lead_orthography": "na", "casing": "title_case", "question": "n", "note": "Either-or phrase without question mark; not a direct question."}
+{"item_id": "v1_702abe0d", "compound": "n", "lead": "", "lead_type": "none", "lead_orthography": "na", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_ca23bbcd", "compound": "y", "lead": "Suppressing the Heterogeneity", "lead_type": "descriptive_phrase", "lead_orthography": "na", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_e2ec70bb", "compound": "y", "lead": "LRN", "lead_type": "coined_name", "lead_orthography": "all_caps", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_a8f57bc2", "compound": "y", "lead": "War and Peace (WarAgent)", "lead_type": "coined_name", "lead_orthography": "paren_acronym", "casing": "title_case", "question": "n", "note": "Bracketed name rather than strict acronym; same shape."}
+{"item_id": "v1_131c21b3", "compound": "y", "lead": "GraphFLEx", "lead_type": "coined_name", "lead_orthography": "mixed_case", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_c4d6d9e7", "compound": "y", "lead": "DisEnvisioner", "lead_type": "coined_name", "lead_orthography": "mixed_case", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_42d0c2e5", "compound": "n", "lead": "", "lead_type": "none", "lead_orthography": "na", "casing": "all_caps", "question": "n", "note": ""}
+{"item_id": "v1_2906593e", "compound": "n", "lead": "", "lead_type": "none", "lead_orthography": "na", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_706146d0", "compound": "y", "lead": "Unicom", "lead_type": "coined_name", "lead_orthography": "word", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_eb8297b3", "compound": "y", "lead": "GROOT-2", "lead_type": "coined_name", "lead_orthography": "all_caps", "casing": "title_case", "question": "n", "note": "Digit ignored for orthography."}
+{"item_id": "v1_1a5e8df1", "compound": "y", "lead": "Sensitivity and Generalization in Neural Networks", "lead_type": "descriptive_phrase", "lead_orthography": "na", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_87ce45ae", "compound": "y", "lead": "Introspection", "lead_type": "coined_name", "lead_orthography": "word", "casing": "title_case", "question": "n", "note": "Colon without following space still a separator."}
+{"item_id": "v1_f8a90f4f", "compound": "y", "lead": "Erased but Not Forgotten", "lead_type": "descriptive_phrase", "lead_orthography": "na", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_19675f10", "compound": "y", "lead": "EigenGame Unloaded", "lead_type": "coined_name", "lead_orthography": "mixed_case", "casing": "sentence_case", "question": "n", "note": ""}
+{"item_id": "v1_fdfe6228", "compound": "y", "lead": "oViT", "lead_type": "coined_name", "lead_orthography": "mixed_case", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_94e799f9", "compound": "y", "lead": "Kitten", "lead_type": "coined_name", "lead_orthography": "word", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_ed7b3199", "compound": "y", "lead": "Dic-UCSNet", "lead_type": "coined_name", "lead_orthography": "mixed_case", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_82d4f9b2", "compound": "y", "lead": "ConCoDE", "lead_type": "coined_name", "lead_orthography": "mixed_case", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_cbe0940b", "compound": "y", "lead": "XGAN", "lead_type": "coined_name", "lead_orthography": "all_caps", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_7a56d258", "compound": "y", "lead": "DuoRC", "lead_type": "coined_name", "lead_orthography": "mixed_case", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_3df44f8f", "compound": "y", "lead": "Sigma", "lead_type": "coined_name", "lead_orthography": "word", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_e3529883", "compound": "y", "lead": "Why Less is More (Sometimes)", "lead_type": "descriptive_phrase", "lead_orthography": "na", "casing": "title_case", "question": "n", "note": "Bracketed word is not an acronym; no question mark."}
+{"item_id": "v1_b420c942", "compound": "y", "lead": "Signing the Supermask", "lead_type": "descriptive_phrase", "lead_orthography": "na", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_b39143f9", "compound": "n", "lead": "", "lead_type": "none", "lead_orthography": "na", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_d403700b", "compound": "y", "lead": "Neural Slot Interpreters", "lead_type": "coined_name", "lead_orthography": "mixed_case", "casing": "title_case", "question": "n", "note": "Model name; borderline versus descriptive."}
+{"item_id": "v1_e561690e", "compound": "y", "lead": "Mani-WM", "lead_type": "coined_name", "lead_orthography": "mixed_case", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_645c868a", "compound": "y", "lead": "CGNF", "lead_type": "coined_name", "lead_orthography": "all_caps", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_0afaef1c", "compound": "y", "lead": "CD-Depth", "lead_type": "coined_name", "lead_orthography": "mixed_case", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_40645a11", "compound": "n", "lead": "", "lead_type": "none", "lead_orthography": "na", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_424ecd9a", "compound": "y", "lead": "Dateformer", "lead_type": "coined_name", "lead_orthography": "word", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_6ce0d710", "compound": "y", "lead": "PTQ4ARVG", "lead_type": "coined_name", "lead_orthography": "all_caps", "casing": "title_case", "question": "n", "note": "Digit ignored for orthography."}
+{"item_id": "v1_14b5871e", "compound": "y", "lead": "Can Data-driven Machine Learning Reach Symbolic-level Logical Reasoning?", "lead_type": "descriptive_phrase", "lead_orthography": "na", "casing": "title_case", "question": "y", "note": "Question mark before the spaced double hyphen; double hyphen is the separator."}
+{"item_id": "v1_3d76faac", "compound": "n", "lead": "", "lead_type": "none", "lead_orthography": "na", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_e2b3ec56", "compound": "n", "lead": "", "lead_type": "none", "lead_orthography": "na", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_a2d59c11", "compound": "y", "lead": "CompSGD", "lead_type": "coined_name", "lead_orthography": "mixed_case", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_fa1b3447", "compound": "n", "lead": "", "lead_type": "none", "lead_orthography": "na", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_ba4df8fb", "compound": "n", "lead": "", "lead_type": "none", "lead_orthography": "na", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_dae54942", "compound": "y", "lead": "THOMAS", "lead_type": "coined_name", "lead_orthography": "all_caps", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_ea75927b", "compound": "y", "lead": "Non-Transferable Learning", "lead_type": "coined_name", "lead_orthography": "mixed_case", "casing": "title_case", "question": "n", "note": "Method name; borderline versus descriptive."}
+{"item_id": "v1_43989104", "compound": "y", "lead": "EviNote-RAG", "lead_type": "coined_name", "lead_orthography": "mixed_case", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_9b940c40", "compound": "y", "lead": "FROM DEEP LEARNING TO DEEP DEDUCING", "lead_type": "descriptive_phrase", "lead_orthography": "na", "casing": "all_caps", "question": "n", "note": ""}
+{"item_id": "v1_5bbfe6ce", "compound": "n", "lead": "", "lead_type": "none", "lead_orthography": "na", "casing": "title_case", "question": "n", "note": "En dash joins AND and OR."}
+{"item_id": "v1_33be82f5", "compound": "y", "lead": "Geometric Autoencoder Priors for Bayesian Inversion", "lead_type": "descriptive_phrase", "lead_orthography": "na", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_32944a41", "compound": "y", "lead": "Knowledge Cascade", "lead_type": "coined_name", "lead_orthography": "mixed_case", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_b620a4db", "compound": "y", "lead": "SGD Finds then Tunes Features in Two-Layer Neural Networks with near-Optimal Sample Complexity", "lead_type": "descriptive_phrase", "lead_orthography": "na", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_20f9d39a", "compound": "y", "lead": "Escaping limit cycles", "lead_type": "descriptive_phrase", "lead_orthography": "na", "casing": "sentence_case", "question": "n", "note": ""}
+{"item_id": "v1_af56fd0b", "compound": "n", "lead": "", "lead_type": "none", "lead_orthography": "na", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_de783417", "compound": "n", "lead": "", "lead_type": "none", "lead_orthography": "na", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_952cb8e2", "compound": "y", "lead": "Beatrix", "lead_type": "coined_name", "lead_orthography": "word", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_2bbd408b", "compound": "n", "lead": "", "lead_type": "none", "lead_orthography": "na", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_c99dc7c8", "compound": "y", "lead": "Reprompting", "lead_type": "coined_name", "lead_orthography": "word", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_9a7c3cc2", "compound": "n", "lead": "", "lead_type": "none", "lead_orthography": "na", "casing": "title_case", "question": "n", "note": "Hyphens in Carbon- and System-Aware join words."}
+{"item_id": "v1_66601148", "compound": "n", "lead": "", "lead_type": "none", "lead_orthography": "na", "casing": "all_caps", "question": "n", "note": ""}
+{"item_id": "v1_6f3e1af0", "compound": "y", "lead": "Desigen", "lead_type": "coined_name", "lead_orthography": "word", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_37a09daf", "compound": "y", "lead": "Amata", "lead_type": "coined_name", "lead_orthography": "word", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_7a034306", "compound": "y", "lead": "TequilaGAN", "lead_type": "coined_name", "lead_orthography": "mixed_case", "casing": "title_case", "question": "n", "note": "How-clause not asked as a question, no question mark."}
+{"item_id": "v1_6ad48198", "compound": "y", "lead": "Neuromechanical Autoencoders", "lead_type": "descriptive_phrase", "lead_orthography": "na", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_0fadeb4d", "compound": "y", "lead": "VSP", "lead_type": "coined_name", "lead_orthography": "all_caps", "casing": "sentence_case", "question": "n", "note": ""}
+{"item_id": "v1_b94a8684", "compound": "y", "lead": "Automatic Dataset Construction (ADC)", "lead_type": "coined_name", "lead_orthography": "paren_acronym", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_b4f2af6e", "compound": "y", "lead": "Trajeglish", "lead_type": "coined_name", "lead_orthography": "word", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_eeb21160", "compound": "y", "lead": "Mind the GAP", "lead_type": "descriptive_phrase", "lead_orthography": "na", "casing": "sentence_case", "question": "n", "note": "Pun slogan containing an acronym; capitalised remainder words form a name."}
+{"item_id": "v1_cc283efb", "compound": "n", "lead": "", "lead_type": "none", "lead_orthography": "na", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_ca2de916", "compound": "y", "lead": "PACE", "lead_type": "coined_name", "lead_orthography": "all_caps", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_26a51b19", "compound": "n", "lead": "", "lead_type": "none", "lead_orthography": "na", "casing": "title_case", "question": "n", "note": "Double hyphen in Matrix--Based joins words."}
+{"item_id": "v1_7cf808ed", "compound": "n", "lead": "", "lead_type": "none", "lead_orthography": "na", "casing": "sentence_case", "question": "n", "note": ""}
+{"item_id": "v1_f93e2fef", "compound": "y", "lead": "From Static to Dynamic", "lead_type": "descriptive_phrase", "lead_orthography": "na", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_5f8497f0", "compound": "n", "lead": "", "lead_type": "none", "lead_orthography": "na", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_e2a7b83d", "compound": "y", "lead": "Localized Meta-Learning", "lead_type": "descriptive_phrase", "lead_orthography": "na", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_be4eca2d", "compound": "y", "lead": "Hybed", "lead_type": "coined_name", "lead_orthography": "word", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_8b695020", "compound": "y", "lead": "Learning To Solve Circuit-SAT", "lead_type": "descriptive_phrase", "lead_orthography": "na", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_288d6aa5", "compound": "y", "lead": "Alice", "lead_type": "coined_name", "lead_orthography": "word", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_567f15aa", "compound": "y", "lead": "The Predictron", "lead_type": "coined_name", "lead_orthography": "word", "casing": "title_case", "question": "n", "note": "Article The ignored for orthography."}
+{"item_id": "v1_fd37bf42", "compound": "y", "lead": "TimeSeriesExamAgent", "lead_type": "coined_name", "lead_orthography": "mixed_case", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_30067f6b", "compound": "n", "lead": "", "lead_type": "none", "lead_orthography": "na", "casing": "sentence_case", "question": "n", "note": ""}
+{"item_id": "v1_56c8a7f9", "compound": "y", "lead": "Century", "lead_type": "coined_name", "lead_orthography": "word", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_795f3a69", "compound": "n", "lead": "", "lead_type": "none", "lead_orthography": "na", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_b28812b1", "compound": "y", "lead": "Off-Policy Evaluation and Learning from Logged Bandit Feedback", "lead_type": "descriptive_phrase", "lead_orthography": "na", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_94b44647", "compound": "n", "lead": "", "lead_type": "none", "lead_orthography": "na", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_502e479a", "compound": "y", "lead": "Contrastive Value Learning", "lead_type": "coined_name", "lead_orthography": "mixed_case", "casing": "title_case", "question": "n", "note": "Method name; borderline versus descriptive."}
+{"item_id": "v1_60e603b7", "compound": "y", "lead": "MS MARCO", "lead_type": "coined_name", "lead_orthography": "all_caps", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_9b5c9a1b", "compound": "y", "lead": "Global View For GCN", "lead_type": "descriptive_phrase", "lead_orthography": "na", "casing": "title_case", "question": "y", "note": ""}
+{"item_id": "v1_83bd7f28", "compound": "n", "lead": "", "lead_type": "none", "lead_orthography": "na", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_bf5d7a7b", "compound": "y", "lead": "Motion-R$^{3}$", "lead_type": "coined_name", "lead_orthography": "mixed_case", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_2f2939fa", "compound": "y", "lead": "From Kakeya to Kernels", "lead_type": "descriptive_phrase", "lead_orthography": "na", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_923a00ad", "compound": "y", "lead": "Spade", "lead_type": "coined_name", "lead_orthography": "word", "casing": "title_case", "question": "n", "note": "Space before colon trimmed from lead."}
+{"item_id": "v1_8b3160c2", "compound": "y", "lead": "Memformer", "lead_type": "coined_name", "lead_orthography": "word", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_16fd9862", "compound": "y", "lead": "ASAP DML", "lead_type": "coined_name", "lead_orthography": "all_caps", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_a1d6a3b2", "compound": "y", "lead": "3D-RelNet", "lead_type": "coined_name", "lead_orthography": "mixed_case", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_cb637dc0", "compound": "y", "lead": "MisGAN", "lead_type": "coined_name", "lead_orthography": "mixed_case", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_9c4921d5", "compound": "y", "lead": "Learning to Play in a Day", "lead_type": "descriptive_phrase", "lead_orthography": "na", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_638b2b4f", "compound": "y", "lead": "Chain-of-Experts", "lead_type": "coined_name", "lead_orthography": "mixed_case", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_0a028d3d", "compound": "n", "lead": "", "lead_type": "none", "lead_orthography": "na", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_a24e8e1c", "compound": "y", "lead": "Fast Node Embeddings", "lead_type": "descriptive_phrase", "lead_orthography": "na", "casing": "title_case", "question": "n", "note": "Generic-sounding method phrase; borderline versus name."}
+{"item_id": "v1_aa8079d1", "compound": "y", "lead": "Death of the Novel(ty)", "lead_type": "descriptive_phrase", "lead_orthography": "na", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_f11b275b", "compound": "y", "lead": "Needle", "lead_type": "coined_name", "lead_orthography": "word", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_d0b5e085", "compound": "y", "lead": "Why Music Moves Us", "lead_type": "descriptive_phrase", "lead_orthography": "na", "casing": "title_case", "question": "n", "note": "No question mark; not asked as a question."}
+{"item_id": "v1_37f603bd", "compound": "y", "lead": "Test-time Correction with Human Feedback", "lead_type": "descriptive_phrase", "lead_orthography": "na", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_382b8c1d", "compound": "y", "lead": "Ambient Dataloops", "lead_type": "coined_name", "lead_orthography": "mixed_case", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_a51e8f1a", "compound": "y", "lead": "RAMAC", "lead_type": "coined_name", "lead_orthography": "all_caps", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_bab88c2a", "compound": "y", "lead": "Frame Guidance", "lead_type": "coined_name", "lead_orthography": "mixed_case", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_d9a395ce", "compound": "y", "lead": "RIDE", "lead_type": "coined_name", "lead_orthography": "all_caps", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_adb794e2", "compound": "n", "lead": "", "lead_type": "none", "lead_orthography": "na", "casing": "title_case", "question": "n", "note": ""}
+{"item_id": "v1_fad16cf4", "compound": "y", "lead": "Multi-Precision Policy Enforced Training (MuPPET)", "lead_type": "coined_name", "lead_orthography": "paren_acronym", "casing": "other", "question": "n", "note": "Title-case lead, lower-case remainder."}
+{"item_id": "v1_321083ba", "compound": "y", "lead": "Where is the Invisible", "lead_type": "descriptive_phrase", "lead_orthography": "na", "casing": "title_case", "question": "y", "note": "Direct question form without question mark."}

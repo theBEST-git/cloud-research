@@ -1,0 +1,263 @@
+{
+ "rep": "R5yfe",
+ "design": "rolling",
+ "pop": "U",
+ "outcome": "primary",
+ "windows": {
+  "roll2019": {
+   "train_years": [
+    2016,
+    2017,
+    2018
+   ],
+   "calib_year": 2018,
+   "test_years": [
+    2019
+   ],
+   "n_train": 1153,
+   "n_test": 1248,
+   "C": 2.0,
+   "C_at_grid_edge": false,
+   "cv_logloss": {
+    "0.25": 0.31553148946823667,
+    "0.5": 0.3141058594243429,
+    "1.0": 0.31227104176858367,
+    "2.0": 0.3111036517683034,
+    "4.0": 0.31300954831125566,
+    "8.0": 0.320831095662749,
+    "16.0": 0.33607668515587835
+   },
+   "n_features": 7269,
+   "r5_removed": 44,
+   "year_fe_years": [
+    2018
+   ],
+   "prediction": "fold ensemble: mean over the 5 CV fold models of expit(s_k + c); c solved on the same fold models' OOF scores of the calibration year",
+   "seconds": 2.3
+  },
+  "roll2020": {
+   "train_years": [
+    2017,
+    2018,
+    2019
+   ],
+   "calib_year": 2019,
+   "test_years": [
+    2020
+   ],
+   "n_train": 2401,
+   "n_test": 2070,
+   "C": 2.0,
+   "C_at_grid_edge": false,
+   "cv_logloss": {
+    "0.25": 0.3517511796158285,
+    "0.5": 0.34949880386976717,
+    "1.0": 0.34702902516378253,
+    "2.0": 0.34598802462581585,
+    "4.0": 0.3490990644479645,
+    "8.0": 0.3590150653676927,
+    "16.0": 0.3769593500014799
+   },
+   "n_features": 13972,
+   "r5_removed": 83,
+   "year_fe_years": [
+    2018,
+    2019
+   ],
+   "prediction": "fold ensemble: mean over the 5 CV fold models of expit(s_k + c); c solved on the same fold models' OOF scores of the calibration year",
+   "seconds": 7.3
+  },
+  "roll2021": {
+   "train_years": [
+    2018,
+    2019,
+    2020
+   ],
+   "calib_year": 2020,
+   "test_years": [
+    2021
+   ],
+   "n_train": 4087,
+   "n_test": 2360,
+   "C": 2.0,
+   "C_at_grid_edge": false,
+   "cv_logloss": {
+    "0.25": 0.39312742301240194,
+    "0.5": 0.38876072118629984,
+    "1.0": 0.38438702040694855,
+    "2.0": 0.38227209946028246,
+    "4.0": 0.3853152063047967,
+    "8.0": 0.39603205235840366,
+    "16.0": 0.41565079603287935
+   },
+   "n_features": 22131,
+   "r5_removed": 135,
+   "year_fe_years": [
+    2019,
+    2020
+   ],
+   "prediction": "fold ensemble: mean over the 5 CV fold models of expit(s_k + c); c solved on the same fold models' OOF scores of the calibration year",
+   "seconds": 14.2
+  },
+  "roll2022": {
+   "train_years": [
+    2019,
+    2020,
+    2021
+   ],
+   "calib_year": 2021,
+   "test_years": [
+    2022
+   ],
+   "n_train": 5678,
+   "n_test": 2649,
+   "C": 2.0,
+   "C_at_grid_edge": false,
+   "cv_logloss": {
+    "0.25": 0.4088562360893724,
+    "0.5": 0.40283693772100365,
+    "1.0": 0.3970307775787584,
+    "2.0": 0.39388244984831267,
+    "4.0": 0.3961517830851884,
+    "8.0": 0.4063316670588346,
+    "16.0": 0.4256140911166234
+   },
+   "n_features": 29842,
+   "r5_removed": 170,
+   "year_fe_years": [
+    2020,
+    2021
+   ],
+   "prediction": "fold ensemble: mean over the 5 CV fold models of expit(s_k + c); c solved on the same fold models' OOF scores of the calibration year",
+   "seconds": 20.5
+  },
+  "roll2023": {
+   "train_years": [
+    2020,
+    2021,
+    2022
+   ],
+   "calib_year": 2022,
+   "test_years": [
+    2023
+   ],
+   "n_train": 7079,
+   "n_test": 3872,
+   "C": 2.0,
+   "C_at_grid_edge": false,
+   "cv_logloss": {
+    "0.25": 0.4295209836757137,
+    "0.5": 0.42173657662978986,
+    "1.0": 0.4149923639614474,
+    "2.0": 0.41200653201869225,
+    "4.0": 0.41537757627966326,
+    "8.0": 0.42735359842237475,
+    "16.0": 0.4487836658722722
+   },
+   "n_features": 36754,
+   "r5_removed": 217,
+   "year_fe_years": [
+    2021,
+    2022
+   ],
+   "prediction": "fold ensemble: mean over the 5 CV fold models of expit(s_k + c); c solved on the same fold models' OOF scores of the calibration year",
+   "seconds": 27.1
+  },
+  "roll2024": {
+   "train_years": [
+    2021,
+    2022,
+    2023
+   ],
+   "calib_year": 2023,
+   "test_years": [
+    2024
+   ],
+   "n_train": 8881,
+   "n_test": 5765,
+   "C": 2.0,
+   "C_at_grid_edge": false,
+   "cv_logloss": {
+    "0.25": 0.4507961196255226,
+    "0.5": 0.44153898829111465,
+    "1.0": 0.4342191518347875,
+    "2.0": 0.4313939695698788,
+    "4.0": 0.4355351464608017,
+    "8.0": 0.4485491051936475,
+    "16.0": 0.47148482246098156
+   },
+   "n_features": 45817,
+   "r5_removed": 294,
+   "year_fe_years": [
+    2022,
+    2023
+   ],
+   "prediction": "fold ensemble: mean over the 5 CV fold models of expit(s_k + c); c solved on the same fold models' OOF scores of the calibration year",
+   "seconds": 36.6
+  },
+  "roll2025": {
+   "train_years": [
+    2022,
+    2023,
+    2024
+   ],
+   "calib_year": 2024,
+   "test_years": [
+    2025
+   ],
+   "n_train": 12286,
+   "n_test": 8953,
+   "C": 2.0,
+   "C_at_grid_edge": false,
+   "cv_logloss": {
+    "0.25": 0.4917620591840242,
+    "0.5": 0.4801376090378523,
+    "1.0": 0.47211181270462965,
+    "2.0": 0.4700534622102677,
+    "4.0": 0.47645237960057896,
+    "8.0": 0.49358740596906553,
+    "16.0": 0.5223588049097633
+   },
+   "n_features": 49660,
+   "r5_removed": 340,
+   "year_fe_years": [
+    2023,
+    2024
+   ],
+   "prediction": "fold ensemble: mean over the 5 CV fold models of expit(s_k + c); c solved on the same fold models' OOF scores of the calibration year",
+   "seconds": 63.7
+  },
+  "roll2026": {
+   "train_years": [
+    2023,
+    2024,
+    2025
+   ],
+   "calib_year": 2025,
+   "test_years": [
+    2026
+   ],
+   "n_train": 18590,
+   "n_test": 15412,
+   "C": 1.0,
+   "C_at_grid_edge": false,
+   "cv_logloss": {
+    "0.25": 0.5199969327275296,
+    "0.5": 0.5081042272158144,
+    "1.0": 0.501664920545988,
+    "2.0": 0.5025127423046176,
+    "4.0": 0.5132213610425956,
+    "8.0": 0.5364818723521093,
+    "16.0": 0.5744486056731689
+   },
+   "n_features": 49642,
+   "r5_removed": 358,
+   "year_fe_years": [
+    2024,
+    2025
+   ],
+   "prediction": "fold ensemble: mean over the 5 CV fold models of expit(s_k + c); c solved on the same fold models' OOF scores of the calibration year",
+   "seconds": 101.3
+  }
+ }
+}

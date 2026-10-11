@@ -453,7 +453,7 @@ def cr_fit(df: pd.DataFrame, key: str, stage: str, era: str) -> dict | None:
 # Figures
 # --------------------------------------------------------------------------------------------
 def fig_ladder(gains: pd.DataFrame, period: str = "2024-26"):
-    import matplotlib.pyplot as plt  # noqa: F401
+    import matplotlib.pyplot as plt
     keys = [k for k, _, _, _ in FEATURES]
     g = gains[(gains.variant == "primary") & (gains.period == period) & (gains.pooling == "std")
               & gains.feature.isin(keys) & gains.gain.isin(["desk", "exit", "dec", "total"])]
@@ -464,26 +464,36 @@ def fig_ladder(gains: pd.DataFrame, period: str = "2024-26"):
     base = np.arange(n)[::-1].astype(float)
     offs = {"desk": 0.27, "exit": 0.09, "dec": -0.09, "total": -0.27}
     plot_rows = []
+    XMIN, XMAX = 0.70, 1.30
+    offscale = {}
     for gname, lab, col, mk in series:
         sub = g[g.gain == gname].set_index("feature").reindex(keys)
         yy = base + offs[gname]
         for yv, (k, r) in zip(yy, sub.iterrows()):
             if not np.isfinite(r.est):
                 continue
-            ax.plot([r.lo95, r.hi95], [yv, yv], color=col, lw=1.4, solid_capstyle="butt")
-            ax.plot([r.est], [yv], marker=mk, color=col, ms=5 if mk == "o" else 5.5, lw=0,
-                    markeredgecolor="white" if mk == "D" else col, markeredgewidth=0.4)
             plot_rows.append(dict(feature=k, label=FEAT_LABEL[k], set=FEAT_SET[k], gain=gname, est=r.est,
                                   lo95=r.lo95, hi95=r.hi95, y=yv))
+            lo_, hi_ = max(r.lo95, XMIN), min(r.hi95, XMAX)
+            if hi_ > XMIN:
+                ax.plot([lo_, hi_], [yv, yv], color=col, lw=1.4, solid_capstyle="butt")
+            if r.est < XMIN:
+                ax.plot([XMIN], [yv], marker="<", color=col, ms=5, lw=0, clip_on=False)
+                offscale.setdefault(k, []).append(f"{lab.split(' (')[0].lower()} {r.est:.2f}")
+            else:
+                ax.plot([r.est], [yv], marker=mk, color=col, ms=5 if mk == "o" else 5.5, lw=0,
+                        markeredgecolor="white" if mk == "D" else col, markeredgewidth=0.4)
         ax.plot([], [], marker=mk, color=col, lw=1.4, ms=5, label=lab)
+    for k, txt in offscale.items():
+        yv = base[keys.index(k)]
+        ax.text(1.045, yv - 0.02, "off scale (left): " + ", ".join(txt), fontsize=7, color=C.TEXT2,
+                va="center", ha="left")
     ax.axvline(1.0, color=C.GREY, lw=0.8, ls="--", zorder=0)
     ax.set_xscale("log")
-    ticks = [0.25, 0.4, 0.6, 0.8, 1.0, 1.25, 1.6]
+    ticks = [0.7, 0.8, 0.9, 1.0, 1.1, 1.2, 1.3]
     ax.set_xticks(ticks, [f"{t:g}" for t in ticks])
     ax.xaxis.set_minor_formatter(plt.NullFormatter())
-    lo = min(r["lo95"] for r in plot_rows)
-    hi = max(r["hi95"] for r in plot_rows)
-    ax.set_xlim(max(0.18, lo * 0.9), min(2.5, hi * 1.1))
+    ax.set_xlim(XMIN, XMAX)
     ax.set_yticks(base, [FEAT_LABEL[k] for k in keys])
     ax.tick_params(axis="y", length=0)
     ax.grid(axis="y", visible=False)
@@ -500,39 +510,45 @@ def fig_ladder(gains: pd.DataFrame, period: str = "2024-26"):
     ax.set_xlabel("Stage gain, P(feature | passed stage) / P(feature | entered stage), log scale")
     ax.set_ylim(-0.7, n - 0.3)
     ax.legend(ncol=4, loc="lower center", bbox_to_anchor=(0.45, 1.0), handlelength=1.6, columnspacing=1.2)
-    ax.set_title("Stage gains, ICLR 2024-26 pooled (year-standardised), 95% bootstrap CIs", loc="left",
-                 fontsize=9, pad=20)
+    ax.set_title("Stage gains, ICLR 2024-26 pooled (year-standardised), 95% bootstrap CIs; values below 0.7 "
+                 "marked off scale", loc="left", fontsize=8.5, pad=20)
     return fig, pd.DataFrame(plot_rows)
 
 
 def fig_total_by_year(gains: pd.DataFrame):
-    import matplotlib.pyplot as plt  # noqa: F401
-    fig, ax = C.new_fig("single", height=2.6)
+    import matplotlib.pyplot as plt
+    from matplotlib.patches import Patch
+    fig, ax = C.new_fig("single", height=2.9)
     feats = [("NAME", "NAME", C.COLORS[0]), ("O_union", "O-union", C.COLORS[1]), ("L_union", "L-union", C.COLORS[2])]
     rows = []
-    ax.axhspan(0.95, 1.10, color=C.GRID, alpha=0.7, lw=0, zorder=0)
+    ax.axhspan(0.95, 1.10, color=C.GRID, alpha=0.8, lw=0, zorder=0)
     ax.axhline(1.0, color=C.GREY, lw=0.8, ls="--", zorder=0)
-    off = {"NAME": -0.12, "O_union": 0.0, "L_union": 0.12}
+    off = {"NAME": -0.14, "O_union": 0.0, "L_union": 0.14}
+    label_y = {"NAME": 1.10, "O_union": 0.76, "L_union": 0.93}
     for k, lab, col in feats:
         sub = gains[(gains.variant == "primary") & (gains.feature == k) & (gains.gain == "total")
                     & gains.period.isin([str(y) for y in YEARS])].copy()
         sub["year"] = sub.period.astype(int)
         sub = sub.sort_values("year")
         x = sub.year + off[k]
-        ax.errorbar(x, sub.est, yerr=[sub.est - sub.lo95, sub.hi95 - sub.est], color=col, lw=0, elinewidth=1.2,
-                    marker="o", ms=4.5, capsize=0)
+        ax.errorbar(x, sub.est, yerr=[sub.est - sub.lo95, sub.hi95 - sub.est], color=col, lw=0, elinewidth=1.1,
+                    marker="o", ms=4.5, capsize=0, label=lab)
         ax.plot(x, sub.est, color=col, lw=1.2, alpha=0.8)
-        C.label_end(ax, x.iloc[-1], sub.est.iloc[-1], lab, col, dx=0.25)
+        ax.text(2026.45, label_y[k], lab, color=col, fontsize=7.5, va="center", ha="left")
         for _, r in sub.iterrows():
             rows.append(dict(feature=k, year=r.year, est=r.est, lo95=r.lo95, hi95=r.hi95))
     ax.set_yscale("log")
-    yt = [0.3, 0.5, 0.7, 1.0, 1.4]
+    yt = [0.4, 0.5, 0.7, 1.0, 1.4]
     ax.set_yticks(yt, [f"{t:g}" for t in yt])
     ax.yaxis.set_minor_formatter(plt.NullFormatter())
+    ax.set_ylim(0.38, 1.7)
     ax.set_xticks(list(YEARS), [f"'{str(y)[2:]}" for y in YEARS])
-    ax.set_xlim(2017.6, 2027.3)
-    ax.set_ylabel("Total gain (accepted / all)")
-    ax.text(2017.7, 1.12, "H4a band [0.95, 1.10]", fontsize=7, color=C.TEXT2, va="bottom")
+    ax.set_xlim(2017.6, 2027.4)
+    ax.set_ylabel("Total gain (accepted / all), 95% CI")
+    h, l_ = ax.get_legend_handles_labels()
+    h.append(Patch(color=C.GRID, label="H4a band [0.95, 1.10]"))
+    ax.legend(handles=h, loc="lower center", bbox_to_anchor=(0.5, 1.0), ncol=4, fontsize=6.8, handlelength=1.0,
+              columnspacing=0.8)
     return fig, pd.DataFrame(rows)
 
 
@@ -562,7 +578,20 @@ def main():
     d3["s2n"] = d3.s2 * (1 - d3.ACC)
     g3, p3, _ = gain_table(d3, keys_primary, "wd_rejected_in_s2",
                            periods={"2024-26": POST, "2018-23": PRE, "2024": (2024,), "2025": (2025,)})
-    gains = pd.concat([gains, g2, g3], ignore_index=True)
+    # post (2024-26) vs pre (2018-23) contrast of log gains (same replicate index; years are disjoint strata)
+    pp_rows = []
+    Ppost, Ppre = store[("2024-26", "std")], store[("2018-23", "std")]
+    stage_cols = STAGES + ["s0n", "s1n", "s2n"]
+    for j, k in enumerate(keys_all):
+        for gname, (a, b) in dict(GAIN_DEFS, **GAIN_DEFS_CRF).items():
+            ia, ib = stage_cols.index(a), stage_cols.index(b)
+            with np.errstate(divide="ignore", invalid="ignore"):
+                r_ = (Ppost[:, j, ia] / Ppost[:, j, ib]) / (Ppre[:, j, ia] / Ppre[:, j, ib])
+            row = dict(variant="post_vs_pre", feature=k, set=FEAT_SET[k], period="2024-26 / 2018-23", pooling="std",
+                       gain=gname)
+            row.update(summarise(r_))
+            pp_rows.append(row)
+    gains = pd.concat([gains, g2, g3, pd.DataFrame(pp_rows)], ignore_index=True)
     prev = pd.concat([prev, p2, p3], ignore_index=True)
     gains.to_csv(OUTDIR / "gains.csv", index=False)
     prev.to_csv(OUTDIR / "prevalence_by_stage.csv", index=False)
@@ -633,6 +662,9 @@ def main():
         L_union_predec_crf_lt1=dict(est=L["predec_crf"]["est"], hi95=L["predec_crf"]["hi95"],
                                     p_one_sided=L["predec_crf"]["p_ge1"]),
     )
+    for k in ["L_union", "O_union", "NAME", "L_title", "L_abstract", "F24", "R24", "all_caps_title"]:
+        h4b.setdefault(k, {})["post_vs_pre_ratio_of_gains"] = {
+            g: G(k, g, "2024-26 / 2018-23", variant="post_vs_pre") for g in ["total", "predec", "dec", "predec_crf"]}
     h4b["falsified"] = bool(L["total"]["est"] >= 1)
     for k, v in h4b["tests"].items():
         log(f"H4b {k}: {v}", fh)

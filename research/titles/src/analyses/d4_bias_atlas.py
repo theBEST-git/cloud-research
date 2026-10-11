@@ -63,7 +63,7 @@ from arxiv_audit import DECISION_DATE  # noqa: E402
 OUTDIR = S.OUTDIR
 POST = S.POST
 N_BOOT = S.N_BOOT
-N_BOOT_SLOW = 500
+N_NULL = 1000
 SEED = S.SEED + 1
 AUDIT_PATH = C.CACHE / "arxiv_audit.jsonl"
 MIN_AUDIT_N = 10
@@ -189,7 +189,10 @@ def kobak_from_prev(P: dict, Y: int, baseline: str = "cons") -> np.ndarray:
     slope = ((x - xm) * (B - B.mean(-1, keepdims=True))).sum(-1) / ((x - xm) ** 2).sum()
     lin = np.clip(B.mean(-1) - slope * xm + slope * Y, 0, None)
     m23 = np.maximum(P[2022], P[2023])
-    q = {"cons": np.maximum(lin, m23), "lin": lin, "max23": m23}[baseline]
+    # max2122: post hoc sensitivity (not pre-registered): ICLR 2023 camera-ready abstracts were finalised after
+    # ChatGPT's release (30 Nov 2022), so the accepted 2023 baseline may itself contain LLM edits.
+    q = {"cons": np.maximum(lin, m23), "lin": lin, "max23": m23,
+         "max2122": np.maximum(P[2021], P[2022])}[baseline]
     return P[Y] - q
 
 
@@ -206,7 +209,7 @@ def kobak(df: pd.DataFrame, cols: dict[str, str], n_boot: int = N_BOOT) -> tuple
     P = {y: sums[y][0] / sums[y][1][:, None, :] for y in sums}  # (B+1, F, K)
     rows, series = [], []
     boot = {}
-    for bl in ["cons", "lin", "max23"]:
+    for bl in ["cons", "lin", "max23", "max2122"]:
         for Y in POST:
             Bd = kobak_from_prev(P, Y, bl)  # (B+1, F, K)
             boot[(bl, Y)] = Bd
@@ -351,6 +354,24 @@ def jsd_stat(X: sparse.csr_matrix, years: np.ndarray, stage: np.ndarray, rng: np
     return out
 
 
+def random_band(codes: np.ndarray, X: sparse.csr_matrix, years: np.ndarray, stage: np.ndarray,
+                rng: np.random.Generator, n_draw: int = 1000) -> tuple[np.ndarray, np.ndarray]:
+    """Opener entropy and turnover JSD (mean over 2024-26) of random s0 subsets with the accepted per-year sizes."""
+    s0 = {y: np.where(years == y)[0] for y in (2023,) + POST}
+    n3 = {y: int(((years == y) & (stage[:, 3] == 1)).sum()) for y in (2023,) + POST}
+    ent, js = np.zeros(n_draw), np.zeros(n_draw)
+    for i in range(n_draw):
+        sub = {y: rng.choice(s0[y], n3[y], replace=False) for y in s0}
+        for y in POST:
+            c = np.bincount(codes[sub[y]])
+            p = c[c > 0] / n3[y]
+            ent[i] += float(-(p * np.log2(p)).sum()) / len(POST)
+            pa = np.asarray(X[sub[y]].sum(0)).ravel().astype(float)
+            pb = np.asarray(X[sub[y - 1]].sum(0)).ravel().astype(float)
+            js[i] += jsd(pa, pb) / len(POST)
+    return ent, js
+
+
 def boot_idx(years: np.ndarray, rng: np.random.Generator) -> np.ndarray:
     return C.boot_indices(len(years), strata=years, rng=rng)
 
@@ -469,8 +490,10 @@ def fig_atlas(atlas: pd.DataFrame):
         lo, hi = max(r.ratio_lo95, xmin), min(r.ratio_hi95, xmax)
         ax1.plot([lo, hi], [yv, yv], color=col, lw=1.4, solid_capstyle="butt")
         ax1.plot([r.ratio], [yv], "o", color=col, ms=4.8)
+        sep = bool(r.edit_separable)
         rows.append(dict(statistic=r.label, cls=r.cls, ratio=r.ratio, lo95=r.ratio_lo95, hi95=r.ratio_hi95,
-                         desk=r.log_desk, exit=r.log_exit, decision_selection=r.log_dec_sel, editing=r.log_edit,
+                         desk=r.log_desk_sel if sep else r.log_desk, exit=r.log_exit_sel if sep else r.log_exit,
+                         decision_selection=r.log_dec_sel, editing=r.log_edit,
                          editing_lo=r.log_edit_lo, editing_hi=r.log_edit_hi, decision_total=r.log_dec,
                          editing_separable=r.edit_separable, y=yv))
     ax1.set_xscale("log")
@@ -494,11 +517,11 @@ def fig_atlas(atlas: pd.DataFrame):
     h = 0.62
     for yv, r in zip(ypos, a.itertuples()):
         pos, neg = 0.0, 0.0
-        parts = [("log_desk", r.log_desk), ("log_exit", r.log_exit)]
         if r.edit_separable:
-            parts += [("log_dec_sel", r.log_dec_sel), ("log_edit", r.log_edit)]
+            parts = [("log_desk", r.log_desk_sel), ("log_exit", r.log_exit_sel), ("log_dec_sel", r.log_dec_sel),
+                     ("log_edit", r.log_edit)]
         else:
-            parts += [("log_dec", r.log_dec)]
+            parts = [("log_desk", r.log_desk), ("log_exit", r.log_exit), ("log_dec", r.log_dec)]
         for key, v in parts:
             if not np.isfinite(v):
                 continue
@@ -513,7 +536,10 @@ def fig_atlas(atlas: pd.DataFrame):
             else:
                 neg += v
         if r.edit_separable and np.isfinite(r.log_edit_lo):
-            ax2.plot([r.log_edit_lo, r.log_edit_hi], [yv - 0.36, yv - 0.36], color=C.TEXT2, lw=0.9)
+            lo_, hi_ = max(r.log_edit_lo, -1.1), min(r.log_edit_hi, 0.55)
+            ax2.plot([lo_, hi_], [yv - 0.36, yv - 0.36], color=C.TEXT2, lw=0.9)
+        elif r.edit_separable:
+            ax2.text(0.54, yv + 0.33, "audit CI unbounded", fontsize=6.2, color=C.TEXT2, ha="right", va="center")
         tot = np.log(r.ratio)
         ax2.plot([tot], [yv], marker="|", color=C.TEXT, ms=7, mew=1.4)
     ax2.axvline(0, color=C.GREY, lw=0.8)
@@ -527,12 +553,12 @@ def fig_atlas(atlas: pd.DataFrame):
                          label="Decision (selection + editing, not separable)"))
     handles.append(plt.Line2D([], [], marker="|", color=C.TEXT, lw=0, ms=7, mew=1.4, label="Total log ratio"))
     handles.append(plt.Line2D([], [], color=C.TEXT2, lw=0.9, label="Editing, audit 95% interval"))
-    ax2.legend(handles=handles, loc="upper center", bbox_to_anchor=(0.2, -0.09 - 1.0 / (0.215 * n + 1.3)), ncol=3,
-               fontsize=7.5, handlelength=1.4, columnspacing=1.0)
+    fig.legend(handles=handles, loc="upper center", bbox_to_anchor=(0.5, 0.035), ncol=3, fontsize=7.5,
+               handlelength=1.4, columnspacing=1.0)
     cl_handles = [plt.Line2D([], [], marker="o", color=cls_col[k], lw=1.4, ms=4.8, label=l)
                   for k, l in [("M", "Mainstream (M)"), ("O", "Outsider (O)"), ("L", "LLM-style (L)")]]
     cl_handles.append(Patch(color=C.GRID, label="+/-10% band"))
-    ax1.legend(handles=cl_handles, loc="lower left", fontsize=7.5, handlelength=1.4)
+    ax1.legend(handles=cl_handles, loc="upper left", fontsize=7.5, handlelength=1.4)
     return fig, pd.DataFrame(rows)
 
 
@@ -729,13 +755,19 @@ def main():
 
             def sel_tot(x):
                 Pt = P - a * x
+                if (Pt <= 0).any():
+                    return (np.nan,) * 4
                 return np.log(Pt[3] / Pt[0]), np.log(Pt[1] / Pt[0]), np.log(Pt[2] / Pt[1]), np.log(Pt[3] / Pt[2])
             tot_obs = np.log(P[3] / P[0])
             tsel, dsel, esel, decsel = sel_tot(D)
-            e_lo, e_hi = sorted([tot_obs - sel_tot(Dlo)[0], tot_obs - sel_tot(Dhi)[0]])
-            edit = dict(edit_separable=True, log_dec_sel=float(decsel), log_edit=float(tot_obs - tsel),
-                        log_edit_lo=float(e_lo), log_edit_hi=float(e_hi), log_desk_sel=float(dsel),
-                        log_exit_sel=float(esel), audit_did_pp=float(100 * D))
+            ends = [tot_obs - sel_tot(Dlo)[0], tot_obs - sel_tot(Dhi)[0]]
+            unbounded = bool(not np.all(np.isfinite(ends)))
+            e_lo, e_hi = (sorted(ends) if not unbounded else (np.nan, np.nan))
+            edit = dict(edit_separable=bool(np.isfinite(tsel)), log_dec_sel=float(decsel),
+                        log_edit=float(tot_obs - tsel), log_edit_lo=float(e_lo), log_edit_hi=float(e_hi),
+                        log_desk_sel=float(dsel), log_exit_sel=float(esel), audit_did_pp=float(100 * D),
+                        audit_did_lo95_pp=float(100 * Dlo), audit_did_hi95_pp=float(100 * Dhi),
+                        edit_interval_unbounded=unbounded)
         add_row(label, cls, v, "prevalence" if col != "xs_per100" else "mean", edit=edit,
                 note="conditional on titles naming language models" if cond else "")
     log(f"atlas prevalence stats done ({time.time() - t0:.0f}s)", fh)
@@ -795,23 +827,38 @@ def main():
     log(f"colon premium: level b {np.round(cp['level']['b'], 4)}, trend b {np.round(cp['trend']['b'], 4)} "
         f"({time.time() - t0:.0f}s)", fh)
 
-    # entropy and JSD (bootstrap 500, stratified by year)
+    # entropy and JSD: point estimates on rarefied stage sets; uncertainty from the random-selection band
+    # (statistic on random s0 subsets of the accepted per-year sizes / its expectation), pivoted around the
+    # observed ratio. A paper bootstrap is not used: with-replacement duplicates bias the unrarefied accepted set
+    # and the rarefied sets differently (checked: bootstrap intervals excluded the point estimates).
     years = df.year.to_numpy()
     stage = df[STAGE_SETS].to_numpy().astype(int)
     codes = opener_tokens(df)
     X, vocab = tokens_matrix(df.title_nfkc)
     ent0 = entropy_stat(codes, years, stage)
     jsd0 = jsd_stat(X, years, stage, rng, R=50)
-    ent_b, jsd_b = [ent0], [jsd0]
-    for bi in range(N_BOOT_SLOW):
-        idx = boot_idx(years, rng)
-        ent_b.append(entropy_stat(codes, years, stage, idx))
-        jsd_b.append(jsd_stat(X, years, stage, rng, idx, R=4))
-        if bi % 100 == 0:
-            log(f"  entropy/JSD boot {bi} ({time.time() - t0:.0f}s)", fh)
-    add_row("Opener entropy, NAME-collapsed (rarefied)", "M", np.vstack(ent_b), "entropy (bits)")
-    add_row("Lexical turnover JSD (rarefied)", "M", np.vstack(jsd_b), "JSD (bits)")
-    log(f"entropy {np.round(ent0, 4)}; JSD {np.round(jsd0, 5)} ({time.time() - t0:.0f}s)", fh)
+    ent_null, jsd_null = random_band(codes, X, years, stage, rng, n_draw=N_NULL)
+    for lab, kind, v0, nul in [("Opener entropy, NAME-collapsed (rarefied)", "entropy (bits)", ent0, ent_null),
+                               ("Lexical turnover JSD (rarefied)", "JSD (bits)", jsd0, jsd_null)]:
+        q = nul / nul.mean()
+        ratio = v0[3] / v0[0]
+        r = dict(label=lab, cls="M", kind=kind, T_s0=float(v0[0]), T_s1=float(v0[1]), T_s2=float(v0[2]),
+                 T_s3=float(v0[3]), ratio=float(ratio),
+                 ratio_lo95=float(ratio / np.quantile(q, .975)), ratio_hi95=float(ratio / np.quantile(q, .025)),
+                 ratio_lo90=float(ratio / np.quantile(q, .95)), ratio_hi90=float(ratio / np.quantile(q, .05)),
+                 log_desk=float(np.log(v0[1] / v0[0])), log_exit=float(np.log(v0[2] / v0[1])),
+                 log_dec=float(np.log(v0[3] / v0[2])), edit_separable=False, log_dec_sel=np.nan, log_edit=np.nan,
+                 log_edit_lo=np.nan, log_edit_hi=np.nan, in_forest=True,
+                 random_band_lo95=float(np.quantile(q, .025)), random_band_hi95=float(np.quantile(q, .975)),
+                 p_random_two_sided=float(2 * min(np.mean(q <= ratio), np.mean(q >= ratio))),
+                 note=f"interval = observed ratio pivoted on the random-selection band ({N_NULL} random s0 subsets "
+                      f"with accepted per-year sizes); s0-s2 values are exact (entropy) or 50-draw (JSD) rarefied")
+        r["within_10pct"] = bool(0.9 <= r["ratio"] <= 1.1)
+        r["ci90_within_10pct"] = bool(r["ratio_lo90"] >= 0.9 and r["ratio_hi90"] <= 1.1)
+        atlas_rows.append(r)
+    log(f"entropy {np.round(ent0, 4)}; JSD {np.round(jsd0, 5)}; random band entropy "
+        f"{np.quantile(ent_null / ent_null.mean(), [.025, .975]).round(4)}, JSD "
+        f"{np.quantile(jsd_null / jsd_null.mean(), [.025, .975]).round(4)} ({time.time() - t0:.0f}s)", fh)
 
     # peak years
     ptab, pk = peak_years(df, X, vocab)
@@ -876,7 +923,7 @@ def main():
                   pairs_by_year_decision={f"{k[0]}_{k[1]}": int(v) for k, v in
                                           pairs.groupby(["year", "decision"]).size().items()},
                   snapshot_source="computed in d4_bias_atlas from cache/arxiv_audit.jsonl (outputs/snapshot/ absent)",
-                  n_boot=N_BOOT, n_boot_entropy_jsd=N_BOOT_SLOW, runtime_s=round(time.time() - t0, 1)),
+                  n_boot=N_BOOT, n_random_band_entropy_jsd=N_NULL, runtime_s=round(time.time() - t0, 1)),
         T4_2_flips=flips_all.to_dict(orient="records"), T4_2_bound=bound.to_dict(orient="records"),
         H4c=h4c, H4e=h4e, atlas=atlas.to_dict(orient="records"),
     )

@@ -30,6 +30,21 @@ def pboot(p, B=B_BOOT):
     return (p * B + 1) / (B + 1)
 
 
+def clean(o):
+    """Recursively convert NaN/inf to None and numpy scalars to Python types (strict JSON)."""
+    if isinstance(o, dict):
+        return {str(k): clean(v) for k, v in o.items()}
+    if isinstance(o, (list, tuple)):
+        return [clean(v) for v in o]
+    if isinstance(o, (np.floating, float)):
+        return None if not np.isfinite(o) else float(o)
+    if isinstance(o, (np.integer,)):
+        return int(o)
+    if isinstance(o, np.bool_):
+        return bool(o)
+    return o
+
+
 def holm(pvals: dict) -> dict:
     keys = sorted(pvals, key=lambda k: pvals[k])
     m = len(keys)
@@ -198,7 +213,33 @@ def main():
                                                          "unexplained_2023_ci", "obs_anchor", "auc_mean"]}
                              for k, v in reps.items() if k.endswith("|placebo") and v.get("status") == "done"}
     res["its_table"] = T11.to_dict(orient="records")
-    (OUTDIR / "results.json").write_text(json.dumps(res, indent=1, default=lambda x: float(x) if np.isscalar(x) else str(x)))
+    res["H1a"]["break_scan"] = pd.read_csv(OUTDIR / "its_break_scan.csv").to_dict(orient="records")
+    res["H1a"]["year_deviation_all"] = pd.read_csv(OUTDIR / "its_year_deviation.csv").to_dict(orient="records")
+    res["H1c"]["year_permutation"] = r1.get("year_permutation")
+    res["H1e"]["delta_models"] = pd.read_csv(OUTDIR / "tool_delta_models.csv").to_dict(orient="records")
+    res["H1e"]["tool_bound_table_T1_3"] = pd.read_csv(OUTDIR / "T1_3_tool_bound.csv").to_dict(orient="records")
+    res["T1_2_representations"] = pd.read_csv(OUTDIR / "T1_2_representations.csv").to_dict(orient="records")
+    res["content_variants"] = {k: {kk: v.get(kk) for kk in ["share_2024", "share_2025", "share_2026", "share_2026_ci",
+                                                           "content_share_post_steps", "content_share_post_steps_ci",
+                                                           "diff", "diff_ci", "ratio", "ratio_ci", "auc_mean",
+                                                           "share_2023", "share_2023_ci"]}
+                               for k, v in cf["variants"].items() if v.get("status") == "done"}
+    res["deviations_from_plan"] = [
+        "Pilot ITS 1.28/yr was for colon (compound) titles; NAME estimated as pre-registered (all 4 definitions reported)",
+        "Added kink-only sup-LR scan as robustness next to the pre-specified level+slope scan",
+        "H1c paper bootstrap implemented as conditional (B=2000) and refit (B=300) versions; verdict uses the more "
+        "conservative CI; added year-label permutation and Welch tests",
+        "C grids for R2 (keywords) and R6/R6b (one-hot) widened after the first fit hit the lower grid edge",
+        "Cross-fitted intercept recalibration also applied in fixed (to 2023) and placebo (to 2020) windows",
+        "R2 treats each normalised keyword phrase as one token",
+        "R5 removes the 6 frozen move n-grams by token-subsequence match",
+        "DFL newcomer bin (.5,1) read as (.5,1]; 4 rows without keys dropped",
+        "F for D1 = f24_2 | f26 | title_typo (the >=2 RARE21 variant per D3 note); A_max=0.39 taken from PLAN",
+        "R3 covers 2018-26 only (2019 rolling window trains on 2018)",
+        "Exploratory diagnostics added: R1u, R1n, R1@0.5, established-topics split of u, 3-year cumulative comparison",
+        "Extra script d1_summary.py for merging, Holm and figures"]
+    (OUTDIR / "results.json").write_text(json.dumps(clean(res), indent=1, allow_nan=False,
+                                                    default=lambda x: float(x) if np.isscalar(x) else str(x)))
     print(json.dumps({k: res[k].get("verdict") for k in ["H1a", "H1b", "H1c", "H1d", "H1e"]}, indent=1))
     print(json.dumps(res["holm"], indent=1))
     figures(res, cf, dc)

@@ -18,13 +18,19 @@ Designs:
     fixed    train 2021-23, recalibrate to 2023 (OOF), predict 2024-26
     placebo  train 2018-20, recalibrate to 2020 (OOF), predict 2021-23
 
-Stages (each well under 20 min with 2 threads):
-    python -m analyses.d1_content_cf fit reps=R1,R5,R6,R6b   U pool, NAME primary, listed reps, all designs
-    python -m analyses.d1_content_cf fit reps=R4,R2,R1u      (split in two processes to stay under ~15 min each)
-    python -m analyses.d1_content_cf fit variants    R1 on NA / non-LLM pools and strict/loose/compound outcomes
-    python -m analyses.d1_content_cf fit r3          R3 (needs outputs/topics/emb_masked_bge.npy)
-    python -m analyses.d1_content_cf summarise       bootstraps, tables, content_cf.json
-    python -m analyses.d1_content_cf refit_boot [B]  refit bootstrap of R1 rolling (model uncertainty for H1c)
+Stages (each well under 20 min with 1-2 threads). Full reproduction sequence for WP5:
+    cd research/titles/src
+    python -m analyses.d1_its                                    # H1a (~1 min)
+    python -m analyses.d1_content_cf fit reps=R1,R5,R6,R6b       # U pool, NAME primary, all designs (~5 min)
+    python -m analyses.d1_content_cf fit reps=R4,R2,R1u          # (~5 min)
+    python -m analyses.d1_content_cf fit reps=R1@0.5,R1n         # labelled sensitivities / V4 diagnostic (~3 min)
+    python -m analyses.d1_content_cf fit variants                # R1 on NA / non-LLM and strict/loose/compound (~8 min)
+    python -m analyses.d1_content_cf fit r3                      # R3 (needs outputs/topics/emb_masked_bge.npy; ~2 min)
+    python -m analyses.d1_decompose fit                          # people (P) and R1+people (R1P) fixed-window fits
+    python -m analyses.d1_content_cf summarise 2000              # bootstraps, T1.2, new-topic placebo, V4 (~6 min)
+    python -m analyses.d1_content_cf refit_boot 300 R1           # refit bootstrap for H1c (~25 min, checkpointed)
+    python -m analyses.d1_decompose all                          # DFL, Shapley, tool bound (~3 min)
+    python -m analyses.d1_summary                                # results.json, Holm, F1.1-F1.3
 """
 from __future__ import annotations
 

@@ -32,8 +32,10 @@ def main():
                 "scripts/export_dataset.py", "scripts/check_package.py", "tests/test_export_dataset.py",
                 "data/submissions.csv.gz", "data/submission_authors.csv.gz", "data/metadata_provenance.csv.gz",
                 "data/manifest.json", "data/validation.json", "data/reproduction.json"}
+    # research/ holds derived analysis layers built on top of the package, not package files.
     actual = {p.relative_to(root).as_posix() for p in root.rglob("*") if p.is_file()
-              and ".rebuild-check" not in p.parts and ".git" not in p.parts}
+              and ".rebuild-check" not in p.parts and ".git" not in p.parts
+              and p.relative_to(root).parts[0] != "research"}
     if actual - expected:
         raise RuntimeError("Unexpected package files: " + repr(sorted(actual - expected)))
     if args.rebuild:

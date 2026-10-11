@@ -1,0 +1,25 @@
+{
+  "n_expected": 912,
+  "n_final": 912,
+  "raw_agreement": 0.9660087719298246,
+  "kappa": 0.9295656398310892,
+  "n_disputes": 31,
+  "confusion": {
+    "research_area vs specific_topic": 11,
+    "application_domain vs research_area": 2,
+    "property vs research_area": 5,
+    "application_domain vs specific_topic": 3,
+    "property vs specific_topic": 7,
+    "specific_topic vs unclear": 1,
+    "property vs unclear": 2
+  },
+  "final_distribution": {
+    "research_area": 118,
+    "contribution_type": 16,
+    "generic_field": 9,
+    "specific_topic": 641,
+    "application_domain": 39,
+    "property": 80,
+    "unclear": 9
+  }
+}

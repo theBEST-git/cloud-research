@@ -14,6 +14,16 @@ typography, F24 >= 2 words, mutually exclusive fingerprint categories, LPM with 
 authors (pilot-like), no title-length control, pilot lexicons (design/pi/vintage_check.py regexes), and per-word R24
 outcomes (exploratory).
 
+Fixer pass (audit/d3; added rows, not in the PLAN):
+- Shared-lemma-free co-primary (D3-C3): R24 and F24 both without harness/unveil (RARE21 and R24 share these stems).
+- F26 restricted to 2026, where it marks the 2026 vintage (2025 F26 prevalence equals the 2021-24 base rate):
+  F26 x 2026 is the contrast arm, F26 x 2025 a covariate.
+- Pre-LLM placebo (2018-23 and 2020-23; F24/F26 are false positives = writer/genre style).
+- Genre benchmark: neutral counterparts N24 = improv*|utili[sz]*|exploit* as outcome; meaning-fixed version: R24
+  among titles that have R24 or N24; slot-based version: LLM slot variant | slot filled ~ F24 + F26 + slot FE.
+- F26 components one at a time (typography as covariate).
+- F3.3: the R26 mirror is labelled F26/F24 (the predicted direction).
+
 Outputs (outputs/d3_register/): vintage_models.csv, vintage_results.json, fig_F3_3_vintage_forest.{pdf,png,csv}
 
 Run:  cd research/titles/src && OMP_NUM_THREADS=2 /home/user/venv/bin/python -m analyses.d3_vintage
@@ -42,6 +52,10 @@ PILOT_RARE = (r"\b(delv\w*|intricate\w*|meticulous\w*|showcas\w*|underscor\w*|pi
 PILOT_GEN26 = r"\b(principled|reframe\w*|genuine\w*|brittle|auditable|sharply|high-stakes)\b"
 PILOT_FAM24 = r"\b(enhancing|unleashing|harnessing|unveiling|empowering|leveraging|elevating|boosting)\b"
 PILOT_FAM26 = r"\b(unified|unifying|beyond|bridging)\b"
+N24_RX = r"\b(improv\w*|utili[sz]\w*|exploit\w*)"
+F26_COMPONENTS = [("principled", r"\bprincipled\b"), ("sharply", r"\bsharply\b"), ("brittle", r"\bbrittle\b"),
+                  ("genuine", r"\bgenuine\w*"), ("highstakes", r"\bhigh[-\u2010\u2011]stakes\b"),
+                  ("reframe", r"\brefram\w*")]
 
 
 def prep(df: pd.DataFrame) -> pd.DataFrame:
@@ -68,7 +82,29 @@ def prep(df: pd.DataFrame) -> pd.DataFrame:
     d["t26_pilot"] = C.rx_contains(tl, PILOT_FAM26).astype(int)
     d["f26_words_i"] = d.f26_words.astype(int)
     d["f26_typo_i"] = d.f26_typo.astype(int)
+    d["n24"] = C.rx_contains(tl, N24_RX).astype(int)
+    d["r24_or_n24"] = ((d.r24_any == 1) | (d.n24 == 1)).astype(int)
+    d["f26_y25"] = ((d.f26 == 1) & (d.year == 2025)).astype(int)
+    d["f26_y26"] = ((d.f26 == 1) & (d.year == 2026)).astype(int)
+    an = d.abstract.fillna("").map(C.nfkc).str.lower()
+    for c, pat in F26_COMPONENTS:
+        d[f"c26_{c}"] = C.rx_contains(an, pat).astype(int)
     return d
+
+
+def fit_slots(P: pd.DataFrame, label: str, xa: str = "F24", xb: str = "F26") -> dict:
+    """Meaning-fixed vintage contrast on slot-filled titles: logit LLM variant ~ F24 + F26 + slot FE + year FE +
+    topic100 FE + llm_topic, topic100 clusters (groups without outcome variation dropped)."""
+    dd = drop_nonvarying(P, "y", "topic100")
+    fe_year = " + C(year)" if dd.year.nunique() > 1 else ""
+    r = C.logit(f"y ~ {xa} + {xb} + C(slot){fe_year} + C(topic100) + llm_topic", dd, cluster="topic100")
+    t = C.or_table(r, [xa, xb])
+    out = dict(label=label, outcome="LLM slot variant", x_a="f24", x_b="f26", nobs=int(r.nobs), n_y=int(dd.y.sum()),
+               n_xa=int(dd[xa].sum()), n_xb=int(dd[xb].sum()),
+               OR_a=t.loc[xa, "OR"], OR_a_lo=t.loc[xa, "OR_lo"], OR_a_hi=t.loc[xa, "OR_hi"], p_a=t.loc[xa, "p"],
+               OR_b=t.loc[xb, "OR"], OR_b_lo=t.loc[xb, "OR_lo"], OR_b_hi=t.loc[xb, "OR_hi"], p_b=t.loc[xb, "p"])
+    out.update(contrast(r, xa, xb))
+    return out
 
 
 def drop_nonvarying(d: pd.DataFrame, y: str, fe: str) -> pd.DataFrame:
@@ -135,6 +171,45 @@ def main():
     add(fit(d2526, "r24_any", "f24_noshared", "f26", "F24 without harness/unveil"), "shared lemma", "R24")
     add(fit(d2526, "r24_noshared", "f24", "f26", "R24 without harness/unveil"), "shared lemma", "R24")
     add(fit(d2526, "r24_noshared", "f24_noshared", "f26", "both without harness/unveil"), "shared lemma", "R24")
+    # F26 arm restricted to 2026 (where F26 marks the 2026 vintage); F26 x 2025 as a covariate (audit D3-C3)
+    add(fit(d2526, "r24_any", "f24", "f26_y26", "F26 arm = F26 x 2026 (F26 x 2025 as covariate)",
+            extra_x=" + f26_y25"), "vintage restriction", "R24")
+    add(fit(d2526, "r24_noshared", "f24_noshared", "f26_y26",
+            "F26 x 2026 arm, both without harness/unveil (F26 x 2025 as covariate)", extra_x=" + f26_y25"),
+        "vintage restriction", "R24")
+    # pre-LLM placebo: fingerprints are false positives (writer / genre style) (audit D3-C3, D3-ID-5)
+    for lab, yrs in [("pre-LLM placebo 2018-23", range(2018, 2024)), ("pre-LLM placebo 2020-23", range(2020, 2024))]:
+        add(fit(df[df.year.isin(list(yrs))], "r24_any", "f24", "f26", lab), "pre-LLM placebo", "R24")
+    # genre / composition benchmark (audit D3-ID-1, D3-ID-5)
+    add(fit(d2526, "n24", "f24", "f26", "genre benchmark: neutral N24 outcome (improv*|utili[sz]*|exploit*)"),
+        "genre benchmark", "N24")
+    add(fit(d2526[d2526.NA == 1], "n24", "f24", "f26", "genre benchmark: neutral N24 outcome, NA pool"),
+        "genre benchmark", "N24")
+    sub = d2526[d2526.r24_or_n24 == 1]
+    add(fit(sub, "r24_any", "f24", "f26", "meaning-fixed: R24 among titles with R24 or N24"), "meaning-fixed", "R24")
+    add(fit(sub[sub.NA == 1], "r24_any", "f24", "f26", "meaning-fixed: R24 among titles with R24 or N24, NA pool"),
+        "meaning-fixed", "R24")
+    sub2 = d2526[(d2526.r24_noshared == 1) | (d2526.n24 == 1)]
+    add(fit(sub2, "r24_noshared", "f24_noshared", "f26",
+            "meaning-fixed, both without harness/unveil: R24 among titles with R24 or N24"), "meaning-fixed", "R24")
+    import json
+    inv = json.loads((OUTDIR / "slot_inventory.json").read_text())["inventory"]
+    SP = D3.slot_panel(df, inv, controls=False, years_from=2025)
+    SP = SP.merge(df[["submission_id", "f24", "f26", "f24_noshared"]].rename(columns={"f24": "F24", "f26": "F26"}),
+                  on="submission_id")
+    add(fit_slots(SP, "meaning-fixed: LLM slot variant | slot filled (slot FE)"), "meaning-fixed", "R24")
+    add(fit_slots(SP[SP.NA == 1], "meaning-fixed: LLM slot variant | slot filled (slot FE), NA pool"),
+        "meaning-fixed", "R24")
+    SPn = SP[~SP.word.isin(["harnessing", "unveiling"])]
+    add(fit_slots(SPn, "meaning-fixed, without harness/unveil: LLM slot variant | slot filled (slot FE)",
+                  xa="f24_noshared"), "meaning-fixed", "R24")
+    # F26 components one at a time (typography as covariate) (audit D3-ID-5)
+    for c, _ in F26_COMPONENTS:
+        if d2526[f"c26_{c}"].sum() >= 60:
+            add(fit(d2526, "r24_any", "f24", f"c26_{c}", f"F26 component: {c} (typography as covariate)",
+                    extra_x=" + f26_typo_i"), "F26 components", "R24")
+            add(fit(d2526, "n24", "f24", f"c26_{c}", f"F26 component: {c}, neutral N24 outcome",
+                    extra_x=" + f26_typo_i"), "F26 components", "N24")
     # pilot lexicons (reconciliation with design/pi/vintage_check.py)
     add(fit(d2526, "t24_pilot", "v24_pilot", "v26_pilot", "pilot lexicons, pilot controls (no log authors)",
             ctrl=CTRL.replace(" + log_authors", "")), "pilot reconciliation", "R24")
@@ -188,7 +263,7 @@ def main():
     import matplotlib.ticker as mticker
     from matplotlib.lines import Line2D
     XMIN, XMAX = 0.4, 4.0
-    fig, axes = C.new_fig("double", height=2.7, ncols=2, sharex=True, gridspec_kw={"wspace": 0.32})
+    fig, axes = C.new_fig("double", height=2.9, ncols=2, sharex=True, gridspec_kw={"wspace": 0.32})
     fd = []
     order = ["primary 2025-26", "2025 only", "2026 only", "2024 only"]
     names = {"primary 2025-26": "2025-26 pooled", "2025 only": "2025", "2026 only": "2026",
@@ -209,6 +284,8 @@ def main():
                 fd.append(dict(outcome=fam, sample=nm, fingerprint=fp, OR=r[f"OR_{key}"], lo=r[f"OR_{key}_lo"],
                                hi=r[f"OR_{key}_hi"], ratio_F24_over_F26=r.ratio, ratio_lo=r.ratio_lo,
                                ratio_hi=r.ratio_hi, p_one_ratio_gt1=r.p_one, nobs=r.nobs,
+                               ratio_label="F24/F26" if fam == "R24" else "F26/F24 (predicted direction)",
+                               ratio_shown=r.ratio if fam == "R24" else 1 / r.ratio,
                                truncated_lo=bool(r[f"OR_{key}_lo"] < XMIN), truncated_hi=bool(r[f"OR_{key}_hi"] > XMAX)))
         C.forest(ax, labels, est, lo, hi, ref=1.0, log=True, colors=cols)
         ypos = np.arange(len(labels))[::-1]
@@ -224,14 +301,18 @@ def main():
         mids, mlabs = [], []
         for k, (_, r) in enumerate(sub.iterrows()):
             mids.append((ypos[2 * k] + ypos[2 * k + 1]) / 2)
-            mlabs.append(f"{names[r.label]}\nF24/F26 {r.ratio:.2f} [{r.ratio_lo:.2f}, {r.ratio_hi:.2f}]")
+            if fam == "R24":
+                mlabs.append(f"{names[r.label]}\nF24/F26 {r.ratio:.2f} [{r.ratio_lo:.2f}, {r.ratio_hi:.2f}]")
+            else:  # mirror: the predicted direction is F26 > F24
+                mlabs.append(f"{names[r.label]}\nF26/F24 {1 / r.ratio:.2f} [{1 / r.ratio_hi:.2f}, "
+                             f"{1 / r.ratio_lo:.2f}]")
             if k:
                 ax.axhline(ypos[2 * k] + 0.5, color=C.GRID, lw=0.6)
         ax.set_yticks(mids, mlabs, fontsize=7)
     fig.legend(handles=[Line2D([], [], color=C.COLORS[0], marker="o", lw=1.6, label="F24 abstract fingerprint (2024 vintage)"),
-                        Line2D([], [], color=C.COLORS[1], marker="o", lw=1.6, label="F26 abstract fingerprint (2026 vintage)")],
+                        Line2D([], [], color=C.COLORS[1], marker="o", lw=1.6, label="F26 abstract fingerprint (2026 markers; at its pre-LLM base rate before 2026)")],
                loc="lower center", ncol=2, fontsize=7.5, bbox_to_anchor=(0.45, -0.02))
-    fig.subplots_adjust(left=0.2, right=0.98, bottom=0.27, top=0.9, wspace=0.62)
+    fig.subplots_adjust(left=0.17, right=0.98, bottom=0.27, top=0.9, wspace=0.95)
     C.save_fig(fig, "fig_F3_3_vintage_forest", OUTDIR, data=pd.DataFrame(fd))
 
     prim24 = M[(M.outcome_family == "R24") & (M.label == "primary 2025-26")].iloc[0]
@@ -240,7 +321,29 @@ def main():
                    ratio_hi=prim24.ratio_hi, p_one=prim24.p_one, prediction_ratio_gt1=bool(prim24.ratio > 1),
                    ratio_CI_excludes_1=bool(prim24.ratio_lo > 1), falsified=bool(prim24.ratio <= 1),
                    mirror_R26_ratio_F26_over_F24=float(1 / prim26.ratio),
-                   mirror_R26_ratio_lo=float(1 / prim26.ratio_hi), mirror_R26_ratio_hi=float(1 / prim26.ratio_lo))
+                   mirror_R26_ratio_lo=float(1 / prim26.ratio_hi), mirror_R26_ratio_hi=float(1 / prim26.ratio_lo),
+                   nobs_logit=int(prim24.nobs), n_dropped_no_variation=int(len(d2526) - prim24.nobs))
+
+    def g(label, fam="R24"):
+        x = M[(M.outcome_family == fam) & (M.label == label)].iloc[0]
+        return dict(OR_F24=float(x.OR_a), OR_F24_lo=float(x.OR_a_lo), OR_F24_hi=float(x.OR_a_hi), OR_F26=float(x.OR_b),
+                    OR_F26_lo=float(x.OR_b_lo), OR_F26_hi=float(x.OR_b_hi), ratio=float(x.ratio),
+                    ratio_lo=float(x.ratio_lo), ratio_hi=float(x.ratio_hi), p_one=float(x.p_one), n=int(x.nobs))
+    verdict["co_primary_shared_lemma_free"] = g("both without harness/unveil")
+    verdict["F26_arm_2026_only"] = g("F26 arm = F26 x 2026 (F26 x 2025 as covariate)")
+    verdict["by_year_2025"] = g("2025 only")
+    verdict["by_year_2026"] = g("2026 only")
+    verdict["NA_pool"] = g("NA pool (camera-ready-free)")
+    verdict["pre_LLM_placebo_2018_23"] = g("pre-LLM placebo 2018-23")
+    verdict["genre_benchmark_N24"] = g("genre benchmark: neutral N24 outcome (improv*|utili[sz]*|exploit*)", "N24")
+    verdict["meaning_fixed_R24_given_R24_or_N24"] = g("meaning-fixed: R24 among titles with R24 or N24")
+    verdict["meaning_fixed_slot"] = g("meaning-fixed: LLM slot variant | slot filled (slot FE)")
+    verdict["meaning_fixed_R24_given_R24_or_N24_shared_lemma_free"] = g(
+        "meaning-fixed, both without harness/unveil: R24 among titles with R24 or N24")
+    verdict["meaning_fixed_slot_shared_lemma_free"] = g(
+        "meaning-fixed, without harness/unveil: LLM slot variant | slot filled (slot FE)")
+    verdict["F24_arm_positive_beyond_shared_lemmas"] = bool(verdict["co_primary_shared_lemma_free"]["OR_F24_lo"] > 1)
+    verdict["F26_prevalence_2021_25"] = {int(k): float(v) for k, v in prev.loc[2021:2025, "f26"].items()}
     res = dict(hypothesis="H3c", models=M.to_dict(orient="records"), lpm=lpm.to_dict(orient="records"),
                cells=desc.to_dict(orient="records"),
                fingerprint_prevalence={int(k): v for k, v in prev.round(4).to_dict(orient="index").items()},

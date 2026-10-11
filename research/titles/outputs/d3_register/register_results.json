@@ -736,11 +736,53 @@
  "context_2024_to_2025": {
   "r24_any": {
    "n_areas": 14,
-   "n_up_2024_to_2025": 13
+   "n_up_2024_to_2025": 13,
+   "taxonomy_confounded": true
   },
   "r26_any": {
    "n_areas": 14,
-   "n_up_2024_to_2025": 4
+   "n_up_2024_to_2025": 4,
+   "taxonomy_confounded": true
+  },
+  "reassigned_sensitivity": {
+   "n_reassigned_2025": 1187,
+   "reassigned_to": {
+    "applications to computer vision, audio, language, and other modalities": 404,
+    "other topics in machine learning (i.e., none of the above)": 235,
+    "generative models": 173,
+    "unsupervised, self-supervised, semi-supervised, and supervised representation learning": 78,
+    "reinforcement learning": 74,
+    "datasets and benchmarks": 46
+   },
+   "raw (2025 native labels)|r24_any": {
+    "n_areas": 14,
+    "n_up_2024_to_2025": 13,
+    "RR_2024_vs_2025": 0.7668646085876398,
+    "lo": 0.6641886861153622,
+    "hi": 0.885413046319387
+   },
+   "raw (2025 native labels)|r26_any": {
+    "n_areas": 14,
+    "n_up_2024_to_2025": 4,
+    "RR_2024_vs_2025": 1.0600977183850597,
+    "lo": 0.9009746165233992,
+    "hi": 1.247323900046881
+   },
+   "new 2025 areas reassigned|r24_any": {
+    "n_areas": 14,
+    "n_up_2024_to_2025": 12,
+    "RR_2024_vs_2025": 0.7752277470704879,
+    "lo": 0.6770984645469829,
+    "hi": 0.8875785300001717
+   },
+   "new 2025 areas reassigned|r26_any": {
+    "n_areas": 14,
+    "n_up_2024_to_2025": 4,
+    "RR_2024_vs_2025": 1.0877069325929398,
+    "lo": 0.908231072665736,
+    "hi": 1.302649079972813
+   },
+   "note": "2024 -> 2025 crosses the 2025 taxonomy change (two new areas absorb papers that 2024 filed elsewhere); read as taxonomy-confounded context, not as a within-area comparison"
   }
  },
  "all21_areas": {
@@ -1129,6 +1171,179 @@
    "spec": "2023-26, all areas"
   }
  ],
+ "neutral_benchmark": {
+  "rates": [
+   {
+    "sample": "all",
+    "outcome": "r24_any",
+    "label": "R24 (LLM-favoured family)",
+    "RR_2026_vs_2025": 0.7440753370875882,
+    "lo": 0.6419977223282466,
+    "hi": 0.862383288922221,
+    "down_of_16": 14,
+    "per1k_2025": 65.44064962980654,
+    "per1k_2026": 49.17346725256329
+   },
+   {
+    "sample": "all",
+    "outcome": "n24",
+    "label": "N24 = improv*|utili[sz]*|exploit* (neutral)",
+    "RR_2026_vs_2025": 0.6889341696953419,
+    "lo": 0.5851431912229947,
+    "hi": 0.8111352867010142,
+    "down_of_16": 15,
+    "per1k_2025": 35.10866969190351,
+    "per1k_2026": 23.854362837413685
+   },
+   {
+    "sample": "all",
+    "outcome": "r24_enh",
+    "label": "enhanc*",
+    "RR_2026_vs_2025": 0.7350017516713111,
+    "lo": 0.592331254750291,
+    "hi": 0.9120362476696242,
+    "down_of_16": 12,
+    "per1k_2025": 41.557200859804155,
+    "per1k_2026": 30.829322731394296
+   },
+   {
+    "sample": "all",
+    "outcome": "n24_improv",
+    "label": "improv*",
+    "RR_2026_vs_2025": 0.6126760281243514,
+    "lo": 0.5077622014605891,
+    "hi": 0.7392671497769339,
+    "down_of_16": 14,
+    "per1k_2025": 31.884404107953188,
+    "per1k_2026": 19.32063890632629
+   },
+   {
+    "sample": "NA pool",
+    "outcome": "r24_any",
+    "label": "R24 (LLM-favoured family)",
+    "RR_2026_vs_2025": 0.7371629576975882,
+    "lo": 0.630202584226737,
+    "hi": 0.8622770515424387,
+    "down_of_16": 12,
+    "per1k_2025": 71.75680452456697,
+    "per1k_2026": 53.195560658247224
+   },
+   {
+    "sample": "NA pool",
+    "outcome": "n24",
+    "label": "N24 = improv*|utili[sz]*|exploit* (neutral)",
+    "RR_2026_vs_2025": 0.69934384071204,
+    "lo": 0.5982133276682922,
+    "hi": 0.8175708980744439,
+    "down_of_16": 14,
+    "per1k_2025": 34.28773418168964,
+    "per1k_2026": 23.6318407960199
+   },
+   {
+    "sample": "NA pool",
+    "outcome": "r24_enh",
+    "label": "enhanc*",
+    "RR_2026_vs_2025": 0.7060282928771447,
+    "lo": 0.5705602807567649,
+    "hi": 0.8736604477301848,
+    "down_of_16": 11,
+    "per1k_2025": 47.72004241781548,
+    "per1k_2026": 34.06046689628779
+   },
+   {
+    "sample": "NA pool",
+    "outcome": "n24_improv",
+    "label": "improv*",
+    "RR_2026_vs_2025": 0.6275670641565068,
+    "lo": 0.5251687068454871,
+    "hi": 0.7499312409143432,
+    "down_of_16": 14,
+    "per1k_2025": 30.92965712265818,
+    "per1k_2026": 19.230769230769234
+   }
+  ],
+  "all|R24_vs_N24_ratio_of_RR": {
+   "ratio": 1.0800383691472748,
+   "lo": 0.8592932059759427,
+   "hi": 1.35749109933375,
+   "p_one_R24_falls_more": 0.7453868157404008
+  },
+  "all|slot_llm_share": {
+   "share_2025": 0.6408730158730159,
+   "share_2026": 0.6682170542635659,
+   "n_2025": 504,
+   "n_2026": 645,
+   "OR_2026_vs_2025": 1.138418366183648,
+   "lo": 0.8720143430920368,
+   "hi": 1.4862099307550727,
+   "n_areas_share_up": 7,
+   "n_areas_share_down": 9
+  },
+  "NA pool|R24_vs_N24_ratio_of_RR": {
+   "ratio": 1.0540780010975048,
+   "lo": 0.8307844543916848,
+   "hi": 1.3373871243309001,
+   "p_one_R24_falls_more": 0.667721486522123
+  },
+  "NA pool|slot_llm_share": {
+   "share_2025": 0.6415094339622641,
+   "share_2026": 0.6763485477178424,
+   "n_2025": 371,
+   "n_2026": 482,
+   "OR_2026_vs_2025": 1.1603910071583192,
+   "lo": 0.850975106414188,
+   "hi": 1.5823110210212474,
+   "n_areas_share_up": 7,
+   "n_areas_share_down": 8
+  }
+ },
+ "word_churn": {
+  "n_words": 365,
+  "families": {
+   "R24": {
+    "up_of_16": 2,
+    "down_of_16": 14,
+    "RR_MH": 0.7435682963774698,
+    "rate2025_per1k": 65.44064962980654
+   },
+   "R26": {
+    "up_of_16": 16,
+    "down_of_16": 0,
+    "RR_MH": 1.95051761815167,
+    "rate2025_per1k": 23.525197038452355
+   }
+  },
+  "share_words_RR_ge_R26": 0.03561643835616438,
+  "share_words_RR_le_R24": 0.15342465753424658,
+  "n_words_RR_ge_1p5": 38,
+  "share_of_those_up_ge12": 0.5789473684210527,
+  "n_words_RR_le_0p8": 85,
+  "share_of_those_down_ge10": 0.5647058823529412,
+  "n_words_rate_ge20": 42,
+  "share_freq_words_pass_either_threshold": 0.6428571428571429,
+  "words_up_16_of_16": [
+   "when",
+   "framework",
+   "via",
+   "for"
+  ],
+  "words_up_15_of_16": [
+   "reasoning",
+   "test-time",
+   "bridging",
+   "multimodal",
+   "llms"
+  ],
+  "random4_n_draws": 1000,
+  "random4_pool_words": 297,
+  "random4_share_RR_ge_R26": 0.0,
+  "random4_share_up_ge12": 0.127,
+  "random4_RR_q01_q50_q99": [
+   0.695,
+   0.988,
+   1.51
+  ]
+ },
  "per_area_primary": [
   {
    "family": "r24_any",
@@ -1750,5 +1965,5 @@
   "p_sign_r26": 1.52587890625e-05,
   "p_H3b_intersection_union": 0.0020904541015625
  },
- "runtime_s": 11.9
+ "runtime_s": 14.4
 }

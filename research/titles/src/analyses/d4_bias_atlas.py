@@ -29,11 +29,15 @@ bound from the arXiv camera-ready audit (T4.2).
     O  prevalence of ALL-CAPS title, sentence case, question opener, O-union.
     L  prevalence of title typography, R24, R26, F24, F26, abstract em dash, style density, L-union;
        RARE21 Kobak bound (mean 2024-26).
-    Gap = log(T(s3)/T(s0)) = desk + exit + decision parts (log ratios between consecutive stage sets; the desk and
-    exit parts are exact selection on submission-stage text of the exiting papers). For auditable title features
-    the decision part is split into selection and editing using the audit DiD (editing = observed - selection-
-    only, with the interval implied by the DiD CI). Abstract features and non-prevalence statistics: editing not
-    separable. The +/-10% criterion applies to ratio-type M statistics.
+    Gap = log(T(s3)/T(s0)) = desk + exit + decision parts (log ratios between consecutive stage sets). The desk and
+    exit parts compare the submission-stage text of exiting papers with survivor sets that still contain accepted,
+    camera-ready text, so they are not pure selection; camera-ready-free versions (accepted papers removed from
+    every stage set) are reported alongside (log_desk_crf, log_exit_crf). For auditable title features the audit
+    DiD gives the editing interval implied by its CI; no decision split is identified, so the figure draws every
+    decision part as 'not separable'. The +/-10% criterion is applied on the effect scale: prevalence/mean
+    statistics as ratios, OR statistics as ratios of log-ORs (delta-method CI from the joint IF covariance). The
+    pre-registered colon-premium trend (decided-only analogue) enters the M count; the level is supplementary.
+    Entropy/JSD intervals are random-selection null bands (not CIs). BH q-values over all atlas tests.
 
 Outputs (outputs/d4_filter/): audit_pairs.csv, T4_2_audit_flips.csv, T4_2_decision_bound.csv, kobak_bounds.csv,
 kobak_series.csv, atlas.csv, atlas_peaks.csv, bias_atlas.json, fig_F4_2_bias_atlas.*, fig_F4_3_kobak_bounds.*,
@@ -217,12 +221,15 @@ def kobak(df: pd.DataFrame, cols: dict[str, str], n_boot: int = N_BOOT) -> tuple
                 for si, s in enumerate(KOBAK_SETS):
                     smr = S.summarise(Bd[:, j, si])
                     rows.append(dict(marker=k, baseline=bl, year=Y, set=s, bound=smr["est"], lo95=smr["lo95"],
-                                     hi95=smr["hi95"], se=smr["se"], p_Y=float(P[Y][0, j, si])))
+                                     hi95=smr["hi95"], se=smr["se"], p_Y=float(P[Y][0, j, si]),
+                                     basic_lo95=2 * smr["est"] - smr["hi95"], basic_hi95=2 * smr["est"] - smr["lo95"],
+                                     n_Y=float(sums[Y][1][0, si])))
                 ratio = Bd[:, j, KOBAK_SETS.index("s3")] / Bd[:, j, KOBAK_SETS.index("s0")]
                 smr = S.summarise(ratio)
                 rows.append(dict(marker=k, baseline=bl, year=Y, set="ratio_acc_all", bound=smr["est"],
                                  lo95=smr["lo95"], hi95=smr["hi95"], se=smr["se"], p_le1=smr["p_le1"],
-                                 p_ge1=smr["p_ge1"],
+                                 p_ge1=smr["p_ge1"], basic_lo95=2 * smr["est"] - smr["hi95"],
+                                 basic_hi95=2 * smr["est"] - smr["lo95"],
                                  p_ge_0p9=float(np.mean(ratio[1:] >= 0.9)), p_ge_0p85=float(np.mean(ratio[1:] >= 0.85))))
     # pooled 2024-26 mean bound and its ratio
     for bl in ["cons"]:
@@ -475,9 +482,9 @@ def peak_years(df: pd.DataFrame, X: sparse.csr_matrix, vocab: np.ndarray, n_top:
 def fig_atlas(atlas: pd.DataFrame):
     import matplotlib.pyplot as plt
     from matplotlib.patches import Patch
-    a = atlas[atlas.in_forest].copy().reset_index(drop=True)
+    a = atlas[atlas.in_forest.astype(bool)].copy().reset_index(drop=True)
     n = len(a)
-    fig, (ax1, ax2) = C.new_fig("double", height=0.215 * n + 1.3, ncols=2,
+    fig, (ax1, ax2) = C.new_fig("double", height=0.215 * n + 1.5, ncols=2,
                                 gridspec_kw=dict(width_ratios=[1.0, 1.15], wspace=0.06), sharey=True)
     ypos = np.arange(n)[::-1].astype(float)
     cls_col = {"M": C.COLORS[0], "O": C.COLORS[1], "L": C.COLORS[2]}
@@ -487,14 +494,18 @@ def fig_atlas(atlas: pd.DataFrame):
     rows = []
     for yv, r in zip(ypos, a.itertuples()):
         col = cls_col[r.cls]
+        band = str(r.interval_type).startswith("random-selection")
         lo, hi = max(r.ratio_lo95, xmin), min(r.ratio_hi95, xmax)
-        ax1.plot([lo, hi], [yv, yv], color=col, lw=1.4, solid_capstyle="butt")
-        ax1.plot([r.ratio], [yv], "o", color=col, ms=4.8)
-        sep = bool(r.edit_separable)
-        rows.append(dict(statistic=r.label, cls=r.cls, ratio=r.ratio, lo95=r.ratio_lo95, hi95=r.ratio_hi95,
-                         desk=r.log_desk_sel if sep else r.log_desk, exit=r.log_exit_sel if sep else r.log_exit,
-                         decision_selection=r.log_dec_sel, editing=r.log_edit,
-                         editing_lo=r.log_edit_lo, editing_hi=r.log_edit_hi, decision_total=r.log_dec,
+        ax1.plot([lo, hi], [yv, yv], color=col, lw=1.4, solid_capstyle="butt", ls=(0, (2, 1.2)) if band else "-")
+        if r.ratio_lo95 < xmin:
+            ax1.plot([xmin], [yv], marker="<", color=col, ms=4, lw=0, clip_on=False)
+        effect = str(r.scale).startswith("effect")
+        ax1.plot([r.ratio], [yv], "D" if effect else "o", color=col, ms=4.6 if effect else 4.8,
+                 markerfacecolor="white" if effect else col)
+        rows.append(dict(statistic=r.label, cls=r.cls, scale=r.scale, interval_type=r.interval_type,
+                         published_set=r.published_set, ratio=r.ratio, lo95=r.ratio_lo95, hi95=r.ratio_hi95,
+                         desk=r.log_desk, exit=r.log_exit, decision_total=r.log_dec, desk_crf=r.log_desk_crf,
+                         exit_crf=r.log_exit_crf, editing_lo=r.log_edit_lo, editing_hi=r.log_edit_hi,
                          editing_separable=r.edit_separable, y=yv))
     ax1.set_xscale("log")
     ax1.set_xlim(xmin, xmax)
@@ -504,42 +515,37 @@ def fig_atlas(atlas: pd.DataFrame):
     ax1.set_yticks(ypos, a.label)
     ax1.tick_params(axis="y", length=0)
     ax1.grid(axis="y", visible=False)
-    ax1.set_xlabel("Published-only / all-submission estimate (log)")
+    ax1.set_xlabel("Published-only / all-submission estimate (log axis)")
     ax1.set_title("a  Accepted-only vs all submissions", loc="left", fontsize=9)
     for i in range(1, n):
         if a.cls[i] != a.cls[i - 1]:
             for ax in (ax1, ax2):
                 ax.axhline(ypos[i] + 0.5, color=C.GRID, lw=0.8)
-    # panel b: stacked log-ratio decomposition
-    cols = [("log_desk", "Desk (selection)", C.COLORS[0]), ("log_exit", "Exit (selection)", C.COLORS[1]),
-            ("log_dec_sel", "Decision (selection)", C.COLORS[2]), ("log_edit", "Camera-ready editing (audit)",
-                                                                  C.COLORS[3])]
+    # panel b: stage decomposition of log(published/all); stage palette distinct from the class colours of panel a
+    st_col = {"desk": "#3d3d3a", "exit": "#9a9994", "dec": "#d9d8d3"}
     h = 0.62
     for yv, r in zip(ypos, a.itertuples()):
+        if not np.isfinite(r.log_dec):
+            ax2.text(-1.08, yv, "effect-scale ratio: no stage split", fontsize=6.4, color=C.TEXT2, ha="left",
+                     va="center")
+            continue
         pos, neg = 0.0, 0.0
-        if r.edit_separable:
-            parts = [("log_desk", r.log_desk_sel), ("log_exit", r.log_exit_sel), ("log_dec_sel", r.log_dec_sel),
-                     ("log_edit", r.log_edit)]
-        else:
-            parts = [("log_desk", r.log_desk), ("log_exit", r.log_exit), ("log_dec", r.log_dec)]
-        for key, v in parts:
+        for key, v in [("desk", r.log_desk), ("exit", r.log_exit), ("dec", r.log_dec)]:
             if not np.isfinite(v):
                 continue
-            colr = {"log_desk": C.COLORS[0], "log_exit": C.COLORS[1], "log_dec_sel": C.COLORS[2],
-                    "log_edit": C.COLORS[3], "log_dec": C.COLORS[2]}[key]
             left = pos if v >= 0 else neg + v
-            ax2.barh(yv, abs(v), left=left, height=h, color=colr, alpha=0.95 if key != "log_dec" else 0.45,
-                     hatch="////" if key == "log_dec" else None, edgecolor="white" if key != "log_dec" else colr,
-                     linewidth=0)
+            ax2.barh(yv, abs(v), left=left, height=h, color=st_col[key], hatch="////" if key == "dec" else None,
+                     edgecolor="#8a8984" if key == "dec" else "white", linewidth=0.0 if key != "dec" else 0.3)
             if v >= 0:
                 pos += v
             else:
                 neg += v
         if r.edit_separable and np.isfinite(r.log_edit_lo):
             lo_, hi_ = max(r.log_edit_lo, -1.1), min(r.log_edit_hi, 0.55)
-            ax2.plot([lo_, hi_], [yv - 0.36, yv - 0.36], color=C.TEXT2, lw=0.9)
+            ax2.plot([lo_, hi_], [yv - 0.36, yv - 0.36], color=C.COLORS[3], lw=1.1)
         elif r.edit_separable:
-            ax2.text(0.54, yv + 0.33, "audit CI unbounded", fontsize=6.2, color=C.TEXT2, ha="right", va="center")
+            ax2.text(0.54, yv, "audit interval unbounded", fontsize=6.2, color=C.TEXT2, ha="right",
+                     va="center")
         tot = np.log(r.ratio)
         ax2.plot([tot], [yv], marker="|", color=C.TEXT, ms=7, mew=1.4)
     ax2.axvline(0, color=C.GREY, lw=0.8)
@@ -547,14 +553,18 @@ def fig_atlas(atlas: pd.DataFrame):
     ax2.grid(axis="y", visible=False)
     ax2.tick_params(axis="y", length=0)
     ax2.set_xlabel("Contribution to log(published / all)")
-    ax2.set_title("b  Selection vs editing", loc="left", fontsize=9)
-    handles = [Patch(color=c, label=l) for _, l, c in cols]
-    handles.append(Patch(facecolor=C.COLORS[2], alpha=0.45, hatch="////", edgecolor=C.COLORS[2],
-                         label="Decision (selection + editing, not separable)"))
-    handles.append(plt.Line2D([], [], marker="|", color=C.TEXT, lw=0, ms=7, mew=1.4, label="Total log ratio"))
-    handles.append(plt.Line2D([], [], color=C.TEXT2, lw=0.9, label="Editing, audit 95% interval"))
-    fig.legend(handles=handles, loc="upper center", bbox_to_anchor=(0.5, 0.035), ncol=3, fontsize=7.5,
+    ax2.set_title("b  Where the gap arises (no stage is identified as pure selection)", loc="left", fontsize=9)
+    handles = [Patch(color=st_col["desk"], label="Desk stage"), Patch(color=st_col["exit"], label="Exit stage"),
+               Patch(facecolor=st_col["dec"], hatch="////", edgecolor="#8a8984",
+                     label="Decision (selection + camera-ready editing, not separable)"),
+               plt.Line2D([], [], marker="|", color=C.TEXT, lw=0, ms=7, mew=1.4, label="Total log ratio"),
+               plt.Line2D([], [], color=C.COLORS[3], lw=1.1, label="Editing implied by the audit 95% CI")]
+    fig.legend(handles=handles, loc="upper center", bbox_to_anchor=(0.5, 0.035), ncol=3, fontsize=7.3,
                handlelength=1.4, columnspacing=1.0)
+    fig.text(0.01, -0.05, "Desk and exit compare exiting papers with survivor sets that contain accepted camera-ready "
+             "text (camera-ready-free variants in atlas.csv). Hollow diamonds: OR statistics on the effect (log-OR) "
+             "scale; dashed intervals: random-selection null bands, not CIs. Colon-premium trend: decided-only "
+             "(ACC vs REJ) analogue.", fontsize=6.6, color=C.TEXT2, ha="left", va="top", wrap=True)
     cl_handles = [plt.Line2D([], [], marker="o", color=cls_col[k], lw=1.4, ms=4.8, label=l)
                   for k, l in [("M", "Mainstream (M)"), ("O", "Outsider (O)"), ("L", "LLM-style (L)")]]
     cl_handles.append(Patch(color=C.GRID, label="+/-10% band"))
@@ -581,6 +591,7 @@ def fig_kobak(series: pd.DataFrame, bounds: pd.DataFrame, marker: str = "F24"):
         for Y, v in zip(POST, q):
             rows.append(dict(panel="a", set=s, year=Y, value=100 * v, kind="baseline_cons"))
     ax1.set_xticks(range(2021, 2027), [f"{y}" for y in range(2021, 2027)])
+    ax1.set_ylim(0, None)
     ax1.set_ylabel("Abstracts with a RARE21 word (%)")
     ax1.set_title("a  Marker prevalence and conservative baselines", loc="left", fontsize=9)
     ax1.legend(loc="upper left", fontsize=7.5)
@@ -597,18 +608,19 @@ def fig_kobak(series: pd.DataFrame, bounds: pd.DataFrame, marker: str = "F24"):
     rr = b[b.set == "ratio_acc_all"].sort_values("year")
     for r in rr.itertuples():
         top = 100 * b[(b.year == r.year) & b.set.isin(["s0", "s3", "NAp"])].hi95.max()
-        ax2.text(int(r.year), top + 0.7, f"acc/all\n{r.bound:.2f}", ha="center", va="bottom", fontsize=7,
-                 color=C.TEXT2)
+        ax2.text(int(r.year), top + 0.6, f"acc/all {r.bound:.2f}\n[{r.lo95:.2f}, {r.hi95:.2f}]", ha="center",
+                 va="bottom", fontsize=6.6, color=C.TEXT2)
         rows.append(dict(panel="b", set="ratio_acc_all", year=int(r.year), value=r.bound, lo95=r.lo95, hi95=r.hi95,
                          kind="ratio"))
+    ax2.axhline(0, color=C.GREY, lw=0.8)
     ax2.set_xticks(list(POST), [str(y) for y in POST])
     ax2.set_xlim(2023.5, 2026.5)
-    ax2.set_ylim(0, None)
     ax2.set_ylabel("Lower bound on LLM-styled share (pp)")
-    ax2.set_title("b  Kobak-style lower bound", loc="left", fontsize=9)
-    ax2.legend(loc="upper right", fontsize=7.5)
-    ylim = ax2.get_ylim()
-    ax2.set_ylim(0, ylim[1] * 1.12)
+    ax2.set_title("b  Kobak-style lower bound (95% percentile CIs)", loc="left", fontsize=9)
+    ax2.legend(loc="lower left", fontsize=7.2)
+    lo_all = 100 * b[b.set.isin(["s0", "s3", "NAp"])].lo95.min()
+    hi_all = 100 * b[b.set.isin(["s0", "s3", "NAp"])].hi95.max()
+    ax2.set_ylim(min(-1.0, lo_all - 0.5), hi_all * 1.25)
     return fig, pd.DataFrame(rows)
 
 
@@ -686,8 +698,8 @@ def main():
     log(f"audit done ({time.time() - t0:.0f}s)", fh)
 
     # ---------------- (2) Kobak bounds
-    kcols = {"F24": "f24", "F24_2": "f24_2", "F26_words": "f26_words", "emdash": "abs_emdash", "F26": "f26",
-             "L_abstract": "L_abstract"}
+    kcols = {"F24": "f24", "F24_2": "f24_2", "F26_words": "f26_words", "emdash": "abs_emdash", "F26": "f26_abs",
+             "F26_incl_title": "f26", "L_abstract": "L_abstract"}
     kb, ks, kstore = kobak(df, kcols)
     kb.to_csv(OUTDIR / "kobak_bounds.csv", index=False)
     ks.to_csv(OUTDIR / "kobak_series.csv", index=False)
@@ -699,6 +711,11 @@ def main():
     log(f"kobak done ({time.time() - t0:.0f}s)", fh)
 
     # ---------------- (3) atlas
+    # Audit revisions: OR-type statistics are compared on the effect (log-OR) scale (ratio of log-ORs, delta-method CI
+    # from the joint IF covariance); the pre-registered colon-premium TREND (decided-only analogue) enters the M count,
+    # the level is supplementary; entropy/JSD intervals are random-selection null bands (not CIs) and do not enter the
+    # 90%-CI count; camera-ready-free desk/exit parts (accepted papers removed from every stage set) are reported next
+    # to the observed ones; BH q-values over all atlas tests.
     prev_items = [
         ("NAME prevalence", "name_primary", None), ("Compound prevalence", "name_compound", None),
         ("Phrase-colon prevalence", "phrase_colon", None), ("Mixed-case name prevalence", "ortho_mixed_case", None),
@@ -707,11 +724,22 @@ def main():
         ("ALL-CAPS title prevalence", "case_all_caps", None), ("Sentence case prevalence", "case_sentence_case", None),
         ("Question opener prevalence", "question_opener", None), ("O-union prevalence", "O_union", None),
         ("Title typography prevalence", "title_typo", None), ("R24 prevalence", "r24_any", None),
-        ("R26 prevalence", "r26_any", None), ("F24 prevalence", "f24", None), ("F26 prevalence", "f26", None),
+        ("R26 prevalence", "r26_any", None), ("F24 prevalence", "f24", None), ("F26 (abstract) prevalence", "f26_abs", None),
         ("Em dash (abstract) prevalence", "abs_emdash", None), ("Style density (mean)", "xs_per100", None),
         ("L-union prevalence", "L_union", None),
     ]
     PS = prevalence_stats(df, prev_items)
+    # camera-ready-free stage sets (accepted papers removed): prevalence on s0n, s1n, s2n (point estimates)
+    crf = {}
+    for (label, col, cond) in prev_items:
+        d_ = df.copy()
+        cs = ["s0n", "s1n", "s2n"]
+        if cond is not None:
+            for c_ in cs:
+                d_[c_ + "c"] = d_[c_] * d_[cond]
+            cs = [c_ + "c" for c_ in cs]
+        sm_ = S.stage_sums(d_, [col], cs, n_boot=0)
+        crf[label] = S.pooled_prev(sm_, POST, "std")[0, 0, :]
     cls_of = {"NAME prevalence": "M", "Compound prevalence": "M", "Phrase-colon prevalence": "M",
               "Mixed-case name prevalence": "M", "Title Case prevalence": "M", "Snowclone share": "M",
               "LLM abbreviation-only share": "M", "ALL-CAPS title prevalence": "O", "Sentence case prevalence": "O",
@@ -723,19 +751,27 @@ def main():
                  "title_typo": "title_typo", "r24_any": "R24", "r26_any": "R26"}
     atlas_rows = []
     fl = flips.set_index("feature")
+    base_cols = dict(edit_separable=False, log_dec_sel=np.nan, log_edit=np.nan, log_edit_lo=np.nan, log_edit_hi=np.nan,
+                     log_desk_crf=np.nan, log_exit_crf=np.nan, p_two_sided=np.nan, or_ratio=np.nan,
+                     or_ratio_lo95=np.nan, or_ratio_hi95=np.nan)
 
-    def add_row(label, cls, vals_boot, kind, edit=None, in_forest=True, note=""):
-        """vals_boot: (B+1, 4) statistic on s0..s3 (row 0 point)."""
+    def add_row(label, cls, vals_boot, kind, edit=None, in_forest=True, note="", crf_vals=None):
+        """vals_boot: (B+1, 4) statistic on s0..s3 (row 0 point). Paper-bootstrap percentile CI of T_s3/T_s0."""
         v = vals_boot
         with np.errstate(divide="ignore", invalid="ignore"):
             ratio = v[:, 3] / v[:, 0]
         smr = S.summarise(ratio)
-        r = dict(label=label, cls=cls, kind=kind, T_s0=float(v[0, 0]), T_s1=float(v[0, 1]), T_s2=float(v[0, 2]),
+        r = dict(label=label, cls=cls, kind=kind, scale="ratio", published_set="accepted (s3)",
+                 interval_type="paper bootstrap (2,000)", in_count=True,
+                 T_s0=float(v[0, 0]), T_s1=float(v[0, 1]), T_s2=float(v[0, 2]),
                  T_s3=float(v[0, 3]), ratio=smr["est"], ratio_lo95=smr["lo95"], ratio_hi95=smr["hi95"],
                  ratio_lo90=smr["lo90"], ratio_hi90=smr["hi90"], log_desk=float(np.log(v[0, 1] / v[0, 0])),
                  log_exit=float(np.log(v[0, 2] / v[0, 1])), log_dec=float(np.log(v[0, 3] / v[0, 2])),
-                 edit_separable=False, log_dec_sel=np.nan, log_edit=np.nan, log_edit_lo=np.nan, log_edit_hi=np.nan,
-                 in_forest=in_forest, note=note)
+                 in_forest=in_forest, note=note, **base_cols)
+        r["p_two_sided"] = float(min(1.0, 2 * min(smr["p_ge1"], smr["p_le1"])))
+        if crf_vals is not None:
+            r["log_desk_crf"] = float(np.log(crf_vals[1] / crf_vals[0]))
+            r["log_exit_crf"] = float(np.log(crf_vals[2] / crf_vals[1]))
         r["within_10pct"] = bool(0.9 <= r["ratio"] <= 1.1)
         r["ci90_within_10pct"] = bool(r["ratio_lo90"] >= 0.9 and r["ratio_hi90"] <= 1.1)
         if edit is not None:
@@ -769,7 +805,7 @@ def main():
                         audit_did_lo95_pp=float(100 * Dlo), audit_did_hi95_pp=float(100 * Dhi),
                         edit_interval_unbounded=unbounded)
         add_row(label, cls, v, "prevalence" if col != "xs_per100" else "mean", edit=edit,
-                note="conditional on titles naming language models" if cond else "")
+                note="conditional on titles naming language models" if cond else "", crf_vals=crf[label])
     log(f"atlas prevalence stats done ({time.time() - t0:.0f}s)", fh)
 
     # Kobak bound mean 2024-26 (F24, cons) per stage set
@@ -777,60 +813,79 @@ def main():
     mb = np.mean([kstore["boot"][("cons", Y)][:, kb_idx, :4] for Y in POST], axis=0)  # (B+1, 4) for s0..s3
     add_row("RARE21 Kobak bound (2024-26 mean)", "L", mb, "bound")
 
-    # ITS slope change across stage sets (analytic joint covariance)
-    its = its_stage_fits(df)
-    b, V = its["b"], its["V"]
     zq = stats.norm.ppf(0.975)
     z90 = stats.norm.ppf(0.95)
-    d30 = b[3] - b[0]
-    se30 = float(np.sqrt(V[3, 3] + V[0, 0] - 2 * V[0, 3]))
+
+    def effect_ratio(b, V, i, j=0):
+        """b_i / b_j with a delta-method SE from the joint covariance; also the difference b_i - b_j."""
+        r_ = b[i] / b[j]
+        se_r = float(np.sqrt(V[i, i] - 2 * r_ * V[i, j] + r_ ** 2 * V[j, j]) / abs(b[j]))
+        dlt = b[i] - b[j]
+        se_d = float(np.sqrt(V[i, i] + V[j, j] - 2 * V[i, j]))
+        return dict(ratio=float(r_), ratio_lo95=float(r_ - zq * se_r), ratio_hi95=float(r_ + zq * se_r),
+                    ratio_lo90=float(r_ - z90 * se_r), ratio_hi90=float(r_ + z90 * se_r), ratio_se=se_r,
+                    diff=float(dlt), diff_se=se_d, diff_lo95=float(dlt - zq * se_d), diff_hi95=float(dlt + zq * se_d),
+                    p_two_sided=float(2 * stats.norm.sf(abs(dlt) / se_d)))
+
+    # ITS slope change across stage sets (analytic joint covariance); effect scale = ratio of slope-change log-ORs
+    its = its_stage_fits(df)
+    b, V = its["b"], its["V"]
     ORs = np.exp(b)
-    its_row = dict(label="ITS slope-change OR (NAME)", cls="M", kind="OR (ratio of ORs)", T_s0=ORs[0], T_s1=ORs[1],
-                   T_s2=ORs[2], T_s3=ORs[3], ratio=float(ORs[3] / ORs[0]), ratio_lo95=float(np.exp(d30 - zq * se30)),
-                   ratio_hi95=float(np.exp(d30 + zq * se30)), ratio_lo90=float(np.exp(d30 - z90 * se30)),
-                   ratio_hi90=float(np.exp(d30 + z90 * se30)), log_desk=float(b[1] - b[0]),
-                   log_exit=float(b[2] - b[1]), log_dec=float(b[3] - b[2]), edit_separable=False, log_dec_sel=np.nan,
-                   log_edit=np.nan, log_edit_lo=np.nan, log_edit_hi=np.nan, in_forest=True,
-                   note=f"slope-change log OR s0 {b[0]:.3f} (se {its['se'][0]:.3f}), s3 {b[3]:.3f} "
-                        f"(se {its['se'][3]:.3f}); diff se {se30:.3f}")
+    er = effect_ratio(b, V, 3)
+    d30, se30 = er["diff"], er["diff_se"]
+    its_row = dict(label="ITS slope change (NAME), effect scale", cls="M", kind="ratio of slope-change log-ORs",
+                   scale="effect (log-OR) ratio", published_set="accepted (s3)",
+                   interval_type="delta method, joint IF covariance", in_count=True,
+                   T_s0=float(b[0]), T_s1=float(b[1]), T_s2=float(b[2]), T_s3=float(b[3]),
+                   log_desk=np.nan, log_exit=np.nan, log_dec=np.nan, in_forest=True, **base_cols)
+    its_row.update({k: v for k, v in er.items() if k.startswith("ratio")})
+    its_row.update(p_two_sided=er["p_two_sided"], or_ratio=float(ORs[3] / ORs[0]),
+                   or_ratio_lo95=float(np.exp(d30 - zq * se30)), or_ratio_hi95=float(np.exp(d30 + zq * se30)),
+                   diff_s3_s0=d30, diff_se=se30,
+                   note=f"slope-change log OR s0 {b[0]:.3f} (se {its['se'][0]:.3f}; OR {ORs[0]:.3f}), s3 {b[3]:.3f} "
+                        f"(se {its['se'][3]:.3f}; OR {ORs[3]:.3f}); difference {d30:+.3f} (se {se30:.3f}); "
+                        f"ratio of ORs {ORs[3] / ORs[0]:.3f} (the earlier OR-scale comparison)")
     its_row["within_10pct"] = bool(0.9 <= its_row["ratio"] <= 1.1)
     its_row["ci90_within_10pct"] = bool(its_row["ratio_lo90"] >= 0.9 and its_row["ratio_hi90"] <= 1.1)
     atlas_rows.append(its_row)
-    log(f"ITS stage fits: ORs {np.round(ORs, 4)} ({time.time() - t0:.0f}s)", fh)
+    log(f"ITS stage fits: logORs {np.round(b, 4)}, ORs {np.round(ORs, 4)}; s3/s0 effect ratio {er['ratio']:.3f} "
+        f"[{er['ratio_lo95']:.3f}, {er['ratio_hi95']:.3f}] ({time.time() - t0:.0f}s)", fh)
 
-    # colon premium (level and trend): decided-only (s2) vs all (s0)
+    # colon premium (level and trend): decided-only (s2) vs all (s0); no accepted-only version exists
     cp = colon_premium_fits(df)
-    for kind, lab in [("level", "Colon premium OR, 2024-26 (decided-only)"),
-                      ("trend", "Colon premium trend, 2018-26 (decided-only)")]:
+    for kind, lab in [("trend", "Colon-premium trend, 2018-26 (decided-only)"),
+                      ("level", "Colon premium, 2024-26 (decided-only; supplementary)")]:
         b, V = cp[kind]["b"], cp[kind]["V"]
-        d20 = b[2] - b[0]
-        se20 = float(np.sqrt(V[2, 2] + V[0, 0] - 2 * V[0, 2]))
-        r = dict(label=lab, cls="M", kind="OR" if kind == "level" else "log-OR slope per year",
-                 T_s0=float(np.exp(b[0]) if kind == "level" else b[0]),
-                 T_s1=float(np.exp(b[1]) if kind == "level" else b[1]),
-                 T_s2=float(np.exp(b[2]) if kind == "level" else b[2]), T_s3=np.nan,
-                 log_desk=float(b[1] - b[0]), log_exit=float(b[2] - b[1]), log_dec=np.nan, edit_separable=False,
-                 log_dec_sel=np.nan, log_edit=np.nan, log_edit_lo=np.nan, log_edit_hi=np.nan,
-                 diff_s2_s0=float(d20), diff_se=se20, diff_lo95=float(d20 - zq * se20), diff_hi95=float(d20 + zq * se20),
+        er = effect_ratio(b, V, 2)
+        r = dict(label=lab, cls="M", kind="ratio of log-OR slopes" if kind == "trend" else "ratio of log-ORs",
+                 scale="effect (log-OR) ratio", published_set="decided (s2: ACC vs REJ)",
+                 interval_type="delta method, joint IF covariance", in_count=(kind == "trend"),
+                 T_s0=float(b[0]), T_s1=float(b[1]), T_s2=float(b[2]), T_s3=np.nan,
+                 log_desk=np.nan, log_exit=np.nan, log_dec=np.nan, in_forest=(kind == "trend"), **base_cols)
+        r.update({k: v for k, v in er.items() if k.startswith("ratio")})
+        r.update(p_two_sided=er["p_two_sided"], diff_s2_s0=er["diff"], diff_se=er["diff_se"],
+                 diff_lo95=er["diff_lo95"], diff_hi95=er["diff_hi95"],
                  se_s0=float(cp[kind]["se"][0]), se_s2=float(cp[kind]["se"][2]),
-                 note="published-only analogue = decided-only (ACC vs REJ incl. post-decision withdrawals); "
-                      "no accepted-only version exists")
+                 note=("published-only analogue = decided-only (ACC vs REJ incl. post-decision withdrawals); no "
+                       "accepted-only version exists" + ("" if kind == "trend" else
+                                                         f"; all-submission log-OR {b[0]:.3f} (se "
+                                                         f"{cp[kind]['se'][0]:.3f}) is itself near 0, so the relative "
+                                                         f"criterion is ill-conditioned; difference {er['diff']:+.3f} "
+                                                         f"[{er['diff_lo95']:+.3f}, {er['diff_hi95']:+.3f}]")))
         if kind == "level":
-            r.update(ratio=float(np.exp(d20)), ratio_lo95=float(np.exp(d20 - zq * se20)),
-                     ratio_hi95=float(np.exp(d20 + zq * se20)), ratio_lo90=float(np.exp(d20 - z90 * se20)),
-                     ratio_hi90=float(np.exp(d20 + z90 * se20)), in_forest=True)
-            r["within_10pct"] = bool(0.9 <= r["ratio"] <= 1.1)
-            r["ci90_within_10pct"] = bool(r["ratio_lo90"] >= 0.9 and r["ratio_hi90"] <= 1.1)
-        else:
-            r.update(ratio=np.nan, ratio_lo95=np.nan, ratio_hi95=np.nan, in_forest=False, within_10pct=np.nan)
+            r.update(or_ratio=float(np.exp(er["diff"])), or_ratio_lo95=float(np.exp(er["diff_lo95"])),
+                     or_ratio_hi95=float(np.exp(er["diff_hi95"])))
+        r["within_10pct"] = bool(0.9 <= r["ratio"] <= 1.1)
+        r["ci90_within_10pct"] = bool(r["ratio_lo90"] >= 0.9 and r["ratio_hi90"] <= 1.1)
         atlas_rows.append(r)
     log(f"colon premium: level b {np.round(cp['level']['b'], 4)}, trend b {np.round(cp['trend']['b'], 4)} "
         f"({time.time() - t0:.0f}s)", fh)
 
-    # entropy and JSD: point estimates on rarefied stage sets; uncertainty from the random-selection band
-    # (statistic on random s0 subsets of the accepted per-year sizes / its expectation), pivoted around the
-    # observed ratio. A paper bootstrap is not used: with-replacement duplicates bias the unrarefied accepted set
-    # and the rarefied sets differently (checked: bootstrap intervals excluded the point estimates).
+    # entropy and JSD: point estimates on rarefied stage sets; the interval is a RANDOM-SELECTION NULL BAND
+    # (statistic on random s0 subsets of the accepted per-year sizes / its expectation), pivoted around the observed
+    # ratio. It describes what random acceptance would produce, not sampling uncertainty of the ratio, so it is
+    # labelled as a band and kept out of the 90%-CI count. A paper bootstrap is not used: with-replacement duplicates
+    # bias the unrarefied accepted set and the rarefied sets differently (bootstrap intervals excluded the point).
     years = df.year.to_numpy()
     stage = df[STAGE_SETS].to_numpy().astype(int)
     codes = opener_tokens(df)
@@ -842,19 +897,22 @@ def main():
                                ("Lexical turnover JSD (rarefied)", "JSD (bits)", jsd0, jsd_null)]:
         q = nul / nul.mean()
         ratio = v0[3] / v0[0]
-        r = dict(label=lab, cls="M", kind=kind, T_s0=float(v0[0]), T_s1=float(v0[1]), T_s2=float(v0[2]),
+        r = dict(label=lab, cls="M", kind=kind, scale="ratio", published_set="accepted (s3)",
+                 interval_type="random-selection null band (not a CI)", in_count=True,
+                 T_s0=float(v0[0]), T_s1=float(v0[1]), T_s2=float(v0[2]),
                  T_s3=float(v0[3]), ratio=float(ratio),
                  ratio_lo95=float(ratio / np.quantile(q, .975)), ratio_hi95=float(ratio / np.quantile(q, .025)),
                  ratio_lo90=float(ratio / np.quantile(q, .95)), ratio_hi90=float(ratio / np.quantile(q, .05)),
                  log_desk=float(np.log(v0[1] / v0[0])), log_exit=float(np.log(v0[2] / v0[1])),
-                 log_dec=float(np.log(v0[3] / v0[2])), edit_separable=False, log_dec_sel=np.nan, log_edit=np.nan,
-                 log_edit_lo=np.nan, log_edit_hi=np.nan, in_forest=True,
-                 random_band_lo95=float(np.quantile(q, .025)), random_band_hi95=float(np.quantile(q, .975)),
-                 p_random_two_sided=float(2 * min(np.mean(q <= ratio), np.mean(q >= ratio))),
+                 log_dec=float(np.log(v0[3] / v0[2])), in_forest=True, **base_cols)
+        r.update(random_band_lo95=float(np.quantile(q, .025)), random_band_hi95=float(np.quantile(q, .975)),
+                 p_two_sided=float(2 * min(np.mean(q <= ratio), np.mean(q >= ratio))),
                  note=f"interval = observed ratio pivoted on the random-selection band ({N_NULL} random s0 subsets "
-                      f"with accepted per-year sizes); s0-s2 values are exact (entropy) or 50-draw (JSD) rarefied")
+                      f"with accepted per-year sizes); a null band, not a CI; s0-s2 values are exact (entropy) or "
+                      f"50-draw (JSD) rarefied")
+        r["p_random_two_sided"] = r["p_two_sided"]
         r["within_10pct"] = bool(0.9 <= r["ratio"] <= 1.1)
-        r["ci90_within_10pct"] = bool(r["ratio_lo90"] >= 0.9 and r["ratio_hi90"] <= 1.1)
+        r["ci90_within_10pct"] = np.nan  # null band: excluded from the 90%-CI count (D4-8)
         atlas_rows.append(r)
     log(f"entropy {np.round(ent0, 4)}; JSD {np.round(jsd0, 5)}; random band entropy "
         f"{np.quantile(ent_null / ent_null.mean(), [.025, .975]).round(4)}, JSD "
@@ -865,7 +923,9 @@ def main():
     ptab.to_csv(OUTDIR / "atlas_peaks.csv", index=False)
     log(f"peaks: {pk}", fh)
     atlas_rows.append(dict(label="Peak years of top-30 title fashions (agreement with all)", cls="M",
-                           kind="share of words with identical peak year", T_s0=1.0, T_s1=pk["agree"]["s1"],
+                           kind="share of words with identical peak year", scale="agreement share",
+                           published_set="accepted (s3)", interval_type="random-subsample null", in_count=False,
+                           T_s0=1.0, T_s1=pk["agree"]["s1"],
                            T_s2=pk["agree"]["s2"], T_s3=pk["agree"]["s3"], ratio=np.nan, in_forest=False,
                            note=f"random-subsample null (accepted per-year sizes): agreement {pk['null_agree_mean']:.3f} "
                                 f"[{pk['null_agree_lo95']:.3f}, {pk['null_agree_hi95']:.3f}]; mean |shift| accepted "
@@ -877,27 +937,39 @@ def main():
     atlas = pd.DataFrame(atlas_rows)
     atlas["cls_order"] = atlas.cls.map({c: i for i, c in enumerate(order)})
     atlas = atlas.sort_values(["cls_order"], kind="stable").drop(columns="cls_order").reset_index(drop=True)
-    atlas["abs_log_ratio"] = np.abs(np.log(atlas.ratio))
+    with np.errstate(divide="ignore", invalid="ignore"):
+        atlas["abs_log_ratio"] = np.abs(np.log(atlas.ratio.where(atlas.ratio > 0)))
+    atlas["q_bh"] = S.bh_q(atlas.p_two_sided.to_numpy())
     atlas.to_csv(OUTDIR / "atlas.csv", index=False)
     log("\natlas:\n" + atlas[["label", "cls", "T_s0", "T_s3", "ratio", "ratio_lo95", "ratio_hi95", "within_10pct",
-                              "log_desk", "log_exit", "log_dec", "log_edit"]].round(4).to_string(), fh)
+                              "in_count", "p_two_sided", "q_bh", "log_desk", "log_exit", "log_desk_crf",
+                              "log_exit_crf", "log_dec"]].round(4).to_string(), fh)
 
-    # H4e summaries
-    ratio_rows = atlas[atlas.ratio.notna()]
+    # H4e summaries (counted statistics only; the colon-premium level is supplementary)
+    ratio_rows = atlas[atlas.ratio.notna() & atlas.in_count.astype(bool)]
     by_cls = ratio_rows.groupby("cls").agg(n=("ratio", "size"), within=("within_10pct", "sum"),
                                            median_abs_log=("abs_log_ratio", "median"),
                                            max_abs_log=("abs_log_ratio", "max"))
     log("\nH4e by class:\n" + by_cls.to_string(), fh)
     M_rows = ratio_rows[ratio_rows.cls == "M"]
+    M_acc = M_rows[M_rows.published_set.eq("accepted (s3)")]
+    M_ci = M_rows[M_rows.ci90_within_10pct.notna()]
+    knife = atlas[atlas.ratio.notna() & atlas.ratio.between(0.88, 0.92)][["label", "ratio", "ratio_lo95", "ratio_hi95"]]
     h4e = dict(
-        n_statistics=int(len(atlas)), n_ratio_statistics=int(len(ratio_rows)),
+        n_statistics=int(len(atlas)), n_ratio_statistics=int(atlas.ratio.notna().sum()),
+        n_counted_ratio_statistics=int(len(ratio_rows)),
         M_all_within_10pct=bool(M_rows.within_10pct.all()), M_within=int(M_rows.within_10pct.sum()),
-        M_n=int(len(M_rows)), M_ci90_within=int(M_rows.ci90_within_10pct.sum()),
+        M_n=int(len(M_rows)), M_accepted_only_within=int(M_acc.within_10pct.sum()), M_accepted_only_n=int(len(M_acc)),
+        M_outside=M_rows[~M_rows.within_10pct.astype(bool)].label.tolist(),
+        M_ci90_within=int(M_ci.ci90_within_10pct.astype(bool).sum()), M_ci90_n=int(len(M_ci)),
         by_class=by_cls.reset_index().to_dict(orient="records"),
         deviations_concentrate_in_O_L=bool(by_cls.loc[["O", "L"], "median_abs_log"].min()
                                            > by_cls.loc["M", "median_abs_log"]),
+        knife_edge_0p90=knife.to_dict(orient="records"),
         peaks=pk,
     )
+    log(f"H4e: {h4e['M_within']}/{h4e['M_n']} M within +/-10% (accepted-only {h4e['M_accepted_only_within']}/"
+        f"{h4e['M_accepted_only_n']}); outside: {h4e['M_outside']}", fh)
 
     # ---------------- figures
     fig, data = fig_atlas(atlas)
@@ -918,6 +990,16 @@ def main():
         falsified=bool(rat["2024"]["ratio"] >= 0.9 and rat["2025"]["ratio"] >= 0.9),
         robustness=kb[(kb.set == "ratio_acc_all")].to_dict(orient="records"),
     )
+    # IUT p-values: '>= 15% understatement in each year' (max_Y P(ratio >= 0.85)) and direction (max_Y P(ratio >= 1))
+    rr_ = kb[(kb.marker == "F24") & (kb.baseline == "cons") & (kb.set == "ratio_acc_all") & kb.year.isin(POST)]
+    h4c["p_iut_ratio_le_0p85"] = float(rr_.p_ge_0p85.max())
+    h4c["p_iut_ratio_lt_1"] = float(rr_.p_ge1.max())
+    h4c["ratio_p_ge1"] = {str(x.year): float(x.p_ge1) for x in rr_.itertuples()}
+    ph = kb[(kb.marker == "F24") & (kb.baseline == "max2122") & (kb.set == "ratio_acc_all") & kb.year.isin(POST)]
+    h4c["posthoc_max2122"] = {str(x.year): dict(ratio=x.bound, lo95=x.lo95, hi95=x.hi95, p_ge_0p9=x.p_ge_0p9,
+                                                p_ge1=x.p_ge1) for x in ph.itertuples()}
+    h4c["falsified_under_posthoc_max2122"] = bool(all(h4c["posthoc_max2122"][str(Y)]["ratio"] >= 0.9
+                                                      for Y in (2024, 2025)))
     res = dict(
         meta=dict(n_pairs=int(len(pairs)), pairs_by_decision=pairs.decision.value_counts().to_dict(),
                   pairs_by_year_decision={f"{k[0]}_{k[1]}": int(v) for k, v in

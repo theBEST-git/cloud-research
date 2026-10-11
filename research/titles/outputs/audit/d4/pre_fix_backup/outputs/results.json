@@ -1,0 +1,2618 @@
+{
+ "work_package": "WP8 / D4 The gatekeeper",
+ "plan": "research/titles/docs/PLAN.md D4",
+ "code": {
+  "d4_stage_gains.py": "588bfa545bea88fb2114354d1e16d92210c868549cab0fa40d961d5ab98f22b0",
+  "d4_bias_atlas.py": "5ce9b0942d76529c14ad4108f2f02bbf5ff15685a965b43f37a64c8ab775181c",
+  "d4_exit_composition.py": "57506e27c8bc9cf4ee8b3439119a40b08d6bd364f8c48fc649cef6d1de0c6cd1",
+  "d4_collect.py": "525c0b0056a6323930dd73cad5a91628e90084991e1c677a195b0fa39ae1d78d",
+  "d4_lexicon.json": "2396cb6e730bc116d8972b43081ced46d3c3c2c9c2dab9f1ae82808431038918"
+ },
+ "lexicon_v2_sha256": "34ec8f939bfbc2448426d918bd217522c64a42a6f09f31aa2d1a0a54b0737847",
+ "meta": {
+  "stage_gains": {
+   "n_rows": 43027,
+   "years": "2018-2026",
+   "n_boot": 2000,
+   "seed": 20261011,
+   "pooling_primary": "year-standardised",
+   "dropped_other_rows_2018": 71,
+   "style_density_words": {
+    "2024": 123,
+    "2025": 150,
+    "2026": 223
+   },
+   "runtime_s": 87.5
+  },
+  "bias_atlas": {
+   "n_pairs": 331,
+   "pairs_by_decision": {
+    "accepted": 206,
+    "rejected": 125
+   },
+   "pairs_by_year_decision": {
+    "2022_accepted": 9,
+    "2023_accepted": 46,
+    "2023_rejected": 27,
+    "2024_accepted": 42,
+    "2024_rejected": 26,
+    "2025_accepted": 53,
+    "2025_rejected": 34,
+    "2026_accepted": 56,
+    "2026_rejected": 38
+   },
+   "snapshot_source": "computed in d4_bias_atlas from cache/arxiv_audit.jsonl (outputs/snapshot/ absent)",
+   "n_boot": 2000,
+   "n_random_band_entropy_jsd": 1000,
+   "runtime_s": 38.5
+  }
+ },
+ "hypotheses": {
+  "H4a": {
+   "statement": "Neutral filter for the mainstream fashion: NAME G_total in [0.95, 1.10] every year 2018-26; pooled 2024-26 TOST within [0.90, 1.11]; 2024 slope-change OR equal across ACC, REJ, WD.",
+   "estimates": {
+    "name_total_by_year": {
+     "2018": {
+      "est": 0.9757,
+      "lo95": 0.6823,
+      "hi95": 1.2978
+     },
+     "2019": {
+      "est": 1.0343,
+      "lo95": 0.8379,
+      "hi95": 1.2316
+     },
+     "2020": {
+      "est": 1.0501,
+      "lo95": 0.8853,
+      "hi95": 1.2129
+     },
+     "2021": {
+      "est": 1.0393,
+      "lo95": 0.8936,
+      "hi95": 1.197
+     },
+     "2022": {
+      "est": 1.0029,
+      "lo95": 0.8887,
+      "hi95": 1.1175
+     },
+     "2023": {
+      "est": 1.0158,
+      "lo95": 0.9253,
+      "hi95": 1.1054
+     },
+     "2024": {
+      "est": 1.0294,
+      "lo95": 0.9656,
+      "hi95": 1.0966
+     },
+     "2025": {
+      "est": 1.0408,
+      "lo95": 1.0012,
+      "hi95": 1.0865
+     },
+     "2026": {
+      "est": 1.0087,
+      "lo95": 0.9777,
+      "hi95": 1.0388
+     }
+    },
+    "all_years_in_band": true,
+    "pooled_2024_26_std": {
+     "est": 1.0205,
+     "lo95": 0.9967,
+     "hi95": 1.0435,
+     "lo90": 1.0014,
+     "hi90": 1.0405,
+     "p_ge1": 0.959,
+     "p_le1": 0.041
+    },
+    "pooled_2024_26_raw": {
+     "est": 1.0115,
+     "lo95": 0.9882,
+     "hi95": 1.0343,
+     "lo90": 0.9929,
+     "hi90": 1.0315,
+     "p_ge1": 0.841,
+     "p_le1": 0.159
+    },
+    "pooled_2024_25_std": {
+     "est": 1.0369,
+     "lo95": 1.0022,
+     "hi95": 1.0736,
+     "lo90": 1.0082,
+     "hi90": 1.0679,
+     "p_ge1": 0.982,
+     "p_le1": 0.018
+    },
+    "pooled_2018_23_std": {
+     "est": 1.022,
+     "lo95": 0.9659,
+     "hi95": 1.0792,
+     "lo90": 0.9757,
+     "hi90": 1.069,
+     "p_ge1": 0.781,
+     "p_le1": 0.219
+    },
+    "stage_gains_2024_26": {
+     "desk": {
+      "est": 0.9976,
+      "lo95": 0.995,
+      "hi95": 1.0003,
+      "lo90": 0.9954,
+      "hi90": 0.9997,
+      "p_ge1": 0.0345,
+      "p_le1": 0.9655
+     },
+     "exit": {
+      "est": 0.974,
+      "lo95": 0.9653,
+      "hi95": 0.9829,
+      "lo90": 0.9667,
+      "hi90": 0.9818,
+      "p_ge1": 0.0,
+      "p_le1": 1.0
+     },
+     "dec": {
+      "est": 1.0503,
+      "lo95": 1.0279,
+      "hi95": 1.0719,
+      "lo90": 1.0314,
+      "hi90": 1.0689,
+      "p_ge1": 1.0,
+      "p_le1": 0.0
+     },
+     "predec": {
+      "est": 0.9716,
+      "lo95": 0.9627,
+      "hi95": 0.9812,
+      "lo90": 0.9638,
+      "hi90": 0.9796,
+      "p_ge1": 0.0,
+      "p_le1": 1.0
+     },
+     "predec_crf": {
+      "est": 0.9462,
+      "lo95": 0.9323,
+      "hi95": 0.9607,
+      "lo90": 0.9345,
+      "hi90": 0.9586,
+      "p_ge1": 0.0,
+      "p_le1": 1.0
+     }
+    },
+    "tost": {
+     "est": 1.0205342500104628,
+     "lo90": 1.0014070492544387,
+     "hi90": 1.04051313153982,
+     "within": true
+    },
+    "its_pools": {
+     "ACC": {
+      "OR": 1.053,
+      "lo": 0.977,
+      "hi": 1.134,
+      "nobs": 12899
+     },
+     "REJ": {
+      "OR": 1.119,
+      "lo": 1.037,
+      "hi": 1.206,
+      "nobs": 19291
+     },
+     "WD": {
+      "OR": 1.107,
+      "lo": 0.992,
+      "hi": 1.235,
+      "nobs": 9954
+     }
+    },
+    "its_wald": {
+     "chi2": 1.345,
+     "df": 2,
+     "p": 0.51,
+     "max_abs_dlogOR": 0.061,
+     "pairs": [
+      {
+       "a": "ACC",
+       "b": "REJ",
+       "dlogOR": -0.0608,
+       "se": 0.0532,
+       "lo95": -0.1651,
+       "hi95": 0.0435,
+       "lo90": -0.1484,
+       "hi90": 0.0267,
+       "p_diff": 0.253,
+       "tost_p": 0.2309,
+       "equivalent_0p1": false
+      },
+      {
+       "a": "ACC",
+       "b": "WD",
+       "dlogOR": -0.0504,
+       "se": 0.0725,
+       "lo95": -0.1925,
+       "hi95": 0.0917,
+       "lo90": -0.1697,
+       "hi90": 0.0689,
+       "p_diff": 0.4871,
+       "tost_p": 0.2469,
+       "equivalent_0p1": false
+      },
+      {
+       "a": "REJ",
+       "b": "WD",
+       "dlogOR": 0.0104,
+       "se": 0.0676,
+       "lo95": -0.1221,
+       "hi95": 0.143,
+       "lo90": -0.1008,
+       "hi90": 0.1217,
+       "p_diff": 0.8772,
+       "tost_p": 0.0927,
+       "equivalent_0p1": false
+      }
+     ]
+    }
+   },
+   "falsification": "pooled NAME G_total 90% CI outside [0.90, 1.11], or pool-specific break ORs differ at p < .05",
+   "falsified": false,
+   "verdict": "supported",
+   "notes": "All nine yearly NAME total gains lie in [0.95, 1.10]; the pooled 90% CI [1.001, 1.041] is inside the equivalence margins; the Wald test does not reject equal pool breaks (p = 0.51) and the largest point difference is 0.061 on the log-OR scale, but no pairwise difference is TOST-equivalent at +/-0.1 (pairwise 90% CIs extend from -0.17 to +0.12): equality is not rejected rather than demonstrated. The pre-decision stages deplete NAME slightly (desk x exit 0.972) and the decision stage enriches it (1.050), but the decision gain is not identified against camera-ready edits (T4.2)."
+  },
+  "H4b": {
+   "statement": "Depletion of LLM and outsider markers: pooled 2024-26 G_total < 1 for the L-union and O-union; G_desk x G_exit < 1 for the L-union.",
+   "estimates": {
+    "L_union_total": {
+     "est": 0.9752,
+     "lo95": 0.9507,
+     "hi95": 1.0009,
+     "lo90": 0.9543,
+     "hi90": 0.997,
+     "p_ge1": 0.0295,
+     "p_le1": 0.9705
+    },
+    "O_union_total": {
+     "est": 0.8071,
+     "lo95": 0.7489,
+     "hi95": 0.8699,
+     "lo90": 0.7565,
+     "hi90": 0.8587,
+     "p_ge1": 0.0,
+     "p_le1": 1.0
+    },
+    "L_union_predec": {
+     "est": 0.9815,
+     "lo95": 0.9718,
+     "hi95": 0.9918,
+     "lo90": 0.9734,
+     "hi90": 0.9903,
+     "p_ge1": 0.0,
+     "p_le1": 1.0
+    },
+    "L_union_predec_camera_ready_free": {
+     "est": 0.9756,
+     "lo95": 0.961,
+     "hi95": 0.9913,
+     "lo90": 0.9633,
+     "hi90": 0.9888,
+     "p_ge1": 0.0015,
+     "p_le1": 0.9985
+    },
+    "L_union_total_raw_pooling": {
+     "est": 0.9613,
+     "lo95": 0.9365,
+     "hi95": 0.9871,
+     "lo90": 0.9406,
+     "hi90": 0.9829,
+     "p_ge1": 0.001,
+     "p_le1": 0.999
+    },
+    "L_union_by_year_total": {
+     "2024": {
+      "est": 0.9772,
+      "lo95": 0.9121,
+      "hi95": 1.041,
+      "lo90": 0.9252,
+      "hi90": 1.0291,
+      "p_ge1": 0.2535,
+      "p_le1": 0.7465
+     },
+     "2025": {
+      "est": 0.9548,
+      "lo95": 0.9039,
+      "hi95": 1.0059,
+      "lo90": 0.9126,
+      "hi90": 0.9969,
+      "p_ge1": 0.038,
+      "p_le1": 0.962
+     },
+     "2026": {
+      "est": 0.9831,
+      "lo95": 0.9516,
+      "hi95": 1.016,
+      "lo90": 0.9565,
+      "hi90": 1.0108,
+      "p_ge1": 0.158,
+      "p_le1": 0.842
+     }
+    },
+    "L_union_by_year_predec": {
+     "2024": {
+      "est": 0.9922,
+      "lo95": 0.97,
+      "hi95": 1.0157,
+      "lo90": 0.9729,
+      "hi90": 1.012,
+      "p_ge1": 0.261,
+      "p_le1": 0.739
+     },
+     "2025": {
+      "est": 0.9689,
+      "lo95": 0.9481,
+      "hi95": 0.9899,
+      "lo90": 0.9521,
+      "hi90": 0.986,
+      "p_ge1": 0.0015,
+      "p_le1": 0.9985
+     },
+     "2026": {
+      "est": 0.9838,
+      "lo95": 0.9712,
+      "hi95": 0.9963,
+      "lo90": 0.9733,
+      "hi90": 0.9943,
+      "p_ge1": 0.007,
+      "p_le1": 0.993
+     }
+    },
+    "L_union_pre_2018_23_total": {
+     "est": 1.1539,
+     "lo95": 1.0703,
+     "hi95": 1.2364,
+     "lo90": 1.0836,
+     "hi90": 1.2233,
+     "p_ge1": 1.0,
+     "p_le1": 0.0
+    },
+    "L_union_post_vs_pre": {
+     "total": {
+      "est": 0.8451,
+      "lo95": 0.7833,
+      "hi95": 0.9154,
+      "lo90": 0.7923,
+      "hi90": 0.9031,
+      "p_ge1": 0.0,
+      "p_le1": 1.0
+     },
+     "predec": {
+      "est": 0.9509,
+      "lo95": 0.9273,
+      "hi95": 0.9772,
+      "lo90": 0.9305,
+      "hi90": 0.9724,
+      "p_ge1": 0.0,
+      "p_le1": 1.0
+     },
+     "dec": {
+      "est": 0.8888,
+      "lo95": 0.8275,
+      "hi95": 0.9594,
+      "lo90": 0.8374,
+      "hi90": 0.9462,
+      "p_ge1": 0.0015,
+      "p_le1": 0.9985
+     },
+     "predec_crf": {
+      "est": 0.9523,
+      "lo95": 0.9128,
+      "hi95": 0.998,
+      "lo90": 0.9184,
+      "hi90": 0.9897,
+      "p_ge1": 0.021,
+      "p_le1": 0.979
+     }
+    },
+    "L_title_total": {
+     "est": 0.9153,
+     "lo95": 0.863,
+     "hi95": 0.97,
+     "lo90": 0.8711,
+     "hi90": 0.9621,
+     "p_ge1": 0.0005,
+     "p_le1": 0.9995
+    },
+    "L_abstract_total": {
+     "est": 0.9931,
+     "lo95": 0.9643,
+     "hi95": 1.0238,
+     "lo90": 0.9701,
+     "hi90": 1.0182,
+     "p_ge1": 0.314,
+     "p_le1": 0.686
+    },
+    "O_union_stage": {
+     "desk": {
+      "est": 0.991,
+      "lo95": 0.9835,
+      "hi95": 0.9981,
+      "lo90": 0.985,
+      "hi90": 0.9971,
+      "p_ge1": 0.0035,
+      "p_le1": 0.9965
+     },
+     "exit": {
+      "est": 1.0027,
+      "lo95": 0.9796,
+      "hi95": 1.0273,
+      "lo90": 0.983,
+      "hi90": 1.023,
+      "p_ge1": 0.5925,
+      "p_le1": 0.4075
+     },
+     "dec": {
+      "est": 0.8122,
+      "lo95": 0.7568,
+      "hi95": 0.871,
+      "lo90": 0.7644,
+      "hi90": 0.8624,
+      "p_ge1": 0.0,
+      "p_le1": 1.0
+     },
+     "predec": {
+      "est": 0.9937,
+      "lo95": 0.9693,
+      "hi95": 1.0188,
+      "lo90": 0.973,
+      "hi90": 1.0147,
+      "p_ge1": 0.3255,
+      "p_le1": 0.6745
+     },
+     "predec_crf": {
+      "est": 1.0353,
+      "lo95": 1.0002,
+      "hi95": 1.0724,
+      "lo90": 1.0051,
+      "hi90": 1.0671,
+      "p_ge1": 0.976,
+      "p_le1": 0.024
+     }
+    },
+    "components_total": {
+     "title_typo": {
+      "est": 0.9358,
+      "lo95": 0.7301,
+      "hi95": 1.1492,
+      "lo90": 0.7545,
+      "hi90": 1.1172,
+      "p_ge1": 0.2795,
+      "p_le1": 0.7205
+     },
+     "R24": {
+      "est": 0.8066,
+      "lo95": 0.7401,
+      "hi95": 0.8737,
+      "lo90": 0.7511,
+      "hi90": 0.8626,
+      "p_ge1": 0.0,
+      "p_le1": 1.0
+     },
+     "R26": {
+      "est": 1.0597,
+      "lo95": 0.9673,
+      "hi95": 1.1574,
+      "lo90": 0.9824,
+      "hi90": 1.1416,
+      "p_ge1": 0.8995,
+      "p_le1": 0.1005
+     },
+     "F24": {
+      "est": 0.9635,
+      "lo95": 0.9188,
+      "hi95": 1.0108,
+      "lo90": 0.926,
+      "hi90": 1.0015,
+      "p_ge1": 0.0555,
+      "p_le1": 0.9445
+     },
+     "F26": {
+      "est": 1.023,
+      "lo95": 0.9754,
+      "hi95": 1.0748,
+      "lo90": 0.9828,
+      "hi90": 1.0679,
+      "p_ge1": 0.8235,
+      "p_le1": 0.1765
+     },
+     "emdash": {
+      "est": 0.9787,
+      "lo95": 0.9146,
+      "hi95": 1.0494,
+      "lo90": 0.9246,
+      "hi90": 1.035,
+      "p_ge1": 0.266,
+      "p_le1": 0.734
+     },
+     "style_density": {
+      "est": 0.9649,
+      "lo95": 0.9546,
+      "hi95": 0.9752,
+      "lo90": 0.9562,
+      "hi90": 0.9734,
+      "p_ge1": 0.0,
+      "p_le1": 1.0
+     },
+     "all_caps_title": {
+      "est": 0.3611,
+      "lo95": 0.2599,
+      "hi95": 0.4698,
+      "lo90": 0.2755,
+      "hi90": 0.4509,
+      "p_ge1": 0.0,
+      "p_le1": 1.0
+     },
+     "sentence_case": {
+      "est": 0.9052,
+      "lo95": 0.824,
+      "hi95": 0.9849,
+      "lo90": 0.8353,
+      "hi90": 0.9737,
+      "p_ge1": 0.0105,
+      "p_le1": 0.9895
+     },
+     "question_opener": {
+      "est": 0.8993,
+      "lo95": 0.7745,
+      "hi95": 1.0247,
+      "lo90": 0.7946,
+      "hi90": 1.0019,
+      "p_ge1": 0.054,
+      "p_le1": 0.946
+     }
+    },
+    "components_predec": {
+     "title_typo": {
+      "est": 0.9603,
+      "lo95": 0.8702,
+      "hi95": 1.0433,
+      "lo90": 0.8873,
+      "hi90": 1.0291,
+      "p_ge1": 0.1845,
+      "p_le1": 0.8155
+     },
+     "R24": {
+      "est": 0.9003,
+      "lo95": 0.8696,
+      "hi95": 0.9306,
+      "lo90": 0.8742,
+      "hi90": 0.9261,
+      "p_ge1": 0.0,
+      "p_le1": 1.0
+     },
+     "R26": {
+      "est": 0.9692,
+      "lo95": 0.9318,
+      "hi95": 1.0073,
+      "lo90": 0.9373,
+      "hi90": 1.0016,
+      "p_ge1": 0.056,
+      "p_le1": 0.944
+     },
+     "F24": {
+      "est": 0.9741,
+      "lo95": 0.9562,
+      "hi95": 0.9924,
+      "lo90": 0.9587,
+      "hi90": 0.9893,
+      "p_ge1": 0.0035,
+      "p_le1": 0.9965
+     },
+     "F26": {
+      "est": 1.0174,
+      "lo95": 0.9982,
+      "hi95": 1.037,
+      "lo90": 1.0009,
+      "hi90": 1.0344,
+      "p_ge1": 0.9605,
+      "p_le1": 0.0395
+     },
+     "emdash": {
+      "est": 0.997,
+      "lo95": 0.9706,
+      "hi95": 1.0235,
+      "lo90": 0.9753,
+      "hi90": 1.0192,
+      "p_ge1": 0.4095,
+      "p_le1": 0.5905
+     },
+     "style_density": {
+      "est": 0.9722,
+      "lo95": 0.9682,
+      "hi95": 0.9761,
+      "lo90": 0.9687,
+      "hi90": 0.9757,
+      "p_ge1": 0.0,
+      "p_le1": 1.0
+     },
+     "all_caps_title": {
+      "est": 0.8296,
+      "lo95": 0.7626,
+      "hi95": 0.8966,
+      "lo90": 0.774,
+      "hi90": 0.8841,
+      "p_ge1": 0.0,
+      "p_le1": 1.0
+     },
+     "sentence_case": {
+      "est": 1.0434,
+      "lo95": 1.0114,
+      "hi95": 1.0745,
+      "lo90": 1.0167,
+      "hi90": 1.0701,
+      "p_ge1": 0.9975,
+      "p_le1": 0.0025
+     },
+     "question_opener": {
+      "est": 0.987,
+      "lo95": 0.9347,
+      "hi95": 1.0398,
+      "lo90": 0.9434,
+      "hi90": 1.0305,
+      "p_ge1": 0.3155,
+      "p_le1": 0.6845
+     }
+    }
+   },
+   "falsification": "L-union G_total >= 1",
+   "falsified": false,
+   "verdict": "supported",
+   "notes": "L-union total 0.975 (95% CI 0.951-1.001; one-sided bootstrap p = 0.030) and pre-decision 0.982 (0.972-0.992); O-union total 0.807 (0.749-0.870). Depletion of L is small in absolute terms and is carried by title R24 words (0.807) and abstract style density (0.965); abstract markers as a union are near-neutral (0.993). Relative to the pre-LLM years, when the same markers were enriched among accepted papers (L-union total 1.154), the post-2024 total gain is 15% lower (ratio 0.845, 0.783-0.915). O depletion sits at the decision stage (0.812), which camera-ready edits can produce and the audit cannot bound (ALL-CAPS and sentence case unauditable); only ALL-CAPS is also depleted at exit (0.839)."
+  },
+  "H4c": {
+   "statement": "Accepted-only Kobak-style lower bound on LLM-styled abstracts understates the all-submission bound by >= 15% relative in each of 2024-26.",
+   "estimates": {
+    "bounds_pp": {
+     "s0_2024": {
+      "bound": 16.03,
+      "lo95": 14.9,
+      "hi95": 17.14
+     },
+     "s2_2024": {
+      "bound": 15.41,
+      "lo95": 13.96,
+      "hi95": 16.75
+     },
+     "s3_2024": {
+      "bound": 12.83,
+      "lo95": 10.32,
+      "hi95": 15.08
+     },
+     "NAp_2024": {
+      "bound": 17.2,
+      "lo95": 15.88,
+      "hi95": 18.58
+     },
+     "REJp_2024": {
+      "bound": 16.75,
+      "lo95": 15.02,
+      "hi95": 18.52
+     },
+     "s0_2025": {
+      "bound": 12.19,
+      "lo95": 11.09,
+      "hi95": 13.08
+     },
+     "s2_2025": {
+      "bound": 10.86,
+      "lo95": 9.09,
+      "hi95": 11.93
+     },
+     "s3_2025": {
+      "bound": 8.7,
+      "lo95": 5.84,
+      "hi95": 11.13
+     },
+     "NAp_2025": {
+      "bound": 13.23,
+      "lo95": 12.05,
+      "hi95": 14.29
+     },
+     "REJp_2025": {
+      "bound": 11.56,
+      "lo95": 9.95,
+      "hi95": 12.95
+     },
+     "s0_2026": {
+      "bound": 6.02,
+      "lo95": 4.85,
+      "hi95": 6.7
+     },
+     "s2_2026": {
+      "bound": 5.22,
+      "lo95": 3.17,
+      "hi95": 6.24
+     },
+     "s3_2026": {
+      "bound": 3.02,
+      "lo95": -0.46,
+      "hi95": 5.86
+     },
+     "NAp_2026": {
+      "bound": 6.52,
+      "lo95": 5.71,
+      "hi95": 7.27
+     },
+     "REJp_2026": {
+      "bound": 5.75,
+      "lo95": 4.17,
+      "hi95": 6.81
+     },
+     "s0_2024-26 mean": {
+      "bound": 11.41,
+      "lo95": 10.49,
+      "hi95": 12.08
+     },
+     "s2_2024-26 mean": {
+      "bound": 10.5,
+      "lo95": 8.93,
+      "hi95": 11.4
+     },
+     "s3_2024-26 mean": {
+      "bound": 8.18,
+      "lo95": 5.46,
+      "hi95": 10.4
+     },
+     "NAp_2024-26 mean": {
+      "bound": 12.32,
+      "lo95": 11.5,
+      "hi95": 13.09
+     },
+     "REJp_2024-26 mean": {
+      "bound": 11.35,
+      "lo95": 10.13,
+      "hi95": 12.42
+     }
+    },
+    "ratio_acc_all": {
+     "2024": {
+      "ratio": 0.8,
+      "lo95": 0.658,
+      "hi95": 0.918,
+      "p_ge_0p9": 0.05,
+      "p_ge_0p85": 0.209
+     },
+     "2025": {
+      "ratio": 0.714,
+      "lo95": 0.504,
+      "hi95": 0.891,
+      "p_ge_0p9": 0.018,
+      "p_ge_0p85": 0.078
+     },
+     "2026": {
+      "ratio": 0.502,
+      "lo95": -0.081,
+      "hi95": 0.932,
+      "p_ge_0p9": 0.042,
+      "p_ge_0p85": 0.079
+     },
+     "2024-26 mean": {
+      "ratio": 0.717,
+      "lo95": 0.495,
+      "hi95": 0.888,
+      "p_ge_0p9": 0.018,
+      "p_ge_0p85": null
+     }
+    },
+    "sensitivity_ratios": [
+     {
+      "marker": "F24",
+      "baseline": "cons",
+      "year": "2024",
+      "ratio": 0.8,
+      "lo95": 0.658,
+      "hi95": 0.918
+     },
+     {
+      "marker": "F24_2",
+      "baseline": "cons",
+      "year": "2024",
+      "ratio": 0.779,
+      "lo95": 0.601,
+      "hi95": 0.944
+     },
+     {
+      "marker": "L_abstract",
+      "baseline": "cons",
+      "year": "2024",
+      "ratio": 0.836,
+      "lo95": 0.684,
+      "hi95": 0.955
+     },
+     {
+      "marker": "F24",
+      "baseline": "cons",
+      "year": "2025",
+      "ratio": 0.714,
+      "lo95": 0.504,
+      "hi95": 0.891
+     },
+     {
+      "marker": "F24_2",
+      "baseline": "cons",
+      "year": "2025",
+      "ratio": 0.83,
+      "lo95": 0.532,
+      "hi95": 1.016
+     },
+     {
+      "marker": "L_abstract",
+      "baseline": "cons",
+      "year": "2025",
+      "ratio": 0.823,
+      "lo95": 0.629,
+      "hi95": 0.93
+     },
+     {
+      "marker": "F24",
+      "baseline": "cons",
+      "year": "2026",
+      "ratio": 0.502,
+      "lo95": -0.081,
+      "hi95": 0.932
+     },
+     {
+      "marker": "F24_2",
+      "baseline": "cons",
+      "year": "2026",
+      "ratio": 0.801,
+      "lo95": -1.59,
+      "hi95": 1.37
+     },
+     {
+      "marker": "L_abstract",
+      "baseline": "cons",
+      "year": "2026",
+      "ratio": 0.908,
+      "lo95": 0.767,
+      "hi95": 0.972
+     },
+     {
+      "marker": "F24",
+      "baseline": "lin",
+      "year": "2024",
+      "ratio": 0.783,
+      "lo95": 0.653,
+      "hi95": 0.903
+     },
+     {
+      "marker": "F24_2",
+      "baseline": "lin",
+      "year": "2024",
+      "ratio": 0.779,
+      "lo95": 0.605,
+      "hi95": 0.956
+     },
+     {
+      "marker": "L_abstract",
+      "baseline": "lin",
+      "year": "2024",
+      "ratio": 0.839,
+      "lo95": 0.678,
+      "hi95": 0.993
+     },
+     {
+      "marker": "F24",
+      "baseline": "lin",
+      "year": "2025",
+      "ratio": 0.688,
+      "lo95": 0.495,
+      "hi95": 0.87
+     },
+     {
+      "marker": "F24_2",
+      "baseline": "lin",
+      "year": "2025",
+      "ratio": 0.83,
+      "lo95": 0.534,
+      "hi95": 1.045
+     },
+     {
+      "marker": "L_abstract",
+      "baseline": "lin",
+      "year": "2025",
+      "ratio": 0.817,
+      "lo95": 0.589,
+      "hi95": 1.022
+     },
+     {
+      "marker": "F24",
+      "baseline": "lin",
+      "year": "2026",
+      "ratio": 0.457,
+      "lo95": -0.08,
+      "hi95": 0.889
+     },
+     {
+      "marker": "F24_2",
+      "baseline": "lin",
+      "year": "2026",
+      "ratio": 0.801,
+      "lo95": -1.59,
+      "hi95": 1.517
+     },
+     {
+      "marker": "L_abstract",
+      "baseline": "lin",
+      "year": "2026",
+      "ratio": 0.892,
+      "lo95": 0.725,
+      "hi95": 1.044
+     },
+     {
+      "marker": "F24",
+      "baseline": "max23",
+      "year": "2024",
+      "ratio": 0.841,
+      "lo95": 0.724,
+      "hi95": 0.936
+     },
+     {
+      "marker": "F24_2",
+      "baseline": "max23",
+      "year": "2024",
+      "ratio": 0.78,
+      "lo95": 0.613,
+      "hi95": 0.95
+     },
+     {
+      "marker": "L_abstract",
+      "baseline": "max23",
+      "year": "2024",
+      "ratio": 0.836,
+      "lo95": 0.694,
+      "hi95": 0.957
+     },
+     {
+      "marker": "F24",
+      "baseline": "max23",
+      "year": "2025",
+      "ratio": 0.823,
+      "lo95": 0.706,
+      "hi95": 0.924
+     },
+     {
+      "marker": "F24_2",
+      "baseline": "max23",
+      "year": "2025",
+      "ratio": 0.84,
+      "lo95": 0.622,
+      "hi95": 1.027
+     },
+     {
+      "marker": "L_abstract",
+      "baseline": "max23",
+      "year": "2025",
+      "ratio": 0.823,
+      "lo95": 0.683,
+      "hi95": 0.932
+     },
+     {
+      "marker": "F24",
+      "baseline": "max23",
+      "year": "2026",
+      "ratio": 0.833,
+      "lo95": 0.614,
+      "hi95": 1.009
+     },
+     {
+      "marker": "F24_2",
+      "baseline": "max23",
+      "year": "2026",
+      "ratio": 0.876,
+      "lo95": 0.306,
+      "hi95": 1.299
+     },
+     {
+      "marker": "L_abstract",
+      "baseline": "max23",
+      "year": "2026",
+      "ratio": 0.908,
+      "lo95": 0.829,
+      "hi95": 0.973
+     },
+     {
+      "marker": "F24",
+      "baseline": "max2122",
+      "year": "2024",
+      "ratio": 0.9,
+      "lo95": 0.766,
+      "hi95": 1.014
+     },
+     {
+      "marker": "F24_2",
+      "baseline": "max2122",
+      "year": "2024",
+      "ratio": 0.79,
+      "lo95": 0.616,
+      "hi95": 0.951
+     },
+     {
+      "marker": "L_abstract",
+      "baseline": "max2122",
+      "year": "2024",
+      "ratio": 0.885,
+      "lo95": 0.697,
+      "hi95": 1.002
+     },
+     {
+      "marker": "F24",
+      "baseline": "max2122",
+      "year": "2025",
+      "ratio": 0.901,
+      "lo95": 0.758,
+      "hi95": 1.017
+     },
+     {
+      "marker": "F24_2",
+      "baseline": "max2122",
+      "year": "2025",
+      "ratio": 0.856,
+      "lo95": 0.634,
+      "hi95": 1.039
+     },
+     {
+      "marker": "L_abstract",
+      "baseline": "max2122",
+      "year": "2025",
+      "ratio": 0.875,
+      "lo95": 0.689,
+      "hi95": 0.978
+     },
+     {
+      "marker": "F24",
+      "baseline": "max2122",
+      "year": "2026",
+      "ratio": 0.995,
+      "lo95": 0.718,
+      "hi95": 1.219
+     },
+     {
+      "marker": "F24_2",
+      "baseline": "max2122",
+      "year": "2026",
+      "ratio": 0.931,
+      "lo95": 0.345,
+      "hi95": 1.287
+     },
+     {
+      "marker": "L_abstract",
+      "baseline": "max2122",
+      "year": "2026",
+      "ratio": 0.939,
+      "lo95": 0.837,
+      "hi95": 0.997
+     },
+     {
+      "marker": "F24",
+      "baseline": "cons",
+      "year": "2024-26 mean",
+      "ratio": 0.717,
+      "lo95": 0.495,
+      "hi95": 0.888
+     },
+     {
+      "marker": "F24_2",
+      "baseline": "cons",
+      "year": "2024-26 mean",
+      "ratio": 0.797,
+      "lo95": 0.561,
+      "hi95": 0.937
+     },
+     {
+      "marker": "L_abstract",
+      "baseline": "cons",
+      "year": "2024-26 mean",
+      "ratio": 0.866,
+      "lo95": 0.724,
+      "hi95": 0.937
+     }
+    ]
+   },
+   "falsification": "accepted-only bound >= 0.9 x all-submission bound in 2024 and 2025",
+   "falsified": false,
+   "verdict": "partially_supported",
+   "notes": "Pre-registered baseline: ratios 0.80 / 0.71 / 0.50 (2024/25/26), all <= 0.85, not falsified; accepted bound 12.8 / 8.7 / 3.0 pp vs all 16.0 / 12.2 / 6.0 pp. But the gap comes mostly from the accepted pool's higher and rising 2021-23 baseline (2.95 -> 3.54 -> 4.30% vs 3.35 -> 2.49 -> 3.12%), not from lower 2024-26 prevalence (2024: 17.8% vs 19.1%). With a post hoc baseline that excludes 2023 (whose camera-ready abstracts post-date ChatGPT), the F24 ratios are 0.90 / 0.90 / 0.99, i.e. on the falsification boundary; the >= 2-word variant (F24_2) stays below 0.86 in 2024-25. The plan's direction argument (camera-ready polishing can only raise accepted rates) does not cover the baseline years, where it works against it."
+  },
+  "H4d": {
+   "statement": "Within NA (withdrawn vs rejected), NAME coefficient > 0 in the cross-section, <= 0 within last-position key, and the two differ.",
+   "estimates": {
+    "cross_pp": {
+     "est": 4.06,
+     "se": 0.96,
+     "lo95": 2.17,
+     "hi95": 5.95
+    },
+    "within_pp": {
+     "est": -0.7,
+     "se": 1.08,
+     "lo95": -2.83,
+     "hi95": 1.42
+    },
+    "diff_pp": {
+     "est": 4.77,
+     "se": 0.75,
+     "p_one_sided": 1.0174463917140303e-10,
+     "key_bootstrap_lo95": 3.21,
+     "key_bootstrap_hi95": 6.24
+    },
+    "full_sample_cross_pp": {
+     "est": 5.12,
+     "se": 0.91,
+     "nobs": 20419
+    },
+    "nobs": 13185,
+    "n_keys": 3571,
+    "n_keys_with_variation": 1957,
+    "robustness": {
+     "wd_post_as_rejected": {
+      "cross": 3.53,
+      "cross_se": 0.95,
+      "within": -1.1,
+      "within_se": 1.09,
+      "diff": 4.64,
+      "diff_se": 0.74,
+      "nobs": 13185
+     },
+     "with_desk_rejections": {
+      "cross": 3.72,
+      "cross_se": 0.94,
+      "within": -0.88,
+      "within_se": 1.06,
+      "diff": 4.6,
+      "diff_se": 0.73,
+      "nobs": 13713
+     },
+     "years_2018_23": {
+      "cross": 7.77,
+      "cross_se": 2.39,
+      "within": 4.2,
+      "within_se": 2.78,
+      "diff": 3.57,
+      "diff_se": 1.88,
+      "nobs": 3096
+     },
+     "pilot_last_profile_key": {
+      "cross": 4.06,
+      "cross_se": 0.96,
+      "within": -0.72,
+      "within_se": 1.08,
+      "diff": 4.79,
+      "diff_se": 0.75,
+      "nobs": 13201
+     },
+     "topic100_FE": {
+      "cross": 0.84,
+      "cross_se": 0.97,
+      "within": -1.74,
+      "within_se": 1.1,
+      "diff": 2.58,
+      "diff_se": 0.71,
+      "nobs": 13185
+     }
+    }
+   },
+   "falsification": "within-author coefficient >= cross-sectional coefficient",
+   "falsified": false,
+   "verdict": "supported",
+   "notes": "Cross-section +4.06 pp (se 0.96) vs within last-position key -0.70 pp (se 1.08); difference 4.77 pp (se 0.75; key-cluster bootstrap 3.21-6.24). The within estimate is <= 0 at the point but its CI reaches +1.4 pp. All robustness variants keep within < cross; adding topic100 FE shrinks the cross-section to +0.84 pp (so part of the excess is topic composition) and the difference to 2.59 pp (se 0.71). In 2018-23 the within estimate is +4.2 pp (se 2.8), so the pattern is a 2024-26 result."
+  },
+  "H4e": {
+   "statement": "Accepted-only estimates fall within +/-10% of all-submission estimates for M metrics; deviations concentrate in O and L; each gap split into selection (desk, exit exact) and editing (audit).",
+   "estimates": {
+    "M_within_10pct": "11/11",
+    "M_ci90_within_10pct": "9/11",
+    "by_class": [
+     {
+      "cls": "L",
+      "n": 9,
+      "within": 7,
+      "median_abs_log": 0.037204450325517203,
+      "max_abs_log": 0.3325829260369104
+     },
+     {
+      "cls": "M",
+      "n": 11,
+      "within": 11,
+      "median_abs_log": 0.017710044951739227,
+      "max_abs_log": 0.0970137865190402
+     },
+     {
+      "cls": "O",
+      "n": 4,
+      "within": 1,
+      "median_abs_log": 0.1602198486495267,
+      "max_abs_log": 1.0187313821190764
+     }
+    ],
+    "peaks": {
+     "agree": {
+      "s0": 1.0,
+      "s1": 1.0,
+      "s2": 0.8666666666666667,
+      "s3": 0.6666666666666666
+     },
+     "mean_abs_diff": {
+      "s0": 0.0,
+      "s1": 0.0,
+      "s2": 0.26666666666666666,
+      "s3": 0.6333333333333333
+     },
+     "mean_shift": {
+      "s0": 0.0,
+      "s1": 0.0,
+      "s2": -0.13333333333333333,
+      "s3": -0.5
+     },
+     "null_agree_mean": 0.6491666666666667,
+     "null_agree_lo95": 0.4666666666666667,
+     "null_agree_hi95": 0.8333333333333334,
+     "null_mad_mean": 0.6065,
+     "null_mad_lo95": 0.26583333333333337,
+     "null_mad_hi95": 0.9341666666666669,
+     "n_words": 30
+    },
+    "atlas": [
+     {
+      "statistic": "NAME prevalence",
+      "cls": "M",
+      "all": 0.3563,
+      "published": 0.3636,
+      "ratio": 1.021,
+      "lo95": 0.998,
+      "hi95": 1.045,
+      "within_10pct": true,
+      "log_desk": -0.0024,
+      "log_exit": -0.0264,
+      "log_dec": 0.0491,
+      "log_edit": 0.0417,
+      "log_edit_lo": -0.0473,
+      "log_edit_hi": 0.1478
+     },
+     {
+      "statistic": "Compound prevalence",
+      "cls": "M",
+      "all": 0.5331,
+      "published": 0.5426,
+      "ratio": 1.018,
+      "lo95": 1.002,
+      "hi95": 1.034,
+      "within_10pct": true,
+      "log_desk": -0.0019,
+      "log_exit": -0.0167,
+      "log_dec": 0.0363,
+      "log_edit": 0.0188,
+      "log_edit_lo": -0.0442,
+      "log_edit_hi": 0.0899
+     },
+     {
+      "statistic": "Phrase-colon prevalence",
+      "cls": "M",
+      "all": 0.1768,
+      "published": 0.179,
+      "ratio": 1.012,
+      "lo95": 0.973,
+      "hi95": 1.051,
+      "within_10pct": true,
+      "log_desk": -0.0008,
+      "log_exit": 0.0023,
+      "log_dec": 0.0109,
+      "log_edit": -0.0252,
+      "log_edit_lo": -0.1481,
+      "log_edit_hi": 0.1348
+     },
+     {
+      "statistic": "Mixed-case name prevalence",
+      "cls": "M",
+      "all": 0.2321,
+      "published": 0.2458,
+      "ratio": 1.059,
+      "lo95": 1.029,
+      "hi95": 1.091,
+      "within_10pct": true,
+      "log_desk": -0.0004,
+      "log_exit": -0.0253,
+      "log_dec": 0.0832,
+      "log_edit": 0.0468,
+      "log_edit_lo": -0.061,
+      "log_edit_hi": 0.1815
+     },
+     {
+      "statistic": "Title Case prevalence",
+      "cls": "M",
+      "all": 0.9291,
+      "published": 0.9454,
+      "ratio": 1.018,
+      "lo95": 1.013,
+      "hi95": 1.022,
+      "within_10pct": true,
+      "log_desk": 0.0003,
+      "log_exit": 0.0006,
+      "log_dec": 0.0165,
+      "log_edit": 0.0083,
+      "log_edit_lo": -0.0276,
+      "log_edit_hi": 0.0468
+     },
+     {
+      "statistic": "Snowclone share",
+      "cls": "M",
+      "all": 0.0108,
+      "published": 0.0098,
+      "ratio": 0.908,
+      "lo95": 0.747,
+      "hi95": 1.068,
+      "within_10pct": true,
+      "log_desk": -0.0072,
+      "log_exit": -0.0294,
+      "log_dec": -0.0605,
+      "log_edit": null,
+      "log_edit_lo": null,
+      "log_edit_hi": null
+     },
+     {
+      "statistic": "LLM abbreviation-only share",
+      "cls": "M",
+      "all": 0.4915,
+      "published": 0.4926,
+      "ratio": 1.002,
+      "lo95": 0.961,
+      "hi95": 1.041,
+      "within_10pct": true,
+      "log_desk": -0.0023,
+      "log_exit": 0.0036,
+      "log_dec": 0.0008,
+      "log_edit": null,
+      "log_edit_lo": null,
+      "log_edit_hi": null
+     },
+     {
+      "statistic": "ITS slope-change OR (NAME)",
+      "cls": "M",
+      "all": 1.1073,
+      "published": 1.0526,
+      "ratio": 0.951,
+      "lo95": 0.889,
+      "hi95": 1.017,
+      "within_10pct": true,
+      "log_desk": -0.0087,
+      "log_exit": 0.0045,
+      "log_dec": -0.0465,
+      "log_edit": null,
+      "log_edit_lo": null,
+      "log_edit_hi": null
+     },
+     {
+      "statistic": "Colon premium OR, 2024-26 (decided-only)",
+      "cls": "M",
+      "all": 1.0182,
+      "published": null,
+      "ratio": 1.034,
+      "lo95": 1.009,
+      "hi95": 1.06,
+      "within_10pct": true,
+      "log_desk": 0.0058,
+      "log_exit": 0.0281,
+      "log_dec": null,
+      "log_edit": null,
+      "log_edit_lo": null,
+      "log_edit_hi": null
+     },
+     {
+      "statistic": "Colon premium trend, 2018-26 (decided-only)",
+      "cls": "M",
+      "all": -0.0351,
+      "published": null,
+      "ratio": null,
+      "lo95": null,
+      "hi95": null,
+      "within_10pct": null,
+      "log_desk": 0.0012,
+      "log_exit": 0.0025,
+      "log_dec": null,
+      "log_edit": null,
+      "log_edit_lo": null,
+      "log_edit_hi": null
+     },
+     {
+      "statistic": "Opener entropy, NAME-collapsed (rarefied)",
+      "cls": "M",
+      "all": 6.8928,
+      "published": 6.7893,
+      "ratio": 0.985,
+      "lo95": 0.974,
+      "hi95": 0.996,
+      "within_10pct": true,
+      "log_desk": 0.001,
+      "log_exit": 0.0108,
+      "log_dec": -0.0269,
+      "log_edit": null,
+      "log_edit_lo": null,
+      "log_edit_hi": null
+     },
+     {
+      "statistic": "Lexical turnover JSD (rarefied)",
+      "cls": "M",
+      "all": 0.2363,
+      "published": 0.2342,
+      "ratio": 0.991,
+      "lo95": 0.977,
+      "hi95": 1.006,
+      "within_10pct": true,
+      "log_desk": 0.0008,
+      "log_exit": -0.0023,
+      "log_dec": -0.0074,
+      "log_edit": null,
+      "log_edit_lo": null,
+      "log_edit_hi": null
+     },
+     {
+      "statistic": "Peak years of top-30 title fashions (agreement with all)",
+      "cls": "M",
+      "all": 1.0,
+      "published": 0.6667,
+      "ratio": null,
+      "lo95": null,
+      "hi95": null,
+      "within_10pct": null,
+      "log_desk": null,
+      "log_exit": null,
+      "log_dec": null,
+      "log_edit": null,
+      "log_edit_lo": null,
+      "log_edit_hi": null
+     },
+     {
+      "statistic": "ALL-CAPS title prevalence",
+      "cls": "O",
+      "all": 0.0132,
+      "published": 0.0048,
+      "ratio": 0.361,
+      "lo95": 0.26,
+      "hi95": 0.47,
+      "within_10pct": false,
+      "log_desk": -0.0111,
+      "log_exit": -0.1757,
+      "log_dec": -0.8319,
+      "log_edit": null,
+      "log_edit_lo": null,
+      "log_edit_hi": null
+     },
+     {
+      "statistic": "Sentence case prevalence",
+      "cls": "O",
+      "all": 0.0404,
+      "published": 0.0366,
+      "ratio": 0.905,
+      "lo95": 0.822,
+      "hi95": 0.986,
+      "within_10pct": true,
+      "log_desk": -0.0,
+      "log_exit": 0.0425,
+      "log_dec": -0.1421,
+      "log_edit": null,
+      "log_edit_lo": null,
+      "log_edit_hi": null
+     },
+     {
+      "statistic": "Question opener prevalence",
+      "cls": "O",
+      "all": 0.0176,
+      "published": 0.0158,
+      "ratio": 0.899,
+      "lo95": 0.776,
+      "hi95": 1.023,
+      "within_10pct": false,
+      "log_desk": -0.0263,
+      "log_exit": 0.0133,
+      "log_dec": -0.0931,
+      "log_edit": null,
+      "log_edit_lo": null,
+      "log_edit_hi": null
+     },
+     {
+      "statistic": "O-union prevalence",
+      "cls": "O",
+      "all": 0.0688,
+      "published": 0.0555,
+      "ratio": 0.807,
+      "lo95": 0.747,
+      "hi95": 0.867,
+      "within_10pct": false,
+      "log_desk": -0.009,
+      "log_exit": 0.0027,
+      "log_dec": -0.208,
+      "log_edit": 0.2069,
+      "log_edit_lo": null,
+      "log_edit_hi": null
+     },
+     {
+      "statistic": "Title typography prevalence",
+      "cls": "L",
+      "all": 0.0071,
+      "published": 0.0067,
+      "ratio": 0.936,
+      "lo95": 0.721,
+      "hi95": 1.157,
+      "within_10pct": true,
+      "log_desk": -0.0194,
+      "log_exit": -0.0212,
+      "log_dec": -0.0258,
+      "log_edit": null,
+      "log_edit_lo": null,
+      "log_edit_hi": null
+     },
+     {
+      "statistic": "R24 prevalence",
+      "cls": "L",
+      "all": 0.0528,
+      "published": 0.0426,
+      "ratio": 0.807,
+      "lo95": 0.736,
+      "hi95": 0.876,
+      "within_10pct": false,
+      "log_desk": -0.0004,
+      "log_exit": -0.1046,
+      "log_dec": -0.11,
+      "log_edit": null,
+      "log_edit_lo": null,
+      "log_edit_hi": null
+     },
+     {
+      "statistic": "R26 prevalence",
+      "cls": "L",
+      "all": 0.0355,
+      "published": 0.0377,
+      "ratio": 1.06,
+      "lo95": 0.961,
+      "hi95": 1.153,
+      "within_10pct": true,
+      "log_desk": 0.0044,
+      "log_exit": -0.0357,
+      "log_dec": 0.0893,
+      "log_edit": null,
+      "log_edit_lo": null,
+      "log_edit_hi": null
+     },
+     {
+      "statistic": "F24 prevalence",
+      "cls": "L",
+      "all": 0.1289,
+      "published": 0.1242,
+      "ratio": 0.963,
+      "lo95": 0.92,
+      "hi95": 1.009,
+      "within_10pct": true,
+      "log_desk": 0.0039,
+      "log_exit": -0.0302,
+      "log_dec": -0.011,
+      "log_edit": null,
+      "log_edit_lo": null,
+      "log_edit_hi": null
+     },
+     {
+      "statistic": "F26 prevalence",
+      "cls": "L",
+      "all": 0.108,
+      "published": 0.1104,
+      "ratio": 1.023,
+      "lo95": 0.97,
+      "hi95": 1.072,
+      "within_10pct": true,
+      "log_desk": -0.0143,
+      "log_exit": 0.0315,
+      "log_dec": 0.0055,
+      "log_edit": null,
+      "log_edit_lo": null,
+      "log_edit_hi": null
+     },
+     {
+      "statistic": "Em dash (abstract) prevalence",
+      "cls": "L",
+      "all": 0.0639,
+      "published": 0.0625,
+      "ratio": 0.979,
+      "lo95": 0.909,
+      "hi95": 1.048,
+      "within_10pct": true,
+      "log_desk": -0.0117,
+      "log_exit": 0.0087,
+      "log_dec": -0.0185,
+      "log_edit": null,
+      "log_edit_lo": null,
+      "log_edit_hi": null
+     },
+     {
+      "statistic": "Style density (mean)",
+      "cls": "L",
+      "all": 3.2598,
+      "published": 3.1454,
+      "ratio": 0.965,
+      "lo95": 0.954,
+      "hi95": 0.976,
+      "within_10pct": true,
+      "log_desk": -0.0025,
+      "log_exit": -0.0257,
+      "log_dec": -0.0075,
+      "log_edit": null,
+      "log_edit_lo": null,
+      "log_edit_hi": null
+     },
+     {
+      "statistic": "L-union prevalence",
+      "cls": "L",
+      "all": 0.33,
+      "published": 0.3218,
+      "ratio": 0.975,
+      "lo95": 0.951,
+      "hi95": 1.0,
+      "within_10pct": true,
+      "log_desk": -0.0037,
+      "log_exit": -0.015,
+      "log_dec": -0.0064,
+      "log_edit": null,
+      "log_edit_lo": null,
+      "log_edit_hi": null
+     },
+     {
+      "statistic": "RARE21 Kobak bound (2024-26 mean)",
+      "cls": "L",
+      "all": 0.1141,
+      "published": 0.0818,
+      "ratio": 0.717,
+      "lo95": 0.495,
+      "hi95": 0.888,
+      "within_10pct": false,
+      "log_desk": 0.0016,
+      "log_exit": -0.0852,
+      "log_dec": -0.249,
+      "log_edit": null,
+      "log_edit_lo": null,
+      "log_edit_hi": null
+     }
+    ]
+   },
+   "falsification": "none pre-registered (descriptive)",
+   "falsified": null,
+   "verdict": "supported",
+   "notes": "11/11 ratio-type M statistics lie within +/-10% (median |log ratio| 0.018); O 1/4 (median 0.160); L 7/9 (median 0.037; outliers R24 prevalence 0.81 and the Kobak bound 0.72). All M point estimates are inside +/-10%; two M 90% CIs cross the margin (snowclone share 0.91, 90% CI 0.77-1.04; ITS slope-change OR ratio 0.95, 0.90-1.01). Editing is separable only for auditable title features and is not bounded by the 331-pair audit (e.g. NAME editing log-ratio +0.042, interval -0.047 to +0.148)."
+  }
+ },
+ "decision_stage_bound": {
+  "source": "computed by d4_bias_atlas from cache/arxiv_audit.jsonl; outputs/snapshot/ (WP4) was not available",
+  "n_pairs": 331,
+  "pairs_by_decision": {
+   "accepted": 206,
+   "rejected": 125
+  },
+  "NAME": {
+   "feature": "NAME",
+   "auditable": true,
+   "P_s0": 0.3562894125456355,
+   "P_s2": 0.3461868397051921,
+   "P_s3": 0.3636055484189285,
+   "acc_share_s0": 0.2939595087952207,
+   "acc_share_s2": 0.4026702931718509,
+   "did_pp": 2.085436893203884,
+   "did_se_pp": 2.3742853221885167,
+   "did_lo95_pp": -2.5681623382856094,
+   "did_hi95_pp": 6.739036124693376,
+   "G_dec_obs": 1.0503159182150597,
+   "G_dec_sel_point": 1.014688958748214,
+   "G_dec_interval_lo": 0.9284265700653724,
+   "G_dec_interval_hi": 1.0918836645862686,
+   "tip_dec_pp": 2.916096171782688,
+   "G_dec_identified": false,
+   "G_total_obs": 1.0205342500104628,
+   "G_total_sel_point": 0.9788442065533264,
+   "G_total_interval_lo": 0.88033683230283,
+   "G_total_interval_hi": 1.0699441729797925,
+   "tip_total_pp": 1.036220438406985,
+   "G_total_identified": false
+  },
+  "identified_G_dec": [],
+  "identified_G_total": [],
+  "unauditable": [
+   "all_caps_title",
+   "sentence_case",
+   "question_opener",
+   "title_typo",
+   "R24",
+   "R26",
+   "snowclone"
+  ],
+  "gate": "No title-feature acceptance gain is identified: every tipping point lies inside the audit DiD 95% CI."
+ },
+ "robustness": {
+  "H4a_pooling_raw": {
+   "est": 1.0115,
+   "lo95": 0.9882,
+   "hi95": 1.0343,
+   "lo90": 0.9929,
+   "hi90": 1.0315,
+   "p_ge1": 0.841,
+   "p_le1": 0.159
+  },
+  "H4a_drop_wd_post": {
+   "est": 1.0238,
+   "lo95": 1.0012,
+   "hi95": 1.0479,
+   "lo90": 1.0042,
+   "hi90": 1.0441,
+   "p_ge1": 0.9805,
+   "p_le1": 0.0195
+  },
+  "H4a_wd_rejected_in_s2": {
+   "est": 1.0205,
+   "lo95": 0.9967,
+   "hi95": 1.0435,
+   "lo90": 1.0014,
+   "hi90": 1.0405,
+   "p_ge1": 0.959,
+   "p_le1": 0.041
+  },
+  "H4a_excl_2026": {
+   "est": 1.0369,
+   "lo95": 1.0022,
+   "hi95": 1.0736,
+   "lo90": 1.0082,
+   "hi90": 1.0679,
+   "p_ge1": 0.982,
+   "p_le1": 0.018
+  },
+  "H4a_its_no_controls": {
+   "spec": "no controls, no topic FE",
+   "outcome": "name_primary",
+   "wald_chi2": 0.40602259447745226,
+   "df": 2,
+   "p": 0.8162690197875393,
+   "n_clusters": 100,
+   "pairs": [
+    {
+     "a": "ACC",
+     "b": "REJ",
+     "dlogOR": -0.030366351476256492,
+     "se": 0.05115947474788516,
+     "lo95": -0.13063707945009778,
+     "hi95": 0.06990437649758478,
+     "lo90": -0.11451619906824766,
+     "hi90": 0.05378349611573467,
+     "p_diff": 0.5528046936563386,
+     "tost_p": 0.08673953954320707,
+     "equivalent_0p1": false
+    },
+    {
+     "a": "ACC",
+     "b": "WD",
+     "dlogOR": -0.0011733317138574728,
+     "se": 0.06717433581868547,
+     "lo95": -0.1328326106038799,
+     "hi95": 0.13048594717616496,
+     "lo90": -0.11166528162327846,
+     "hi90": 0.10931861819556352,
+     "p_diff": 0.9860640876334146,
+     "tost_p": 0.0706189503938226,
+     "equivalent_0p1": false
+    },
+    {
+     "a": "REJ",
+     "b": "WD",
+     "dlogOR": 0.02919301976239902,
+     "se": 0.0667485607975236,
+     "lo95": -0.10163175542062938,
+     "hi95": 0.16001779494542742,
+     "lo90": -0.08059859255919853,
+     "hi90": 0.13898463208399658,
+     "p_diff": 0.66185170902775,
+     "tost_p": 0.14439003697399688,
+     "equivalent_0p1": false
+    }
+   ],
+   "max_abs_dlogOR": 0.030366351476256492,
+   "all_pairs_equivalent_0p1": false
+  },
+  "H4a_its_acc_rej_2017_26": {
+   "spec": "ACC vs REJ, 2017-2026",
+   "outcome": "name_primary",
+   "wald_chi2": 1.5092836603511461,
+   "df": 1,
+   "p": 0.21924842598875183,
+   "n_clusters": 100,
+   "pairs": [
+    {
+     "a": "ACC",
+     "b": "REJ",
+     "dlogOR": -0.06773807749738125,
+     "se": 0.05513754578460867,
+     "lo95": -0.17580568143114253,
+     "hi95": 0.04032952643638002,
+     "lo90": -0.15843126966239768,
+     "hi90": 0.022955114667635182,
+     "p_diff": 0.21924842598875527,
+     "tost_p": 0.27923448095974757,
+     "equivalent_0p1": false
+    }
+   ],
+   "max_abs_dlogOR": 0.06773807749738125,
+   "all_pairs_equivalent_0p1": false
+  },
+  "H4a_its_compound": {
+   "spec": "compound outcome",
+   "outcome": "name_compound",
+   "wald_chi2": 0.5149498085968174,
+   "df": 2,
+   "p": 0.7730010250731245,
+   "n_clusters": 100,
+   "pairs": [
+    {
+     "a": "ACC",
+     "b": "REJ",
+     "dlogOR": 0.010750590161763773,
+     "se": 0.04563980905916124,
+     "lo95": -0.07870179185547715,
+     "hi95": 0.1002029721790047,
+     "lo90": -0.06432021530257025,
+     "hi90": 0.0858213956260978,
+     "p_diff": 0.8137796120668879,
+     "tost_p": 0.02526105575706843,
+     "equivalent_0p1": true
+    },
+    {
+     "a": "ACC",
+     "b": "WD",
+     "dlogOR": -0.03186811897410263,
+     "se": 0.06337628685782887,
+     "lo95": -0.15608335868932638,
+     "hi95": 0.0923471207411211,
+     "lo90": -0.13611283427491938,
+     "hi90": 0.0723765963267141,
+     "p_diff": 0.6150769136618203,
+     "tost_p": 0.14117898370012766,
+     "equivalent_0p1": false
+    },
+    {
+     "a": "REJ",
+     "b": "WD",
+     "dlogOR": -0.042618709135866406,
+     "se": 0.05942786557176588,
+     "lo95": -0.15909518533461536,
+     "hi95": 0.07385776706288255,
+     "lo90": -0.14036884936357003,
+     "hi90": 0.05513143109183723,
+     "p_diff": 0.4732813877048051,
+     "tost_p": 0.16713168994759064,
+     "equivalent_0p1": false
+    }
+   ],
+   "max_abs_dlogOR": 0.042618709135866406,
+   "all_pairs_equivalent_0p1": false
+  },
+  "H4b_L_union_drop_wd_post": {
+   "est": 0.9769,
+   "lo95": 0.9508,
+   "hi95": 1.0014,
+   "lo90": 0.9553,
+   "hi90": 0.9981,
+   "p_ge1": 0.0325,
+   "p_le1": 0.9675
+  },
+  "H4b_L_union_wd_rejected_in_s2": {
+   "est": 0.9752,
+   "lo95": 0.9507,
+   "hi95": 1.0009,
+   "lo90": 0.9543,
+   "hi90": 0.997,
+   "p_ge1": 0.0295,
+   "p_le1": 0.9705
+  },
+  "H4b_L_union_raw_pooling": {
+   "est": 0.9613,
+   "lo95": 0.9365,
+   "hi95": 0.9871,
+   "lo90": 0.9406,
+   "hi90": 0.9829,
+   "p_ge1": 0.001,
+   "p_le1": 0.999
+  },
+  "H4b_L_union_excl_2026": {
+   "est": 0.9636,
+   "lo95": 0.9257,
+   "hi95": 1.0024,
+   "lo90": 0.9308,
+   "hi90": 0.9959,
+   "p_ge1": 0.0345,
+   "p_le1": 0.9655
+  },
+  "H4b_O_union_drop_wd_post": {
+   "est": 0.8074,
+   "lo95": 0.7491,
+   "hi95": 0.8668,
+   "lo90": 0.7565,
+   "hi90": 0.8584,
+   "p_ge1": 0.0,
+   "p_le1": 1.0
+  },
+  "H4b_secondary_markers": {
+   "F24_2": {
+    "est": 0.8942,
+    "lo95": 0.7771,
+    "hi95": 1.013,
+    "lo90": 0.7971,
+    "hi90": 0.9893,
+    "p_ge1": 0.0375,
+    "p_le1": 0.9625
+   },
+   "allcaps_name": {
+    "est": 0.9223,
+    "lo95": 0.8736,
+    "hi95": 0.9717,
+    "lo90": 0.8826,
+    "hi90": 0.9646,
+    "p_ge1": 0.0025,
+    "p_le1": 0.9975
+   },
+   "title_emdash": {
+    "est": 1.2049,
+    "lo95": 0.4312,
+    "hi95": 2.0805,
+    "lo90": 0.5363,
+    "hi90": 1.9406,
+    "p_ge1": 0.7005,
+    "p_le1": 0.2995
+   },
+   "NAME_strict": {
+    "est": 1.0231,
+    "lo95": 0.999,
+    "hi95": 1.047,
+    "lo90": 1.0033,
+    "hi90": 1.0431,
+    "p_ge1": 0.97,
+    "p_le1": 0.03
+   },
+   "NAME_loose": {
+    "est": 1.0222,
+    "lo95": 0.9989,
+    "hi95": 1.0437,
+    "lo90": 1.0034,
+    "hi90": 1.0413,
+    "p_ge1": 0.971,
+    "p_le1": 0.029
+   }
+  },
+  "T4_1_adjusted_total": [
+   {
+    "feature": "F24",
+    "G_adj_total": 0.9480878105006646,
+    "n_stages": 3.0
+   },
+   {
+    "feature": "F26",
+    "G_adj_total": 1.021607101589593,
+    "n_stages": 3.0
+   },
+   {
+    "feature": "L_union",
+    "G_adj_total": 0.9671625530452417,
+    "n_stages": 3.0
+   },
+   {
+    "feature": "NAME",
+    "G_adj_total": 1.0082695218686675,
+    "n_stages": 3.0
+   },
+   {
+    "feature": "O_union",
+    "G_adj_total": 0.827730663097787,
+    "n_stages": 3.0
+   },
+   {
+    "feature": "R24",
+    "G_adj_total": 0.8318078198300279,
+    "n_stages": 3.0
+   },
+   {
+    "feature": "R26",
+    "G_adj_total": 1.0333056872181294,
+    "n_stages": 3.0
+   },
+   {
+    "feature": "all_caps_title",
+    "G_adj_total": 0.3874547570700559,
+    "n_stages": 3.0
+   },
+   {
+    "feature": "compound",
+    "G_adj_total": 1.0077488738521279,
+    "n_stages": 3.0
+   },
+   {
+    "feature": "emdash",
+    "G_adj_total": 0.9676019908453842,
+    "n_stages": 3.0
+   },
+   {
+    "feature": "mixed_case_name",
+    "G_adj_total": 1.0438555199833526,
+    "n_stages": 3.0
+   },
+   {
+    "feature": "phrase_colon",
+    "G_adj_total": 1.007363634671211,
+    "n_stages": 3.0
+   },
+   {
+    "feature": "question_opener",
+    "G_adj_total": 0.9157945022180612,
+    "n_stages": 3.0
+   },
+   {
+    "feature": "sentence_case",
+    "G_adj_total": 0.9216254355655793,
+    "n_stages": 3.0
+   },
+   {
+    "feature": "title_case",
+    "G_adj_total": 1.01556055382963,
+    "n_stages": 3.0
+   },
+   {
+    "feature": "title_typo",
+    "G_adj_total": 0.9940321840263803,
+    "n_stages": 3.0
+   }
+  ],
+  "audit_variants": [
+   {
+    "spec": "primary",
+    "feature": "NAME",
+    "n_acc": 206,
+    "n_rej": 125,
+    "did": 0.0208543689320388,
+    "did_se": 0.0237428532218851,
+    "did_boot_lo95": -0.0262815533980582,
+    "did_boot_hi95": 0.0708349514563106
+   },
+   {
+    "spec": "primary",
+    "feature": "compound",
+    "n_acc": 206,
+    "n_rej": 125,
+    "did": 0.0142912621359223,
+    "did_se": 0.025475351995096,
+    "did_boot_lo95": -0.0337155339805825,
+    "did_boot_hi95": 0.0659805825242718
+   },
+   {
+    "spec": "primary",
+    "feature": "mixed_case_name",
+    "n_acc": 206,
+    "n_rej": 125,
+    "did": 0.016,
+    "did_se": 0.0199519194739207,
+    "did_boot_lo95": -0.0225631067961165,
+    "did_boot_hi95": 0.0577087378640776
+   },
+   {
+    "spec": "primary",
+    "feature": "O_union",
+    "n_acc": 206,
+    "n_rej": 125,
+    "did": 0.0128543689320388,
+    "did_se": 0.0238617070998236,
+    "did_boot_lo95": -0.0351456310679611,
+    "did_boot_hi95": 0.0597184466019415
+   },
+   {
+    "spec": "audit years 2024-26",
+    "feature": "NAME",
+    "n_acc": 151,
+    "n_rej": 98,
+    "did": 0.0300716313015272,
+    "did_se": 0.0282406881694902,
+    "did_boot_lo95": -0.0234491147452358,
+    "did_boot_hi95": 0.0896742803081497
+   },
+   {
+    "spec": "audit years 2024-26",
+    "feature": "compound",
+    "n_acc": 151,
+    "n_rej": 98,
+    "did": 0.0137856467090147,
+    "did_se": 0.031466683617837,
+    "did_boot_lo95": -0.0463576158940397,
+    "did_boot_hi95": 0.0805514258683605
+   },
+   {
+    "spec": "audit years 2024-26",
+    "feature": "mixed_case_name",
+    "n_acc": 151,
+    "n_rej": 98,
+    "did": 0.0066225165562913,
+    "did_se": 0.0207569651626692,
+    "did_boot_lo95": -0.0336531963778889,
+    "did_boot_hi95": 0.0499391809704014
+   },
+   {
+    "spec": "audit years 2024-26",
+    "feature": "O_union",
+    "n_acc": 151,
+    "n_rej": 98,
+    "did": 0.0270306798215975,
+    "did_se": 0.0234233019481091,
+    "did_boot_lo95": -0.0168265981889444,
+    "did_boot_hi95": 0.0744695229085011
+   },
+   {
+    "spec": "population-weighted 2023-26",
+    "feature": "NAME",
+    "n_acc": 197,
+    "n_rej": 125,
+    "did": 0.0207341814344402,
+    "did_se": 0.0258377095813325,
+    "did_boot_lo95": -0.0290264880611077,
+    "did_boot_hi95": 0.0719167882564326
+   },
+   {
+    "spec": "population-weighted 2023-26",
+    "feature": "compound",
+    "n_acc": 197,
+    "n_rej": 125,
+    "did": 0.0162544755879528,
+    "did_se": 0.0276292689597659,
+    "did_boot_lo95": -0.036535433530787,
+    "did_boot_hi95": 0.0673985945343888
+   },
+   {
+    "spec": "population-weighted 2023-26",
+    "feature": "mixed_case_name",
+    "n_acc": 197,
+    "n_rej": 125,
+    "did": 0.0088068463073633,
+    "did_se": 0.0212224058201394,
+    "did_boot_lo95": -0.0317675007754634,
+    "did_boot_hi95": 0.0510121727140713
+   },
+   {
+    "spec": "population-weighted 2023-26",
+    "feature": "O_union",
+    "n_acc": 197,
+    "n_rej": 125,
+    "did": 0.0253247723301653,
+    "did_se": 0.0235229707143937,
+    "did_boot_lo95": -0.0162667742450136,
+    "did_boot_hi95": 0.0701281278981019
+   }
+  ]
+ },
+ "exploratory": {
+  "exit_timing_2025_26": [
+   {
+    "year": 2025,
+    "phase": "0 rejected (reference)",
+    "n": 3674,
+    "NAME": 0.2994011976047904,
+    "NAME_lo95": 0.2848072240372482,
+    "NAME_hi95": 0.31441423237349014,
+    "O_union": 0.08709853021230267,
+    "O_union_lo95": 0.07840629040038674,
+    "O_union_hi95": 0.09665334240163495,
+    "L_union": 0.26864452912357106,
+    "L_union_lo95": 0.2545585478287576,
+    "L_union_hi95": 0.28321382387969235,
+    "F24": 0.14643440391943385,
+    "F24_lo95": 0.13537160468541798,
+    "F24_hi95": 0.15823581984314244,
+    "title_typo": 0.00027218290691344586,
+    "title_typo_lo95": 4.804734643641835e-05,
+    "title_typo_hi95": 0.001540275543815299,
+    "all_caps_title": 0.01442569406641263,
+    "all_caps_title_lo95": 0.011046002222116325,
+    "all_caps_title_hi95": 0.018819775575383165
+   },
+   {
+    "year": 2025,
+    "phase": "1 early (before reviews)",
+    "n": 56,
+    "NAME": 0.25,
+    "NAME_lo95": 0.15516915222973843,
+    "NAME_hi95": 0.37692892001431927,
+    "O_union": 0.16071428571428573,
+    "O_union_lo95": 0.08692569640589272,
+    "O_union_hi95": 0.278064544496757,
+    "L_union": 0.35714285714285715,
+    "L_union_lo95": 0.2445639270270599,
+    "L_union_hi95": 0.4880635428266874,
+    "F24": 0.21428571428571427,
+    "F24_lo95": 0.127057803147445,
+    "F24_hi95": 0.33819713656004946,
+    "title_typo": 0.0,
+    "title_typo_lo95": 0.0,
+    "title_typo_hi95": 0.06419614448811528,
+    "all_caps_title": 0.03571428571428571,
+    "all_caps_title_lo95": 0.009849218502577639,
+    "all_caps_title_hi95": 0.12119005852210082
+   },
+   {
+    "year": 2025,
+    "phase": "2 discussion",
+    "n": 1550,
+    "NAME": 0.3767741935483871,
+    "NAME_lo95": 0.35298252881203834,
+    "NAME_hi95": 0.4011751665412075,
+    "O_union": 0.08,
+    "O_union_lo95": 0.06750910129669661,
+    "O_union_hi95": 0.09456765092824058,
+    "L_union": 0.29612903225806453,
+    "L_union_lo95": 0.2739267478292094,
+    "L_union_hi95": 0.31933938689134395,
+    "F24": 0.18,
+    "F24_lo95": 0.16167201866796022,
+    "F24_hi95": 0.19991026874151574,
+    "title_typo": 0.0,
+    "title_typo_lo95": 0.0,
+    "title_typo_hi95": 0.0024723240773062063,
+    "all_caps_title": 0.02193548387096774,
+    "all_caps_title_lo95": 0.01573913620030209,
+    "all_caps_title_hi95": 0.030495692369096484
+   },
+   {
+    "year": 2025,
+    "phase": "2a first week after reviews",
+    "n": 832,
+    "NAME": 0.4170673076923077,
+    "NAME_lo95": 0.384018610813911,
+    "NAME_hi95": 0.450878336167431,
+    "O_union": 0.05889423076923077,
+    "O_union_lo95": 0.04483272881574665,
+    "O_union_hi95": 0.07701045295457921,
+    "L_union": 0.2980769230769231,
+    "L_union_lo95": 0.2679810054521601,
+    "L_union_hi95": 0.33002895241545505,
+    "F24": 0.18269230769230768,
+    "F24_lo95": 0.1579133935191247,
+    "F24_hi95": 0.2103879688442704,
+    "title_typo": 0.0,
+    "title_typo_lo95": 0.0,
+    "title_typo_hi95": 0.004596086148380267,
+    "all_caps_title": 0.019230769230769232,
+    "all_caps_title_lo95": 0.011871250558169441,
+    "all_caps_title_hi95": 0.031009601507580815
+   },
+   {
+    "year": 2025,
+    "phase": "3 late (before decision)",
+    "n": 417,
+    "NAME": 0.3597122302158273,
+    "NAME_lo95": 0.3151225637715459,
+    "NAME_hi95": 0.4068630954408513,
+    "O_union": 0.07434052757793765,
+    "O_union_lo95": 0.0528635783160261,
+    "O_union_hi95": 0.10358863553355531,
+    "L_union": 0.2733812949640288,
+    "L_union_lo95": 0.2328169170843687,
+    "L_union_hi95": 0.31808299395104234,
+    "F24": 0.14628297362110312,
+    "F24_lo95": 0.1155940528213335,
+    "F24_hi95": 0.18342961784240314,
+    "title_typo": 0.002398081534772182,
+    "title_typo_lo95": 0.00042343488313457533,
+    "title_typo_hi95": 0.01345732215229158,
+    "all_caps_title": 0.02158273381294964,
+    "all_caps_title_lo95": 0.01139534131172414,
+    "all_caps_title_hi95": 0.04050447087414341
+   },
+   {
+    "year": 2025,
+    "phase": "4 post-decision",
+    "n": 299,
+    "NAME": 0.3377926421404682,
+    "NAME_lo95": 0.2865420542229453,
+    "NAME_hi95": 0.39315848889926786,
+    "O_union": 0.10702341137123746,
+    "O_union_lo95": 0.07683503351900117,
+    "O_union_hi95": 0.14718174621007174,
+    "L_union": 0.3377926421404682,
+    "L_union_lo95": 0.2865420542229453,
+    "L_union_hi95": 0.39315848889926786,
+    "F24": 0.1939799331103679,
+    "F24_lo95": 0.1531581738720726,
+    "F24_hi95": 0.24256553119354596,
+    "title_typo": 0.0,
+    "title_typo_lo95": 0.0,
+    "title_typo_hi95": 0.012685179314862951,
+    "all_caps_title": 0.046822742474916385,
+    "all_caps_title_lo95": 0.028092997206193616,
+    "all_caps_title_hi95": 0.0770497572898862
+   },
+   {
+    "year": 2025,
+    "phase": "5 accepted (reference)",
+    "n": 2904,
+    "NAME": 0.3446969696969697,
+    "NAME_lo95": 0.32762622461208346,
+    "NAME_hi95": 0.3621780618387328,
+    "O_union": 0.06818181818181818,
+    "O_union_lo95": 0.05957297196663232,
+    "O_union_hi95": 0.07793162938441785,
+    "L_union": 0.26170798898071623,
+    "L_union_lo95": 0.24604277161922491,
+    "L_union_hi95": 0.27800282976428914,
+    "F24": 0.14325068870523416,
+    "F24_lo95": 0.130979831373664,
+    "F24_hi95": 0.1564641614490537,
+    "title_typo": 0.0010330578512396695,
+    "title_typo_lo95": 0.00035138734212991586,
+    "title_typo_hi95": 0.00303311613288743,
+    "all_caps_title": 0.004132231404958678,
+    "all_caps_title_lo95": 0.002365397916550926,
+    "all_caps_title_hi95": 0.007209263921975628
+   },
+   {
+    "year": 2026,
+    "phase": "0 rejected (reference)",
+    "n": 6440,
+    "NAME": 0.37888198757763975,
+    "NAME_lo95": 0.36710931160290466,
+    "NAME_hi95": 0.3907990764617553,
+    "O_union": 0.060403726708074534,
+    "O_union_lo95": 0.05484307129961255,
+    "O_union_hi95": 0.06648852691968571,
+    "L_union": 0.37453416149068325,
+    "L_union_lo95": 0.36279107230485463,
+    "L_union_hi95": 0.38642684763904966,
+    "F24": 0.08804347826086957,
+    "F24_lo95": 0.08136609788315952,
+    "F24_hi95": 0.09521204767522914,
+    "title_typo": 0.013043478260869565,
+    "title_typo_lo95": 0.010548299508100097,
+    "title_typo_hi95": 0.016119270967251128,
+    "all_caps_title": 0.013198757763975156,
+    "all_caps_title_lo95": 0.010687361902673265,
+    "all_caps_title_hi95": 0.016290582434133526
+   },
+   {
+    "year": 2026,
+    "phase": "1 early (before reviews)",
+    "n": 59,
+    "NAME": 0.3389830508474576,
+    "NAME_lo95": 0.23137483598383493,
+    "NAME_hi95": 0.4662776744551099,
+    "O_union": 0.06779661016949153,
+    "O_union_lo95": 0.026678187098391565,
+    "O_union_hi95": 0.16175749881667106,
+    "L_union": 0.4915254237288136,
+    "L_union_lo95": 0.3684362544481631,
+    "L_union_hi95": 0.6156507197854656,
+    "F24": 0.05084745762711865,
+    "F24_lo95": 0.017442401159453308,
+    "F24_hi95": 0.1391672332228667,
+    "title_typo": 0.03389830508474576,
+    "title_typo_lo95": 0.009345713033501513,
+    "title_typo_hi95": 0.11543786981607584,
+    "all_caps_title": 0.05084745762711865,
+    "all_caps_title_lo95": 0.017442401159453308,
+    "all_caps_title_hi95": 0.1391672332228667
+   },
+   {
+    "year": 2026,
+    "phase": "2 discussion",
+    "n": 2389,
+    "NAME": 0.4298869820008372,
+    "NAME_lo95": 0.41016310615822493,
+    "NAME_hi95": 0.4498359844627339,
+    "O_union": 0.053160318124738384,
+    "O_union_lo95": 0.044859711778968234,
+    "O_union_hi95": 0.06289568665609742,
+    "L_union": 0.3830054416073671,
+    "L_union_lo95": 0.3637144608745009,
+    "L_union_hi95": 0.4026720813855468,
+    "F24": 0.09836751778987024,
+    "F24_lo95": 0.08706218438681473,
+    "F24_hi95": 0.11096245711055808,
+    "title_typo": 0.01297614064462118,
+    "title_typo_lo95": 0.009156552678164856,
+    "title_typo_hi95": 0.018359518590405532,
+    "all_caps_title": 0.01590623691921306,
+    "all_caps_title_lo95": 0.011610501311945005,
+    "all_caps_title_hi95": 0.021756354229182324
+   },
+   {
+    "year": 2026,
+    "phase": "2a first week after reviews",
+    "n": 1444,
+    "NAME": 0.45706371191135736,
+    "NAME_lo95": 0.4315172826799118,
+    "NAME_hi95": 0.4828379893332699,
+    "O_union": 0.045013850415512466,
+    "O_union_lo95": 0.03547316450123402,
+    "O_union_hi95": 0.05696899215457695,
+    "L_union": 0.3981994459833795,
+    "L_union_lo95": 0.37325234380865874,
+    "L_union_hi95": 0.42368676886775564,
+    "F24": 0.10457063711911357,
+    "F24_lo95": 0.08982278694511393,
+    "F24_hi95": 0.12141689562789686,
+    "title_typo": 0.012465373961218837,
+    "title_typo_lo95": 0.00789928598867176,
+    "title_typo_hi95": 0.019618641386809098,
+    "all_caps_title": 0.014542936288088643,
+    "all_caps_title_lo95": 0.009531397260249628,
+    "all_caps_title_hi95": 0.0221306298565289
+   },
+   {
+    "year": 2026,
+    "phase": "3 late (before decision)",
+    "n": 1209,
+    "NAME": 0.4317617866004963,
+    "NAME_lo95": 0.4041003898219837,
+    "NAME_hi95": 0.45985546393501153,
+    "O_union": 0.04631927212572374,
+    "O_union_lo95": 0.0358406269696835,
+    "O_union_hi95": 0.05967192800864178,
+    "L_union": 0.4044665012406948,
+    "L_union_lo95": 0.377145867280526,
+    "L_union_hi95": 0.4323923279792672,
+    "F24": 0.10339123242349049,
+    "F24_lo95": 0.08746595589544451,
+    "F24_hi95": 0.12182897594066669,
+    "title_typo": 0.015715467328370553,
+    "title_typo_lo95": 0.010083624688579014,
+    "title_typo_hi95": 0.024415191974701662,
+    "all_caps_title": 0.010752688172043012,
+    "all_caps_title_lo95": 0.006294545625636941,
+    "all_caps_title_hi95": 0.01831015131087975
+   },
+   {
+    "year": 2026,
+    "phase": "4 post-decision",
+    "n": 403,
+    "NAME": 0.48883374689826303,
+    "NAME_lo95": 0.4403649351875198,
+    "NAME_hi95": 0.5375134331995871,
+    "O_union": 0.04962779156327544,
+    "O_union_lo95": 0.03235279484693236,
+    "O_union_hi95": 0.07540806343304689,
+    "L_union": 0.43424317617866004,
+    "L_union_lo95": 0.38669583327966983,
+    "L_union_hi95": 0.4830323361110709,
+    "F24": 0.09429280397022333,
+    "F24_lo95": 0.06946918825840923,
+    "F24_hi95": 0.12677819647314234,
+    "title_typo": 0.019851116625310174,
+    "title_typo_lo95": 0.01009231796421362,
+    "title_typo_hi95": 0.03867752268138407,
+    "all_caps_title": 0.009925558312655087,
+    "all_caps_title_lo95": 0.003866373090714196,
+    "all_caps_title_hi95": 0.025239795010089654
+   },
+   {
+    "year": 2026,
+    "phase": "5 accepted (reference)",
+    "n": 4175,
+    "NAME": 0.4081437125748503,
+    "NAME_lo95": 0.3933259768051113,
+    "NAME_hi95": 0.4231303349153427,
+    "O_union": 0.042395209580838325,
+    "O_union_lo95": 0.03669228375937793,
+    "O_union_hi95": 0.04893948558071863,
+    "L_union": 0.3772455089820359,
+    "L_union_lo95": 0.36266194238227717,
+    "L_union_hi95": 0.3920547714553568,
+    "F24": 0.09317365269461078,
+    "F24_lo95": 0.0847264522868006,
+    "F24_hi95": 0.10236884225606986,
+    "title_typo": 0.012455089820359281,
+    "title_typo_lo95": 0.009510913621473969,
+    "title_typo_hi95": 0.01629566397170401,
+    "all_caps_title": 0.005029940119760479,
+    "all_caps_title_lo95": 0.003292294919264983,
+    "all_caps_title_hi95": 0.007677635120677187
+   }
+  ],
+  "calendar_validation": [
+   {
+    "year": 2025,
+    "review_release_calendar": "2024-11-12",
+    "max_nov_withdrawal_day": "2024-11-15",
+    "max_nov_count": 240,
+    "median_daily_withdrawals": 2.0,
+    "decision_calendar": "2025-01-22",
+    "max_withdrawal_day_near_decision": "2025-01-23",
+    "count_near_decision": 54,
+    "dr_n": 53,
+    "dr_mod_min": "2024-10-15 00:18:12.823000",
+    "dr_mod_median": "2024-10-22 03:42:20.576000",
+    "dr_share_after_decision": 0.05660377358490566
+   },
+   {
+    "year": 2026,
+    "review_release_calendar": "2025-11-12",
+    "max_nov_withdrawal_day": "2025-11-12",
+    "max_nov_count": 463,
+    "median_daily_withdrawals": 3.0,
+    "decision_calendar": "2026-01-26",
+    "max_withdrawal_day_near_decision": "2026-01-26",
+    "count_near_decision": 108,
+    "dr_n": 737,
+    "dr_mod_min": "2026-02-11 10:13:52.905000",
+    "dr_mod_median": "2026-02-12 14:51:43.630000",
+    "dr_share_after_decision": 1.0
+   }
+  ],
+  "desk_rejection_timing_2026": {
+   "testable": false,
+   "reason": "100.0% of 2026 desk rejections carry a modification timestamp on/after the decision date (median 2026-02-12 14:51:43.630000); the timestamp records a bulk post-decision update, not the desk-rejection date"
+  }
+ },
+ "deviations": [
+  "Pooled gains are year-standardised (each year's stage prevalence weighted by its s0 size); raw pooling is reported as robustness. PLAN does not specify the pooling.",
+  "OTHER rows (71 in 2018 with unknown decision) are dropped from the D4 stage frame.",
+  "ALL-CAPS title = casing class all_caps (whole title in capitals); the scout stage pilot used the NAME lead orthography; that variant is reported as allcaps_name.",
+  "L-union = any binary L marker (title typography, R24, R26, F24, F26, abstract em dash); the continuous style density is reported separately and is not in the union. Em dash = abstract em dash (title em dash reported as secondary).",
+  "Year-specific style density re-implements the scout rule on the frozen scout style pool (analyses/d4_lexicon.json); selected words 123/150/223 for 2024/25/26.",
+  "Decision-stage tipping point accounts for accepted papers inside s2: D* = (P3 - P2)/(1 - a2). The plan's 1.8 pp pilot ignored the (1 - a2) factor; with it NAME's tipping point is 2.9 pp (total-gain tipping point 1.0 pp).",
+  "Snapshot module computed inside d4_bias_atlas from cache/arxiv_audit.jsonl (WP4 outputs absent). Only titles are auditable (no v1 abstracts cached); auditable = feature present in >= 10 accepted v1 and stored titles (pre-stated).",
+  "Colon premium: no accepted-only version exists; the published-only analogue is decided-only (ACC vs REJ).",
+  "Opener-entropy and JSD intervals use a random-selection band (pivot) instead of the paper bootstrap, which produced intervals excluding the point estimate (duplicates bias the unrarefied accepted set).",
+  "H4c: post hoc baseline sensitivity max(2021, 2022) added because ICLR 2023 camera-ready abstracts post-date ChatGPT.",
+  "H4d: primary population REJ u WD (2024-26), outcome = withdrawn incl. 2026 post-decision withdrawals; last position = max list position (D2 convention); controls year FE, log authors, llm_topic.",
+  "Early vs late 2026 desk rejections not testable: all 737 desk-rejection timestamps fall on/after the decision date (bulk update).",
+  "Desk-stage continuation-ratio logits fitted for 2024-26 only (2018-23 has 0-19 desk rejections a year)."
+ ],
+ "files": [
+  "/home/user/cloud-research/research/titles/outputs/d4_filter/RESULTS.md",
+  "/home/user/cloud-research/research/titles/outputs/d4_filter/T4_1_adjusted_total.csv",
+  "/home/user/cloud-research/research/titles/outputs/d4_filter/T4_1_continuation_ratio.csv",
+  "/home/user/cloud-research/research/titles/outputs/d4_filter/T4_1_continuation_ratio.md",
+  "/home/user/cloud-research/research/titles/outputs/d4_filter/T4_2_audit.md",
+  "/home/user/cloud-research/research/titles/outputs/d4_filter/T4_2_audit_flips.csv",
+  "/home/user/cloud-research/research/titles/outputs/d4_filter/T4_2_decision_bound.csv",
+  "/home/user/cloud-research/research/titles/outputs/d4_filter/atlas.csv",
+  "/home/user/cloud-research/research/titles/outputs/d4_filter/atlas_peaks.csv",
+  "/home/user/cloud-research/research/titles/outputs/d4_filter/audit_pairs.csv",
+  "/home/user/cloud-research/research/titles/outputs/d4_filter/bias_atlas.json",
+  "/home/user/cloud-research/research/titles/outputs/d4_filter/d4_bias_atlas.log",
+  "/home/user/cloud-research/research/titles/outputs/d4_filter/d4_bias_atlas.stdout",
+  "/home/user/cloud-research/research/titles/outputs/d4_filter/d4_exit_composition.log",
+  "/home/user/cloud-research/research/titles/outputs/d4_filter/d4_stage_gains.log",
+  "/home/user/cloud-research/research/titles/outputs/d4_filter/d4_stage_gains.stdout",
+  "/home/user/cloud-research/research/titles/outputs/d4_filter/exit_calendar.csv",
+  "/home/user/cloud-research/research/titles/outputs/d4_filter/exit_composition.csv",
+  "/home/user/cloud-research/research/titles/outputs/d4_filter/exit_composition.json",
+  "/home/user/cloud-research/research/titles/outputs/d4_filter/exit_timing.csv",
+  "/home/user/cloud-research/research/titles/outputs/d4_filter/fig_F4_1_stage_ladder.csv",
+  "/home/user/cloud-research/research/titles/outputs/d4_filter/fig_F4_1_stage_ladder.pdf",
+  "/home/user/cloud-research/research/titles/outputs/d4_filter/fig_F4_1_stage_ladder.png",
+  "/home/user/cloud-research/research/titles/outputs/d4_filter/fig_F4_2_bias_atlas.csv",
+  "/home/user/cloud-research/research/titles/outputs/d4_filter/fig_F4_2_bias_atlas.pdf",
+  "/home/user/cloud-research/research/titles/outputs/d4_filter/fig_F4_2_bias_atlas.png",
+  "/home/user/cloud-research/research/titles/outputs/d4_filter/fig_F4_3_kobak_bounds.csv",
+  "/home/user/cloud-research/research/titles/outputs/d4_filter/fig_F4_3_kobak_bounds.pdf",
+  "/home/user/cloud-research/research/titles/outputs/d4_filter/fig_F4_3_kobak_bounds.png",
+  "/home/user/cloud-research/research/titles/outputs/d4_filter/fig_F4_4_exit_arrows.csv",
+  "/home/user/cloud-research/research/titles/outputs/d4_filter/fig_F4_4_exit_arrows.pdf",
+  "/home/user/cloud-research/research/titles/outputs/d4_filter/fig_F4_4_exit_arrows.png",
+  "/home/user/cloud-research/research/titles/outputs/d4_filter/fig_S4_1_total_gain_by_year.csv",
+  "/home/user/cloud-research/research/titles/outputs/d4_filter/fig_S4_1_total_gain_by_year.pdf",
+  "/home/user/cloud-research/research/titles/outputs/d4_filter/fig_S4_1_total_gain_by_year.png",
+  "/home/user/cloud-research/research/titles/outputs/d4_filter/gains.csv",
+  "/home/user/cloud-research/research/titles/outputs/d4_filter/its_pools.csv",
+  "/home/user/cloud-research/research/titles/outputs/d4_filter/kobak_bounds.csv",
+  "/home/user/cloud-research/research/titles/outputs/d4_filter/kobak_series.csv",
+  "/home/user/cloud-research/research/titles/outputs/d4_filter/prevalence_by_stage.csv",
+  "/home/user/cloud-research/research/titles/outputs/d4_filter/results.json",
+  "/home/user/cloud-research/research/titles/outputs/d4_filter/stage_gains.json",
+  "/home/user/cloud-research/research/titles/outputs/d4_filter/style_density.parquet",
+  "/home/user/cloud-research/research/titles/outputs/d4_filter/style_density_words.json"
+ ],
+ "language": "Associational; declared profile keys are not persons; list positions are partition labels."
+}

@@ -1,0 +1,173 @@
+[
+ {
+  "spec": "primary_orig",
+  "auditable": [
+   "NAME",
+   "NAME_loose",
+   "NAME_strict",
+   "O_union",
+   "allcaps_name",
+   "compound",
+   "mixed_case_name",
+   "phrase_colon",
+   "title_case",
+   "via"
+  ],
+  "identified_dec": [],
+  "passes_gate": [],
+  "identified_wald": []
+ },
+ {
+  "spec": "enl254_pooled(reported)",
+  "auditable": [
+   "NAME",
+   "NAME_loose",
+   "NAME_strict",
+   "O_union",
+   "allcaps_name",
+   "compound",
+   "mixed_case_name",
+   "phrase_colon",
+   "title_case",
+   "via"
+  ],
+  "identified_dec": [],
+  "passes_gate": [],
+  "identified_wald": []
+ },
+ {
+  "spec": "enlAll_pooled",
+  "auditable": [
+   "L_title",
+   "NAME",
+   "NAME_loose",
+   "NAME_strict",
+   "O_union",
+   "R24",
+   "allcaps_name",
+   "compound",
+   "llm_abbrev_only",
+   "mixed_case_name",
+   "phrase_colon",
+   "question_opener",
+   "sentence_case",
+   "slot_filled",
+   "title_case",
+   "using",
+   "via"
+  ],
+  "identified_dec": [
+   "sentence_case"
+  ],
+  "passes_gate": [
+   "sentence_case"
+  ],
+  "identified_wald": [
+   "sentence_case"
+  ]
+ },
+ {
+  "spec": "enlAll_pooled_2024_26",
+  "auditable": [
+   "L_title",
+   "NAME",
+   "NAME_loose",
+   "NAME_strict",
+   "O_union",
+   "R24",
+   "allcaps_name",
+   "compound",
+   "llm_abbrev_only",
+   "mixed_case_name",
+   "phrase_colon",
+   "question_opener",
+   "sentence_case",
+   "slot_filled",
+   "title_case",
+   "using",
+   "via"
+  ],
+  "identified_dec": [
+   "sentence_case",
+   "via"
+  ],
+  "passes_gate": [
+   "sentence_case",
+   "via"
+  ],
+  "identified_wald": [
+   "sentence_case",
+   "via"
+  ]
+ },
+ {
+  "spec": "enlAll_newonly",
+  "auditable": [
+   "L_title",
+   "NAME",
+   "NAME_loose",
+   "NAME_strict",
+   "O_union",
+   "allcaps_name",
+   "compound",
+   "llm_abbrev_only",
+   "mixed_case_name",
+   "phrase_colon",
+   "sentence_case",
+   "slot_filled",
+   "title_case",
+   "via"
+  ],
+  "identified_dec": [
+   "via"
+  ],
+  "passes_gate": [
+   "via"
+  ],
+  "identified_wald": [
+   "via"
+  ]
+ },
+ {
+  "spec": "enlAll_newonly_2024_26",
+  "auditable": [
+   "L_title",
+   "NAME",
+   "NAME_loose",
+   "NAME_strict",
+   "O_union",
+   "allcaps_name",
+   "compound",
+   "llm_abbrev_only",
+   "mixed_case_name",
+   "phrase_colon",
+   "sentence_case",
+   "title_case",
+   "via"
+  ],
+  "identified_dec": [
+   "via"
+  ],
+  "passes_gate": [
+   "via"
+  ],
+  "identified_wald": [
+   "via"
+  ]
+ },
+ {
+  "spec": "orig_2024_26",
+  "auditable": [
+   "NAME",
+   "NAME_loose",
+   "NAME_strict",
+   "compound",
+   "mixed_case_name",
+   "phrase_colon",
+   "title_case"
+  ],
+  "identified_dec": [],
+  "passes_gate": [],
+  "identified_wald": []
+ }
+]

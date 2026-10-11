@@ -25,9 +25,15 @@
 | D. Robustness | exclude titles whose abstract has the slot word: slots_post | 1.94 [1.03, 3.69] | 0.0208 |  | 913 | 737 |
 | D. Robustness | exclude titles whose abstract has the slot word: controls_post | 0.87 [0.64, 1.18] | 0.818 |  | 6,925 | 5,087 |
 | D. Robustness | exclude titles whose abstract has the slot word: stacked_interaction | 2.26 [1.13, 4.54] | 0.0109 |  | 7,838 | 5,824 |
-| D. Robustness | any-compound-lead opener rule (pilot-like): slots_post | 2.49 [1.66, 3.74] | 4.99e-06 |  | 2,163 | 1,702 |
-| D. Robustness | any-compound-lead opener rule (pilot-like): controls_post | 0.87 [0.64, 1.18] | 0.818 |  | 6,925 | 5,087 |
-| D. Robustness | any-compound-lead opener rule (pilot-like): stacked_interaction | 2.91 [1.81, 4.69] | 5.79e-06 |  | 9,088 | 6,789 |
+| D. Robustness | any-compound-lead opener rule (V2 drops kept): slots_post | 2.49 [1.66, 3.74] | 4.99e-06 |  | 2,163 | 1,702 |
+| D. Robustness | any-compound-lead opener rule (V2 drops kept): controls_post | 0.87 [0.64, 1.18] | 0.818 |  | 6,925 | 5,087 |
+| D. Robustness | any-compound-lead opener rule (V2 drops kept): stacked_interaction | 2.91 [1.81, 4.69] | 5.79e-06 |  | 9,088 | 6,789 |
+| D. Robustness | pilot-like: any-lead rule + full lexicon: slots_post | 2.80 [1.89, 4.15] | 1.29e-07 |  | 2,321 | 1,844 |
+| D. Robustness | pilot-like: any-lead rule + full lexicon: controls_post | 0.87 [0.64, 1.18] | 0.818 |  | 6,925 | 5,087 |
+| D. Robustness | pilot-like: any-lead rule + full lexicon: stacked_interaction | 3.27 [2.04, 5.24] | 4.29e-07 |  | 9,246 | 6,931 |
+| D. Robustness | no slot trends (level contrast): slots_post | 4.40 [3.26, 5.93] | 1.3e-22 |  | 1,922 |  |
+| D. Robustness | no slot trends (level contrast): controls_post | 2.02 [1.73, 2.37] | 9.61e-19 |  | 6,925 |  |
+| D. Robustness | no slot trends (level contrast): stacked_interaction | 2.46 [1.78, 3.41] | 2.64e-08 |  | 8,847 |  |
 | D. Robustness | excluding 2026: slots_post | 2.27 [1.36, 3.80] | 0.0009 |  | 1,250 | 836 |
 | D. Robustness | excluding 2026: controls_post | 1.00 [0.75, 1.35] | 0.494 |  | 4,207 | 2,369 |
 | D. Robustness | excluding 2026: stacked_interaction | 2.42 [1.34, 4.37] | 0.00171 |  | 5,457 | 3,205 |

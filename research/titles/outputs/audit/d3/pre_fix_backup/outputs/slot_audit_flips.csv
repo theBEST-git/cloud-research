@@ -1,0 +1,5 @@
+period,decision,n_pairs,n_slot_filled_v1,n_slot_filled_or,n_llm_v1,n_llm_or,adds_llm,drops_llm,slot_word_changed,llm_to_neutral,neutral_to_llm,r24_adds,r24_drops,net_llm_per100
+all,accepted,528,24,22,15,12,0,3,8,0,0,0,1,-0.568181818181818
+all,rejected,317,9,10,3,4,1,0,1,0,0,1,0,0.3154574132492113
+2024-26,accepted,399,17,16,11,9,0,2,5,0,0,0,1,-0.5012531328320802
+2024-26,rejected,249,7,8,2,3,1,0,1,0,0,1,0,0.40160642570281135

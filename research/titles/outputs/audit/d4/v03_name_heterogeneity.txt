@@ -1,0 +1,24 @@
+non-LLM topics   n= 18005 G_total 0.996 [0.958, 1.033]
+LLM topics       n= 12125 G_total 1.033 [1.000, 1.064]
+                                                                                  area    n  G_total
+                                                                      causal reasoning  309    0.377
+   probabilistic methods (Bayesian methods, variational inference, sampling, UQ, etc.)  625    0.621
+                                                                       learning theory  851    0.678
+                                  learning on graphs and other geometries & topologies  891    0.876
+                                      applications to neuroscience & cognitive science  583    0.899
+                                                                          optimization 1213    0.907
+                            other topics in machine learning (i.e., none of the above) 1662    0.951
+                     alignment, fairness, safety, privacy, and societal considerations 2506    0.954
+                                                   interpretability and explainable AI 1186    0.986
+unsupervised, self-supervised, semi-supervised, and supervised representation learning 2314    0.987
+                                         foundation or frontier models, including LLMs 3020    1.003
+                                          applications to robotics, autonomy, planning  806    1.011
+                                                                     generative models 2717    1.040
+                                                                reinforcement learning 1879    1.050
+                                         learning on time series and dynamical systems  574    1.053
+                                                               datasets and benchmarks 2029    1.055
+                 applications to physical sciences (physics, chemistry, biology, etc.) 1324    1.088
+                applications to computer vision, audio, language, and other modalities 4029    1.089
+                               transfer learning, meta learning, and lifelong learning 1037    1.136
+  neurosymbolic & hybrid AI systems (physics-informed, logic & formal reasoning, etc.)  332    1.483
+areas: 20 range 0.377 1.483 IQR [0.905, 1.054]

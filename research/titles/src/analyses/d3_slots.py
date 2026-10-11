@@ -19,9 +19,17 @@ drop rule, no sense filter, log authors, bge topics, placebo break years with ra
 random-effects meta-regression on slot x year cells (year shocks), per-slot estimates with BH, and the camera-ready
 audit of opener-word flips among pre-decision arXiv v1 pairs.
 
+Fixer pass (audit/d3): event study reported twice - (i) year deviations from slot trends estimated JOINTLY with the
+2023-26 year dummies (the original model; relative slot slopes are partly identified from 2023-26) and (ii) year
+deviations from slot trends FROZEN on 2018-22 (offset; opener slots only, study_adj has no 2018-22 trend). Per-1,000
+title rates of LLM-favoured and neutral variants (addition vs substitution) with a quasi-Poisson level shift against the
+2018-23 trend. A truly pilot-like row (any-lead rule + full lexicon). The camera-ready audit reads a pinned number of
+enlargement lines (ENLARGE_N) and is reported as counts with exact (Clopper-Pearson) intervals, no bootstrap CI.
+
 Outputs (outputs/d3_register/):
     slot_inventory.json, slots_results.json, T3_1_slot_models.{csv,md}, slot_robustness.csv, slot_shares_by_year.csv,
     slot_loo.csv, slot_placebo_breaks.csv, slot_year_level.csv, slot_audit_flips.csv, slot_audit_pairs.csv,
+    slot_event_study.csv (both trend versions), slot_variant_rates.csv, slot_variant_rate_shift.csv,
     fig_F3_1_slot_shares.{pdf,png,csv}
 
 Run:  cd research/titles/src && OMP_NUM_THREADS=2 /home/user/venv/bin/python -m analyses.d3_slots
@@ -54,6 +62,9 @@ BOOST_ALG = (r"\bboosting\s+(?:algorithms?|methods?|trees?|machines?|classifiers
              r"|\bgradient\s+boosting\b|\badaboost\b")
 POOLED = "y ~ C(slot) + C(slot):t + post + llm_topic"
 STACKED = "y ~ C(slot) + C(slot):t + post + post:llm_slot + llm_topic"
+# camera-ready audit: the enlargement cache is append-only and still growing; read only its first ENLARGE_N lines so the
+# audit is reproducible (the original run used the 1,025 lines present at run time; pinned at the fixer pass)
+ENLARGE_N = 1620
 BASE_COLS = ["submission_id", "year", "topic100", "topic100_bge", "log_authors", "llm_topic", "non_llm", "NA", "ACC",
              "pool", "opener_pos", "F_any", "f24", "f26", "title_typo", "name_primary", "n_words"]
 
@@ -315,7 +326,9 @@ def placebo_breaks(P: pd.DataFrame) -> pd.DataFrame:
 
 
 def event_study(P: pd.DataFrame, years=(2023, 2024, 2025, 2026)) -> pd.DataFrame:
-    """Year deviations from slot-specific linear trends fitted on 2018-2022: logit with year dummies for 2023-26.
+    """Year deviations from slot-specific linear trends ESTIMATED JOINTLY with common 2023-26 year dummies (logit on
+    all 2018-26 rows). The trends are pinned mainly by 2018-22, but relative slot slopes are also identified from
+    2023-26 cross-slot differences, so they are not 'fitted on 2018-22 only' (audit D3-C6; see event_study_frozen).
     Slots and controls separately, and the slot-minus-control contrast (stacked, with year FE)."""
     d = P.copy()
     dn = []
@@ -337,8 +350,123 @@ def event_study(P: pd.DataFrame, years=(2023, 2024, 2025, 2026)) -> pd.DataFrame
         for term, y in zip(terms, years):
             z = t.loc[term, "coef"] / t.loc[term, "se"]
             rows.append(dict(model=nm, year=y, OR=t.loc[term, "OR"], OR_lo=t.loc[term, "OR_lo"],
-                             OR_hi=t.loc[term, "OR_hi"], p_two=2 * stats.norm.sf(abs(z)), nobs=int(r.nobs)))
+                             OR_hi=t.loc[term, "OR_hi"], p_two=2 * stats.norm.sf(abs(z)), nobs=int(r.nobs),
+                             trends="estimated jointly (2018-26)"))
     return pd.DataFrame(rows)
+
+
+def _frozen_fit(P: pd.DataFrame, years, cov: bool = True) -> dict:
+    """Point estimates (log OR, and cluster-robust SE when cov) for event_study_frozen."""
+    import patsy
+    import statsmodels.api as sm
+    groups = {"slots": P[(P.llm_slot == 1) & (P.slot != "study_adj")],
+              "controls": P[P.llm_slot == 0],
+              "controls_without_via": P[(P.llm_slot == 0) & (P.slot != "via")]}
+    offs = {}
+    for g, d in groups.items():
+        d = d.copy()
+        dp = d[d.year <= 2022]
+        X0, y0 = (patsy.dmatrices("y ~ C(slot) + C(slot):t + llm_topic", dp, return_type="dataframe",
+                                  eval_env=patsy.EvalEnvironment([{}]))[::-1])
+        b0 = sm.GLM(y0.iloc[:, 0], X0, family=sm.families.Binomial()).fit().params
+        X = patsy.dmatrix("C(slot) + C(slot):t + llm_topic", d, return_type="dataframe",
+                          eval_env=patsy.EvalEnvironment([{}]))  # module alias C would shadow patsy's C()
+        d["off"] = X[b0.index].to_numpy() @ b0.to_numpy()
+        offs[g] = d[d.year.isin(years)]
+    out = {}
+
+    def glm(d, cols):
+        D = pd.DataFrame(cols, index=d.index).astype(float)
+        kw = dict(cov_type="cluster", cov_kwds={"groups": pd.factorize(d.topic100)[0]}) if cov else {}
+        return sm.GLM(d.y.astype(float), D, family=sm.families.Binomial(), offset=d.off.to_numpy()).fit(**kw)
+    for g, d in offs.items():
+        m = glm(d, {f"d{y}": (d.year == y) for y in years})
+        for y in years:
+            out[(g, y)] = (float(m.params[f"d{y}"]), float(m.bse[f"d{y}"]) if cov else np.nan, int(len(d)))
+    for nm, ctl in [("slot_minus_control", "controls"), ("slot_minus_control_without_via", "controls_without_via")]:
+        d = pd.concat([offs["slots"], offs[ctl]])
+        cols = {f"d{y}": (d.year == y) for y in years}
+        cols.update({f"d{y}_llm": (d.year == y) & (d.llm_slot == 1) for y in years})
+        m = glm(d, cols)
+        for y in years:
+            out[(nm, y)] = (float(m.params[f"d{y}_llm"]), float(m.bse[f"d{y}_llm"]) if cov else np.nan, int(len(d)))
+    return out
+
+
+def event_study_frozen(P: pd.DataFrame, years=(2023, 2024, 2025, 2026), n_boot: int = 300) -> pd.DataFrame:
+    """Year deviations from slot trends FROZEN on 2018-22: per group, logit y ~ C(slot) + C(slot):t + llm_topic on
+    2018-22 rows; its linear predictor is an offset for 2023-26 rows, which get only year dummies (and, in the stacked
+    contrast, year x LLM-slot dummies). study_adj is excluded (no 2018-22 trend). CI: topic100-cluster bootstrap that
+    refits both stages (n_boot draws, percentile); the cluster-robust CI that conditions on the frozen trends is kept
+    as OR_lo_cond / OR_hi_cond (too narrow: first-stage uncertainty ignored)."""
+    pt = _frozen_fit(P, years)
+    rng = np.random.default_rng(SEED + 7)
+    P = P.reset_index(drop=True)
+    topics = P.topic100.unique()
+    ix = {t: np.flatnonzero(P.topic100.to_numpy() == t) for t in topics}
+    bs = {k: [] for k in pt}
+    for _ in range(n_boot):
+        draw = rng.choice(topics, len(topics), replace=True)
+        Pb = P.iloc[np.concatenate([ix[t] for t in draw])].reset_index(drop=True)
+        Pb["topic100"] = np.repeat(np.arange(len(draw)), [len(ix[t]) for t in draw])
+        try:
+            r = _frozen_fit(Pb, years, cov=False)
+        except Exception:  # noqa: BLE001
+            continue
+        for k in bs:
+            bs[k].append(r[k][0])
+    rows = []
+    for (g, y), (b, se, n) in pt.items():
+        v = np.array(bs[(g, y)])
+        v = v[np.isfinite(v)]
+        lo, hi = np.quantile(v, [0.025, 0.975])
+        rows.append(dict(model=g, year=y, OR=np.exp(b), OR_lo=np.exp(lo), OR_hi=np.exp(hi),
+                         p_two=float(min(1.0, 2 * min((v <= 0).mean(), (v >= 0).mean()))), nobs=n,
+                         trends="frozen on 2018-22 (offset)", n_boot=len(v),
+                         OR_lo_cond=np.exp(b - 1.96 * se), OR_hi_cond=np.exp(b + 1.96 * se)))
+    return pd.DataFrame(rows)
+
+
+def variant_rates(df: pd.DataFrame, inv: dict, years_from: int = 2018) -> tuple[pd.DataFrame, pd.DataFrame]:
+    """Addition vs substitution (audit D3-ID-3): titles opening (or with a study adjective) with the LLM-favoured vs
+    the neutral variant per 1,000 titles of the year, per slot and pooled; all papers, NA pool and non-LLM subset.
+    Level shift: quasi-Poisson k ~ t + post, offset log(#titles), 2018-26 (post = 2024+), per side."""
+    import statsmodels.api as sm
+    import statsmodels.formula.api as smf
+    d = df[df.year >= years_from]
+    rows = []
+    Y = {s: slot_y(d, s, inv)[0] for s in SLOTS}
+    for samp, m in [("all", np.ones(len(d), bool)), ("NA pool", (d.NA == 1).to_numpy()),
+                    ("non-LLM subset", (d.non_llm == 1).to_numpy())]:
+        N = d[m].groupby("year").size()
+        for s in SLOTS + ["pooled", "pooled_openers"]:
+            if s == "pooled":
+                yy = pd.concat([Y[x] for x in SLOTS], axis=1)
+            elif s == "pooled_openers":
+                yy = pd.concat([Y[x] for x in SLOTS if x != "study_adj"], axis=1)
+            else:
+                yy = Y[s].to_frame()
+            for side, val in (("llm", 1), ("neutral", 0)):
+                k = (yy[m] == val).sum(axis=1).groupby(d.year[m]).sum().reindex(N.index, fill_value=0)
+                for yr in N.index:
+                    rows.append(dict(sample=samp, slot=s, side=side, year=int(yr), k=int(k[yr]), n_titles=int(N[yr]),
+                                     per1k=1000 * k[yr] / N[yr]))
+    R = pd.DataFrame(rows)
+    sh = []
+    for samp in R["sample"].unique():
+        for s in ["pooled", "pooled_openers", "improve"]:
+            for side in ("llm", "neutral"):
+                g = R[(R["sample"] == samp) & (R.slot == s) & (R.side == side)].copy()
+                g["t"], g["post"] = g.year - 2023, (g.year >= 2024).astype(int)
+                mm = smf.glm("k ~ t + post", g, family=sm.families.Poisson(), offset=np.log(g.n_titles)).fit(scale="X2")
+                b, se = float(mm.params["post"]), float(mm.bse["post"])
+                pre = g[g.year.between(2021, 2023)]
+                post = g[g.year >= 2024]
+                sh.append(dict(sample=samp, slot=s, side=side, RR_post=np.exp(b), lo=np.exp(b - 1.96 * se),
+                               hi=np.exp(b + 1.96 * se), p_two=2 * stats.norm.sf(abs(b / se)), dispersion=float(mm.scale),
+                               per1k_2021_23=1000 * pre.k.sum() / pre.n_titles.sum(),
+                               per1k_2024_26=1000 * post.k.sum() / post.n_titles.sum()))
+    return R, pd.DataFrame(sh)
 
 
 # ---- year-level inference: random-effects meta-regression on slot x year cells --------------------------------
@@ -431,7 +559,8 @@ def audit(df: pd.DataFrame, inv: dict) -> tuple[pd.DataFrame, pd.DataFrame, dict
     orig = read(C.CACHE / "arxiv_audit.jsonl")
     orig["source"] = "original"
     enl_path = C.CACHE / "arxiv_audit_enlarge.jsonl"
-    n_enl_lines = sum(1 for _ in enl_path.open()) if enl_path.exists() else 0
+    n_enl_in_file = sum(1 for _ in enl_path.open()) if enl_path.exists() else 0
+    n_enl_lines = min(ENLARGE_N, n_enl_in_file)
     enl = read(enl_path, n_enl_lines)
     if len(enl):
         enl["source"] = "enlarge"
@@ -487,25 +616,40 @@ def audit(df: pd.DataFrame, inv: dict) -> tuple[pd.DataFrame, pd.DataFrame, dict
                              r24_drops=int(((d.r24_v1 == 1) & (d.r24_or == 0)).sum()),
                              net_llm_per100=100 * (d.llm_or.mean() - d.llm_v1.mean()) if len(d) else np.nan))
     fl = pd.DataFrame(rows)
-    # DiD of net LLM-slot adds (accepted - rejected), paper bootstrap stratified by year x decision
-    rng = np.random.default_rng(SEED)
+
+    def cp(k, n):
+        # exact (Clopper-Pearson) 95% interval for a proportion
+        if n == 0:
+            return np.nan, np.nan
+        lo = stats.beta.ppf(0.025, k, n - k + 1) if k > 0 else 0.0
+        hi = stats.beta.ppf(0.975, k + 1, n - k) if k < n else 1.0
+        return float(lo), float(hi)
+    # exact intervals per arm: add rate among pairs without an LLM slot word in v1; drop rate among LLM-v1 pairs
+    for c in ("add_rate", "add_lo", "add_hi", "drop_rate", "drop_lo", "drop_hi"):
+        fl[c] = np.nan
+    for i, r in fl.iterrows():
+        n_no = r.n_pairs - r.n_llm_v1
+        fl.loc[i, "add_rate"] = r.adds_llm / n_no if n_no else np.nan
+        fl.loc[i, ["add_lo", "add_hi"]] = cp(r.adds_llm, n_no)
+        fl.loc[i, "drop_rate"] = r.drops_llm / r.n_llm_v1 if r.n_llm_v1 else np.nan
+        fl.loc[i, ["drop_lo", "drop_hi"]] = cp(r.drops_llm, r.n_llm_v1)
+    # DiD of net LLM-slot adds (accepted - rejected): point estimate only. It rests on a handful of flip events, so a
+    # bootstrap CI would give false precision (audit D3-R7); the exact per-arm intervals above are reported instead.
     did = {}
     for period, m in [("all", pairs.year >= 2022), ("2024-26", pairs.year >= 2024)]:
         d = pairs[m].reset_index(drop=True)
         net = (d.llm_or - d.llm_v1).to_numpy(float)
         acc = d.acc.to_numpy()
         est = net[acc == 1].mean() - net[acc == 0].mean()
-        strata = (d.year.astype(str) + d.decision).to_numpy()
-        bs = []
-        for _ in range(2000):
-            idx = C.boot_indices(len(d), strata=strata, rng=rng)
-            a = acc[idx]
-            bs.append(net[idx][a == 1].mean() - net[idx][a == 0].mean())
-        lo, hi = np.quantile(bs, [0.025, 0.975])
-        did[period] = dict(did_pp=100 * est, lo_pp=100 * lo, hi_pp=100 * hi, n_acc=int((acc == 1).sum()),
-                           n_rej=int((acc == 0).sum()))
-    meta = dict(n_original_records=len(orig), n_enlarge_lines_frozen=int(n_enl_lines), n_records=len(rec),
-                n_usable_pairs=len(pairs), did_net_llm_adds=did)
+        did[period] = dict(did_pp=100 * est, n_acc=int((acc == 1).sum()), n_rej=int((acc == 0).sum()),
+                           n_flip_events=int(np.abs(net).sum()))
+    fa = fl[(fl.period == "all")].set_index("decision")
+    v7 = bool(min(fa.loc["accepted", "n_llm_v1"], fa.loc["rejected", "n_llm_v1"]) >= 10)
+    meta = dict(n_original_records=len(orig), n_enlarge_lines_used=int(n_enl_lines), enlarge_n_pinned=ENLARGE_N,
+                n_enlarge_lines_in_file_at_run=int(n_enl_in_file), n_records=len(rec),
+                n_usable_pairs=len(pairs), did_net_llm_adds=did,
+                auditable_under_V7_min10_llm_v1_per_arm=v7,
+                note="DiD reported as a point estimate only; per-arm exact Clopper-Pearson intervals in flips")
     return pairs, fl, meta
 
 
@@ -535,39 +679,73 @@ def shares_by_year(P: pd.DataFrame) -> pd.DataFrame:
     return g
 
 
-def fig_f31(sh: pd.DataFrame, min_n: int = 10):
+def fig_f31(sh: pd.DataFrame, rates: pd.DataFrame | None = None, min_n: int = 10):
+    """(a) LLM-variant share per slot plus the pooled-slot share (the modelled outcome); (b) per-1,000-title rates of
+    LLM-favoured and neutral variants, pooled slots (addition vs substitution); (c) control pairs. Wilson 95% bands.
+    Year cells with fewer than min_n slot-filled titles are omitted (listed in the figure note)."""
     import matplotlib.pyplot as plt  # noqa: F401
-    fig, axes = C.new_fig("double", height=2.75, ncols=2, sharey=True)
+    fig, axes = C.new_fig("double", height=3.1, ncols=3, gridspec_kw={"width_ratios": [1.15, 0.9, 1.0]})
     d = sh[(sh.n >= min_n) & (sh.year >= 2018)].copy()
-    ax = axes[0]
+    omitted = sh[(sh.n < min_n) & (sh.year >= 2018) & ~sh.slot.isin(["pooled_slots", "pooled_controls"])]
     yrs = pd.Index(range(2018, 2027), name="year")
+    ticks = [f"'{str(y)[2:]}" for y in range(2018, 2027)]
+    ax = axes[0]
     for i, s in enumerate(SLOTS):
         g = d[d.slot == s].set_index("year").reindex(yrs).reset_index()  # NaN for years with n < min_n: line breaks
-        ax.plot(g.year, g.share, color=C.color(i), marker="o", ms=5, lw=2, label=SLOT_LABEL[s])
-        ax.fill_between(g.year, g.lo, g.hi, color=C.color(i), alpha=0.10, lw=0)
-    ax.set_title("LLM slots: share using the LLM-favoured variant", loc="left", fontsize=9)
+        ax.plot(g.year, g.share, color=C.color(i), marker="o", ms=4, lw=1.6, label=SLOT_LABEL[s])
+        ax.fill_between(g.year, g.lo, g.hi, color=C.color(i), alpha=0.08, lw=0)
+    g = d[d.slot == "pooled_slots"].set_index("year").reindex(yrs).reset_index()
+    ax.fill_between(g.year, g.lo, g.hi, color=C.TEXT, alpha=0.12, lw=0)
+    ax.plot(g.year, g.share, color=C.TEXT, marker="s", ms=4, lw=2.4, label="pooled slots")
+    ax.set_title("(a) LLM slots: share using the\nLLM-favoured variant", loc="left", fontsize=8.5)
     ax.set_ylabel("share of slot-filled titles")
-    ax2 = axes[1]
+    ax.set_ylim(0, 1.0)
+    bx = axes[1]
+    rd = None
+    if rates is not None:
+        rd = rates[(rates["sample"] == "all") & (rates.slot == "pooled") & (rates.year >= 2018)].copy()
+        for side, col, lab in [("llm", C.COLORS[0], "LLM-favoured variant"), ("neutral", C.GREY, "neutral variant")]:
+            g = rd[rd.side == side].sort_values("year")
+            lo, hi = wilson(g.k, g.n_titles)
+            bx.fill_between(g.year, 1000 * lo, 1000 * hi, color=col, alpha=0.15, lw=0)
+            bx.plot(g.year, g.per1k, color=col, marker="o", ms=4, lw=2, label=lab)
+        bx.set_ylim(0, max(45, float(rd.per1k.max()) * 1.15))
+    bx.set_title("(b) Slot-filled titles per 1,000\ntitles (pooled slots)", loc="left", fontsize=8.5)
+    bx.set_ylabel("titles per 1,000")
+    bx.legend(loc="upper left", fontsize=6.5, handlelength=1.6)
+    cx = axes[2]
     styles = {"towards": "-", "novel": "--", "via": ":"}
     marks = {"towards": "o", "novel": "s", "via": "^"}
     for s in CTRLS:
         g = d[d.slot == s].set_index("year").reindex(yrs).reset_index()
-        ax2.plot(g.year, g.share, color=C.GREY, ls=styles[s], marker=marks[s], ms=5, lw=2, label=SLOT_LABEL[s])
+        cx.fill_between(g.year, g.lo, g.hi, color=C.GREY, alpha=0.12, lw=0)
+        cx.plot(g.year, g.share, color=C.GREY, ls=styles[s], marker=marks[s], ms=4, lw=1.8, label=SLOT_LABEL[s])
         last = g.dropna(subset=["share"]).iloc[-1]
-        C.label_end(ax2, last.year, last.share, SLOT_LABEL[s].split("/")[0], C.TEXT2, dx=0.2, fontsize=7.5)
-    ax2.set_title("Control pairs: share of towards, novel, via", loc="left", fontsize=9)
+        C.label_end(cx, last.year, last.share, SLOT_LABEL[s].split("/")[0], C.TEXT2, dx=0.2, fontsize=7)
+    cx.set_title("(c) Control pairs: share of\ntowards, novel, via", loc="left", fontsize=8.5)
+    cx.set_ylim(0, 1.0)
+    cx.legend(loc="lower right", bbox_to_anchor=(1.0, 0.02), ncol=1, fontsize=6.5, handlelength=2.4)
     for a in axes:
         a.axvspan(2023.5, 2026.4, color=C.GRID, alpha=0.45, lw=0, zorder=0)
-        a.set_xticks(range(2018, 2027))
-        a.set_xticklabels([str(y)[2:] if y not in (2018, 2026) else str(y) for y in range(2018, 2027)])
-        a.set_xlim(2017.6, 2026.4 if a is axes[0] else 2027.3)
-        a.set_ylim(0, 1.0)
-        a.text(2023.6, 0.02 if a is axes[0] else 0.995, "post (2024+)", color=C.TEXT2, fontsize=7,
-               va="bottom" if a is axes[0] else "top")
-    axes[0].legend(loc="upper left", ncol=2, fontsize=7.5, handlelength=1.6, columnspacing=0.8)
-    axes[1].legend(loc="lower right", bbox_to_anchor=(1.0, 0.02), ncol=1, fontsize=7, handlelength=2.6)
-    fig.tight_layout()
-    data = d[["slot", "label", "year", "k", "n", "share", "lo", "hi"]].sort_values(["slot", "year"])
+        a.set_xticks(range(2018, 2027), ticks, fontsize=7)
+        a.set_xlabel("ICLR year", fontsize=7.5)
+        a.set_xlim(2017.6, 2027.4 if a is cx else 2026.4)
+    om = omitted.groupby("label").year.apply(lambda y: ", ".join(str(int(v)) for v in sorted(y)))
+    note = ("Bands: 95% Wilson intervals. Shaded: post period (2024+). Year cells with fewer than "
+            f"{min_n} slot-filled titles are omitted: " + "; ".join(f"{k} {v}" for k, v in om.items()) + ".")
+    h, lab = ax.get_legend_handles_labels()
+    fig.tight_layout(rect=(0, 0.12, 1, 1))
+    fig.legend(h, lab, loc="lower left", bbox_to_anchor=(0.01, 0.055), ncol=5, fontsize=7, handlelength=1.6,
+               columnspacing=1.0)
+    fig.text(0.01, 0.0, note, fontsize=6.3, color=C.TEXT2, wrap=True)
+    data = d[["slot", "label", "year", "k", "n", "share", "lo", "hi"]].sort_values(["slot", "year"]).assign(
+        measure="share")
+    if rd is not None:
+        rr = rd.assign(slot="rate_pooled_" + rd.side, label="pooled slots, " + rd.side + " variant per 1k",
+                       n=rd.n_titles, share=np.nan, measure="per1k")
+        rr["lo"], rr["hi"] = [1000 * x for x in wilson(rr.k, rr.n)]
+        data = pd.concat([data, rr[["slot", "label", "year", "k", "n", "share", "lo", "hi", "measure", "per1k"]]],
+                         ignore_index=True)
     return C.save_fig(fig, "fig_F3_1_slot_shares", OUTDIR, data=data)
 
 
@@ -618,7 +796,7 @@ def main():
     Ppn = P[(P.llm_slot == 0) | (P.slot.astype(str) == "study_adj") | (P.opener_pos == "post_name")]
     add(fit_set(Ppn, "opener after NAME lead only", stacked=True), "opener position")
     Pal = slot_panel(df, inv, rule="al")
-    add(fit_set(Pal, "any-compound-lead opener rule (pilot-like)"), "opener position")
+    add(fit_set(Pal, "any-compound-lead opener rule (V2 drops kept)"), "opener position")
     add(fit_set(P[P.year <= 2025], "excluding 2026"), "years")
     add(fit_set(P[P.year <= 2024], "2024-only post (2018-2024)"), "years")
     add(fit_set(slot_panel(df, inv, years_from=2017), "with 2017"), "years")
@@ -628,6 +806,9 @@ def main():
     lx = FV.lexicon()["slots"]
     inv_all = {s: {side: list(lx[s][side]) for side in ("llm", "neutral")} for s in SLOTS}
     add(fit_set(slot_panel(df, inv_all, sense=True), "full lexicon (no V2 drops)"), "inventory")
+    # truly pilot-like: any-lead rule AND the undropped lexicon (audit D3-C5)
+    add(fit_set(slot_panel(df, inv_all, rule="al", sense=True), "pilot-like: any-lead rule + full lexicon"),
+        "inventory")
     add(fit_set(P[P.slot != "via"], "controls without via/using (towards, novel only)"), "controls")
     add(fit_set(P[P.slot != "novel"], "controls without novel/new"), "controls")
     add(fit_set(P[P.slot != "towards"], "controls without towards/toward"), "controls")
@@ -695,10 +876,16 @@ def main():
                         argmax_OR=int(f.OR.idxmax()), n_candidates=len(f))
     pre = pb[pb.scope == "pre_only_2018_23"]
 
-    # ---- event study (deviations from 2018-22 slot trends)
-    es = event_study(P)
+    # ---- event study: (i) slot trends estimated jointly, (ii) trends frozen on 2018-22 (offset)
+    es = pd.concat([event_study(P), event_study_frozen(P)], ignore_index=True)
     es.to_csv(OUTDIR / "slot_event_study.csv", index=False)
     print(es.to_string())
+
+    # ---- addition vs substitution: per-1k rates of LLM and neutral variants
+    vr, vshift = variant_rates(df, inv)
+    vr.to_csv(OUTDIR / "slot_variant_rates.csv", index=False)
+    vshift.to_csv(OUTDIR / "slot_variant_rate_shift.csv", index=False)
+    print(vshift.to_string())
 
     # ---- year-level
     yl = year_level(P)
@@ -708,7 +895,7 @@ def main():
     # ---- shares and figure
     sh = shares_by_year(slot_panel(df, inv, years_from=2017))
     sh.to_csv(OUTDIR / "slot_shares_by_year.csv", index=False)
-    fig_f31(sh)
+    fig_f31(sh, vr)
 
     # ---- camera-ready audit
     pairs, flips, ameta = audit(df, inv)
@@ -736,7 +923,8 @@ def main():
                         row=r.model, estimate=f"{r.OR:.2f} [{r.OR_lo:.2f}, {r.OR_hi:.2f}]", p_one_sided=r.p_one_t,
                         n=r.n_cells, n_post=None))
     for lab in ["topic100 FE", "NA pool (camera-ready-free)", "non-LLM subset",
-                "exclude titles whose abstract has the slot word", "any-compound-lead opener rule (pilot-like)",
+                "exclude titles whose abstract has the slot word", "any-compound-lead opener rule (V2 drops kept)",
+                "pilot-like: any-lead rule + full lexicon", "no slot trends (level contrast)",
                 "excluding 2026", "2024-only post (2018-2024)", "stacked with year FE", "LPM"]:
         for _, r in robdf[robdf.label == lab].iterrows():
             t31.append(dict(block="D. Robustness", row=f"{lab}: {r.model}", estimate=fmt_or(r.to_dict()),
@@ -767,7 +955,11 @@ def main():
         primary={r["model"]: r for r in prim}, primary_lpm={r["model"]: r for r in prim_lpm},
         per_slot=ps.to_dict(orient="records"), randomization=rand,
         placebo_pre_only=pre[["break_year", "model", "OR", "OR_lo", "OR_hi", "p_one"]].to_dict(orient="records"),
-        year_level=yl.to_dict(orient="records"), event_study=es.to_dict(orient="records"),
+        year_level=yl.to_dict(orient="records"),
+        event_study=es[es.trends.str.startswith("estimated")].to_dict(orient="records"),
+        event_study_frozen_trends=es[es.trends.str.startswith("frozen")].to_dict(orient="records"),
+        variant_rate_shift=vshift.to_dict(orient="records"),
+        variant_rates_pooled=vr[vr.slot.isin(["pooled", "improve"])].to_dict(orient="records"),
         robustness=robdf.to_dict(orient="records"),
         loo_summary=dict(
             slots_post_OR_min=float(loo[loo.model == "slots_post"].OR.min()),

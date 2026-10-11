@@ -30,9 +30,22 @@ fitted separately in the ACC, REJ and WD pools (2018-2026); the joint cluster-ro
 slope-change coefficients is built from per-observation influence functions summed by topic100 cluster (this
 equals the fully interacted stacked model). Wald equality test (2 df) and pairwise TOST at +/-0.1 on log OR.
 
+Audit revisions (outputs/audit/d4/fix_log.md):
+  * F26 in the L set is abstract-only (f26_words | abs_nbhyphen | abs_endash_compound); the features_v2 f26, which also
+    fires on title typography, is the secondary 'F26_incl_title'. The L-union is unchanged (its title part is a subset
+    of title_typo) and still uses BINARY_L, which prereg_confirm imports.
+  * L_noR24 = L-union without the R24 title words (the L depletion is R24-driven; R24 was depleted before 2024).
+  * 2018-22 baseline (pre-ChatGPT for accepted camera-ready text) and post/pre contrasts against it.
+  * Post-decision withdrawals defined consistently across years (variants wd_decided_in_s2 and wd_postdec_ts); only
+    exit/dec/predec gains are informative there (G_total does not involve s2).
+  * TOST bootstrap p for H4a; BH q-values over all T4.1 tests; approximate CIs for the adjusted total gains.
+  * Style density: the excess-word list is re-selected inside every bootstrap replicate (variant density_reselect).
+  * Year-level (small-T) inference for the pool-specific 2024 break (its_pools_yearlevel.csv).
+  The functions prereg_confirm imports (BINARY_L, stage_sums, pooled_prev, its_pools, _clean, SEED) are unchanged.
+
 Outputs (outputs/d4_filter/): style_density.parquet, style_density_words.json, gains.csv, prevalence_by_stage.csv,
-T4_1_continuation_ratio.csv, its_pools.csv, stage_gains.json, fig_F4_1_stage_ladder.{pdf,png,csv},
-fig_S4_1_total_gain_by_year.{pdf,png,csv}, d4_stage_gains.log
+T4_1_continuation_ratio.csv, its_pools.csv, its_pools_yearlevel.csv, stage_gains.json,
+fig_F4_1_stage_ladder.{pdf,png,csv}, fig_S4_1_total_gain_by_year.{pdf,png,csv}, d4_stage_gains.log
 
 Run:  cd research/titles/src && OMP_NUM_THREADS=2 /home/user/venv/bin/python -m analyses.d4_stage_gains
 """
@@ -74,7 +87,7 @@ FEATURES = [
     ("R24", "r24_any", "L", "R24 register (title)"),
     ("R26", "r26_any", "L", "R26 register (title)"),
     ("F24", "f24", "L", "F24 RARE21 (abstract)"),
-    ("F26", "f26", "L", "F26 (abstract + typography)"),
+    ("F26", "f26_abs", "L", "F26 (abstract)"),
     ("emdash", "abs_emdash", "L", "Em dash (abstract)"),
     ("style_density", "xs_per100", "L", "Style density (abstract)"),
     ("L_union", "L_union", "L", "L-union"),
@@ -88,7 +101,10 @@ SECONDARY = [
     ("title_emdash", "title_emdash", "L2", "Em dash (title)"),
     ("L_title", "L_title", "L2", "L-union, title markers"),
     ("L_abstract", "L_abstract", "L2", "L-union, abstract markers"),
+    ("L_noR24", "L_noR24", "L2", "L-union without R24"),
+    ("F26_incl_title", "f26", "L2", "F26 incl. title typography"),
 ]
+COMPUTED_COLS = ("O_union", "L_union", "L_title", "L_abstract", "L_noR24", "xs_per100", "f26_abs")
 ALL_FEATURES = FEATURES + SECONDARY
 FEAT_COL = {k: c for k, c, _, _ in ALL_FEATURES}
 FEAT_SET = {k: s for k, _, s, _ in ALL_FEATURES}
@@ -186,10 +202,10 @@ UNIVERSE_COLS = ["submission_id", "year", "pool", "decision", "ACC", "REJ", "WD"
 
 
 def load_frame(min_year: int = 2018, density: bool = True) -> pd.DataFrame:
-    fcols = sorted({c for _, c, _, _ in ALL_FEATURES if c not in ("O_union", "L_union", "L_title", "L_abstract",
-                                                                  "xs_per100")})
+    fcols = sorted({c for _, c, _, _ in ALL_FEATURES if c not in COMPUTED_COLS})
     fcols += ["casing", "name_orthography", "first_word", "lead_segment", "title_case_share", "llm_t_abbrev",
-              "llm_t_spelled", "llm_t_abbrev_only", "llm_t_named", "f24_n", "f26_words"]
+              "llm_t_spelled", "llm_t_abbrev_only", "llm_t_named", "f24_n", "f26_words", "abs_nbhyphen",
+              "abs_endash_compound", "f26"]
     df = C.load_analysis_frame(feature_cols=list(dict.fromkeys(fcols)), universe_cols=UNIVERSE_COLS)
     if density:
         p = OUTDIR / "style_density.parquet"
@@ -205,9 +221,12 @@ def load_frame(min_year: int = 2018, density: bool = True) -> pd.DataFrame:
     for c in bool_cols:
         df[c] = df[c].astype(int)
     df["O_union"] = df[["case_all_caps", "case_sentence_case", "question_opener"]].max(axis=1)
-    df["L_union"] = df[BINARY_L].max(axis=1)
+    # F26 restricted to the abstract (features_v2 f26 also fires on U+2011 / en-dash compounds in the title)
+    df["f26_abs"] = df[["f26_words", "abs_nbhyphen", "abs_endash_compound"]].max(axis=1)
+    df["L_union"] = df[BINARY_L].max(axis=1)  # identical with f26_abs: f26's title part is a subset of title_typo
+    df["L_noR24"] = df[[c for c in BINARY_L if c != "r24_any"]].max(axis=1)
     df["L_title"] = df[["title_typo", "r24_any", "r26_any"]].max(axis=1)
-    df["L_abstract"] = df[["f24", "f26", "abs_emdash"]].max(axis=1)
+    df["L_abstract"] = df[["f24", "f26_abs", "abs_emdash"]].max(axis=1)
     df = df[df.year >= min_year]
     df = df[df.pool.ne("OTHER")].copy()
     df["s0"] = 1
@@ -267,8 +286,9 @@ def summarise(samples: np.ndarray) -> dict:
                 p_ge1=float(np.mean(b >= 1)), p_le1=float(np.mean(b <= 1)))
 
 
+PRE22 = tuple(range(2018, 2023))  # pre-ChatGPT for accepted camera-ready text (ICLR 2023 finals post-date 30 Nov 2022)
 PERIODS = {**{str(y): (y,) for y in YEARS}, "2024-26": POST, "2024-25": (2024, 2025), "2018-23": PRE,
-           "2018-23 excl. 2019": tuple(y for y in PRE if y != 2019)}
+           "2018-23 excl. 2019": tuple(y for y in PRE if y != 2019), "2018-22": PRE22}
 
 
 def gain_table(df: pd.DataFrame, keys: list[str], variant: str, n_boot: int = N_BOOT, crf: bool = True,
@@ -378,6 +398,146 @@ def its_pools(df: pd.DataFrame, outcome: str = "name_primary", pools=("ACC", "RE
     return rows, test
 
 
+def bh_q(p) -> np.ndarray:
+    """Benjamini-Hochberg q-values (NaN p-values stay NaN)."""
+    p = np.asarray(p, float)
+    q = np.full(len(p), np.nan)
+    ok = np.isfinite(p)
+    pv = p[ok]
+    m = len(pv)
+    if m == 0:
+        return q
+    o = np.argsort(pv)
+    qq = np.empty(m)
+    qq[o] = np.minimum.accumulate((pv[o] * m / np.arange(1, m + 1))[::-1])[::-1]
+    q[ok] = np.minimum(qq, 1.0)
+    return q
+
+
+def holm_adjust(p: dict) -> dict:
+    """Holm step-down adjusted p-values for a dict name -> p."""
+    names = sorted(p, key=lambda k: p[k])
+    m = len(names)
+    out, run = {}, 0.0
+    for i, k in enumerate(names):
+        run = max(run, min(1.0, (m - i) * p[k]))
+        out[k] = run
+    return out
+
+
+def its_pools_yearlevel(df: pd.DataFrame, outcome: str = "name_primary", years=YEARS, brk: int = 2024) -> pd.DataFrame:
+    """Small-T inference for the pool-specific break: ITS (t, post, post*t) by OLS on the 9 annual logit prevalences of
+    each pool and on the pairwise logit-gap series; t(df_resid) CIs. Year shocks common to a pool are not averaged
+    away by paper-level SEs, so these intervals are the honest ones for 'equal breaks'."""
+    import statsmodels.api as sm
+    d = df[df.pool.isin(["ACC", "REJ", "WD"]) & df.year.isin(years)]
+    p = d.groupby(["year", "pool"])[outcome].mean().unstack()
+    lg = np.log(p / (1 - p))
+
+    def fit(y):
+        t = np.array(y.index, float) - (brk - 1)
+        post = (t >= 1).astype(float)
+        X = sm.add_constant(np.column_stack([t, post, post * t]))
+        m = sm.OLS(y.to_numpy(float), X).fit()
+        tq = stats.t.ppf(0.975, m.df_resid)
+        tq90 = stats.t.ppf(0.95, m.df_resid)
+        return dict(est=float(m.params[3]), se=float(m.bse[3]), df=float(m.df_resid),
+                    lo95=float(m.params[3] - tq * m.bse[3]), hi95=float(m.params[3] + tq * m.bse[3]),
+                    lo90=float(m.params[3] - tq90 * m.bse[3]), hi90=float(m.params[3] + tq90 * m.bse[3]),
+                    p=float(m.pvalues[3]))
+    rows = []
+    for pool in ["ACC", "REJ", "WD"]:
+        r = fit(lg[pool])
+        rows.append(dict(kind="pool", contrast=pool, **r, OR=np.exp(r["est"]), OR_lo95=np.exp(r["lo95"]),
+                         OR_hi95=np.exp(r["hi95"])))
+    for a, b in [("ACC", "REJ"), ("ACC", "WD"), ("REJ", "WD")]:
+        r = fit(lg[a] - lg[b])
+        r["equivalent_0p1_90ci"] = bool(r["lo90"] > -0.1 and r["hi90"] < 0.1)
+        rows.append(dict(kind="difference", contrast=f"{a}-{b}", **r))
+    return pd.DataFrame(rows)
+
+
+def density_reselect(df: pd.DataFrame, n_boot: int = N_BOOT, seed: int = SEED) -> tuple[pd.DataFrame, dict]:
+    """Style-density stage gains with the year-specific excess-word list re-selected inside every bootstrap replicate
+    (D4-11). Replicate weights use the stage_sums seeds (seed + year), so replicate b is the same paper resample as
+    in gain_table. Row 0 reproduces the cached density (selection on the full sample)."""
+    from sklearn.feature_extraction.text import CountVectorizer
+    pool = lexicon()["style_pool"]
+    sel_years = (2021, 2022, 2023) + POST
+    sets = STAGES + ["s0n", "s1n", "s2n"]
+    data = {}
+    for y in sel_years:
+        d = df[df.year == y]
+        ab = d.abstract.fillna("").map(lambda x: unicodedata.normalize("NFKC", x).lower())
+        cv = CountVectorizer(lowercase=False, token_pattern=r"(?u)\b[a-z][a-z]+\b", binary=True, vocabulary=pool)
+        X = cv.fit_transform(ab.values).tocsr().astype(np.float64)
+        nw = d.abstract.fillna("").str.split().str.len().clip(lower=1).to_numpy().astype(float)
+        data[y] = dict(X=X, nw=nw, St=d[sets].to_numpy(float), n=len(d),
+                       gen=C.boot_weights(len(d), n_boot, seed=seed + int(y)))
+
+    def select(Pm: dict, nby: dict) -> dict:
+        """Pm: year -> (b, V) prevalences. Returns Y -> (b, V) boolean selection (the style_density rule)."""
+        bx = np.array([2021, 2022, 2023], float)
+        B = np.stack([Pm[2021], Pm[2022], Pm[2023]], axis=-1)
+        xm = bx.mean()
+        slope = ((bx - xm) * (B - B.mean(-1, keepdims=True))).sum(-1) / ((bx - xm) ** 2).sum()
+        icpt = B.mean(-1) - slope * xm
+        out = {}
+        for Y in POST:
+            lin = np.clip(icpt + slope * Y, 0, None)
+            cons = np.maximum(lin, np.maximum(Pm[2022], Pm[2023]))
+            qf = np.maximum(cons, 0.5 / nby[2023])
+            ratio = Pm[Y] / qf
+            se = np.sqrt(qf * (1 - qf) / nby[Y] + qf * (1 - qf) / nby[2023])
+            z = (Pm[Y] - cons) / se
+            out[Y] = (ratio >= 2) & (z > 4)
+        return out
+
+    nby = {y: data[y]["n"] for y in sel_years}
+
+    def stage_means(Wd: dict) -> np.ndarray:
+        """Wd: year -> (b, n_y) weights. Returns (b, K) year-standardised pooled mean density per stage set."""
+        Pm = {y: np.asarray(data[y]["X"].T @ Wd[y].T).T / nby[y] for y in sel_years}  # (b, V)
+        sel = select(Pm, nby)
+        w = np.array([data[Y]["St"][:, 0].sum() for Y in POST], float)
+        w = w / w.sum()
+        out = 0
+        for wi, Y in zip(w, POST):
+            dens = 100 * np.asarray(data[Y]["X"] @ sel[Y].T.astype(np.float64)) / data[Y]["nw"][:, None]  # (n, b)
+            S_ = (Wd[Y] * dens.T) @ data[Y]["St"]
+            N_ = Wd[Y] @ data[Y]["St"]
+            out = out + wi * S_ / N_
+        nsel = {Y: sel[Y].sum(1) for Y in POST}
+        return out, sel, nsel
+    point_W = {y: np.ones((1, nby[y])) for y in sel_years}
+    M0, sel0, n0 = stage_means(point_W)
+    parts, nsel_all, jac = [M0], {Y: [] for Y in POST}, {Y: [] for Y in POST}
+    gens = {y: data[y]["gen"] for y in sel_years}
+    done = 0
+    while done < n_boot:
+        Wd = {y: next(gens[y]).astype(np.float64) for y in sel_years}
+        M, sel, ns = stage_means(Wd)
+        parts.append(M)
+        for Y in POST:
+            nsel_all[Y].append(ns[Y])
+            inter = (sel[Y] & sel0[Y][0]).sum(1)
+            union = (sel[Y] | sel0[Y][0]).sum(1)
+            jac[Y].append(inter / np.maximum(union, 1))
+        done += len(M)
+    A = np.vstack(parts)  # (B+1, K)
+    rows = []
+    for g, (a, b) in dict(GAIN_DEFS, **GAIN_DEFS_CRF).items():
+        G = A[:, sets.index(a)] / A[:, sets.index(b)]
+        r = dict(variant="density_reselect", feature="style_density", set="L", period="2024-26", pooling="std", gain=g)
+        r.update(summarise(G))
+        rows.append(r)
+    info = {str(Y): dict(n_words_point=int(n0[Y][0]), n_words_median=float(np.median(np.concatenate(nsel_all[Y]))),
+                         n_words_p05=float(np.quantile(np.concatenate(nsel_all[Y]), .05)),
+                         n_words_p95=float(np.quantile(np.concatenate(nsel_all[Y]), .95)),
+                         jaccard_median=float(np.median(np.concatenate(jac[Y])))) for Y in POST}
+    return pd.DataFrame(rows), info
+
+
 # --------------------------------------------------------------------------------------------
 # Continuation-ratio logits
 # --------------------------------------------------------------------------------------------
@@ -458,7 +618,8 @@ def fig_ladder(gains: pd.DataFrame, period: str = "2024-26"):
     g = gains[(gains.variant == "primary") & (gains.period == period) & (gains.pooling == "std")
               & gains.feature.isin(keys) & gains.gain.isin(["desk", "exit", "dec", "total"])]
     series = [("desk", "Desk screen", C.COLORS[0], "o"), ("exit", "Author exit", C.COLORS[1], "o"),
-              ("dec", "Decision", C.COLORS[2], "o"), ("total", "Total (accepted/all)", C.COLORS[3], "D")]
+              ("dec", "Decision (hollow: not identified vs camera-ready edits, T4.2)", C.COLORS[2], "o"),
+              ("total", "Total (accepted/all; includes the decision stage)", C.COLORS[3], "D")]
     fig, ax = C.new_fig("double", height=5.6)
     n = len(keys)
     base = np.arange(n)[::-1].astype(float)
@@ -477,17 +638,22 @@ def fig_ladder(gains: pd.DataFrame, period: str = "2024-26"):
             lo_, hi_ = max(r.lo95, XMIN), min(r.hi95, XMAX)
             if hi_ > XMIN:
                 ax.plot([lo_, hi_], [yv, yv], color=col, lw=1.4, solid_capstyle="butt")
+            hollow = gname == "dec"
             if r.est < XMIN:
-                ax.plot([XMIN], [yv], marker="<", color=col, ms=5, lw=0, clip_on=False)
-                offscale.setdefault(k, []).append(f"{lab.split(' (')[0].lower()} {r.est:.2f}")
+                ax.plot([XMIN], [yv], marker="<", color=col, ms=5, lw=0, clip_on=False,
+                        markerfacecolor="white" if hollow else col)
+                offscale.setdefault(k, []).append(f"{lab.split(' (')[0].lower()} {r.est:.2f} "
+                                                  f"[{r.lo95:.2f}, {r.hi95:.2f}]")
             else:
                 ax.plot([r.est], [yv], marker=mk, color=col, ms=5 if mk == "o" else 5.5, lw=0,
-                        markeredgecolor="white" if mk == "D" else col, markeredgewidth=0.4)
-        ax.plot([], [], marker=mk, color=col, lw=1.4, ms=5, label=lab)
+                        markerfacecolor="white" if hollow else col,
+                        markeredgecolor="white" if mk == "D" else col, markeredgewidth=1.0 if hollow else 0.4)
+        ax.plot([], [], marker=mk, color=col, lw=1.4, ms=5, label=lab,
+                markerfacecolor="white" if gname == "dec" else col)
     for k, txt in offscale.items():
         yv = base[keys.index(k)]
-        ax.text(1.045, yv - 0.02, "off scale (left): " + ", ".join(txt), fontsize=7, color=C.TEXT2,
-                va="center", ha="left")
+        ax.text(1.29, yv - 0.02, "off scale (left): " + "\n".join(txt), fontsize=6.8, color=C.TEXT2,
+                va="center", ha="right")
     ax.axvline(1.0, color=C.GREY, lw=0.8, ls="--", zorder=0)
     ax.set_xscale("log")
     ticks = [0.7, 0.8, 0.9, 1.0, 1.1, 1.2, 1.3]
@@ -507,11 +673,16 @@ def fig_ladder(gains: pd.DataFrame, period: str = "2024-26"):
         idx = [i for i, x in enumerate(sets) if x == s]
         ax.text(1.005, base[idx[0]] + 0.35, set_names[s], transform=ax.get_yaxis_transform(), ha="left",
                 va="center", fontsize=8, color=C.TEXT2)
-    ax.set_xlabel("Stage gain, P(feature | passed stage) / P(feature | entered stage), log scale")
+    ax.set_xlabel("Stage gain = P(feature | passed stage) / P(feature | entered stage) (ratio of means for "
+                  "style density), log scale")
     ax.set_ylim(-0.7, n - 0.3)
-    ax.legend(ncol=4, loc="lower center", bbox_to_anchor=(0.45, 1.0), handlelength=1.6, columnspacing=1.2)
-    ax.set_title("Stage gains, ICLR 2024-26 pooled (year-standardised), 95% bootstrap CIs; values below 0.7 "
-                 "marked off scale", loc="left", fontsize=8.5, pad=20)
+    ax.legend(ncol=2, loc="lower center", bbox_to_anchor=(0.45, 1.0), handlelength=1.6, columnspacing=1.2,
+              fontsize=7.5)
+    ax.set_title("Stage gains, ICLR 2024-26 pooled (year-standardised), 95% paper-bootstrap CIs; values below 0.7 "
+                 "marked off scale", loc="left", fontsize=8.5, pad=34)
+    ax.text(0.0, -0.13, "Desk and exit compare exiting papers with survivor sets that include accepted (camera-ready) "
+            "text; camera-ready-free variants are in gains.csv.", transform=ax.transAxes, fontsize=6.8,
+            color=C.TEXT2, ha="left", va="top")
     return fig, pd.DataFrame(plot_rows)
 
 
@@ -544,9 +715,9 @@ def fig_total_by_year(gains: pd.DataFrame):
     ax.set_ylim(0.38, 1.7)
     ax.set_xticks(list(YEARS), [f"'{str(y)[2:]}" for y in YEARS])
     ax.set_xlim(2017.6, 2027.4)
-    ax.set_ylabel("Total gain (accepted / all), 95% CI")
+    ax.set_ylabel("Total gain (accepted / all), 95% CI, log scale")
     h, l_ = ax.get_legend_handles_labels()
-    h.append(Patch(color=C.GRID, label="H4a band [0.95, 1.10]"))
+    h.append(Patch(color=C.GRID, label="H4a band [0.95, 1.10] (NAME only)"))
     ax.legend(handles=h, loc="lower center", bbox_to_anchor=(0.5, 1.0), ncol=4, fontsize=6.8, handlelength=1.0,
               columnspacing=0.8)
     return fig, pd.DataFrame(rows)
@@ -572,27 +743,51 @@ def main():
     # wd_post dropped (PLAN sensitivity)
     g2, p2, _ = gain_table(df[df.wd_post == 0].reset_index(drop=True), keys_primary, "drop_wd_post",
                            periods={"2026": (2026,), "2024-26": POST})
-    # all withdrawn rows carrying a 'rejected' decision kept in s2 (post-decision withdrawals in any year)
-    d3 = df.copy()
-    d3["s2"] = (d3.s1.astype(bool) & (~d3.WD.astype(bool) | d3.decision.eq("rejected"))).astype(int)
-    d3["s2n"] = d3.s2 * (1 - d3.ACC)
-    g3, p3, _ = gain_table(d3, keys_primary, "wd_rejected_in_s2",
-                           periods={"2024-26": POST, "2018-23": PRE, "2024": (2024,), "2025": (2025,)})
-    # post (2024-26) vs pre (2018-23) contrast of log gains (same replicate index; years are disjoint strata)
+    # Post-decision withdrawals defined consistently across years (D4-5). _core.pool_flags keeps only the 2026
+    # wd_post rows in s2; 2024-25 withdrawals that carry an accept/reject decision, and 2025-26 withdrawals timestamped
+    # on/after the decision date (modification_ms; 2024 timestamps are a bulk post-decision update and unusable), are
+    # also post-decision exits. G_total = P(s3)/P(s0) does not involve s2, so only desk/exit/dec/predec can move.
+    from common import read_table
+    from arxiv_audit import DECISION_DATE
+    mod = read_table("metadata_provenance")[["submission_id", "modification_ms"]]
+    dts = df[["submission_id", "year", "WD"]].merge(mod, on="submission_id", how="left", validate="1:1")
+    ts = pd.to_datetime(dts.modification_ms, unit="ms", errors="coerce")
+    dd = pd.to_datetime(dts.year.map({y: DECISION_DATE.get(y) for y in (2025, 2026)}))
+    df["wd_post_ts"] = ((dts.WD == 1) & dts.year.isin([2025, 2026]) & (ts >= dd)).astype(int).to_numpy()
+    wd_dec = df.wd_decided.astype(bool)
+    pd_variants = {"wd_decided_in_s2": wd_dec, "wd_postdec_ts": wd_dec | df.wd_post_ts.astype(bool)}
+    var_tabs, var_prev = [], []
+    postdec_counts = {}
+    for vname, keep in pd_variants.items():
+        dv = df.copy()
+        dv["s2"] = (dv.s1.astype(bool) & (~dv.WD.astype(bool) | keep)).astype(int)
+        dv["s2n"] = dv.s2 * (1 - dv.ACC)
+        postdec_counts[vname] = {str(y): int(n) for y, n in dv[dv.WD.astype(bool) & keep].groupby("year").size().items()}
+        gv, pv, _ = gain_table(dv, keys_primary + ["L_noR24"], vname,
+                               periods={"2024-26": POST, "2024": (2024,), "2025": (2025,), "2026": (2026,)})
+        var_tabs.append(gv)
+        var_prev.append(pv)
+    log(f"post-decision withdrawals kept in s2: {postdec_counts}", fh)
+    # style density with the excess-word list re-selected in every bootstrap replicate (D4-11)
+    g_dens, dens_info = density_reselect(df)
+    log(f"density re-selection bootstrap: {dens_info} ({time.time() - t0:.0f}s)", fh)
+    # post (2024-26) vs pre contrasts of log gains (same replicate index; years are disjoint strata). Two baselines:
+    # 2018-23 (pre-registered 'pre') and 2018-22 (accepted 2023 camera-ready text post-dates ChatGPT).
     pp_rows = []
-    Ppost, Ppre = store[("2024-26", "std")], store[("2018-23", "std")]
     stage_cols = STAGES + ["s0n", "s1n", "s2n"]
-    for j, k in enumerate(keys_all):
-        for gname, (a, b) in dict(GAIN_DEFS, **GAIN_DEFS_CRF).items():
-            ia, ib = stage_cols.index(a), stage_cols.index(b)
-            with np.errstate(divide="ignore", invalid="ignore"):
-                r_ = (Ppost[:, j, ia] / Ppost[:, j, ib]) / (Ppre[:, j, ia] / Ppre[:, j, ib])
-            row = dict(variant="post_vs_pre", feature=k, set=FEAT_SET[k], period="2024-26 / 2018-23", pooling="std",
-                       gain=gname)
-            row.update(summarise(r_))
-            pp_rows.append(row)
-    gains = pd.concat([gains, g2, g3, pd.DataFrame(pp_rows)], ignore_index=True)
-    prev = pd.concat([prev, p2, p3], ignore_index=True)
+    for vlabel, pre_lab in [("post_vs_pre", "2018-23"), ("post_vs_pre_1822", "2018-22")]:
+        Ppost, Ppre = store[("2024-26", "std")], store[(pre_lab, "std")]
+        for j, k in enumerate(keys_all):
+            for gname, (a, b) in dict(GAIN_DEFS, **GAIN_DEFS_CRF).items():
+                ia, ib = stage_cols.index(a), stage_cols.index(b)
+                with np.errstate(divide="ignore", invalid="ignore"):
+                    r_ = (Ppost[:, j, ia] / Ppost[:, j, ib]) / (Ppre[:, j, ia] / Ppre[:, j, ib])
+                row = dict(variant=vlabel, feature=k, set=FEAT_SET[k], period=f"2024-26 / {pre_lab}", pooling="std",
+                           gain=gname)
+                row.update(summarise(r_))
+                pp_rows.append(row)
+    gains = pd.concat([gains, g2] + var_tabs + [g_dens, pd.DataFrame(pp_rows)], ignore_index=True)
+    prev = pd.concat([prev, p2] + var_prev, ignore_index=True)
     gains.to_csv(OUTDIR / "gains.csv", index=False)
     prev.to_csv(OUTDIR / "prevalence_by_stage.csv", index=False)
     log(f"variants done ({time.time() - t0:.0f}s)", fh)
@@ -616,8 +811,13 @@ def main():
     name_years = {str(y): G("NAME", "total", str(y)) for y in YEARS}
     in_band = {y: bool(0.95 <= r["est"] <= 1.10) for y, r in name_years.items()}
     pooled = G("NAME", "total")
+    jN = keys_all.index("NAME")
+    Gn = store[("2024-26", "std")][:, jN, STAGES.index("s3")] / store[("2024-26", "std")][:, jN, STAGES.index("s0")]
     tost = dict(est=pooled["est"], lo90=pooled["lo90"], hi90=pooled["hi90"],
-                within=bool(pooled["lo90"] > 0.90 and pooled["hi90"] < 1.11))
+                within=bool(pooled["lo90"] > 0.90 and pooled["hi90"] < 1.11),
+                p_lower=float(np.mean(Gn[1:] <= 0.90)), p_upper=float(np.mean(Gn[1:] >= 1.11)))
+    # TOST p = larger of the two one-sided bootstrap p-values; 0 replicates beyond a margin is floored at 1/N_BOOT
+    tost["p_tost"] = max(tost["p_lower"], tost["p_upper"], 1.0 / N_BOOT)
     its_rows, its_test = its_pools(df)
     its_rows_b, its_test_b = its_pools(df, formula="{y} ~ tc + post + post_t", label="no controls, no topic FE")
     d17 = load_frame(min_year=2017, density=False)
@@ -625,6 +825,9 @@ def main():
                                        label="ACC vs REJ, 2017-2026")
     its_rows_d, its_test_d = its_pools(df, outcome="name_compound", label="compound outcome")
     pd.DataFrame(its_rows + its_rows_b + its_rows_c + its_rows_d).to_csv(OUTDIR / "its_pools.csv", index=False)
+    its_yl = its_pools_yearlevel(df)
+    its_yl.to_csv(OUTDIR / "its_pools_yearlevel.csv", index=False)
+    log("ITS year-level (9 annual points, t(5)):\n" + its_yl.round(3).to_string(), fh)
     for r in its_rows:
         log(f"ITS {r['pool']}: slope-change OR {r['slope_change_OR']:.3f} [{r['slope_change_OR_lo']:.3f}, "
             f"{r['slope_change_OR_hi']:.3f}] se {r['slope_change_se']:.4f} (IF se {r['slope_change_se_if']:.4f})", fh)
@@ -633,7 +836,8 @@ def main():
     h4a = dict(
         name_total_by_year=name_years, in_band_0p95_1p10=in_band, all_years_in_band=bool(all(in_band.values())),
         pooled_2024_26=pooled, pooled_2024_26_raw=G("NAME", "total", pooling="raw"), tost_0p90_1p11=tost,
-        its_pools=its_rows, its_equality=its_test,
+        its_pools=its_rows, its_equality=its_test, its_yearlevel=its_yl.to_dict(orient="records"),
+        name_by_year_ci_inside_band={y: bool(r["lo95"] >= 0.95 and r["hi95"] <= 1.10) for y, r in name_years.items()},
         its_robustness={"no_controls": dict(rows=its_rows_b, test=its_test_b),
                         "acc_rej_2017_2026": dict(rows=its_rows_c, test=its_test_c),
                         "compound_outcome": dict(rows=its_rows_d, test=its_test_d)},
@@ -662,9 +866,29 @@ def main():
         L_union_predec_crf_lt1=dict(est=L["predec_crf"]["est"], hi95=L["predec_crf"]["hi95"],
                                     p_one_sided=L["predec_crf"]["p_ge1"]),
     )
-    for k in ["L_union", "O_union", "NAME", "L_title", "L_abstract", "F24", "R24", "all_caps_title"]:
+    h4b["tests"]["L_noR24_total_lt1"] = dict(est=h4b["L_noR24"]["total"]["est"], hi95=h4b["L_noR24"]["total"]["hi95"],
+                                             p_one_sided=h4b["L_noR24"]["total"]["p_ge1"])
+    h4b["tests"]["L_noR24_predec_crf_lt1"] = dict(est=h4b["L_noR24"]["predec_crf"]["est"],
+                                                  hi95=h4b["L_noR24"]["predec_crf"]["hi95"],
+                                                  p_one_sided=h4b["L_noR24"]["predec_crf"]["p_ge1"])
+    # LLM-specific estimand (I1): post/pre ratio of gains per marker, against 2018-23 and 2018-22
+    for k in ["NAME"] + [k for k in keys_all if FEAT_SET[k] in ("L", "O", "L2", "O2")]:
         h4b.setdefault(k, {})["post_vs_pre_ratio_of_gains"] = {
-            g: G(k, g, "2024-26 / 2018-23", variant="post_vs_pre") for g in ["total", "predec", "dec", "predec_crf"]}
+            g: G(k, g, "2024-26 / 2018-23", variant="post_vs_pre")
+            for g in ["total", "predec", "dec", "predec_crf", "exit_crf", "desk_crf"]}
+        h4b[k]["post_vs_pre_1822_ratio_of_gains"] = {
+            g: G(k, g, "2024-26 / 2018-22", variant="post_vs_pre_1822")
+            for g in ["total", "predec", "dec", "predec_crf", "exit_crf", "desk_crf"]}
+        h4b[k]["pre_2018_22"] = {g: G(k, g, "2018-22") for g in ["total", "predec", "dec", "predec_crf"]}
+        h4b[k]["pre_2018_23"] = {g: G(k, g, "2018-23") for g in ["total", "predec", "dec", "predec_crf"]}
+    h4b["postdec_withdrawal_variants"] = {
+        v: {k: {g: G(k, g, variant=v) for g in ["exit", "dec", "predec", "predec_crf"]}
+            for k in ["NAME", "L_union", "L_noR24", "O_union", "R24", "F24", "style_density"]}
+        for v in pd_variants}
+    h4b["postdec_withdrawal_counts"] = postdec_counts
+    h4b["style_density_reselect"] = dict(info=dens_info, **{
+        g: G("style_density", g, variant="density_reselect") for g in ["total", "exit", "predec", "predec_crf",
+                                                                        "desk", "dec"]})
     h4b["falsified"] = bool(L["total"]["est"] >= 1)
     for k, v in h4b["tests"].items():
         log(f"H4b {k}: {v}", fh)
@@ -679,10 +903,22 @@ def main():
                     rows.append(r)
             log(f"CR logits {era} {stage} done ({time.time() - t0:.0f}s)", fh)
     cr = pd.DataFrame(rows)
-    # adjusted total gain = product of stage adjusted gains (2024-26)
+    # BH q-values over every T4.1 feature test (PLAN section 0: BH across exploratory marker lists)
+    cr["q_bh"] = bh_q(cr.p.to_numpy())
+    cr["notable_q05"] = cr.q_bh < 0.05
+    # adjusted total gain = product of stage adjusted gains (2024-26). Approximate 95% CI: the continuation-ratio
+    # likelihood factorises over stages, so stage estimates are treated as independent; log-scale SEs are taken
+    # from each stage's G_adj interval.
     post_cr = cr[(cr.era == "2024-26") & cr.G_adj.notna()] if "G_adj" in cr else cr.iloc[:0]
-    chain = post_cr.groupby("feature").apply(
-        lambda x: pd.Series({"G_adj_total": float(np.prod(x.G_adj)), "n_stages": len(x)}), include_groups=False)
+
+    def _chain(x):
+        lg = np.log(x.G_adj.to_numpy())
+        se = (np.log(x.G_adj_hi.to_numpy()) - np.log(x.G_adj_lo.to_numpy())) / (2 * 1.959964)
+        tot, set_ = float(lg.sum()), float(np.sqrt((se ** 2).sum()))
+        return pd.Series({"G_adj_total": float(np.exp(tot)), "G_adj_total_lo95_approx": float(np.exp(tot - 1.959964 * set_)),
+                          "G_adj_total_hi95_approx": float(np.exp(tot + 1.959964 * set_)),
+                          "G_raw_total": float(np.prod(x.G_raw)), "n_stages": len(x)})
+    chain = post_cr.groupby("feature").apply(_chain, include_groups=False)
     cr.to_csv(OUTDIR / "T4_1_continuation_ratio.csv", index=False)
     chain.to_csv(OUTDIR / "T4_1_adjusted_total.csv")
     log("\nT4.1 (2024-26):\n" + cr[cr.era == "2024-26"][["stage", "feature", "nobs", "OR", "OR_lo", "OR_hi", "p",

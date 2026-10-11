@@ -1,0 +1,22 @@
+{
+ "n_original_records": 616,
+ "n_enlarge_lines_frozen": 1394,
+ "n_records": 2010,
+ "n_usable_pairs": 1033,
+ "did_net_llm_adds": {
+  "all": {
+   "did_pp": -0.7233839926987025,
+   "lo_pp": -1.4828776635847785,
+   "hi_pp": -0.1567398119122257,
+   "n_acc": 638,
+   "n_rej": 395
+  },
+  "2024-26": {
+   "did_pp": -0.7355689645965718,
+   "lo_pp": -1.6760559619800288,
+   "hi_pp": 0.0,
+   "n_acc": 488,
+   "n_rej": 307
+  }
+ }
+}

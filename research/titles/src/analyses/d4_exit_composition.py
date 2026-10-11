@@ -14,8 +14,12 @@ that identifies the within estimate); the full-sample cross-section is also repo
 The difference (cross - within) uses the joint key-clustered covariance from Frisch-Waugh-Lovell influence
 functions (Hausman-type contrast); a 500-replicate key-cluster bootstrap checks the NAME contrast.
 Prediction: cross > 0, within <= 0, and the difference > 0.
-Robustness: wd_post counted as rejected; desk rejections kept in the population (pilot population); 2018-23;
-the pilot's 'last profile key in the list' definition; topic100 FE added to both models.
+Robustness: post-decision withdrawals (any year: withdrawn rows carrying an accept/reject decision; 2025-26: also
+withdrawals timestamped on/after the decision date) counted as rejected, or dropped; desk rejections kept in the
+population (pilot population); 2018-23; the pilot's 'last profile key in the list' definition; topic100 FE added to
+both models (co-primary after the audit: topic composition carries most of the cross-sectional excess); key x year
+FE (same review cycle), with and without topic100 FE. Each contrast also reports the cross-section on single-paper
+keys, which the within design excludes by construction.
 
 Exploratory (not confirmatory):
   * exit timing 2025-26: withdrawal date = metadata modification_ms, validated against the review calendar
@@ -95,9 +99,11 @@ def contrast(d: pd.DataFrame, col: str, key: str, controls: list[str], extra_fe:
     d = d[d[key].notna()].copy()
     d["n_key"] = d.groupby(key)[key].transform("size")
     full = d.copy()
+    single = d[d.n_key == 1].copy()
     d = d[d.n_key >= 2].copy()
     d["f_"] = d[col].astype(float)
     full["f_"] = full[col].astype(float)
+    single["f_"] = single[col].astype(float)
     rc = C.feols(d, "wd", ["f_"] + controls, fe=["year"] + extra_fe, cluster=key)
     rw = C.feols(d, "wd", ["f_"] + controls, fe=["year", key] + extra_fe, cluster=key)
     rf = C.feols(full, "wd", ["f_"] + controls, fe=["year"] + extra_fe, cluster="topic100")
@@ -123,6 +129,10 @@ def contrast(d: pd.DataFrame, col: str, key: str, controls: list[str], extra_fe:
     out["within_lo95_pp"] = out["within_pp"] - 1.96 * out["within_se_pp"]
     out["within_hi95_pp"] = out["within_pp"] + 1.96 * out["within_se_pp"]
     out["cross_p_one_sided_gt0"] = float(stats.norm.sf(out["cross_pp"] / out["cross_se_pp"]))
+    if len(single) > 200 and single.f_.nunique() > 1:
+        rs = C.feols(single, "wd", ["f_"] + controls, fe=["year"] + extra_fe, cluster="topic100")
+        out.update(single_cross_pp=100 * float(rs.params["f_"]), single_cross_se_pp=100 * float(rs.se["f_"]),
+                   single_nobs=int(rs.nobs))
     return out
 
 
@@ -165,9 +175,11 @@ def wilson(k: int, n: int) -> tuple[float, float]:
     return c - h, c + h
 
 
-def fig_arrows(tab: pd.DataFrame):
+def fig_arrows(tab: pd.DataFrame, n_info: dict | None = None):
     import matplotlib.pyplot as plt
-    t = tab.set_index("key").reindex(ARROW_FEATURES).reset_index()
+    order = ["NAME", "NAME_topicFE"] + ARROW_FEATURES[1:]
+    t = tab.set_index("key").reindex(order).reset_index()
+    t.loc[t.key == "NAME_topicFE", "label"] = "NAME, + topic100 FE in both models"
     n = len(t)
     fig, ax = C.new_fig("double", height=0.24 * n + 1.0)
     y = np.arange(n)[::-1].astype(float)
@@ -190,12 +202,18 @@ def fig_arrows(tab: pd.DataFrame):
     hi = max(t.cross_hi95_pp.max(), t.within_hi95_pp.max())
     ax.set_xlim(max(lo - 1, -25), min(hi + 1, 25))
     ax.set_xlabel("Withdrawal vs rejection, LPM coefficient (pp), 2024-26, 95% CI")
-    ax.plot([], [], "o-", color=C.COLORS[0], ms=5, lw=1.3, label="Cross-section (year FE)")
-    ax.plot([], [], "s-", color=C.COLORS[1], ms=5, lw=1.3, label="Within last-position key (year + key FE)")
-    ax.legend(loc="lower center", bbox_to_anchor=(0.5, 1.0), ncol=2)
+    ax.plot([], [], "o-", color=C.COLORS[0], ms=5, lw=1.3, label="Cross-section (year FE, log authors, llm_topic)")
+    ax.plot([], [], "s-", color=C.COLORS[1], ms=5, lw=1.3, label="Within last-position profile key (+ key FE)")
+    ax.legend(loc="lower center", bbox_to_anchor=(0.5, 1.0), ncol=2, fontsize=7.5)
+    setof = lambda k: S.FEAT_SET["NAME" if k == "NAME_topicFE" else k]  # noqa: E731
     for i in range(1, n):
-        if S.FEAT_SET[t.key[i]] != S.FEAT_SET[t.key[i - 1]]:
+        if setof(t.key[i]) != setof(t.key[i - 1]):
             ax.axhline(y[i] + 0.5, color=C.GRID, lw=0.8)
+    if n_info is not None:
+        ax.text(0.0, -0.135, f"REJ u WD, 2024-26; n = {n_info['nobs']:,} papers in {n_info['n_keys']:,} "
+                f"last-position profile keys with >= 2 papers ({n_info['n_keys_with_variation']:,} varying in NAME); "
+                "SEs clustered by key. Profile keys are not persons.", transform=ax.transAxes, fontsize=6.8,
+                color=C.TEXT2, ha="left", va="top")
     return fig, pd.DataFrame(rows)
 
 
@@ -210,22 +228,41 @@ def main():
     ctr = ["log_authors", "llm_topic"]
     log(f"frame {len(df)}; last-position profile key present {df.key_last.notna().mean():.3f}")
 
+    # post-decision withdrawals, defined consistently across years (D4-5/D4-6): any withdrawn row with an accept/
+    # reject decision, plus 2025-26 withdrawals timestamped on/after the decision date (2024 timestamps are a bulk
+    # post-decision update and unusable)
+    from arxiv_audit import DECISION_DATE
+    mts = read_table("metadata_provenance")[["submission_id", "modification_ms"]]
+    tt = df[["submission_id", "year", "WD"]].merge(mts, on="submission_id", how="left", validate="1:1")
+    ts = pd.to_datetime(tt.modification_ms, unit="ms", errors="coerce")
+    dd = pd.to_datetime(tt.year.map({y: DECISION_DATE.get(y) for y in (2025, 2026)}))
+    df["wd_postdec"] = ((df.wd_decided.astype(bool)) | ((tt.WD == 1) & tt.year.isin([2025, 2026]) & (ts >= dd))
+                        .to_numpy()).astype(int) * df.WD.astype(int)
+    log("post-decision withdrawals (consistent definition) by year: "
+        f"{df[df.wd_postdec == 1].groupby('year').size().to_dict()}")
+    df["key_year"] = df.key_last.astype("string") + "|" + df.year.astype(str)
+    df.loc[df.key_last.isna(), "key_year"] = pd.NA
     specs = {
         "primary": dict(pop=lambda d: d[(d.REJ == 1) | (d.WD == 1)], years=POST, key="key_last"),
-        "wd_post_as_rejected": dict(pop=lambda d: d[(d.REJ == 1) | (d.WD == 1)].assign(wd=lambda x: x.wd * (1 - x.wd_post)),
-                                    years=POST, key="key_last"),
+        "topic100_FE": dict(pop=lambda d: d[(d.REJ == 1) | (d.WD == 1)], years=POST, key="key_last",
+                            extra_fe=["topic100"]),
+        "wd_post_as_rejected": dict(pop=lambda d: d[(d.REJ == 1) | (d.WD == 1)].assign(
+            wd=lambda x: x.wd * (1 - x.wd_postdec)), years=POST, key="key_last"),
+        "wd_postdec_dropped": dict(pop=lambda d: d[((d.REJ == 1) | (d.WD == 1)) & (d.wd_postdec == 0)], years=POST,
+                                   key="key_last"),
+        "key_x_year_FE": dict(pop=lambda d: d[(d.REJ == 1) | (d.WD == 1)], years=POST, key="key_year"),
+        "key_x_year_topic100_FE": dict(pop=lambda d: d[(d.REJ == 1) | (d.WD == 1)], years=POST, key="key_year",
+                                       extra_fe=["topic100"]),
         "with_desk_rejections": dict(pop=lambda d: d[(d.REJ == 1) | (d.WD == 1) | (d.DR == 1)], years=POST,
                                      key="key_last"),
         "years_2018_23": dict(pop=lambda d: d[(d.REJ == 1) | (d.WD == 1)], years=S.PRE, key="key_last"),
         "pilot_last_profile_key": dict(pop=lambda d: d[(d.REJ == 1) | (d.WD == 1)], years=POST, key="key_lastprof"),
-        "topic100_FE": dict(pop=lambda d: d[(d.REJ == 1) | (d.WD == 1)], years=POST, key="key_last",
-                            extra_fe=["topic100"]),
     }
     rows = []
     for spec, cfg in specs.items():
         d = cfg["pop"](df)
         d = d[d.year.isin(cfg["years"])].copy()
-        feats = ARROW_FEATURES if spec == "primary" else ["NAME", "O_union", "L_union"]
+        feats = ARROW_FEATURES if spec in ("primary", "topic100_FE") else ["NAME", "O_union", "L_union"]
         for k in feats:
             r = contrast(d, S.FEAT_COL[k], cfg["key"], ctr, cfg.get("extra_fe"))
             r.update(spec=spec, key=k, label=S.FEAT_LABEL[k], set=S.FEAT_SET[k])
@@ -243,8 +280,10 @@ def main():
     log(f"NAME key bootstrap: {kb} ({time.time() - t0:.0f}s)")
 
     prim = tab[(tab.spec == "primary") & (tab.key == "NAME")].iloc[0].to_dict()
+    topic = tab[(tab.spec == "topic100_FE") & (tab.key == "NAME")].iloc[0].to_dict()
     h4d = dict(
-        primary=prim, key_bootstrap=kb,
+        primary=prim, topic100_FE=topic, key_bootstrap=kb,
+        topic100_cross_gt0=bool(topic["cross_lo95_pp"] > 0),
         cross_gt0=bool(prim["cross_lo95_pp"] > 0), within_le0_point=bool(prim["within_pp"] <= 0),
         within_ci_excludes_positive_1pp=bool(prim["within_hi95_pp"] < 1.0),
         differ=bool(prim["diff_p_one_sided"] < 0.05),
@@ -253,7 +292,9 @@ def main():
         other_features=tab[(tab.spec == "primary") & (tab.key != "NAME")].to_dict(orient="records"),
     )
 
-    fig, data = fig_arrows(tab[tab.spec == "primary"])
+    nm_t = tab[(tab.spec == "topic100_FE") & (tab.key == "NAME")].copy()
+    nm_t["key"] = "NAME_topicFE"
+    fig, data = fig_arrows(pd.concat([tab[tab.spec == "primary"], nm_t], ignore_index=True), n_info=prim)
     C.save_fig(fig, "fig_F4_4_exit_arrows", OUTDIR, data=data)
 
     # ---------------- exploratory: timing

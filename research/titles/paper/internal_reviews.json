@@ -1,0 +1,426 @@
+[
+ {
+  "reviewer": "acl-reviewer",
+  "summary": "I reviewed the REPORT.md text given in the task, because it is not on disk at /home/user/cloud-research/research/titles/REPORT.md. I also checked /home/user/cloud-research/research/titles/paper/main.pdf (24 pages) and all six figure PNGs. I checked about 40 numbers against outputs/SUMMARY.md, the d1\u2013d4 RESULTS.md files, validation/VALIDATION.md, docs/PLAN.md and the figure CSVs, and all of them match. The only difference is the decision-stage CI, which is [1.028, 1.072] in D4 and [1.027, 1.073] in WP4 because they use different bootstraps. I did not modify any files.\n\nSUMMARY OF THE PAPER\n- **Data.** The study uses 43,482 ICLR submissions from 2017 to 2026, including rejected, withdrawn and desk-rejected papers. This is the ~80% discovery split, not every ICLR submission.\n- **The naming turn.** \"NAME: subtitle\" titles rose from 8.9% to 40.5%. The 2023\u201326 rise is split into name-masked abstract content, team composition, detectable LLM drafting and a residual.\n- **Who carries the style.** This is tested with declared profile keys against a generational null that accounts for co-authors sharing one title.\n- **LLM wording.** LLM-favoured verbs are tested in meaning-fixed title openers, against control pairs.\n- **Peer review.** Acceptance is split into desk, exit and decision stages. Camera-ready edits are bounded by comparing stored titles with pre-decision arXiv v1 titles, using tipping points and a Holm-controlled gate.\n- **Hypothesis ledger.** A pre-registered ledger reports failed predictions.\n\nSTRENGTHS\n1. **Data.** The data include every decision outcome. Title studies rarely have this, and it answers the usual problem that only published papers are studied.\n2. **Honest inference.** The paper uses year-level inference with ten cohorts and reports failed predictions openly. The audits moved numbers in both directions. Section 5 is a good example of how to report what did not hold.\n3. **The arXiv audit is reusable.** It combines a net-flip difference-in-differences, a tipping point, findability weights, a second search route and a Holm gate. The finding that 0 of 18 auditable title features pass the gate is a useful warning for earlier work that compares accepted and rejected text.\n4. **Two general cautions, backed by numbers.**\n   - Co-authors share one title, so a purely generational world already gives \u03c1_last 0.88\u20130.93.\n   - Conditioning on slot filling creates collider bias (selection factor 0.79).\n5. **Meaning-fixed slots** are a clever answer to the topic-versus-style problem in short texts. The finding that new verbs were added rather than swapped in is crisp: RR 3.91 for LLM variants against 1.17 for neutral ones.\n6. **The style-versus-topic contrast** (G_style 0.17 vs G_topic \u22120.05) makes good use of the fact that the null predicts the same ratio for every marker.\n7. **Traceability.** Every number has a source comment.\n\nWEAKNESSES\n1. **Some headline claims go beyond the evidence:**\n   - \"all ICLR submissions\" and \"complete population\", when the data are an ~80% split;\n   - \"a convex trend that steepened in the LLM era\", when on the log-odds scale only 2026 departs from the 2017\u201323 trend;\n   - \"control pairs did not shift\", when that null rests on via/using, which the paper's own related work calls LLM-favoured;\n   - \"halves its acceleration\" and \"mirrors rather than drives\", when the confidence interval includes full recovery and the design only measures selection.\n2. **Missing disclosures.** The paper does not say clearly where LLMs were used for annotation, adjudication and auditing. It also does not say that pilot analyses on the same data set several of the pre-registered thresholds.\n3. **The decomposition does not add up.** The shares come from different estimators that cannot be summed. The additive fixed-window Shapley split exists in the outputs, but its content term (0.34) is never shown.\n4. **Dependence on 2026.** The year 2026 has 15,412 of the 43,482 papers and a new desk-rejection regime. Which findings survive without it is never shown in one place.\n5. **Length and density.** The main text is about 13 two-column pages, not in the ACL template, with about 20 custom symbols. It reads as a technical report rather than an 8-page ACL paper.\n\nNOVELTY\nThe rise of colon and acronym titles is already known (Nelson 2018; Mandyam Rangarajan & Krishnan 2026; Lewison & Hartley 2005; Alyakin 2025). So is the post-ChatGPT surge in LLM vocabulary (Kobak et al. 2025; Liang et al. 2024/2025; Geng et al. 2026 on \"via\" and \"beyond\" in titles). The new contributions are:\n- data covering every decision outcome;\n- a decomposition of a title fashion;\n- a carrier analysis tested against the shared-outcome null;\n- meaning-fixed slots;\n- the camera-ready audit.\n\nThe introduction should say plainly that the rise itself is not the contribution.\n\nSOUNDNESS\nSoundness is high. The remaining problems are about interpretation, not computation:\n- which scale the trend is judged on;\n- how much the slot result depends on the via/using control pair;\n- the decomposition that does not add up;\n- reading selection at review as evidence about whether review \"drives\" the fashion.\n\nValidation rests on two LLM annotation passes with high agreement (\u03ba 0.95\u20131.00). Errors from two LLMs of the same family can be correlated, which would inflate that agreement. The adjudicator also did the 150-item spot check, and no human-only reliability estimate exists.\n\nCLARITY\nThe sentences are clear, but there are too many custom symbols. \"Audit\" is used for two different things: the skeptic reviews and the arXiv check. Some ledger rows pair a significant Holm p with the verdict \"not identified\" (H2a, p = 0.005) and need a caption explaining why.\n\nMISSING RELATED WORK\nAll of these are on the brief's \u00a77 list, so they can be cited:\n- Bass 1969 and Bikhchandani et al. 1992 (diffusion and fads);\n- Hartley 2007 and Anthony 2001 (colon titles and computer-science titles);\n- Potteg\u00e5rd et al. 2014 (named acronyms);\n- Tan, Lee & Pang 2014 (wording effects, ACL);\n- Keith et al. 2020, Pryzant et al. 2021 and Feder et al. 2022 (text as a confounder);\n- Rastogi et al. 2022 (who posts to arXiv, relevant to findability);\n- Juzek & Ward 2025 (why LLMs over-use certain words);\n- Padmakumar & He 2024 and Sourati et al. 2026 (homogenization);\n- Latona et al. 2024 and Thakkar et al. 2025 (LLMs in ICLR reviewing);\n- Stelmakh et al. 2021 (resubmissions);\n- Pullum 2004 (snowclones, which appear in Fig. 6a).\n\nFIGURES AND TABLES\n- **Fig. 1** is strong.\n- **Fig. 2** mixes estimates that cannot be added.\n- **Fig. 4a** shows the pooled control share rising from 72% to 87%, which contradicts \"did not shift\" in the text.\n- **Fig. 4c** shows a 2026 ratio of 0.99 that the text never mentions.\n- **Fig. 5a** labels compound titles \"any colon\", which contradicts the definition (colon or spaced dash).\n- **Fig. 6a** truncates the CI of the key slope-change row.\n- **Fig. 6b** does not say how to read it.\n\nSCORES (ARR scale)\n- Soundness 4/5. Excitement 3.5/5.\n- Overall 3.5/5: borderline main conference, safe for Findings.\n- The edits below can raise it to 4 (clear accept) without new analyses. Every fix uses numbers already in the output files, except the optional human annotation in R2 and the optional held-out run in R5.",
+  "issues": [
+   {
+    "id": "R1",
+    "severity": "critical",
+    "where": "Abstract, sentence 2; \u00a71 paragraph 2 and Contribution 1 ('We use all submissions over ten years'); \u00a73.1 and the Table 1 caption; \u00a76 bullet 'Include all submissions'; paper/sections/abstract.tex, introduction.tex, data.tex",
+    "problem": "The data are the discovery split. README says 'all 43,482 discovery submissions', the data manifest scope is 'discovery submissions ... no confirmation candidates', and PLAN \u00a74 holds out about 20%. Yearly counts such as 15,412 in 2026 are about 80% of the ICLR totals reviewers know, so 'all 43,482 ICLR submissions' and 'complete-population design' are factually wrong and will be noticed. The split mechanism is not recorded and keeps submission families together (d2_carriers/RESULTS.md \u00a72.6). This matters for classifying entrant keys.",
+    "fix": "Abstract: 'We study 43,482 ICLR submissions from 2017 to 2026 (the pre-specified ~80% discovery split of the full submission record), including rejected, withdrawn and desk-rejected papers.' Rename Contribution 1 'a complete-outcome design' (all outcome types, not all papers). Table 1 caption: 'discovery split (~80% of all submissions)'. In \u00a73.1, add that the split keeps submission families together and that its mechanism is not recorded. Cite D2's removal simulation as the size of the false-entrant problem: \u03c1 moves by less than 0.01 under a further 20% random removal (d2_carriers/RESULTS.md \u00a72.6)."
+   },
+   {
+    "id": "R2",
+    "severity": "critical",
+    "where": "\u00a78 Ethics 'Annotation' ('human-delegate adjudication'); \u00a73.3; \u00a73.6 'Audits'; Abstract ('three independent audits per analysis'); Contribution 1; paper/sections/ethics.tex line 9 and data.tex line 81",
+    "problem": "VALIDATION.md says annotation passes A and B are LLM annotators, and PLAN \u00a73 calls them Claude subagents. VALIDATION.md says 'the PI's delegate' adjudicated, and that the same person or agent did the 150 spot checks, 'not an independent audit'. The report upgrades this to 'human-delegate adjudication', which the outputs do not support. The 'three independent audits by skeptics' are not described: who did them, with which model, with what access. ARR requires disclosure of AI assistance. Reviewers will also discount \u03ba 0.95\u20131.00 between two LLM passes of the same family, because their errors can be correlated.",
+    "fix": "(a) Replace the \u00a78 wording with VALIDATION.md's exact wording: 'adjudicated by the PI's delegate from the title text alone; the adjudicator also did the spot check'. State whether that delegate is a person or an LLM agent. (b) Name the annotator models and versions in \u00a73.3 and Appendix C. (c) Describe the adversarial reviews exactly as they were run, for example 'three adversarial internal reviews by separate LLM agents with code access', and drop 'independent' unless that is accurate. (d) Add an AI-assistance statement covering analysis code, annotation, auditing and drafting. (e) Strongly recommended and cheap: double human annotation of about 200 V1 titles for NAME and compound, reporting human\u2013human \u03ba and detector precision and recall against the human labels."
+   },
+   {
+    "id": "R3",
+    "severity": "major",
+    "where": "Abstract ('The trend became convex from about 2022\u201324'); \u00a71 'short answers'; \u00a74.1 'Shape' and 'Timing'; Fig. 1 caption; \u00a76 ('a convex rise'); PI thesis wording 'steepened in the LLM era'",
+    "problem": "Diffusion is usually judged on the log-odds scale. On that scale, deviations from the extrapolated 2017\u201323 trend are +1.5 pp [\u22120.7, 3.8] in 2024, +2.7 pp [\u22120.5, 5.9] in 2025 and +5.5 pp [1.5, 9.5] in 2026. D1 itself says the 2024\u201325 rise 'is largely what a logit-linear pre-trend already implies' (d1_break/RESULTS.md, year-dummy variant). The extrapolated trend alone reaches 35.0% in 2026 (Fig. 1a). A constant log-odds slope is already convex on the probability scale, so 'convex' and 'steepened' mostly restate logistic diffusion. The year-level log-odds slope change is 1.096 [0.990, 1.214], and 1.046 [0.807, 1.355] without 2026. Social-science reviewers will read the current wording as an LLM-era acceleration claim that the data only weakly support.",
+    "fix": "Rewrite the shape claim: 'NAME titles have spread on a steady logistic path since 2017 (odds +12.5% a year). The 2017\u201323 trend alone projects 35.0% for 2026. 2024 and 2025 lie on that path; 2026, the year of a new desk-rejection regime and a much larger cohort, lies 5.5 pp [1.5, 9.5] above it.' Keep the probability-scale +2.8 pp/yr [1.3, 4.4] as a secondary description. Cite Bass (1969), which is on the \u00a77 list. In Fig. 1a, label the dashed line 'logit-linear 2017\u201323 trend'. Note that the content counterfactual (28\u201332% in 2026) lies below the naive trend (35.0%); this sharpens the decomposition question."
+   },
+   {
+    "id": "R4",
+    "severity": "major",
+    "where": "Abstract ('while control pairs did not shift'); \u00a71 'short answers'; \u00a74.3 'Slots' and 'Qualifications'; Fig. 4a and its caption",
+    "problem": "The pooled control null (0.87 [0.64, 1.18]) comes from via/using, which makes up 76% of the control titles. Fitted alone, towards/toward (1.69 [0.82, 3.47]) and novel/new (1.58 [0.74, 3.36]) both sit above the pre-registered 1.5 bound. The pooled controls shift significantly at every other candidate break year, and under a level contrast they shift as well (2.02 [1.73, 2.37]). Without via/using the slot-minus-control contrast is 1.41 [0.74, 2.68] (d3_register/RESULTS.md \u00a72; SUMMARY CT4). The paper's own related work cites Geng et al. (2026) for 'via' exceeding its trend in arXiv titles, so 'via' is not a neutral control. Fig. 4a shows the pooled control share rising from 72% to 87%, which visibly contradicts 'did not shift'. The 2023 cohort, submitted before ChatGPT's release, already shows a slot OR of 2.2\u20132.4, with CIs that include 1.",
+    "fix": "Abstract: 'LLM-favoured verbs were added to title openers from 2024; the pooled control pairs showed no level shift at the pre-registered 2024 break, a null that rests mainly on the via/using pair.' In \u00a74.3, add the per-pair control ORs and the contrast without via. Note that 'via' is itself LLM-associated (Geng et al. 2026). Add: 'Part of the rise may begin with the 2023 cohort, submitted before ChatGPT's release (slot OR 2.2\u20132.4; CIs include 1).' In Fig. 4a, plot each series' deviation from its own 2018\u201322 trend, or plot the three control pairs separately with via/using dashed."
+   },
+   {
+    "id": "R5",
+    "severity": "major",
+    "where": "\u00a73.6 'Pre-registration'; Contribution 5; the opening of \u00a75 ('the pilot's slope-change OR', where 'pilot' is never defined); Appendices A and E",
+    "problem": "PLAN.md set several predictions and thresholds from pilot estimates on the same discovery data. Examples: H2a pilot \u03c1_last \u2248 1.00 against a 0.70 threshold; H3a pilot OR 2.69; H1b pilot 29\u201345%; H1a pilot 1.28. The report says only that the plan was 'locked before estimation'. Reviewers who find this later will feel misled. Disclosing it actually helps, because the failed predictions failed despite pilot knowledge. The bundle hash is internal; the outputs show no third-party timestamp. Contribution 5 promises confirmatory tests that have not been run.",
+    "fix": "Add to \u00a73.6: 'Before locking the plan we ran pilot analyses on the discovery data; several thresholds were set from pilot estimates. Discovery verdicts are therefore checks of pre-specified rules, not tests of blind predictions.' Add a 'pilot value' column to Table 2, taken from PLAN.md. Deposit the revision-3 bundle hash publicly (OSF or an anonymous repository) before requesting the held-out split, and say so in the paper. If feasible, run CT1\u2013CT12 before submission. Otherwise reword Contribution 5 as 'a frozen, hashed confirmatory protocol', with its projected power (D3 0.23\u20130.32)."
+   },
+   {
+    "id": "R6",
+    "severity": "major",
+    "where": "Abstract (content / composition / tool / 'the rest is unexplained drift'); \u00a74.1 'Content', 'Composition', 'Detectable LLM drafting' and 'What remains'; Fig. 2; \u00a76 paragraph 1",
+    "problem": "The shares come from different estimators that cannot be added: content 0.37\u20130.65, composition 0.26\u20130.32 (DFL) or 0.09 (Shapley), tool 7\u201333%, residual 0.57. Taken together they sum to well over 1. The one additive split, the fixed-window Shapley decomposition (content 0.338, composition 0.088, residual 0.574; d1_break/RESULTS.md \u00a74), never shows its content term, so 'about half content' and '57% unexplained' look contradictory. The abstract calls the tool share 'small'. That is true only for the pre-registered fingerprint, which fails its positive control (1.29 [0.92, 1.81]). Broader markers give 16.3% [5.9, 26.7] and 33.3% [11.7, 54.8].",
+    "fix": "In \u00a74.1, and as a stacked bar at the top of Fig. 2, add: 'Additive fixed-window Shapley: content 0.34, composition 0.09, unexplained 0.57 (refit [0.48, 0.67]).' State that the rolling design gives content 0.57\u20130.58, and that the tool share overlaps content rather than being a separate slice. Abstract: 'Depending on design, 37\u201365% of the 2023\u201326 rise tracks name-masked content; composition adds little once content is included (Shapley 0.09); detectable LLM drafting accounts for 7% under the pre-registered fingerprint (16\u201333% under broader markers); in the additive fixed-window split 57% remains unexplained.'"
+   },
+   {
+    "id": "R7",
+    "severity": "major",
+    "where": "Abstract, final sentences ('mirrors the fashion rather than driving it'; 'recovers only about half of its acceleration'); \u00a71 'short answers'; \u00a74.4; \u00a76 'Implications' bullet 1",
+    "problem": "The published-only ratio for the acceleration is 0.50 [\u22120.15, 1.16], and the CI includes full recovery. In the accepted pool alone the slope change is OR 1.053 (p = 0.18). The pool slope ORs (1.05 / 1.12 / 1.11) do not differ (p = 0.51). 'Halves' is therefore a point estimate, yet the abstract and \u00a76 ('misses about half') state it without qualification. 'Does not drive' is causal language. Stage gains measure selection only; they cannot detect authors who brand because they expect reviewers to reward it.",
+    "fix": "Abstract: 'Decisions neither select for nor against NAME titles: the published record reproduces their share, also after correcting for camera-ready edits (90% CI [0.949, 1.031]); its estimate of the acceleration is about half as large but imprecise (ratio 0.50 [\u22120.15, 1.16]).' Replace 'mirrors rather than drives' with 'selection at review is neutral'. Add to \u00a76 or \u00a77: 'Whether authors brand in anticipation of reviewer taste is not identified by stage gains.' In the \u00a76 bullet, change 'misses about half' to 'may miss part'."
+   },
+   {
+    "id": "R8",
+    "severity": "major",
+    "where": "\u00a74.1\u20134.4 and Appendix B robustness table; \u00a77 Limitations, bullet 1",
+    "problem": "2026 has 15,412 of 43,482 papers, makes up most of D2's late window L, and had a new desk-rejection regime. The acceleration claims depend on it. Without 2026, H1a is 1.046 [0.807, 1.355] and H1c is +1.15 pp [\u22120.63, 2.96]. Most other findings survive without 2026:\n- D2 \u03c1_last (E 2021\u201322, L 2024\u201325): 1.003 [0.918, 1.095];\n- D2 first-minus-last gap: \u22120.474 [\u22120.670, \u22120.276];\n- D3 pooled slot OR: 2.27 [1.36, 3.80];\n- D4 NAME G_total: 1.037 (90% CI 1.008\u20131.068).\nReaders cannot currently see which claims depend on 2026.",
+    "fix": "Add an 'Excluding 2026' column to the Appendix B table, or a six-row '2026 sensitivity' table in the main text, using the values above. Sources: d1_break/RESULTS.md T1.1 and \u00a73; d2_carriers/RESULTS.md \u00a72.6; d3_register/RESULTS.md robustness; d4_filter/RESULTS.md H4a robustness. Add to \u00a74.1: 'The acceleration depends on 2026; the carrier, slot and filter results do not.' In \u00a77, note that 2026 composition by affiliation or country cannot be measured from the export."
+   },
+   {
+    "id": "R9",
+    "severity": "major",
+    "where": "paper/main.tex (article class, 11pt, A4); main text sections 1\u20138 (PDF pp. 1\u201313 of 24)",
+    "problem": "ARR long papers allow 8 pages in the ACL template, with line numbers, plus appendices. The main text is about 13 two-column pages in a non-ACL template. A module meant to merge into a larger paper also needs a 3\u20134-page core version.",
+    "fix": "Port to acl.sty in review mode. Core content:\n1. \u00a74.1 with Fig. 1 and the stacked Fig. 2;\n2. \u00a74.2 with Fig. 3;\n3. \u00a74.4 with Fig. 5a merged with Fig. 6b;\n4. \u00a74.3 compressed to one paragraph plus Fig. 4a.\nMove Figs. 4b\u2013c and 6a, the \u00a73.5 audit mechanics and the \u00a75 list to the appendix. Keep a five-line \u00a75 that points to Table 2. Replace \u00a73.2\u20133.4 with a notation table."
+   },
+   {
+    "id": "R10",
+    "severity": "major",
+    "where": "\u00a72 Related work; \u00a71 paragraph 1 and Contributions",
+    "problem": "Several relevant works from the brief's \u00a77 list are not cited. The introduction never says that the rise of colon and acronym titles is already known; the brief's \u00a72 marks this as 'do NOT claim as novel'. Tran et al. 2020 has an arXiv ID that \u00a77 says must be reconciled.",
+    "fix": "Add from \u00a77:\n- Bass 1969 and Bikhchandani, Hirshleifer & Welch 1992 (diffusion, fads);\n- Hartley 2007 and Anthony 2001 (colon titles, CS titles);\n- Potteg\u00e5rd et al. 2014 (named acronyms, the closest branding precedent);\n- Tan, Lee & Pang 2014 (wording effects, ACL);\n- Keith, Jensen & O'Connor 2020, Pryzant et al. 2021 and Feder et al. 2022 (text as confounder, which frames the name-masked content adjustment);\n- Rastogi et al. 2022 (arXiv posting selection, for findability);\n- Juzek & Ward 2025 (why LLMs over-use words);\n- Padmakumar & He 2024 and Sourati et al. 2026 (homogenization);\n- Latona et al. 2024 and Thakkar et al. 2025 (LLMs in ICLR reviewing, for Q4);\n- Stelmakh et al. 2021 (resubmissions, for S2.1);\n- Pullum 2004 (snowclones, used in Fig. 6a).\nAdd to \u00a71: 'That colon and acronym titles have risen is known (Nelson 2018; Mandyam Rangarajan & Krishnan 2026); our contribution is observing all decision outcomes and decomposing who and what carries the rise.' Resolve 2010.05137 vs 2011.12919 for Tran et al."
+   },
+   {
+    "id": "R11",
+    "severity": "minor",
+    "where": "\u00a71 'short answers' ('LLMs left a lexical rather than a clear structural trace'); \u00a74.3 last paragraph heading; thesis wording",
+    "problem": "Fingerprinted abstracts are also associated with NAME titles: OR 1.14 [1.08, 1.21]. The lexical-to-structural ratio is 1.24 [0.99, 1.57]. With the D1 fingerprint it is 1.19 [0.84, 1.65], and in 2026 it is 0.99 [0.71, 1.45] (Fig. 4c CSV). 'Rather than structural' overstates this.",
+    "fix": "Replace with: 'LLM fingerprints go with both the lexical choice (OR 1.42) and branding (OR 1.14); the lexical association is not detectably larger (ratio 1.24 [0.99, 1.57]; 0.99 in 2026).'"
+   },
+   {
+    "id": "R12",
+    "severity": "minor",
+    "where": "\u00a74.2 'Style versus topic' paragraph and the newcomer-free table",
+    "problem": "The weighted G statistic is dominated by single markers: the NAME family carries 93% of the style weight and llm_topic 94.5% of the topic weight (d2_carriers/RESULTS.md audit response). Saying '52 style and 33 topic markers' therefore overstates breadth. The table's newcomer-free rows (0.22 and \u22120.07) and the H2c result (0.34) use different definitions, and the text does not explain the difference.",
+    "fix": "Add: 'The weighted statistic is dominated by the NAME family and the LLM-topic marker; the contrast survives dropping both (0.19 [0.13, 0.26]) and equal marker weights (median \u03c1: style 0.84, topic 1.05).' Give a one-line definition for each table row, and explain how H2c's 'zero new co-author keys' differs from 'no entrant co-author'."
+   },
+   {
+    "id": "R13",
+    "severity": "minor",
+    "where": "\u00a71 'short answers' ('submission-stage text'); \u00a73.1 ('carries submission-stage text throughout'); thesis wording",
+    "problem": "Rejected papers' stored titles differ from their arXiv v1 in 22.2% of cases, and in 11.4% where v1 was posted during review (SUMMARY SB5). The NA pool is camera-ready-free, but it is not submission-stage text, and it is selected on outcome.",
+    "fix": "Use 'camera-ready-free' throughout. Add: 'Rejected and withdrawn titles can still be revised during discussion; the audit's rejected arm absorbs this drift.'"
+   },
+   {
+    "id": "R14",
+    "severity": "minor",
+    "where": "\u00a74.4 'Kobak-style bounds'; Fig. 6a",
+    "problem": "The bounds fall from 16.0 to 6.0 pp mainly because the fixed 2024 word list stops matching: F24 prevalence falls from 19.2% to 9.1% while F26 rises from 2.5% to 18.6% (d3_register/RESULTS.md \u00a71). Readers may take the fall as declining LLM use. The ratio CIs are omitted, and the 2026 one is very wide.",
+    "fix": "Report the ratios with CIs: 0.80 [0.66, 0.92], 0.71 [0.50, 0.89] and 0.50 [\u22120.08, 0.93]. Add: 'Bounds based on a fixed vocabulary decay as model vocabulary changes (Geng & Trotta 2025); the yearly fall is not a fall in LLM use.'"
+   },
+   {
+    "id": "R15",
+    "severity": "minor",
+    "where": "\u00a73\u2013\u00a74 throughout; Appendix A (Table 2) caption",
+    "problem": "There are about 20 custom symbols (R1/R3/R5/R6, F24/F26/F_any/F_d1/RARE21, R24/R26/N24, \u03c1, G, D*, DFL, ITS, IUT, TOST, SB/G/V/CT). 'Audit' names both the skeptic reviews and the arXiv check. The ledger pairs a significant Holm p with the verdict 'Not identified' (H2a, 0.005) without explanation.",
+    "fix": "Add a notation table. In the main text use descriptive names, for example 'masked TF-IDF' for R1, 'abstract LLM-word fingerprint' for F_any and '2024 LLM title words' for R24. Keep F_d1 and similar variants in the appendix. Call the skeptic process 'adversarial internal review'. Add to the Table 2 caption: 'Holm p tests the pre-registered statistic; the verdict also weighs identification checks, so a small p can coexist with not identified.'"
+   },
+   {
+    "id": "R16",
+    "severity": "minor",
+    "where": "Figs. 1a, 2, 3, 4a/c, 5a, 6a/b; Table 1",
+    "problem": "Several small figure and table problems: labels and colours that mislead, CIs shown only as truncated arrows, and missing reading rules.",
+    "fix": "- Fig. 1a: label the 35.0% line 'logit-linear 2017\u201323 trend'.\n- Fig. 2: add the additive Shapley stacked bar. DFL is shown for 2026 only; say so or show all three years.\n- Fig. 3: blue means 'no newcomer keys' in panel a and 'title style' in panel b; use different hues.\n- Fig. 4a: fix as in R4.\n- Fig. 4c: mention the 2026 ratio of 0.99 in the caption.\n- Fig. 5a: 'Compound (any colon)' contradicts the definition (colon or spaced dash); relabel.\n- Fig. 6a: print [\u22120.15, 1.16] for the truncated slope-change row.\n- Fig. 6b: add 'an association is identified only if the whole DiD CI lies short of D*'.\n- Table 1: add a camera-ready-free NAME share column (40.3% in 2026)."
+   },
+   {
+    "id": "R17",
+    "severity": "minor",
+    "where": "\u00a73.2 Title measures; Appendix C",
+    "problem": "Only the NAME detector's accuracy is reported; its algorithm (rules, lexicons) is not described. There are no real example titles, which computational social science and cultural analytics readers expect.",
+    "fix": "Describe the detector logic in about three sentences and point to lexicons.json. Add a small table of real example titles per class from the V1 sample; VALIDATION.md already lists some, such as 'LoRA Recycle' and 'GAN Dissection'. Keep the slot examples as templates, so that no individual paper is implied to be an LLM user."
+   },
+   {
+    "id": "R18",
+    "severity": "minor",
+    "where": "Abstract sentence 1; \u00a71 'short answers' ('ML titles turned into brands')",
+    "problem": "The evidence comes from one venue, but the sentence generalises to all of machine learning.",
+    "fix": "Change to: 'At ICLR, machine-learning paper titles have turned into brands.'"
+   }
+  ]
+ },
+ {
+  "reviewer": "numbers-auditor",
+  "issues": [
+   {
+    "id": "N1",
+    "severity": "major",
+    "where": "REPORT.md \u00a75 'What did not hold', item 10; paper/sections/failures.tex item 10",
+    "problem": "Stale pre-integration wording. The text says the withdrawn acceptance associations are those of 'compound titles and sentence case, which passed only an uncorrected gate'. Integration fix X8 (SUMMARY.md \u00a76 last row; snapshot/RESULTS.md headline) states that on the complete audit the uncorrected rule passes compound titles and the outsider union without ALL-CAPS. Sentence case passed it only at interim freezes (600, 1,000 and 1,261 enlargement lines), not on the complete audit. The sentence also contradicts the paper's own \u00a74.4 and the 'Why this matters' paragraph ('two acceptance associations').",
+    "fix": "Replace with: '...and acceptance associations of compound titles and of outsider casing without ALL-CAPS, which pass only the uncorrected gate (sentence case passed it only at interim audit sizes; all Holm p >= 0.29).' Make the same change in failures.tex."
+   },
+   {
+    "id": "N2",
+    "severity": "major",
+    "where": "REPORT.md Abstract, \u00a71 'short answers', \u00a76 'Implications for meta-science' first bullet; paper/sections/abstract.tex, introduction.tex, discussion.tex",
+    "problem": "The text states the published-only acceleration loss as an established fact ('recovers only about half of its acceleration', 'misses part of its acceleration', 'misses about half of their acceleration'). The source is the H4e effect-scale ratio 0.50 [-0.15, 1.16] (d4_filter/RESULTS.md H4e), whose CI includes 1. The pool-equality test in the same report finds no detectable difference in slope change between accepted, rejected and withdrawn pools (p = 0.51). \u00a74.4 qualifies the claim ('point estimate; the interval is wide') but the abstract, introduction and discussion do not. The discussion also generalises from NAME to 'mainstream fashions' ('their acceleration'), although the ratio was estimated only for the NAME slope change.",
+    "fix": "Abstract: '...but its estimate of the acceleration is about half as large (ratio 0.50, 95% CI -0.15 to 1.16).' Introduction: '...but a published-only view estimates only about half of its acceleration (wide CI).' Discussion: '...and its point estimate of the 2024 NAME slope change is half the all-submission value (0.50 [-0.15, 1.16]; pool equality not rejected, p = 0.51).'"
+   },
+   {
+    "id": "N3",
+    "severity": "major",
+    "where": "REPORT.md \u00a74.1 'Branding runs ahead of content in new topics'; paper/sections/results.tex same paragraph",
+    "problem": "The text mixes two statistics. '+15.8 vs +6.5 pp' are pooled signed residuals (fast-growing vs elsewhere), but the 'gap difference of 8.0 pp [6.8, 9.2]' is computed from year-averaged absolute residuals, 15.8 vs 7.7 (d1_break/RESULTS.md \u00a76 table; results.json new_topic_placebo 'R1|fixed_2024_26': abs_gap_fast 0.1577, abs_gap_else 0.0774, gap_diff 0.0803). A reader computes 15.8 - 6.5 = 9.3, not 8.0.",
+    "fix": "Write: 'observed NAME exceeds the content prediction by 15.8 pp in fast-growing clusters against 7.7 pp elsewhere (year-averaged absolute residuals, fixed 2024\u201326 window), a gap difference of 8.0 pp [6.8, 9.2].' Alternatively keep the signed residuals and drop the 8.0 figure."
+   },
+   {
+    "id": "N4",
+    "severity": "minor",
+    "where": "REPORT.md Appendix A condensed ledger (Holm p column) vs paper/tables/table1_hypotheses.tex (paper Table 2)",
+    "problem": "The rounding of Holm p-values differs between REPORT and LaTeX, even though REPORT calls its table a reproduction of Table 2. H1b is 0.178 in REPORT and 0.18 in LaTeX; H2c 0.312 vs 0.31; H2e 0.122 vs 0.12; H4c 0.209 vs 0.21. Source values: d1 results.json holm H1b 0.17791; SUMMARY.json H2c 0.312339, H2e 0.121878, H4c 0.209.",
+    "fix": "Make REPORT Appendix A match the generated table: H1b 0.18, H2c 0.31, H2e 0.12, H4c 0.21. Otherwise regenerate table1_hypotheses with three decimals and re-run make_tables.py."
+   },
+   {
+    "id": "N5",
+    "severity": "minor",
+    "where": "REPORT.md \u00a74.2 newcomer-gradient table header; paper/sections/results.tex 'The rise is graded by team newness' ('Relative to the population change (18.3 pp)...')",
+    "problem": "The row 'All keys present in 2021\u201322: -0.07 [-0.42, 0.24]' is a ratio to 17.5 pp, the population change for E = 2023 rows, not to 18.3 pp (d2_carriers/T2_4_newcomer_free.csv: pop_change 0.174595 for the fixed-base row; RESULTS.md: '18.3 pp; 17.5 pp for the rows with E = 2023'). Check: -1.29/17.46 = -0.074. The figures manifest (fig3) makes the same over-general claim.",
+    "fix": "Add to the table header or a note: 'ratio to the population change (18.3 pp; 17.5 pp for the 2021\u201322 fixed-base row, whose early window is 2023)'. Make the same change in results.tex."
+   },
+   {
+    "id": "N6",
+    "severity": "minor",
+    "where": "REPORT.md \u00a75 item 3; paper/sections/failures.tex item 3",
+    "problem": "'...it fails Holm (0.067) and vanishes in the camera-ready-free pool' overstates the source. In the NA pool the point estimate stays at +1.14 pp, with year-robust CI [-0.10, 2.39] (d1_break/RESULTS.md \u00a73 replications). It does not vanish; its CI includes 0.",
+    "fix": "Write: '...it fails Holm (0.067), and its year-level CI includes 0 in the camera-ready-free pool (+1.14 pp [-0.10, 2.39]) and in the non-LLM subset (+0.55 pp [-0.90, 1.99]).'"
+   },
+   {
+    "id": "N7",
+    "severity": "minor",
+    "where": "REPORT.md \u00a76 'Implications for meta-science' first bullet; paper/sections/discussion.tex",
+    "problem": "'A published-only study recovers the prevalence of mainstream fashions within a few percent' does not match the atlas. Accepted/all ratios are 1.059 for mixed-case name and 0.908 for the snowclone share (d4_filter/RESULTS.md H4e M table). D4 explicitly withdrew the wording 'within a few percent'.",
+    "fix": "Write: '...recovers the prevalence of mainstream fashions within \u00b110% (9 of 11 mainstream statistics; NAME 1.021)...'"
+   },
+   {
+    "id": "N8",
+    "severity": "minor",
+    "where": "REPORT.md \u00a77 'Meaning is held only approximately fixed' and Appendix C V2; paper/sections/limitations.tex and appendix.tex V2",
+    "problem": "'Swap preservation of the remaining variants is 0.75\u20130.99' holds only for the LLM-favoured variants: improve 0.99/0.92, reveal 0.75/0.83, exploit 0.79/0.90 (post/pre). VALIDATION.md 'Per slot side and era' gives the exploit neutral side swap_w 0.47 (post) and 0.70 (pre), and d3_register/RESULTS.md \u00a71 repeats these numbers.",
+    "fix": "Write: 'Swap preservation of the LLM-favoured variants ranges from 0.75 to 0.99; the neutral side of the exploit slot reaches only 0.47\u20130.70.'"
+   },
+   {
+    "id": "N9",
+    "severity": "minor",
+    "where": "REPORT.md \u00a74.4 'Withdrawals'; paper/sections/results.tex 'Withdrawals' paragraph",
+    "problem": "'Named papers are withdrawn more often than rejected ones (+4.06 pp across papers)' misstates the estimand. In d4_filter/RESULTS.md H4d, +4.06 pp (se 0.96) is the cross-sectional NAME coefficient on P(withdrawn) among REJ \u222a WD papers, 2024\u201326.",
+    "fix": "Write: 'Among rejected or withdrawn 2024\u201326 papers, NAME papers are 4.06 pp more likely to be withdrawn (cross-section); with topic100 fixed effects the excess is +0.84 pp [-1.05, 2.74].'"
+   },
+   {
+    "id": "N10",
+    "severity": "minor",
+    "where": "REPORT.md \u00a74.4 'In the accepted pool alone ... (OR 1.053, p = 0.18)' vs Appendix B row 'Accepted pool (2017\u201326) 1.042 [0.964, 1.127]'; paper/sections/results.tex",
+    "problem": "The paper gives two different accepted-pool slope-change ORs and labels the window of only one. 1.053 is D4's 2018\u201326 fit (d4_filter/RESULTS.md H4a pool table); 1.042 is D1's 2017\u201326 fit (T1.1).",
+    "fix": "Write '(OR 1.053, p = 0.18; ITS 2018\u201326)' in \u00a74.4 and results.tex, matching the '(ITS 2018\u201326)' label already used for 1.05 / 1.12 / 1.11."
+   },
+   {
+    "id": "N11",
+    "severity": "minor",
+    "where": "REPORT.md \u00a73.5 'Sample'; paper/sections/data.tex audit bullet",
+    "problem": "The text says the sample is 'accepted and rejected 2023\u201326 submissions: an original audit of 616 papers', but 16 of the 616 are accepted 2022 papers outside the 2023\u201326 primary audit (snapshot/RESULTS.md \u00a71: 75 per year \u00d7 decision cell for 2023\u201326 plus 16 accepted 2022 papers).",
+    "fix": "Write: '...an original audit of 616 papers (600 from 2023\u201326 plus 16 accepted 2022 papers, used only in a sensitivity spec) plus an enlargement of 2,000.'"
+   },
+   {
+    "id": "N12",
+    "severity": "minor",
+    "where": "REPORT.md \u00a75 opening sentence; paper/sections/failures.tex",
+    "problem": "The quote of the locked plan title is truncated without marking. docs/PLAN.md line 1 reads 'Branded by People, Polished by Machines: The 2024 Naming Turn in ICLR Titles, Who Carried It, and What Peer Review Did to It'.",
+    "fix": "Quote the title in full, or end the shortened quote with an ellipsis: '...The 2024 Naming Turn in ICLR Titles\u2026'."
+   },
+   {
+    "id": "N13",
+    "severity": "minor",
+    "where": "REPORT.md (several places); writer's claim 'Every number in REPORT.md has an HTML comment'",
+    "problem": "Several numbers have no adjacent HTML source comment: \u00a73.1 'about 80%' (source SUMMARY.md header); \u00a73.4 '21 rare LLM-favoured words (RARE21)' (d3_register/RESULTS.md \u00a71); \u00a74.2 '52 title-style markers and 33 abstract-topic markers' (d2_carriers/RESULTS.md \u00a72.4, not in the SUMMARY.md H2d row that is cited); \u00a76 '40%' and '3\u20134%'; \u00a77 'Spearman 0.25' and '0.37 and 0.65'; Appendix F '73 files', 'D1 153 checks ... D4 108/0', '10\u201312 h', 'Python 3.13'. All values are correct, but they carry no source.",
+    "fix": "Add comments: <!-- SUMMARY.md header --> after 80%; <!-- d3_register/RESULTS.md \u00a71; validation/VALIDATION.md V3 --> after RARE21; <!-- d2_carriers/RESULTS.md \u00a72.4 --> after 52/33; <!-- features/fig_name_share_by_year.csv; SUMMARY.md robust finding 9 --> in \u00a76; <!-- validation/VALIDATION.md V3; d1_break/RESULTS.md \u00a72 --> in \u00a77; <!-- prereg/prereg.md \u00a72; README.md \u00a79; audit/integration/fix_log.md 'Checks after the pass' --> in Appendix F."
+   },
+   {
+    "id": "N14",
+    "severity": "minor",
+    "where": "REPORT.md \u00a71 short answers and \u00a74.1 'Shape'; paper/sections/introduction.tex",
+    "problem": "'the trend is just as visible in submission-stage text and outside LLM topics' is true for the level rise (non-LLM 19.5% \u2192 36.0%) and for the paper-level slope change (1.116 [1.055, 1.180]). However, the year-level slope change in the non-LLM subset is 1.108 [0.986, 1.245], whose CI includes 1, and unexplained-drift acceleration there is +0.55 [-0.90, 1.99] (tables/table2_acceleration.csv; d1_break/RESULTS.md \u00a71, \u00a73). 'Just as visible' should not be read as an acceleration established at the year level.",
+    "fix": "Write: '...is just as visible in submission-stage text and is present outside LLM topics (19.5% \u2192 36.0%; year-level slope-change CI includes 1 there).' Or restrict 'just as visible' to the camera-ready-free pool."
+   }
+  ],
+  "summary": "I traced every number, CI, n and verdict in REPORT.md (from the task text) and in paper/sections/*.tex, paper/appendix.tex and paper/tables/*.tex to the final output files. Sources checked: outputs/SUMMARY.md and SUMMARY.json, the d1\u2013d4, snapshot and validation reports and results.json files, outputs/tables/*.csv, outputs/figures/*.csv and manifest.json, outputs/core/universe_counts.csv, outputs/prereg, the README and the integration fix log. Almost everything matches.\n\n**Recomputations from the parquet files and CSVs, all matching:**\n- core/universe.parquet and features/features_v2.parquet: the full Table 1 (U, ACC, REJ, WD, DR and the NAME and compound shares for every year); the camera-ready-free 2026 share (40.3%); non-LLM 19.5% \u2192 36.0% (n = 30,269); LLM-topic share 0.106 \u2192 0.482; team size 4.56 \u2192 5.67; R24 63.1 \u2192 47.8 and R26 23.3 \u2192 46.4 per 1,000; NA = 30,322, WD = 9,954, DR = 883; F_any false-positive rate 2021\u201322 = 5.9%.\n- d1_break/cf_rolling_steps.csv: the annual-step decomposition (2.06 \u2192 6.72, content 0.54 \u2192 3.85, u 1.51 \u2192 2.87; +4.66, +3.31, +1.35).\n- d4_filter/gains.csv: NAME exit, decision and total; L-union 2018\u201323 = 1.154 [1.070, 1.236]; R24 total; F24 and style-density camera-ready-free gains (0.965, 0.963); the F24 post/pre ratios (0.914, 0.975).\n- d2_carriers/T2_4_newcomer_free.csv: the newcomer-gradient ratios and 7,889 of 11,503.\n- figures/fig4_register__a_slot_shares.csv: slot shares and n = 1,922; per-1,000 rates 11.4 \u2192 30.0 and 22.0 \u2192 25.2.\n- Tipping-point arithmetic: D* = 0.0174 / 0.597 = 2.92 pp; editing share 1.48 / 2.92 \u2248 51% (CI -21% to 124%).\n- Kobak ratios 0.80, 0.71 and 0.50; abstract word count 199.\n\n**LaTeX against REPORT and the generated tables:**\n- A mechanical numeric diff found every LaTeX number in REPORT. The only extras are values present in the sources: -0.243 [-0.344, -0.133] and the pilot-like 2.80 [1.89, 4.15].\n- The paper tables in paper/tables are numerically identical to outputs/tables (diff of number tokens).\n\n**Problems found:**\n- **Stale pre-X8 claim (N1):** \u00a75 item 10 says compound titles and sentence case passed only an uncorrected gate. On the complete audit it is compound titles and outsider casing without ALL-CAPS; sentence case passed only at interim audit sizes.\n- **Half-acceleration claim (N2):** the abstract, introduction and discussion state it without uncertainty. The CI is [-0.15, 1.16] and the pool-equality test has p = 0.51.\n- **New-topic placebo (N3):** the text pairs +15.8 vs +6.5 (signed residuals) with a gap difference of 8.0, which is computed from year-averaged absolute residuals of 15.8 vs 7.7.\n- **Holm p rounding (N4):** REPORT Appendix A gives 0.178, 0.312, 0.122 and 0.209; LaTeX Table 2 gives 0.18, 0.31, 0.12 and 0.21.\n- **Minor wording, denominator and labelling issues (N5\u2013N14):**\n  - the fixed-base newcomer ratio uses a 17.5 pp population change, not 18.3 pp;\n  - unexplained drift does not 'vanish' in the NA pool: it is still +1.14 pp, with a CI that includes 0;\n  - 'within a few percent' was withdrawn by D4;\n  - the swap-preservation range 0.75\u20130.99 covers the LLM-favoured variants only;\n  - the H4d estimand is misdescribed;\n  - the accepted-pool OR needs its window label (2018\u201326);\n  - 16 of the 616 audit papers are from 2022;\n  - the plan title quote is truncated;\n  - a handful of numbers have no HTML source comment;\n  - 'just as visible outside LLM topics' needs a year-level caveat.\n\nI found no other stale pre-audit values and no unsourced numbers apart from those listed in N13. The REPORT text I diffed is in the scratchpad at /tmp/claude-0/-home-user-cloud-research/ac787a97-846c-54b7-93f0-8bd8a69ad531/scratchpad/report_body.txt; the files to correct are /home/user/cloud-research/research/titles/paper/sections/{abstract,introduction,results,failures,discussion,limitations,data}.tex and /home/user/cloud-research/research/titles/paper/appendix.tex, plus REPORT.md once it is saved."
+ },
+ {
+  "reviewer": "claims-auditor",
+  "summary": "Claims, ethics and citation audit of REPORT.md and paper/sections/*.tex. Every number I spot-checked matches the final outputs: universe counts, NAME and compound shares, D1/D2/D3/D4/WP4 estimates and CIs. All 62 bib entries are in LITERATURE_BRIEF section 7, with matching bibliographic details. No sentence attributes anything causally to ChatGPT.\n\nThe problems are framing, missing caveats and disclosure:\n(1) The abstract says \"all 43,482 ICLR submissions\" and the contributions call this a \"complete-population design\". The data are actually the roughly 80% discovery split, the split mechanism is not recorded, and linked resubmission families are removed. I rate this critical.\n(2) Several sentences attribute the title changes to LLMs causally.\n(3) The published-only \"half of the acceleration\" (ratio 0.50, CI -0.15 to 1.16) is stated without its CI in the abstract and generalised in the Discussion.\n(4) \"This depletion operates ... not through decisions\" contradicts D4's integration pass, which says decision-stage neutrality is not established.\n(5) The via/using control pair is presented as having no LLM preference. D3's audit, and Geng et al. 2026 as cited in the paper, say the opposite. The control contrast's dependence on via/using and the in-sample choice of 'enhancing' are not reported.\n(6) S2.1 (retitled pairs) is used without its selection-on-retitling and lag-not-established caveats.\n(7) The pre-registration framing hides that predictions were set from pilot analyses of the same rows.\n(8) Limitations miss: discovery split and removed families, false entrants, the email-key era, the LLM-consensus reference standard, rebuttal-period edits, and the fact that NAME includes existing technique names.\n(9) The ethics statement omits several things. The arXiv audit used first-author surnames and links rejected submissions to arXiv preprints. \"Human-delegate adjudication\" is not documented, and VALIDATION says the spot check was not independent. AI-agent audits and writing are not disclosed.\n(10) Person and role language is used for keys and list positions: \"careers\", \"authors\", \"newcomer-led\", keys that \"use\" NAME.\n(11) Related work: \"the single study linking title structure to editorial decisions\" ignores Veitch 2020, PeerRead and Xu 2026. There are also smaller misattributions: Ball 2009, Geng & Trotta 2024, Danescu-Niculescu-Mizil 2013, Movva, Peng, Lipton, Letchford. The Tran 2020 arXiv ID is still unreconciled.\n\nEach fix below applies to both REPORT.md and the matching .tex file.",
+  "issues": [
+   {
+    "id": "C1",
+    "severity": "critical",
+    "where": "REPORT Abstract sentence 2 ('We study all 43,482 ICLR submissions'); \u00a71 Contributions item 1 ('A complete-population design ... We use all submissions over ten years'); paper/sections/abstract.tex; paper/sections/introduction.tex Contributions item 1",
+    "problem": "The 43,482 papers are the discovery split, about 80% of public submissions (README; SUMMARY header; LITERATURE_BRIEF \u00a75: 2026 has 15,420 rows vs about 19.6k public). The split mechanism is not recorded (d2_carriers/RESULTS.md \u00a72.6), and the export keeps one submission per paper family (PLAN C4). So 'all 43,482 ICLR submissions' is false, and 'complete-population' overstates what is complete: every decision class, not full coverage. \u00a73.1 states the 80% correctly, so the paper contradicts itself.",
+    "fix": "Abstract: 'We study 43,482 ICLR submissions from 2017 to 2026, the roughly 80% discovery split of all submissions, including rejected, withdrawn and desk-rejected papers, with ...'. Contribution 1: '**An all-outcome design with validated measurement.** We use every decision class (accepted, rejected, withdrawn, desk-rejected) in the ~80% discovery split of ten years of ICLR submissions, with ...'. Wherever 'complete-population' appears (including the contributions list), replace it with 'all-outcome (submission-population)'."
+   },
+   {
+    "id": "M1",
+    "severity": "major",
+    "where": "\u00a71 para 1 ('what large language models (LLMs) did to title wording'); \u00a71 short answers ('LLMs left a lexical rather than a clear structural trace'); \u00a74.3 bold sentence ('The LLM trace is lexical ...'); introduction.tex; results.tex (register subsection)",
+    "problem": "These sentences attribute the slot shift to LLMs causally. The evidence is associational: a dated shift in opener choice, plus an association with abstract fingerprints (OR_slot 1.42 vs OR_NAME 1.14, ratio 1.24 [0.99, 1.57]). The fingerprints have unknown recall, and F_d1 fails its own positive control. This conflicts with the 'associational throughout; nothing attributed causally to any tool' boundary (SUMMARY header; README).",
+    "fix": "Intro: replace 'what large language models (LLMs) did to title wording' with 'how title wording changed in the LLM era'. Short answers: 'LLM-era wording shows a lexical rather than a clearly structural signature: LLM-favoured openers rose in meaning-fixed slots from 2024, and abstract LLM fingerprints are associated with those openers somewhat more than with NAME titles (ratio 1.24 [0.99, 1.57]).' \u00a74.3: 'The fingerprint association is lexical (which verb opens a title) more than structural (whether the title is branded), but only by a small margin and only associationally.'"
+   },
+   {
+    "id": "M2",
+    "severity": "major",
+    "where": "Abstract ('but recovers only about half of its acceleration'); \u00a76 Discussion, bullet 'Include all submissions' ('recovers the prevalence of mainstream fashions within a few percent but misses about half of their acceleration'); abstract.tex; discussion.tex",
+    "problem": "The ratio is 0.50 with 95% CI [-0.15, 1.16]. The CI includes 1, so 'only about half' is not established. The ratio is for one statistic, the 2024 NAME ITS slope change; the other mainstream trend statistic, the colon-premium trend, has ratio 0.89 (0.66 to 1.12) (d4_filter/RESULTS.md H4e). D4's audit withdrew 'trends within a few percent'. Mainstream prevalences are within \u00b110% in 9 of 11 statistics, not 'within a few percent'.",
+    "fix": "Abstract: '... reproduces the NAME share, also after an audit against pre-decision arXiv versions, but its estimate of the NAME acceleration is about half the all-submission one (ratio 0.50, 95% CI -0.15 to 1.16) and is not detected in accepted papers alone.' Discussion: 'A published-only study reproduces 9 of 11 mainstream statistics within \u00b110%, but its estimate of the 2024 NAME slope change is about half the all-submission value (0.50 [-0.15, 1.16]; not detected in the accepted pool, p = 0.18). It also under-represents outsider styles (ALL-CAPS 0.36 [0.26, 0.47]), which the audit cannot separate from camera-ready recasing.'"
+   },
+   {
+    "id": "M3",
+    "severity": "major",
+    "where": "\u00a74.4 'LLM markers', bullet 2 ('This depletion operates through desk rejection and withdrawal, not through decisions.'); results.tex line ~104",
+    "problem": "This asserts a null decision-stage effect, which no analysis establishes. D4 RESULTS says: 'No decision-stage association is identified against camera-ready editing, so \"neutral\" is not established either.' Gate G3 is not supported. Integration pass 2 (X2) removed 'neutral for LLM markers'. 'Operates through' is also mechanism language for a share comparison.",
+    "fix": "Replace with: 'This depletion is located before the decision (desk rejection and withdrawal). No decision-stage association of F24 or the style density is identified against camera-ready editing (gate G3), so the decision stage is not shown to be neutral either.'"
+   },
+   {
+    "id": "M4",
+    "severity": "major",
+    "where": "\u00a73.2 last bullet ('Control pairs with no expected LLM preference (towards/toward, novel/new, via/using) give a placebo'); \u00a74.3 'Slots' and 'Qualifications'; Abstract ('while control pairs did not shift'); data.tex line 46; results.tex",
+    "problem": "D3's audit response contradicts the framing. via/using makes up 76% of the control titles and 'is itself a drifting LLM-associated word; it is a control for 2024 only'. The paper's own related work cites Geng et al. 2026 on 'via' rising in arXiv titles. Without via/using, the stacked contrast is 1.41 [0.74, 2.68] (SUMMARY CT4; d3_register/RESULTS.md). The pooled controls shift at every candidate break year except 2024. 'Enhancing', which carries the OR >= 2 margin, was chosen after the scout saw it in these titles. The report omits all of this.",
+    "fix": "\u00a73.2: 'Control pairs chosen as unlikely to carry an LLM preference (towards/toward, novel/new, via/using) give a placebo; via/using, 76% of control titles, itself drifts and is reported as LLM-favoured in arXiv titles (Geng et al. 2026), so it is a control at the pre-registered 2024 break only.' Add to the \u00a74.3 Qualifications: '- The slot-minus-control contrast leans on via/using: without it, 1.41 [0.74, 2.68]. - \"Enhancing\" was selected after looking at these titles (the scouting step).' Abstract: '... added from 2024, while control pairs did not shift at the pre-registered 2024 break.'"
+   },
+   {
+    "id": "M5",
+    "severity": "major",
+    "where": "\u00a74.2 ('Retitled resubmissions, where the project is held fixed, did not add NAME on net ... Static teams and continuing projects barely moved'); \u00a76 ('the absence of NAME additions in retitled resubmissions'); results.tex ~line 51; discussion.tex",
+    "problem": "The audit caveats are dropped. The export keeps one submission per family, so the 297 pairs are selected on retitling (only 1.3% have identical titles). The lag behind content-fixed drift is not established: -4.8 pp, p 0.057 vs topic-adjusted drift; -3.4 pp, p 0.33 vs the same keys (SUMMARY S2.1, robust finding 6 caveat). The estimate also equals the pilot value quoted in PLAN, so it was known before the plan. 'Continuing projects barely moved' implies a contrast with population drift that is not shown.",
+    "fix": "'Among the 297 retitled resubmission pairs that survive the export (which keeps one submission per paper family, so pairs are selected on retitling), NAME was not added on net (28 adds, 28 drops; mean 0.000, se 0.025). Whether this lags the content-fixed drift is not established (-4.8 pp vs topic-adjusted drift, p = 0.057).' Replace 'Static teams and continuing projects barely moved' with 'Papers whose keys were all stayer keys barely moved (0.06x the population change), and NAME was not added on net within retitled projects.' Discussion: 'the absence of net NAME additions within retitled resubmission pairs'."
+   },
+   {
+    "id": "M6",
+    "severity": "major",
+    "where": "Abstract ('with pre-registered hypotheses'); \u00a73.6 'Pre-registration' bullet; \u00a71 Contribution 5; data.tex \u00a73.6",
+    "problem": "The plan's predictions and thresholds were set from pilot estimates on the same discovery rows. PLAN \u00a71 and H1a-S2.2 quote pilot values: ITS 1.28, within share \u22481.00, S2.1 0.000 (se 0.025, 28/28, n = 297). d3_register/RESULTS.md says thresholds were 'set from pilots on these same rows, and two key words were chosen after looking at them'. The bundle hash is recorded internally, but no public or third-party deposit is documented. For ACL/CSS readers, 'pre-registered' implies independent prediction and external timestamping.",
+    "fix": "\u00a73.6: 'The analysis plan was written after pilot analyses of these same discovery rows and locked, with a hash recorded, before the reported estimation. Its predictions and two lexicon choices (\"enhancing\", R26) were informed by those pilots, so discovery verdicts test whether pilot-derived predictions survive the full, audited pipeline. The held-out tests CT1-CT12 are the confirmatory pre-registration.' Abstract: 'with a locked, pilot-informed analysis plan, hash-frozen confirmatory tests, validated title detectors ...'. Deposit the bundle hash publicly (e.g., OSF or a dated public record) before requesting held-out data and cite the deposit. If it is not deposited, write 'hash-frozen' instead of 'pre-registered'."
+   },
+   {
+    "id": "M7",
+    "severity": "major",
+    "where": "\u00a77 Limitations; paper/sections/limitations.tex",
+    "problem": "Six limitations required by the audit record are missing: (a) the discovery split, its unrecorded split mechanism and removed linked families, including false entrants whose earlier papers are held out (D2 family-structured removal shifts \u03c1 by up to -0.05); (b) the email-key era, with profile keys only from 2021 and 13-17% of 2021-23 papers having email-keyed positions (D2 \u00a73); (c) the annotation reference standard: precision and recall are against LLM-annotator consensus, and the spot check was done by the adjudicator, 'not an independent audit' (VALIDATION V1); (d) a separate LLM-as-topic-and-tool bullet; (e) rejected and withdrawn text may include rebuttal-period edits; (f) the NAME definition includes existing technique names.",
+    "fix": "Add these bullets. '**Discovery split and removed families.** The export is the ~80% discovery split, its split mechanism is not recorded, and linked resubmission families are reduced to one submission each. Representativeness is assumed. Keys whose earlier papers sit in the held-out split appear as entrants (a family-structured removal simulation shifts \u03c1 by up to -0.05), and resubmission analyses see only retitled pairs.' '**Key eras.** Profile keys are usable from 2021. H2e uses opaque email keys, and 13-17% of 2021-23 papers have email-keyed positions, which can create false exiters and entrants (dropping them leaves \u03c1 unchanged).' '**Reference standard.** Detector precision and recall are measured against the consensus of two LLM annotators. Disagreements were adjudicated, and the 150-item spot check done, by the same delegate, so there is no independent human gold standard.' '**LLMs as topic and tool.** After 2022 LLMs are both the largest topic (LLM-topic share 0.106 -> 0.482) and a writing tool. Content, composition and fingerprint channels overlap, and topic partitions are only moderately stable (ARI 0.42).' '**Pre-decision is not submission-stage.** Rejected and withdrawn text may include rebuttal-period revisions (22.2% of rejected stored titles differ from the pre-decision arXiv v1), and there is no revision history.' '**NAME is name-led, not self-branded.** The NAME rule counts any lead that names one specific artefact, including pre-existing techniques.'"
+   },
+   {
+    "id": "M8",
+    "severity": "major",
+    "where": "\u00a78 Ethics, 'Data' bullet ('Declared author identifiers enter only as exact-match keys ... The arXiv audit stores only public metadata'); ethics.tex; Appendix F 'arXiv caches'",
+    "problem": "WP4 used declared first-author names as arXiv search keys. Route B queries 'au:<first-author surname> AND abs:...', and the title route accepts hits with a surname-substring match (snapshot/RESULTS.md: 'Author information enters only through the first author's declared name, used as an arXiv search key'; src/analyses/audit_v2.py). The caches link sampled OpenReview submissions, including rejected ones, to named arXiv preprints. Appendix F recommends archiving these caches, but no access policy is stated. The ethics text is therefore inaccurate and omits a linkage risk.",
+    "fix": "Replace the first sentences with: 'Declared author identifiers enter the analyses only as exact-match keys. For the camera-ready audit only, the declared first-author surname was also used as an arXiv search key (route-B validation and a surname check in the title route). The resulting caches link sampled OpenReview submissions, including rejected ones, to public arXiv records. They are used only for aggregate flip statistics, are not released publicly, and will be shared for replication only under access control.' Add the same access condition to the Appendix F 'arXiv caches' bullet."
+   },
+   {
+    "id": "M9",
+    "severity": "major",
+    "where": "\u00a78 'Annotation' bullet ('LLM annotators with human-delegate adjudication'); Abstract ('three independent audits per analysis'); \u00a73.6 'Audits' ('by independent skeptics'); Appendix C V1 spot-check sentence; ethics.tex; data.tex line 81",
+    "problem": "VALIDATION.md says only that 'the PI's delegate adjudicated', not that the adjudicator was human. It adds that 'the checker is the adjudicator, so this is not an independent audit'. The report asserts 'human-delegate' without documentation and omits the non-independence. Readers will take 'independent skeptics' to be humans, but the audits (and the drafting) came from LLM agents in an automated workflow. ACL policy requires disclosure of AI assistance.",
+    "fix": "Annotation bullet: 'Passes A and B were LLM annotators (different models and codebooks). Disagreements (58 of 1,400 items) were adjudicated by the PI's delegate [state: a human / an LLM agent], who also did the 150-item spot check (not an independent check). No crowd workers were involved.' Add the same caveat to Appendix C. \u00a73.6: 'Each direction went through three adversarial audit passes (code, identification, reporting) by [LLM-agent / human] reviewers.' Add an ethics bullet: '**AI assistance.** LLM-based agents were used to [implement analyses, run the audits and draft text]. Every number is generated by scripts and verified by checker scripts, and the authors take responsibility for the content.' Abstract: 'three adversarial audits per analysis'."
+   },
+   {
+    "id": "M10",
+    "severity": "major",
+    "where": "\u00a76 ('even when research agendas turn over within careers'; 'Topic is followed; style is imported'); \u00a74.3 ('spread to authors without a detectable fingerprint'); \u00a74.2 ('only newcomer-led papers changed'; 'entrant keys at the first list position use NAME 10.6 pp more often'); \u00a74.1 ('4.56 to 5.67 authors'); discussion.tex, results.tex lines 29, 48, 54, 79",
+    "problem": "These phrases break the language rules. 'Careers' and 'authors' refer to persons where the evidence is about keys and papers. 'Newcomer-led' reads list position as a role. 'Keys use NAME' treats a shared title as an individual choice. 'Style is imported' goes beyond G_style 0.17, which sits at the first position (0.40) and is about 0 at the last (0.01).",
+    "fix": "'... even when research agendas turn over within incumbent keys.' 'Incumbent keys track topic shifts fully but style shifts only partly (G_style 0.17 [0.13, 0.20]; 0.40 at the first list position, 0.01 at the last).' 'Whether the wording also appears on papers without a detectable fingerprint stays unresolved.' '... in which only papers with an entrant key at the first list position changed ...' 'In L, papers whose first-position key is an entrant carry NAME titles 10.6 pp [8.5, 12.6] more often than papers whose first-position key is a stayer.' 'Mean declared author-list size rose from 4.56 to 5.67.'"
+   },
+   {
+    "id": "M11",
+    "severity": "major",
+    "where": "\u00a72 Related work, 'Titles as an object of study' ('The single study linking title structure to editorial decisions covers one ecology journal (Fox & Burns 2015)'); related.tex line 5",
+    "problem": "This misdescribes the literature and overclaims novelty. The same section later cites Veitch et al. 2020 (buzzy title words vs acceptance, arXiv proxy). LITERATURE_BRIEF \u00a70 lists Fox & Burns, Veitch and a PeerRead title feature (Kang et al. 2018) as the closest work. \u00a71.3 adds Xu et al. 2026: the Millar title-hype lexicon does not correlate with topic-level ICLR acceptance (r \u2248 0.01).",
+    "fix": "'Outside ML, the only study linking title structure to editorial decisions covers one ecology journal (Fox & Burns 2015). Within ML, evidence is limited to an arXiv-proxy causal estimate for buzzy title words (Veitch et al. 2020), a title-length ablation in PeerRead (Kang et al. 2018), and a topic-level null for a title-hype lexicon at ICLR (Xu et al. 2026).'"
+   },
+   {
+    "id": "m1",
+    "severity": "minor",
+    "where": "\u00a73.5 'Net-flip DiD' ('Rejected papers' flips absorb all non-camera-ready drift'); data.tex line 68",
+    "problem": "An identifying assumption is stated as a fact. snapshot/RESULTS.md says the DiD estimates camera-ready excess 'only if the non-camera-ready drift is the same in both arms'. Retitling where v1 was posted before the deadline differs by arm: +8.6 pp [0.9, 16.1].",
+    "fix": "'Under the assumption that non-camera-ready edits (arXiv-vs-OpenReview wording, rebuttal edits) occur at the same rate in both arms, rejected papers' flips absorb that drift. We check the assumption by v1 timing (Appendix D).'"
+   },
+   {
+    "id": "m2",
+    "severity": "minor",
+    "where": "\u00a73.1 ('carries submission-stage text throughout'); \u00a71 short answers ('just as visible in submission-stage text'); data.tex line 9; introduction.tex",
+    "problem": "Rejected and withdrawn papers may have revised titles during the rebuttal. 22.2% of rejected stored titles differ from v1, and there is no revision history (d4_filter/RESULTS.md data section; snapshot \u00a71).",
+    "fix": "\u00a73.1: 'carries pre-decision text (free of camera-ready edits, though it may include rebuttal-period revisions)'. Intro: 'just as visible in camera-ready-free text'."
+   },
+   {
+    "id": "m3",
+    "severity": "minor",
+    "where": "\u00a74.4 'Withdrawals' ('Named papers are withdrawn more often than rejected ones (+4.06 pp across papers)'); results.tex line 113",
+    "problem": "The sentence misstates the estimand. H4d compares NAME shares in the withdrawn and rejected pools.",
+    "fix": "'Withdrawn papers carry NAME titles 4.06 pp more often than rejected papers. With topic100 fixed effects the excess is +0.84 pp [-1.05, 2.74], so it is mostly topic composition.'"
+   },
+   {
+    "id": "m4",
+    "severity": "minor",
+    "where": "\u00a74.4 'LLM markers' bullet 1 ('which desk rejection and withdrawal removed at a similar rate before 2024 (exit OR 0.723 ... vs 0.740)')",
+    "problem": "The cited ORs are for the exit (withdrawal) stage only. Desk rejection was negligible before 2024 (0-19 per year). 'Removed' is selection language for a share ratio. The text also omits that R24 is depleted at the decision stage too (observed 0.896, not identified against editing; d4_filter/RESULTS.md).",
+    "fix": "'... carried by R24 title words (\"Enhancing X via Y\"), which were depleted at the withdrawal stage at a similar rate before 2024 (exit OR 0.723 in 2018-23 vs 0.740 in 2024-26). Their observed decision-stage gain (0.896) is not identified against camera-ready editing.'"
+   },
+   {
+    "id": "m5",
+    "severity": "minor",
+    "where": "\u00a74.1 'Branding runs ahead of content' ('+15.8 vs +6.5 pp ... a gap difference of 8.0 pp')",
+    "problem": "The sentence pairs a signed residual (6.5 elsewhere) with a gap computed on year-averaged absolute residuals (15.8 vs 7.7). Read together, 15.8 - 6.5 does not give 8.0 (d1_break/RESULTS.md \u00a76).",
+    "fix": "'... year-averaged absolute residuals of 15.8 vs 7.7 pp in the fixed 2021-23 -> 2024-26 window, a gap difference of 8.0 pp [6.8, 9.2].'"
+   },
+   {
+    "id": "m6",
+    "severity": "minor",
+    "where": "Abstract ('Incumbent keys follow new topics as fast as the field but adopt new title style more slowly'); abstract.tex",
+    "problem": "The style lag is pooled over list positions and sits at the first position: G_style 0.40 at the first position, 0.01 at the last (d2_carriers/RESULTS.md H2d).",
+    "fix": "'... but, pooled over list positions, adopt new title style more slowly (a gap concentrated at the first list position).'"
+   },
+   {
+    "id": "m7",
+    "severity": "minor",
+    "where": "\u00a74.4 ('At the audit's point estimate about half of the stored-title NAME excess among accepted papers is camera-ready editing, with a CI from -21% to 124%')",
+    "problem": "The sentence reads as a finding about editing. snapshot/RESULTS.md notes the CI 'spans both no editing effect and an editing effect larger than the whole association'. SUMMARY robust finding 7 adds: 'not identified' is a statement about the audit, not evidence that editing explains the associations.",
+    "fix": "'At the audit's point estimate, about half of the stored-title NAME excess among accepted papers would be attributable to camera-ready editing, but the CI (-21% to 124%) spans both no editing effect and more than the whole association.'"
+   },
+   {
+    "id": "m8",
+    "severity": "minor",
+    "where": "\u00a76 'Implications for LLM-era writing studies' ('Meaning-fixed slots separate them for short texts: the new verbs were added ..., not swapped for synonyms'); discussion.tex",
+    "problem": "Addition held only in 2024: substitution appears in 2025-26 (d3_register/RESULTS.md \u00a72). Meaning is held only approximately fixed, and only conditional on a slot being filled.",
+    "fix": "'Meaning-fixed slots help separate them for short texts, conditional on a slot being filled: in 2024 the new verbs were added to titles that opened with a verb rather than swapped for synonyms; substitution appears only in 2025-26.'"
+   },
+   {
+    "id": "m9",
+    "severity": "minor",
+    "where": "\u00a71 Contribution 2 ('The method can be reused for any corpus that stores only final versions')",
+    "problem": "Overgeneralisation. The method needs independently timestamped pre-decision versions and a non-accepted comparison arm. Some features are unauditable through arXiv at any sample size.",
+    "fix": "'The method can be reused for any corpus that stores only final versions, provided independently timestamped pre-decision versions exist for both accepted and non-accepted papers.'"
+   },
+   {
+    "id": "m10",
+    "severity": "minor",
+    "where": "Abstract ('Peer review mirrors the fashion rather than driving it'); \u00a71 Q4 ('What do desk rejection, withdrawal and the decision do to title features?'); \u00a74.4 ('It neither creates nor detectably amplifies it')",
+    "problem": "Stage gains compare title-feature shares across pools. They measure selection on observed titles, not whether expectations about review shape how authors title submissions, so 'not driving' and 'creates' go beyond the design. Q4's 'do to' is causal. Withdrawal is author exit, not review.",
+    "fix": "Q4: 'How do title-feature shares change across desk rejection, author withdrawal and the decision?' Abstract: 'The decision pipeline mirrors rather than selects for the naming fashion: ...'. \u00a74.4: 'It shows no detectable selection for or against NAME titles; whether expectations about review shape how submissions are titled is outside this design.'"
+   },
+   {
+    "id": "m11",
+    "severity": "minor",
+    "where": "\u00a72 Related work and \u00a76 Discussion citations; related.tex, discussion.tex",
+    "problem": "Several works are cited for claims they do not make, relative to LITERATURE_BRIEF \u00a71. Ball 2009 documents the rise of question marks, not downloads vs citations. Geng & Trotta 2024 is not the 'recede' finding (that is the 2025 paper). Danescu-Niculescu-Mizil 2013 is the user-lifecycle study, not the source of the communal/generational distinction. Movva 2024 found half of first authors new to LLM research, not 'much of the literature'. Peng 2024 is about grant funding. Lipton & Steinhardt discuss misuse of language, not promotional language as such. Letchford controlled for the journal, not 'journal prestige'.",
+    "fix": "'Question titles have become more common (Ball 2009) and attract more downloads but fewer citations (Jamali & Nikzad 2011).' '... in CS abstract style (Geng & Trotta 2024), with flagged marker words such as \"delve\" receding while others keep rising (Geng & Trotta 2025).' 'Sociolinguistics distinguishes communal from generational change; in online communities, users move from an innovative to a conservative phase (Danescu-Niculescu-Mizil et al. 2013).' '... consistent with the finding that half of 2023 LLM-paper first authors were new to LLM research (Movva et al. 2024).' '... and it is associated with grant-funding success (Peng et al. 2024).' 'Within ML, misuse of language such as suggestive definitions and overloaded terms has been criticised as a troubling trend in scholarship (Lipton & Steinhardt 2018).' 'Short titles lose most of their advantage once the journal is controlled (Letchford et al. 2015).'"
+   },
+   {
+    "id": "m12",
+    "severity": "minor",
+    "where": "references.bib tran2020open; \u00a72 'Peer review and text'",
+    "problem": "LITERATURE_BRIEF \u00a77 flags Tran et al. 2020 with 'one review lists the same team's analysis as arXiv:2011.12919; reconcile before citing'. It is cited without reconciliation. The other citations support the same claim.",
+    "fix": "Reconcile the arXiv ID (2010.05137 vs 2011.12919) before submission, or drop \\citep{tran2020open} from the 'institutional prestige' sentence and keep Sun et al. 2022."
+   },
+   {
+    "id": "m13",
+    "severity": "minor",
+    "where": "\u00a73.2 'NAME (primary)' definition; \u00a71 framing ('ML titles turned into brands'; 'Coined names make work searchable, citable and easy to reuse')",
+    "problem": "The adjudicated NAME rule counts 'a dictionary word used as the name of one specific artefact (including existing techniques)' (VALIDATION V1). NAME therefore measures name-led titles, not that a paper brands its own contribution. The searchability and reuse claims are uncited assertions.",
+    "fix": "Add to \u00a73.2: 'NAME counts any lead that names one specific artefact, including a pre-existing technique; it measures name-led titles, not self-branding as such.' Hedge the intro: 'Coined names can make work easier to search for, cite and reuse as a component (cf. Rastogi et al. 2022 on reviewers searching online).' Rastogi et al. 2022 is in \u00a77."
+   },
+   {
+    "id": "m14",
+    "severity": "minor",
+    "where": "\u00a78 Ethics 'Data', 'Rejected and withdrawn work' and 'Permissions' bullets; ethics.tex",
+    "problem": "The ethics bullets have three gaps. 'Email identifiers are withheld' is true, but the 2017-20 analyses (H2e) use opaque email keys, and this is not stated. The licence terms of the sources (OpenReview records, arXiv metadata) are not named. Because the larger project releases the dataset, the statement should say whether withdrawn and desk-rejected records are redistributed.",
+    "fix": "'Email identifiers are withheld; for 2017-20, only opaque email-derived keys (not addresses) are used, as exact-match keys.' 'Permissions: OpenReview records remain under their original terms of use, and arXiv metadata under arXiv's metadata licence. This study assigns no new licence. [State whether withdrawn and desk-rejected records are redistributed in the released dataset, and under what conditions.]' 'Rejected and withdrawn work is analysed only in aggregate; no rejected or withdrawn title is quoted.'"
+   }
+  ]
+ }
+]

@@ -1,0 +1,45 @@
+block,row,estimate,p_one_sided,n,n_post,share_pre,share_post,q_BH
+"A. Primary (logit, 2018-26, slot FE + slot trends + llm_topic)",Pooled LLM slots: post-2024 level shift,"2.18 [1.41, 3.38]",0.00023722297107817307,1922,1508.0,0.24879227053140096,0.6319628647214854,
+"A. Primary (logit, 2018-26, slot FE + slot trends + llm_topic)",Pooled control pairs: post-2024 level shift,"0.87 [0.64, 1.18]",0.818280600720972,6925,5087.0,0.6855277475516867,0.8226852761942206,
+"A. Primary (logit, 2018-26, slot FE + slot trends + llm_topic)",Stacked: post x LLM-slot (slot minus control),"2.55 [1.53, 4.25]",0.00016540318418243802,8847,6595.0,0.6052397868561279,0.7790750568612586,
+B. Per slot / pair (logit y ~ t + post + llm_topic; LPM if < 30 pre titles),S-improve,"2.63 [1.39, 4.97]",0.0014578835555935246,979,795.0,0.25,0.7144654088050314,0.0058315342223740985
+B. Per slot / pair (logit y ~ t + post + llm_topic; LPM if < 30 pre titles),S-reveal,"1.93 [0.74, 5.00]",0.08863925733450151,511,350.0,0.09316770186335403,0.2857142857142857,0.17727851466900302
+B. Per slot / pair (logit y ~ t + post + llm_topic; LPM if < 30 pre titles),S-exploit,"1.80 [0.55, 5.94]",0.16678647389494633,321,258.0,0.6190476190476191,0.8449612403100775,0.22238196519326178
+B. Per slot / pair (logit y ~ t + post + llm_topic; LPM if < 30 pre titles),S-study-adj,"-13.2 pp [-72.0, +45.6]",0.6704355967541704,111,105.0,0.5,0.638095238095238,0.6704355967541704
+B. Per slot / pair (logit y ~ t + post + llm_topic; LPM if < 30 pre titles),towards/toward,"1.69 [0.82, 3.47]",0.07705937398771621,1250,949.0,0.920265780730897,0.863013698630137,0.17868436488099132
+B. Per slot / pair (logit y ~ t + post + llm_topic; LPM if < 30 pre titles),novel/new,"1.58 [0.74, 3.36]",0.11912290992066088,392,274.0,0.3813559322033898,0.4708029197080292,0.17868436488099132
+B. Per slot / pair (logit y ~ t + post + llm_topic; LPM if < 30 pre titles),via/using,"0.75 [0.53, 1.06]",0.9493698421991696,5283,3864.0,0.6610288935870331,0.8377329192546584,0.9493698421991696
+"C. Year-level (REML meta-regression on slot x year cells, group-year shocks)",slots_post,"2.76 [1.26, 6.03]",0.00950789002429777,29,,,,
+"C. Year-level (REML meta-regression on slot x year cells, group-year shocks)",controls_post,"1.02 [0.49, 2.14]",0.4730276719257912,26,,,,
+"C. Year-level (REML meta-regression on slot x year cells, group-year shocks)",stacked_interaction,"2.97 [1.02, 8.62]",0.023024961765084208,55,,,,
+D. Robustness,topic100 FE: slots_post,"2.28 [1.40, 3.74]",0.0005030860562983571,1886,1487.0,,,
+D. Robustness,topic100 FE: controls_post,"0.93 [0.68, 1.25]",0.6903144012761253,6925,5087.0,,,
+D. Robustness,topic100 FE: stacked_interaction,"2.65 [1.54, 4.56]",0.00021744384945467186,8847,6595.0,,,
+D. Robustness,NA pool (camera-ready-free): slots_post,"2.18 [1.28, 3.70]",0.001984610104984325,1406,1110.0,,,
+D. Robustness,NA pool (camera-ready-free): controls_post,"0.85 [0.60, 1.20]",0.8265656588103371,4958,3650.0,,,
+D. Robustness,NA pool (camera-ready-free): stacked_interaction,"2.57 [1.40, 4.71]",0.0011330981641828638,6364,4760.0,,,
+D. Robustness,non-LLM subset: slots_post,"2.59 [1.57, 4.28]",9.610726176956037e-05,1146,763.0,,,
+D. Robustness,non-LLM subset: controls_post,"0.88 [0.63, 1.22]",0.7849672884426346,4785,3065.0,,,
+D. Robustness,non-LLM subset: stacked_interaction,"2.96 [1.64, 5.34]",0.00015964404733081016,5931,3828.0,,,
+D. Robustness,exclude titles whose abstract has the slot word: slots_post,"1.94 [1.03, 3.69]",0.020771628362954972,913,737.0,,,
+D. Robustness,exclude titles whose abstract has the slot word: controls_post,"0.87 [0.64, 1.18]",0.818280600720972,6925,5087.0,,,
+D. Robustness,exclude titles whose abstract has the slot word: stacked_interaction,"2.26 [1.13, 4.54]",0.010922828417771388,7838,5824.0,,,
+D. Robustness,any-compound-lead opener rule (V2 drops kept): slots_post,"2.49 [1.66, 3.74]",4.9940634893754035e-06,2163,1702.0,,,
+D. Robustness,any-compound-lead opener rule (V2 drops kept): controls_post,"0.87 [0.64, 1.18]",0.818280600720972,6925,5087.0,,,
+D. Robustness,any-compound-lead opener rule (V2 drops kept): stacked_interaction,"2.91 [1.81, 4.69]",5.7939126983718515e-06,9088,6789.0,,,
+D. Robustness,pilot-like: any-lead rule + full lexicon: slots_post,"2.80 [1.89, 4.15]",1.2884049797144052e-07,2321,1844.0,,,
+D. Robustness,pilot-like: any-lead rule + full lexicon: controls_post,"0.87 [0.64, 1.18]",0.818280600720972,6925,5087.0,,,
+D. Robustness,pilot-like: any-lead rule + full lexicon: stacked_interaction,"3.27 [2.04, 5.24]",4.2902125253374595e-07,9246,6931.0,,,
+D. Robustness,no slot trends (level contrast): slots_post,"4.40 [3.26, 5.93]",1.3005260447295503e-22,1922,,,,
+D. Robustness,no slot trends (level contrast): controls_post,"2.02 [1.73, 2.37]",9.605545879070462e-19,6925,,,,
+D. Robustness,no slot trends (level contrast): stacked_interaction,"2.46 [1.78, 3.41]",2.6439684988537496e-08,8847,,,,
+D. Robustness,excluding 2026: slots_post,"2.27 [1.36, 3.80]",0.0008998949757233301,1250,836.0,,,
+D. Robustness,excluding 2026: controls_post,"1.00 [0.75, 1.35]",0.4943686492163461,4207,2369.0,,,
+D. Robustness,excluding 2026: stacked_interaction,"2.42 [1.34, 4.37]",0.00171387003407809,5457,3205.0,,,
+D. Robustness,2024-only post (2018-2024): slots_post,"2.38 [1.39, 4.07]",0.0007617572173744381,732,318.0,,,
+D. Robustness,2024-only post (2018-2024): controls_post,"0.98 [0.74, 1.32]",0.5409744251942997,2774,936.0,,,
+D. Robustness,2024-only post (2018-2024): stacked_interaction,"2.62 [1.44, 4.79]",0.0008300870805402838,3506,1254.0,,,
+D. Robustness,stacked with year FE: stacked_interaction,"3.16 [1.90, 5.25]",4.453397698574681e-06,8847,,,,
+D. Robustness,LPM: slots_post,"+16.7 pp [+8.7, +24.7]",2.0650714046707684e-05,1922,,,,
+D. Robustness,LPM: controls_post,"-3.1 pp [-8.2, +2.1]",0.8776766313350319,6925,,,,
+D. Robustness,LPM: stacked_interaction,"+20.3 pp [+11.1, +29.5]",7.945396192197265e-06,8847,,,,

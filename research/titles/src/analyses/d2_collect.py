@@ -234,7 +234,7 @@ def main():
     else:
         v_h2c = "partially supported"
     h2c = dict(
-        id="H2c", statement="Not driven by entrant co-authors: (i) on stayers' author-paper rows with key FE, the "
+        id="H2c", statement="Not driven by entrant co-author keys: (i) on stayers' author-paper rows with key FE, the "
                             "implied E->L change at share_new_coauthors = 0 is >= 0.5 x the population change; (ii) "
                             "teams whose keys all appeared earlier (rolling) rise by >= 0.5 x the population rise.",
         estimate=dict(change_at_share_new0=dict(est=float(f0.change_EtoL_at_share_new0), se=float(f0.se_change),
@@ -456,7 +456,7 @@ def main():
          f"{gap_lk.hi * 100:.1f}] pp; symmetric-lookback prior-first ratio {sym['ratio_prior']:.2f} "
          f"[{sym['ratio_prior_lo']:.2f}, {sym['ratio_prior_hi']:.2f}]",
          "no", f"**{v_h2b}**"),
-        ("H2c not driven by entrant co-authors", "(i) change at share_new = 0 ≥ 0.5 × population; (ii) all-prior teams ≥ 0.5 × population",
+        ("H2c not driven by entrant co-author keys", "(i) change at share_new = 0 ≥ 0.5 × population; (ii) all-prior teams ≥ 0.5 × population",
          f"(i) {i2['change_at_share_new0']['est'] * 100:+.2f} pp [{i2['change_at_share_new0']['lo'] * 100:.2f}, "
          f"{i2['change_at_share_new0']['hi'] * 100:.2f}] = {i2['ratio_i']['est']:.2f} [{i2['ratio_i']['lo']:.2f}, "
          f"{i2['ratio_i']['hi']:.2f}] × {pop * 100:.1f} pp (two-way SE; lag-1 {i2['ratio_i_lag1']['est']:.2f}); "

@@ -2,6 +2,8 @@
 
 WP8 results for PLAN.md §D4, revised after three independent audits (code, identification, reporting). The issue-by-issue response is in the last section, **Audit response**. The fix log is `outputs/audit/d4/fix_log.md`.
 
+**Integration pass (after all directions were audited).** The camera-ready audit used by D4 is now WP4's complete, frozen audit (original + complete enlargement, 2023–26: 1,311 pre-decision pairs, 803 accepted / 508 rejected), not the original 331 pairs. D4's flip tables use WP4's auditability rule and pseudo-flip CI and equal WP4's canonical tables exactly; gate statements use WP4's multiplicity-controlled (Holm) gate. Only audit-dependent numbers changed (H4a camera-ready check, T4.2, the H4b O-recasing note, the H4c abstract-audit note, the H4e editing whiskers, Limitations); no stage gain, Kobak bound, H4d estimate, Holm p or verdict label changed except the H4a qualifier, which is now *robust to camera-ready editing* instead of *review-stage neutrality not identified*.
+
 Code is in `research/titles/src/analyses/`:
 - `d4_stage_gains.py`: H4a, H4b, T4.1, F4.1, S4.1.
 - `d4_bias_atlas.py`: H4c, H4e, T4.2, F4.2, F4.3.
@@ -26,20 +28,21 @@ The verdicts are computed by `d4_collect.py`. Multiplicity follows PLAN §0:
 <!-- AUTO:SUMMARY START -->
 | Hypothesis | Pre-registered test | Result (2024–26 pooled unless stated) | Verdict |
 |---|---|---|---|
-| H4a: neutral filter for NAME | Yearly NAME G_total in [0.95, 1.10]; pooled TOST in [0.90, 1.11]; equal 2024 break across ACC/REJ/WD | Pooled G_total 1.021 [0.997, 1.044], 90% CI [1.001, 1.041] (TOST p < 0.0005). All 9 yearly point estimates in band; 95% CIs inside it only for 2024, 2025, 2026. Break ORs 1.053 / 1.119 / 1.107, Wald p = 0.51; year-level ACC-REJ difference [-0.109, 0.074], ACC-WD [-0.290, 0.252]. Audit-implied selection-only G_total [0.867, 1.081] (WP4) | **Supported** for the observed published-vs-submitted NAME share (Holm p 0.002). Review-stage neutrality is not identified (the selection-only interval crosses 0.90). Pool equality is not rejected, but equivalence is not shown. |
-| H4b: depletion of L and O markers | G_total < 1 for the L-union and O-union; G_desk·G_exit < 1 for the L-union | L-union total 0.975 [0.951, 1.001], one-sided p 0.0295. L-union desk·exit 0.981 [0.972, 0.992] (camera-ready-free 0.976 [0.961, 0.991]). L-union without R24: total 0.998 [0.972, 1.027]. R24 post/pre total 0.990 [0.788, 1.288]. O-union total 0.807 [0.749, 0.870]; decision stage 0.812; camera-ready-free pre-decision 1.035 [1.000, 1.072] | **Partially supported** (Holm p 0.059). The L-union total is not significant after Holm. The identified pre-decision L depletion is R24 title words, which were depleted before 2024; the other L markers are neutral. O: the published record under-represents O titles, but selection is not identified (decision stage). The identified O depletion is ALL-CAPS at exit. |
+| H4a: neutral filter for NAME | Yearly NAME G_total in [0.95, 1.10]; pooled TOST in [0.90, 1.11]; equal 2024 break across ACC/REJ/WD | Pooled G_total 1.021 [0.997, 1.044], 90% CI [1.001, 1.041] (TOST p < 0.0005). All 9 yearly point estimates in band; 95% CIs inside it only for 2024, 2025, 2026. Break ORs (ITS 2018–26) 1.053 / 1.119 / 1.107, Wald p = 0.51; year-level ACC-REJ difference [-0.109, 0.074], ACC-WD [-0.290, 0.252]. Audit-implied selection-only G_total [0.948, 1.033] (WP4) | **Supported** for the observed published-vs-submitted NAME share (Holm p 0.002), and robust to camera-ready editing (editing-corrected 90% CI [0.949, 1.031], complete audit). A small decision-stage NAME premium is not identified. Pool equality is not rejected, but equivalence is not shown. |
+| H4b: depletion of L and O markers | G_total < 1 for the L-union and O-union; G_desk·G_exit < 1 for the L-union | L-union total 0.975 [0.951, 1.001], one-sided p 0.0295. L-union desk·exit 0.981 [0.972, 0.992] (camera-ready-free 0.976 [0.961, 0.991]). L-union without R24: total 0.998 [0.972, 1.027]. R24 post/pre total 0.990 [0.788, 1.288]. O-union total 0.807 [0.749, 0.870]; decision stage 0.812; camera-ready-free pre-decision 1.035 [1.000, 1.072] | **Partially supported** (Holm p 0.059). The L-union total is not significant after Holm. The L-union's pre-decision depletion is R24 title words, which were depleted before 2024; the L-union without R24 is neutral in total. F24 and the abstract style density show a new identified pre-decision depletion (camera-ready-free 0.965 and 0.963). No decision-stage association is identified. O: the published record under-represents O titles, but selection is not identified (decision stage). The identified O depletion is ALL-CAPS at exit. |
 | H4c: published-only Kobak bound understates | Accepted/all bound ratio ≤ 0.85 in each of 2024–26; falsified if ≥ 0.9 in both 2024 and 2025 | 0.800 [0.658, 0.918] / 0.714 [0.504, 0.891] / 0.502 [-0.081, 0.932]. P(ratio ≥ 0.85) 0.209 / 0.078 / 0.079. Post hoc pre-ChatGPT baseline: 0.9005 / 0.9011 / 0.995 | **Partially supported** (Holm p 0.209). Direction (ratio < 1) is supported. The ≥ 15% size holds for point estimates only. The falsification condition is met under the post hoc baseline. |
 | H4d: withdrawal excess of NAME papers | Cross-section > 0, within last-position key ≤ 0, and the two differ | 4.06 pp (se 0.96) vs -0.70 pp (se 1.08); difference 4.77 (se 0.75). With topic100 FE: cross 0.84 [-1.05, 2.74], within -1.74. Single-paper keys 6.91 (topic FE 5.60) | **Partially supported** (Holm p < 0.0005). The pre-registered contrast holds. Most of the excess is topic composition, and 'between keys' is not established as the mechanism. |
 | H4e: published-only atlas | M statistics within ±10%; deviations concentrate in O and L | M 9/11 within ±10% on the effect scale (accepted-only 9/10); outside: ITS slope change 0.50, colon-premium trend 0.89. L 7/9; O 1/4 | **Partially supported** (descriptive). Prevalence levels are reproduced; the 2024 break is halved. |
-| Decision-stage gate | A gain enters the headline only if its tipping point exceeds the audit CI | NAME G_dec tipping point 2.92 pp; audit DiD 2.09 pp [D4 -2.57, 6.74; WP4 -3.16, 7.33] | **No title-feature decision gain is identified** |
+| Decision-stage gate | A gain enters the headline only if its tipping point exceeds the audit CI (applied with Holm across auditable features) | Complete audit, 1311 pairs (803 accepted / 508 rejected). NAME G_dec tipping point 2.92 pp; audit DiD 1.48 pp [-0.63, 3.59] (D4 = WP4). Holm gate: 0 of 18 auditable features pass (smallest Holm p 0.29); uncorrected rule: O_union_arxiv, compound | **No title-feature decision gain is identified** |
 <!-- AUTO:SUMMARY END -->
 
 **What the direction supports after the audit.**
-- **NAME share.** A published-only study reproduces the all-submission NAME share (TOST passes). Whether review itself selects on NAME is not identified.
-- **No LLM-specific depletion.** There is no evidence that peer review selects against LLM-styled titles or abstracts as such:
+- **NAME share.** A published-only study reproduces the all-submission NAME share (TOST passes), and on the complete audit this survives the camera-ready correction (editing-corrected 90% CI 0.949–1.031). Whether the decision stage carries a small NAME premium (observed G_dec 1.050) is not identified.
+- **LLM markers: a small new pre-decision depletion, nothing identified at the decision stage.** There is no evidence that review decisions select against LLM-styled titles or abstracts as such:
   - The small L-union depletion does not survive Holm.
-  - What is identified comes from R24 title words ("Enhancing X via Y"), which were depleted by the same amount in 2018–23.
-  - F24 and the abstract style density show a new pre-decision depletion of about 3–4%. The F24 part is new only relative to a baseline that includes 2023.
+  - The L-union depletion comes from R24 title words ("Enhancing X via Y"), which were depleted by the same amount in 2018–23 (desk·exit 0.900 [0.870, 0.931]; T4.1 exit OR 0.740 in 2024–26 vs 0.723 in 2018–23). The L-union without R24 is neutral in total (0.998 [0.972, 1.027]).
+  - F24 and the abstract style density show a new identified pre-decision (desk and withdrawal) depletion of about 3–4% (camera-ready-free desk·exit 0.965 [0.939, 0.993] and 0.963 [0.957, 0.970]). The F24 part is new only relative to a baseline that includes 2023 (post/pre 0.914 [0.849, 0.988] vs 2018–23; 0.975 [0.893, 1.071] vs 2018–22).
+  - Observed decision-stage gains are close to 1 for the L-union (0.994 [0.970, 1.017]); R24 is depleted there too (0.896). No decision-stage association is identified against camera-ready editing, so "neutral" is not established either.
 - **O markers.** The published record under-represents outsider (O) titles, but whether that is selection or camera-ready recasing is not identified.
 - **H4d.** The withdrawal excess of NAME papers is mostly topic composition.
 
@@ -80,7 +83,7 @@ The desk stage removes 737 papers in 2026 but only 37 and 53 in 2024 and 2025.
 **What each stage contrast measures.** s1 and s2 still contain the accepted papers, whose stored titles and abstracts are camera-ready.
 - The desk and exit gains therefore compare the submission-stage text of exiting papers with survivor sets that mix in camera-ready text. They are not pure selection.
 - The **camera-ready-free** (CRF) variants remove accepted papers from every stage set (`*_crf` in `gains.csv`). These are the contrasts that need no audit.
-- Rejected titles may also have been revised during the rebuttal. Of 125 rejected audit pairs, 23.2% have stored titles that differ from the pre-decision arXiv v1, and 4 of 8 rejected sentence-case v1 titles were recased.
+- Rejected titles may also have been revised during the rebuttal. Of 508 rejected audit pairs (complete audit), 22.2% have stored titles that differ from the pre-decision arXiv v1, and 7 of 26 rejected sentence-case v1 titles were recased (original 331-pair audit: 23.2% of 125, and 4 of 8).
 - OpenReview revision history is not in the data (`metadata_provenance` has only creation and last-modification times), so REJ-vs-WD contrasts may mix selection with rebuttal-period editing.
 
 **Feature sets.**
@@ -150,10 +153,9 @@ Earlier periods:
 - Both adjusted stage gains are indistinguishable from 1. The opposite-direction stage pattern is therefore largely topic, area and team composition. Only the total is stable: adjusted 1.008 (approximate 95% CI 0.980–1.037).
 - The adjusted desk OR is 0.818 (0.683–0.979, p = 0.028). It does not survive BH across the 83 T4.1 tests (q = 0.065).
 
-**The decision stage is not identified against camera-ready retitling** (T4.2).
-- **Tipping point.** The NAME G_dec tipping point is 2.92 pp. It lies inside the audit's net-flip DiD of +2.09 pp, whose 95% interval is −2.57 to 6.74 in D4's normal-theory copy and −3.16 to 7.33 in WP4's canonical pseudo-flip interval.
-- **Selection-only G_total.** At the audit point it is 0.979. The audit-implied interval is 0.88–1.07 (D4) or 0.87–1.08 (WP4), which crosses the 0.90 margin.
-- **WP4's editing-corrected 90% CI** is [0.885, 1.069], which fails the TOST margins. With WP4's partial audit enlargement (interim) it is [0.921, 1.066].
+**Camera-ready check on the complete audit** (T4.2; 1,311 pre-decision pairs).
+- **The total gain is robust to editing.** At the audit point estimate the selection-only NAME G_total is 0.991. The audit-implied interval is 0.948–1.033 (D4 and WP4 now use the same pairs and CI), inside the 0.90–1.11 margins. WP4's editing-corrected 90% CI is [0.949, 1.031], which passes the TOST (WP4 gate G1). On the original 331 pairs alone it was [0.885, 1.069] and failed.
+- **The decision-stage association is not identified.** The NAME G_dec tipping point is 2.92 pp. It lies inside the audit's net-flip DiD of +1.48 pp, whose 95% interval is −0.63 to 3.59. At the audit point estimate the submission-stage G_dec is 1.025 against an observed 1.050; the audit-implied interval is 0.988–1.061. So a small decision-stage NAME premium can be neither confirmed nor excluded, while a premium beyond the ±10% margin is excluded (editing-corrected G_dec 90% CI [0.988, 1.059]).
 
 **The 2024 break by pool** (`its_pools.csv`, `its_pools_yearlevel.csv`). The model is the D1 ITS logit, 2018–26, with topic100 FE. The year-level CIs come from OLS on the 9 annual logit prevalences with t(5).
 
@@ -175,9 +177,9 @@ Earlier periods:
 - **Reading.** There is no evidence of a difference. ACC − REJ is equivalent within ±0.1 only under year-level inference. The WD comparisons are uninformative. CT11 should be read as an equivalence test that is likely underpowered.
 - **Variants.** Equality is also not rejected without controls (p = 0.82), for ACC vs REJ over 2017–26 (p = 0.22), or with the compound outcome (p = 0.77).
 
-**Verdict: supported** (Holm p = 0.0015) **for the observed published-vs-submitted NAME share.**
-- The claim is "a published-only study observes the all-submission NAME share". It is not "peer review does not select on NAME".
-- Neither "review neither creates nor amplifies the fashion" nor "neutral filter" is identified: the decision stage fails the gate, and the selection-only interval crosses 0.90.
+**Verdict: supported** (Holm p = 0.0015) **for the published-vs-submitted NAME share, and robust to camera-ready editing on the complete audit.**
+- The claim is "a published-only study observes the all-submission NAME share within ±10%, also after correcting for camera-ready editing". "Amplifies" is not supported: the editing-corrected centre is 0.991.
+- It is not "peer review does not select on NAME at all": the decision-stage gain (G_dec 1.050, raw) is not identified against editing, and the adjusted stage gains are indistinguishable from 1 for both exit and decision. Pool-specific break equality is not rejected but equivalence is not shown.
 
 ## H4b. A small L depletion that is not LLM-specific, and an O shortfall that is not identified as selection
 
@@ -263,7 +265,7 @@ L-union post/pre ratios:
 - **Recasing is a live alternative.** The decision-stage pattern is the same in 2018–23:
   - Title Case decision OR 1.435 (2024–26) and 1.355 (2018–23);
   - ALL-CAPS 0.324 and 0.309.
-  - Camera-ready recasing would produce exactly this, and the audit cannot bound it: 0 accepted v1 titles are ALL-CAPS and 7 are sentence case.
+  - Camera-ready recasing would produce exactly this, and the complete audit cannot separate it. ALL-CAPS titles are unauditable by channel (arXiv titles are never ALL-CAPS). Sentence case is now auditable (33 accepted / 26 rejected v1-present titles) but not identified: net-flip DiD +0.77 pp [−1.12, 2.65] against a tipping point of −0.94 pp (Holm p 0.70). The editing it does see runs the conservative way: accepted papers gain sentence case after v1 (net +0.4 pp vs −0.4 pp). The closest O lead, sentence case or question opener (O-union w/o ALL-CAPS), has G_dec 0.882 and Holm p 0.29.
 - **ALL-CAPS titles.**
   - Total 0.361 (0.260–0.470) pooled; 0.438 (0.268–0.626) in 2026.
   - The **only identified O depletion** is ALL-CAPS at exit: camera-ready-free desk·exit 0.901 (0.817–0.984); T4.1 exit OR 0.598 (0.464–0.771), q < 0.001.
@@ -274,8 +276,8 @@ L-union post/pre ratios:
 
 **Verdict: partially supported** (Holm p = 0.059).
 - The falsification condition (L-union G_total ≥ 1) is not met at the point estimate. But the total depletion is not significant after Holm.
-- The significant pre-decision L depletion is carried by R24, whose depletion pre-dates 2024. The other L markers are neutral in 2024–26 after losing a mild pre-2024 advantage.
-- Only F24 and the abstract style density show a new identified depletion, of 3–4%.
+- The significant pre-decision L depletion is carried by R24, whose depletion pre-dates 2024. The L-union without R24 is neutral in total in 2024–26 (0.998), after losing a mild pre-2024 advantage.
+- Within it, F24 and the abstract style density show a new identified pre-decision depletion of 3–4% (camera-ready-free 0.965 and 0.963); the F24 part is new only against a baseline that includes 2023.
 - For O, the published record under-represents O titles (descriptive, H4e), but selection is identified only for ALL-CAPS at exit.
 
 ## Continuation-ratio models (T4.1)
@@ -331,46 +333,35 @@ BH q-values cover all 83 tests. Only effects with q < 0.05 are called notable.
 
 ## Decision-stage bound (T4.2)
 
-D4 computed its own copy of the snapshot module from `cache/arxiv_audit.jsonl`. WP4's canonical outputs (`outputs/snapshot/T4_2_tipping_points.csv`, 17:11 UTC) agree on every point estimate. The NAME values are:
-- P_s0 0.3563, P_s2 0.3462, P_s3 0.3636;
-- DiD +2.085 pp;
-- tipping points 2.916 / 1.036 pp.
+**Pairs (integration pass).** D4's flip tables are now computed on WP4's frozen primary audit (`outputs/snapshot/audit_pairs.csv`): the original audit plus the complete enlargement, 2023–26, **1,311 pre-decision arXiv v1 pairs (803 accepted, 508 rejected)**; freeze hash in `outputs/snapshot/results.json → meta.audit_freeze`. They use WP4's auditability rule (≥ 10 v1-present titles in *each* arm, and measurable through arXiv metadata) and WP4's primary CI (Wald with a pseudo-flip variance floor). `d4_bias_atlas` asserts that the DiDs and CIs equal WP4's canonical `T4_2_flip_matrices.csv` for all 17 shared features. The original 331-pair audit (206 / 125; D4's pre-integration primary) is kept as a sensitivity spec in `T4_2_audit_flips.csv`.
 
-WP4's primary (pseudo-flip) DiD interval is wider than D4's normal-theory one, so T4.2 reports both, and the gate statements use WP4's:
+- Titles changed (normalised words) in 23.8% of accepted pairs and 22.2% of rejected ones.
+- **NAME flips:** 20 adds and 16 drops among 803 accepted papers (256 v1-present), against 4 adds and 9 drops among 508 rejected ones (155 v1-present).
 
-| | DiD 95% (pp) | Implied G_dec | Implied G_total |
+**The NAME net-flip DiD.** The year-standardised NAME prevalences are P_s0 0.3563, P_s2 0.3462, P_s3 0.3636.
+
+| Variant | n acc / rej | DiD (pp) | 95% CI |
 |---|---|---|---|
-| D4 copy | −2.57 to 6.74 | 0.928–1.092 | 0.880–1.070 |
-| WP4 canonical | −3.16 to 7.33 | 0.917–1.101 | 0.867–1.081 |
-
-**The pairs.**
-- There are 331 pre-decision arXiv v1 pairs: 206 accepted, 125 rejected.
-- Titles changed in 29.6% of accepted pairs and 23.2% of rejected ones (normalised words).
-- **NAME flips:** 7 adds and 6 drops among accepted papers, against 1 add and 3 drops among rejected ones.
-
-**The NAME net-flip DiD.**
-
-| Variant | DiD (pp) | 95% CI |
-|---|---|---|
-| D4 normal-theory | +2.09 (se 2.37) | −2.57 to 6.74 |
-| D4 bootstrap | | −2.63 to 7.08 |
-| Audit years 2024–26 only | +3.01 | |
-| Population-weighted 2023–26 | +2.07 | |
+| **Complete audit, pseudo-flip Wald (primary; = WP4)** | 803 / 508 | **+1.48** (se 1.08) | **−0.63 to 3.59** |
+| Complete audit, plain Wald / bootstrap | 803 / 508 | +1.48 | −0.54 to 3.50 / −0.47 to 3.52 |
+| Audit years 2024–26 only | 628 / 404 | +2.35 | −0.10 to 4.80 |
+| Population-weighted 2023–26 | 803 / 508 | +1.42 | −0.84 to 3.68 |
+| Original audit only (pre-integration primary) | 206 / 125 | +2.09 | −3.16 to 7.33 |
 
 **Tipping points.** Accepted papers are part of s2 and s0, so D\* = (P3 − P2)/(1 − a2) for G_dec and (P3 − P0)/(1 − a0) for G_total.
 - **NAME:** 2.92 pp (G_dec) and 1.04 pp (G_total). The plan's 1.8 pp omitted the 1 − a2 = 0.60 factor.
-- **No auditable title feature is identified.** Every tipping point lies inside the audit CI.
-- **Unauditable title features** (fewer than 10 accepted v1 titles): ALL-CAPS title, sentence case, question opener, title typography, R24, R26 and snowclones.
+- **NAME G_dec is not identified** (2.92 pp lies inside the DiD CI). The implied submission-stage G_dec is 0.988–1.061; at the audit point estimate it is 1.025 (observed 1.050).
+- **NAME G_total is robust:** implied 0.948–1.033, inside the H4a margins (see H4a).
+- **Gate (WP4, multiplicity-controlled).** 0 of 18 auditable title features pass: the gate requires an editing-corrected 95% CI excluding 1 and a Holm-adjusted one-sided identification p < 0.025. The smallest Holm p is 0.29 (sentence case or question opener). Under the uncorrected rule (point tipping point beyond the 95% CI) compound G_dec (margin 0.01 pp) and that O union would pass; in `T4_2_decision_bound.csv` the uncorrected rule also flags R24's G_total (tipping point −1.45 pp below the CI's −1.22 pp). These uncorrected flags are not claims.
+- **Unauditable title features:** ALL-CAPS title, title typography and the unions that contain them (O-union, L-title union) by channel (arXiv titles are never ALL-CAPS and never carry U+2011/U+2013 typography); R26 and snowclones by count (fewer than 10 v1-present titles in an arm). Sentence case, question opener and R24 became auditable as the audit grew; none is identified. WP4 audits the auditable sub-unions instead: R24 ∪ R26 for the L-title union (gate G2, Holm p 0.33) and the O-union without ALL-CAPS (G2b, Holm p 0.12); neither is identified.
 
-**Abstract markers** (WP4 abstract audit, `outputs/snapshot/abstract_audit.csv`, 330 v1 abstracts: 206 accepted, 124 rejected).
-- **F24 is auditable.** Accepted papers gain RARE21 words between v1 and the stored abstract: 20 v1-present, +8/−4, 9.7% → 11.7%. Rejected papers lose them: 13 v1-present, +1/−3, 10.5% → 8.9%.
-- **The editing DiD** is +3.55 pp (−1.62 to 8.73). It points the way H4c's direction argument assumes, but its CI includes 0.
-- **F24 gains are not identified.** The tipping points are −0.23 pp (G_dec) and −0.67 pp (G_total), and the audit-implied G_total is 0.36–1.05.
-- **Not auditable:**
-  - the em dash, because arXiv writes TeX dashes;
-  - F26 words and RARE21 ≥ 2, which have fewer than 10 v1-present accepted abstracts.
+**Abstract markers** (WP4 abstract audit, `outputs/snapshot/abstract_audit.csv`; primary sample 2024–26 pairs, 628 accepted / 404 rejected).
+- **F24 is auditable.** Both arms gain RARE21 words between v1 and the stored abstract: accepted 81 v1-present, +18/−12 (12.9% → 13.9%); rejected 48 v1-present, +8/−7 (11.9% → 12.1%).
+- **The editing DiD** is +0.71 pp (−1.95 to 3.36). It points the way H4c's direction argument assumes, but it is small and its CI includes 0. (On the original 206/124 pairs it was +3.55 pp, −1.62 to 8.73.)
+- **F24 gains are not identified.** The tipping points are −0.23 pp (G_dec) and −0.67 pp (G_total), and the audit-implied G_total is 0.76–1.07.
+- **Not auditable:** the em dash, because arXiv writes TeX dashes (0 of 1,709 v1 abstracts contain one). F26 words and RARE21 ≥ 2 are now auditable but not identified.
 
-**Consequence for the headline.** No acceptance-margin claim about title or abstract features passes the gate. The camera-ready-free desk and exit contrasts, and the diachronic claims, do not depend on the audit.
+**Consequence for the headline.** No acceptance-margin claim about a title or abstract feature passes the gate. The H4a equivalence of the NAME share passes the editing-corrected TOST. The camera-ready-free desk and exit contrasts, and the diachronic claims, do not depend on the audit.
 
 ## H4c. Published-only Kobak bounds understate the excess of LLM-style abstract vocabulary; the size depends on the baseline
 
@@ -393,7 +384,7 @@ The bound uses the share of abstracts with at least one RARE21 word (F24). It is
 **Where the gap comes from.** Mainly the baseline years, not the LLM era.
 - **2024–26 prevalence is close.** In 2024, accepted abstracts carry a RARE21 word at nearly the all-submission rate: 17.8% vs 19.1%. In 2026 they are equal: 9.3% vs 9.1%.
 - **The accepted baseline is higher and rising.** In 2021–23, accepted abstracts went 2.95 → 3.54 → 4.30% (n 678 / 875 / 1,256), while all submissions went 3.35 → 2.49 → 3.12%.
-- **ICLR 2023 accepted abstracts post-date ChatGPT** (30 Nov 2022). The WP4 abstract audit shows accepted papers gaining RARE21 words through camera-ready editing (+3.55 pp DiD, CI includes 0).
+- **ICLR 2023 accepted abstracts post-date ChatGPT** (30 Nov 2022). The WP4 abstract audit shows accepted papers gaining RARE21 words slightly more than rejected ones between v1 and the stored abstract (+0.71 pp DiD on the complete 2024–26 audit, CI −1.95 to 3.36; +3.55 pp on the original 330 abstract pairs).
   - In 2024–26 that editing raises accepted rates, so the understatement is conservative, as the plan argued.
   - In the 2023 baseline it raises the accepted baseline, which *lowers* the accepted bound.
   - The pre-registered direction argument therefore does not cover the baseline years.
@@ -470,18 +461,19 @@ The O and L prevalence rows go beyond the list in PLAN §D4.
 - **Colon premium.** No accepted-only version exists. The pre-registered colon-premium *trend* enters the M count as a decided-only (ACC vs REJ) analogue; the level is supplementary.
 - **Entropy and JSD intervals** are random-selection null bands, not CIs. They are kept out of the 90%-CI count.
 - **BH q-values** over all atlas tests are in `atlas.csv`.
+- **Prevalence-ratio intervals** reuse the stage-gain bootstrap (same seed and per-year paper draws), so each prevalence ratio and its CI equal the G_total row of `gains.csv` (H4b, T4.1, Tables 1 and 4, Figs. 5 and 6). Before integration pass 2 the atlas used a separate bootstrap seed, and its CIs differed in the third decimal (e.g. O-union 0.747–0.867 vs 0.749–0.870; the L-union upper bound 1.000 vs 1.001). The Kobak-bound rows keep their own seed, which the prereg CT10 reproduces.
 
 **M statistics: 9/11 within ±10%; 9/10 among those computable on accepted papers.**
 
 | Statistic | All | Accepted | Ratio (95% interval) | Within ±10% |
 |---|---|---|---|---|
-| NAME | 35.6% | 36.4% | 1.021 (0.998–1.045) | yes |
+| NAME | 35.6% | 36.4% | 1.021 (0.997–1.044) | yes |
 | Compound | 53.3% | 54.3% | 1.018 (1.002–1.034) | yes |
-| Phrase colon | 17.7% | 17.9% | 1.012 (0.973–1.051) | yes |
-| Mixed-case name | 23.2% | 24.6% | 1.059 (1.029–1.091) | yes |
+| Phrase colon | 17.7% | 17.9% | 1.012 (0.974–1.051) | yes |
+| Mixed-case name | 23.2% | 24.6% | 1.059 (1.029–1.092) | yes |
 | Title Case | 92.9% | 94.5% | 1.018 (1.013–1.022) | yes |
-| Snowclone share | 1.08% | 0.98% | 0.908 (0.747–1.068) | yes (knife-edge) |
-| LLM abbreviation-only share (among LM-naming titles) | 49.2% | 49.3% | 1.002 (0.961–1.041) | yes |
+| Snowclone share | 1.08% | 0.98% | 0.908 (0.749–1.073) | yes (knife-edge) |
+| LLM abbreviation-only share (among LM-naming titles) | 49.2% | 49.3% | 1.002 (0.964–1.042) | yes |
 | ITS slope change, NAME, 2018–26 (log-OR) | 0.102 (OR 1.107) | 0.051 (OR 1.053) | **0.50 (−0.15 to 1.16)** | **no** |
 | Colon-premium trend, 2018–26 (log-OR/yr; decided-only) | −0.035 | −0.031 (s2) | **0.89 (0.66–1.12)** | **no** |
 | Opener entropy (NAME-collapsed, rarefied) | 6.893 bits | 6.789 bits | 0.985 (null band 0.974–0.996; random-selection p = 0.014) | yes |
@@ -498,20 +490,20 @@ The O and L prevalence rows go beyond the list in PLAN §D4.
 
 **O statistics: 1/4 within ±10%** (median |log ratio| 0.160):
 - ALL-CAPS 0.361 (0.260–0.470);
-- O-union 0.807 (0.747–0.867);
-- question opener 0.899 (0.776–1.023);
-- sentence case 0.905 (0.822–0.986).
+- O-union 0.807 (0.749–0.870);
+- question opener 0.899 (0.775–1.025);
+- sentence case 0.905 (0.824–0.985).
 
 Question opener and sentence case sit on the 0.90 knife-edge, as does the M snowclone share (0.908). Their within/outside classification is not meaningful.
 
 **L statistics: 7/9 within ±10%** (median |log ratio| 0.037):
-- The outliers are R24 prevalence, 0.807 (0.736–0.876), and the Kobak bound, 0.717 (0.495–0.888). The Kobak bound is fragile to the baseline (H4c).
-- The L-union ratio is 0.975 (0.951–1.000).
+- The outliers are R24 prevalence, 0.807 (0.740–0.874), and the Kobak bound, 0.717 (0.495–0.888). The Kobak bound is fragile to the baseline (H4c).
+- The L-union ratio is 0.975 (0.951–1.001).
 
 **Where the gaps arise** (F4.2 panel b).
 - **Decomposition.** Each gap log(T_s3/T_s0) is split into desk, exit and decision parts.
 - **Desk and exit** compare exiting papers with survivor sets that contain camera-ready text, so they are not exact selection. The camera-ready-free versions are in `atlas.csv`. For NAME, the exit part is −0.026 observed and −0.051 camera-ready-free.
-- **The decision part is not separable** into selection and editing for any statistic. For auditable title features, the audit-implied editing interval is shown as a whisker (NAME: −0.047 to +0.148). For the O-union it is unbounded.
+- **The decision part is not separable** into selection and editing for any statistic. For auditable title features, the audit-implied editing interval (complete audit) is shown as a whisker on the log scale: NAME −0.012 to +0.074, compound −0.022 to +0.043, sentence case −0.188 to +1.075, R24 −0.187 to +0.145. The O-union and the L-title union are channel-unauditable and get no whisker.
 
 **Verdict: partially supported (descriptive).**
 - Prevalence-type M statistics are within ±10%, and the deviations concentrate in O and L: median |log ratio| 0.018 (M), 0.160 (O), 0.037 (L).
@@ -546,7 +538,7 @@ Question opener and sentence case sit on the 0.90 knife-edge, as does the M snow
 
 The PLAN §1 bullet "Peer review neither creates nor amplifies the naming fashion … Review does deplete LLM and outsider markers, so studies of published papers alone are nearly unbiased for mainstream title fashion but understate how many submitters used LLMs" is not supported as written. PLAN.md is locked and was not edited here. Suggested replacement:
 
-> The published record carries NAME titles at the all-submission rate (TOST passes); whether review itself selects on NAME is not identified. Desk rejection and withdrawal remove titles of a pre-existing incremental genre (R24 words such as "Enhancing … via …"), as they did before 2024, and, in a new pattern, a few percent of abstracts with LLM-style vocabulary. The decision stage is neutral for LLM markers, and outsider (ALL-CAPS, sentence-case) titles are under-represented among published papers for reasons the audit cannot separate from camera-ready recasing. Published-only Kobak-style bounds understate the all-submission excess of LLM-style vocabulary by 20–50% with the conventional 2021–23 baseline, but by only about 0–10% with a pre-ChatGPT baseline. A published-only study recovers mainstream title prevalences within a few percent but halves the 2024 NAME break.
+> The published record carries NAME titles at the all-submission rate (TOST passes, also after correcting for camera-ready editing on the complete arXiv audit); whether the decision stage carries a small NAME premium is not identified. Desk rejection and withdrawal remove titles of a pre-existing incremental genre (R24 words such as "Enhancing … via …"), as they did before 2024, and, in a new pattern, a few percent of abstracts with LLM-style vocabulary (F24 and the style density; the F24 part is new only against a baseline that includes 2023). Observed decision-stage gains for the L-union and the abstract markers are close to 1 (L-union 0.994 [0.970, 1.017]), R24 is depleted there too (0.896), and no decision-stage association is identified against camera-ready editing. Outsider (ALL-CAPS, sentence-case) titles are under-represented among published papers for reasons the audit cannot separate from camera-ready recasing. Published-only Kobak-style bounds fall below the all-submission bounds, with point estimates of a 20–50% understatement under the conventional 2021–23 baseline (≥ 15% not established in any year), and only about 0–10% with a pre-ChatGPT baseline. A published-only study recovers mainstream title prevalences within a few percent but halves the 2024 NAME break.
 
 ## Deviations from PLAN.md (all logged in `results.json` → `deviations`)
 
@@ -557,7 +549,7 @@ The PLAN §1 bullet "Peer review neither creates nor amplifies the naming fashio
 5. **F26** in the L set is abstract-only. The features_v2 `f26` is kept as the secondary `F26_incl_title`.
 6. **Style density** re-implements the scout rule on the frozen scout style pool (`analyses/d4_lexicon.json`). The bootstrap re-selects the words in every replicate. The T4.1 density ORs still condition on the full-sample list.
 7. **Tipping point** includes the accepted share of s2: D\* = (P3 − P2)/(1 − a2). This gives NAME 2.9 pp, not the plan's 1.8 pp.
-8. **Snapshot module.** D4's copy is computed from `cache/arxiv_audit.jsonl`. WP4's canonical outputs agree on point estimates but have a wider primary interval. Both are reported, and the gate uses WP4's. WP4's abstract audit makes F24 auditable.
+8. **Snapshot module.** Integration pass: D4's flip tables are computed on WP4's frozen complete audit (1,311 pairs, 2023–26) with WP4's auditability rule and pseudo-flip CI, and equal WP4's canonical tables. The original 331-pair copy from `cache/arxiv_audit.jsonl` is a sensitivity spec. Gate statements use WP4's Holm gate; D4's own "identified" columns are the uncorrected rule. WP4's abstract audit makes F24 auditable.
 9. **Colon premium.** The analogue is decided-only. The pre-registered trend is counted; the level is supplementary.
 10. **OR-type atlas statistics** are compared on the effect (log-OR) scale.
 11. **Entropy and JSD intervals** are random-selection null bands, not CIs.
@@ -573,9 +565,10 @@ The PLAN §1 bullet "Peer review neither creates nor amplifies the naming fashio
 
 ## Limitations
 
-- **The decision stage is the weak link.** With 331 audit pairs, the NAME DiD has an se of 2.4 pp, and no acceptance gain for any title or abstract feature is identified.
-  - The em dash and casing cannot be audited through arXiv.
+- **The decision stage is the weak link.** With the complete audit (1,311 pairs) the NAME DiD has an se of 1.08 pp, and no acceptance gain for any title or abstract feature passes the multiplicity-controlled gate.
+  - The em dash, ALL-CAPS titles and title typography cannot be audited through arXiv at any sample size.
   - F24 is auditable but not identified.
+  - arXiv v1 is not the submitted OpenReview version: 47% of v1s predate the submission deadline (WP4 §2).
   - Every "editing" statement about other abstract markers rests on the stated direction assumption, and H4c shows that assumption can fail for baseline years.
 - **Desk and exit are not pure selection.** The survivor sets contain camera-ready accepted text, and rejected papers may have revised their titles during the rebuttal (no revision history). The camera-ready-free variants address the first issue only.
 - **The desk stage matters in 2026 only.** Desk-rejection reasons are not observed. Selection at ICLR may understate selection at stricter venues; this is untested.
@@ -637,8 +630,8 @@ Three audits were run: code (D4-1 to D4-12), identification (I1 to I9) and repor
 | I4 / R5 | Yes | Topic100-FE contrast co-primary; single- vs multi-paper-key split; key × year specifications; "between authors" removed. | H4d → partially supported; the mechanism is mostly topic composition. |
 | I6 | Yes | Year-level (t(5)) CIs for pool breaks and differences (`its_pools_yearlevel.csv`). | Pool equality: "no evidence of a difference; equivalence not established (WD uninformative)". |
 | I7 | Yes | Thesis wording proposed; topic and area heterogeneity reported. | "Neither creates nor amplifies" not identified. |
-| I9 | Partly | No revision history exists to test it; caveat added with the audit evidence (23.2% of rejected stored titles differ from v1; 4 of 8 rejected sentence-case v1 titles recased, not 3 as the auditor reported). | REJ-vs-WD contrasts may mix selection with rebuttal editing. |
-| R1 | Yes | WP4 abstract audit cited: F24 auditable, DiD +3.55 pp (−1.62 to 8.73), not identified; em dash unauditable. Limitations updated. | |
+| I9 | Partly | No revision history exists to test it; caveat added with the audit evidence (23.2% of rejected stored titles differ from v1; 4 of 8 rejected sentence-case v1 titles recased, not 3 as the auditor reported). These are original-audit values; the complete audit gives 22.2% and 7 of 26 (data section). | REJ-vs-WD contrasts may mix selection with rebuttal editing. |
+| R1 | Yes | WP4 abstract audit cited: F24 auditable, DiD +3.55 pp (−1.62 to 8.73), not identified; em dash unauditable. Limitations updated. These are original-audit values; the complete audit gives +0.71 pp (−1.95 to 3.36), still not identified (integration row). | |
 | R2 | Yes | The post hoc baseline meets the falsification condition (0.9005 / 0.9011); "direction robust" replaced by "point estimates < 1, post hoc CIs include 1". | H4c stays partially supported, with the qualifier. |
 | R7 | Partly | The scout record shows the pilot measured whole-title ALL-CAPS, so the casing class *is* the right comparison. Deviation 3 is wrong and was corrected, rather than the H4b sentence. | |
 | R9 | Yes | H4e heading retitled; knife-edge 0.90 cases noted. | |
@@ -647,3 +640,5 @@ Three audits were run: code (D4-1 to D4-12), identification (I1 to I9) and repor
 | R18 | Yes | Post-decision group defined (n = 403); it is the most NAME-heavy, but its L share is second to early withdrawals. | |
 | R19 | Yes | WP4 canonical intervals reported side by side, and used for gate statements. | Deviation 8 rewritten. |
 | R24 | Yes | Basic-bootstrap intervals added to `kobak_bounds.csv`; the bias of the max() baseline is noted. | 2026 ratio basic interval [0.071, 1.084] includes 1. |
+| **Integration (WP4 complete audit)** | — | WP4 re-ran on the complete enlargement after the D4 fixer pass (`T4_2_tipping_points.csv` 21:43 UTC vs D4's 17:11 read). `d4_bias_atlas` now builds its flip tables on WP4's frozen primary pairs with WP4's rule and CI (asserted equal to WP4); `d4_collect` reads WP4's Holm gate and editing-corrected TOST and generates the audit-dependent wording; the RESULTS body numbers listed in the header note were updated. | **H4a strengthened**: the NAME-share equivalence survives the camera-ready correction (selection-only 0.948–1.033; corrected 90% CI 0.949–1.031); "review-stage neutrality not identified" is replaced by "a small decision-stage premium is not identified". H4c's abstract-editing DiD falls from +3.55 to +0.71 pp. The gate verdict (no acceptance association identified) is unchanged, now under Holm. |
+| **Integration pass 2 (cross-direction consistency)** | — | (i) The suggested thesis line no longer calls the decision stage "neutral for LLM markers": observed decision-stage gains are close to 1 for the L-union (0.994 [0.970, 1.017]), R24 is depleted there too (0.896), and nothing at the decision stage is identified against editing; the Kobak part says "point estimates of 20–50% (≥ 15% not established in any year)". (ii) The summary bullets and the auto-generated H4b verdict now state the new F24 / style-density pre-decision depletion next to the R24 genre penalty instead of calling the other L markers neutral. (iii) `d4_bias_atlas.prevalence_stats` reuses the stage-gain bootstrap seed, so atlas prevalence ratios have exactly the G_total CIs of `gains.csv` (prereg revision 3, because `d4_bias_atlas.py` is required code); H4e intervals updated in the third decimal (e.g. L-union 0.951–1.001, O-union 0.749–0.870). (iv) R1 and I9 rows marked as original-audit values; the T4.2 "unauditable" bullet points to WP4's sub-union gates G2 and G2b. | No verdict changed. |

@@ -1,0 +1,61 @@
+{
+ "source": "lexicons.json (v2.0, frozen)",
+ "RARE21": {
+  "delve": "\\bdelv(?:e|es|ed|ing)\\b",
+  "intricate": "\\bintricat(?:e|ely)\\b|\\bintricacies\\b|\\bintricacy\\b",
+  "showcase": "\\bshowcas(?:e|es|ed|ing)\\b",
+  "pivotal": "\\bpivotal\\b",
+  "underscore": "\\bunderscor(?:e|es|ed|ing)\\b",
+  "realm": "\\brealms?\\b",
+  "meticulous": "\\bmeticulous(?:ly)?\\b",
+  "commendable": "\\bcommendabl[ey]\\b",
+  "innovative": "\\binnovative(?:ly)?\\b",
+  "garner": "\\bgarner(?:s|ed|ing)?\\b",
+  "harness": "\\bharness(?:es|ed|ing)?\\b",
+  "encompass": "\\bencompass(?:es|ed|ing)?\\b",
+  "noteworthy": "\\bnoteworthy\\b",
+  "unveil": "\\bunveil(?:s|ed|ing)?\\b",
+  "bolster": "\\bbolster(?:s|ed|ing)?\\b",
+  "adept": "\\badept(?:ly)?\\b",
+  "formidable": "\\bformidabl[ey]\\b",
+  "endeavor": "\\bendeavou?rs?\\b",
+  "groundbreaking": "\\bgroundbreaking\\b",
+  "multifaceted": "\\bmulti-?faceted\\b",
+  "unparalleled": "\\bunparalleled\\b"
+ },
+ "F26_words": {
+  "principled": "\\bprincipled\\b",
+  "reframe": "\\brefram(?:e|es|ed|ing)\\b",
+  "genuine": "\\bgenuine(?:ly|ness)?\\b",
+  "brittle": "\\bbrittle\\b",
+  "auditable": "\\bauditable\\b",
+  "sharply": "\\bsharply\\b",
+  "high-stakes": "\\bhigh[-\u2010\u2011]stakes\\b"
+ },
+ "typography_raw": {
+  "nb_hyphen": "\u2011",
+  "endash_compound": "[A-Za-z]\u2013[A-Za-z]",
+  "emdash": "\u2014"
+ },
+ "R24": {
+  "enhanc": "\\benhanc\\w*",
+  "leverag": "\\bleverag\\w*",
+  "unveil": "\\bunveil\\w*",
+  "unleash": "\\bunleash\\w*",
+  "harness": "\\bharness\\w*",
+  "empower": "\\bempower\\w*",
+  "elevat": "\\belevat\\w*",
+  "boost": "\\bboost\\w*"
+ },
+ "R26": {
+  "unified": "\\bunified\\b",
+  "unifying": "\\bunifying\\b",
+  "beyond": "\\bbeyond\\b",
+  "bridging": "\\bbridging\\b"
+ },
+ "F24": "abstract has >= 1 RARE21 word",
+ "F24_2": "abstract has >= 2 distinct RARE21 words (D1 variant)",
+ "F26": "abstract has >= 1 F26 word, or U+2011 / letter-en dash-letter compound in title or abstract",
+ "F_D1": "f24_2 OR f26 OR title_typo (D1 tool fingerprint, CT9)",
+ "F_D3": "f24 OR f26 OR title_typo (D3)"
+}

@@ -14,6 +14,30 @@ What this module does
    outputs/prereg/bundle.sha256 lists every file (sha256sum format); its own SHA-256 is the bundle hash recorded in
    prereg.md and dryrun.json.
 
+Revision 2 (integration pass, before any held-out request)
+---------------------------------------------------------
+- The gate audit is WP4's frozen, complete audit (original + all 2,004 enlargement lines, SHA-256 checked against
+  outputs/snapshot/results.json -> meta.audit_freeze): title gate = WP4 primary pairs (2023-26); abstract gate =
+  WP4's 2024-26 v1-abstract pairs; flip tables via snapshot_final.flips (auditable = >= 10 v1-present per arm AND
+  measurable through arXiv metadata). Revision 1 used the original audit + 1,261 enlargement lines.
+- The gate uses WP4's multiplicity-controlled rule. Acceptance-margin ASSOCIATION claims (CT6 G_total, CT10) pass
+  only if the marker is auditable, the editing-corrected 95% interval lies beyond the claim's boundary, and the
+  one-sided identification p (z = (D_hat - D*)/sqrt(se_D^2 + se_D*^2), including the tipping point's sampling
+  error) survives Holm at 0.025 across the run's auditable association claims (decide()). EQUIVALENCE claims
+  (CT5, CT11) keep the editing-corrected interval rules (WP4 G1 construction for CT5).
+- Required code changed after revision 1 (D3/D4 post-audit fixes), so the bundle hash changes; the previous hash
+  and the reason are recorded in params.json -> revision and in prereg.md.
+
+Revision 3 (second integration pass, before any held-out request)
+-----------------------------------------------------------------
+- Reading notes for CT1, CT2, CT4, CT6 and CT12 (audit_interpretation_notes): what a confirmed statistic would and
+  would not show, given the direction audits. The decision rules are unchanged.
+- Required code edited outside this module: d3_slots.py (D3's descriptive slot-word audit reads WP4's frozen
+  enlargement sample instead of a 1,620-line pre-freeze pin, and fails loudly without the caches) and
+  d4_bias_atlas.py (atlas prevalence ratios reuse the stage-gain bootstrap seed). No CT uses either change; the
+  frozen parameters other than params.json -> revision and rules.json are byte-identical, and the dry run is re-run
+  and compared statistic by statistic (stage `revise`).
+
 Held-out handling (PLAN section 4)
 ----------------------------------
 - `prepare_frame` rebuilds the analysis frame from raw submissions rows exactly as WP0/WP1 did for discovery:
@@ -29,7 +53,10 @@ Stages (each well under 20 min with OMP_NUM_THREADS=2):
     python -m analyses.prereg_confirm dryrun     # CT1-CT12 on discovery -> dryrun.json (~8 min)
     python -m analyses.prereg_confirm bundle     # bundle.sha256 + prereg.md
     python -m analyses.prereg_confirm verify     # re-hash the bundle
-    python -m analyses.prereg_confirm audit_refreeze   # optional, once, before held-out access (see prereg.md)
+    python -m analyses.prereg_confirm refreeze_final   # revision 2: re-freeze the audit gate on WP4's complete audit
+    python -m analyses.prereg_confirm audit_refreeze   # closed in revision 2 (the enlargement is complete)
+    python -m analyses.prereg_confirm revise           # revision 3: record the revision (params.json, rules.json); then
+                                                       # dryrun -> bundle -> verify
     python -m analyses.prereg_confirm heldout <submissions.csv.gz> <submission_authors.csv.gz>   # ONCE
 """
 from __future__ import annotations
@@ -57,6 +84,7 @@ from analyses import d3_register as D3R
 from analyses import d4_stage_gains as S4
 from analyses import d4_bias_atlas as DBA
 from analyses import snapshot_bounds as SB
+from analyses import snapshot_final as SF   # WP4 final builders (frozen complete audit, channel rule, Holm gate)
 from common import read_table
 
 warnings.filterwarnings("ignore")
@@ -81,8 +109,53 @@ U_PRE = (2019, 2020, 2021, 2022, 2023)
 E_WIN, L_WIN = P2.E_WIN, P2.L_WIN
 TOST_MARGIN = (0.90, 1.11)
 STAGE_COLS = ["s0", "s1", "s2", "s3", "s0n", "s1n", "s2n"]
-GATE_SPEC_TITLE = "title_pooled"          # original + enlargement records at freeze time
-GATE_SPEC_ABS = "abstract_v1"
+GATE_SPEC_TITLE = "title_primary"         # WP4 primary: original 2023-26 + complete enlargement (revision 2)
+GATE_SPEC_ABS = "abstract_2024_26"        # WP4 primary abstract audit: 2024-26 v1-abstract pairs (revision 2)
+GATE_ALPHA1 = 0.025                       # one-sided level of the PLAN's 95% CI rule (WP4 gate)
+WP4_RESULTS = C.OUT / "snapshot" / "results.json"
+GATE_RULE = ("WP4 multiplicity-controlled gate (revision 2). Association claims (CT6 G_total, CT10): the marker must "
+             "be auditable (>= 10 v1-present per arm and measurable through arXiv metadata), its editing-corrected "
+             "95% interval (bootstrap replicate paired with an audit draw D ~ N(D_hat, se_D)) must lie beyond the "
+             "claim's boundary, and its one-sided identification p, z = (D_hat - D*)/sqrt(se_D^2 + se_D*^2) with "
+             "se_D the pseudo-flip SE and se_D* the bootstrap SE of the tipping point, must survive Holm at 0.025 "
+             "across the run's auditable association claims. Equivalence claims (CT5, CT11): editing-corrected "
+             "interval rules (CT5 = WP4 G1 TOST; CT11 = ACC-pair CIs widened by the largest editing bias inside "
+             "the NAME audit CI).")
+REVISION_1 = dict(
+    revision=1, date=DATE,
+    bundle_hash="f69fdb468702fe11e336b81476869531a71acb1d4f922b8bd1d479934bbac628",
+    gate_audit="original audit + first 1,261 enlargement lines (965 pooled title pairs incl. 2022; 330 v1 abstracts of "
+               "the original pairs); gate = point tipping point beyond the 95% audit CI (uncorrected)")
+REVISION_2 = dict(
+    revision=2, date=DATE,
+    bundle_hash="853827a92e85ad56ee85376e8b90a881c4f4ca1e46a861e80ed21a04e883d922",
+    previous_bundle_hash=REVISION_1["bundle_hash"],
+    previous_audit=REVISION_1["gate_audit"],
+    reason=("Post-audit corrections before any held-out data were requested or seen (no guard file, no "
+            "heldout.json): (1) the D3 and D4 fixer passes changed required code hashed by revision 1 "
+            "(d3_register.py, d3_slots.py, d3_vintage.py, d4_bias_atlas.py, d4_stage_gains.py; the frozen test "
+            "definitions they supply are unchanged); (2) the WP4 enlargement finished (2,004 lines, 2,000 records) "
+            "and the gate audit is re-frozen on WP4's complete audit; (3) the gate adopts WP4's "
+            "multiplicity-controlled rule (identification p with the tipping point's sampling error, Holm at "
+            "0.025, editing-corrected interval), because the revision-1 uncorrected rule admits acceptance "
+            "associations that the Holm gate rejects. The R1 models, centroids, lexicons, slot inventory, DFL cells "
+            "and every test statistic are unchanged (frozen files byte-identical)."))
+REVISION = dict(
+    revision=3, date=DATE, stage="second integration pass",
+    previous_bundle_hash=REVISION_2["bundle_hash"], previous_revision=2,
+    gate_audit="unchanged from revision 2 (WP4's complete audit, 2,004 enlargement lines; Holm gate)",
+    reason=("Cross-direction consistency corrections before any held-out data were requested or seen (no guard "
+            "file, no heldout.json): (1) reading notes for CT1, CT2, CT4, CT6 and CT12 state what a confirmed "
+            "statistic would and would not show given the direction audits (CT1 and CT2 use paper-level inference "
+            "that D1's audit demoted; CT4 leans on via/using and 'enhancing'; CT6 mostly re-detects the pre-2024 "
+            "R24 penalty; CT12 mixes cohort with tenure); the decision rules are unchanged; (2) required code "
+            "outside the tests changed: d3_slots.py reads WP4's frozen enlargement sample (2,004 lines, SHA-256 "
+            "checked) for D3's descriptive slot-word audit instead of a 1,620-line pre-freeze pin and fails loudly "
+            "without the audit caches; d4_bias_atlas.py makes atlas prevalence ratios reuse the stage-gain "
+            "bootstrap seed. No CT uses either change. Frozen parameters other than params.json -> revision and "
+            "rules.json are byte-identical, and the dry run was re-run with every statistic, CI, p-value and gate "
+            "field unchanged."),
+    history=[REVISION_1, REVISION_2])
 
 _LOG: list[str] = []
 
@@ -354,55 +427,94 @@ def _complete_jsonl(path: Path, n_lines: int | None = None) -> tuple[pd.DataFram
     return pd.DataFrame(recs), len(raw), hashlib.sha256(b"".join(raw)).hexdigest()
 
 
+def wp4_audit_freeze() -> tuple[int, str]:
+    """(n_lines_used, sha256) of WP4's frozen enlargement sample (outputs/snapshot/results.json meta.audit_freeze)."""
+    m = json.loads(WP4_RESULTS.read_text())["meta"]["audit_freeze"]["enlargement"]
+    return int(m["n_lines_used"]), str(m["sha256_of_lines_used"])
+
+
 def freeze_audit(dest: Path, enlarge_n: int | None = None) -> dict:
-    """Camera-ready audit flips for the gate (WP4 snapshot_bounds code path): title flips on the original audit and
-    on the original + enlargement records present now, and abstract flips on the arXiv v1 abstracts."""
+    """Camera-ready audit flips for the gate, built exactly as WP4's final analysis (snapshot_final): title flips on
+    the original audit (sensitivity) and on WP4's primary audit (original 2023-26 + the complete, frozen enlargement),
+    abstract flips on WP4's 2024-26 v1-abstract pairs (original + enlargement v1 abstracts). Auditability follows
+    WP4's rule (>= 10 v1-present titles per arm AND measurable through arXiv metadata). Asserts that the enlargement
+    bytes match WP4's freeze hash and that the flip tables reproduce WP4's canonical outputs."""
     dest.mkdir(parents=True, exist_ok=True)
+    n_wp4, h_wp4 = wp4_audit_freeze()
+    enlarge_n = n_wp4 if enlarge_n is None else enlarge_n
     U = C.load_universe(["submission_id", "year", "title", "title_nfkc", "abstract", "ACC", "REJ"])
-    keys_t = [k for k, *_ in SB.TITLE_FEATS]
-    keys_a = [k for k, *_ in SB.ABS_FEATS]
-    orig, n_orig, h_orig = _complete_jsonl(SB.ORIG_PATH)
-    P0 = SB.build_pairs(orig, U, "original")
-    f0, b0 = SB.flip_table(P0, keys_t, "title_original", Wb=SB.boot_matrix(P0))
-    enl, n_enl, h_enl = _complete_jsonl(SB.ENLARGE_PATH, enlarge_n)
-    if not enl.empty:
-        enl = enl[enl.error.isna()] if "error" in enl else enl
-        enl = enl.drop_duplicates("submission_id", keep="last")
-    Pe = SB.build_pairs(enl, U, "enlarge") if not enl.empty else pd.DataFrame()
-    Pall = pd.concat([P0, Pe], ignore_index=True) if len(Pe) else P0
-    f1, b1 = SB.flip_table(Pall, keys_t, GATE_SPEC_TITLE, Wb=SB.boot_matrix(Pall))
-    v1a, n_v1a, h_v1a = _complete_jsonl(SB.V1ABS_PATH)
-    v1a = v1a[v1a.error.isna()] if "error" in v1a else v1a
-    v1a = v1a.drop_duplicates("submission_id", keep="last")
+    orig_raw, n_orig, h_orig = SF.read_frozen(SB.ORIG_PATH)
+    enl_raw, n_enl, h_enl = SF.read_frozen(SB.ENLARGE_PATH, enlarge_n)
+    v1a_raw, n_v1a, h_v1a = SF.read_frozen(SB.V1ABS_PATH)
+    assert enlarge_n != n_wp4 or h_enl == h_wp4, "enlargement bytes differ from WP4's frozen audit"
+    orig, enl, v1a = SF.clean(orig_raw), SF.clean(enl_raw), SF.clean(v1a_raw)
+    Po_all = SF.pairs(orig, U, "original")
+    Pe = SF.pairs(enl, U, "enlarge")
+    Po = Po_all[Po_all.year >= 2023].reset_index(drop=True)
+    P = pd.concat([Po, Pe], ignore_index=True)
+    f0, b0 = SF.flips(Po_all, SF.KEYS_T, "title_original")
+    f1, b1 = SF.flips(P, SF.KEYS_T, GATE_SPEC_TITLE)
     o2 = orig.drop(columns=["v1_title", "v1_date"]).merge(
         v1a[["submission_id", "v1_title", "v1_date", "v1_summary"]], on="submission_id", how="inner")
-    Pa = SB.build_pairs(o2, U, "v1abs", v1_abstract=True)
-    fa, ba = SB.flip_table(Pa, keys_a, GATE_SPEC_ABS, Wb=SB.boot_matrix(Pa))
+    Pa_o = SF.pairs(o2, U, "v1abs", v1_abstract=True)
+    Pa_e = SF.pairs(enl, U, "enlarge", v1_abstract=True)
+    Pa_all = pd.concat([Pa_o[Pa_o.year >= 2023], Pa_e], ignore_index=True)
+    Pa = Pa_all[Pa_all.year.isin(POST)].reset_index(drop=True)
+    fa, ba = SF.flips(Pa, SF.KEYS_A, GATE_SPEC_ABS)
+    # reproduction of WP4's canonical tables (same pairs, same code, same seeds)
+    repro = {}
+    wf = C.OUT / "snapshot" / "T4_2_flip_matrices.csv"
+    wa = C.OUT / "snapshot" / "abstract_audit.csv"
+    if enlarge_n == n_wp4 and wf.exists() and wa.exists():
+        for mine, path, spec in [(f1, wf, "primary"), (fa, wa, "abs_2024_26")]:
+            ref = pd.read_csv(path)
+            ref = ref[ref.spec == spec].set_index("feature")
+            mi = mine.set_index("feature").loc[ref.index]
+            dev = float(np.nanmax(np.abs(mi[["did", "did_lo", "did_hi"]].to_numpy(float) -
+                                         ref[["did", "did_lo", "did_hi"]].to_numpy(float))))
+            aud = bool((mi.auditable.astype(bool) == ref.auditable.astype(bool)).all())
+            repro[spec] = dict(max_abs_diff=dev, auditable_identical=aud, n_features=int(len(ref)))
+            assert dev < 1e-12 and aud, f"audit flips do not reproduce WP4 ({spec})"
     flips = pd.concat([f0, f1, fa], ignore_index=True)
     flips.to_csv(dest / "audit_flips.csv", index=False)
     np.savez_compressed(dest / "audit_did_boot.npz", title_original=b0, **{GATE_SPEC_TITLE: b1, GATE_SPEC_ABS: ba})
     state = dict(
         frozen_on=time.strftime("%Y-%m-%d %H:%M:%S"),
+        source="WP4 final audit (snapshot_final builders); revision 2",
         original=dict(path=str(SB.ORIG_PATH.relative_to(STUDY)), n_lines=n_orig, sha256=h_orig,
-                      n_pairs=int(len(P0)), pairs_by_decision=P0.decision.value_counts().to_dict()),
+                      n_pairs=int(len(Po_all)), pairs_by_decision=Po_all.decision.value_counts().to_dict(),
+                      n_pairs_2023_26=int(len(Po))),
         enlargement=dict(path=str(SB.ENLARGE_PATH.relative_to(STUDY)), n_lines_used=n_enl,
-                         sha256_of_lines_used=h_enl, n_records=int(len(enl)), n_pairs=int(len(Pe)),
-                         note="append-only file written by the background audit_v2 job; only the first "
-                              f"{n_enl} complete lines were used"),
-        pooled=dict(n_pairs=int(len(Pall)), pairs_by_decision=Pall.decision.value_counts().to_dict()),
+                         sha256_of_lines_used=h_enl, wp4_freeze=dict(n_lines_used=n_wp4, sha256=h_wp4),
+                         matches_wp4=bool(n_enl == n_wp4 and h_enl == h_wp4),
+                         n_records=int(len(enl)), n_pairs=int(len(Pe)),
+                         note="complete enlargement (2,000 sampled papers; errored lines superseded by retries)"),
+        pooled=dict(n_pairs=int(len(P)), pairs_by_decision=P.decision.value_counts().to_dict(),
+                    years="2023-26 (WP4 primary)"),
         v1_abstracts=dict(path=str(SB.V1ABS_PATH.relative_to(STUDY)), n_lines=n_v1a, sha256=h_v1a,
-                          n_pairs=int(len(Pa)), pairs_by_decision=Pa.decision.value_counts().to_dict()),
-        specs={"title_original": "original 616-paper audit, usable pre-decision pairs",
-               GATE_SPEC_TITLE: "original + enlargement (gate spec for title features)",
-               GATE_SPEC_ABS: "arXiv v1 abstracts of the original pairs (gate spec for abstract markers)"},
+                          n_pairs=int(len(Pa)), pairs_by_decision=Pa.decision.value_counts().to_dict(),
+                          years="2024-26 (WP4 primary abstract audit: original + enlargement v1 abstracts)"),
+        specs={"title_original": "original 616-paper audit, usable pre-decision pairs (2022-26; sensitivity)",
+               GATE_SPEC_TITLE: "WP4 primary: original 2023-26 + complete enlargement (gate spec for title features)",
+               GATE_SPEC_ABS: "WP4 primary abstract audit, 2024-26 pairs (gate spec for abstract markers)"},
+        auditable_rule=">= 10 v1-present titles (abstracts) in BOTH arms AND measurable through arXiv metadata "
+                       "(arXiv titles never ALL-CAPS or U+2011/U+2013-typographic; arXiv abstracts never carry the "
+                       "em dash)",
+        reproduces_wp4=repro,
         ci="primary net-flip DiD 95% CI: Wald with the pseudo-flip variance floor (WP4); bootstrap B = 2,000 "
            "stratified by year x decision for the combined (editing-corrected) intervals")
     write_json(state, dest / "audit_state.json")
     nm = f1.set_index("feature").loc["NAME"]
-    log(f"  audit frozen -> {dest.relative_to(STUDY)}: original {len(P0)} pairs, pooled {len(Pall)} "
-        f"(enlargement lines {n_enl}), abstract {len(Pa)}; NAME pooled DiD {100 * nm.did:+.2f} pp "
-        f"[{100 * nm.did_lo:.2f}, {100 * nm.did_hi:.2f}]")
+    log(f"  audit frozen -> {dest.relative_to(STUDY)}: original {len(Po_all)} pairs, primary {len(P)} "
+        f"(enlargement lines {n_enl}, matches WP4 {state['enlargement']['matches_wp4']}), abstract {len(Pa)}; "
+        f"NAME DiD {100 * nm.did:+.2f} pp [{100 * nm.did_lo:.2f}, {100 * nm.did_hi:.2f}]; repro {repro}")
     return state
+
+
+def audit_params(state: dict) -> dict:
+    return dict(state=state, gate_spec_title=GATE_SPEC_TITLE, gate_spec_abstract=GATE_SPEC_ABS,
+                gate_rule=GATE_RULE, holm_alpha_one_sided=GATE_ALPHA1,
+                refreeze_rule="closed in revision 2: the enlargement is complete and frozen in the bundle")
 
 
 def freeze(disc: pd.DataFrame) -> dict:
@@ -476,8 +588,7 @@ def freeze(disc: pd.DataFrame) -> dict:
         d4=dict(years=[2018, 2026], pooled_years=list(POST), pooling="year-standardised (weights = s0 size)",
                 tost_margin=list(TOST_MARGIN), kobak_marker="f24", kobak_baseline="cons", kobak_years=[2021, 2026],
                 its_pools=["ACC", "REJ", "WD"], equivalence_margin_logOR=0.1),
-        audit=dict(state=audit, gate_spec_title=GATE_SPEC_TITLE, gate_spec_abstract=GATE_SPEC_ABS,
-                   refreeze_rule="see prereg.md section 5"),
+        audit=audit_params(audit), revision=REVISION,
         versions=dict(python=sys.version.split()[0], numpy=np.__version__, pandas=pd.__version__,
                       sklearn=__import__("sklearn").__version__, statsmodels=__import__("statsmodels").__version__),
     )
@@ -730,9 +841,12 @@ def _gate_tipping(df: pd.DataFrame, fz: dict, spec: str, keys_audit: list[str], 
     keys = list(flips.feature)
     assert keys == keys_audit, "audit flip order differs from the snapshot feature list"
     u = SB.derive(df[(df.year >= 2023) & (df.pool != "OTHER")].reset_index(drop=True))
+    u["L_title_words"] = u.r24_any.astype(bool) | u.r26_any.astype(bool)          # WP4 audited L-title
+    u["O_union_arxiv"] = u.case_sentence_case.astype(bool) | u.question_opener.astype(bool)
     sums = SB.stage_prevalences(u, keys, n_boot=n_boot, seed=SB.SEED)
     Pp, ap = SB.pooled(sums, POST)
-    return SB.tipping_table(Pp, ap, keys, flips, did_b, "2024-26").set_index("feature")
+    # snapshot_final.tipping = snapshot_bounds.tipping_table + identification p-values (tipping-point SE)
+    return SF.tipping(Pp, ap, keys, flips, did_b, "2024-26").set_index("feature")
 
 
 def ct5_neutrality(df: pd.DataFrame, fz: dict, n_boot: int = B_PAPER) -> dict:
@@ -742,9 +856,10 @@ def ct5_neutrality(df: pd.DataFrame, fz: dict, n_boot: int = B_PAPER) -> dict:
     lo90, hi90 = q(G[1:], 0.05, 0.95)
     lo95, hi95 = q(G[1:])
     p = max(boot_p(G[1:], lambda d: d <= TOST_MARGIN[0]), boot_p(G[1:], lambda d: d >= TOST_MARGIN[1]))
-    tp = _gate_tipping(df, fz, GATE_SPEC_TITLE, [k for k, *_ in SB.TITLE_FEATS], n_boot).loc["NAME"]
+    tp = _gate_tipping(df, fz, GATE_SPEC_TITLE, SF.KEYS_T, n_boot).loc["NAME"]
     passes = bool(TOST_MARGIN[0] <= tp.G_total_corr_lo90 and tp.G_total_corr_hi90 <= TOST_MARGIN[1])
-    gate = dict(applies=True, passes=passes, audit_spec=GATE_SPEC_TITLE, audit_source=fz["audit_source"],
+    gate = dict(applies=True, kind="equivalence", passes=passes, audit_spec=GATE_SPEC_TITLE,
+                audit_source=fz["audit_source"],
                 rule="editing-corrected 90% CI of G_total (held-out bootstrap x audit net-flip DiD draws, WP4 G1 "
                      "construction) inside [0.90, 1.11]",
                 corrected_ci90=[float(tp.G_total_corr_lo90), float(tp.G_total_corr_hi90)],
@@ -774,21 +889,27 @@ def ct6_depletion(df: pd.DataFrame, fz: dict, n_boot: int = B_PAPER) -> dict:
     # the auditable sub-unions are reported for information only
     info = {}
     try:
-        tt = _gate_tipping(df, fz, GATE_SPEC_TITLE, [k for k, *_ in SB.TITLE_FEATS], n_boot).loc["L_title"]
-        ta = _gate_tipping(df, fz, GATE_SPEC_ABS, [k for k, *_ in SB.ABS_FEATS], n_boot).loc["L_abstract"]
-        for nm, r in [("L_title", tt), ("L_abstract", ta)]:
+        tt = _gate_tipping(df, fz, GATE_SPEC_TITLE, SF.KEYS_T, n_boot)
+        ta = _gate_tipping(df, fz, GATE_SPEC_ABS, SF.KEYS_A, n_boot)
+        for nm, r in [("L_title", tt.loc["L_title"]), ("L_title_words (R24|R26)", tt.loc["L_title_words"]),
+                      ("L_abstract", ta.loc["L_abstract"]), ("L_abs_words (F24|F26 words)", ta.loc["L_abs_words"])]:
             info[nm] = dict(auditable=bool(r.auditable), G_total=float(r.G_total_obs), tip_total_pp=float(r.tip_total_pp),
                             audit_did_ci_pp=[float(r.did_lo_pp), float(r.did_hi_pp)],
-                            identified=bool(r.G_total_identified),
+                            identified_uncorrected=bool(r.G_total_identified),
+                            p_ident_total=float(r.p_ident_total),
                             corrected_ci95=[float(r.G_total_corr_lo95), float(r.G_total_corr_hi95)])
     except Exception as e:  # noqa: BLE001
         info["error"] = str(e)[:200]
-    gate = dict(applies=True, passes=False, component="G_total",
-                rule="L-union G_total is an acceptance-margin quantity: confirmation needs the L-union to be "
-                     "auditable (>= 10 v1-present pairs in both arms) with the tipping point beyond the audit 95% "
-                     "CI and the editing-corrected 95% CI below 1. The L-union contains the abstract em dash and "
-                     "title typography, which have 0 v1-present pairs in both arms (arXiv stores TeX dashes), so "
-                     "the L-union is unauditable and this gate cannot pass (fixed before held-out access).",
+    gate = dict(applies=True, kind="association", passes=False, component="G_total", auditable=False,
+                corrected_ci_beyond=None, p_ident=None,
+                rule="L-union G_total is an acceptance-margin association: confirmation needs the L-union to be "
+                     "auditable (>= 10 v1-present pairs in both arms and measurable through arXiv), its "
+                     "editing-corrected 95% interval below 1, and its identification p to survive Holm at 0.025 "
+                     "across the run's auditable association claims (WP4 gate). The L-union contains title "
+                     "typography and the abstract em dash, which arXiv metadata cannot carry (0 of ~3,600 arXiv "
+                     "titles typographic; 0 of 1,709 v1 abstracts with an em dash), so the L-union is unauditable "
+                     "and this gate cannot pass (fixed before held-out access). The auditable proxies (R24|R26 "
+                     "title words, F24|F26 abstract words) are reported for information only.",
                 auditable_subunions_info=info)
     sd_t, sd_p = float(np.std(Gt[1:], ddof=1)), float(np.std(Gp[1:], ddof=1))
     zt, zp = (1 - Gt[0]) / _ho_se(sd_t), (1 - Gp[0]) / _ho_se(sd_p)
@@ -895,17 +1016,35 @@ def ct10_kobak(df: pd.DataFrame, fz: dict, n_boot: int = B_PAPER, seed: int = S4
     ratio = mb[:, 1] / mb[:, 0]
     ci = q(ratio[1:])
     b0, b3 = float(mb[0, 0]), float(mb[0, 1])
-    a0 = float(np.mean([sums[Y][1][0, 1] / sums[Y][1][0, 0] for Y in POST]))
-    dstar = (b3 - 0.9 * b0) / (1 - 0.9 * a0)
+    a0_all = np.mean([sums[Y][1][:, 1] / sums[Y][1][:, 0] for Y in POST], axis=0)   # (B+1,)
+    a0 = float(a0_all[0])
+    dstar_all = (mb[:, 1] - 0.9 * mb[:, 0]) / (1 - 0.9 * a0_all)
+    dstar = float(dstar_all[0])
+    se_dstar = float(np.nanstd(dstar_all[1:], ddof=1))
     fa, _ = audit_spec(fz, GATE_SPEC_ABS)
     f24 = fa.set_index("feature").loc["F24"]
-    passes = bool(f24.auditable and dstar < 0 and f24.did_lo > dstar)
-    gate = dict(applies=True, passes=passes, audit_spec=GATE_SPEC_ABS, audit_source=fz["audit_source"],
+    D, se_D = float(f24.did), float(f24.did_se)
+    # identification (WP4): H0 'true net camera-ready change D <= D*' (editing large enough to explain ratio < 0.90)
+    z_id = (D - dstar) / np.sqrt(se_D ** 2 + se_dstar ** 2)
+    p_id = float(stats.norm.sf(z_id))
+    # editing-corrected ratio: bootstrap replicate b paired with an audit draw D_b ~ N(D_hat, se_D) (fixed seed)
+    rng_g = np.random.default_rng(SEED + 10)
+    Db = rng_g.normal(D, se_D, len(mb) - 1)
+    with np.errstate(divide="ignore", invalid="ignore"):
+        rc = (mb[1:, 1] - Db) / (mb[1:, 0] - a0_all[1:] * Db)
+    rc_hi = float(np.nanquantile(rc, 0.975))
+    gate = dict(applies=True, kind="association", passes=None, audit_spec=GATE_SPEC_ABS,
+                audit_source=fz["audit_source"],
                 rule="tipping point D* = (b_acc - 0.9 b_all)/(1 - 0.9 a0) (net camera-ready change in accepted F24 "
-                     "prevalence, 2024-26, that would lift the ratio to 0.90); passes if the F24 abstract audit is "
-                     "auditable and its net-flip DiD lower 95% bound > D*",
-                tipping_pp=100 * dstar, audit_did_pp=100 * float(f24.did),
+                     "prevalence, 2024-26, that would lift the ratio to 0.90). WP4 gate: passes if the F24 abstract "
+                     "audit is auditable, the editing-corrected ratio's upper 95% bound (bootstrap replicate paired "
+                     "with an audit draw) is < 0.90, and the identification p, z = (D_hat - D*)/sqrt(se_D^2 + "
+                     "se_D*^2), survives Holm at one-sided 0.025 across the run's auditable association claims",
+                tipping_pp=100 * dstar, tipping_se_pp=100 * se_dstar, audit_did_pp=100 * D, audit_did_se_pp=100 * se_D,
                 audit_did_ci_pp=[100 * float(f24.did_lo), 100 * float(f24.did_hi)], auditable=bool(f24.auditable),
+                z_ident=float(z_id), p_ident=p_id, corrected_ratio_hi95=rc_hi,
+                corrected_ci_beyond=bool(rc_hi < 0.90),
+                passes_uncorrected_rule=bool(f24.auditable and dstar < 0 and f24.did_lo > dstar),
                 accepted_share_s0=a0)
     sd = float(np.std(ratio[1:], ddof=1))
     zp = (0.90 - ratio[0]) / _ho_se(sd)
@@ -933,7 +1072,8 @@ def ct11_invariance(df: pd.DataFrame, fz: dict) -> dict:
     widened = [dict(a=pr["a"], b=pr["b"], lo90=pr["lo90"] - bmax, hi90=pr["hi90"] + bmax) for pr in pairs
                if "ACC" in (pr["a"], pr["b"])]
     passes = all(w["lo90"] > -0.1 and w["hi90"] < 0.1 for w in widened)
-    gate = dict(applies=True, passes=bool(passes), audit_spec=GATE_SPEC_TITLE, audit_source=fz["audit_source"],
+    gate = dict(applies=True, kind="equivalence", passes=bool(passes), audit_spec=GATE_SPEC_TITLE,
+                audit_source=fz["audit_source"],
                 rule="ACC-pool pairs (camera-ready titles): widen each pairwise 90% CI by b_max = (D_hi - D_lo) / "
                      "(2 p(1-p)), the largest slope-change bias that post-year editing inside the NAME audit's 95% "
                      "net-flip CI [D_lo, D_hi] could create (p = ACC NAME share 2024-26); passes if every widened "
@@ -981,6 +1121,16 @@ def decide(res: dict) -> dict:
     """Holm over CT1-CT6, BH over CT7-CT12, then the PLAN verdicts with the audit gate."""
     padj = {**holm({k: res[k]["p_one_sided"] for k in PRIMARY if k in res}),
             **bh({k: res[k]["p_one_sided"] for k in SECONDARY if k in res})}
+    # WP4 multiplicity-controlled gate for acceptance-margin ASSOCIATION claims (revision 2): Holm over the run's
+    # auditable association claims of the identification p-values, one-sided alpha 0.025
+    assoc = {k: r["gate"] for k, r in res.items() if r["gate"].get("kind") == "association"}
+    fam = {k: float(g["p_ident"]) for k, g in assoc.items() if g.get("auditable") and g.get("p_ident") is not None}
+    gadj = holm(fam) if fam else {}
+    for k, g in assoc.items():
+        g["holm_family"] = sorted(fam)
+        g["p_ident_holm"] = gadj.get(k)
+        g["passes"] = bool(g.get("auditable") and g.get("corrected_ci_beyond") and
+                           gadj.get(k, 1.0) < GATE_ALPHA1)
     for k, r in res.items():
         r["p_adjusted"] = padj.get(k)
         r["adjustment"] = "Holm (CT1-CT6)" if k in PRIMARY else "BH (CT7-CT12)"
@@ -1094,9 +1244,11 @@ TESTS = {
         p="bootstrap as CT5; p = max of (1 + #{G_b >= 1})/(B + 1) over the two gains",
         confirm="Holm-adjusted p < .05 (both gains < 1) and the gate for G_total",
         contradict="lower 95% bound of either gain > 1",
-        gate="acceptance-margin (G_total): L-union must be auditable with the tipping point beyond the audit CI. "
-             "It is not auditable (abstract em dash and title typography: 0 v1-present pairs in both arms), so CT6 "
-             "cannot reach 'confirmed'; G_desk x G_exit is reported as the audit-free component"),
+        gate="acceptance-margin association (G_total), WP4 Holm gate: L-union must be auditable (count and arXiv "
+             "channel), its editing-corrected 95% interval below 1 and its identification p must survive Holm at "
+             "0.025. "
+             "It is not auditable (title typography and the abstract em dash cannot be carried by arXiv metadata), "
+             "so CT6 cannot reach 'confirmed'; G_desk x G_exit is reported as the audit-free component"),
     "CT7": dict(
         title="D3 vintage alignment (H3c)", data="held-out U, 2025-2026",
         statistic="Logit R24-in-title ~ F24 + F26 + C(year) + C(topic100) + log(#authors) + llm_topic + log(title "
@@ -1125,9 +1277,11 @@ TESTS = {
                   "the three years; ratio = accepted/all. The held-out split supplies its own baseline years.",
         p="paper bootstrap stratified by year (B = 2,000); p = (1 + #{ratio_b >= 0.90})/(B + 1)",
         confirm="BH-adjusted p < .05, ratio < 0.90, and the gate", contradict="lower 95% bound > 0.90",
-        gate="acceptance-margin: tipping point D* = (b_acc - 0.9 b_all)/(1 - 0.9 a0) (net camera-ready change of the "
-             "accepted F24 prevalence that would lift the ratio to 0.90); passes if the F24 abstract audit is "
-             "auditable and its net-flip DiD lower 95% bound > D*"),
+        gate="acceptance-margin association, WP4 Holm gate: tipping point D* = (b_acc - 0.9 b_all)/(1 - 0.9 a0) "
+             "(net camera-ready change of the accepted F24 prevalence that would lift the ratio to 0.90); passes if "
+             "the F24 abstract audit (2024-26 v1-abstract pairs) is auditable, the editing-corrected ratio's upper "
+             "95% bound is < 0.90, and the identification p (z = (D_hat - D*)/sqrt(se_D^2 + se_D*^2)) survives "
+             "Holm at one-sided 0.025 across the run's auditable association claims"),
     "CT11": dict(
         title="D4 pool invariance of the break (H4a(iii))", data="held-out 2018-2026, ACC, REJ and WD pools",
         statistic="CT1 logit fitted separately per pool; joint cluster-robust covariance from influence functions "
@@ -1162,7 +1316,9 @@ def rules_doc() -> dict:
                 sidedness="all tests one-sided in the predicted direction", verdicts=VERDICTS, tests=TESTS,
                 gate=("No acceptance-margin result is called confirmed unless the audit rules out camera-ready editing "
                       "large enough to produce it (PLAN: tipping point beyond the audit CI). Gated: CT5, CT6 "
-                      "(G_total), CT10, CT11 (ACC pairs). Diachronic and camera-ready-free tests are not gated."),
+                      "(G_total), CT10, CT11 (ACC pairs). Diachronic and camera-ready-free tests are not gated. "
+                      + GATE_RULE),
+                gate_alpha_one_sided=GATE_ALPHA1, revision=REVISION,
                 heldout_runs_allowed=1)
 
 
@@ -1248,9 +1404,9 @@ WP_REFERENCE = {
             "[0.531, 0.621]. (The WP brief's +1.17 / 1.85 / 0.620 came from an earlier D1 iteration.)", 1.353),
     "CT3": ("D2 RESULTS (H2a): rho_last 0.995 [0.943, 1.050]", 0.995),
     "CT4": ("D3 RESULTS (H3a): stacked slot/control OR 2.55 [1.53, 4.25], p1 = 0.0002", 2.55),
-    "CT5": ("D4 RESULTS (H4a): NAME G_total 1.021, 90% CI [1.001, 1.041]; WP4 G1 corrected 90% CI [0.885, 1.069] "
-            "(original audit) / [0.921, 1.066] (254 enlargement records)", 1.021),
-    "CT6": ("D4 RESULTS (H4b): L-union G_total 0.975 [0.951, 1.001]; G_desk x G_exit 0.982 [0.972, 0.992]",
+    "CT5": ("D4 RESULTS (H4a): NAME G_total 1.021, 90% CI [1.001, 1.041]; WP4 G1 editing-corrected 90% CI "
+            "[0.949, 1.031] (complete audit)", 1.021),
+    "CT6": ("D4 RESULTS (H4b): L-union G_total 0.975 [0.951, 1.001]; G_desk x G_exit 0.981 [0.972, 0.992]",
             0.975),
     "CT7": ("D3 RESULTS (H3c): ratio 1.46 [1.17, 1.83], p1 = 0.0005", 1.46),
     "CT8": ("D3 RESULTS (H3b): RR 2026/2025 R24 0.744, R26 1.945 (2023-26 spec); 2025-26 spec 0.744 [0.642, 0.862], "
@@ -1416,6 +1572,10 @@ def write_prereg(bundle_hash: str, dry: dict, params: dict, check: dict | None):
     A(f"- **Date:** {DATE}")
     A(f"- **Plan:** `docs/PLAN.md` section 4 (sha256 `{params['plan']['sha256'][:16]}...`)")
     A(f"- **Bundle hash:** `{bundle_hash}` (SHA-256 of `outputs/prereg/bundle.sha256`)")
+    rv = params.get("revision") or REVISION
+    A(f"- **Revision {rv['revision']}** ({rv.get('stage', 'integration pass')}, {rv['date']}). Supersedes bundle "
+      f"hash `{rv['previous_bundle_hash']}` (revision {rv.get('previous_revision', rv['revision'] - 1)}). Why: "
+      f"{rv['reason']} Details in section 9.")
     A("- **Status:** frozen before any request for held-out data. The held-out (confirmation) split has not been "
       "seen; only discovery rows (`discovery_allowed = 1`) were used.")
     A("- **Code:** `src/analyses/prereg_confirm.py` (CT1–CT12 as pure functions, discovery dry run, bundle). "
@@ -1516,18 +1676,28 @@ def write_prereg(bundle_hash: str, dry: dict, params: dict, check: dict | None):
     for k in ("CT5", "CT6", "CT10", "CT11"):
         A(f"- **{k}:** {TESTS[k]['gate']}.")
     A("")
-    A("**Audit state frozen in the bundle.**")
-    A(f"- Original audit: {au['original']['n_pairs']} usable pairs.")
-    A(f"- Enlargement: {au['enlargement']['n_lines_used']} records, of which {au['enlargement']['n_pairs']} are usable "
-      f"pairs. The pooled title audit therefore has {au['pooled']['n_pairs']} pairs.")
-    A(f"- arXiv v1 abstracts: {au['v1_abstracts']['n_pairs']} pairs.")
+    A(f"**Gate rule (adopted in revision 2; unchanged since).** {GATE_RULE}")
     A("")
-    A("**Refreeze rule.** The background enlargement (WP4) samples discovery papers only, so it carries no held-out "
-      "information. Before held-out data are requested, `python -m analyses.prereg_confirm audit_refreeze` may be "
-      "run once. It recomputes the same flip tables, with the same code, on all enlargement records present at "
-      "that moment, writes them to `frozen/audit_refreeze/` and appends their hashes to "
-      "`audit_refreeze.sha256`. If that directory exists, the held-out gate uses it. Otherwise the gate uses the "
-      "bundle-time audit. Both versions are reported.")
+    A("**Audit state frozen in the bundle** (WP4's final audit; `frozen/audit_state.json`).")
+    A(f"- Original audit: {au['original']['n_pairs']} usable pairs (2022–26; sensitivity spec), "
+      f"{au['original'].get('n_pairs_2023_26', 'n/a')} of them in 2023–26.")
+    A(f"- Enlargement: the complete file, {au['enlargement']['n_lines_used']} lines ({au['enlargement']['n_records']} "
+      f"records without a network error; SHA-256 `{au['enlargement']['sha256_of_lines_used'][:16]}...`, identical to "
+      f"WP4's freeze: {au['enlargement'].get('matches_wp4')}), of which {au['enlargement']['n_pairs']} are usable "
+      f"pairs.")
+    A(f"- Title gate audit (WP4 primary, 2023–26): {au['pooled']['n_pairs']} pairs "
+      f"({au['pooled']['pairs_by_decision']}).")
+    A(f"- Abstract gate audit (WP4 primary, 2024–26 v1-abstract pairs): {au['v1_abstracts']['n_pairs']} pairs "
+      f"({au['v1_abstracts']['pairs_by_decision']}).")
+    rp = au.get("reproduces_wp4") or {}
+    if rp:
+        A("- The frozen flip tables reproduce WP4's canonical `T4_2_flip_matrices.csv` (primary) and "
+          "`abstract_audit.csv` (abs_2024_26) exactly: max |difference| "
+          + ", ".join(f"{k} {v['max_abs_diff']:.1e}" for k, v in rp.items()) + "; auditability identical.")
+    A("")
+    A("**Refreeze rule: closed.** Revision 1 allowed one `audit_refreeze` before held-out access because the "
+      "background enlargement was still running. The enlargement is now complete and frozen in the bundle "
+      "itself, so `audit_refreeze` refuses to run.")
     A("")
     A("## 6. Discovery dry run")
     A("")
@@ -1569,6 +1739,24 @@ def write_prereg(bundle_hash: str, dry: dict, params: dict, check: dict | None):
     A("The guard file `heldout_started.json` logs every attempt. A run that crashes before writing "
       "`heldout.json` is a technical failure, not a result; it may be restarted with `--force`, and the restart "
       "is logged. Once `heldout.json` exists, the run cannot be repeated.")
+    A("")
+    A("## 9. Revision history")
+    A("")
+    hist = rv.get("history") or []
+    for h in hist:
+        if h["revision"] == 1:
+            A(f"- **Revision 1** ({h['date']}, bundle hash `{h['bundle_hash']}`): gate audit = {h['gate_audit']}.")
+        else:
+            A(f"- **Revision {h['revision']}** ({h['date']}, bundle hash `{h['bundle_hash']}`): {h['reason']}")
+    if not hist:   # revision-2 record (before the history field existed)
+        A(f"- **Revision 1** (2026-10-11, bundle hash `{rv['previous_bundle_hash']}`): gate audit = "
+          f"{rv.get('previous_audit')}.")
+    A(f"- **Revision {rv['revision']}** (this file, bundle hash `{bundle_hash}`): {rv['reason']}")
+    A("- What changed in the dry run: revision 2 changed only the gate fields of CT5, CT6, CT10 and CT11 (new audit, "
+      "new rule); revision 3 changed nothing in `dryrun.json` except the bundle hash (re-run and compared). Every "
+      "test statistic, p-value and CI of CT1–CT12 is computed by the same frozen functions on the same discovery "
+      "data. Superseded bundle files are not kept in `outputs/prereg/`; the integration pass's pre-change copies are "
+      "in `outputs/audit/integration/pre_fix_backup/` (pass1: revision 1; pass2: revision 2).")
     (OUTDIR / "prereg.md").write_text("\n".join(L) + "\n")
 
 
@@ -1590,7 +1778,8 @@ def dryrun_notes(R: dict) -> list[str]:
              f"steps. Projected held-out z ≈ {r2['projected_heldout_power']['z_heldout_projected']:.1f}, so CT2 is "
              "underpowered.")
     r6 = R["CT6"]
-    n.append("CT6: the L-union is unauditable, so CT6 cannot be 'confirmed' under the gate. The audit-free "
+    n.append("CT6: the L-union is unauditable (arXiv cannot carry title typography or the em dash), so CT6 cannot be "
+             "'confirmed' under the gate. The audit-free "
              f"G_desk x G_exit = {r6['estimate']['G_desk_x_exit']:.3f} (one-sided p "
              f"{r6['details']['p_G_desk_x_exit']:.4f}) will be reported as such.")
     r11 = R["CT11"]
@@ -1601,16 +1790,123 @@ def dryrun_notes(R: dict) -> list[str]:
     n.append(f"CT5: discovery G_total {r5['estimate']:.3f}, 90% CI {_fmt(r5['ci'])}. The editing-corrected 90% CI "
              f"{_fmt(r5['gate']['corrected_ci90'])} {'passes' if r5['gate']['passes'] else 'fails'} the gate.")
     r10 = R["CT10"]
+    g10 = r10["gate"]
     n.append(f"CT10: discovery ratio {r10['estimate']:.3f} {_fmt(r10['ci'])}. Tipping point "
-             f"{r10['gate']['tipping_pp']:.2f} pp against an audit lower bound of "
-             f"{r10['gate']['audit_did_ci_pp'][0]:.2f} pp: the gate {'passes' if r10['gate']['passes'] else 'fails'}. "
-             "The held-out split's own 2021–23 baseline years are small, so the CI will be wide.")
+             f"{g10['tipping_pp']:.2f} pp (se {g10['tipping_se_pp']:.2f}) against the F24 abstract-audit DiD "
+             f"{g10['audit_did_pp']:+.2f} pp {_fmt(g10['audit_did_ci_pp'], 2)}: identification p "
+             f"{g10['p_ident']:.4f} (Holm {_fmtp(g10.get('p_ident_holm'))}, family {g10.get('holm_family')}); "
+             f"editing-corrected upper 95% bound of the ratio {g10['corrected_ratio_hi95']:.3f}. The gate "
+             f"{'passes' if g10['passes'] else 'fails'} (the revision-1 uncorrected rule would "
+             f"{'pass' if g10['passes_uncorrected_rule'] else 'fail'}). The held-out split's own 2021–23 baseline "
+             "years are small, so the CI will be wide.")
+    n.extend(audit_interpretation_notes(R))
     pw = {k: power_05(r) for k, r in R.items()}
     low = [f"{k} ({v:.2f})" for k, v in pw.items() if v is not None and v < 0.5]
     if low:
         n.append("Approximate projected probability of meeting the statistical rule at α = .05 (unadjusted) is "
                  "below 0.5 for: " + ", ".join(low) + ". For these tests, a 'not confirmed' held-out result is weak "
                  "evidence against the discovery finding.")
+    return n
+
+
+def audit_interpretation_notes(R: dict | None = None) -> list[str]:
+    """Revisions 2-3: what the direction audits imply for READING a held-out confirmation. The decision rules are
+    unchanged; these notes only state which substantive claims a confirmed statistic would and would not carry.
+    Revision 2 added CT3, CT7, CT8 and CT9; revision 3 added CT1, CT2, CT4, CT6 and CT12."""
+    n = []
+    try:
+        d1 = json.loads((C.OUT / "d1_break" / "results.json").read_text())
+        a = d1["H1a"]
+        n.append(f"CT1 (reading): CT1's p-value uses paper-level SEs clustered by topic100 (dry run "
+                 f"{a['p_one_sided_paper_level']:.1e}). D1's audit showed that these ignore year shocks: the "
+                 f"year-level REML p in discovery is {a['p_one_sided_year_level']:.3f} (Holm "
+                 f"{a['holm_adjusted_p']:.3f}). A confirmed CT1 (which needs OR >= 1.10) should be reported with the "
+                 "year-level test beside it, and on its own it would not establish a dated 2024 break.")
+        c = d1["H1c"]
+        ci2 = (R or {}).get("CT2", {}).get("ci")
+        n.append("CT2 (reading): the held-out bootstrap resamples papers within year, so it holds year shocks fixed; "
+                 "a confirmed CT2 would not establish year-level acceleration. D1's two-stage year-level CI in "
+                 f"discovery is [{100 * c['year_level_two_stage']['diff_ci'][0]:.2f}, "
+                 f"{100 * c['year_level_two_stage']['diff_ci'][1]:.2f}] pp (Holm {c['holm_adjusted_p']:.3f})"
+                 + (f"; the dry-run CI [{ci2[0]:.2f}, {ci2[1]:.2f}] is similar in width but contains no year-shock "
+                    "variance." if ci2 else "."))
+    except (OSError, KeyError, ValueError, TypeError):
+        pass
+    try:
+        r3 = json.loads((C.OUT / "d3_register" / "results.json").read_text())
+        e = next(h for h in r3["hypotheses"] if h["id"] == "H3a")["estimates"]
+        rob = pd.read_csv(C.OUT / "d3_register" / "slot_robustness.csv")
+        nv = rob[rob["label"].str.startswith("controls without via/using") & (rob["model"] == "stacked_interaction")]
+        nv = nv.iloc[0]
+        le = e["leave_out_enhancing"]["slots_post"]
+        other = [int(x["break_year"]) for x in e["control_break_scan"]
+                 if int(x["break_year"]) != 2024 and x["p_two"] < 0.05]
+        n.append("CT4 (reading): a confirmation confirms the stacked slot-minus-control statistic on the "
+                 "pre-registered 2024 specification. The control contrast leans on via/using (without it the stacked "
+                 f"contrast is {nv['OR']:.2f} [{nv['OR_lo']:.2f}, {nv['OR_hi']:.2f}]); OR >= 2 for the slots rests on "
+                 f"the in-sample word 'enhancing' (without it {le['OR']:.2f} [{le['OR_lo']:.2f}, {le['OR_hi']:.2f}]); "
+                 f"the pooled controls shift at the other candidate break years ({', '.join(map(str, other))}); and "
+                 "the break is not sharply dated against 2023.")
+    except (OSError, KeyError, ValueError, StopIteration, IndexError):
+        pass
+    try:
+        r4 = json.loads((C.OUT / "d4_filter" / "results.json").read_text())["hypotheses"]["H4b"]["estimates"]
+        n.append("CT6 (reading): an L-union G < 1, including the audit-free G_desk x G_exit, would mainly re-detect "
+                 "the pre-2024 R24 genre penalty (D4: R24 total "
+                 f"{r4['components']['R24']['total']['est']:.3f} in 2024-26 against "
+                 f"{r4['components_pre_2018_23']['R24']['total']['est']:.3f} in 2018-23; L-union without R24 "
+                 f"{r4['L_noR24']['total']['est']:.3f}). LLM-specific selection would need the L-union without R24 or "
+                 "the post/pre ratio, which CT6 does not test.")
+    except (OSError, KeyError, ValueError, TypeError):
+        pass
+    try:
+        r2 = json.loads((C.OUT / "d2_carriers" / "results.json").read_text())
+        h = next(x for x in r2["hypotheses"] if x["id"] == "H2b")["estimate"]
+        w = h["entrant_minus_stayer_L_first_within_lastkey_size_topic"]
+        sy = h["symmetric_lookback_prior_first_ratio"]
+        n.append("CT12 (reading): a confirmation confirms the D2-group contrast rho_first - rho_last, which mixes "
+                 "cohort with tenure (D2 stayer keys have >= 3 years of presence): within the same last-position key "
+                 f"the entrant-first premium is {100 * w['est']:.1f} pp [{100 * w['lo']:.1f}, {100 * w['hi']:.1f}], and "
+                 "with a symmetric 2-year lookback prior first keys changed "
+                 f"{sy['ratio_prior']:.2f} [{sy['ratio_prior_lo']:.2f}, {sy['ratio_prior_hi']:.2f}] times the "
+                 "first-position population. It is not a role effect: list position is a partition label.")
+    except (OSError, KeyError, ValueError, StopIteration):
+        pass
+    try:
+        r2 = json.loads((C.OUT / "d2_carriers" / "results.json").read_text())
+        son = r2["shared_outcome_null"]["main"]["last"]
+        n.append("CT3 (reading): the D2 audit found that a purely generational world with the observed "
+                 f"co-authorship gives rho_last of {son['null_Nfirst']['est']:.2f}-{son['null_NRfirst']['est']:.2f}, "
+                 "above the 0.5 threshold, so a confirmed CT3 would confirm the statistic, not communal change (H2a "
+                 "is 'not identified' in discovery).")
+    except (OSError, KeyError, ValueError):
+        pass
+    try:
+        r3 = json.loads((C.OUT / "d3_register" / "results.json").read_text())
+        H = {h["id"]: h for h in r3["hypotheses"]}
+        c = H["H3c"]["estimates"]["co_primary_shared_lemma_free"]
+        nb = H["H3b"]["estimates"]["neutral_synonym_benchmark"]["all|R24_vs_N24_ratio_of_RR"]
+        n.append(f"CT7 (reading): without the lemmas shared by RARE21 and R24 the discovery ratio is {c['ratio']:.2f} "
+                 f"[{c['ratio_ci'][0]:.2f}, {c['ratio_ci'][1]:.2f}] with OR(F24) {c['OR_a']:.2f}; the contrast is "
+                 "carried by F26 papers avoiding R24, so a confirmed CT7 would not by itself establish title-abstract "
+                 "vintage alignment.")
+        n.append(f"CT8 (reading): neutral synonyms (improv*, utili[sz]*, exploit*) fell like R24 in discovery (R24 "
+                 f"relative to them {nb['ratio']:.2f} [{nb['lo']:.2f}, {nb['hi']:.2f}]) and R26 was chosen after the "
+                 "pilot saw it rise, so a confirmed CT8 would show a 2026 shift in these word families, not a register "
+                 "turnover.")
+    except (OSError, KeyError, ValueError, StopIteration):
+        pass
+    try:
+        r1 = json.loads((C.OUT / "d1_break" / "results.json").read_text())
+        pc = r1["H1e"]["positive_control_D3"]["H3d_slot_uplift_F_d1"]
+        ok = bool(r1["H1e"]["positive_control_D3"].get("validates_F_d1_bound", pc["OR_slot_ci"][0] > 1))
+        n.append(f"CT9 (reading): the D3 positive control with this fingerprint is "
+                 f"{'significant' if ok else 'not significant'} (slot OR "
+                 f"{pc['OR_slot']:.2f} [{pc['OR_slot_ci'][0]:.2f}, {pc['OR_slot_ci'][1]:.2f}]) and criterion (i) has "
+                 "little power by construction, so a confirmed CT9 would not bound the tool share"
+                 + (" on its own." if ok else "."))
+    except (OSError, KeyError, ValueError):
+        pass
     return n
 
 
@@ -1640,11 +1936,13 @@ DEVIATIONS = [
     "CT5/CT6 pooling: 2024–26 is year-standardised to s0 sizes (D4). G_desk × G_exit uses the PLAN stages "
     "(accepted papers are inside s0–s2). The camera-ready-free variant (accepted papers removed) is reported as "
     "a pre-specified robustness check.",
-    "Gate operationalisation (fixed now): CT5 uses the editing-corrected TOST (the WP4 G1 construction). CT6's "
-    "G_total gate cannot pass, because the L-union is unauditable. CT10 uses an explicit tipping point for the "
-    "0.90 ratio against the F24 abstract audit. CT11 widens the ACC-pair CIs by the largest slope bias that "
-    "editing within the NAME audit CI could create. The gate audit is the pooled original + enlargement audit "
-    "(the larger audit), with the refreeze rule of section 5.",
+    "Gate operationalisation (revision 2): CT5 uses the editing-corrected TOST (the WP4 G1 construction). CT6's "
+    "G_total gate cannot pass, because the L-union is unauditable (arXiv channel). CT10 uses an explicit tipping "
+    "point for the 0.90 ratio against the F24 abstract audit, with WP4's identification p (tipping-point SE "
+    "included), an editing-corrected interval and Holm at 0.025 across the run's auditable association claims. "
+    "CT11 widens the ACC-pair CIs by the largest slope bias that editing within the NAME audit CI could create. "
+    "The gate audit is WP4's frozen complete audit (title: 2023–26 primary pairs; abstracts: 2024–26 pairs). "
+    "Revision 1 used the original audit + 1,261 enlargement lines and an uncorrected rule.",
     "CT8 statistic: the PLAN says 'R24 down and R26 up (two one-sided tests)'. Here this is the within-area "
     "quasi-Poisson rate ratio 2026/2025 (D3 H3b model, area FE and offset) on the 16 frozen large areas, with "
     "an intersection-union p. Area sign counts are descriptive only, because the held-out areas are about a "
@@ -1693,9 +1991,35 @@ def main():
         log("prereg.md written")
     if stage == "verify":
         verify_bundle()
+    if stage == "refreeze_final":
+        # revision 2 (integration pass): re-freeze the gate audit on WP4's complete audit and record the revision;
+        # every other frozen file (R1 models, centroids, lexicons, slot inventory, DFL cells) is left byte-identical
+        if GUARD.exists() or (OUTDIR / "heldout.json").exists():
+            raise SystemExit("held-out run already started; the bundle can no longer be revised")
+        st = freeze_audit(FROZEN)
+        params = json.loads((FROZEN / "params.json").read_text())
+        params["audit_revision_1"] = params.get("audit_revision_1", params["audit"])
+        params["audit"] = audit_params(st)
+        params["revision"] = REVISION
+        write_json(params, FROZEN / "params.json")
+        write_json(rules_doc(), FROZEN / "rules.json")
+        log(f"refreeze_final: audit re-frozen on WP4's complete audit; revision {REVISION['revision']}")
+    if stage == "revise":
+        # revision 3 (second integration pass): record the revision; every frozen file other than params.json and
+        # rules.json stays byte-identical. Follow with dryrun (compared against the previous dryrun.json), bundle and
+        # verify.
+        if GUARD.exists() or (OUTDIR / "heldout.json").exists():
+            raise SystemExit("held-out run already started; the bundle can no longer be revised")
+        params = json.loads((FROZEN / "params.json").read_text())
+        params["revision"] = REVISION
+        write_json(params, FROZEN / "params.json")
+        write_json(rules_doc(), FROZEN / "rules.json")
+        log(f"revise: revision {REVISION['revision']} recorded (supersedes {REVISION['previous_bundle_hash'][:16]}...)")
     if stage == "audit_refreeze":
         if GUARD.exists():
             raise SystemExit("held-out run already started; the audit can no longer be refrozen")
+        raise SystemExit("closed in revision 2: the enlargement is complete and frozen in the bundle "
+                         "(see prereg.md section 5)")
         st = freeze_audit(REFREEZE)
         lines = [f"{sha256_file(p)}  {_rel(p)}" for p in sorted(REFREEZE.glob("*")) if p.is_file()]
         (OUTDIR / "audit_refreeze.sha256").write_text("\n".join(lines) + "\n")

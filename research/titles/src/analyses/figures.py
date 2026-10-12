@@ -364,6 +364,7 @@ def fig2() -> str:
     tool_c = r1["H1e"]["tool_share_0.39_corrected_2026"]
     tool_n = r1["H1e"]["tool_share_0.39_naive_preregistered"]
     dN = r1["H1e"]["tool"]["dNAME_2023_2026"]
+    pcd = r1["H1e"]["positive_control_D3"]["H3d_slot_uplift_F_d1"]
 
     def row(lbl, est, lo, hi, grp):
         return {"group": grp, "label": lbl, "share": est, "lo95": lo, "hi95": hi}
@@ -376,7 +377,7 @@ def fig2() -> str:
             row("R1 masked TF-IDF", sh["R1|rolling"]["share"], *sh["R1|rolling"]["ci"], G2),
             row("R3 masked bge", sh["R3|rolling"]["share"], *sh["R3|rolling"]["ci"], G2),
             row("R5 R1 minus moves", sh["R5|rolling"]["share"], *sh["R5|rolling"]["ci"], G2),
-            row("DFL reweighting", dfl["share"], *dfl["ci"], G3),
+            row("DFL reweighting (2026)", dfl["share"], *dfl["ci"], G3),
             row("Shapley, net of content", shap["shapley_composition"], shap["shapley_composition_lo"],
                 shap["shapley_composition_hi"], G3),
             row("Pre-registered formula", tool_n["share"], tool_n["lo"], tool_n["hi"], G4),
@@ -434,12 +435,17 @@ def fig2() -> str:
             f"{min(sh[k]['share'] for k in ('R1|rolling', 'R3|rolling', 'R5|rolling')):.2f}-"
             f"{max(sh[k]['share'] for k in ('R1|rolling', 'R3|rolling', 'R5|rolling')):.2f} in the rolling design, so "
             f"'content is a minority' is not established. Team size x new keys x LLM topic explains "
-            f"{dfl['share']:.2f} by DFL reweighting but {shap['shapley_composition']:.2f} net of content (Shapley). "
+            f"{dfl['share']:.2f} of the 2023-26 rise by DFL reweighting ("
+            f"{r1['H1d']['dfl_full_by_year']['2024']['share']:.2f} and "
+            f"{r1['H1d']['dfl_full_by_year']['2025']['share']:.2f} for 2024 and 2025, so the ≤ 0.30 prediction fails "
+            f"in 2025) but {shap['shapley_composition']:.2f} net of content (Shapley). "
             f"Detectable LLM drafting at A_max = 0.39 accounts for {tool_c['share'] * 100:.1f}% "
             f"[{tool_c['lo'] * 100:.1f}, {tool_c['hi'] * 100:.1f}] after misclassification correction "
             f"({tool_n['share'] * 100:.1f}% by the pre-registered formula), but alternative fingerprints give up to "
             f"{df[df.group == G4]['share'].max() * 100:.0f}%, so the tool share is small for the abstract fingerprint, "
-            f"not bounded in general. The Shapley residual (unexplained by content or composition) is "
+            f"not bounded in general; D3's slot positive control "
+            f"{'supports' if r1['H1e']['positive_control_D3'].get('validates_F_d1_bound') else 'does not validate'} "
+            f"that fingerprint (slot OR {fci(pcd['OR_slot'], *pcd['OR_slot_ci'])}). The Shapley residual (unexplained by content or composition) is "
             f"{fci(shap['residual_unexplained'], shap['residual_lo'], shap['residual_hi'])}. "
             f"Content and composition CIs: conditional paper bootstrap (models fixed), B = 2000; tool-share CIs "
             f"propagate the 95% CI of the fingerprint uplift δ.")
@@ -463,7 +469,8 @@ def fig3() -> str:
         ("First and last both stayers", "First and last keys both stayers", False),
         ("Rolling all-prior teams (H2c(ii))", "All keys seen in any earlier year", False),
         ("All keys seen the year before", "All keys seen the year before", False),
-        ("Last=S, all papers (ρ_last)", "Last stayer, all papers (ρ_last)", True),
+        ("Last=S, all papers (ρ_last)", "Last stayer, all papers", True),   # ratio to the paper-level change,
+                                                                            # not rho_last (key-level; caption)
         ("Last=S, L with entrant first author", "Last stayer, entrant first key", True),
     ]
     order = [o for o in order if o[0] in c.index]
@@ -478,7 +485,9 @@ def fig3() -> str:
         yy = n - 1 - i
         dot_ci(ax, yy, r["est"], r["lo"], r["hi"], GREY if ref else BLUE)
         ax.text(1.66, yy, f"{int(r['n_L']):,}", ha="right", va="center", fontsize=FS, color=TEXT2)
-        rowsA.append({"row": lbl, "reference": ref, "ratio": r["est"], "lo95": r["lo"], "hi95": r["hi"],
+        rowsA.append({"row": ("Last-position stayer keys, all L papers (ratio to paper-level change)"
+                              if src == "Last=S, all papers (ρ_last)" else lbl),
+                      "reference": ref, "ratio": r["est"], "lo95": r["lo"], "hi95": r["hi"],
                       "n_E": r["n_E"], "n_L": r["n_L"]})
     ax.text(1.66, n - 0.45, "n (L)", ha="right", va="bottom", fontsize=FS, color=TEXT2)
     ax.axvline(0, color=TEXT2, lw=0.6, zorder=1)
@@ -526,6 +535,8 @@ def fig3() -> str:
     allstay = c.loc["All-stayer teams"]
     roll = c.loc["Rolling all-prior teams (H2c(ii))"]
     ent = c.loc["Last=S, L with entrant first author"]
+    lall = c.loc["Last=S, all papers (ρ_last)"]
+    popc = hyp(r2, "H2c")["estimate"]["population_change"]
     son = r2["shared_outcome_null"]["main"]
     nulls = [son[p_][k_]["est"] for p_ in ("last", "any") for k_ in ("null_Nfirst", "null_NRfirst")]
     return (f"Who carries the NAME rise between E = 2022-23 and L = 2025-26 (declared profile keys; list position is a "
@@ -535,6 +546,10 @@ def fig3() -> str:
             f"population change, papers whose keys all appeared in an earlier year {fnum(roll['est'])} "
             f"[{fnum(roll['lo'])}, {fnum(roll['hi'])}], and last-position stayer keys on papers with an entrant first "
             f"key {fnum(ent['est'])} [{fnum(ent['lo'])}, {fnum(ent['hi'])}]: the rise is graded by team newness. "
+            f"Every row, including the reference row 'Last stayer, all papers' ({fnum(lall['est'])} "
+            f"[{fnum(lall['lo'])}, {fnum(lall['hi'])}]), is a ratio to the paper-level population change "
+            f"({popc * 100:.1f} pp), so it is not ρ_last, which divides by the last-position partition's own "
+            f"change P_L - P_E (T2.1). "
             f"The pooled stayer-to-population ratios (ρ_last {fnum(ra['rho_last']['est'], 3)}, ρ_any "
             f"{fnum(ra['rho_any']['est'], 3)}) are not identified as communal change, because a purely generational "
             f"world with the observed co-authorship would give {min(nulls):.2f}-{max(nulls):.2f}. (b) Generational increment G = 1 - slope of "
@@ -549,18 +564,29 @@ def fig3() -> str:
 # ==============================================================================================
 # Figure 4: the machine register (D3)
 # ==============================================================================================
+def _n24_rates(years) -> pd.Series:
+    """Per-1,000 rate of titles with a neutral counterpart of the R24 family (D3's N24 = improv*|utili[sz]*|exploit*,
+    d3_vintage.N24_RX), all papers in U. A descriptive count on the frozen universe, not a model."""
+    from analyses import d3_vintage as D3V
+    u = C.load_universe(["year", "title"])
+    u = u[u["year"].isin(years)]
+    hit = C.rx_contains(u["title"].fillna("").str.lower(), D3V.N24_RX)
+    return hit.groupby(u["year"]).mean()
+
+
 def fig4() -> str:
     ss = rc(D3 / "fig_F3_1_slot_shares.csv")
     fpv = rc(D3 / "fingerprint_prevalence_by_year.csv").set_index("year")
     sig = rc(D3 / "fig_F3_4_signature.csv")
+    sm = rc(D3 / "signature_models.csv")
+    nb = rc(D3 / "register_neutral_benchmark.csv")
     r3 = rj(D3 / "results.json")
 
     style()
-    fig = plt.figure(figsize=(7.0, 3.2))
-    ax = fig.add_axes([0.085, 0.36, 0.235, 0.55])
-    bx = fig.add_axes([0.415, 0.36, 0.19, 0.55])
-    cx = fig.add_axes([0.735, 0.36, 0.25, 0.55])
-    leg_kw = dict(loc="upper center", bbox_to_anchor=(0.5, -0.27), ncol=1, frameon=False, handlelength=1.8)
+    fig = plt.figure(figsize=(7.0, 3.35))
+    ax = fig.add_axes([0.075, 0.37, 0.215, 0.54])
+    bx = fig.add_axes([0.375, 0.37, 0.175, 0.54])
+    cx = fig.add_axes([0.655, 0.37, 0.155, 0.54])
     # ---- a: slot shares
     sl = ss[ss["slot"] == "pooled_slots"].sort_values("year")
     ct = ss[ss["slot"] == "pooled_controls"].sort_values("year")
@@ -574,79 +600,122 @@ def fig4() -> str:
     ax.set_xticks(yrs, [f"’{y % 100:02d}" if y % 2 == 0 else "" for y in yrs])
     ax.set_ylabel("Share of slot-filled titles (%)")
     ax.set_xlabel("ICLR year")
-    ax.legend([Line2D([], [], color=BLUE, lw=2, marker="o", ms=5, mec="white"),
-               Line2D([], [], color=GREY, lw=2, marker="s", ms=5, mec="white")],
-              ["LLM-favoured verb (pooled slots)", "Control pairs (pooled)"], **leg_kw)
     panel_title(ax, "a", "Meaning-fixed slots")
 
-    # ---- b: title register rates
+    # ---- b: word-family rates, with the neutral synonyms of R24 (D3's decisive check for 'turnover')
     yb = [y for y in fpv.index if y >= 2021]
-    for colname, col, lbl in (("r24_any", ORANGE, "R24 (2024-generation) words"),
-                              ("r26_any", AQUA, "R26 (2026-generation) words")):
-        bx.plot(yb, fpv.loc[yb, colname] * 1000, color=col, lw=2, marker="o", ms=5, mec="white", mew=0.8, label=lbl)
+    n24 = _n24_rates(yb)
+    fam = (("r24_any", ORANGE, "-", "o", "R24 (enhanc*, leverag*, …)"),
+           ("n24", GREY, (0, (3, 1.5)), "s", "Neutral (improv*, utili[sz]*, …)"),
+           ("r26_any", AQUA, "-", "o", "R26 (unified, beyond, …)"))
+    rates = {"r24_any": fpv.loc[yb, "r24_any"] * 1000, "r26_any": fpv.loc[yb, "r26_any"] * 1000,
+             "n24": n24.loc[yb] * 1000}
+    for k, col, ls, mk_, lbl in fam:
+        bx.plot(yb, rates[k].to_numpy(), color=col, lw=2, ls=ls, marker=mk_, ms=4.6, mec="white", mew=0.8,
+                label=lbl)
     bx.axvline(2023.5, color=GREY, lw=0.8, ls=":", zorder=1)
     bx.set_xticks(yb, [f"’{y % 100:02d}" for y in yb])
     bx.set_xlim(2020.6, 2026.4)
     bx.set_ylim(0, 75)
     bx.set_ylabel("Titles per 1,000")
     bx.set_xlabel("ICLR year")
-    bx.legend(**leg_kw)
-    panel_title(bx, "b", "Title register")
+    panel_title(bx, "b", "Title word families")
 
-    # ---- c: signature forest
-    rows = ["2024-26 pooled", "2024", "2025", "2026", "NA pool"]
-    disp = {"2024-26 pooled": "2024–26", "NA pool": "NA pool"}
-    sig = sig[sig["row"].isin(rows)]
+    # ---- c: lexical vs structural signature against the POPULATION NAME comparator (D3 audit fix C1)
+    rows = ["2024-26 pooled", "2024", "2025", "2026", "NA pool", "F_d1"]
+    disp = {"2024-26 pooled": "2024–26", "NA pool": "NA pool", "F_d1": "D1 fingerprint"}
+    fd1 = sm[(sm["x"] == "F_d1") & (sm["controls"] == "none")].iloc[0]
+    recs = []
+    for rw in rows[:-1]:
+        for outc, key in (("LLM slot variant | slot filled", "slot"), ("NAME title (all papers)", "name_pop")):
+            r = sig[(sig["row"] == rw) & (sig["outcome"] == outc)].iloc[0]
+            recs.append(dict(row=rw, outcome=key, OR=r["OR"], lo=r["lo"], hi=r["hi"], ratio_pop=r["ratio_pop"],
+                             ratio_pop_lo=r["ratio_pop_lo"], ratio_pop_hi=r["ratio_pop_hi"],
+                             n_slot_papers=r["n_papers"], n_pop=r["n_pop"]))
+    for key, a_, l_, h_ in (("slot", "OR_slot", "OR_slot_lo", "OR_slot_hi"),
+                            ("name_pop", "OR_name_pop", "OR_name_pop_lo", "OR_name_pop_hi")):
+        recs.append(dict(row="F_d1", outcome=key, OR=fd1[a_], lo=fd1[l_], hi=fd1[h_], ratio_pop=fd1["ratio_pop"],
+                         ratio_pop_lo=fd1["ratio_pop_lo"], ratio_pop_hi=fd1["ratio_pop_hi"],
+                         n_slot_papers=fd1["n_papers"], n_pop=fd1["n_pop"]))
+    sigc = pd.DataFrame(recs)
     for i, rw in enumerate(rows):
         yy = len(rows) - 1 - i
-        for dy, outc, col in ((0.15, "LLM slot variant | slot filled", BLUE), (-0.15, "NAME title", GREY)):
-            r = sig[(sig["row"] == rw) & (sig["outcome"] == outc)]
-            if len(r):
-                r = r.iloc[0]
-                dot_ci(cx, yy + dy, r["OR"], r["lo"], r["hi"], col)
+        for dy, key, col in ((0.16, "slot", BLUE), (-0.16, "name_pop", GREY)):
+            r = sigc[(sigc["row"] == rw) & (sigc["outcome"] == key)].iloc[0]
+            dot_ci(cx, yy + dy, r["OR"], r["lo"], r["hi"], col, ms=5, lw=1.4)
+        r = sigc[sigc["row"] == rw].iloc[0]
+        cx.text(1.06, yy, f"{r['ratio_pop']:.2f} [{r['ratio_pop_lo']:.2f}, {r['ratio_pop_hi']:.2f}]",
+                transform=cx.get_yaxis_transform(), fontsize=FS, color=TEXT, va="center", ha="left")
+    cx.text(1.06, len(rows) - 0.25, "ratio slot/NAME", transform=cx.get_yaxis_transform(), fontsize=FS,
+            color=TEXT2, va="center", ha="left")
+    cx.axhline(0.5, color=GRID, lw=0.8, zorder=0)
     cx.axvline(1, color=GREY, lw=0.8, ls=(0, (3, 2)), zorder=1)
     cx.set_xscale("log")
-    cx.set_xlim(0.2, 4.0)
-    cx.set_xticks([0.25, 0.5, 1, 2, 4], ["0.25", "0.5", "1", "2", "4"])
+    cx.set_xlim(0.6, 3.2)
+    cx.set_xticks([0.7, 1, 1.5, 2, 3], ["0.7", "1", "1.5", "2", "3"])
     cx.minorticks_off()
     cx.set_yticks(range(len(rows) - 1, -1, -1), [disp.get(r, r) for r in rows])
     hide_y_grid(cx)
-    cx.set_ylim(-0.6, len(rows) - 0.4)
+    cx.set_ylim(-0.6, len(rows) + 0.1)
     cx.set_xlabel("OR of fingerprinted abstract (log)")
-    cx.legend([Line2D([], [], color=BLUE, lw=1.6, marker="o", ms=5.5, mec="white"),
-               Line2D([], [], color=GREY, lw=1.6, marker="o", ms=5.5, mec="white")],
-              ["LLM slot variant | slot filled", "NAME title (same papers)"], **leg_kw)
     panel_title(cx, "c", "Lexical vs structural")
+    # one legend row block for the three panels (column-major: a | b | c)
+    blank = Line2D([], [], lw=0)
+    hs = [Line2D([], [], color=BLUE, lw=2, marker="o", ms=5, mec="white"),
+          Line2D([], [], color=GREY, lw=2, marker="s", ms=5, mec="white"), blank]
+    ls_ = ["a: LLM-favoured verb (slots)", "a: control pairs", ""]
+    for k, col, ls, mk_, lbl in fam:
+        hs.append(Line2D([], [], color=col, lw=2, ls=ls, marker=mk_, ms=4.6, mec="white"))
+        ls_.append("b: " + lbl)
+    hs += [Line2D([], [], color=BLUE, lw=1.4, marker="o", ms=5, mec="white"),
+           Line2D([], [], color=GREY, lw=1.4, marker="o", ms=5, mec="white"), blank]
+    ls_ += ["c: LLM slot variant | slot filled", "c: NAME title, all papers", ""]
+    fig.legend(hs, ls_, loc="lower center", bbox_to_anchor=(0.5, -0.01), ncol=3, frameon=False, handlelength=1.8,
+               columnspacing=1.6)
 
     save(fig, "fig4_register", {"a_slot_shares": pd.concat([sl, ct]),
-                                "b_register_rates": fpv.loc[yb, ["r24_any", "r26_any", "f24", "f26"]].reset_index(),
-                                "c_signature": sig})
+                                "b_word_family_rates": pd.DataFrame({"year": yb, **{k: v.to_numpy() for k, v in
+                                                                                      rates.items()}}),
+                                "c_signature_population": sigc})
 
     h3a, h3b, h3c, h3d = (hyp(r3, k) for k in ("H3a", "H3b", "H3c", "H3d"))
     ea, eb, ed = h3a["estimates"], h3b["estimates"], h3d["estimates"]["primary"]
+    pc = h3d["estimates"]["population_comparator"]
     ps = ea["pooled_slots_post"]
     cp = ea["controls_post"]
     st = ea["stacked_interaction"]
     r24 = eb["rates_per_1k"]["all|r24_any"]
     r26 = eb["rates_per_1k"]["all|r26_any"]
+    nbr = nb[(nb["sample"] == "all")].set_index("outcome")
+    rr_r24, rr_n24 = nbr.loc["r24_any"], nbr.loc["n24"]
+    rrr = eb["neutral_synonym_benchmark"]["all|R24_vs_N24_ratio_of_RR"]
     s23 = sl.set_index("year")["share"]
-    return (f"LLM-favoured wording in titles. (a) Share of titles that fill a meaning-fixed opener slot with the "
-            f"LLM-favoured verb (Enhancing/Boosting vs Improving; Unveiling vs Understanding; Leveraging vs Exploiting; "
-            f"comprehensive vs systematic), pooled over slots, against control pairs (towards/toward, novel/new, "
-            f"via/using) in grey; bands are 95% Wilson intervals. The slot share moved from {s23.get(2023, np.nan):.2f} in "
-            f"2023 to {s23.get(2024, np.nan):.2f} in 2024 (post OR {fci(ps['OR'], ps['lo'], ps['hi'])} with slot-specific "
-            f"trends; controls {fci(cp['OR'], cp['lo'], cp['hi'])}; slot-minus-control OR "
-            f"{fci(st['OR'], st['lo'], st['hi'])}); the 2023 cohort already deviates, so the break is better read as "
-            f"an acceleration from 2024. (b) Title rates of the 2024-generation register R24 (enhanc*, leverag*, "
-            f"unveil*, ...) and the 2026-generation register R26 (unified, unifying, beyond, bridging): from 2025 to "
-            f"2026 R24 fell from {r24['r2025']:.1f} to {r24['r2026']:.1f} per 1,000 (down in {eb['r24_down']} large "
-            f"areas) while R26 rose from {r26['r2025']:.1f} to {r26['r2026']:.1f} (up in {eb['r26_up']}). "
-            f"(c) Association of an abstract LLM fingerprint (F24 ∪ F26 ∪ title typography) with the LLM slot variant "
-            f"and with a NAME title on the same slot-filled papers, within topic100 x year (implied ORs from LPMs, "
-            f"95% CIs): OR_slot {fci(ed['OR_slot'], ed['OR_slot_lo'], ed['OR_slot_hi'])} vs OR_NAME "
-            f"{fci(ed['OR_name'], ed['OR_name_lo'], ed['OR_name_hi'])}, ratio {fci(ed['ratio'], ed['ratio_lo'], ed['ratio_hi'])}"
-            f" (n = {ed['n_papers']:,} papers, 2024-26). Holm p: H3a {fp(h3a['p_holm'])}, H3b {fp(h3b['p_holm'])}, "
-            f"H3d {fp(h3d['p_holm'])}.")
+    return (f"LLM-favoured wording in titles (D3; associational). (a) Share of titles that fill a meaning-fixed opener "
+            f"slot with the LLM-favoured verb (Enhancing/Boosting vs Improving; Unveiling vs Understanding; Leveraging "
+            f"vs Exploiting; comprehensive vs systematic), pooled over slots, against control pairs (towards/toward, "
+            f"novel/new, via/using) in grey; bands are 95% Wilson intervals. The slot share moved from "
+            f"{s23.get(2023, np.nan):.2f} in 2023 to {s23.get(2024, np.nan):.2f} in 2024 (post OR "
+            f"{fci(ps['OR'], ps['lo'], ps['hi'])} with slot-specific trends; controls {fci(cp['OR'], cp['lo'], cp['hi'])}"
+            f"; slot-minus-control OR {fci(st['OR'], st['lo'], st['hi'])}); the 2023 cohort already deviates, so the "
+            f"shift is read as an acceleration from 2024, carried mainly by the improve slot. (b) Title rates per "
+            f"1,000 of the R24 family, its neutral synonyms (N24) and the R26 family, all papers. From 2025 to 2026 "
+            f"R24 fell from {r24['r2025']:.1f} to {r24['r2026']:.1f} per 1,000 and R26 rose from {r26['r2025']:.1f} "
+            f"to {r26['r2026']:.1f}; but the neutral synonyms fell alike (within-area RR {rr_n24['RR_2026_vs_2025']:.2f} "
+            f"vs {rr_r24['RR_2026_vs_2025']:.2f} for R24; R24 relative to N24 {fci(rrr['ratio'], rrr['lo'], rrr['hi'])}), "
+            f"so no register turnover is identified; R26 was chosen after "
+            f"the pilot saw it rise in these data. (c) Association of an abstract LLM fingerprint with the "
+            f"LLM-favoured slot variant (slot-filled papers) and with a NAME title on all papers of the same years, "
+            f"within topic100 × year (implied ORs from LPMs; joint topic100-cluster bootstrap, 95% CIs); right "
+            f"column: ratio OR_slot / OR_NAME. Pooled 2024-26: OR_slot {fci(ed['OR_slot'], ed['OR_slot_lo'], ed['OR_slot_hi'])}"
+            f" vs OR_NAME {fci(pc['OR_name_pop'], *pc['OR_name_pop_ci'])}, ratio {fci(pc['ratio'], *pc['ratio_ci'])} "
+            f"(P(ratio ≤ 1) = {pc['p_one_ratio_le1']:.3f}); the pre-registered 1.5× is not met. The fingerprint is "
+            f"F_any = F24 (≥ 1 RARE21 word) ∪ F26 ∪ title typography; the 'D1 fingerprint' F_d1 differs only in "
+            f"requiring ≥ 2 RARE21 words and is the fingerprint behind D1's tool share; with it the slot "
+            f"association is OR {fd1['OR_slot']:.2f} [{fd1['OR_slot_lo']:.2f}, {fd1['OR_slot_hi']:.2f}], so the positive "
+            f"control {'supports' if fd1['OR_slot_lo'] > 1 else 'does not validate'} that bound. The same-paper NAME comparator of the PLAN is not shown: it is "
+            f"conditioned on slot filling, a common effect of F and NAME. Holm p (pre-specified family): H3a "
+            f"{fp(h3a['p_holm'])}, H3b {fp(h3b['p_holm'])} (not a valid test: R26 selected in-sample); H3d with the "
+            f"population comparator {fp(h3d['p_holm_sensitivity'])} (sensitivity family).")
 
 
 # ==============================================================================================
@@ -695,9 +764,11 @@ def fig5() -> str:
                 ax.plot([XMIN * 1.004], [y_], marker="<", ms=5.5, color=col, mec="white", mew=0.6, lw=0,
                         zorder=4, clip_on=False)
                 continue
-            dot_ci(ax, y_, e, max(lo, XMIN), min(hi, XMAX), col, ms=5, lw=1.4)
+            dot_ci(ax, y_, e, max(lo, XMIN), min(hi, XMAX), col, ms=5, lw=1.4,
+                   mfc="white" if st == "dec" else None)
         if (f, "dec") in pooled.index and pooled.loc[(f, "dec"), "est"] < XMIN:
-            ax.text(XMIN * 1.02, yy - 0.18, f"off scale: decision {pooled.loc[(f, 'dec'), 'est']:.2f}, "
+            # printed to the right of the reference line, where this row has no intervals
+            ax.text(1.012, yy - 0.18, f"← dec. {pooled.loc[(f, 'dec'), 'est']:.2f}, "
                     f"total {pooled.loc[(f, 'total'), 'est']:.2f}", fontsize=FS, color=TEXT2, va="center")
     for yb in (nF - 3.5, nF - 5.5):  # separators between M / O / L blocks
         ax.axhline(yb, color=GRID, lw=0.8, zorder=0)
@@ -710,8 +781,11 @@ def fig5() -> str:
     hide_y_grid(ax)
     ax.set_ylim(-0.6, nF - 0.4)
     ax.set_xlabel("Stage gain, 2024–26 (log scale)")
-    ax.legend([Line2D([], [], color=c_, lw=1.4, marker="o", ms=5, mec="white") for _, _, c_ in stages],
-              [s[1] for s in stages], loc="lower left", bbox_to_anchor=(-0.02, -0.3), ncol=4, frameon=False,
+    ax.legend([Line2D([], [], color=c_, lw=1.4, marker="o", ms=5, mec=c_ if st == "dec" else "white",
+                      mfc="white" if st == "dec" else c_, mew=1.3 if st == "dec" else 0.8)
+               for st, _, c_ in stages],
+              ["Desk screen", "Author exit", "Decision (not identified)", "Total (accepted/all)"],
+              loc="lower left", bbox_to_anchor=(-0.02, -0.3), ncol=4, frameon=False,
               columnspacing=1.0, handlelength=1.4)
     panel_title(ax, "a", "What each stage does to a feature")
 
@@ -751,26 +825,62 @@ def fig5() -> str:
     pt = H4a.get("tost") or H4a["pooled_2024_26_std"]
     ip = H4a["its_pools"]
     lu, ou = H4b["L_union_total"], H4b["O_union_total"]
-    lpre = H4b["L_union_pre_2018_23_total"]
+    lpre = H4b["L_union_pre_2018_23"]["total"]
+    lnr = H4b["L_noR24"]["total"]
+    f24c = pooled.loc[("F24", "predec_crf")] if ("F24", "predec_crf") in pooled.index else {"est": np.nan}
+    sdc = pooled.loc[("style_density", "predec_crf")] if ("style_density", "predec_crf") in pooled.index else \
+        {"est": np.nan}
+    adj = H4a["adjusted_stage_gains"]
+    g1 = hyp(rj(SNAP / "results.json"), "G1")["estimate"]
     return (f"Stage gains P(feature | passed stage) / P(feature | entered stage) for ICLR 2024-26 (year-standardised; "
             f"paper bootstrap stratified by year, B = 2000, 95% CIs). (a) Desk screen, author exit (withdrawal before "
             f"decision) and decision, and their product, the accepted/all ratio. NAME is slightly depleted before the "
             f"decision (exit {fci(sg['exit']['est'], sg['exit']['lo95'], sg['exit']['hi95'], d=3)}) and enriched at it "
             f"(decision {fci(sg['dec']['est'], sg['dec']['lo95'], sg['dec']['hi95'], d=3)}), netting to "
-            f"{pt['est']:.3f} (90% CI {pt['lo90']:.3f}-{pt['hi90']:.3f}, inside the [0.90, 1.11] equivalence margin); "
-            f"the 2024 slope break is similar in accepted, rejected and withdrawn pools (ORs {ip['ACC']['OR']:.2f} / "
-            f"{ip['REJ']['OR']:.2f} / {ip['WD']['OR']:.2f}, equality p = {H4a['its_wald']['p']:.2f}). Outsider markers "
-            f"are depleted ({fci(ou['est'], ou['lo95'], ou['hi95'], d=3)}), mostly at the decision stage, where "
-            f"camera-ready reformatting cannot be excluded; LLM-style markers mildly so "
-            f"({fci(lu['est'], lu['lo95'], lu['hi95'], d=3)}). (b) Accepted/all ratio by year (grey band: the "
+            f"{pt['est']:.3f} (90% CI {pt['lo90']:.3f}-{pt['hi90']:.3f}, inside the [0.90, 1.11] equivalence margin; "
+            f"editing-corrected on the complete arXiv audit: {g1.split('corrected 90% CI ')[1].split(';')[0]}); with "
+            f"topic, area and team-size adjustment the stage gains are indistinguishable from 1 (exit "
+            f"{adj['exit']['G_adj']:.3f}, decision {adj['decision']['G_adj']:.3f}). The 2024 slope break does not "
+            f"differ detectably between accepted, rejected and withdrawn pools (slope-change ORs, ITS 2018-26 with "
+            f"topic100 FE: {ip['ACC']['OR']:.2f} / {ip['REJ']['OR']:.2f} / {ip['WD']['OR']:.2f}, equality p = "
+            f"{H4a['its_wald']['p']:.2f}; equivalence not shown; D1's Table 2 fits ACC and REJ on 2017-26). Outsider markers are under-represented among accepted papers "
+            f"({fci(ou['est'], ou['lo95'], ou['hi95'], d=3)}), almost entirely at the decision stage, where camera-ready "
+            f"recasing cannot be excluded; the LLM-style union total ({fci(lu['est'], lu['lo95'], lu['hi95'], d=3)}) is "
+            f"not significant after Holm, and its pre-decision depletion is carried by R24 title words (without R24: "
+            f"{fci(lnr['est'], lnr['lo95'], lnr['hi95'], d=3)}); F24 and the abstract style density show a new small "
+            f"pre-decision depletion (camera-ready-free desk x exit {f24c['est']:.3f} and {sdc['est']:.3f}). "
+            f"Hollow markers: the decision stage, which is not "
+            f"identified against camera-ready edits (Figure 6b). (b) Accepted/all ratio by year (grey band: the "
             f"pre-registered [0.95, 1.10] band for NAME). The LLM-style union was enriched among accepted papers in "
-            f"2018-23 ({fci(lpre['est'], lpre['lo95'], lpre['hi95'], d=3)}) and is not after 2023. Decision-stage gains "
-            f"are not identified against camera-ready edits (Figure 6b).")
+            f"2018-23 ({fci(lpre['est'], lpre['lo95'], lpre['hi95'], d=3)}) and is not after 2023; R24 words were "
+            f"depleted by the same amount before 2024.")
 
 
 # ==============================================================================================
 # Figure 6: published-only bias and the camera-ready bound (D4 H4e + WP4)
 # ==============================================================================================
+ATLAS_LABEL = {
+    "RARE21 Kobak bound (2024-26 mean)": "Kobak LLM bound (F24)",
+    "ITS slope change (NAME), effect scale": "2024 slope change (effect scale)",
+    "Colon-premium trend, 2018-26 (decided-only)": "Colon-premium trend (decided)",
+    "Opener entropy, NAME-collapsed (rarefied)": "Opener entropy",
+    "Lexical turnover JSD (rarefied)": "Lexical turnover (JSD)",
+    "LLM abbreviation-only share": "LLM-abbreviation names",
+    "Style density (mean)": "Style density (abstract)",
+    "Title typography prevalence": "LLM typography (title)",
+    "O-union prevalence": "Outsider union",
+    "L-union prevalence": "LLM-style union",
+    "R24 prevalence": "R24 words (title)", "R26 prevalence": "R26 words (title)",
+    "F24 prevalence": "F24 words (abstract)", "F26 (abstract) prevalence": "F26 (abstract)",
+    "Phrase-colon prevalence": "Phrase colon",
+}
+AUDIT_ROWS = [("NAME", "NAME"), ("NAME_strict", "NAME strict"), ("NAME_loose", "NAME loose"),
+              ("compound", "Compound"), ("phrase_colon", "Phrase colon"), ("title_case", "Title Case"),
+              ("mixed_case_name", "Mixed-case name"), ("sentence_case", "Sentence case"),
+              ("O_union_arxiv", "Outsider w/o ALL-CAPS"), ("R24", "R24 words"), ("L_title_words", "R24 or R26 words"),
+              ("via", "'via' (control)"), ("F24", "F24 words (abstract)")]
+
+
 def fig6() -> str:
     at = rc(D4 / "atlas.csv")
     at = at[at["in_forest"].astype(bool)] if "in_forest" in at.columns else at
@@ -781,14 +891,13 @@ def fig6() -> str:
     cls_name = {"M": "Mainstream", "O": "Outsider", "L": "LLM-style"}
 
     style()
-    fig = plt.figure(figsize=(7.0, 4.6))
-    ax = fig.add_axes([0.235, 0.2, 0.29, 0.73])
-    bx = fig.add_axes([0.745, 0.2, 0.235, 0.73])
+    fig = plt.figure(figsize=(7.0, 4.75))
+    ax = fig.add_axes([0.235, 0.21, 0.27, 0.72])
+    bx = fig.add_axes([0.70, 0.21, 0.19, 0.72])
     # ---- a: atlas
     at = at.copy()
     at["cls"] = pd.Categorical(at["cls"], ["M", "O", "L"], ordered=True)
     at = at.sort_values(["cls"], kind="stable").reset_index(drop=True)
-    n = len(at)
     ypos = []
     y = 0.0
     prev = None
@@ -798,80 +907,80 @@ def fig6() -> str:
         ypos.append(y)
         prev = r["cls"]
         y -= 1.0
-    XMIN, XMAX = 0.5, 1.25
+    XMIN, XMAX = 0.25, 1.3
     ax.axvspan(0.9, 1.1, color=BAND_GREY, alpha=0.55, lw=0, zorder=0)
     ax.axvline(1, color=GREY, lw=0.8, ls=(0, (3, 2)), zorder=1)
     for yy, (_, r) in zip(ypos, at.iterrows()):
         col = cls_col[str(r["cls"])]
         e, lo, hi = r["ratio"], r["ratio_lo95"], r["ratio_hi95"]
-        if e < XMIN:
-            ax.plot([XMIN * 1.004], [yy], marker="<", ms=5.5, color=col, mec="white", mew=0.6, lw=0, zorder=4,
-                    clip_on=False)
-            ax.text(XMIN * 1.03, yy, f"{e:.2f}", fontsize=FS, color=TEXT2, va="center")
-            continue
-        dot_ci(ax, yy, e, max(lo, XMIN), min(hi, XMAX), col, ms=5, lw=1.4)
-    lab = (at["label"].astype(str).str.replace(" prevalence", "", regex=False)
-           .str.replace("RARE21 Kobak bound (2024-26 mean)", "Kobak LLM bound (F24)", regex=False)
-           .str.replace("Colon premium OR, 2024-26 (decided-only)", "Colon premium OR", regex=False)
-           .str.replace("Opener entropy, NAME-collapsed (rarefied)", "Opener entropy", regex=False)
-           .str.replace("Lexical turnover JSD (rarefied)", "Lexical turnover (JSD)", regex=False)
-           .str.replace("ITS slope-change OR (NAME)", "2024 slope-change OR", regex=False)
-           .str.replace("LLM abbreviation-only share", "LLM-abbreviation names", regex=False)
-           .str.replace("Style density (mean)", "Style density (abstract)", regex=False)
-           .str.replace("Title typography", "LLM typography (title)", regex=False)
-           .str.replace("O-union", "Outsider union", regex=False)
-           .str.replace("L-union", "LLM-style union", regex=False)
-           .replace({"R24": "R24 words (title)", "R26": "R26 words (title)", "F24": "F24 words (abstract)",
-                     "F26": "F26 (abstract)", "Phrase-colon": "Phrase colon"}))
+        effect = str(r["scale"]).startswith("effect")
+        band = str(r["interval_type"]).startswith("random-selection")
+        ax.plot([max(lo, XMIN), min(hi, XMAX)], [yy, yy], color=col, lw=1.4, solid_capstyle="butt", zorder=3,
+                ls=(0, (2, 1.2)) if band else "-")
+        if lo < XMIN:   # arrow head kept inside the axes so it does not run into the tick label
+            ax.plot([XMIN * 1.045], [yy], marker="<", ms=5, color=col, lw=0, zorder=4)
+        if effect:
+            ax.plot([e], [yy], marker="D", ms=4.6, mfc="white", mec=col, mew=1.3, lw=0, zorder=5)
+        else:
+            ax.plot([e], [yy], marker="o", ms=5, color=col, mec="white", mew=0.8, lw=0, zorder=5)
+    lab = at["label"].astype(str).map(lambda x: ATLAS_LABEL.get(x, x.replace(" prevalence", "")))
     ax.set_yticks(ypos, lab)
     hide_y_grid(ax)
     ax.set_ylim(min(ypos) - 0.7, 0.7)
     ax.set_xscale("log")
     ax.set_xlim(XMIN, XMAX)
-    ax.set_xticks([0.5, 0.7, 0.9, 1.1], ["0.5", "0.7", "0.9", "1.1"])
+    ax.set_xticks([0.25, 0.5, 0.7, 0.9, 1.1], ["0.25", "0.5", "0.7", "0.9", "1.1"])
     ax.minorticks_off()
     ax.set_xlabel("Accepted-only / all submissions (log)")
     ax.legend([Line2D([], [], color=cls_col[k], lw=1.4, marker="o", ms=5, mec="white") for k in ("M", "O", "L")]
-              + [Patch(color=BAND_GREY, alpha=0.55, lw=0)],
-              [cls_name[k] for k in ("M", "O", "L")] + ["±10%"], loc="upper center", bbox_to_anchor=(0.2, -0.115),
-              ncol=4, frameon=False, columnspacing=0.8, handlelength=1.3, handletextpad=0.4)
+              + [Line2D([], [], color=GREY, lw=0, marker="D", ms=4.6, mfc="white", mec=GREY, mew=1.3),
+                 Patch(color=BAND_GREY, alpha=0.55, lw=0)],
+              [cls_name[k] for k in ("M", "O", "L")] + ["log-OR ratio", "±10%"], loc="upper center",
+              bbox_to_anchor=(0.25, -0.105), ncol=5, frameon=False, columnspacing=0.7, handlelength=1.2,
+              handletextpad=0.35)
     panel_title(ax, "a", "What a published-only study would see")
 
-    # ---- b: audit net-flip DiD vs tipping point (auditable features only)
-    fam_cls = {"M": "M", "ortho": "M", "O": "O", "L": "L", "casing": "O", "ctrl": None}
-    tq = tp[tp["auditable"].astype(bool)].copy()
+    # ---- b: complete arXiv audit, net-flip DiD vs tipping point; right column: Holm-adjusted identification p
+    tpi = tp.set_index("feature")
     ab = rc(SNAP / "abstract_audit.csv")
-    ab = ab[ab["auditable"].astype(bool) & ab["feature"].isin(["F24"])]
-    ab = pd.DataFrame({"feature": ab["feature"], "label": "F24 words (abstract)", "family": "L",
-                       "did_pp": ab["tp_did_pp"], "did_lo_pp": ab["tp_did_lo_pp"], "did_hi_pp": ab["tp_did_hi_pp"],
-                       "tip_dec_pp": ab["tp_tip_dec_pp"], "G_dec_obs": ab["tp_G_dec_obs"],
-                       "G_dec_identified": ab["tp_G_dec_identified"]})
-    tq = pd.concat([tq, ab], ignore_index=True)
-    tq["cls"] = tq["family"].map(fam_cls)
-    tq.loc[tq["feature"].isin(["F24", "L_abstract", "L_abs_words", "F24_2", "F26_words"]), "cls"] = "L"
-    m = len(tq)
+    ab = ab[(ab["spec"] == "abs_2024_26")].set_index("feature")
+    fam_cls = {"M": "M", "ortho": "M", "O": "O", "L": "L", "casing": "O", "ctrl": None}
     rowsB = []
-    for i, (_, r) in enumerate(tq.iterrows()):
+    m = len(AUDIT_ROWS)
+    for i, (k, lbl) in enumerate(AUDIT_ROWS):
         yy = m - 1 - i
-        col = cls_col.get(r["cls"], GREY) if isinstance(r["cls"], str) else GREY
+        if k == "F24":
+            q = ab.loc["F24"]
+            r = dict(did_pp=q["tp_did_pp"], did_lo_pp=q["tp_did_lo_pp"], did_hi_pp=q["tp_did_hi_pp"],
+                     tip=q["tp_tip_total_pp"], tip_kind="G_total", auditable=bool(q["auditable"]), p_holm=np.nan,
+                     cls="L", G_obs=q["tp_G_total_obs"])
+        else:
+            q = tpi.loc[k]
+            r = dict(did_pp=q["did_pp"], did_lo_pp=q["did_lo_pp"], did_hi_pp=q["did_hi_pp"], tip=q["tip_dec_pp"],
+                     tip_kind="G_dec", auditable=bool(q["auditable"]), p_holm=q["p_holm_dec"],
+                     cls=fam_cls.get(q["family"]), G_obs=q["G_dec_obs"])
+        col = cls_col.get(r["cls"], GREY) if r["cls"] else GREY
         dot_ci(bx, yy, r["did_pp"], r["did_lo_pp"], r["did_hi_pp"], col, ms=5, lw=1.4)
-        bx.plot([r["tip_dec_pp"]], [yy], marker="D", ms=4.6, mfc="white", mec=TEXT, mew=1.1, lw=0, zorder=6)
-        rowsB.append({"feature": r["feature"], "label": r["label"], "class": r["cls"], "did_pp": r["did_pp"],
-                      "did_lo95_pp": r["did_lo_pp"], "did_hi95_pp": r["did_hi_pp"], "tip_dec_pp": r["tip_dec_pp"],
-                      "G_dec_obs": r["G_dec_obs"], "G_dec_identified": r["G_dec_identified"]})
+        bx.plot([r["tip"]], [yy], marker="D", ms=4.6, mfc="none", mec=TEXT, mew=1.1, lw=0, zorder=6)
+        ptxt = "—" if not np.isfinite(r["p_holm"]) else (f"{r['p_holm']:.2f}" if r["p_holm"] < 0.995 else "1")
+        bx.text(1.04, yy, ptxt, transform=bx.get_yaxis_transform(), fontsize=FS, color=TEXT, va="center",
+                ha="left")
+        rowsB.append({"feature": k, "label": lbl, "class": r["cls"], "did_pp": r["did_pp"],
+                      "did_lo95_pp": r["did_lo_pp"], "did_hi95_pp": r["did_hi_pp"], "tipping_pp": r["tip"],
+                      "tipping_for": r["tip_kind"], "G_obs": r["G_obs"], "auditable": r["auditable"],
+                      "p_holm_dec": r["p_holm"]})
+    bx.text(1.04, m - 0.3, "Holm p", transform=bx.get_yaxis_transform(), fontsize=FS, color=TEXT2,
+            va="center", ha="left")
+    bx.axhline(0.5, color=GRID, lw=0.8, zorder=0)
     bx.axvline(0, color=GREY, lw=0.8, ls=(0, (3, 2)), zorder=1)
-    lbl = (tq["label"].astype(str).str.replace("NAME (primary)", "NAME", regex=False)
-           .str.replace("F24 (RARE21 >= 1)", "F24 words (abstract)", regex=False)
-           .str.replace("L-abstract union", "LLM abstract union", regex=False)
-           .str.replace("F24 or F26 words", "F24 or F26 words (abstract)", regex=False)
-           .str.replace("O-union", "Outsider union", regex=False))
-    bx.set_yticks(range(m - 1, -1, -1), lbl)
+    bx.set_yticks(range(m - 1, -1, -1), [lbl for _, lbl in AUDIT_ROWS])
     hide_y_grid(bx)
-    bx.set_ylim(-0.7, m - 0.3)
+    bx.set_ylim(-0.7, m + 0.1)
+    bx.set_xlim(-3.6, 4.6)
     bx.set_xlabel("Net-flip DiD (pp)")
     bx.legend([Line2D([], [], color=BLUE, lw=1.4, marker="o", ms=5, mec="white"),
                Line2D([], [], lw=0, marker="D", ms=4.6, mfc="white", mec=TEXT, mew=1.1)],
-              ["Audit DiD (95% CI)", "Tipping point D*"], loc="upper center", bbox_to_anchor=(0.35, -0.115), ncol=2,
+              ["Audit DiD (95% CI)", "Tipping point D*"], loc="upper center", bbox_to_anchor=(0.3, -0.105), ncol=2,
               frameon=False, columnspacing=0.8, handlelength=1.3, handletextpad=0.4)
     panel_title(bx, "b", "Camera-ready audit")
 
@@ -879,37 +988,90 @@ def fig6() -> str:
 
     H4e = r4["hypotheses"]["H4e"]["estimates"]
     bycls = {d_["cls"]: d_ for d_ in H4e["by_class"]}
-    nm = tq.set_index("feature").loc["NAME"]
+    nm = tpi.loc["NAME"]
     meta = sres.get("meta", {})
-    npair = meta.get("n_pairs_primary")
+    npair = (meta.get("n_pairs") or {}).get("primary") if isinstance(meta.get("n_pairs"), dict) else None
     sb2 = hyp(sres, "SB2")
+    g1 = hyp(sres, "G1")
     kob = at[at["label"].astype(str).str.contains("Kobak")]
+    its = at[at["label"].astype(str).str.startswith("ITS slope change")]
     kob_txt = (f"; the accepted-only Kobak-style LLM bound is {kob.iloc[0]['ratio']:.2f} of the all-submission bound"
                if len(kob) else "")
+    its_txt = (f" A published-only study halves the 2024 NAME slope change (ratio of log-ORs "
+               f"{fci(its.iloc[0]['ratio'], its.iloc[0]['ratio_lo95'], its.iloc[0]['ratio_hi95'])})." if len(its) else "")
+    fa = ab.loc["F24"]
     return (f"How far a study of accepted papers alone would be from the full submission pool (2024-26). (a) "
-            f"Accepted-only / all-submission ratio for {len(at)} pre-registered fashion statistics (95% CIs; grey band "
-            f"±10%). Mainstream statistics are within ±10% in {bycls['M']['within']}/{bycls['M']['n']} cases (median "
-            f"|log ratio| {bycls['M']['median_abs_log']:.3f}); deviations concentrate in outsider "
+            f"Accepted-only / all-submission ratio for {len(at)} fashion statistics (the PLAN §D4 list plus O and L "
+            f"prevalence rows added beyond it; 95% CIs, for prevalences the stage-gain bootstrap; dashed: "
+            f"random-selection null bands for entropy and JSD; hollow diamonds: OR statistics compared on the log-OR "
+            f"scale; grey band ±10%). Mainstream statistics are within ±10% in {bycls['M']['within']}/{bycls['M']['n']} "
+            f"cases (median |log ratio| {bycls['M']['median_abs_log']:.3f}); deviations concentrate in outsider "
             f"({bycls['O']['within']}/{bycls['O']['n']} within) and LLM-style markers ({bycls['L']['within']}/"
-            f"{bycls['L']['n']}){kob_txt}. (b) arXiv camera-ready audit (pre-decision v1 vs stored title, or abstract for "
-            f"F24; accepted minus rejected net flips; {'' if npair is None else f'{npair} pairs; '}auditable features "
-            f"only; grey: the 'via' control word): the "
-            f"decision-stage gain of a feature is identified only if its tipping point D* lies outside the 95% CI. For "
-            f"NAME the DiD is {nm['did_pp']:+.2f} pp [{nm['did_lo_pp']:.2f}, {nm['did_hi_pp']:.2f}] against "
-            f"D* = {nm['tip_dec_pp']:.2f} pp; {sb2['estimate']}. Acceptance associations of title features are therefore "
-            f"associational and not separated from camera-ready editing.")
+            f"{bycls['L']['n']}){kob_txt}.{its_txt} (b) Complete arXiv camera-ready audit "
+            f"({'' if npair is None else f'{npair} pre-decision pairs, 2023-26; '}pre-decision v1 vs stored title; "
+            f"accepted minus rejected net flips, pseudo-flip 95% CI; F24: v1 vs stored abstract, 2024-26 pairs, "
+            f"tipping point for G_total; title rows: tipping point for G_dec). A decision-stage acceptance "
+            f"association is identified only if the feature is auditable (arXiv channel and >= 10 v1-present titles "
+            f"per arm), its editing-corrected 95% CI excludes 1 and its identification p (DiD against D*) survives "
+            f"Holm at one-sided 0.025 across the 18 auditable title features (right column). For NAME the DiD is {nm['did_pp']:+.2f} pp [{nm['did_lo_pp']:.2f}, "
+            f"{nm['did_hi_pp']:.2f}] against D* = {nm['tip_dec_pp']:.2f} pp; {sb2['estimate'].split(';')[0]}; the "
+            f"NAME total ratio stays inside ±10% after the editing correction "
+            f"({g1['estimate'].split('corrected 90% CI ')[1].split(';')[0]}, 90%). F24 abstract DiD "
+            f"{fa['tp_did_pp']:+.2f} pp [{fa['tp_did_lo_pp']:.2f}, {fa['tp_did_hi_pp']:.2f}]. ALL-CAPS titles, title "
+            f"typography and the abstract em dash cannot be audited through arXiv. Acceptance associations of title "
+            f"features are associational and not separated from camera-ready editing.")
 
 
 # ==============================================================================================
 # Table 1: pre-registered hypotheses, estimates and verdicts
 # ==============================================================================================
-def _verdict(v) -> str:
-    v = str(v).replace("_", " ").strip().strip('"')
-    v = v.split(";")[0].strip()
-    rep = {"not established year level": "not established (year level)",
-           "supported on the pre-registered groups": "supported on pre-registered groups",
-           "not supported": "not supported"}
-    return rep.get(v, v)
+# Final post-audit verdicts, worded compactly for the table. Keyed by (hypothesis, verdict code stored upstream): if an
+# upstream verdict changes, the lookup fails loudly instead of printing a stale label (integration pass).
+FINAL_VERDICT = {
+    ("H1a", "partially_supported"): "Partially supported: the trend accelerated, but a dated 2024 break is not "
+                                    "identified (year-level CI includes 1; null without 2026)",
+    ("H1b", "partially_supported"): "Not falsified, prediction fails: content share 0.37-0.65 across specifications; "
+                                    "'minority' not established",
+    ("H1c", "not_established_year_level"): "Not established at the year level (positive point estimate; fails Holm; "
+                                           "CI includes 0 in NA pool and non-LLM subset)",
+    ("H1d", "partially_supported"): "Partially supported: met in 2024 and 2026, not in 2025; far from the 0.50 line",
+    ("H1e", "supported"): "Supported as pre-registered for the abstract fingerprint; not robust as a bound; D3 positive "
+                          "control fails on D1's own fingerprint",
+    ("H2a", "not identified"): "Not identified: a generational null with the observed co-authorship also meets it",
+    ("H2b", "supported on the pre-registered groups; magnitude not robust"): "Supported on pre-registered groups; "
+                                                                             "magnitude not robust",
+    ("H2c", "not supported"): "Not supported (not falsified): newcomer-free teams changed less than predicted",
+    ("H2d", "supported (channel contrast); slope criterion not diagnostic"): "Supported for the style-vs-topic contrast; "
+                                                                             "slope criterion not diagnostic",
+    ("H2e", "inconclusive"): "Inconclusive",
+    ("S2.1", "NAME not added on net; lag behind content-fixed drift not established"):
+        "NAME not added on net within retitled projects; lag behind drift not established",
+    ("S2.2", "inconclusive"): "Inconclusive: positive control not detected in the primary specification",
+    ("H3a", "supported"): "Supported (pre-registered spec); OR >= 2 depends on 'enhancing'; not sharply dated against "
+                          "2023; addition rather than substitution",
+    ("H3b", "thresholds met (descriptive); register turnover not identified"): "Thresholds met (descriptive); no register "
+                                                                               "turnover identified",
+    ("H3c", "prediction met; vintage reading not established"): "Prediction met; vintage reading not established",
+    ("H3d", "partially supported"): "Partially supported: ratio > 1 marginal against the population comparator; 1.5x "
+                                    "not met",
+    ("H3e", "unresolved"): "Unresolved (exploratory): no second-hand-diffusion claim",
+    ("H4a", "supported"): "Supported, robust to camera-ready editing; a small decision-stage premium is not identified",
+    ("H4b", "partially_supported"): "Partially supported: L total fails Holm; the L-union depletion is R24-driven and "
+                                    "pre-dates 2024 (F24 and style density: new 3-4% pre-decision depletion); O "
+                                    "shortfall not identified as selection",
+    ("H4c", "partially_supported"): "Partially supported: direction only; >= 15% not established; falsified under a "
+                                    "post hoc pre-ChatGPT baseline",
+    ("H4d", "partially_supported"): "Partially supported: contrast holds, but the excess is mostly topic composition",
+    ("H4e", "partially_supported"): "Partially supported (descriptive): prevalences reproduced; 2024 break halved",
+}
+
+
+def _verdict(hid: str, code) -> str:
+    code = str(code).strip()
+    if (hid, code) not in FINAL_VERDICT:
+        raise KeyError(f"table1: upstream verdict for {hid} is '{code}', which has no reviewed wording; update "
+                       "FINAL_VERDICT after checking the direction's RESULTS.md")
+    return FINAL_VERDICT[(hid, code)]
 
 
 def table1() -> str:
@@ -922,7 +1084,7 @@ def table1() -> str:
 
     def add(dirn, hid, pred, est, verdict, p):
         rows.append({"direction": dirn, "ID": hid, "Prediction": pred, "Estimate (95% CI)": est,
-                     "Verdict": _verdict(verdict), "Holm p": p})
+                     "Final verdict (post-audit)": _verdict(hid, verdict), "Holm p": p})
 
     D1n = "D1 The naming acceleration: content, composition or tool"
     a = r1["H1a"]
@@ -948,9 +1110,11 @@ def table1() -> str:
         f"(2024/25/26)", d["verdict"], fp(d["holm_adjusted_p"]))
     e = r1["H1e"]
     f0 = e["f0_rise"]["F_d1"]["2026"]
+    pc = e["positive_control_D3"]["H3d_slot_uplift_F_d1"]
     add(D1n, "H1e", "Tool bounded: F = 0 rise ≥ 85% of total; δ ≤ 5 pp; tool share at A = 0.39 < 0.25",
         f"F = 0 rise / total {fci(f0['ratio_F0_all'], *f0['ratio_ci'])}; δ {e['tool']['delta_primary']['delta'] * 100:+.1f} pp; "
-        f"tool share {fci(e['tool_share_0.39_corrected_2026']['share'], e['tool_share_0.39_corrected_2026']['lo'], e['tool_share_0.39_corrected_2026']['hi'])}",
+        f"tool share {fci(e['tool_share_0.39_corrected_2026']['share'], e['tool_share_0.39_corrected_2026']['lo'], e['tool_share_0.39_corrected_2026']['hi'])}; "
+        f"positive control on F_d1: slot OR {fci(pc['OR_slot'], *pc['OR_slot_ci'])}",
         e["verdict"], fp(e["holm_adjusted_p"]))
 
     D2n = "D2 Who carries the change (declared profile keys)"
@@ -982,6 +1146,15 @@ def table1() -> str:
     add(D2n, "H2e", "Pre-LLM (2018→20, email keys): ≥ 50% of the NAME rise within stayers",
         f"ρ_NAME {fci(h['name_any']['est'], h['name_any']['lo'], h['name_any']['hi'])}; literal Kitagawa share "
         f"{fnum(h['name_any_kitagawa_share']['est'])}", hyp(r2, "H2e")["verdict"], fp(hyp(r2, "H2e")["p_holm"]))
+    s1, s2_ = r2["supporting"]["S2_1"], r2["supporting"]["S2_2"]
+    add(D2n, "S2.1", "Retitled resubmissions (destination ≥ 2024) do not add NAME on net",
+        f"ΔNAME {s1['mean_dNAME']:+.3f} (se {s1['se']:.3f}; {s1['adds']} adds, {s1['drops']} drops, n = "
+        f"{s1['n_pairs']}); minus topic-adjusted drift {s1['change_minus_drift_topicadj'] * 100:+.1f} pp",
+        s1["verdict"], "expl.")
+    q = s2_["primary"]["name_primary"]
+    add(D2n, "S2.2", "Future-tie placebo: past-collaborator exposure no larger than future-collaborator exposure",
+        f"past {q['b_expo_past']:+.3f} vs future {q['b_expo_future']:+.3f}; difference {q['past_minus_future']:+.3f} "
+        f"(se {q['se_diff']:.3f}; MDE {q['mde_diff']:.2f})", s2_["verdict"], "expl.")
 
     D3n = "D3 The machine register"
     h = hyp(r3, "H3a")["estimates"]
@@ -991,67 +1164,86 @@ def table1() -> str:
         f"{fci(h['stacked_interaction']['OR'], h['stacked_interaction']['lo'], h['stacked_interaction']['hi'])}",
         hyp(r3, "H3a")["verdict"], fp(hyp(r3, "H3a")["p_holm"]))
     h = hyp(r3, "H3b")["estimates"]
+    rrr = h["neutral_synonym_benchmark"]["all|R24_vs_N24_ratio_of_RR"]
     add(D3n, "H3b", "2025→26 within area: R24 falls in ≥ 10/16, R26 rises in ≥ 12/16",
-        f"R24 down {h['r24_down']}, R26 up {h['r26_up']}; rate per 1k R24 {h['rates_per_1k']['all|r24_any']['r2025']:.1f} → "
-        f"{h['rates_per_1k']['all|r24_any']['r2026']:.1f}, R26 {h['rates_per_1k']['all|r26_any']['r2025']:.1f} → "
-        f"{h['rates_per_1k']['all|r26_any']['r2026']:.1f}", hyp(r3, "H3b")["verdict"], fp(hyp(r3, "H3b")["p_holm"]))
-    h = hyp(r3, "H3c")["estimates"]["primary"]
+        f"R24 down {h['r24_down']}, R26 up {h['r26_up']}; R24 relative to neutral synonyms "
+        f"{fci(rrr['ratio'], rrr['lo'], rrr['hi'])}", hyp(r3, "H3b")["verdict"], fp(hyp(r3, "H3b")["p_holm"]))
+    h = hyp(r3, "H3c")["estimates"]
+    hp, hc = h["primary"], h["co_primary_shared_lemma_free"]
     add(D3n, "H3c", "Vintage alignment: OR(F24 → R24) > OR(F26 → R24), 2025–26",
-        f"{fnum(h['OR_a'])} vs {fnum(h['OR_b'])}; ratio {fci(h['ratio'], *h['ratio_ci'])}",
+        f"{fnum(hp['OR_a'])} vs {fnum(hp['OR_b'])}; ratio {fci(hp['ratio'], *hp['ratio_ci'])}; shared-lemma-free "
+        f"{fci(hc['ratio'], *hc['ratio_ci'])} with OR(F24) {fnum(hc['OR_a'])}",
         hyp(r3, "H3c")["verdict"], fp(hyp(r3, "H3c")["p_holm"]))
-    h = hyp(r3, "H3d")["estimates"]["primary"]
+    hd = hyp(r3, "H3d")
+    h = hd["estimates"]["primary"]
+    pcmp = hd["estimates"]["population_comparator"]
     add(D3n, "H3d", "Lexical signature: OR(F → slot variant) ≥ 1.5 × OR(F → NAME)",
-        f"{fci(h['OR_slot'], h['OR_slot_lo'], h['OR_slot_hi'])} vs {fci(h['OR_name'], h['OR_name_lo'], h['OR_name_hi'])}; "
-        f"ratio {fci(h['ratio'], h['ratio_lo'], h['ratio_hi'])}", hyp(r3, "H3d")["verdict"], fp(hyp(r3, "H3d")["p_holm"]))
+        f"OR_slot {fci(h['OR_slot'], h['OR_slot_lo'], h['OR_slot_hi'])} vs OR_NAME (all papers) "
+        f"{fci(pcmp['OR_name_pop'], *pcmp['OR_name_pop_ci'])}; ratio {fci(pcmp['ratio'], *pcmp['ratio_ci'])} "
+        f"(same-paper comparator, collider-conditioned: {fnum(h['ratio'])})", hd["verdict"],
+        f"{fp(hd['p_holm_sensitivity'])} (pop.)")
     h = hyp(r3, "H3e")["estimates"]["primary"]
     add(D3n, "H3e", "Exploratory: second-hand diffusion claimed only if U* > 0.8",
         f"U* {fci(h['U_star'], h['U_lo'], h['U_hi'])}; contamination-corrected {fnum(h['U_star_corrected'])}",
-        "unresolved" if str(hyp(r3, "H3e")["verdict"]).startswith("not") else hyp(r3, "H3e")["verdict"], "expl.")
+        "unresolved" if str(hyp(r3, "H3e")["verdict"]).lower().startswith(("not", "unresolved")) else
+        hyp(r3, "H3e")["verdict"], "expl.")
 
     D4n = "D4 The gatekeeper (2024–26 pooled)"
     H = r4["hypotheses"]
+    g1 = hyp(rs, "G1")["estimate"].split("corrected 90% CI ")[1].split(";")[0]
     h = H["H4a"]["estimates"]
     add(D4n, "H4a", "NAME accepted/all in [0.95, 1.10] every year; TOST in [0.90, 1.11]; equal break across pools",
-        f"G_total {(h.get('tost') or h['pooled_2024_26_std'])['est']:.3f} (90% CI "
-        f"{(h.get('tost') or h['pooled_2024_26_std'])['lo90']:.3f}–{(h.get('tost') or h['pooled_2024_26_std'])['hi90']:.3f}); "
-        f"pool break ORs {h['its_pools']['ACC']['OR']:.2f} / "
-        f"{h['its_pools']['REJ']['OR']:.2f} / {h['its_pools']['WD']['OR']:.2f}, p = {h['its_wald']['p']:.2f}",
-        H["H4a"]["verdict"], "—")
+        f"G_total {h['tost']['est']:.3f} (90% CI {h['tost']['lo90']:.3f}–{h['tost']['hi90']:.3f}; editing-corrected "
+        f"{g1}); pool break ORs (ITS 2018–26) {h['its_pools']['ACC']['OR']:.2f} / {h['its_pools']['REJ']['OR']:.2f} / "
+        f"{h['its_pools']['WD']['OR']:.2f}, p = {h['its_wald']['p']:.2f}",
+        H["H4a"]["verdict"], fp(H["H4a"]["p_holm"]))
     h = H["H4b"]["estimates"]
-    add(D4n, "H4b", "LLM-style and outsider unions depleted (accepted/all < 1)",
-        f"LLM-style {fci(h['L_union_total']['est'], h['L_union_total']['lo95'], h['L_union_total']['hi95'], d=3)}; "
-        f"outsider {fci(h['O_union_total']['est'], h['O_union_total']['lo95'], h['O_union_total']['hi95'], d=3)}",
-        H["H4b"]["verdict"], "—")
+    add(D4n, "H4b", "LLM-style and outsider unions depleted (accepted/all < 1); L desk × exit < 1",
+        f"LLM-style {fci(h['L_union_total']['est'], h['L_union_total']['lo95'], h['L_union_total']['hi95'], d=3)} "
+        f"(without R24 {fnum(h['L_noR24']['total']['est'], 3)}); desk × exit "
+        f"{fnum(h['L_union_predec']['est'], 3)}; outsider "
+        f"{fci(h['O_union_total']['est'], h['O_union_total']['lo95'], h['O_union_total']['hi95'], d=3)}",
+        H["H4b"]["verdict"], fp(H["H4b"]["p_holm"]))
     h = H["H4c"]["estimates"]["ratio_acc_all"]
     add(D4n, "H4c", "Accepted-only Kobak LLM bound ≤ 0.85 × all-submission bound in each of 2024–26",
         f"ratios {h['2024']['ratio']:.2f} / {h['2025']['ratio']:.2f} / {h['2026']['ratio']:.2f} "
-        f"(2024 CI [{h['2024']['lo95']:.2f}, {h['2024']['hi95']:.2f}])", H["H4c"]["verdict"], "—")
+        f"(2024 CI [{h['2024']['lo95']:.2f}, {h['2024']['hi95']:.2f}])", H["H4c"]["verdict"], fp(H["H4c"]["p_holm"]))
     h = H["H4d"]["estimates"]
+    pr, tf = h["primary"], h["topic100_FE"]
     add(D4n, "H4d", "Withdrawn vs rejected: NAME > 0 across papers, ≤ 0 within last-position key",
-        f"{h['cross_pp']['est']:+.2f} vs {h['within_pp']['est']:+.2f} pp; difference {h['diff_pp']['est']:.2f} pp "
-        f"(se {h['diff_pp']['se']:.2f})", H["H4d"]["verdict"], "—")
+        f"{pr['cross']:+.2f} vs {pr['within']:+.2f} pp; difference {pr['diff']:.2f} pp (se {pr['diff_se']:.2f}); "
+        f"with topic100 FE cross {tf['cross']:+.2f} [{tf['cross_lo95']:.2f}, {tf['cross_hi95']:.2f}]",
+        H["H4d"]["verdict"], fp(H["H4d"]["p_holm"]))
     h = H["H4e"]["estimates"]
     bc = {x["cls"]: x for x in h["by_class"]}
     add(D4n, "H4e", "Descriptive: published-only atlas within ±10% for mainstream statistics",
         f"mainstream {bc['M']['within']}/{bc['M']['n']}, outsider {bc['O']['within']}/{bc['O']['n']}, "
         f"LLM-style {bc['L']['within']}/{bc['L']['n']} within ±10%", H["H4e"]["verdict"], "descr.")
-    sb1, sb2 = hyp(rs, "SB1"), hyp(rs, "SB2")
+    sb2 = hyp(rs, "SB2")
     nm = rc(SNAP / "T4_2_tipping_points.csv").set_index("feature").loc["NAME"]
-    add(D4n, "Gate", "A decision-stage gain enters the headline only if its tipping point lies outside the audit CI",
-        f"NAME DiD {nm['did_pp']:+.2f} pp [{nm['did_lo_pp']:.2f}, {nm['did_hi_pp']:.2f}] vs D* {nm['tip_dec_pp']:.2f} pp; "
-        f"{sb2['estimate'].split(';')[0]}", "no title feature passes", "—")
+    rows.append({"direction": D4n, "ID": "Gate",
+                 "Prediction": "A decision-stage gain enters the headline only if its tipping point lies outside the "
+                               "audit CI (Holm across auditable features)",
+                 "Estimate (95% CI)": f"NAME DiD {nm['did_pp']:+.2f} pp [{nm['did_lo_pp']:.2f}, {nm['did_hi_pp']:.2f}] "
+                                      f"vs D* {nm['tip_dec_pp']:.2f} pp; {sb2['estimate'].split(';')[0]}",
+                 "Final verdict (post-audit)": "No title-feature acceptance association identified",
+                 "Holm p": "—"})
 
     df = pd.DataFrame(rows)
     write_table(df, "table1_hypotheses",
-                "Pre-registered hypotheses: estimates and verdicts (all numbers regenerated in the harmonised pipeline).",
-                "tab:hypotheses", "l p{3.9cm} p{5.7cm} p{2.3cm} r", group_col="direction",
+                "Pre-registered hypotheses: estimates and final post-audit verdicts (discovery split; all numbers "
+                "regenerated after the three audits of each direction).",
+                "tab:hypotheses", "l p{3.4cm} p{5.0cm} p{3.6cm} r", group_col="direction", size=r"\scriptsize",
                 notes=("Holm p: one-sided, Holm-adjusted within each direction's confirmatory family (D1 uses the "
-                       "year-level tests for H1a and H1c; the p-values test the falsification boundary). D4 reports no "
-                       "Holm family (—); its tests are equivalence (TOST), bootstrap and Wald tests described in the text. "
-                       "expl. = exploratory; descr. = descriptive. ρ = stayer-to-population change ratio; G = generational "
-                       "increment; D* = tipping point of the camera-ready net-flip DiD."))
-    return ("Pre-registered hypotheses H1a-H4e and the decision-stage gate: prediction, regenerated estimate with 95% CI, "
-            "verdict under the pre-registered falsification rule, and Holm-adjusted one-sided p within each direction.")
+                       "year-level tests for H1a and H1c; D1 and D4 p-values test the falsification boundary or an "
+                       "intersection-union of the pre-registered sub-tests; H3d shows the sensitivity family with the "
+                       "population NAME comparator). expl. = exploratory; descr. = descriptive. ρ = stayer-to-population "
+                       "change ratio; G = generational increment; D* = tipping point of the camera-ready net-flip DiD. "
+                       "Discovery-split verdicts are not confirmations; the held-out tests CT1-CT12 are pre-registered "
+                       "in outputs/prereg/."))
+    return ("Pre-registered hypotheses H1a-H4e, the supporting tests S2.1-S2.2 and the decision-stage gate: prediction, "
+            "regenerated estimate with 95% CI, final post-audit verdict and Holm-adjusted one-sided p within each "
+            "direction.")
 
 
 # ==============================================================================================
@@ -1062,13 +1254,15 @@ def table2() -> str:
     yl = rc(D1 / "its_year_level.csv").set_index("population")
     r1 = rj(D1 / "results.json")
     rep = r1["H1c"]["replications"]
+    ip18 = rj(D4 / "results.json")["hypotheses"]["H4a"]["estimates"]["its_pools"]
+    pool18 = " / ".join(f"{k} {ip18[k]['OR']:.3f}" for k in ("ACC", "REJ", "WD"))
     sel = [  # (spec, pool, subset, years, outcome, topics, label, year-level key, H1c key)
         ("U, topic100 FE (primary)", "primary", "All submissions (primary)", "U", "R1|U|primary|rolling"),
         ("NA pool", "primary", "Camera-ready-free pool (NA)", "NA pool", "R1|NA|primary|rolling"),
         ("non-LLM subset", "primary", "Non-LLM-topic subset", "non-LLM subset", "R1|non_llm|primary|rolling"),
         ("NA pool x non-LLM", "primary", "NA pool × non-LLM", None, None),
-        ("ACC pool", "primary", "Accepted pool", None, None),
-        ("REJ pool", "primary", "Rejected pool", None, None),
+        ("ACC pool", "primary", "Accepted pool (2017–26)", None, None),
+        ("REJ pool", "primary", "Rejected pool (2017–26)", None, None),
         ("WD pool", "primary", "Withdrawn pool (2018–26)", None, None),
         ("excluding 2026", "primary", "Excluding 2026", "U excluding 2026", "excl2026"),
         ("without 2019", "primary", "Without 2019", None, "no2019"),
@@ -1116,7 +1310,9 @@ def table2() -> str:
                        "random-effects meta-regression on adjusted year effects (t, 6 df). LPM: linear probability "
                        "analogue. Δu: mean content-unexplained annual change 2024-26 minus 2019-23 from the rolling "
                        "name-masked R1 content model (conditional paper bootstrap; the two-stage year-level CI for the "
-                       "primary is in Table 1). — = not estimated for that sample."))
+                       "primary is in Table 1). — = not estimated for that sample. Pool rows: accepted and rejected "
+                       "pools 2017-26, withdrawn 2018-26 (the D1 window); D4 fits all three pools on 2018-26 for H4a "
+                       "(Table 1, Fig. 5: " + pool18 + ")."))
     prim = df.iloc[0]
     return ("The NAME acceleration across pools, subsets, years and NAME definitions: segmented-logit slope change "
             f"(primary {prim['Slope change OR/yr']}), its year-level analogue, the LPM slope change, and the "
@@ -1181,13 +1377,24 @@ def table4() -> str:
     pv = pv[(pv["variant"] == "primary") & (pv["pooling"] == "std") & (pv["period"] == "2024-26") &
             (pv["stage"] == "s0")].set_index("feature")["prev"]
     tp = rc(SNAP / "T4_2_tipping_points.csv").set_index("feature")
-    ab = rc(SNAP / "abstract_audit.csv").set_index("feature")
+    ab = rc(SNAP / "abstract_audit.csv")
+    ab = ab[ab["spec"] == "abs_2024_26"].set_index("feature")    # WP4 primary abstract audit (2024-26 pairs)
+    tp["passes_gate"] = tp["passes_holm_dec"].astype(bool)
+    # channel rule (integration pass 2): for features arXiv metadata cannot carry (ALL-CAPS titles, title typography,
+    # the unions containing them, the abstract em dash) the "net flip" is only the stored prevalence, so no DiD or D*
+    # is printed for them
+    fm = rc(SNAP / "T4_2_flip_matrices.csv")
+    fm = fm[fm["spec"] == "primary"].set_index("feature")
+    tp["channel_ok"] = fm["channel_ok"].reindex(tp.index).fillna(True).astype(bool)
+    tp["count_ok"] = fm["auditable_count"].reindex(tp.index).fillna(True).astype(bool)
     for f_, src in (("F24", "F24"), ("emdash", "abs_emdash")):   # abstract audit (arXiv v1 abstracts)
         if src in ab.index:
             q = ab.loc[src]
-            tp.loc[f_, ["auditable", "did_pp", "did_lo_pp", "did_hi_pp", "tip_dec_pp", "G_dec_identified"]] = [
+            tp.loc[f_, ["auditable", "did_pp", "did_lo_pp", "did_hi_pp", "tip_dec_pp", "passes_gate", "channel_ok",
+                        "count_ok"]] = [
                 bool(q["auditable"]), q["tp_did_pp"], q["tp_did_lo_pp"], q["tp_did_hi_pp"], q["tp_tip_dec_pp"],
-                bool(q["tp_G_dec_identified"])]
+                bool(q["tp_claim_dec_passes_gate"]), bool(q["channel_ok"]), bool(q["channel_ok"])]
+    f24_tip_total = float(ab.loc["F24", "tp_tip_total_pp"]) if "F24" in ab.index else np.nan
     feats = ["NAME", "compound", "phrase_colon", "mixed_case_name", "title_case", "all_caps_title", "sentence_case",
              "question_opener", "O_union", "title_typo", "R24", "R26", "F24", "F26", "emdash", "style_density", "L_union"]
     setname = {"M": "Mainstream (M)", "O": "Outsider (O)", "L": "LLM-style (L)"}
@@ -1203,15 +1410,23 @@ def table4() -> str:
         tq = g.loc[(f, "total")]
         aud = tp.loc[f] if f in tp.index else None
         prev = pv.get(f, np.nan)
+        chan = aud is not None and not bool(aud["channel_ok"])
+        if aud is None:
+            audit_txt = "—"
+        elif bool(aud["auditable"]):
+            audit_txt = "yes"
+        else:
+            audit_txt = "no (channel)" if chan else "no (count)"
         rows.append({"set": setname[SET_OF[f]], "Feature": FEAT_LABEL[f],
                      "Share, all (%)": (f"{prev:.2f} (mean)" if f == "style_density" else f"{prev * 100:.1f}"),
                      "Desk": gg("desk"), "Exit": gg("exit"), "Decision": gg("dec"),
                      "Total (accepted/all)": fci(tq["est"], tq["lo95"], tq["hi95"], d=3),
-                     "Audit": ("—" if aud is None else ("yes" if bool(aud["auditable"]) else "no")),
-                     "Net-flip DiD (pp)": ("—" if aud is None else fci(aud["did_pp"], aud["did_lo_pp"], aud["did_hi_pp"],
-                                                                     d=1, signed=True)),
-                     "D* (pp)": ("—" if aud is None else fnum(aud["tip_dec_pp"], 2, signed=True)),
-                     "G_dec identified": ("—" if aud is None else ("yes" if bool(aud["G_dec_identified"]) else "no"))})
+                     "Audit": audit_txt,
+                     "Net-flip DiD (pp)": ("—" if aud is None else "— (channel)" if chan else
+                                           fci(aud["did_pp"], aud["did_lo_pp"], aud["did_hi_pp"], d=1, signed=True)),
+                     "D* for G_dec (pp)": ("—" if aud is None else "— (channel)" if chan else
+                                           fnum(aud["tip_dec_pp"], 2, signed=True)),
+                     "Passes gate": ("—" if aud is None else ("yes" if bool(aud["passes_gate"]) else "no"))})
     df = pd.DataFrame(rows)
     write_table(df, "table4_filter_audit",
                 "Stage-wise filter gains, ICLR 2024-26, and the camera-ready audit of the decision stage.",
@@ -1220,10 +1435,20 @@ def table4() -> str:
                        "total = accepted/all; 95% CIs from a paper bootstrap stratified by year (B = 2000). Style density "
                        "is a mean (words per abstract), its gains are ratios of means. Audit: pre-decision arXiv v1 vs "
                        "stored title (abstract for F24 and em dash), accepted minus rejected net flips (pseudo-flip Wald 95% CI); a feature "
-                       "is auditable with >= 10 v1-present titles in both arms. D*: net-flip DiD that would bring the "
-                       "decision gain to 1; the gain is identified only if D* lies outside the DiD CI. The abstract em "
-                       "dash cannot be audited (arXiv renders TeX dashes). — = not audited (union, density or "
-                       "typography-inclusive measures)."))
+                       "is auditable with >= 10 v1-present titles in both arms and if arXiv metadata can carry it "
+                       "(arXiv titles are never ALL-CAPS or U+2011/U+2013-typographic; arXiv abstracts carry TeX "
+                       "dashes). Complete audit: original + enlargement, 2023-26 pre-decision pairs (abstracts: "
+                       "2024-26 pairs). D* for G_dec: net-flip DiD that would bring the decision gain to 1 (for "
+                       f"F24 the G_total tipping point, used by WP4's gate G3, prereg CT10 and Fig. 6b, is "
+                       f"{f24_tip_total:+.2f} pp). Passes gate: "
+                       "auditable, editing-corrected 95% CI excludes 1 and the identification p survives Holm "
+                       "across the 18 auditable title features at one-sided 0.025 (F24, em dash: WP4's abstract "
+                       "gate rule). — (channel): arXiv metadata cannot carry the feature, so the audit's 'net flip' "
+                       "would only restate the stored prevalence; no DiD or D* is reported (WP4 audits the "
+                       "auditable sub-unions R24 or R26 and the O-union without ALL-CAPS in gates G2 and G2b). "
+                       "no (count): fewer than 10 v1-present titles in an arm. — = not shown: the style density (a mean), "
+                       "the LLM-style union (it contains channel-unauditable parts) and F26 (its abstract words are "
+                       "in WP4's abstract audit, outputs/snapshot/abstract_audit.csv)."))
     return ("Stage-wise filter gains (desk, exit, decision, total) for mainstream, outsider and LLM-style features in "
             "2024-26, with the camera-ready audit's net-flip DiD and tipping point for each auditable feature.")
 

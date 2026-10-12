@@ -412,10 +412,11 @@ Notes:
 - **Findability replicates out of sample:** found 85.8% [83.5, 87.8] accepted vs 52.1% [49.0, 55.2] rejected.
 - **Pairs:** 989 new usable pairs; primary 1,311 (803/508).
 - **Reproducing the freeze:** `python -m analyses.snapshot_final --enlarge-n 2004`, then check `meta.audit_freeze.enlargement.sha256_of_lines_used`.
-- **Consumers that use other audit samples** (not changed here, because these are other directions' files):
-  - `d4_bias_atlas.py` recomputes the bound from the original audit only.
-  - `prereg_confirm.freeze_audit` froze the original audit plus 1,261 enlargement lines and gates with the uncorrected rule in `snapshot_bounds.tipping_table`. Its refreeze rule (`audit_refreeze`) can align it with this freeze.
-  - At 1,261 lines the uncorrected rule passes Compound, Sentence case, O-union w/o ALL-CAPS (see the freeze path). A gate run there would therefore admit associations that the multiplicity-controlled gate rejects.
+- **Consumers of this freeze** (aligned in the integration passes, after this work package's own audit):
+  - `d4_bias_atlas.py` builds D4's flip tables on this freeze's primary pairs (`audit_pairs.csv`) with the same auditability rule and pseudo-flip CI, and asserts that they equal `T4_2_flip_matrices.csv`. Before the integration pass it used the original audit only.
+  - `prereg_confirm` (pre-registration revision 2) re-froze its gate audit on this freeze (same line count, SHA-256 checked) and adopted the multiplicity-controlled gate. Revision 1 had frozen the original audit plus 1,261 enlargement lines and gated with the uncorrected rule in `snapshot_bounds.tipping_table`. Revision 3 keeps this audit unchanged.
+  - `d3_slots.py` (D3's camera-ready audit of LLM slot words) reads this freeze's enlargement lines (same line count, SHA-256 checked) with D3's own pairing rule (2022-26). Until the second integration pass it read a pre-freeze pin of 1,620 lines (1,127 pairs; LLM-slot v1 titles 22 accepted / 4 rejected). On this freeze the slot words stay unauditable (SB3: 23 / 5 v1-present; rejected arm below 10).
+  - At 1,261 lines the uncorrected rule passes Compound, Sentence case, O-union w/o ALL-CAPS (see the freeze path); that is why the prereg gate was revised before any held-out data were requested.
 
 ---
 
@@ -500,7 +501,7 @@ Each issue was re-checked before it was fixed. Fixes live in `src/analyses/snaps
 - **C-I1 (major) — valid, fixed.**
   - What was wrong: the interim run froze the enlargement at 254 of 2,000 records, and D4 and the prereg use different audit samples.
   - Change: the analysis now runs on the complete enlargement (2,000 records, 2,004 lines, SHA-256 in `meta.audit_freeze`). That sample is the primary audit, and a freeze path reports the verdicts at 254, 600, 1,000 and 1,261 lines.
-  - Not done: D4 (`d4_bias_atlas.py`) and the prereg (`prereg_confirm.freeze_audit`, 1,261 lines) are other directions' frozen files. They were not edited. §8 gives the exact `--enlarge-n` and hash to align them.
+  - Not done in this work package: D4 (`d4_bias_atlas.py`) and the prereg (`prereg_confirm.freeze_audit`, 1,261 lines) are other directions' frozen files. Both were aligned to this freeze in the later integration pass (§8). D3's slot-word audit (`d3_slots.py`, 1,620 lines) was aligned in the second integration pass.
   - What a prereg gate run would currently admit: at 1,261 lines the uncorrected rule passes Compound, Sentence case, O-union w/o ALL-CAPS.
 - **C-I2 (major) — valid, fixed.** The gate is now: auditable, editing-corrected 95% CI excludes 1, and the Holm-adjusted one-sided identification p (with the tipping point's sampling error) < 0.025 across 18 auditable features. p-values and Holm values are in `gate.csv` and `T4_2_tipping_points.csv`. Result: 0 pass; smallest Holm p 0.29. The uncorrected rule is kept as a column.
 - **C-I3 (major) — valid, fixed.**

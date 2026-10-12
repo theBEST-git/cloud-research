@@ -376,6 +376,86 @@
  },
  "audit": {
   "state": {
+   "frozen_on": "2026-10-11 22:05:18",
+   "source": "WP4 final audit (snapshot_final builders); revision 2",
+   "original": {
+    "path": "cache/arxiv_audit.jsonl",
+    "n_lines": 616,
+    "sha256": "4be6f3f65231cca61a882f978078585e85b0564042f2d8b69a86c1286cca6363",
+    "n_pairs": 331,
+    "pairs_by_decision": {
+     "accepted": 206,
+     "rejected": 125
+    },
+    "n_pairs_2023_26": 322
+   },
+   "enlargement": {
+    "path": "cache/arxiv_audit_enlarge.jsonl",
+    "n_lines_used": 2004,
+    "sha256_of_lines_used": "dd51d5faaa0a793778581334c136f2a570d68b2ac2868064fd724df2f24f869f",
+    "wp4_freeze": {
+     "n_lines_used": 2004,
+     "sha256": "dd51d5faaa0a793778581334c136f2a570d68b2ac2868064fd724df2f24f869f"
+    },
+    "matches_wp4": true,
+    "n_records": 2000,
+    "n_pairs": 989,
+    "note": "complete enlargement (2,000 sampled papers; errored lines superseded by retries)"
+   },
+   "pooled": {
+    "n_pairs": 1311,
+    "pairs_by_decision": {
+     "accepted": 803,
+     "rejected": 508
+    },
+    "years": "2023-26 (WP4 primary)"
+   },
+   "v1_abstracts": {
+    "path": "cache/arxiv_audit_v1abs.jsonl",
+    "n_lines": 331,
+    "sha256": "5b72ec8a40ecbb01decf983888f2921c3a1e5b1a60034aeac22499a538703778",
+    "n_pairs": 1032,
+    "pairs_by_decision": {
+     "accepted": 628,
+     "rejected": 404
+    },
+    "years": "2024-26 (WP4 primary abstract audit: original + enlargement v1 abstracts)"
+   },
+   "specs": {
+    "title_original": "original 616-paper audit, usable pre-decision pairs (2022-26; sensitivity)",
+    "title_primary": "WP4 primary: original 2023-26 + complete enlargement (gate spec for title features)",
+    "abstract_2024_26": "WP4 primary abstract audit, 2024-26 pairs (gate spec for abstract markers)"
+   },
+   "auditable_rule": ">= 10 v1-present titles (abstracts) in BOTH arms AND measurable through arXiv metadata (arXiv titles never ALL-CAPS or U+2011/U+2013-typographic; arXiv abstracts never carry the em dash)",
+   "reproduces_wp4": {
+    "primary": {
+     "max_abs_diff": 9.627715291671279e-17,
+     "auditable_identical": true,
+     "n_features": 26
+    },
+    "abs_2024_26": {
+     "max_abs_diff": 9.71445146547012e-17,
+     "auditable_identical": true,
+     "n_features": 6
+    }
+   },
+   "ci": "primary net-flip DiD 95% CI: Wald with the pseudo-flip variance floor (WP4); bootstrap B = 2,000 stratified by year x decision for the combined (editing-corrected) intervals"
+  },
+  "gate_spec_title": "title_primary",
+  "gate_spec_abstract": "abstract_2024_26",
+  "gate_rule": "WP4 multiplicity-controlled gate (revision 2). Association claims (CT6 G_total, CT10): the marker must be auditable (>= 10 v1-present per arm and measurable through arXiv metadata), its editing-corrected 95% interval (bootstrap replicate paired with an audit draw D ~ N(D_hat, se_D)) must lie beyond the claim's boundary, and its one-sided identification p, z = (D_hat - D*)/sqrt(se_D^2 + se_D*^2) with se_D the pseudo-flip SE and se_D* the bootstrap SE of the tipping point, must survive Holm at 0.025 across the run's auditable association claims. Equivalence claims (CT5, CT11): editing-corrected interval rules (CT5 = WP4 G1 TOST; CT11 = ACC-pair CIs widened by the largest editing bias inside the NAME audit CI).",
+  "holm_alpha_one_sided": 0.025,
+  "refreeze_rule": "closed in revision 2: the enlargement is complete and frozen in the bundle"
+ },
+ "versions": {
+  "python": "3.13.16",
+  "numpy": "2.5.4",
+  "pandas": "3.0.6",
+  "sklearn": "1.9.1",
+  "statsmodels": "0.15.0"
+ },
+ "audit_revision_1": {
+  "state": {
    "frozen_on": "2026-10-11 19:52:40",
    "original": {
     "path": "cache/arxiv_audit.jsonl",
@@ -423,11 +503,29 @@
   "gate_spec_abstract": "abstract_v1",
   "refreeze_rule": "see prereg.md section 5"
  },
- "versions": {
-  "python": "3.13.16",
-  "numpy": "2.5.4",
-  "pandas": "3.0.6",
-  "sklearn": "1.9.1",
-  "statsmodels": "0.15.0"
+ "revision": {
+  "revision": 3,
+  "date": "2026-10-11",
+  "stage": "second integration pass",
+  "previous_bundle_hash": "853827a92e85ad56ee85376e8b90a881c4f4ca1e46a861e80ed21a04e883d922",
+  "previous_revision": 2,
+  "gate_audit": "unchanged from revision 2 (WP4's complete audit, 2,004 enlargement lines; Holm gate)",
+  "reason": "Cross-direction consistency corrections before any held-out data were requested or seen (no guard file, no heldout.json): (1) reading notes for CT1, CT2, CT4, CT6 and CT12 state what a confirmed statistic would and would not show given the direction audits (CT1 and CT2 use paper-level inference that D1's audit demoted; CT4 leans on via/using and 'enhancing'; CT6 mostly re-detects the pre-2024 R24 penalty; CT12 mixes cohort with tenure); the decision rules are unchanged; (2) required code outside the tests changed: d3_slots.py reads WP4's frozen enlargement sample (2,004 lines, SHA-256 checked) for D3's descriptive slot-word audit instead of a 1,620-line pre-freeze pin and fails loudly without the audit caches; d4_bias_atlas.py makes atlas prevalence ratios reuse the stage-gain bootstrap seed. No CT uses either change. Frozen parameters other than params.json -> revision and rules.json are byte-identical, and the dry run was re-run with every statistic, CI, p-value and gate field unchanged.",
+  "history": [
+   {
+    "revision": 1,
+    "date": "2026-10-11",
+    "bundle_hash": "f69fdb468702fe11e336b81476869531a71acb1d4f922b8bd1d479934bbac628",
+    "gate_audit": "original audit + first 1,261 enlargement lines (965 pooled title pairs incl. 2022; 330 v1 abstracts of the original pairs); gate = point tipping point beyond the 95% audit CI (uncorrected)"
+   },
+   {
+    "revision": 2,
+    "date": "2026-10-11",
+    "bundle_hash": "853827a92e85ad56ee85376e8b90a881c4f4ca1e46a861e80ed21a04e883d922",
+    "previous_bundle_hash": "f69fdb468702fe11e336b81476869531a71acb1d4f922b8bd1d479934bbac628",
+    "previous_audit": "original audit + first 1,261 enlargement lines (965 pooled title pairs incl. 2022; 330 v1 abstracts of the original pairs); gate = point tipping point beyond the 95% audit CI (uncorrected)",
+    "reason": "Post-audit corrections before any held-out data were requested or seen (no guard file, no heldout.json): (1) the D3 and D4 fixer passes changed required code hashed by revision 1 (d3_register.py, d3_slots.py, d3_vintage.py, d4_bias_atlas.py, d4_stage_gains.py; the frozen test definitions they supply are unchanged); (2) the WP4 enlargement finished (2,004 lines, 2,000 records) and the gate audit is re-frozen on WP4's complete audit; (3) the gate adopts WP4's multiplicity-controlled rule (identification p with the tipping point's sampling error, Holm at 0.025, editing-corrected interval), because the revision-1 uncorrected rule admits acceptance associations that the Holm gate rejects. The R1 models, centroids, lexicons, slot inventory, DFL cells and every test statistic are unchanged (frozen files byte-identical)."
+   }
+  ]
  }
 }

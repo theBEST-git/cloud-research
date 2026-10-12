@@ -237,7 +237,7 @@ Filled counts (all years):
 | lead_in_abstract | bool | the lead pattern occurs in the abstract (88.5% of NAME papers) |
 | mask_lead_hits | int | lead occurrences replaced |
 | mask_token_hits | int | CamelCase/ALLCAPS tokens replaced |
-| lead_survives_mask | bool | `lead_raw` (case-insensitive, whole word) still in the R3-masked abstract. **0 of 12,962 NAME papers** |
+| lead_survives_mask | bool | `lead_raw` (case-insensitive, whole word) still in the R3-masked abstract. **0 of 12,962 NAME papers** (2017–26; 0 of 12,928 in 2018–26, the denominator VALIDATION V4, D1 and SUMMARY use) |
 
 ## 5. Topics and encoders (`outputs/topics/`)
 

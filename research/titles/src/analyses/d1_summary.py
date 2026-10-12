@@ -59,6 +59,58 @@ def clean(o):
     return o
 
 
+def positive_control_d3() -> dict:
+    """PLAN D1 'positive control link' (integration pass): D3's H3a slot break and H3d slot uplift, read from
+    outputs/d3_register/. The H3d rows are fitted with two fingerprints: F_any = F24 (>= 1 RARE21 word) | F26 |
+    title typography (D3's primary) and F_d1 = F24 (>= 2 RARE21 words) | F26 | title typography (D1's tool-bound
+    fingerprint). They differ only in the F24 threshold, which is what the contrast isolates. Only the F_d1 row
+    speaks to the sensitivity of D1's bound. The reading is generated from the significance flags (integration
+    pass 2), so a re-run of D3 cannot leave a stale 'not significant' in results.json, the Fig. 2 caption or the
+    ledger."""
+    d3 = C.OUT / "d3_register"
+    sig_p, res_p = d3 / "signature_models.csv", d3 / "results.json"
+    if not (sig_p.exists() and res_p.exists()):
+        return {"status": "PENDING: outputs/d3_register/ does not exist (D3 not yet run)"}
+    S = pd.read_csv(sig_p)
+    r3 = json.loads(res_p.read_text())
+    h3a = next(h for h in r3["hypotheses"] if h["id"] == "H3a")["estimates"]["pooled_slots_post"]
+
+    def row(x):
+        s = S[(S["x"] == x) & (S["controls"] == "none") & S["label"].str.contains(
+            "primary" if x == "F_any" else "F_d1", regex=False)].iloc[0]
+        return {"OR_slot": round(float(s.OR_slot), 4), "OR_slot_ci": [round(float(s.OR_slot_lo), 4),
+                                                                    round(float(s.OR_slot_hi), 4)],
+                "p_one_OR_slot_le1": float(s.p_one_OR_slot_le1),
+                "OR_name_population": round(float(s.OR_name_pop), 4),
+                "OR_name_population_ci": [round(float(s.OR_name_pop_lo), 4), round(float(s.OR_name_pop_hi), 4)],
+                "ratio_population": round(float(s.ratio_pop), 4),
+                "ratio_population_ci": [round(float(s.ratio_pop_lo), 4), round(float(s.ratio_pop_hi), 4)],
+                "n_slot_rows": int(s.n_slot_rows), "n_F1_slot_rows": int(s.n_F1)}
+    fd1, fany = row("F_d1"), row("F_any")
+    validated = fd1["OR_slot_ci"][0] > 1
+    any_sig = fany["OR_slot_ci"][0] > 1
+
+    def sig(flag):
+        return "CI excludes 1" if flag else "not significant"
+    conclusion = ("The positive control therefore supports the sensitivity of F_d1 for lexical LLM traces in titles "
+                  "(it does not test the delta*A model or the misclassification assumptions)." if validated else
+                  "The positive control therefore does not validate the sensitivity of F_d1, and the D1 tool "
+                  "estimate is not validated by a positive control on its own fingerprint.")
+    return {"status": "reported (D3 audited outputs)",
+            "H3a_slot_break_post_OR": [h3a["OR"], h3a["lo"], h3a["hi"]],
+            "H3d_slot_uplift_F_d1": fd1, "H3d_slot_uplift_F_any": fany,
+            "validates_F_d1_bound": bool(validated), "F_any_slot_uplift_significant": bool(any_sig),
+            "fingerprints": "F_any = F24 (>= 1 RARE21 word) | F26 | title typography; F_d1 differs only in "
+                            "requiring >= 2 RARE21 words",
+            "reading": ("LLM-favoured slot openers rose from 2024 (H3a, pooled post OR "
+                        f"{h3a['OR']:.2f} [{h3a['lo']:.2f}, {h3a['hi']:.2f}]), so the title-level design detects an "
+                        "LLM-era lexical shift. With D1's own fingerprint F_d1 the slot uplift is "
+                        f"OR {fd1['OR_slot']:.2f} [{fd1['OR_slot_ci'][0]:.2f}, {fd1['OR_slot_ci'][1]:.2f}] "
+                        f"({sig(validated)}); with F_any (the same fingerprint with a 1-word F24 threshold) it is "
+                        f"{fany['OR_slot']:.2f} [{fany['OR_slot_ci'][0]:.2f}, {fany['OR_slot_ci'][1]:.2f}] "
+                        f"({sig(any_sig)}). " + conclusion)}
+
+
 def holm(pvals: dict) -> dict:
     keys = sorted(pvals, key=lambda k: pvals[k])
     m = len(keys)
@@ -367,10 +419,15 @@ def main():
                   "verdict_note": "criteria met for the pre-registered fingerprint after the misclassification "
                                   "correction; the bound is assumption-dependent (linear delta*A, nondifferential "
                                   "misclassification, homogeneous uplift, no spillover) and title-level markers "
-                                  "give larger associations; positive control (D3) pending"}
-    d3p = C.OUT / "d3_register" / "results.json"
-    res["H1e"]["positive_control_D3"] = ("see outputs/d3_register/results.json (H3a)" if d3p.exists() else
-                                         "PENDING: outputs/d3_register/ does not exist (D3 not yet run)")
+                                  "give larger associations"}
+    res["H1e"]["positive_control_D3"] = pc_d3 = positive_control_d3()
+    if "validates_F_d1_bound" in pc_d3:   # wording follows the computed flag (integration pass 2)
+        res["H1e"]["verdict_note"] += ("; the D3 positive control supports the sensitivity of D1's own fingerprint "
+                                       "F_d1 (slot uplift OR CI excludes 1)" if pc_d3["validates_F_d1_bound"] else
+                                       "; the D3 positive control does not validate the bound on D1's own "
+                                       "fingerprint F_d1 (slot uplift OR CI includes 1)")
+    else:
+        res["H1e"]["verdict_note"] += "; the D3 positive control is PENDING (run D3, then d1_summary again)"
     res["H1e"]["p_used"] = res["H1e"]["p_IUT"]
 
     # ---------------- Holm ----------------

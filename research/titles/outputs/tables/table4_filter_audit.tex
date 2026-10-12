@@ -6,32 +6,32 @@
 \label{tab:filter}
 \begin{tabular}{l r r r r l l l l l}
 \toprule
-Feature & Share, all (\%) & Desk & Exit & Decision & Total (accepted/all) & Audit & Net-flip DiD (pp) & D$^{*}$ (pp) & G\_dec identified \\
+Feature & Share, all (\%) & Desk & Exit & Decision & Total (accepted/all) & Audit & Net-flip DiD (pp) & D$^{*}$ for G\_dec (pp) & Passes gate \\
 \midrule
 \multicolumn{10}{l}{\textit{Mainstream (M)}} \\
-NAME & 35.6 & 0.998 & 0.974 & 1.050 & 1.021 [0.997, 1.044] & yes & +2.1 [$-$3.2, +7.3] & +2.92 & no \\
-Compound (any colon) & 53.3 & 0.998 & 0.983 & 1.037 & 1.018 [1.002, 1.034] & yes & +1.4 [$-$4.1, +7.0] & +3.24 & no \\
-Phrase colon & 17.7 & 0.999 & 1.002 & 1.011 & 1.012 [0.974, 1.051] & yes & $-$0.7 [$-$5.1, +3.8] & +0.32 & no \\
-Mixed-case name & 23.2 & 1.000 & 0.975 & 1.087 & 1.059 [1.029, 1.092] & yes & +1.6 [$-$3.0, +6.2] & +3.29 & no \\
-Title Case & 92.9 & 1.000 & 1.001 & 1.017 & 1.018 [1.013, 1.022] & yes & +1.1 [$-$4.4, +6.6] & +2.59 & no \\
+NAME & 35.6 & 0.998 & 0.974 & 1.050 & 1.021 [0.997, 1.044] & yes & +1.5 [$-$0.6, +3.6] & +2.92 & no \\
+Compound (any colon) & 53.3 & 0.998 & 0.983 & 1.037 & 1.018 [1.002, 1.034] & yes & +0.7 [$-$1.8, +3.2] & +3.24 & no \\
+Phrase colon & 17.7 & 0.999 & 1.002 & 1.011 & 1.012 [0.974, 1.051] & yes & $-$0.7 [$-$2.8, +1.3] & +0.32 & no \\
+Mixed-case name & 23.2 & 1.000 & 0.975 & 1.087 & 1.059 [1.029, 1.092] & yes & +1.6 [$-$0.4, +3.7] & +3.29 & no \\
+Title Case & 92.9 & 1.000 & 1.001 & 1.017 & 1.018 [1.013, 1.022] & yes & +1.6 [$-$0.6, +3.9] & +2.59 & no \\
 \addlinespace
 \multicolumn{10}{l}{\textit{Outsider (O)}} \\
-ALL-CAPS title & 1.3 & 0.989 & 0.839 & 0.435 & 0.361 [0.260, 0.470] & no & $-$2.4 [$-$6.1, +1.3] & $-$1.04 & no \\
-Sentence case & 4.0 & 1.000 & 1.043 & 0.868 & 0.905 [0.824, 0.985] & no & +3.7 [$-$0.8, +8.2] & $-$0.94 & no \\
-Question opener & 1.8 & 0.974 & 1.013 & 0.911 & 0.899 [0.775, 1.025] & no & +0.0 [$-$2.6, +2.6] & $-$0.26 & no \\
-Outsider union & 6.9 & 0.991 & 1.003 & 0.812 & 0.807 [0.749, 0.870] & yes & +1.3 [$-$4.0, +6.5] & $-$2.15 & no \\
+ALL-CAPS title & 1.3 & 0.989 & 0.839 & 0.435 & 0.361 [0.260, 0.470] & no (channel) & --- (channel) & --- (channel) & no \\
+Sentence case & 4.0 & 1.000 & 1.043 & 0.868 & 0.905 [0.824, 0.985] & yes & +0.8 [$-$1.1, +2.7] & $-$0.94 & no \\
+Question opener & 1.8 & 0.974 & 1.013 & 0.911 & 0.899 [0.775, 1.025] & yes & $-$0.1 [$-$1.1, +0.8] & $-$0.26 & no \\
+Outsider union & 6.9 & 0.991 & 1.003 & 0.812 & 0.807 [0.749, 0.870] & no (channel) & --- (channel) & --- (channel) & no \\
 \addlinespace
 \multicolumn{10}{l}{\textit{LLM-style (L)}} \\
-LLM typography (title) & 0.7 & 0.981 & 0.979 & 0.975 & 0.936 [0.730, 1.149] & no & $-$0.3 [$-$3.4, +2.8] & $-$0.03 & no \\
-R24 words (title) & 5.3 & 1.000 & 0.901 & 0.896 & 0.807 [0.740, 0.874] & no & +0.0 [$-$2.6, +2.6] & $-$0.83 & no \\
-R26 words (title) & 3.6 & 1.004 & 0.965 & 1.093 & 1.060 [0.967, 1.157] & no & +0.5 [$-$2.2, +3.2] & +0.54 & no \\
-F24 words (abstract) & 12.9 & 1.004 & 0.970 & 0.989 & 0.963 [0.919, 1.011] & yes & +3.6 [$-$1.6, +8.7] & $-$0.23 & no \\
-F26 (abstract) & 10.8 & 0.986 & 1.032 & 1.006 & 1.023 [0.975, 1.075] & --- & --- & --- & --- \\
-Em dash (abstract) & 6.4 & 0.988 & 1.009 & 0.982 & 0.979 [0.915, 1.049] & no & $-$1.1 [$-$7.7, +5.5] & $-$0.20 & no \\
+LLM typography (title) & 0.7 & 0.981 & 0.979 & 0.975 & 0.936 [0.730, 1.149] & no (channel) & --- (channel) & --- (channel) & no \\
+R24 words (title) & 5.3 & 1.000 & 0.901 & 0.896 & 0.807 [0.740, 0.874] & yes & $-$0.2 [$-$1.2, +0.7] & $-$0.83 & no \\
+R26 words (title) & 3.6 & 1.004 & 0.965 & 1.093 & 1.060 [0.967, 1.157] & no (count) & $-$0.1 [$-$1.1, +1.0] & +0.54 & no \\
+F24 words (abstract) & 12.9 & 1.004 & 0.970 & 0.989 & 0.963 [0.919, 1.011] & yes & +0.7 [$-$1.9, +3.4] & $-$0.23 & no \\
+F26 (abstract) & 10.5 & 0.986 & 1.035 & 1.006 & 1.027 [0.978, 1.080] & --- & --- & --- & --- \\
+Em dash (abstract) & 6.4 & 0.988 & 1.009 & 0.982 & 0.979 [0.915, 1.049] & no (channel) & --- (channel) & --- (channel) & no \\
 Style density (abstract) & 3.26 (mean) & 0.997 & 0.975 & 0.993 & 0.965 [0.955, 0.975] & --- & --- & --- & --- \\
 LLM-style union & 33.0 & 0.996 & 0.985 & 0.994 & 0.975 [0.951, 1.001] & --- & --- & --- & --- \\
 \bottomrule
 \end{tabular}
 \par\smallskip
-\parbox{\linewidth}{\scriptsize Gains are P(feature $|$ passed stage)/P(feature $|$ entered stage), year-standardised over 2024-26; total = accepted/all; 95\% CIs from a paper bootstrap stratified by year (B = 2000). Style density is a mean (words per abstract), its gains are ratios of means. Audit: pre-decision arXiv v1 vs stored title (abstract for F24 and em dash), accepted minus rejected net flips (pseudo-flip Wald 95\% CI); a feature is auditable with $>$= 10 v1-present titles in both arms. D$^{*}$: net-flip DiD that would bring the decision gain to 1; the gain is identified only if D$^{*}$ lies outside the DiD CI. The abstract em dash cannot be audited (arXiv renders TeX dashes). --- = not audited (union, density or typography-inclusive measures).}
+\parbox{\linewidth}{\scriptsize Gains are P(feature $|$ passed stage)/P(feature $|$ entered stage), year-standardised over 2024-26; total = accepted/all; 95\% CIs from a paper bootstrap stratified by year (B = 2000). Style density is a mean (words per abstract), its gains are ratios of means. Audit: pre-decision arXiv v1 vs stored title (abstract for F24 and em dash), accepted minus rejected net flips (pseudo-flip Wald 95\% CI); a feature is auditable with $>$= 10 v1-present titles in both arms and if arXiv metadata can carry it (arXiv titles are never ALL-CAPS or U+2011/U+2013-typographic; arXiv abstracts carry TeX dashes). Complete audit: original + enlargement, 2023-26 pre-decision pairs (abstracts: 2024-26 pairs). D$^{*}$ for G\_dec: net-flip DiD that would bring the decision gain to 1 (for F24 the G\_total tipping point, used by WP4's gate G3, prereg CT10 and Fig. 6b, is $-$0.67 pp). Passes gate: auditable, editing-corrected 95\% CI excludes 1 and the identification p survives Holm across the 18 auditable title features at one-sided 0.025 (F24, em dash: WP4's abstract gate rule). --- (channel): arXiv metadata cannot carry the feature, so the audit's 'net flip' would only restate the stored prevalence; no DiD or D$^{*}$ is reported (WP4 audits the auditable sub-unions R24 or R26 and the O-union without ALL-CAPS in gates G2 and G2b). no (count): fewer than 10 v1-present titles in an arm. --- = not shown: the style density (a mean), the LLM-style union (it contains channel-unauditable parts) and F26 (its abstract words are in WP4's abstract audit, outputs/snapshot/abstract\_audit.csv).}
 \end{table*}

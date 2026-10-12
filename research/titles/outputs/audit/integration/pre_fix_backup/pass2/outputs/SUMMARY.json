@@ -1,0 +1,1061 @@
+{
+ "study": "Research fashion in ICLR titles (with abstracts), 2017-2026",
+ "generated": "2026-10-11T22:19:23",
+ "script": "src/analyses/summary_ledger.py",
+ "data": {
+  "n_universe": 43482,
+  "years": "2017-2026",
+  "split": "discovery (~80%); held-out confirmation split not requested",
+  "pools": "all submissions incl. rejected, withdrawn and desk-rejected"
+ },
+ "language": "Associational throughout; declared profile keys are not persons; list position is a partition label, not seniority; acceptance associations are subject to the camera-ready caveat; nothing is attributed causally to ChatGPT or any tool.",
+ "ledger": [
+  {
+   "id": "H1a",
+   "direction": "D1 naming acceleration",
+   "family": "discovery confirmatory family (Holm within direction)",
+   "prediction": "Slope change at 2024, OR > 1; holds in NA pool; placebo breaks null",
+   "primary_estimate": {
+    "est": 1.096,
+    "lo": 0.99,
+    "hi": 1.214,
+    "scale": "slope-change OR/yr, year level (U)"
+   },
+   "estimate": "OR 1.096 [0.990, 1.214]/yr (year level); paper level 1.098 [1.044, 1.154]; NA pool 1.121 [1.019, 1.232]; sup-LR selects 2023",
+   "holm_p": 0.070537,
+   "holm_p_note": null,
+   "verdict": "Partially supported: the trend accelerated, but a dated 2024 break is not identified (year-level CI includes 1; null without 2026)",
+   "verdict_code": "partially_supported",
+   "verdict_before_audit": "partially supported",
+   "what_changed_in_audit": "Year-level random-effects inference made primary (Holm p 0.0006 -> 0.071); smooth-vs-break comparison added. 'Dated 2024 break' replaced by 'convex acceleration from about 2022-24, most visible in 2026'. Verdict label unchanged."
+  },
+  {
+   "id": "H1b",
+   "direction": "D1 naming acceleration",
+   "family": "discovery confirmatory family (Holm within direction)",
+   "prediction": "Name-masked content share of the 2023→26 rise in [0.20, 0.50]; none ≥ 0.60",
+   "primary_estimate": {
+    "est": 0.574,
+    "lo": 0.531,
+    "hi": 0.621,
+    "scale": "R1 rolling content share of 2024-26 steps"
+   },
+   "estimate": "Fixed: R1 0.39 [0.35, 0.43], R3 0.49; rolling: R1 0.57 [0.53, 0.62], R3 0.58",
+   "holm_p": 0.177911,
+   "holm_p_note": null,
+   "verdict": "Not falsified, prediction fails: content share 0.37-0.65 across specifications; 'minority' not established",
+   "verdict_code": "partially_supported",
+   "verdict_before_audit": "falsified",
+   "what_changed_in_audit": "Calibration bug fixed (test rows now scored by the fold models that set the intercept): R1 rolling share 0.620 -> 0.574. Verdict moved from 'falsified' to 'not falsified, prediction fails'; year-FE and slope-recalibration sensitivities give a range of 0.37-0.65."
+  },
+  {
+   "id": "H1c",
+   "direction": "D1 naming acceleration",
+   "family": "discovery confirmatory family (Holm within direction)",
+   "prediction": "Unexplained drift u accelerates: mean u(2024–26) − mean u(2019–23) > 0, ratio ≥ 1.5",
+   "primary_estimate": {
+    "est": 1.353,
+    "lo": 0.03,
+    "hi": 2.71,
+    "scale": "pp/yr, mean u 2024-26 minus 2019-23 (two-stage year-level CI)"
+   },
+   "estimate": "u 1.51 → 2.87 pp/yr; diff +1.35 pp [0.03, 2.71] (year level); NA pool +1.14 pp",
+   "holm_p": 0.067499,
+   "holm_p_note": null,
+   "verdict": "Not established at the year level (positive point estimate; fails Holm; CI includes 0 in NA pool and non-LLM subset)",
+   "verdict_code": "not_established_year_level",
+   "verdict_before_audit": "supported",
+   "what_changed_in_audit": "Paper bootstrap held year shocks fixed; two-stage year-level inference made primary (diff CI [0.03, 2.71] pp, Holm 0.067). Verdict moved to 'not established at the year level'."
+  },
+  {
+   "id": "H1d",
+   "direction": "D1 naming acceleration",
+   "family": "discovery confirmatory family (Holm within direction)",
+   "prediction": "Composition (team size × new keys × LLM topic) explains ≤ 30% (DFL)",
+   "primary_estimate": {
+    "est": 0.316,
+    "lo": 0.259,
+    "hi": 0.386,
+    "scale": "DFL composition share, 2025 (the year that fails; 2024 0.287, 2026 0.261)"
+   },
+   "estimate": "DFL 0.29 / 0.32 / 0.26 [0.22, 0.30] (2024/25/26)",
+   "holm_p": 0.007996,
+   "holm_p_note": null,
+   "verdict": "Partially supported: met in 2024 and 2026, not in 2025; far from the 0.50 line",
+   "verdict_code": "partially_supported",
+   "verdict_before_audit": "supported",
+   "what_changed_in_audit": "Fixed 2-year new-key lookback; evaluated per year: 2025 share 0.316 > 0.30. Verdict moved to 'partially supported'."
+  },
+  {
+   "id": "H1e",
+   "direction": "D1 naming acceleration",
+   "family": "discovery confirmatory family (Holm within direction)",
+   "prediction": "Tool bounded: F = 0 rise ≥ 85% of total; δ ≤ 5 pp; tool share at A = 0.39 < 0.25",
+   "primary_estimate": {
+    "est": 0.071,
+    "lo": 0.014,
+    "hi": 0.129,
+    "scale": "corrected tool share at A = 0.39 (2026 delta)"
+   },
+   "estimate": "F = 0 rise / total 0.98 [0.96, 1.00]; δ +1.6 pp; tool share 0.07 [0.01, 0.13]; positive control on F_d1: slot OR 1.29 [0.92, 1.81]",
+   "holm_p": 0.002499,
+   "holm_p_note": null,
+   "verdict": "Supported as pre-registered for the abstract fingerprint; not robust as a bound; D3 positive control fails on D1's own fingerprint",
+   "verdict_code": "supported",
+   "verdict_before_audit": "supported",
+   "what_changed_in_audit": "Tool share corrected for fingerprint misclassification and year-matched (3.1% -> 7.1%); 'bounded from above' withdrawn. Integration pass: the D3 positive control with D1's fingerprint is not significant (slot OR 1.29 [0.92, 1.81]), so the tool estimate is not validated by a positive control on its own fingerprint."
+  },
+  {
+   "id": "H2a",
+   "direction": "D2 carriers (declared profile keys)",
+   "family": "discovery confirmatory family (Holm within direction)",
+   "prediction": "Within-stayer share ≥ 0.70 (last position), ≥ 0.60 (any position)",
+   "primary_estimate": {
+    "est": 0.995,
+    "lo": 0.943,
+    "hi": 1.05,
+    "scale": "rho_last (generational null 0.88-0.93)"
+   },
+   "estimate": "ρ_last 0.995 [0.943, 1.050]; ρ_any 0.816 [0.777, 0.857]; generational null 0.78–0.93",
+   "holm_p": 0.004995,
+   "holm_p_note": null,
+   "verdict": "Not identified: a generational null with the observed co-authorship also meets it",
+   "verdict_code": "not identified",
+   "verdict_before_audit": "supported",
+   "what_changed_in_audit": "Shared-outcome generational null added (rho_last 0.88-0.93 under a purely generational world). Verdict moved to 'not identified'; 'same keys / same people' wording withdrawn."
+  },
+  {
+   "id": "H2b",
+   "direction": "D2 carriers (declared profile keys)",
+   "family": "discovery confirmatory family (Holm within direction)",
+   "prediction": "First-position share lower than last by ≥ 0.2; entrant first keys above stayers",
+   "primary_estimate": {
+    "est": -0.47,
+    "lo": -0.602,
+    "hi": -0.359,
+    "scale": "rho_first - rho_last"
+   },
+   "estimate": "ρ_first 0.525 [0.414, 0.633]; first − last -0.47 [-0.60, -0.36]",
+   "holm_p": 0.004995,
+   "holm_p_note": null,
+   "verdict": "Supported on pre-registered groups; magnitude not robust",
+   "verdict_code": "supported on the pre-registered groups; magnitude not robust",
+   "verdict_before_audit": "supported",
+   "what_changed_in_audit": "Newcomer-premium and within-key contrasts added; symmetric-lookback ratio 0.86 [0.72, 1.01]. Verdict qualified: 'magnitude not robust'."
+  },
+  {
+   "id": "H2c",
+   "direction": "D2 carriers (declared profile keys)",
+   "family": "discovery confirmatory family (Holm within direction)",
+   "prediction": "Stayer change at zero new co-author keys ≥ 0.5 × population change",
+   "primary_estimate": {
+    "est": 0.337,
+    "lo": 0.189,
+    "hi": 0.485,
+    "scale": "change at share_new = 0 / population change"
+   },
+   "estimate": "0.34 [0.19, 0.48] × population (6.2 of 18.3 pp)",
+   "holm_p": 0.312339,
+   "holm_p_note": null,
+   "verdict": "Not supported (not falsified): newcomer-free teams changed less than predicted",
+   "verdict_code": "not supported",
+   "verdict_before_audit": "partially supported",
+   "what_changed_in_audit": "Two-way (key, paper) SEs; fixed-base all-prior definition gives -0.07 [-0.42, 0.24]; 41% of rolling all-prior teams contain an entrant key. Verdict moved to 'not supported (not falsified)'."
+  },
+  {
+   "id": "H2d",
+   "direction": "D2 carriers (declared profile keys)",
+   "family": "discovery confirmatory family (Holm within direction)",
+   "prediction": "Slope of within-stayer on population change ≈ 1; G larger for style than topic",
+   "primary_estimate": {
+    "est": 0.213,
+    "lo": null,
+    "hi": null,
+    "scale": "G_style - G_topic (G_style 0.166, G_topic -0.047)"
+   },
+   "estimate": "slope 0.92 [0.90, 0.95]; G_style 0.17 [0.13, 0.20] vs G_topic -0.05 [-0.07, -0.03]",
+   "holm_p": 0.004995,
+   "holm_p_note": null,
+   "verdict": "Supported for the style-vs-topic contrast; slope criterion not diagnostic",
+   "verdict_code": "supported (channel contrast); slope criterion not diagnostic",
+   "verdict_before_audit": "supported",
+   "what_changed_in_audit": "Random-subset slope ~1.00 and null slope ~0.78 show the slope criterion cannot discriminate; the style-vs-topic contrast survives (drop-both variant, equal-weight medians)."
+  },
+  {
+   "id": "H2e",
+   "direction": "D2 carriers (declared profile keys)",
+   "family": "discovery confirmatory family (Holm within direction)",
+   "prediction": "Pre-LLM (2018→20, email keys): ≥ 50% of the NAME rise within stayers",
+   "primary_estimate": {
+    "est": 1.201,
+    "lo": 0.71,
+    "hi": 1.768,
+    "scale": "rho_NAME, email-key era 2018->20"
+   },
+   "estimate": "ρ_NAME 1.20 [0.71, 1.77]; literal Kitagawa share 0.26",
+   "holm_p": 0.121878,
+   "holm_p_note": null,
+   "verdict": "Inconclusive",
+   "verdict_code": "inconclusive",
+   "verdict_before_audit": "supported",
+   "what_changed_in_audit": "Both outcomes required (IUT p 0.061, Holm 0.122); email-era null 0.69-0.76. Verdict moved to 'inconclusive'; 'general mode' withdrawn."
+  },
+  {
+   "id": "S2.1",
+   "direction": "D2 carriers (declared profile keys)",
+   "family": "supporting test (exploratory)",
+   "prediction": "Retitled resubmissions (destination ≥ 2024) do not add NAME on net",
+   "primary_estimate": {
+    "est": 0.0,
+    "lo": -0.049,
+    "hi": 0.049,
+    "scale": "mean within-pair change in NAME (n = 297 retitled resubmissions)"
+   },
+   "estimate": "ΔNAME +0.000 (se 0.025; 28 adds, 28 drops, n = 297); minus topic-adjusted drift -4.8 pp",
+   "holm_p": null,
+   "holm_p_note": null,
+   "verdict": "NAME not added on net within retitled projects; lag behind drift not established",
+   "verdict_code": "NAME not added on net; lag behind content-fixed drift not established",
+   "verdict_before_audit": "supported",
+   "what_changed_in_audit": "Content-fixed drift benchmarks added (topic-adjusted -4.8 pp, p 0.057; same-key -3.4 pp, p 0.33). The lag behind drift is not established; NAME is still not added on net."
+  },
+  {
+   "id": "S2.2",
+   "direction": "D2 carriers (declared profile keys)",
+   "family": "supporting test (exploratory)",
+   "prediction": "Future-tie placebo: past-collaborator exposure no larger than future-collaborator exposure",
+   "primary_estimate": {
+    "est": -0.075,
+    "lo": -0.147,
+    "hi": -0.003,
+    "scale": "past - future exposure coefficient"
+   },
+   "estimate": "past -0.007 vs future +0.067; difference -0.075 (se 0.037; MDE 0.10)",
+   "holm_p": null,
+   "holm_p_note": null,
+   "verdict": "Inconclusive: positive control not detected in the primary specification",
+   "verdict_code": "inconclusive",
+   "verdict_before_audit": "supported",
+   "what_changed_in_audit": "Verdict requires the positive control (llm_topic) to be detected in the same specification; it is not. Verdict moved to 'inconclusive'; 'fits homophily' removed."
+  },
+  {
+   "id": "H3a",
+   "direction": "D3 machine register",
+   "family": "discovery confirmatory family (Holm within direction)",
+   "prediction": "Meaning-fixed LLM slots: post OR ≥ 2; controls in [0.67, 1.5]; slot − control > 0",
+   "primary_estimate": {
+    "est": 2.183,
+    "lo": 1.409,
+    "hi": 3.382,
+    "scale": "pooled slot post OR"
+   },
+   "estimate": "slots 2.18 [1.41, 3.38]; controls 0.87 [0.64, 1.18]; stacked 2.55 [1.53, 4.25]",
+   "holm_p": 0.000949,
+   "holm_p_note": null,
+   "verdict": "Supported (pre-registered spec); OR >= 2 depends on 'enhancing'; not sharply dated against 2023; addition rather than substitution",
+   "verdict_code": "supported",
+   "verdict_before_audit": "supported",
+   "what_changed_in_audit": "Pilot-like row (2.80) and frozen-trend event study added; OR >= 2 shown to depend on 'enhancing' (1.72 without it); addition-not-substitution rates added; camera-ready audit pinned (rejected arm unauditable). Label unchanged, qualified."
+  },
+  {
+   "id": "H3b",
+   "direction": "D3 machine register",
+   "family": "discovery confirmatory family (Holm within direction)",
+   "prediction": "2025→26 within area: R24 falls in ≥ 10/16, R26 rises in ≥ 12/16",
+   "primary_estimate": {
+    "est": 1.08,
+    "lo": 0.859,
+    "hi": 1.357,
+    "scale": "R24 vs neutral synonyms, ratio of within-area RRs 2026/2025 (signs: R24 down 14/16, R26 up 16/16)"
+   },
+   "estimate": "R24 down 14/16, R26 up 16/16; R24 relative to neutral synonyms 1.08 [0.86, 1.36]",
+   "holm_p": 0.004181,
+   "holm_p_note": null,
+   "verdict": "Thresholds met (descriptive); no register turnover identified",
+   "verdict_code": "thresholds met (descriptive); register turnover not identified",
+   "verdict_before_audit": "supported",
+   "what_changed_in_audit": "Neutral-synonym benchmark (R24 vs N24 1.08 [0.86, 1.36]) and word-churn benchmark (R26 in the top 3.6% of words, selected in-sample). Verdict moved to 'thresholds met (descriptive); register turnover not identified'."
+  },
+  {
+   "id": "H3c",
+   "direction": "D3 machine register",
+   "family": "discovery confirmatory family (Holm within direction)",
+   "prediction": "Vintage alignment: OR(F24 → R24) > OR(F26 → R24), 2025–26",
+   "primary_estimate": {
+    "est": 1.461,
+    "lo": 1.168,
+    "hi": 1.828,
+    "scale": "OR(F24->R24)/OR(F26->R24)"
+   },
+   "estimate": "1.11 vs 0.76; ratio 1.46 [1.17, 1.83]; shared-lemma-free 1.32 [1.04, 1.66] with OR(F24) 1.00",
+   "holm_p": 0.001364,
+   "holm_p_note": null,
+   "verdict": "Prediction met; vintage reading not established",
+   "verdict_code": "prediction met; vintage reading not established",
+   "verdict_before_audit": "supported",
+   "what_changed_in_audit": "Shared-lemma-free co-primary (1.32 [1.04, 1.66], OR_F24 1.00); pre-LLM placebo and genre benchmarks. Verdict moved to 'prediction met; vintage reading not established'."
+  },
+  {
+   "id": "H3d",
+   "direction": "D3 machine register",
+   "family": "discovery confirmatory family (Holm within direction)",
+   "prediction": "Lexical signature: OR(F → slot variant) ≥ 1.5 × OR(F → NAME)",
+   "primary_estimate": {
+    "est": 1.242,
+    "lo": 0.993,
+    "hi": 1.574,
+    "scale": "OR_slot / OR_NAME, population comparator"
+   },
+   "estimate": "OR_slot 1.42 [1.14, 1.79] vs OR_NAME (all papers) 1.14 [1.08, 1.21]; ratio 1.24 [0.99, 1.57] (same-paper comparator, collider-conditioned: 1.55)",
+   "holm_p": 0.03,
+   "holm_p_note": "sensitivity family, population comparator",
+   "verdict": "Partially supported: ratio > 1 marginal against the population comparator; 1.5x not met",
+   "verdict_code": "partially supported",
+   "verdict_before_audit": "supported",
+   "what_changed_in_audit": "Same-paper comparator shown to be collider-conditioned (selection factor 0.79); population NAME comparator co-primary: ratio 1.24 [0.99, 1.57]. Verdict moved to 'partially supported'. Integration pass: Figure 4c now shows only the population comparator."
+  },
+  {
+   "id": "H3e",
+   "direction": "D3 machine register",
+   "family": "exploratory",
+   "prediction": "Exploratory: second-hand diffusion claimed only if U* > 0.8",
+   "primary_estimate": {
+    "est": 0.647,
+    "lo": 0.496,
+    "hi": 0.811,
+    "scale": "U*"
+   },
+   "estimate": "U* 0.65 [0.50, 0.81]; contamination-corrected 0.45",
+   "holm_p": null,
+   "holm_p_note": null,
+   "verdict": "Unresolved (exploratory): no second-hand-diffusion claim",
+   "verdict_code": "unresolved",
+   "verdict_before_audit": "unresolved",
+   "what_changed_in_audit": "Empty bootstrap cells skipped (CI unchanged); no-study-adj 0.61 [0.47, 0.76]. Unchanged."
+  },
+  {
+   "id": "H4a",
+   "direction": "D4 gatekeeper",
+   "family": "discovery confirmatory family (Holm within direction)",
+   "prediction": "NAME accepted/all in [0.95, 1.10] every year; TOST in [0.90, 1.11]; equal break across pools",
+   "primary_estimate": {
+    "est": 1.021,
+    "lo": 1.001,
+    "hi": 1.041,
+    "scale": "pooled 2024-26 NAME G_total (90% CI)"
+   },
+   "estimate": "G_total 1.021 (90% CI 1.001–1.041; editing-corrected [0.949, 1.031]); pool break ORs 1.05 / 1.12 / 1.11, p = 0.51",
+   "holm_p": 0.0015,
+   "holm_p_note": null,
+   "verdict": "Supported, robust to camera-ready editing; a small decision-stage premium is not identified",
+   "verdict_code": "supported",
+   "verdict_before_audit": "supported",
+   "what_changed_in_audit": "D4 fixer: qualified ('review-stage neutrality not identified', selection-only interval crossed 0.90 on the 331-pair audit). Integration pass: on WP4's complete audit the selection-only interval is 0.948-1.033 and the editing-corrected 90% CI 0.949-1.031, so the equivalence is robust to camera-ready editing; a small decision-stage premium remains unidentified."
+  },
+  {
+   "id": "H4b",
+   "direction": "D4 gatekeeper",
+   "family": "discovery confirmatory family (Holm within direction)",
+   "prediction": "LLM-style and outsider unions depleted (accepted/all < 1); L desk × exit < 1",
+   "primary_estimate": {
+    "est": 0.975,
+    "lo": 0.951,
+    "hi": 1.001,
+    "scale": "L-union G_total"
+   },
+   "estimate": "LLM-style 0.975 [0.951, 1.001] (without R24 0.998); desk × exit 0.981; outsider 0.807 [0.749, 0.870]",
+   "holm_p": 0.059,
+   "holm_p_note": null,
+   "verdict": "Partially supported: L total fails Holm; depletion is R24-driven and pre-dates 2024; O shortfall not identified as selection",
+   "verdict_code": "partially_supported",
+   "verdict_before_audit": "supported",
+   "what_changed_in_audit": "Holm over H4a-H4d (H4b 0.059); L depletion shown to be R24-driven and pre-2024; O depletion sits at the unidentified decision stage. Verdict moved to 'partially supported'."
+  },
+  {
+   "id": "H4c",
+   "direction": "D4 gatekeeper",
+   "family": "discovery confirmatory family (Holm within direction)",
+   "prediction": "Accepted-only Kobak LLM bound ≤ 0.85 × all-submission bound in each of 2024–26",
+   "primary_estimate": {
+    "est": 0.8,
+    "lo": 0.658,
+    "hi": 0.918,
+    "scale": "accepted/all Kobak bound ratio, 2024 (2025 0.714, 2026 0.502)"
+   },
+   "estimate": "ratios 0.80 / 0.71 / 0.50 (2024 CI [0.66, 0.92])",
+   "holm_p": 0.209,
+   "holm_p_note": null,
+   "verdict": "Partially supported: direction only; >= 15% not established; falsified under a post hoc pre-ChatGPT baseline",
+   "verdict_code": "partially_supported",
+   "verdict_before_audit": "partially supported",
+   "what_changed_in_audit": "IUT p 0.209 for the >= 15% magnitude; post hoc pre-ChatGPT baseline meets the falsification condition. Integration pass: abstract-editing DiD on the complete audit +0.71 pp (was +3.55 on 330 pairs)."
+  },
+  {
+   "id": "H4d",
+   "direction": "D4 gatekeeper",
+   "family": "discovery confirmatory family (Holm within direction)",
+   "prediction": "Withdrawn vs rejected: NAME > 0 across papers, ≤ 0 within last-position key",
+   "primary_estimate": {
+    "est": 0.84,
+    "lo": -1.05,
+    "hi": 2.74,
+    "scale": "pp, withdrawal excess of NAME papers with topic100 FE (pre-registered spec +4.06)"
+   },
+   "estimate": "+4.06 vs -0.70 pp; difference 4.77 pp (se 0.75); with topic100 FE cross +0.84 [-1.05, 2.74]",
+   "holm_p": 5e-05,
+   "holm_p_note": null,
+   "verdict": "Partially supported: contrast holds, but the excess is mostly topic composition",
+   "verdict_code": "partially_supported",
+   "verdict_before_audit": "supported",
+   "what_changed_in_audit": "Topic100-FE contrast co-primary (cross +0.84 [-1.05, 2.74]); 'between authors' removed. Verdict moved to 'partially supported'."
+  },
+  {
+   "id": "H4e",
+   "direction": "D4 gatekeeper",
+   "family": "descriptive",
+   "prediction": "Descriptive: published-only atlas within ±10% for mainstream statistics",
+   "primary_estimate": {
+    "est": null,
+    "lo": null,
+    "hi": null,
+    "scale": "M 9/11 within +/-10%"
+   },
+   "estimate": "mainstream 9/11, outsider 1/4, LLM-style 7/9 within ±10%",
+   "holm_p": null,
+   "holm_p_note": null,
+   "verdict": "Partially supported (descriptive): prevalences reproduced; 2024 break halved",
+   "verdict_code": "partially_supported",
+   "verdict_before_audit": "supported",
+   "what_changed_in_audit": "OR statistics compared on the effect scale: ITS break ratio 0.50, colon trend 0.89; M 11/11 -> 9/11. Verdict moved to 'partially supported (descriptive)'."
+  }
+ ],
+ "wp4_gates": [
+  {
+   "id": "SB1",
+   "claim": "PLAN D4 decision-stage bound: the NAME acceptance association (G_dec, 2024-26) is not identified by the audit (tipping point inside the audit 95% CI of the net-flip DiD).",
+   "estimate": "net-flip DiD +1.48 pp [-0.63, +3.59] (pseudo-flip; plain Wald [-0.54, +3.50], bootstrap [-0.53, +3.44]); D*_dec 2.92 pp; one-sided p(DiD < D*) 0.127; observed G_dec 1.050 [1.027, 1.073]; G_dec at the audit point estimate 1.025; share of the G_dec excess attributable to editing at the point estimate 50% (audit CI -21% to 124%); audit-implied G_dec [0.988, 1.061]; n = 803/508 pairs (v1-present 256/155)",
+   "verdict": "supported",
+   "verdict_interim_254": "supported",
+   "what_changed": "Complete audit (803/508 pairs): DiD +1.48 [-0.63, 3.59] vs D* 2.92; still not identified."
+  },
+  {
+   "id": "SB2",
+   "claim": "Gate (PLAN section 4, Holm per section 0): at least one title feature's acceptance association (G_dec != 1, 2024-26) survives the audit: auditable (arXiv-measurable, >= 10 v1-present titles per arm), editing-corrected 95% CI excludes 1, Holm-adjusted one-sided identification p < 0.025.",
+   "estimate": "0 of 26 title features pass (18 auditable); passing: none. Smallest identification p: O_union_arxiv p = 0.0160 (Holm 0.289), DiD +1.09 vs D* -1.14 pp; compound p = 0.0409 (Holm 0.695), DiD +0.74 vs D* +3.24 pp; sentence_case p = 0.0439 (Holm 0.702), DiD +0.77 vs D* -0.94 pp. Uncorrected interim rule: 2 pass ['O_union_arxiv', 'compound']",
+   "verdict": "not_supported",
+   "verdict_interim_254": "not_supported",
+   "what_changed": "Multiplicity-controlled gate adopted: 0 of 18 auditable features pass (uncorrected rule would pass compound and O-union w/o ALL-CAPS). Interim '0 of 24' held only by accident of the 254-record freeze."
+  },
+  {
+   "id": "SB3",
+   "claim": "V7: rare lexical title features ('using', R24, R26, LLM slot words, title typography) are unauditable (fewer than 10 v1-present titles in an arm, or not carried by arXiv metadata).",
+   "estimate": "using: v1-present 19/25, auditable=True; R24: v1-present 31/17, auditable=True; R26: v1-present 28/8, auditable=False; slot_llm: v1-present 23/5, auditable=False; title_typo: v1-present 0/0 (channel), auditable=False",
+   "verdict": "partially_supported",
+   "verdict_interim_254": "supported",
+   "what_changed": "'using' and R24 became auditable as the audit grew; R26, LLM slot words and typography remain unauditable. Interim 'supported' -> 'partially supported'."
+  },
+  {
+   "id": "SB4",
+   "claim": "Differential findability: accepted papers are found on arXiv more often than rejected papers; reweighting usable pairs by 1/P(usable | year, decision, title length, NAME) leaves the NAME bound unchanged (not identified).",
+   "estimate": "original + enlargement 2023-26: found 86.5% vs 53.1% (n 1300/1300); odds ratio(accepted) 5.68 [4.68, 6.89]; usable pair OR(accepted) 2.55 [2.17, 2.99]; IPW x population NAME DiD 1.45 pp [-0.81, 3.71], identified=False",
+   "verdict": "supported",
+   "verdict_interim_254": "supported",
+   "what_changed": "Pooled sample bounds the NAME effect on findability near 1 (OR 1.00 [0.81, 1.22])."
+  },
+  {
+   "id": "SB5",
+   "claim": "Camera-ready retitling: accepted papers' stored titles differ from the pre-decision arXiv v1 more often than rejected papers' (descriptive; no pre-registered threshold).",
+   "estimate": "retitled 23.8% acc (n=803) vs 22.2% rej (n=508): +1.5 pp [-3.2, +6.1]; 2024-26 +2.0 pp [-3.2, +7.1]; v1 posted during review 8.7% vs 11.4%: -2.7 pp [-7.8, +1.8]; v1 posted before the deadline 41.7% vs 33.1%: +8.6 pp [+0.9, +16.1]; logit OR(acc | year FE) 1.09 [0.84, 1.42]; period contrast (2024-26 minus 2023) +2.7 pp [-9.5, +15.5]",
+   "verdict": "not_supported",
+   "verdict_interim_254": "not_supported",
+   "what_changed": "Camera-ready retitling excess (+6/+10 pp) withdrawn: +1.5 [-3.2, 6.1]; -2.7 pp where v1 was posted during review."
+  },
+  {
+   "id": "V7a",
+   "claim": "Route validation (findability): the accepted-rejected findability gap is not specific to title search: a title-free route (first-author surname + distinctive abstract words) gives the same gap. Both routes accept a hit by similarity between the stored and the latest arXiv abstract, so they are not independent of post-rejection rewriting.",
+   "estimate": "n = 300 (acc 150, rej 150); found A/B: acc 0.887/0.847, rej 0.527/0.487; gap A 0.360, gap B 0.360, B - A -0.000 [-0.060, 0.060]; arXiv-id agreement 0.995",
+   "verdict": "supported",
+   "verdict_interim_254": "supported",
+   "what_changed": "Both routes share an abstract-similarity rule; near-miss bound 0.33 -> 0.25 added."
+  },
+  {
+   "id": "V7b",
+   "claim": "Route validation (title stability): the title route does not select on title stability; retitling among route-B pairs matches route-A pairs, and adding papers only route B finds leaves the flip DiDs unchanged.",
+   "estimate": "retitled v1 vs stored: route A 0.244 (n=160), route B 0.265 (n=155), difference 2.1 pp; B-only usable pairs 6 (4 retitled); NAME DiD with B-only pairs (300-paper subsample) 1.28 pp; abstract-matched pairs only 1.59 pp [-0.65, 3.82]",
+   "verdict": "partially_supported",
+   "verdict_interim_254": "partially_supported",
+   "what_changed": "Unchanged label; route-B-only pairs move the NAME DiD by 0.20 pp."
+  },
+  {
+   "id": "G1",
+   "claim": "Gate for D4-H4a: NAME neutrality (pooled 2024-26 G_total inside [0.90, 1.11]) survives camera-ready uncertainty (editing-corrected 90% CI combining universe bootstrap and audit).",
+   "estimate": "G_total observed 1.021 90% CI [1.001, 1.041]; audit-implied [0.948, 1.033]; corrected 90% CI [0.949, 1.031]; G at the audit point estimate 0.991. G_dec corrected 90% CI [0.988, 1.059]",
+   "verdict": "supported",
+   "verdict_interim_254": "partially_supported",
+   "what_changed": "Upgraded from 'partially supported' to 'supported' on the complete audit (corrected 90% CI [0.949, 1.031])."
+  },
+  {
+   "id": "G2",
+   "claim": "Gate for D4-H4b: H4b L-title G_total < 1 (2024-26; audited as R24 or R26) survives the camera-ready audit.",
+   "estimate": "G_total 0.914, 90% CI [0.869, 0.963]; net-flip DiD -0.32 pp [-1.62, 0.98] vs D*_total -1.05 pp; audit-implied [0.829, 1.044]; corrected 90% CI [0.834, 1.042]; one-sided p 0.165, Holm 0.331; auditable=True (v1-present 59/25)",
+   "verdict": "not_supported",
+   "verdict_interim_254": "not_supported",
+   "what_changed": "L-title audited as R24 or R26 (channel rule); not identified (Holm 0.33)."
+  },
+  {
+   "id": "G2b",
+   "claim": "Gate for D4-H4b: H4b O-union G_total < 1 (2024-26; audited without ALL-CAPS) survives the camera-ready audit.",
+   "estimate": "G_total 0.908, 90% CI [0.850, 0.966]; net-flip DiD 1.09 pp [-0.85, 3.03] vs D*_total -0.73 pp; audit-implied [0.436, 1.015]; corrected 90% CI [0.482, 0.978]; one-sided p 0.039, Holm 0.117; auditable=True (v1-present 46/39)",
+   "verdict": "not_supported",
+   "verdict_interim_254": null,
+   "what_changed": "New: O-union audited without ALL-CAPS; not identified (Holm 0.12)."
+  },
+  {
+   "id": "G3",
+   "claim": "Gate for D4-H4b: H4b/abstract F24 or F26 words G_total < 1 (2024-26) survives the camera-ready audit.",
+   "estimate": "G_total 0.998, 90% CI [0.967, 1.029]; net-flip DiD 1.01 pp [-1.80, 3.82] vs D*_total -0.06 pp; audit-implied [0.843, 1.064]; corrected 90% CI [0.857, 1.050]; one-sided p 0.240, Holm 0.331; auditable=True (v1-present 118/70)",
+   "verdict": "not_supported",
+   "verdict_interim_254": "not_supported",
+   "what_changed": "Abstract audit pooled with the enlargement's v1 abstracts; not identified."
+  },
+  {
+   "id": "G4",
+   "claim": "D4-H4c direction assumption: camera-ready polishing does not lower accepted papers' abstract RARE21/F24 rates relative to rejected papers (net-flip DiD >= 0) [2024-26 pairs, primary]",
+   "estimate": "F24 net flips: accepted +0.96 pp (18 adds / 12 drops, v1-present 81, n 628), rejected +0.25 pp (8 / 7, v1-present 48, n 404); DiD +0.71 pp [-1.95, +3.36]",
+   "verdict": "partially_supported",
+   "verdict_interim_254": "partially_supported",
+   "what_changed": "Magnitude fell from +3.55 to +0.71 pp; 'LLM-assisted polishing' sentence withdrawn."
+  },
+  {
+   "id": "G4_sens",
+   "claim": "D4-H4c direction assumption: camera-ready polishing does not lower accepted papers' abstract RARE21/F24 rates relative to rejected papers (net-flip DiD >= 0) [2023-26 pairs, sensitivity]",
+   "estimate": "F24 net flips: accepted +1.12 pp (21 adds / 12 drops, v1-present 87, n 803), rejected +0.39 pp (9 / 7, v1-present 50, n 507); DiD +0.73 pp [-1.45, +2.90]",
+   "verdict": "partially_supported",
+   "verdict_interim_254": null,
+   "what_changed": "2023-26 pairs: +0.73 pp."
+  }
+ ],
+ "prereg": {
+  "revision": 2,
+  "bundle_hash": "853827a92e85ad56ee85376e8b90a881c4f4ca1e46a861e80ed21a04e883d922",
+  "previous_bundle_hash": "f69fdb468702fe11e336b81476869531a71acb1d4f922b8bd1d479934bbac628",
+  "reason": "Post-audit corrections before any held-out data were requested or seen (no guard file, no heldout.json): (1) the D3 and D4 fixer passes changed required code hashed by revision 1 (d3_register.py, d3_slots.py, d3_vintage.py, d4_bias_atlas.py, d4_stage_gains.py; the frozen test definitions they supply are unchanged); (2) the WP4 enlargement finished (2,004 lines, 2,000 records) and the gate audit is re-frozen on WP4's complete audit; (3) the gate adopts WP4's multiplicity-controlled rule (identification p with the tipping point's sampling error, Holm at 0.025, editing-corrected interval), because the revision-1 uncorrected rule admits acceptance associations that the Holm gate rejects. The R1 models, centroids, lexicons, slot inventory, DFL cells and every test statistic are unchanged (frozen files byte-identical).",
+  "gate_rule": "WP4 multiplicity-controlled gate (revision 2). Association claims (CT6 G_total, CT10): the marker must be auditable (>= 10 v1-present per arm and measurable through arXiv metadata), its editing-corrected 95% interval (bootstrap replicate paired with an audit draw D ~ N(D_hat, se_D)) must lie beyond the claim's boundary, and its one-sided identification p, z = (D_hat - D*)/sqrt(se_D^2 + se_D*^2) with se_D the pseudo-flip SE and se_D* the bootstrap SE of the tipping point, must survive Holm at 0.025 across the run's auditable association claims. Equivalence claims (CT5, CT11): editing-corrected interval rules (CT5 = WP4 G1 TOST; CT11 = ACC-pair CIs widened by the largest editing bias inside the NAME audit CI).",
+  "audit_freeze": {
+   "enlargement_lines": 2004,
+   "sha256": "dd51d5faaa0a793778581334c136f2a570d68b2ac2868064fd724df2f24f869f",
+   "title_pairs": 1311,
+   "abstract_pairs": 1032
+  },
+  "dry_run": [
+   {
+    "id": "CT1",
+    "title": "D1 break (H1a)",
+    "family": "primary",
+    "estimate": 1.0975088704287634,
+    "ci": [
+     1.0441038086416468,
+     1.153645557750506
+    ],
+    "ci_level": 0.95,
+    "p_one_sided": 0.00012824279967757834,
+    "p_adjusted": 0.00076945679806547,
+    "gate_applies": false,
+    "gate_passes": null,
+    "gate_kind": null,
+    "gate_p_ident_holm": null,
+    "verdict_as_if": "not confirmed",
+    "reasons": [
+     "point estimate not beyond the minimal effect"
+    ],
+    "verdict_as_if_revision_1": "not confirmed",
+    "reading": "Discovery OR 1.098 is below the pre-registered minimal effect 1.10."
+   },
+   {
+    "id": "CT2",
+    "title": "D1 acceleration of unexplained drift (H1c)",
+    "family": "primary",
+    "estimate": 1.3533628927064156,
+    "ci": [
+     0.02000843274707209,
+     2.7005071317456806
+    ],
+    "ci_level": 0.95,
+    "p_one_sided": 0.02498750624687656,
+    "p_adjusted": 0.04997501249375312,
+    "gate_applies": false,
+    "gate_passes": null,
+    "gate_kind": null,
+    "gate_p_ident_holm": null,
+    "verdict_as_if": "not confirmed",
+    "reasons": [
+     "CI rule not met"
+    ],
+    "verdict_as_if_revision_1": "not confirmed",
+    "reading": "Content-share upper bound 0.66 > 0.60 already in discovery; underpowered (projected z ~ 1)."
+   },
+   {
+    "id": "CT3",
+    "title": "D2 communal change at the last list position (H2a)",
+    "family": "primary",
+    "estimate": 0.9947854866556092,
+    "ci": [
+     0.9431098005077974,
+     1.0502260924079754
+    ],
+    "ci_level": 0.95,
+    "p_one_sided": 0.000999000999000999,
+    "p_adjusted": 0.002997002997002997,
+    "gate_applies": false,
+    "gate_passes": null,
+    "gate_kind": null,
+    "gate_p_ident_holm": null,
+    "verdict_as_if": "confirmed",
+    "reasons": [],
+    "verdict_as_if_revision_1": "confirmed",
+    "reading": "A confirmed CT3 would confirm the statistic, not communal change: the generational null gives rho_last 0.88-0.93 > 0.5 (H2a not identified)."
+   },
+   {
+    "id": "CT4",
+    "title": "D3 meaning-fixed slot break (H3a)",
+    "family": "primary",
+    "estimate": 2.5514116126559783,
+    "ci": [
+     1.5300021575448128,
+     4.254700678096995
+    ],
+    "ci_level": 0.95,
+    "p_one_sided": 0.00016540318418243802,
+    "p_adjusted": 0.0008270159209121901,
+    "gate_applies": false,
+    "gate_passes": null,
+    "gate_kind": null,
+    "gate_p_ident_holm": null,
+    "verdict_as_if": "confirmed",
+    "reasons": [],
+    "verdict_as_if_revision_1": "confirmed",
+    "reading": ""
+   },
+   {
+    "id": "CT5",
+    "title": "D4 neutral filter for NAME (H4a)",
+    "family": "primary",
+    "estimate": 1.0205342500104628,
+    "ci": [
+     1.0014070492544387,
+     1.04051313153982
+    ],
+    "ci_level": 0.9,
+    "p_one_sided": 0.0004997501249375312,
+    "p_adjusted": 0.001999000499750125,
+    "gate_applies": true,
+    "gate_passes": true,
+    "gate_kind": "equivalence",
+    "gate_p_ident_holm": null,
+    "verdict_as_if": "confirmed",
+    "reasons": [],
+    "verdict_as_if_revision_1": "confirmed",
+    "reading": ""
+   },
+   {
+    "id": "CT6",
+    "title": "D4 depletion of LLM markers (H4b)",
+    "family": "primary",
+    "estimate": {
+     "G_total": 0.9751933657831902,
+     "G_desk_x_exit": 0.9814640703584663
+    },
+    "ci": {
+     "G_total": [
+      0.9506742301133542,
+      1.0008987119326473
+     ],
+     "G_desk_x_exit": [
+      0.9718283473185475,
+      0.9917752710755087
+     ]
+    },
+    "ci_level": 0.95,
+    "p_one_sided": 0.029985007496251874,
+    "p_adjusted": 0.04997501249375312,
+    "gate_applies": true,
+    "gate_passes": false,
+    "gate_kind": "association",
+    "gate_p_ident_holm": null,
+    "verdict_as_if": "not confirmed",
+    "reasons": [
+     "audit gate not passed"
+    ],
+    "verdict_as_if_revision_1": "not confirmed",
+    "reading": "L-union unauditable through arXiv (typography, em dash); can never be 'confirmed'."
+   },
+   {
+    "id": "CT7",
+    "title": "D3 vintage alignment (H3c)",
+    "family": "secondary",
+    "estimate": 1.4611845178083358,
+    "ci": [
+     1.1678516684104792,
+     1.8281946696096538
+    ],
+    "ci_level": 0.95,
+    "p_one_sided": 0.00045461047413780344,
+    "p_adjusted": 0.0009995002498750624,
+    "gate_applies": false,
+    "gate_passes": null,
+    "gate_kind": null,
+    "gate_p_ident_holm": null,
+    "verdict_as_if": "confirmed",
+    "reasons": [],
+    "verdict_as_if_revision_1": "confirmed",
+    "reading": "Carried by F26 papers avoiding R24; without shared lemmas OR(F24) = 1.00. Not a vintage-alignment test on its own."
+   },
+   {
+    "id": "CT8",
+    "title": "D3 register turnover (H3b)",
+    "family": "secondary",
+    "estimate": {
+     "RR_R24": 0.7440753370875882,
+     "RR_R26": 1.9444201184187675
+    },
+    "ci": {
+     "RR_R24": [
+      0.6419977223282466,
+      0.862383288922221
+     ],
+     "RR_R26": [
+      1.6723713928783657,
+      2.26072367239221
+     ]
+    },
+    "ci_level": 0.95,
+    "p_one_sided": 4.3087972153162735e-05,
+    "p_adjusted": 0.0002585278329189764,
+    "gate_applies": false,
+    "gate_passes": null,
+    "gate_kind": null,
+    "gate_p_ident_holm": null,
+    "verdict_as_if": "confirmed",
+    "reasons": [],
+    "verdict_as_if_revision_1": "confirmed",
+    "reading": "Neutral synonyms fell alike (R24 vs N24 1.08 [0.86, 1.36]); R26 selected in-sample. A shift in word families, not register turnover."
+   },
+   {
+    "id": "CT9",
+    "title": "D1 tool bound (H1e(i))",
+    "family": "secondary",
+    "estimate": 0.9823549673758311,
+    "ci": [
+     0.9607890829193647,
+     1.0038962152515163
+    ],
+    "ci_level": 0.95,
+    "p_one_sided": 0.0004997501249375312,
+    "p_adjusted": 0.0009995002498750624,
+    "gate_applies": false,
+    "gate_passes": null,
+    "gate_kind": null,
+    "gate_p_ident_holm": null,
+    "verdict_as_if": "confirmed",
+    "reasons": [],
+    "verdict_as_if_revision_1": "confirmed",
+    "reading": "Little power by construction; positive control fails on this fingerprint."
+   },
+   {
+    "id": "CT10",
+    "title": "D4 published-only understatement of LLM use (H4c)",
+    "family": "secondary",
+    "estimate": 0.717069202691203,
+    "ci": [
+     0.4945861765848808,
+     0.8877850131881938
+    ],
+    "ci_level": 0.95,
+    "p_one_sided": 0.017991004497751123,
+    "p_adjusted": 0.02158920539730135,
+    "gate_applies": true,
+    "gate_passes": false,
+    "gate_kind": "association",
+    "gate_p_ident_holm": 0.04136912090330301,
+    "verdict_as_if": "not confirmed",
+    "reasons": [
+     "audit gate not passed"
+    ],
+    "verdict_as_if_revision_1": "confirmed",
+    "reading": "Gate now fails: identification p 0.041 (Holm family {CT10}) > 0.025 and the editing-corrected upper bound 0.918 > 0.90. Passed under the revision-1 uncorrected rule."
+   },
+   {
+    "id": "CT11",
+    "title": "D4 pool invariance of the break (H4a(iii))",
+    "family": "secondary",
+    "estimate": {
+     "ACC-REJ": -0.06083384466530439,
+     "ACC-WD": -0.050387319847440576,
+     "REJ-WD": 0.010446524817863817
+    },
+    "ci": {
+     "ACC-REJ": [
+      -0.14836155091483402,
+      0.026693861584225237
+     ],
+     "ACC-WD": [
+      -0.16965206564526963,
+      0.0688774259503885
+     ],
+     "REJ-WD": [
+      -0.10077064686874566,
+      0.1216636965044733
+     ]
+    },
+    "ci_level": 0.9,
+    "p_one_sided": 0.2469121123130153,
+    "p_adjusted": 0.24691211231301527,
+    "gate_applies": true,
+    "gate_passes": false,
+    "gate_kind": "equivalence",
+    "gate_p_ident_holm": null,
+    "verdict_as_if": "not confirmed",
+    "reasons": [
+     "adjusted p >= .05",
+     "point estimate not beyond the minimal effect",
+     "CI rule not met",
+     "audit gate not passed"
+    ],
+    "verdict_as_if_revision_1": "not confirmed",
+    "reading": "No pair equivalent within +/-0.1 in discovery; ACC-pair gate fails (b_max 0.092)."
+   },
+   {
+    "id": "CT12",
+    "title": "D2 role gradient (H2b)",
+    "family": "secondary",
+    "estimate": -0.47014762182726655,
+    "ci": [
+     -0.6022087808540594,
+     -0.359315341121533
+    ],
+    "ci_level": 0.95,
+    "p_one_sided": 0.000999000999000999,
+    "p_adjusted": 0.0014985014985014985,
+    "gate_applies": false,
+    "gate_passes": null,
+    "gate_kind": null,
+    "gate_p_ident_holm": null,
+    "verdict_as_if": "confirmed",
+    "reasons": [],
+    "verdict_as_if_revision_1": "confirmed",
+    "reading": ""
+   }
+  ],
+  "note": "Dry-run verdicts are 'as if' discovery were the held-out split; they are not confirmations. The held-out split has not been requested or seen."
+ },
+ "validation": [
+  {
+   "id": "V1",
+   "check": "NAME / compound / orthography / casing detectors (two blind LLM passes + adjudication)",
+   "result": "kappa 0.948-1.000 on all labels (target 0.80); NAME precision 97.8%, recall 97.3%; precision drift 1.2 pp across eras (< 5 pp); misclassification-corrected ITS OR 1.090 vs 1.098 (within 10%)",
+   "verdict": "pass"
+  },
+  {
+   "id": "V2",
+   "check": "Slot sense and swap preservation",
+   "result": "3 variants dropped (precision < 0.85): exploit/unlocking, exploit/enabling, reveal/decoding; swap preservation 0.75-0.99",
+   "verdict": "pass (inventory frozen after drops)"
+  },
+  {
+   "id": "V3",
+   "check": "Fingerprint specificity and convergent validity",
+   "result": "FPR 2021-22: F24 2.9%, F26 3.2%, F 5.9%, typography 0.04%; LLM-polish rating Spearman 0.25 (F); recall unknown",
+   "verdict": "weak convergent validity; all tool estimates are bounds or model-conditional"
+  },
+  {
+   "id": "V4",
+   "check": "Name-masking leakage",
+   "result": "whole-word lead survives R3 masking in 0 of 12,928 NAME abstracts, R1 in 22 (0.17%, URL suffixes); variant spellings 0.36-0.81%",
+   "verdict": "pass (R3); R1 near-pass"
+  },
+  {
+   "id": "V5",
+   "check": "Topic labels and stability",
+   "result": "LLM-cluster flag vs regex kappa 0.86; MiniLM vs bge topic100 ARI 0.42",
+   "verdict": "pass for the LLM flag; topic partitions only moderately stable"
+  },
+  {
+   "id": "V6",
+   "check": "Author keys",
+   "result": "0 key-years > 40 papers; trailing-digit aliasing changes 24.2% of 2022+ papers' new-key share (0.552 -> 0.495)",
+   "verdict": "aliasing material for D2; restricted-alias sensitivity reported"
+  },
+  {
+   "id": "V7",
+   "check": "Camera-ready audit validity (WP4)",
+   "result": "see gates V7a (supported) and V7b (partially supported)",
+   "verdict": "see gates"
+  }
+ ],
+ "robust_findings": [
+  {
+   "claim": "ICLR submissions titled 'NAME: subtitle' doubled from 2023 to 2026 (20.3% -> 40.5% of 43,482 submissions), on a trend that became convex (accelerated) from about 2022-24, most visibly in 2026.",
+   "evidence": "LPM slope change +2.8 pp/yr [1.3, 4.4] (year level); camera-ready-free pool year-level OR 1.121 [1.019, 1.232]; misclassification-corrected ITS within 10% (V1).",
+   "caveat": "Not a dated 2024 break; not tied to ChatGPT."
+  },
+  {
+   "claim": "A published-only study reproduces the all-submission NAME share, and this survives correction for camera-ready editing.",
+   "evidence": "G_total 1.021 (90% CI 1.001-1.041); editing-corrected [0.949, 1.031] (complete arXiv audit).",
+   "caveat": "A small decision-stage NAME premium (G_dec 1.05) is not identified against editing."
+  },
+  {
+   "claim": "In meaning-fixed title-opener slots, LLM-favoured verbs ('Enhancing' over 'Improving', etc.) rose from 2024 while control pairs did not shift at 2024, including in the camera-ready-free pool; the new openers were added rather than swapped for neutral synonyms.",
+   "evidence": "Pooled post OR 2.18 [1.41, 3.38]; stacked slot-vs-control 2.55 [1.53, 4.25]; NA pool 2.18 [1.28, 3.70]; LLM-variant rate RR 3.91 [1.84, 8.29] vs neutral 1.17 [0.70, 1.94].",
+   "caveat": "Associational; OR >= 2 depends on 'enhancing'; not sharply dated against 2023; the control null holds at the 2024 specification only."
+  },
+  {
+   "claim": "Title-style markers move more slowly among stayer keys than abstract-topic markers do (style-vs-topic channel contrast).",
+   "evidence": "G_style 0.17 [0.13, 0.20] vs G_topic -0.05 [-0.07, -0.03] (any position).",
+   "caveat": "Declared profile keys, not persons; the slope criterion itself is not diagnostic."
+  },
+  {
+   "claim": "Measured team composition (size x new keys x LLM topic) does not account for most of the 2023-26 NAME rise.",
+   "evidence": "DFL share 0.29 / 0.32 / 0.26 (2024/25/26), far below the 0.50 falsification line; Shapley share net of content 0.09.",
+   "caveat": "The <= 0.30 prediction fails in 2025."
+  },
+  {
+   "claim": "Retitled resubmissions do not add NAME on net.",
+   "evidence": "Mean change 0.000 (se 0.025; 28 adds, 28 drops; n = 297).",
+   "caveat": "Pairs are selected on retitling; a lag behind the population drift is not established."
+  },
+  {
+   "claim": "No title feature's acceptance association survives the camera-ready audit under multiplicity control.",
+   "evidence": "0 of 18 auditable features pass the Holm gate on 1,311 pre-decision arXiv pairs; NAME DiD +1.48 pp [-0.63, 3.59] vs tipping point 2.92 pp.",
+   "caveat": "'Not identified' is a statement about the audit, not evidence that editing explains the associations; ALL-CAPS, typography and the em dash cannot be audited through arXiv."
+  },
+  {
+   "claim": "A published-only study recovers mainstream title prevalences within 10% but halves the 2024 NAME slope change and under-represents outsider casing.",
+   "evidence": "M 9/11 within +/-10% (effect scale); ITS break ratio 0.50 [-0.15, 1.16]; ALL-CAPS titles 0.36 [0.26, 0.47] of their all-submission share.",
+   "caveat": "Outsider under-representation is not identified as selection (camera-ready recasing)."
+  },
+  {
+   "claim": "Pre-decision stages deplete 'Enhancing X via Y'-type R24 title words, as they did before 2024; the other LLM-style markers are neutral in 2024-26.",
+   "evidence": "R24 total 0.807 [0.740, 0.874], post/pre 0.99; L-union without R24 0.998 [0.972, 1.027].",
+   "caveat": "Not evidence that review detects LLM use."
+  },
+  {
+   "claim": "The raw withdrawal excess of NAME papers is mostly topic composition.",
+   "evidence": "+4.06 pp cross-section without topic FE; +0.84 [-1.05, 2.74] with topic100 FE.",
+   "caveat": "Within-key, not within-person."
+  },
+  {
+   "claim": "The camera-ready NAME audit, the findability gap and the absence of a camera-ready retitling excess are robust measurement facts about the arXiv audit itself.",
+   "evidence": "Found 86.5% vs 53.1% (accepted vs rejected; OR 5.68); retitling +1.5 pp [-3.2, 6.1]; NAME does not predict findability (OR 1.00 [0.81, 1.22]).",
+   "caveat": "Both retrieval routes share an abstract-similarity rule."
+  }
+ ],
+ "withdrawn_or_not_identified": [
+  {
+   "claim": "'Dated slope break at 2024 (pilot OR 1.28/yr)'",
+   "status": "not identified",
+   "why": "Year-level CI on U includes 1 (1.096 [0.990, 1.214]); sup-LR picks 2023; null without 2026; 1.28 was for compound titles."
+  },
+  {
+   "claim": "'Content explains only a minority (30-45%)'",
+   "status": "not established",
+   "why": "Name-masked content explains 0.37-0.65 depending on design and calibration."
+  },
+  {
+   "claim": "'Unexplained drift accelerated from 1.7 to 3.9 pp/yr'",
+   "status": "not established",
+   "why": "Point estimate 1.5 -> 2.9 pp/yr; two-stage year-level CI [0.03, 2.71] pp fails Holm; absent in the NA pool and the non-LLM subset."
+  },
+  {
+   "claim": "'Detectable LLM drafting adds little and is bounded from above'",
+   "status": "not established as a bound",
+   "why": "7% [1, 13] for the pre-registered fingerprint; 16-33% for other markers; the fingerprint fails D3's positive control (slot OR 1.29 [0.92, 1.81])."
+  },
+  {
+   "claim": "'The same people changed: communal change within incumbent authors'",
+   "status": "not identified",
+   "why": "A purely generational world with the observed co-authorship gives rho_last 0.88-0.93."
+  },
+  {
+   "claim": "Newcomer-free teams rose >= 0.5x the population (H2c)",
+   "status": "not supported",
+   "why": "0.34 [0.19, 0.48] x population at zero new co-author keys."
+  },
+  {
+   "claim": "Communal change as the general (pre-LLM) mode (H2e)",
+   "status": "inconclusive",
+   "why": "IUT p 0.061 (Holm 0.122); email-era null 0.69-0.76."
+  },
+  {
+   "claim": "Retitled papers lag the content-fixed drift (S2.1)",
+   "status": "not established",
+   "why": "Topic-adjusted -4.8 pp (p 0.057); same-key -3.4 pp (p 0.33)."
+  },
+  {
+   "claim": "Tie contagion falsified by the future-tie placebo (S2.2)",
+   "status": "inconclusive",
+   "why": "The positive control is not detected in the primary specification."
+  },
+  {
+   "claim": "'LLM register turns over in step with the model generation'",
+   "status": "withdrawn",
+   "why": "R24's 2026 fall is shared by neutral synonyms (1.08 [0.86, 1.36]); R26 selected in-sample."
+  },
+  {
+   "claim": "Title register aligns with the abstract's LLM vintage (H3c)",
+   "status": "not established",
+   "why": "Without shared lemmas OR(F24 -> R24) = 1.00; the contrast is F26 papers avoiding R24."
+  },
+  {
+   "claim": "'Lexical, not structural' LLM signature (H3d, ratio >= 1.5)",
+   "status": "weakened to marginal",
+   "why": "Against the population NAME comparator 1.24 [0.99, 1.57]; F is associated with NAME (OR 1.14)."
+  },
+  {
+   "claim": "Second-hand diffusion of LLM wording to non-users (H3e)",
+   "status": "unresolved",
+   "why": "U* 0.65 [0.50, 0.81] < 0.8."
+  },
+  {
+   "claim": "'Peer review neither creates nor amplifies the naming fashion'",
+   "status": "partly retained",
+   "why": "Amplification is not supported (editing-corrected centre 0.991; equivalence holds); whether the decision stage carries a small NAME premium is not identified."
+  },
+  {
+   "claim": "'Review depletes LLM and outsider markers'",
+   "status": "not supported as written",
+   "why": "L-union total fails Holm (0.975 [0.951, 1.001]); the identified depletion is R24 and pre-dates 2024; O depletion is not identified as selection except ALL-CAPS at exit."
+  },
+  {
+   "claim": "Published-only studies understate LLM use by >= 15%",
+   "status": "not established",
+   "why": "IUT p 0.209; the falsification condition is met under a post hoc pre-ChatGPT baseline; the prereg CT10 gate now fails in the dry run."
+  },
+  {
+   "claim": "The withdrawal excess of named papers is between authors (H4d)",
+   "status": "withdrawn",
+   "why": "With topic100 FE the cross-sectional excess is +0.84 [-1.05, 2.74]."
+  },
+  {
+   "claim": "Camera-ready retitling excess among accepted papers (+6 to +10 pp)",
+   "status": "withdrawn",
+   "why": "Complete audit: +1.5 [-3.2, 6.1]; -2.7 pp where v1 was posted during review."
+  },
+  {
+   "claim": "'Consistent with LLM-assisted camera-ready polishing' of abstracts",
+   "status": "withdrawn",
+   "why": "Abstract-editing DiD fell from +3.55 to +0.71 pp [-1.95, 3.36]."
+  },
+  {
+   "claim": "Acceptance associations of compound titles, sentence case or outsider casing",
+   "status": "not identified",
+   "why": "Pass only the uncorrected audit rule; Holm p >= 0.29."
+  }
+ ],
+ "integration_changes": [
+  "figures.py: Figure 4c shows the population NAME comparator (ratio 1.24 [0.99, 1.57]) and D1's fingerprint; the collider-conditioned same-paper comparator is dropped. Figure 4b adds the neutral synonyms of R24. Figures 5-6 and Tables 1 and 4 updated to the final D4/WP4 outputs (complete audit, Holm gate, effect-scale atlas); Table 1 shows final post-audit verdicts and fails loudly if an upstream verdict changes.",
+  "D1: positive control from D3 wired into d1_summary (results.json -> H1e.positive_control_D3) and RESULTS.md §5; H1e wording adjusted.",
+  "D4: d4_bias_atlas builds its flip tables on WP4's complete frozen audit (1,311 pairs) with WP4's rule and CI (asserted equal to WP4); d4_collect reads WP4's Holm gate; RESULTS.md audit-dependent numbers updated; H4a strengthened (robust to camera-ready editing).",
+  "WP4: the RESULTS.md section on audit consumers now records that D4 and the prereg are aligned.",
+  "prereg: revision 2 re-froze the gate audit on WP4's complete audit (2,004 lines) and adopted the Holm gate; dry run re-run (every test statistic unchanged; CT10 now 'not confirmed (gate)'); new bundle hash 853827a92e85ad56ee85376e8b90a881c4f4ca1e46a861e80ed21a04e883d922 (revision 1: f69fdb468702fe11e336b81476869531a71acb1d4f922b8bd1d479934bbac628)."
+ ]
+}

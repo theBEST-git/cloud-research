@@ -8,3 +8,16 @@ outputs/**/*.joblib
 outputs/**/*.log
 outputs/topics/embed_masked.done
 __pycache__/
+# ...except the frozen pre-registration parameters, which the bundle hash covers and which must be committed
+!outputs/prereg/frozen/*.npz
+!outputs/prereg/frozen/*.npy
+# LaTeX build artefacts (main.pdf is kept) and the writer's pre-revision backup
+paper/*.aux
+paper/*.log
+paper/*.fls
+paper/*.fdb_latexmk
+paper/*.out
+paper/*.blg
+paper/*.bbl
+paper/*.synctex.gz
+paper/backup_round0/

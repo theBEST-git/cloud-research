@@ -1,0 +1,99 @@
+\section{Data and measurement}
+\label{sec:nt-data}
+
+\subsection{Corpus and pools}
+\label{sec:nt-corpus}
+The data are the ICLR discovery export: 43,516 submissions from 2017 to 2026, with 219,719 declared author-list positions. Dropping one empty title, 17 placeholder titles and 16 abstracts under 20 words leaves the universe $U$ of 43,482 submissions. % core/universe_counts.csv
+The export is the pre-specified discovery split, about 80\% of all submissions; a held-out confirmation split (about 20\%) has not been requested (\S\ref{sec:nt-inference}). The split keeps linked submission families together and keeps one submission per family, and its mechanism is not recorded. Table~\ref{tab:nt-corpus} gives counts by year; yearly counts are therefore about four fifths of public ICLR totals.
+
+The pools are: accepted (ACC); rejected (REJ); withdrawn (WD), with 349 post-decision withdrawals in 2026 flagged separately; and desk-rejected (DR). The \emph{camera-ready-free pool} (NA $=$ REJ $\cup$ WD $\cup$ DR; 30,322 papers) carries pre-decision text, free of camera-ready edits though possibly revised during the rebuttal period, and every key result is repeated in it. Topics are KMeans clusters ($k=100$) of MiniLM abstract embeddings, replicated with bge-small. A paper is LLM-topic if it matches an LLM regex or sits in a cluster where most papers do.
+
+\paragraph{Author information.} Authors enter only as \emph{declared profile keys}: exact recorded IDs, which are not verified persons. A key is a \emph{stayer} if it appears in both the early window (E $=$ 2022--23) and the late window (L $=$ 2025--26), and an \emph{entrant} if it appears only in L. ``First'' and ``last list position'' are partition labels; they say nothing about seniority. Because the held-out split is missing, a key whose earlier papers sit there appears as an entrant; under a further random removal of 10--30\% of papers the carrier ratios move by less than 0.01, and under a family-structured removal by up to $-0.05$ (Appendix~\ref{app:nt-robust}).
+
+\begin{table}[t]
+\centering
+\scriptsize
+\setlength{\tabcolsep}{2.2pt}
+\caption{Corpus by year: the discovery split (${\sim}80\%$ of all submissions). NAME and compound (Cmp.) shares in \%, for all submissions and for the camera-ready-free pool (NA). Sources: \texttt{core/universe\_counts.csv}, \texttt{features/fig\_name\_share\_by\_year.csv}. A further 112 rows of 2017--18 have no recorded decision.}
+\label{tab:nt-corpus}
+\begin{tabular}{lrrrrrrrr}
+\toprule
+Year & $U$ & ACC & REJ & WD & DR & NAME & NAME$_{\text{NA}}$ & Cmp. \\
+\midrule
+2017 & 384 & 149 & 194 & 0 & 0 & 8.9 & 10.3 & 19.3 \\
+2018 & 769 & 263 & 378 & 57 & 0 & 10.0 & 9.9 & 22.9 \\
+2019 & 1,248 & 412 & 713 & 123 & 0 & 13.1 & 12.9 & 25.9 \\
+2020 & 2,070 & 558 & 1,215 & 290 & 7 & 15.7 & 15.4 & 26.7 \\
+2021 & 2,360 & 678 & 1,341 & 327 & 14 & 15.0 & 14.8 & 28.2 \\
+2022 & 2,649 & 875 & 1,156 & 599 & 19 & 18.3 & 18.3 & 31.7 \\
+2023 & 3,872 & 1,256 & 1,717 & 883 & 16 & 20.3 & 20.1 & 32.6 \\
+2024 & 5,765 & 1,778 & 2,657 & 1,293 & 37 & 26.6 & 26.3 & 41.1 \\
+2025 & 8,953 & 2,904 & 3,674 & 2,322 & 53 & 33.1 & 32.5 & 49.8 \\
+2026 & 15,412 & 4,175 & 6,440 & 4,060 & 737 & 40.5 & 40.3 & 59.9 \\
+\midrule
+Total & 43,482 & 13,048 & 19,485 & 9,954 & 883 & & & \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Measures}
+\label{sec:nt-measures}
+Table~\ref{tab:nt-notation} defines every measure and the short names used in the text; Appendix~\ref{app:nt-validation} gives example titles and the detector rules.
+\begin{itemize}
+\item \textbf{\NAME{} (primary).} A title whose lead, before a colon or spaced dash, names one specific artefact: a single non-genre token (``QANet: \dots'', ``mixup: \dots''), a two-token lead with an inner capital or digit, or a phrase ending in a parenthesised acronym. \NAME{} counts any name-led title, including leads that name a pre-existing technique; it measures name-led titles, not self-branding as such. \textbf{Compound} titles have any colon or spaced dash.
+\item \textbf{Meaning-fixed slots} (\S\ref{sec:nt-register}). The first word of the title, or of the subtitle after ``NAME:'', is drawn from a frozen set of near-synonym pairs. Each pair contrasts an LLM-favoured variant with a neutral one: \emph{enhancing/boosting/\dots} vs \emph{improving}; \emph{unveiling/uncovering/\dots} vs \emph{understanding/analysing/\dots}; \emph{leveraging/harnessing/\dots} vs \emph{exploiting/utilising}; \emph{comprehensive} vs \emph{systematic/extensive/large-scale}. Control pairs chosen as unlikely to carry an LLM preference (towards/toward, novel/new, via/using) give a placebo. Via/using, 76\% of control titles, itself drifts and is reported as LLM-favoured in arXiv titles \citep{geng2026beyond}, so it is a control at the pre-specified 2024 break only.
+\end{itemize}
+
+\begin{table}[t]
+\centering
+\footnotesize
+\setlength{\tabcolsep}{3pt}
+\caption{Notation. Descriptive names are used in the text; symbols appear in tables and the appendix.}
+\label{tab:nt-notation}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{2.35cm}>{\raggedright\arraybackslash}p{5.05cm}@{}}
+\toprule
+Name (symbol) & Definition \\
+\midrule
+\NAME, compound & Name-led title; any colon or spaced dash \\
+NA pool & Rejected, withdrawn and desk-rejected papers (camera-ready-free) \\
+2024 LLM title words (R24) & \emph{enhanc*, leverag*, unveil*, unleash*, harness*, empower*, elevat*, boost*} \\
+2026 LLM title words (R26) & \emph{unified, unifying, beyond, bridging} (chosen after a pilot) \\
+Neutral synonyms (N24) & \emph{improv*, utili[sz]*, \dots} \\
+Abstract LLM-word fingerprint (F\_any) & Abstract has $\geq 1$ of 21 rare LLM-favoured words (F24), 2026-vintage words or dash compounds (F26), or title typography \\
+Strict fingerprint (F\_d1) & $\geq 2$ of the 21 rare words; drives the tool share \\
+Masked TF-IDF / bge (R1 / R3) & Content models on name-masked abstracts; R5 $=$ R1 without rhetorical moves \\
+Stayer, entrant & Key present in E and L; key present only in L \\
+Stayer ratio ($\rho$) & Stayer change / population change, E$\rightarrow$L \\
+Generational increment ($G$) & $1 -{}$slope of within-stayer on population change across markers \\
+Stage gain & $P(f\mid\text{passed stage})/P(f\mid\text{entered stage})$ \\
+Tipping point ($D^*$) & Camera-ready excess that would bring a gain to 1 \\
+DFL, Shapley & Reweighting and additive decompositions of the rise \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Validation}
+\label{sec:nt-validation}
+Two blind annotation passes labelled 1,400 stratified titles, including 200 hard cases. Both passes were LLM annotators (Claude subagents with different codebooks and prompts; the outputs record them as different models but do not log model versions), blind to year, outcome and detector output. The 58 disagreements were adjudicated from the title text alone by the PI's delegate, an LLM agent in the study's workflow, who also did a 150-item spot check of agreed items; that check is not independent, and there is no human gold standard. Cohen's $\kappa$ was 0.948--1.000 on all five labels, against a 0.80 target; because both passes come from one model family, their errors may be correlated. Against the adjudicated consensus, the \NAME{} detector has precision 97.8\% \ci{97.5}{98.3} and recall 97.3\% \ci{96.1}{98.3}, and its precision varies by only 1.2\pp{} across year blocks. Correcting for misclassification moves the key trend estimate from OR 1.098 to 1.090. Three slot variants failed a sense-precision check ($<0.85$) and were dropped before any slot model was fitted. The abstract fingerprints have pre-ChatGPT (2021--22) false-positive rates of 2.9\% (F24) and 3.2\% (F26). Their correlation with LLM-polish ratings is weak (Spearman 0.25 for F\_any), so all tool-related quantities are model-conditional.
+
+\subsection{Abstracts in three roles}
+\label{sec:nt-abstracts}
+\begin{enumerate}
+\item \textbf{Content anchor.} We predict \NAME{} from \emph{name-masked} abstracts, with the coined name and its variants removed (masked TF-IDF, primary; masked bge; masked TF-IDF without rhetorical-move n-grams). The predictions answer ``what \NAME{} share would the content of this year's papers imply?''. This is a descriptive analogue of text-based confounder adjustment \citep{keith2020text}. Masking leaves the whole-word lead in 0 of 12,928 \NAME{} abstracts under bge and in 22 under TF-IDF.
+\item \textbf{LLM fingerprint channel} (Table~\ref{tab:nt-notation}).
+\item \textbf{Published-only bias case.} Kobak-style excess-vocabulary lower bounds \citep{kobak2025delving} (the F24 share minus a conservative baseline), computed separately for accepted papers and for all submissions.
+\end{enumerate}
+
+\subsection{The camera-ready audit}
+\label{sec:nt-audit}
+The export stores one version of each paper. For accepted papers that may be the camera-ready version, so the observed decision-stage gain mixes selection with post-decision editing. We bound the editing part with an \textbf{arXiv audit} (Appendix~\ref{app:nt-audit}). For a stratified random sample of 2,616 papers (an original audit of 616, of which 600 are from 2023--26 and 16 are accepted 2022 papers used only in a sensitivity specification, plus an enlargement of 2,000) we kept arXiv v1 versions posted before that year's decision date: \textbf{1,311 pre-decision pairs} (803 accepted, 508 rejected). The accepted-minus-rejected difference in net feature flips between v1 and the stored title (a net-flip difference-in-differences) estimates the camera-ready excess, \emph{under the assumption} that non-camera-ready edits occur at the same rate in both arms; we check this by v1 timing. A decision-stage association is identified only if its tipping point $D^*$ lies beyond what the audit allows, and only if it survives Holm across the 18 auditable title features at one-sided $\alpha=0.025$.
+
+\subsection{Inference and the analysis plan}
+\label{sec:nt-inference}
+\begin{itemize}
+\item \textbf{Plan.} Before locking the plan we ran pilot analyses on these same discovery rows, and several predictions, thresholds and two lexicon choices (\emph{enhancing}, R26) were set from pilot estimates. The plan was then locked, with a hash recorded, before the reported estimation, and is not edited. Discovery verdicts therefore check whether pilot-derived predictions survive the full, audited pipeline; they are not tests of blind predictions. Table~\ref{tab:hypotheses} lists the pilot value next to each prediction.
+\item \textbf{Confirmatory protocol.} Twelve confirmatory tests (CT1--CT12) for the held-out split are frozen in a hashed bundle (revision 3, SHA-256 \texttt{6853685b\dots}; Appendix~\ref{app:nt-prereg}). The hash is recorded internally and has not yet been deposited with a third party; we will deposit it publicly before requesting the held-out data. Their projected power is limited (0.23--0.32 for the slot and register tests at the corrected $\alpha$).
+\item \textbf{Multiplicity.} Holm within each direction's confirmatory family.
+\item \textbf{Year-level inference.} Cohort-level treatments vary only across ten years, so the primary trend tests use random-effects meta-regression on adjusted year effects ($t(6)$ references) and two-stage bootstraps with simulated year shocks.
+\item \textbf{Adversarial internal review.} Each analysis went through three adversarial review passes (code, identification, reporting) by separate LLM agents with access to code and outputs. Every issue was re-checked, fixed and logged, and two integration passes aligned the analyses.
+\end{itemize}

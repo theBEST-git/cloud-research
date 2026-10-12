@@ -1,0 +1,26 @@
+\section{Introduction}
+\label{sec:nt-intro}
+
+A paper title is the most-read and most compressed piece of scientific text. It is also an act of positioning. In machine learning a recognisable template has spread: a coined name, a colon, and a descriptive subtitle (``NAME: Doing X with Y''). Coined names can make a paper easier to search for, cite and reuse as a component (reviewers and readers do look papers up online; \citealp{rastogi2022arxiv}). They also make a paper look like a product. This study asks how far that template spread at one of the field's main venues, who carried it, how title wording changed in the LLM era, and whether review decisions select for it.
+
+That colon and acronym titles have become more common is known \citep{lewison2005whats,nelson2018colons,barnett2020growth,mandyam2026machine}. The rise itself is not our contribution. Our contribution is to observe every decision outcome and to decompose who and what carries the rise. Three features of the setting make this possible and hard at the same time. First, the ICLR record keeps rejected, withdrawn and desk-rejected papers: they are 30,322 of the 43,482 submissions in our discovery split. % core/universe_counts.csv
+So we can measure fashion where it is born and not only where it survives. Second, the export is a post-decision snapshot. Accepted papers may carry camera-ready titles, so any comparison of accepted and rejected titles mixes selection with editing. Third, our period spans the arrival of LLM writing tools. Those tools are also the field's dominant research topic, so style and content move together.
+
+We address four questions, each set out in a locked analysis plan with falsifiable predictions:
+\begin{itemize}
+\item \textbf{Q1 (the naming turn).} Did ``NAME: subtitle'' titles accelerate, and how much of the rise do paper content, team composition and detectable LLM drafting account for?
+\item \textbf{Q2 (carriers).} Did the change happen within incumbent declared profile keys (communal change) or arrive with new keys (generational change)?
+\item \textbf{Q3 (LLM-era wording).} Did LLM-favoured wording rise in title slots where the meaning is held fixed, and is its association with LLM fingerprints lexical or structural?
+\item \textbf{Q4 (review and published-only bias).} How do title-feature shares change across desk rejection, author withdrawal and the decision, and how biased is a study of published papers alone?
+\end{itemize}
+
+The short answers are as follows. At ICLR, titles turned into brands on a steady logistic path; only 2026 lies clearly above the 2017--23 trend. The rise is just as visible in camera-ready-free text, and present outside LLM topics. Depending on design, about half of the recent rise tracks what papers are about. The style rides in with new projects and newcomer-containing teams. LLM-era wording shows a lexical signature in title openers; abstract LLM fingerprints go with both the verb choice and branding, and the lexical association is not detectably larger. Selection at review is neutral for named titles. A published-only view reproduces their share but may miss part of their acceleration.
+
+\paragraph{Contributions.}
+\begin{enumerate}
+\item \textbf{An all-outcome design with validated measurement.} We use every decision class (accepted, rejected, withdrawn, desk-rejected) in the ${\sim}80\%$ discovery split of ten years of ICLR submissions. Title-structure detectors are validated against two blind LLM annotation passes with adjudication (\NAME{} precision 97.8\%, recall 97.3\%), and abstract LLM fingerprints have false-positive rates measured in pre-ChatGPT years.
+\item \textbf{A camera-ready audit for post-decision snapshots.} We compare stored titles with pre-decision arXiv v1 versions, use a tipping-point criterion and gate every acceptance association with a Holm-controlled rule. The method can be reused for any corpus that stores only final versions, provided independently timestamped pre-decision versions exist for both accepted and non-accepted papers.
+\item \textbf{Findings on research fashion}: the shape and decomposition of the naming turn (\S\ref{sec:nt-turn}), its carriers (\S\ref{sec:nt-carriers}), LLM-era wording in meaning-fixed slots (\S\ref{sec:nt-register}), and review selection and published-only bias (\S\ref{sec:nt-review}).
+\item \textbf{Methodological cautions.} (i) A co-authored text is a \emph{shared outcome}, so key-level ``within-incumbent'' shares are not diagnostic without a generational null. (ii) Conditioning on slot filling induces collider bias. (iii) Year-level inference with ten annual cohorts is much weaker than paper-level inference suggests.
+\item \textbf{A hypothesis ledger and a frozen confirmatory protocol.} We report failed and unidentified predictions of a pilot-informed plan (\S\ref{sec:nt-failures}, Appendix~\ref{app:nt-ledger}), and a hash-frozen set of twelve confirmatory tests for a held-out split that has not been opened (Appendix~\ref{app:nt-prereg}).
+\end{enumerate}

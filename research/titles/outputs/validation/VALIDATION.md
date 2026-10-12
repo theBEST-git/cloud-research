@@ -24,7 +24,7 @@ Produced by `src/analyses/validate_measures.py`. All numbers are regenerated fro
 - **V4.** The lead string (whole word) survives the R3 mask in 0 of 12,928 NAME abstracts (meets the 0% target) and the R1 mask in 22.
   - Variant spellings of the name do survive: LaTeX-wrapped, markdown, other Unicode hyphens, project URLs. That is 105 abstracts (0.81%) under R3 and 46 (0.36%) under R1.
 - **V5.** The annotator's LM flag agrees with the regex LLM-cluster rule at κ = 0.86; all 5 disagreements are clusters the annotator calls LM but whose all-years regex share sits just below 0.5. MiniLM vs bge topic100 ARI = 0.421 (NMI 0.666).
-- **V6.** 0 exact key-years exceed 40 papers (max 40); 7 alias-years do once trailing digits are stripped. Collapsing trailing digits changes 24.2% of 2022+ papers' share of new authors (mean 0.552 → 0.495).
+- **V6.** 0 exact key-years exceed 40 papers (max 40); 7 alias-years do once trailing digits are stripped. Collapsing trailing digits changes 24.2% of 2022+ papers' new-key share (mean 0.552 → 0.495).
 
 ## V1. NAME, compound, orthography and casing detectors
 
@@ -620,7 +620,7 @@ Keys are exact declared-ID keys (SHA-256 of the declared ID). They are declared 
   - r(log max_prior_subs) exact vs alias = 0.882; max_prior_subs changes for 25.8% of papers.
   - r(share_new_authors) = 0.929; share_new_authors changes for 24.2% of papers, with mean 0.552 → 0.495.
 
-**Email-key vs profile-key eras** (positions by ID kind; mean paper-level share of new authors from exact keys):
+**Email-key vs profile-key eras** (positions by ID kind; mean paper-level new-key share from exact keys):
 
 | year | n | mean_share_new | mean_max_prior_subs | positions | with_key | email | missing | other | profile |
 |---|---|---|---|---|---|---|---|---|---|
@@ -635,7 +635,7 @@ Keys are exact declared-ID keys (SHA-256 of the declared ID). They are declared 
 | 2025 | 8953 | 0.533 | 7.863 | 47467 | 1.000 | 0.000 | 0.000 | 0.000 | 1.000 |
 | 2026 | 15412 | 0.525 | 9.702 | 87398 | 1.000 | 0.000 | 0.000 | 0.000 | 1.000 |
 
-- **2021 break:** ID kind switches from email to profile, so 2021 keys have no history. The share of new authors jumps in 2021 and is not comparable across the switch, which is why the experience covariates are used from 2022 on (`exp_valid`).
+- **2021 break:** ID kind switches from email to profile, so 2021 keys have no history. The new-key share jumps in 2021 and is not comparable across the switch, which is why the experience covariates are used from 2022 on (`exp_valid`).
 
 ## Deviations from PLAN.md section 3 and notes
 - Annotation passes are LLM subagents (as planned). V3 and V5 have one pass each (as planned); V1 and V2 have two.

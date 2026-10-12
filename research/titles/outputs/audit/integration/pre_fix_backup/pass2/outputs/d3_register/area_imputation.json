@@ -1,0 +1,10 @@
+{
+ "method": "multinomial logistic regression (C=1) on bge-small-en-v1.5 abstract embeddings, trained on 2025 papers (area_h, 21 areas)",
+ "n_train": 8953,
+ "cv5_accuracy_2025": 0.561378337996625,
+ "cv5_accuracy_sd": 0.009092264669986532,
+ "accuracy_on_2024_true_labels": 0.4993928881179532,
+ "total_variation_pred_vs_true_2024_mix": 0.223417172593235,
+ "n_imputed_2023": 3872,
+ "note": "2024 true labels lack 'foundation or frontier models' and 'time series' (2025+ only), so the 2024 accuracy is a pessimistic transfer check"
+}

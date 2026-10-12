@@ -1,0 +1,205 @@
+{
+ "frozen_by": "analyses/d3_slots.py (WP7 / D3), before any D3 model was fitted",
+ "lexicons_json_sha256": "34ec8f939bfbc2448426d918bd217522c64a42a6f09f31aa2d1a0a54b0737847",
+ "validation_file": "outputs/validation/slot_variants_dropped.json",
+ "validation_file_sha256": "acd249f487cc311662bbe7219f229fdd3bfbfeaa10dd024434584ed39a32ec9b",
+ "v2_rule": "PLAN.md section 3 V2: slot words (variants) whose V2 sense precision is below 0.85 are dropped before the slot inventory is frozen. Precision = design-weighted share (weights N/n over era strata) of sampled titles whose consensus slot_sense is 'y', on the population sampled by WP3a (2018+, slot filled under either opener rule, before the pre-V2 heuristic sense filter).",
+ "inventory": {
+  "improve": {
+   "llm": [
+    "enhancing",
+    "boosting",
+    "advancing",
+    "elevating",
+    "empowering"
+   ],
+   "neutral": [
+    "improving"
+   ]
+  },
+  "reveal": {
+   "llm": [
+    "unveiling",
+    "uncovering",
+    "unraveling",
+    "unravelling",
+    "demystifying"
+   ],
+   "neutral": [
+    "understanding",
+    "analyzing",
+    "analysing",
+    "investigating",
+    "characterizing",
+    "characterising",
+    "explaining"
+   ]
+  },
+  "exploit": {
+   "llm": [
+    "leveraging",
+    "harnessing",
+    "unleashing"
+   ],
+   "neutral": [
+    "exploiting",
+    "utilizing",
+    "utilising"
+   ]
+  },
+  "study_adj": {
+   "llm": [
+    "comprehensive"
+   ],
+   "neutral": [
+    "systematic",
+    "extensive",
+    "large-scale"
+   ]
+  }
+ },
+ "dropped": [
+  {
+   "slot": "exploit",
+   "word": "unlocking",
+   "variant": "llm",
+   "precision_w": 0.2857142857142857,
+   "n": 7,
+   "n_sense_y": 2
+  },
+  {
+   "slot": "exploit",
+   "word": "enabling",
+   "variant": "neutral",
+   "precision_w": 0.0,
+   "n": 21,
+   "n_sense_y": 0
+  },
+  {
+   "slot": "reveal",
+   "word": "decoding",
+   "variant": "llm",
+   "precision_w": 0.3875,
+   "n": 8,
+   "n_sense_y": 3
+  }
+ ],
+ "drop_semantics": "a title whose opener (or study adjective) is a dropped word counts as 'slot not filled'",
+ "borderline_kept": [
+  {
+   "slot": "exploit",
+   "word": "harnessing",
+   "precision_w": 0.9666666666666667,
+   "precision_unw": 0.8666666666666667,
+   "n": 15,
+   "precision_pre": 0.75,
+   "n_pre": 8,
+   "precision_post": 1.0,
+   "n_post": 7
+  },
+  {
+   "slot": "exploit",
+   "word": "unleashing",
+   "precision_w": 0.9661016949152542,
+   "precision_unw": 0.8333333333333334,
+   "n": 12,
+   "precision_pre": 0.6,
+   "n_pre": 5,
+   "precision_post": 1.0,
+   "n_post": 7
+  },
+  {
+   "slot": "improve",
+   "word": "boosting",
+   "precision_w": 0.9693333333333333,
+   "precision_unw": 0.8888888888888888,
+   "n": 18,
+   "precision_pre": 0.8333333333333334,
+   "n_pre": 12,
+   "precision_post": 1.0,
+   "n_post": 6
+  }
+ ],
+ "sensitivity_unweighted_rule_inventory": {
+  "improve": {
+   "llm": [
+    "enhancing",
+    "boosting",
+    "advancing",
+    "elevating",
+    "empowering"
+   ],
+   "neutral": [
+    "improving"
+   ]
+  },
+  "reveal": {
+   "llm": [
+    "unveiling",
+    "uncovering",
+    "unraveling",
+    "unravelling",
+    "demystifying"
+   ],
+   "neutral": [
+    "understanding",
+    "analyzing",
+    "analysing",
+    "investigating",
+    "characterizing",
+    "characterising",
+    "explaining"
+   ]
+  },
+  "exploit": {
+   "llm": [
+    "leveraging",
+    "harnessing"
+   ],
+   "neutral": [
+    "exploiting",
+    "utilizing",
+    "utilising"
+   ]
+  },
+  "study_adj": {
+   "llm": [
+    "comprehensive"
+   ],
+   "neutral": [
+    "systematic",
+    "extensive",
+    "large-scale"
+   ]
+  }
+ },
+ "opener_rule_primary": "PLAN D3: first word of the title, or of the subtitle when the title is 'NAME: ...' (features_v2 opener_word; name_primary lead). Robustness: any compound lead (opener_word_al), title-start only, post-NAME only.",
+ "opener_rule_reason": "PLAN text; V2 sense precision is lower (0.83 vs 0.90) for titles that fill a slot only under the any-lead rule",
+ "sense_filter": "pre-V2 heuristic filter kept for 'boosting' as the algorithm (lexicons.json slot_sense_exclusions_preV2.boosting_algorithm); the 'decoding' filters are moot because 'decoding' is dropped",
+ "study_adj": {
+  "regex": "\\b(comprehensive|systematic|extensive|large-scale)\\s+(?:study|benchmark|evaluation|analysis|survey|investigation|review|assessment)",
+  "llm": [
+   "comprehensive"
+  ],
+  "neutral": [
+   "systematic",
+   "extensive",
+   "large-scale"
+  ]
+ },
+ "control_pairs": {
+  "towards": {
+   "variant": "towards",
+   "reference": "toward"
+  },
+  "novel": {
+   "variant": "novel",
+   "reference": "new"
+  },
+  "via": {
+   "variant": "via",
+   "reference": "using"
+  }
+ },
+ "years": "2018+ (PLAN D3 slot logit); 2017 added as robustness"
+}

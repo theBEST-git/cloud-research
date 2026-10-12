@@ -1,0 +1,28 @@
+% derived from outputs/tables/table3_content_bracket.tex by paper/tables/make_tables.py (numbers unchanged)
+\begin{landscape}
+\begin{table}[p]
+\centering
+\scriptsize
+\caption{Content-counterfactual bracket: share of the NAME rise predicted by abstract content, by representation and design.}
+\label{tab:content}
+\begin{adjustbox}{max width=\linewidth}
+\begin{tabular}{l l l l l l l l}
+\toprule
+Rep. & Representation & Role & Share, fixed window & Share, rolling & Share, placebo (2023) & AUC fixed / rolling & $\Delta$u (pp/yr) \\
+\midrule
+R1 & Masked abstract TF-IDF (primary) & masked & 0.39 [0.35, 0.43] & 0.57 [0.53, 0.62] & 0.26 [0.16, 0.50] & 0.744 / 0.712 & +1.35 [+0.56, +2.15] \\
+R3 & Masked abstract, bge embedding & masked & 0.49 [0.44, 0.54] & 0.58 [0.53, 0.63] & 0.42 [0.27, 0.76] & 0.745 / 0.715 & +1.29 [+0.43, +2.10] \\
+R5 & R1 minus rhetorical moves & masked & 0.38 [0.34, 0.43] & 0.56 [0.52, 0.61] & 0.25 [0.15, 0.46] & 0.743 / 0.711 & +1.40 [+0.54, +2.21] \\
+R1yfe & R1 + training-year FE & sensitivity & 0.38 [0.34, 0.42] & 0.54 [0.50, 0.59] & 0.21 [0.12, 0.39] & 0.744 / 0.712 & +1.50 [+0.68, +2.28] \\
+R1@0.5 & R1 at the pilot's C = 0.5 & sensitivity & 0.22 [0.19, 0.24] & 0.42 [0.39, 0.46] & 0.12 [0.08, 0.21] & 0.746 / 0.715 & +2.08 [+1.30, +2.89] \\
+R2 & Author keywords & lower & $-$0.04 [$-$0.06, $-$0.03] & 0.12 [0.10, 0.14] & $-$0.05 [$-$0.16, 0.01] & 0.567 / 0.590 & +3.76 [+2.89, +4.67] \\
+R6 & topic100 (MiniLM) + LLM topic & coarse & 0.17 [0.15, 0.20] & 0.33 [0.30, 0.36] & 0.06 [0.01, 0.12] & 0.640 / 0.622 & +2.51 [+1.69, +3.33] \\
+R6b & topic100 (bge) + LLM topic & coarse & 0.18 [0.16, 0.20] & 0.33 [0.31, 0.37] & 0.06 [0.03, 0.14] & 0.643 / 0.623 & +2.60 [+1.71, +3.48] \\
+R4 & Unmasked abstract, bge & upper (leaky) & 0.55 [0.50, 0.61] & 0.64 [0.60, 0.70] & 0.52 [0.34, 0.96] & 0.759 / 0.734 & +1.01 [+0.21, +1.86] \\
+\bottomrule
+\end{tabular}
+\end{adjustbox}
+\par\smallskip
+\parbox{\linewidth}{\scriptsize Fixed window: L2 logit trained on 2021-23, intercept recalibrated to 2023, share of the 2023-26 rise. Rolling: one-step-ahead models trained on y-3..y-1, recalibrated to y-1; share of the summed 2024-26 annual changes. Placebo: trained 2018-20, share of the 2020-23 rise. C chosen by 5-fold CV except R1@0.5. AUC: out-of-sample, mean over test years. CIs: conditional paper bootstrap (B = 2000). Claims use the name-masked rows only (R1, R3, R5); R4 leaks names and is an upper bound, R2 and R6 are coarse lower brackets.}
+\end{table}
+\end{landscape}

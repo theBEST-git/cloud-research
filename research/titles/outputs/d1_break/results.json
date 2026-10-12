@@ -4808,8 +4808,59 @@
   "p_F0_ratio_le_0.70": 0.0004997501249375312,
   "p_tool_share_ge_0.5": 6.095342492714667e-50,
   "verdict": "supported",
-  "verdict_note": "criteria met for the pre-registered fingerprint after the misclassification correction; the bound is assumption-dependent (linear delta*A, nondifferential misclassification, homogeneous uplift, no spillover) and title-level markers give larger associations; positive control (D3) pending",
-  "positive_control_D3": "PENDING: outputs/d3_register/ does not exist (D3 not yet run)",
+  "verdict_note": "criteria met for the pre-registered fingerprint after the misclassification correction; the bound is assumption-dependent (linear delta*A, nondifferential misclassification, homogeneous uplift, no spillover) and title-level markers give larger associations; the D3 positive control does not validate the bound on D1's own fingerprint F_d1 (slot uplift OR CI includes 1)",
+  "positive_control_D3": {
+   "status": "reported (D3 audited outputs)",
+   "H3a_slot_break_post_OR": [
+    2.183,
+    1.409,
+    3.382
+   ],
+   "H3d_slot_uplift_F_d1": {
+    "OR_slot": 1.2895,
+    "OR_slot_ci": [
+     0.9233,
+     1.8055
+    ],
+    "p_one_OR_slot_le1": 0.072,
+    "OR_name_population": 1.0823,
+    "OR_name_population_ci": [
+     1.0143,
+     1.162
+    ],
+    "ratio_population": 1.1914,
+    "ratio_population_ci": [
+     0.8448,
+     1.6512
+    ],
+    "n_slot_rows": 1508,
+    "n_F1_slot_rows": 179
+   },
+   "H3d_slot_uplift_F_any": {
+    "OR_slot": 1.4204,
+    "OR_slot_ci": [
+     1.1402,
+     1.7919
+    ],
+    "p_one_OR_slot_le1": 0.001,
+    "OR_name_population": 1.1435,
+    "OR_name_population_ci": [
+     1.085,
+     1.2123
+    ],
+    "ratio_population": 1.2422,
+    "ratio_population_ci": [
+     0.9933,
+     1.5736
+    ],
+    "n_slot_rows": 1508,
+    "n_F1_slot_rows": 381
+   },
+   "validates_F_d1_bound": false,
+   "F_any_slot_uplift_significant": true,
+   "fingerprints": "F_any = F24 (>= 1 RARE21 word) | F26 | title typography; F_d1 differs only in requiring >= 2 RARE21 words",
+   "reading": "LLM-favoured slot openers rose from 2024 (H3a, pooled post OR 2.18 [1.41, 3.38]), so the title-level design detects an LLM-era lexical shift. With D1's own fingerprint F_d1 the slot uplift is OR 1.29 [0.92, 1.81] (not significant); with F_any (the same fingerprint with a 1-word F24 threshold) it is 1.42 [1.14, 1.79] (CI excludes 1). The positive control therefore does not validate the sensitivity of F_d1, and the D1 tool estimate is not validated by a positive control on its own fingerprint."
+  },
   "p_used": 0.0004997501249375312,
   "holm_adjusted_p": 0.002498750624687656,
   "delta_models": [

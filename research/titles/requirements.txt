@@ -1,0 +1,33 @@
+# Python 3.13.16. Pinned from `/home/user/venv/bin/pip freeze` (2026-10-11) for the packages the study code imports,
+# plus the parquet engine and the sentence-transformer stack. Install into a fresh virtualenv:
+#   python3.13 -m venv venv && venv/bin/pip install -r requirements.txt
+# torch is the CPU build; it needs the PyTorch CPU wheel index:
+--extra-index-url https://download.pytorch.org/whl/cpu
+
+# core numerics and statistics
+numpy==2.5.4
+pandas==3.0.6
+pyarrow==26.0.0
+scipy==1.18.1
+statsmodels==0.15.0
+patsy==1.0.3
+scikit-learn==1.9.1
+joblib==1.6.0
+threadpoolctl==3.7.0
+
+# figures
+matplotlib==3.11.2
+
+# text: word frequencies (audit_v2 route B, annotate_sample hard cases, d1_content_cf V4 diagnostics)
+wordfreq==3.1.1
+
+# embeddings (embed.py, embed_long.py, analyses.embed_masked, prereg held-out topic assignment)
+sentence-transformers==6.1.0
+transformers==5.19.0
+tokenizers==0.23.3
+safetensors==0.8.0
+huggingface_hub==1.33.0
+torch==2.14.1+cpu
+
+# only for the fixed-effects equivalence check in analyses.smoke_test (the analyses use the in-house demeaning)
+pyfixest==0.60.0

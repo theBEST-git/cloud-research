@@ -1,0 +1,50 @@
+% The Naming Turn: Branding, Fashion and LLM Wording in ICLR Titles, 2017--2026
+% One module of a larger paper, in ACL review format. Each section lives in sections/*.tex and uses
+% label prefixes "nt-" so it can be merged elsewhere. Numbers come from ../outputs; per-number source
+% comments are in ../REPORT.md. Revised figures: figures/make_paper_figures.py (outputs/figures unchanged).
+\documentclass[11pt]{article}
+\usepackage[review]{acl}
+\usepackage{times}
+\usepackage{latexsym}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{microtype}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{adjustbox}
+\usepackage{enumitem}
+\usepackage{longtable}
+\usepackage{pdflscape}
+
+\setlist{nosep,leftmargin=*}
+\graphicspath{{figures/}}
+\newcommand{\pp}{\,pp}
+\newcommand{\NAME}{\textsc{name}}
+\newcommand{\ci}[2]{[#1,\,#2]}
+
+\title{The Naming Turn: Branding, Fashion and LLM Wording\\in ICLR Titles, 2017--2026}
+\author{Anonymous submission}
+
+\begin{document}
+\maketitle
+
+\input{sections/abstract}
+\input{sections/introduction}
+\input{sections/related}
+\input{sections/data}
+\input{sections/results}
+\input{sections/failures}
+\input{sections/discussion}
+\input{sections/limitations}
+\input{sections/ethics}
+
+\bibliography{references}
+
+\clearpage
+\onecolumn
+\appendix
+\input{appendix}
+
+\end{document}

@@ -1,14 +1,20 @@
 """WP8 / D4: published-only bias atlas (H4e), Kobak-style LLM bounds accepted vs all (H4c) and the decision-stage
 bound from the arXiv camera-ready audit (T4.2).
 
-(1) Decision-stage bound (snapshot module; computed here from cache/arxiv_audit.jsonl because outputs/snapshot/
-    (WP4) did not exist when D4 ran; this is D4's own copy).
+(1) Decision-stage bound (snapshot module; D4's own copy of the flip tables, on the SAME pair sample as WP4).
+    Integration pass: the pairs are WP4's frozen primary audit (outputs/snapshot/audit_pairs.csv: original audit +
+    complete enlargement, 2023-26 pre-decision pairs, 803 accepted / 508 rejected; freeze hash in
+    outputs/snapshot/results.json -> meta.audit_freeze). The original 331-pair audit (cache/arxiv_audit.jsonl,
+    2022-26) is kept as the sensitivity spec 'original audit only'. Primary DiD CI = WP4's Wald with a pseudo-flip
+    variance floor (one pseudo-add and one pseudo-drop per arm); plain Wald and bootstrap CIs reported alongside.
+    Auditable = WP4's canonical rule: >= 10 v1-present titles in BOTH arms and measurable through arXiv metadata
+    (arXiv titles are never ALL-CAPS and never carry U+2011/U+2013 typography, so ALL-CAPS title, title typography
+    and the unions containing them are channel-unauditable). D4's interim rule is kept as auditable_d4rule.
     Pairs: audit rows found on arXiv whose v1 predates the ICLR decision date (arxiv_audit.DECISION_DATE).
     Title features are computed with features_v2.build on the v1 title and on the stored title (same abstract).
     Per feature and decision: flip matrix (v1 x stored), adds, drops, feature-present v1 denominators, net flip
     rate (adds - drops)/n. Net-flip DiD = accepted - rejected (the rejected rate is the pre-ICLR retitling noise
-    floor). Normal-theory and bootstrap (2,000, stratified by decision) CIs. A feature is auditable when it is
-    present in >= 10 accepted v1 titles and >= 10 accepted stored titles (pre-stated).
+    floor). Pseudo-flip Wald (primary), plain Wald and bootstrap (2,000, stratified by decision) CIs.
     Editing-corrected prevalences: accepted papers sit in every stage set, so a camera-ready net addition D
     shifts P(f|s_k) by D * a_k (a_k = accepted share of s_k). Selection-only gains: G(D) = (P3 - D)/(P_k - a_k D).
     Tipping points: D*_dec = (P3 - P2)/(1 - a2), D*_total = (P3 - P0)/(1 - a0). G_dec is "identified" only if the
@@ -69,8 +75,17 @@ POST = S.POST
 N_BOOT = S.N_BOOT
 N_NULL = 1000
 SEED = S.SEED + 1
+# prevalence ratios (accepted/all) reuse the stage-gain bootstrap draws (same seed, same frame, same per-year weights), so
+# an atlas prevalence ratio and its CI equal D4's G_total row in gains.csv (integration pass 2; before, SEED gave CIs that
+# differed in the third decimal for the same statistic). Kobak bounds keep SEED (the prereg CT10 reproduces them).
+PREV_SEED = S.SEED
 AUDIT_PATH = C.CACHE / "arxiv_audit.jsonl"
+WP4_PAIRS = C.OUT / "snapshot" / "audit_pairs.csv"     # WP4 frozen primary audit (integration pass)
+WP4_FLIPS = C.OUT / "snapshot" / "T4_2_flip_matrices.csv"
 MIN_AUDIT_N = 10
+Z95 = 1.959963984540054
+# arXiv metadata cannot carry these (WP4 channel check: 0 of ~3,600 arXiv titles are ALL-CAPS or typographic)
+CHANNEL_UNAUDITABLE = {"all_caps_title", "title_typo", "O_union", "L_title"}
 
 AUDIT_FEATURES = [
     ("NAME", "name_primary"), ("compound", "name_compound"), ("phrase_colon", "phrase_colon"),
@@ -94,13 +109,23 @@ def snowclone_col(df: pd.DataFrame) -> pd.Series:
 # --------------------------------------------------------------------------------------------
 # (1) Audit
 # --------------------------------------------------------------------------------------------
-def audit_pairs() -> pd.DataFrame:
+def audit_pairs(source: str = "complete") -> pd.DataFrame:
+    """source='complete': WP4's frozen primary pairs (original + complete enlargement, 2023-26);
+    source='original': the original 331-pair audit (cache/arxiv_audit.jsonl, 2022-26), D4's pre-integration copy."""
     from analyses import features_v2 as FV
-    d = pd.read_json(AUDIT_PATH, lines=True, dtype={"submission_id": str})
-    d["pre"] = d.found.astype(bool) & d.v1_date.notna() & d.v1_title.notna() & \
-        (d.v1_date.astype(str) < d.year.map(DECISION_DATE))
     u = C.load_universe(["submission_id", "year", "title", "title_nfkc", "abstract"])
-    p = d[d.pre].merge(u, on=["submission_id", "year"], how="inner", validate="1:1")
+    if source == "complete":
+        d = pd.read_csv(WP4_PAIRS, dtype={"submission_id": str, "arxiv_id": str},
+                        usecols=["submission_id", "year", "decision", "v1_title", "v1_date", "arxiv_id", "or_title",
+                                 "source"])
+        p = d.merge(u, on=["submission_id", "year"], how="inner", validate="1:1")
+        assert len(p) == len(d), "WP4 audit pairs missing from the universe"
+    else:
+        d = pd.read_json(AUDIT_PATH, lines=True, dtype={"submission_id": str})
+        d["pre"] = d.found.astype(bool) & d.v1_date.notna() & d.v1_title.notna() & \
+            (d.v1_date.astype(str) < d.year.map(DECISION_DATE))
+        d["source"] = "original"
+        p = d[d.pre].merge(u, on=["submission_id", "year"], how="inner", validate="1:1")
     assert (p.or_title == p.title).all(), "audit or_title differs from universe title"
     p = p.reset_index(drop=True)
     stored = FV.build(p[["submission_id", "year", "title", "title_nfkc", "abstract"]])
@@ -108,7 +133,7 @@ def audit_pairs() -> pd.DataFrame:
     v1in["title"] = p.v1_title.astype(str)
     v1in["title_nfkc"] = v1in.title.map(C.nfkc)
     v1 = FV.build(v1in[["submission_id", "year", "title", "title_nfkc", "abstract"]])
-    out = p[["submission_id", "year", "decision", "or_title", "v1_title", "v1_date", "arxiv_id"]].copy()
+    out = p[["submission_id", "year", "decision", "or_title", "v1_title", "v1_date", "arxiv_id", "source"]].copy()
     for frame, tag in [(stored, "or"), (v1, "v1")]:
         fr = frame.copy()
         fr["O_union"] = fr[["case_all_caps", "case_sentence_case", "question_opener"]].max(axis=1)
@@ -154,14 +179,26 @@ def flip_table(pairs: pd.DataFrame, weights: np.ndarray | None = None, label: st
             neff = np.sum(w) ** 2 / np.sum(w ** 2)
             var = float(np.sum(w * (net[m] - mu) ** 2) / np.sum(w))
             r[f"net_se_{g}"] = float(np.sqrt(var / max(neff - 1, 1)))
+            # WP4 pseudo-flip variance floor (one pseudo-add and one pseudo-drop per arm; snapshot_bounds._arm_stats)
+            sw = np.sum(w)
+            pa = float(np.sum(w * ((v1[m] == 0) & (orr[m] == 1))) / sw)
+            pdr = float(np.sum(w * ((v1[m] == 1) & (orr[m] == 0))) / sw)
+            Ns = neff + 2
+            pa_s, pd_s = (pa * neff + 1) / Ns, (pdr * neff + 1) / Ns
+            r[f"net_var_pf_{g}"] = max((pa_s + pd_s - (pa_s - pd_s) ** 2) / Ns, r[f"net_se_{g}"] ** 2)
         r["did"] = r["net_acc"] - r["net_rej"]
-        r["did_se"] = float(np.hypot(r["net_se_acc"], r["net_se_rej"]))
-        r["did_lo95"], r["did_hi95"] = r["did"] - 1.96 * r["did_se"], r["did"] + 1.96 * r["did_se"]
+        r["did_se_wald"] = float(np.hypot(r["net_se_acc"], r["net_se_rej"]))
+        r["did_lo95_wald"], r["did_hi95_wald"] = r["did"] - Z95 * r["did_se_wald"], r["did"] + Z95 * r["did_se_wald"]
+        # primary (WP4 convention): pseudo-flip Wald
+        r["did_se"] = float(np.sqrt(r.pop("net_var_pf_acc") + r.pop("net_var_pf_rej")))
+        r["did_lo95"], r["did_hi95"] = r["did"] - Z95 * r["did_se"], r["did"] + Z95 * r["did_se"]
         na, nr = net[idx_a], net[idx_r]
         wa, wr = w_all[idx_a], w_all[idx_r]
         bd = (np.sum(wa[ba] * na[ba], 1) / np.sum(wa[ba], 1)) - (np.sum(wr[br] * nr[br], 1) / np.sum(wr[br], 1))
         r["did_boot_lo95"], r["did_boot_hi95"] = float(np.quantile(bd, .025)), float(np.quantile(bd, .975))
-        r["auditable"] = bool(r["v1_present_acc"] >= MIN_AUDIT_N and r["or_present_acc"] >= MIN_AUDIT_N)
+        r["auditable_d4rule"] = bool(r["v1_present_acc"] >= MIN_AUDIT_N and r["or_present_acc"] >= MIN_AUDIT_N)
+        r["channel_ok"] = k not in CHANNEL_UNAUDITABLE
+        r["auditable"] = bool(min(r["v1_present_acc"], r["v1_present_rej"]) >= MIN_AUDIT_N and r["channel_ok"])
         rows.append(r)
     return pd.DataFrame(rows)
 
@@ -262,7 +299,7 @@ def prevalence_stats(df: pd.DataFrame, items: list[tuple[str, str, str | None]],
     out = {}
     plain = [(n, c) for n, c, cond in items if cond is None]
     if plain:
-        sums = S.stage_sums(df, [c for _, c in plain], STAGE_SETS, n_boot=n_boot, seed=SEED)
+        sums = S.stage_sums(df, [c for _, c in plain], STAGE_SETS, n_boot=n_boot, seed=PREV_SEED)
         P = S.pooled_prev(sums, POST, "std")
         for j, (n, _) in enumerate(plain):
             out[n] = P[:, j, :]
@@ -272,7 +309,7 @@ def prevalence_stats(df: pd.DataFrame, items: list[tuple[str, str, str | None]],
         d = df.copy()
         for s in STAGE_SETS:
             d[f"{s}c"] = d[s] * d[cond]
-        sums = S.stage_sums(d, [c], [f"{s}c" for s in STAGE_SETS], n_boot=n_boot, seed=SEED)
+        sums = S.stage_sums(d, [c], [f"{s}c" for s in STAGE_SETS], n_boot=n_boot, seed=PREV_SEED)
         out[n] = S.pooled_prev(sums, POST, "std")[:, 0, :]
     return out
 
@@ -543,6 +580,13 @@ def fig_atlas(atlas: pd.DataFrame):
         if r.edit_separable and np.isfinite(r.log_edit_lo):
             lo_, hi_ = max(r.log_edit_lo, -1.1), min(r.log_edit_hi, 0.55)
             ax2.plot([lo_, hi_], [yv - 0.36, yv - 0.36], color=C.COLORS[3], lw=1.1)
+            # off-scale whisker ends: arrow head plus the value (integration pass)
+            if r.log_edit_hi > 0.55:
+                ax2.plot([0.55], [yv - 0.36], marker=">", color=C.COLORS[3], ms=4, lw=0, clip_on=False)
+                ax2.text(0.53, yv - 0.05, f"to {r.log_edit_hi:+.2f}", fontsize=5.8, color=C.TEXT2, ha="right",
+                         va="bottom")
+            if r.log_edit_lo < -1.1:
+                ax2.plot([-1.1], [yv - 0.36], marker="<", color=C.COLORS[3], ms=4, lw=0, clip_on=False)
         elif r.edit_separable:
             ax2.text(0.54, yv, "audit interval unbounded", fontsize=6.2, color=C.TEXT2, ha="right",
                      va="center")
@@ -558,7 +602,8 @@ def fig_atlas(atlas: pd.DataFrame):
                Patch(facecolor=st_col["dec"], hatch="////", edgecolor="#8a8984",
                      label="Decision (selection + camera-ready editing, not separable)"),
                plt.Line2D([], [], marker="|", color=C.TEXT, lw=0, ms=7, mew=1.4, label="Total log ratio"),
-               plt.Line2D([], [], color=C.COLORS[3], lw=1.1, label="Editing implied by the audit 95% CI")]
+               plt.Line2D([], [], color=C.COLORS[3], lw=1.1,
+                          label="Editing implied by the audit 95% CI (complete audit, auditable features)")]
     fig.legend(handles=handles, loc="upper center", bbox_to_anchor=(0.5, 0.035), ncol=3, fontsize=7.3,
                handlelength=1.4, columnspacing=1.0)
     fig.text(0.01, -0.05, "Desk and exit compare exiting papers with survivor sets that contain accepted camera-ready "
@@ -639,16 +684,32 @@ def main():
     log(f"frame {df.shape} ({time.time() - t0:.0f}s)", fh)
 
     # ---------------- (1) audit
-    pairs = audit_pairs()
+    pairs = audit_pairs("complete")
     pairs.to_csv(OUTDIR / "audit_pairs.csv", index=False)
-    log(f"audit: {len(pairs)} pre-decision pairs; by decision {pairs.decision.value_counts().to_dict()}; "
+    log(f"audit: {len(pairs)} pre-decision pairs (WP4 frozen primary audit); by decision "
+        f"{pairs.decision.value_counts().to_dict()}; by source {pairs.source.value_counts().to_dict()}; "
         f"title changed (normalised words) acc {pairs[pairs.acc == 1].title_changed.mean():.3f} "
         f"rej {pairs[pairs.acc == 0].title_changed.mean():.3f}", fh)
     flips = flip_table(pairs)
     flips_post = flip_table(pairs[pairs.year.isin(POST)].reset_index(drop=True), label="audit years 2024-26")
     pw, w = ipw_weights(pairs)
     flips_ipw = flip_table(pw, weights=w, label="population-weighted 2023-26")
-    flips_all = pd.concat([flips, flips_post, flips_ipw], ignore_index=True)
+    pairs_orig = audit_pairs("original")
+    flips_orig = flip_table(pairs_orig, label="original audit only (331 pairs, 2022-26; pre-integration primary)")
+    log(f"original audit: {len(pairs_orig)} pairs; by decision {pairs_orig.decision.value_counts().to_dict()}", fh)
+    flips_all = pd.concat([flips, flips_post, flips_ipw, flips_orig], ignore_index=True)
+    # consistency with WP4's canonical primary flip matrices (same pairs, same features_v2 code, same CI)
+    if WP4_FLIPS.exists():
+        wf = pd.read_csv(WP4_FLIPS)
+        wf = wf[wf.spec.eq("primary")].set_index("feature")
+        common = [k for k in flips.feature if k in wf.index]
+        fi = flips.set_index("feature").loc[common]
+        dev = {c_: float(np.max(np.abs(fi[a_].to_numpy() - wf.loc[common, c_].to_numpy())))
+               for a_, c_ in [("did", "did"), ("did_lo95", "did_lo"), ("did_hi95", "did_hi")]}
+        aud_mismatch = [k for k in common if bool(fi.loc[k, "auditable"]) != bool(wf.loc[k, "auditable"])]
+        log(f"WP4 consistency ({len(common)} common features): max |diff| {dev}; auditable mismatches "
+            f"{aud_mismatch}", fh)
+        assert max(dev.values()) < 1e-9 and not aud_mismatch, "D4 flip table disagrees with WP4 primary"
     flips_all.to_csv(OUTDIR / "T4_2_audit_flips.csv", index=False)
     log(flips[["feature", "n_acc", "n_rej", "v1_present_acc", "adds_acc", "drops_acc", "v1_present_rej", "adds_rej",
                "drops_rej", "net_acc", "net_rej", "did", "did_se", "auditable"]].round(4).to_string(), fh)
@@ -1004,7 +1065,10 @@ def main():
         meta=dict(n_pairs=int(len(pairs)), pairs_by_decision=pairs.decision.value_counts().to_dict(),
                   pairs_by_year_decision={f"{k[0]}_{k[1]}": int(v) for k, v in
                                           pairs.groupby(["year", "decision"]).size().items()},
-                  snapshot_source="computed in d4_bias_atlas from cache/arxiv_audit.jsonl (outputs/snapshot/ absent)",
+                  snapshot_source=("WP4 frozen primary audit (outputs/snapshot/audit_pairs.csv: original + complete "
+                                   "enlargement, 2023-26); flip tables recomputed in d4_bias_atlas and checked "
+                                   "against outputs/snapshot/T4_2_flip_matrices.csv (primary)"),
+                  n_pairs_original_audit=int(len(pairs_orig)),
                   n_boot=N_BOOT, n_random_band_entropy_jsd=N_NULL, runtime_s=round(time.time() - t0, 1)),
         T4_2_flips=flips_all.to_dict(orient="records"), T4_2_bound=bound.to_dict(orient="records"),
         H4c=h4c, H4e=h4e, atlas=atlas.to_dict(orient="records"),

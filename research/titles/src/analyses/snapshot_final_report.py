@@ -864,16 +864,22 @@ def render(out: Path) -> str:
     A(f"- **Pairs:** {np_['enlargement']:,} new usable pairs; primary {nA + nR:,} ({nA:,}/{nR:,}).")
     A("- **Reproducing the freeze:** `python -m analyses.snapshot_final --enlarge-n "
       f"{enl['n_lines_used']}`, then check `meta.audit_freeze.enlargement.sha256_of_lines_used`.")
-    A("- **Consumers that use other audit samples** (not changed here, because these are other directions' files):")
-    A("  - `d4_bias_atlas.py` recomputes the bound from the original audit only.")
-    A("  - `prereg_confirm.freeze_audit` froze the original audit plus 1,261 enlargement lines and gates with the "
-      "uncorrected rule in `snapshot_bounds.tipping_table`. Its refreeze rule (`audit_refreeze`) can align it with "
-      "this freeze.")
+    A("- **Consumers of this freeze** (aligned in the integration passes, after this work package's own audit):")
+    A("  - `d4_bias_atlas.py` builds D4's flip tables on this freeze's primary pairs (`audit_pairs.csv`) with the "
+      "same auditability rule and pseudo-flip CI, and asserts that they equal `T4_2_flip_matrices.csv`. Before the "
+      "integration pass it used the original audit only.")
+    A("  - `prereg_confirm` (pre-registration revision 2) re-froze its gate audit on this freeze (same line count, "
+      "SHA-256 checked) and adopted the multiplicity-controlled gate. Revision 1 had frozen the original audit plus "
+      "1,261 enlargement lines and gated with the uncorrected rule in `snapshot_bounds.tipping_table`. Revision 3 "
+      "keeps this audit unchanged.")
+    A("  - `d3_slots.py` (D3's camera-ready audit of LLM slot words) reads this freeze's enlargement lines (same line "
+      "count, SHA-256 checked) with D3's own pairing rule (2022-26). Until the second integration pass it read a "
+      "pre-freeze pin of 1,620 lines (1,127 pairs; LLM-slot v1 titles 22 accepted / 4 rejected). On this freeze the "
+      "slot words stay unauditable (SB3: 23 / 5 v1-present; rejected arm below 10).")
     p12 = fpath.set_index("enlarge_lines").loc[1261]
     A(f"  - At 1,261 lines the uncorrected rule passes "
       f"{', '.join(lab(k) for k in str(p12.passes_uncorrected).split(',') if k and k != 'nan') or 'nothing'} (see the "
-      "freeze path). A gate run there would therefore admit associations that the multiplicity-controlled gate "
-      "rejects.")
+      "freeze path); that is why the prereg gate was revised before any held-out data were requested.")
     A("")
     A("---")
     A("")
@@ -1057,8 +1063,9 @@ def audit_response(out: Path) -> str:
     A(f"  - Change: the analysis now runs on the complete enlargement ({enl['n_records_ok']:,} records, "
       f"{enl['n_lines_used']:,} lines, SHA-256 in `meta.audit_freeze`). That sample is the primary audit, and a "
       f"freeze path reports the verdicts at 254, 600, 1,000 and 1,261 lines.")
-    A(f"  - Not done: D4 (`d4_bias_atlas.py`) and the prereg (`prereg_confirm.freeze_audit`, 1,261 lines) are other "
-      f"directions' frozen files. They were not edited. §8 gives the exact `--enlarge-n` and hash to align them.")
+    A(f"  - Not done in this work package: D4 (`d4_bias_atlas.py`) and the prereg (`prereg_confirm.freeze_audit`, "
+      f"1,261 lines) are other directions' frozen files. Both were aligned to this freeze in the later integration "
+      f"pass (§8). D3's slot-word audit (`d3_slots.py`, 1,620 lines) was aligned in the second integration pass.")
     if p1261 is not None:
         A(f"  - What a prereg gate run would currently admit: at 1,261 lines the uncorrected rule passes "
           f"{', '.join(S.FEAT_LABEL.get(k, k) if k != 'O_union_arxiv' else 'O-union w/o ALL-CAPS' for k in str(p1261.passes_uncorrected).split(','))}.")

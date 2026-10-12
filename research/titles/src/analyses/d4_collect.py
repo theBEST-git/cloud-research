@@ -18,6 +18,12 @@ Verdicts are COMPUTED from the stored estimates (audit fix D4-7 / R25), with the
     the identification audit); H4e (descriptive) is 'supported' only if every counted M statistic is within +/-10%.
   * Qualifiers (identification flags) are attached to each verdict and drive the wording in RESULTS.md.
 
+Integration pass (after all directions were audited): d4_bias_atlas now builds its flip tables on WP4's frozen
+primary audit (original + complete enlargement, 2023-26, 803/508 pairs) with WP4's auditability rule and pseudo-flip
+CI, so D4's copy and WP4's canonical intervals coincide. Gate statements use WP4's multiplicity-controlled gate
+(passes_holm_dec in outputs/snapshot/T4_2_tipping_points.csv; editing-corrected TOST rows in gate.csv); D4's own
+'identified' columns are the uncorrected rule. Audit-dependent wording is generated from these flags.
+
 Run (after d4_stage_gains, d4_bias_atlas, d4_exit_composition):
     cd research/titles/src && OMP_NUM_THREADS=2 /home/user/venv/bin/python -m analyses.d4_collect
 """
@@ -125,11 +131,21 @@ def main():
                                                              "tip_total_pp", "G_dec_audit_lo", "G_dec_audit_hi",
                                                              "G_total_audit_lo", "G_total_audit_hi",
                                                              "G_total_corr_lo90", "G_total_corr_hi90",
-                                                             "G_dec_identified", "G_total_identified"]}
+                                                             "G_dec_corr_lo90", "G_dec_corr_hi90",
+                                                             "G_dec_identified", "G_total_identified", "auditable",
+                                                             "p_ident_dec", "p_holm_dec", "passes_holm_dec",
+                                                             "passes_uncorrected_dec"]}
                       for k in tp.index},
-            gate=None if gate is None else gate.head(2).to_dict(orient="records"),
+            gate=None if gate is None else gate[gate.claim.str.startswith("H4a")].to_dict(orient="records"),
+            n_auditable=int(tp.auditable.sum()),
+            passes_holm_dec=sorted(tp.index[tp.passes_holm_dec.astype(bool)].tolist()),
+            passes_uncorrected_dec=sorted(tp.index[tp.passes_uncorrected_dec.astype(bool)].tolist()),
+            min_p_holm_dec=r3(float(tp.p_holm_dec.min()), 3),
+            min_p_holm_dec_feature=str(tp.p_holm_dec.idxmin()),
+            audit_freeze=(json.loads((SNAP / "results.json").read_text()).get("meta", {}).get("audit_freeze")
+                          if (SNAP / "results.json").exists() else None),
             abstract_audit=None if absa is None else absa[
-                ["feature", "label", "n_acc", "v1_present_acc", "adds_acc", "drops_acc", "prev_v1_acc", "prev_or_acc",
+                ["spec", "feature", "label", "n_acc", "v1_present_acc", "adds_acc", "drops_acc", "prev_v1_acc", "prev_or_acc",
                  "n_rej", "v1_present_rej", "adds_rej", "drops_rej", "prev_v1_rej", "prev_or_rej", "did", "did_lo",
                  "did_hi", "auditable", "tp_tip_dec_pp", "tp_tip_total_pp", "tp_G_total_audit_lo",
                  "tp_G_total_audit_hi", "tp_G_dec_identified", "tp_G_total_identified"]].to_dict(orient="records"),
@@ -166,6 +182,11 @@ def main():
         selection_only_G_total_interval_wp4=None if wpN is None else [wpN["G_total_audit_lo"], wpN["G_total_audit_hi"]],
         selection_only_interval_crosses_0p90=bool(bN.G_total_interval_lo < 0.90 or
                                                   (wpN is not None and wpN["G_total_audit_lo"] < 0.90)),
+        editing_corrected_tost_wp4=None if wpN is None else dict(
+            G_total_corr_ci90=[wpN["G_total_corr_lo90"], wpN["G_total_corr_hi90"]],
+            G_dec_corr_ci90=[wpN["G_dec_corr_lo90"], wpN["G_dec_corr_hi90"]],
+            passes=bool(0.90 <= wpN["G_total_corr_lo90"] and wpN["G_total_corr_hi90"] <= 1.11)),
+        decision_stage_association_identified_holm=None if wpN is None else bool(wpN["passes_holm_dec"]),
         yearly_cis_inside_band=[y for y, v in h4a_ci_band.items() if v],
         its_pair_equivalence_paper_level=bool(its["all_pairs_equivalent_0p1"]),
         its_pair_equivalence_year_level={k: bool(yl.loc[k, "equivalent_0p1_90ci"]) for k in ["ACC-REJ", "ACC-WD",
@@ -207,8 +228,12 @@ def main():
         ),
         falsification="pooled NAME G_total 90% CI outside [0.90, 1.11], or pool-specific break ORs differ at p < .05",
         falsified=h4a_fals, p_family=fam["H4a"], p_holm=holm["H4a"], verdict=v4a,
-        verdict_label=("supported for the observed (published vs submitted) NAME share; review-stage neutrality not "
-                       "identified" if v4a == "supported" else v4a),
+        verdict_label=(v4a if v4a != "supported" else
+                       ("supported for the observed (published vs submitted) NAME share; review-stage neutrality not "
+                        "identified" if h4a_flags["selection_only_interval_crosses_0p90"] else
+                        "supported for the published-vs-submitted NAME share, and robust to camera-ready editing "
+                        "(selection-only and editing-corrected intervals inside the TOST margins); whether the "
+                        "decision stage carries a small NAME premium (observed G_dec 1.05) is not identified")),
         qualifiers=h4a_flags,
         notes=(f"Pooled 2024-26 NAME G_total {ci(G('NAME', 'total'))}; 90% CI [{f(tost['lo90'])}, {f(tost['hi90'])}] "
                f"inside [0.90, 1.11] (TOST p {pfmt(fam['H4a'])}, Holm {pfmt(holm['H4a'])}). All nine yearly point "
@@ -217,11 +242,18 @@ def main():
                f"{f(its['p'], 2)} (paper-level); year-level slope-change differences ACC-REJ "
                f"{f(yl.loc['ACC-REJ', 'est'])} [{f(yl.loc['ACC-REJ', 'lo95'])}, {f(yl.loc['ACC-REJ', 'hi95'])}], "
                f"ACC-WD [{f(yl.loc['ACC-WD', 'lo95'])}, {f(yl.loc['ACC-WD', 'hi95'])}]: no evidence of a difference, "
-               f"equivalence at +/-0.1 not established (WD comparison uninformative). The decision stage is not "
-               f"identified: the audit-implied selection-only G_total is [{f(bN.G_total_interval_lo)}, "
+               f"equivalence at +/-0.1 not established (WD comparison uninformative). "
+               + ("The decision stage is not identified: " if h4a_flags["selection_only_interval_crosses_0p90"]
+                  else "Camera-ready check: ")
+               + f"the audit-implied selection-only G_total is [{f(bN.G_total_interval_lo)}, "
                f"{f(bN.G_total_interval_hi)}] (D4) / "
                + (f"[{f(wpN['G_total_audit_lo'])}, {f(wpN['G_total_audit_hi'])}] (WP4 canonical)" if wpN else "n/a")
-               + ", which crosses the 0.90 margin."),
+               + (", which crosses the 0.90 margin." if h4a_flags["selection_only_interval_crosses_0p90"] else
+                  f", inside [0.90, 1.11]; WP4's editing-corrected 90% CI "
+                  f"[{f(wpN['G_total_corr_lo90'])}, {f(wpN['G_total_corr_hi90'])}] passes the TOST. The NAME "
+                  f"acceptance association itself (G_dec) is not identified: DiD {f(wpN['did_pp'], 2)} pp "
+                  f"[{f(wpN['did_lo_pp'], 2)}, {f(wpN['did_hi_pp'], 2)}] vs tipping point "
+                  f"{f(wpN['tip_dec_pp'], 2)} pp.")),
     )
 
     # ---------------- H4b
@@ -283,8 +315,9 @@ def main():
         falsification="L-union G_total >= 1",
         falsified=h4b_fals, p_family=fam["H4b"], p_holm=holm["H4b"], verdict=v4b,
         verdict_label=("partially supported: L-union total depletion not significant after Holm; the significant "
-                       "pre-decision L depletion is carried by R24 title words, whose depletion pre-dates 2024; the O "
-                       "depletion lies at the unidentified decision stage" if v4b == "partially_supported" else v4b),
+                       "pre-decision L-union depletion is carried by R24 title words, whose depletion pre-dates 2024; "
+                       "F24 and the abstract style density show a new 3-4% pre-decision depletion; the O depletion "
+                       "lies at the unidentified decision stage" if v4b == "partially_supported" else v4b),
         qualifiers=h4b_flags,
         notes=(f"L-union total {ci(G('L_union', 'total'))} (one-sided p {f(p_sub_h4b['L_union_total_lt1'], 4)}; Holm "
                f"step x{step['H4b']} -> {f(p_sub_h4b['L_union_total_lt1'] * step['H4b'], 3)}, not significant); "
@@ -430,14 +463,22 @@ def main():
 
     # ---------------- decision-stage bound
     dec_bound = dict(
-        source_d4="computed by d4_bias_atlas from cache/arxiv_audit.jsonl (D4's own copy)",
+        source_d4=("computed by d4_bias_atlas on WP4's frozen primary audit (outputs/snapshot/audit_pairs.csv, "
+                   "original + complete enlargement, 2023-26); identical to WP4's canonical flip matrices"),
         wp4_canonical=wp4,
         n_pairs=ba["meta"]["n_pairs"], pairs_by_decision=ba["meta"]["pairs_by_decision"],
         NAME=dict(bound[bound.feature == "NAME"].iloc[0].to_dict()),
         identified_G_dec=bound[bound.G_dec_identified].feature.tolist(),
         identified_G_total=bound[bound.G_total_identified].feature.tolist(),
         unauditable=bound[~bound.auditable].feature.tolist(),
-        gate="No title-feature acceptance gain is identified: every tipping point lies inside the audit DiD 95% CI.",
+        identified_G_dec_uncorrected_rule_d4=bound[bound.G_dec_identified].feature.tolist(),
+        gate=(None if not wp4 else
+              f"Multiplicity-controlled gate (WP4): {len(wp4['passes_holm_dec'])} of {wp4['n_auditable']} auditable "
+              f"title features pass (smallest Holm p {f(wp4['min_p_holm_dec'], 2)}, "
+              f"{wp4['min_p_holm_dec_feature']}); under the uncorrected rule "
+              f"{', '.join(wp4['passes_uncorrected_dec']) or 'none'} would pass. No title-feature acceptance "
+              f"association is identified." if not wp4['passes_holm_dec'] else
+              f"Multiplicity-controlled gate (WP4): passes {', '.join(wp4['passes_holm_dec'])}."),
     )
 
     # ---------------- robustness
@@ -489,10 +530,12 @@ def main():
         "Decision-stage tipping point accounts for accepted papers inside s2: D* = (P3 - P2)/(1 - a2). The plan's "
         "1.8 pp pilot ignored the (1 - a2) factor; with it NAME's tipping point is 2.9 pp (total-gain tipping point "
         "1.0 pp).",
-        "Snapshot module computed inside d4_bias_atlas from cache/arxiv_audit.jsonl because outputs/snapshot/ did not "
-        "exist at run time. WP4's canonical outputs (T4_2_tipping_points.csv) agree on point estimates; WP4's primary "
-        "DiD interval is wider (pseudo-flip), so both are reported and gate statements use WP4's. WP4's abstract "
-        "audit (330 v1 abstracts) makes F24 auditable; D4's own copy audits titles only.",
+        "Snapshot module: D4's flip tables are computed in d4_bias_atlas on WP4's frozen primary audit (original + "
+        "complete enlargement, 2023-26, 803/508 pairs; integration pass), with WP4's auditability rule (>= 10 "
+        "v1-present per arm, arXiv-channel measurable) and pseudo-flip CI, and checked to equal WP4's canonical "
+        "flip matrices. The original 331-pair audit (D4's pre-integration primary) is kept as a sensitivity spec. "
+        "Gate statements use WP4's multiplicity-controlled gate; D4's 'identified' columns are the uncorrected rule. "
+        "WP4's abstract audit (2024-26 pairs) makes F24 auditable; D4's copy audits titles only.",
         "Colon premium: no accepted-only version exists; the published-only analogue is decided-only (ACC vs REJ). "
         "The pre-registered trend enters the M count; the level is supplementary.",
         "OR-type atlas statistics (ITS slope change, colon premium) are compared as ratios of log-ORs (effect scale) "
@@ -552,7 +595,10 @@ def main():
         t2["wp4_did_hi_pp"] = t2.feature.map(lambda k: wp4["features"].get(k, {}).get("did_hi_pp", np.nan))
         t2["wp4_G_total_lo"] = t2.feature.map(lambda k: wp4["features"].get(k, {}).get("G_total_audit_lo", np.nan))
         t2["wp4_G_total_hi"] = t2.feature.map(lambda k: wp4["features"].get(k, {}).get("G_total_audit_hi", np.nan))
+        t2["wp4_p_holm_dec"] = t2.feature.map(lambda k: wp4["features"].get(k, {}).get("p_holm_dec", np.nan))
     t2 = t2.astype({c_: float for c_ in t2.columns if c_.startswith("wp4_")})
+    if wp4:
+        t2["wp4_passes_holm_dec"] = t2.feature.map(lambda k: wp4["features"].get(k, {}).get("passes_holm_dec"))
     f1 = flips[flips.spec == "primary"][["feature", "n_acc", "v1_present_acc", "adds_acc", "drops_acc", "n_rej",
                                          "v1_present_rej", "adds_rej", "drops_rej", "net_acc", "net_rej", "did",
                                          "did_se", "auditable"]]
@@ -560,9 +606,11 @@ def main():
         "# T4.2 Camera-ready audit: flip matrices and decision-stage tipping points\n\n"
         f"{ba['meta']['n_pairs']} arXiv pairs with a pre-decision v1 ({ba['meta']['pairs_by_decision']}). "
         "adds = absent in v1, present in the stored title; drops = the reverse; net = (adds - drops)/n. "
-        "D4's own copy (normal-theory DiD CI); WP4's canonical pseudo-flip interval (outputs/snapshot/"
-        "T4_2_tipping_points.csv"
-        + (f", {wp4['mtime']} UTC" if wp4 else "") + ") is shown in the wp4_ columns and is wider.\n\n"
+        "Pairs: WP4's frozen primary audit (original + complete enlargement, 2023-26). did_se and the DiD interval "
+        "are WP4's pseudo-flip Wald (identical to the wp4_ columns from outputs/snapshot/T4_2_tipping_points.csv"
+        + (f", {wp4['mtime']} UTC" if wp4 else "") + "). auditable = WP4 rule (>= 10 v1-present titles per arm and "
+        "measurable through arXiv). G_dec_identified / G_total_identified = uncorrected rule (tipping point beyond "
+        "the 95% CI); wp4_p_holm_dec / wp4_passes_holm_dec = the multiplicity-controlled gate used for claims.\n\n"
         "## Flip matrices (primary, all audit years)\n\n" + md_table(f1, {"net_acc": ".4f", "net_rej": ".4f",
                                                                           "did": ".4f", "did_se": ".4f"}) +
         "\n\n## Decision-stage bound (2024-26, year-standardised prevalences; DiD in pp)\n\n" + md_table(t2) + "\n")
@@ -574,14 +622,19 @@ def main():
          "Yearly NAME G_total in [0.95, 1.10]; pooled TOST in [0.90, 1.11]; equal 2024 break across ACC/REJ/WD",
          f"Pooled G_total {ci(G('NAME', 'total'))}, 90% CI [{f(tost['lo90'])}, {f(tost['hi90'])}] (TOST p "
          f"{pfmt(fam['H4a'])}). All 9 yearly point estimates in band; 95% CIs inside it only for "
-         f"{', '.join(h4a_flags['yearly_cis_inside_band'])}. Break ORs "
+         f"{', '.join(h4a_flags['yearly_cis_inside_band'])}. Break ORs (ITS 2018–26) "
          f"{' / '.join(f(r['slope_change_OR']) for r in a['its_pools'])}, Wald p = {f(its['p'], 2)}; year-level "
          f"ACC-REJ difference [{f(yl.loc['ACC-REJ', 'lo95'])}, {f(yl.loc['ACC-REJ', 'hi95'])}], ACC-WD "
          f"[{f(yl.loc['ACC-WD', 'lo95'])}, {f(yl.loc['ACC-WD', 'hi95'])}]. Audit-implied selection-only G_total "
          + (f"[{f(wpN['G_total_audit_lo'])}, {f(wpN['G_total_audit_hi'])}] (WP4)" if wpN else "n/a"),
          f"**{v4a.replace('_', ' ').capitalize()}** for the observed published-vs-submitted NAME share (Holm p "
-         f"{pfmt(holm['H4a'])}). Review-stage neutrality is not identified (the selection-only interval crosses "
-         f"0.90). Pool equality is not rejected, but equivalence is not shown."),
+         f"{pfmt(holm['H4a'])})"
+         + (". Review-stage neutrality is not identified (the selection-only interval crosses 0.90)."
+            if h4a_flags["selection_only_interval_crosses_0p90"] else
+            f", and robust to camera-ready editing (editing-corrected 90% CI "
+            f"[{f(wpN['G_total_corr_lo90'])}, {f(wpN['G_total_corr_hi90'])}], complete audit). A small "
+            f"decision-stage NAME premium is not identified.")
+         + " Pool equality is not rejected, but equivalence is not shown."),
         ("H4b: depletion of L and O markers",
          "G_total < 1 for the L-union and O-union; G_desk·G_exit < 1 for the L-union",
          f"L-union total {ci(Lt)}, one-sided p {f(p_sub_h4b['L_union_total_lt1'], 4)}. L-union desk·exit {ci(Lp)} "
@@ -589,9 +642,12 @@ def main():
          f"total {ci(R24pp)}. O-union total {ci(Ot)}; decision stage {f(G('O_union', 'dec')['est'])}; "
          f"camera-ready-free pre-decision {ci(Ocrf)}",
          f"**{v4b.replace('_', ' ').capitalize()}** (Holm p {f(holm['H4b'])}). The L-union total is not significant "
-         f"after Holm. The identified pre-decision L depletion is R24 title words, which were depleted before 2024; "
-         f"the other L markers are neutral. O: the published record under-represents O titles, but selection is "
-         f"not identified (decision stage). The identified O depletion is ALL-CAPS at exit."),
+         f"after Holm. The L-union's pre-decision depletion is R24 title words, which were depleted before 2024; the "
+         f"L-union without R24 is neutral in total. F24 and the abstract style density show a new identified "
+         f"pre-decision depletion (camera-ready-free {f(G('F24', 'predec_crf')['est'])} and "
+         f"{f(G('style_density', 'predec_crf')['est'])}). No decision-stage association is identified. O: the "
+         f"published record under-represents O titles, but selection is not identified (decision stage). The "
+         f"identified O depletion is ALL-CAPS at exit."),
         ("H4c: published-only Kobak bound understates",
          "Accepted/all bound ratio ≤ 0.85 in each of 2024–26; falsified if ≥ 0.9 in both 2024 and 2025",
          f"{f(rat['2024']['ratio'])} [{f(rat['2024']['lo95'])}, {f(rat['2024']['hi95'])}] / "
@@ -621,11 +677,17 @@ def main():
          + "; ".join(f"{r['cls']} {int(r['within'])}/{int(r['n'])}" for r in e["by_class"] if r["cls"] != "M"),
          f"**{v4e.replace('_', ' ').capitalize()}** (descriptive). Prevalence levels are reproduced; the 2024 "
          f"break is halved."),
-        ("Decision-stage gate", "A gain enters the headline only if its tipping point exceeds the audit CI",
-         f"NAME G_dec tipping point {f(bN.tip_dec_pp, 2)} pp; audit DiD {f(bN.did_pp, 2)} pp [D4 "
-         f"{f(bN.did_lo95_pp, 2)}, {f(bN.did_hi95_pp, 2)}; WP4 "
-         + (f"{f(wpN['did_lo_pp'], 2)}, {f(wpN['did_hi_pp'], 2)}]" if wpN else "n/a]"),
-         "**No title-feature decision gain is identified**"),
+        ("Decision-stage gate", "A gain enters the headline only if its tipping point exceeds the audit CI "
+         "(applied with Holm across auditable features)",
+         f"Complete audit, {ba['meta']['n_pairs']} pairs ({ba['meta']['pairs_by_decision'].get('accepted')} accepted / "
+         f"{ba['meta']['pairs_by_decision'].get('rejected')} rejected). NAME G_dec tipping point "
+         f"{f(bN.tip_dec_pp, 2)} pp; audit DiD {f(bN.did_pp, 2)} pp [{f(bN.did_lo95_pp, 2)}, "
+         f"{f(bN.did_hi95_pp, 2)}] (D4 = WP4). "
+         + (f"Holm gate: {len(wp4['passes_holm_dec'])} of {wp4['n_auditable']} auditable features pass (smallest "
+            f"Holm p {f(wp4['min_p_holm_dec'], 2)}); uncorrected rule: "
+            f"{', '.join(wp4['passes_uncorrected_dec']) or 'none'}" if wp4 else ""),
+         "**No title-feature decision gain is identified**" if not (wp4 and wp4["passes_holm_dec"]) else
+         "**Some decision gains pass the gate**"),
     ]
     tab = ["| Hypothesis | Pre-registered test | Result (2024–26 pooled unless stated) | Verdict |",
            "|---|---|---|---|"] + [f"| {a_} | {b_} | {c_} | {d_} |" for a_, b_, c_, d_ in rows]

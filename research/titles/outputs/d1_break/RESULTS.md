@@ -1,6 +1,6 @@
 # D1 Results: The naming acceleration (pre-registered as "the 2024 naming break"): content, composition, or tool?
 
-Work package WP5. Pre-registered in `docs/PLAN.md` §D1; common definitions §0. **Audit revision**: three independent audits (code, identification, reporting) found a calibration bug in the content models, paper-level inference where the treatment varies only across years, an uncorrected tool bound and several reporting problems. All numbers below were regenerated after the fixes (`src/analyses/d1_its.py`, `d1_content_cf.py`, `d1_decompose.py`, `d1_summary.py`). The issue-by-issue response is in the last section, "Audit response"; the run log is `outputs/audit/d1/fix_log.md`. Machine-readable estimates are in `results.json`. Every statement about acceptance or topic is associational. Author-side quantities use declared profile keys, not persons.
+Work package WP5. Pre-registered in `docs/PLAN.md` §D1; common definitions §0. **Audit revision**: three independent audits (code, identification, reporting) found a calibration bug in the content models, paper-level inference where the treatment varies only across years, an uncorrected tool bound and several reporting problems. All numbers below were regenerated after the fixes (`src/analyses/d1_its.py`, `d1_content_cf.py`, `d1_decompose.py`, `d1_summary.py`). The issue-by-issue response is in the last section, "Audit response"; the run log is `outputs/audit/d1/fix_log.md`. Machine-readable estimates are in `results.json`. **Integration pass (after all directions were audited):** the D3 positive control for H1e is now reported (§5); no D1 estimate changed. Every statement about acceptance or topic is associational. Author-side quantities use declared profile keys, not persons.
 
 **Population.** Universe U: 43,482 submissions, 2017–2026. 34 placeholder rows were dropped: 1 / 5 / 7 / 1 / 4 / 0 / 0 / 1 / 7 / 8 in 2017 … 2026.
 **Outcome.** NAME (primary) = `name_primary`, a coined lead before a colon or spaced dash.
@@ -15,7 +15,7 @@ Work package WP5. Pre-registered in `docs/PLAN.md` §D1; common definitions §0.
 | H1b content minority | Masked content share in [0.20, 0.50] for every masked representation; none ≥ 0.60 | Fixed window: R1 0.389 [0.349, 0.434], R3 0.492 [0.444, 0.544], R5 0.381 [0.341, 0.425]. Rolling: R1 0.574 [0.531, 0.621] (refit [0.505, 0.636]), R3 0.577 [0.534, 0.627], R5 0.565 [0.522, 0.613]. Sensitivities: training-year FE 0.37–0.55; intercept+slope recalibration 0.45–0.65. | Any masked share ≥ 0.60 | **Partially supported: not falsified, but the prediction fails.** No pre-registered masked share reaches 0.60, but the rolling shares exceed 0.50, 0.60 lies inside every rolling CI, and slope recalibration puts R1/R5 rolling at 0.65/0.64. "Content is a minority" is not established. | 0.18 |
 | H1c drift acceleration | mean u(2024–26) − mean u(2019–23) > 0; ratio ≥ 1.5 | u: 1.51 → 2.87 pp/yr. Diff +1.35 pp. Paper bootstrap: conditional [0.56, 2.15], refit [0.47, 2.23]. **Year level (primary, two-stage): [0.03, 2.71], p = 0.022**; ratio 1.89 [1.02, 3.55], P(ratio < 1.5) = 0.23. Permutation p = 0.14. Year-level CI includes 0 in the NA pool (+1.14 [−0.10, 2.39]), non-LLM subset (+0.55 [−0.90, 1.99]), R3 (+1.29 [−0.03, 2.61]), strict NAME and excluding 2026 (+1.15 [−0.63, 2.96]). | Ratio < 1.2, or the diff CI includes 0 | **Not established at the year level.** The point estimate is positive under every content specification. The R1 year-level CI barely excludes 0, the test fails Holm, and the falsification rule is met in the camera-ready-free pool and in the non-LLM subset. | 0.067 (paper-level: 0.007) |
 | H1d composition minority | DFL composition share ≤ 0.30 | Fixed 2-year new-key lookback: 2024 0.287 [0.202, 0.410], 2025 **0.316** [0.259, 0.386], 2026 0.261 [0.223, 0.301]. Shapley composition share 0.088 [0.077, 0.101] (refit [0.039, 0.154]). | Share ≥ 0.50 | **Partially supported.** The prediction holds for 2024 and 2026 but not for 2025, and is far from the 0.50 falsification line in every year. | 0.008 |
-| H1e tool bounded | F=0 rise ≥ 85% of total; δ ≤ +5 pp; tool share at A_max < 0.25 | F=0 rise / all 0.98 [0.96, 1.00]. δ = +1.6 pp [0.0, 3.2]. Tool share at A = 0.39, corrected for fingerprint misclassification and year-matched: **7.1% [1.4, 12.9]** (uncorrected pre-registered formula 3.1% [0.0, 6.2]). Sensitivities up to 16% [6, 27] (F_any DiD) and 19–33% (title typography, upper CI 0.41–0.55). | F=0 < 70%, or tool share at 0.39 ≥ 0.5 | **Supported as pre-registered (abstract fingerprint), but not robust as a bound.** Positive control (D3) **pending**. | 0.002 |
+| H1e tool bounded | F=0 rise ≥ 85% of total; δ ≤ +5 pp; tool share at A_max < 0.25 | F=0 rise / all 0.98 [0.96, 1.00]. δ = +1.6 pp [0.0, 3.2]. Tool share at A = 0.39, corrected for fingerprint misclassification and year-matched: **7.1% [1.4, 12.9]** (uncorrected pre-registered formula 3.1% [0.0, 6.2]). Sensitivities up to 16% [6, 27] (F_any DiD) and 19–33% (title typography, upper CI 0.41–0.55). | F=0 < 70%, or tool share at 0.39 ≥ 0.5 | **Supported as pre-registered (abstract fingerprint), but not robust as a bound, and not validated by a positive control on its own fingerprint.** D3's slot uplift with D1's fingerprint F_d1 is OR 1.29 [0.92, 1.81] (not significant); with D3's broader F_any it is 1.42 [1.14, 1.79]. | 0.002 |
 
 ¹ Holm over H1a–H1e, using the year-level tests for H1a and H1c (`results.json → holm`). The p-values test the **falsification boundary**, not the prediction:
 - H1b tests share ≥ 0.60, though the prediction is ≤ 0.50.
@@ -50,6 +50,7 @@ Holm under alternative p choices:
   - This is a model-conditional estimate, not an upper bound.
   - Title-level and selection-corrected markers give 16–33%.
   - "Not the main driver" holds for the pre-registered fingerprint. "Small and bounded from above" is not established.
+  - The D3 positive control does not validate this estimate: with D1's own fingerprint F_d1, D3's meaning-fixed slot uplift is OR 1.29 [0.92, 1.81], not significant (§5).
 
 ---
 
@@ -97,9 +98,11 @@ Holm under alternative p choices:
 | 2018+ | 43,098 | 1.107 [1.055, 1.161] | | | |
 | without 2019 | 42,234 | 1.095 [1.041, 1.151] | | | |
 | **excluding 2026** (2017–25) | 28,070 | **1.052 [0.964, 1.147]**; LPM +2.0 pp/yr [0.4, 3.7] | | | |
-| ACC pool | 13,048 | 1.042 [0.964, 1.127] | | | |
-| REJ pool | 19,485 | 1.115 [1.031, 1.206] | | | |
-| WD pool | 9,954 | 1.107 [0.992, 1.235] | | | |
+| ACC pool (2017–26) | 13,048 | 1.042 [0.964, 1.127] | | | |
+| REJ pool (2017–26) | 19,485 | 1.115 [1.031, 1.206] | | | |
+| WD pool (2018–26) | 9,954 | 1.107 [0.992, 1.235] | | | |
+
+The pool rows use D1's window (accepted and rejected 2017–26; withdrawn 2018–26, as there are no 2017 withdrawals in the frame). D4's H4a refits the three pools on 2018–26 (ACC 1.053, REJ 1.119, WD 1.107; Table 1, Fig. 5).
 
 (The pool label is written `NApool` in the CSV files so that default CSV readers do not turn it into a missing value.)
 
@@ -357,7 +360,7 @@ Shaded bands are ranges across representations, not confidence intervals. Inset:
 
 ## 5. H1e: the tool (F1.3, T1.3; `tool_delta_models.csv`, `T1_3_tool_bound.csv`)
 
-**Fingerprint.** F (D1 variant) = F24 with ≥ 2 RARE21 words ∪ F26 ∪ title typography.
+**Fingerprint.** F (D1 variant, F_d1) = F24 with ≥ 2 RARE21 words ∪ F26 ∪ title typography. The broader F_any (D3's primary and VALIDATION V3's F) = F24 with ≥ 1 RARE21 word ∪ F26 ∪ title typography; the two differ only in the F24 threshold.
 - Share of papers with F: 2.5% (2023), 7.1% (2024), 5.2% (2025), 19.2% (2026). The 2023 value is the pre-ChatGPT false-positive level.
 
 **(i) NAME rise among F = 0 papers relative to all papers.**
@@ -366,7 +369,7 @@ Shaded bands are ranges across representations, not confidence intervals. Inset:
 |---|---|---|---|
 | F (D1 variant) | 1.00 [0.94, 1.06] | 1.00 [0.97, 1.02] | **0.98 [0.96, 1.00]** |
 | NA pool | 0.99 | 0.99 | 0.98 [0.95, 1.00] |
-| broader F_any (F24 ≥ 1 word) | 0.85 [0.73, 0.96] | 0.93 [0.88, 0.97] | 0.95 [0.92, 0.98] |
+| broader F_any (F24 ≥ 1 RARE21 word ∪ F26 ∪ title typography) | 0.85 [0.73, 0.96] | 0.93 [0.88, 0.97] | 0.95 [0.92, 0.98] |
 
 - NAME share 2023 → 2026: 20.3% → 40.1% among F = 0 papers, against 20.6% → 42.0% among F = 1 papers.
 - **Power.** Criterion (i) has little power by construction. With 19% of 2026 papers flagged, the ratio falls below 0.85 only if F = 1 papers' NAME share exceeds F = 0 papers' by ≥ 18 pp. It falls below 0.70 only for a gap of ≥ 44 pp (the maximum possible is 60 pp). With a recall of about 45% at A = 0.39, undetected drafted papers also sit in F = 0.
@@ -389,7 +392,7 @@ Shaded bands are ranges across representations, not confidence intervals. Inset:
 | component: F26 only | 30,130 | +1.30 | [−0.48, +3.09] |
 | component: title typography only (0.7% of papers) | 30,130 | **+10.63** | [+3.74, +17.53] |
 | title typography, given an intra-word dash in the title | 17,356 | +6.01 | [−0.99, +13.01] |
-| F_any (F24 ≥ 1 word) | 30,130 | +2.54 | [+1.27, +3.81] |
+| F_any (F24 ≥ 1 word ∪ F26 ∪ title typography) | 30,130 | +2.54 | [+1.27, +3.81] |
 | pre-period placebo, 2021–23: F_d1 / F_any | 8,881 | +0.45 / −2.62 | [−3.98, +4.88] / [−5.82, +0.58] |
 | **DiD F × post, 2021–26 (selection-corrected): F_d1** | 39,011 | +1.57 | [−2.98, +6.12] |
 | **DiD F × post, 2021–26: F_any** | 39,011 | **+5.55** | [+2.00, +9.09] |
@@ -429,7 +432,9 @@ Shaded bands are ranges across representations, not confidence intervals. Inset:
   - no spillover to undrafted papers;
   - the 2023 F share is all false positives.
 
-None of these is tested.
+None of these is tested, except the last one in part (integration pass 2, `outputs/audit/integration/check_fpr_baseline.py`):
+- D3 and VALIDATION V3 take the false-positive rate from 2021–22 instead (F_any 5.9%). For F_d1 the 2021–22 share is 3.2%, above the 2023 share of 2.5%. With the 2021–22 rate the corrected 2026 tool share at A = 0.39 is **7.4% [1.4, 13.4]** (recall 0.44), against 7.1% [1.4, 12.9] with the 2023 rate.
+- ICLR 2023 accepted abstracts are post-ChatGPT camera-ready text (D4, H4c). Their F_d1 share is 3.1% (n = 1,256), against 2.2% for the other 2023 papers. Using only the other 2023 papers as the false-positive baseline gives 7.0% [1.4, 12.7]. The choice of baseline moves the tool share by less than half a point.
 
 **Verdict H1e: supported as pre-registered, for the abstract fingerprint, but not robust as a bound.**
 - For the pre-registered fingerprint all three criteria are met after the correction: F0 ratio 0.98 ≥ 0.85; δ = +1.6 ≤ +5 pp; corrected tool share 0.07 < 0.25.
@@ -437,9 +442,13 @@ None of these is tested.
 - With other markers the point estimates at A = 0.39 range from 5% to 33%. Upper CIs reach 0.27 (abstract markers) and 0.55 (title typography).
 - "The tool is not the main driver" survives as a point-estimate statement for the pre-registered fingerprint. "Small and bounded from above" does not.
 
-**Positive control: PENDING.** The PLAN pre-registers D3's slot result (H3a; WP7, `outputs/d3_register/`) to be reported beside H1e. `outputs/d3_register/` does not exist yet (D3 not yet run), so no positive control is reported.
-- When it exists, it will show that LLMs left a lexical signature in title slot verbs.
-- It will not validate the sensitivity of the abstract fingerprint F for NAME, because the slot test does not use F.
+**Positive control (D3; integration pass).** The PLAN pre-registers D3's slot result to be reported beside H1e as a positive control. D3 has now been run and audited (`outputs/d3_register/`, H3a and H3d; `results.json → H1e.positive_control_D3`).
+- **The title-level design detects an LLM-era lexical shift.** LLM-favoured openers in meaning-fixed slots rose from 2024: pooled post OR 2.18 [1.41, 3.38] (H3a), with control pairs flat at the 2024 break (0.87 [0.64, 1.18]).
+- **With D1's own fingerprint the control is not significant.** H3d regresses the LLM slot variant on the abstract fingerprint, 2024–26, within topic100 × year (1,508 slot rows):
+  - F_d1 (D1's fingerprint: F24 ≥ 2 words ∪ F26 ∪ title typography; 179 F = 1 rows): OR_slot **1.29 [0.92, 1.81]**, one-sided p = 0.072. Against the population NAME comparator (OR 1.08 [1.01, 1.16]) the ratio is 1.19 [0.84, 1.65].
+  - F_any (D3's primary: F24 with ≥ 1 RARE21 word ∪ F26 ∪ title typography, i.e. F_d1 with the F24 threshold lowered from 2 words to 1; 381 F = 1 rows): OR_slot **1.42 [1.14, 1.79]**, against a population NAME OR of 1.14 [1.08, 1.21]; ratio 1.24 [0.99, 1.57]. The contrast with the F_d1 row therefore isolates the F24 threshold.
+- **Consequence for H1e.** The pre-registered criteria are met for F_d1, but the fingerprint that drives D1's tool share does not detect the LLM-favoured slot words at conventional significance. The D1 tool estimate (7.1% [1.4, 12.9] at A = 0.39) is therefore **not validated by a positive control on its own fingerprint**. The broader F_any does pass the control, and it gives a larger tool share (7.7% [2.1, 13.2] cross-sectionally, 16.3% [5.9, 26.7] by DiD; §5 (iii)).
+- The positive control speaks to the fingerprint's sensitivity for lexical LLM traces in titles. It does not test the linear δ·A model or the misclassification assumptions listed above.
 
 ## 6. Identification and robustness
 
@@ -465,7 +474,7 @@ None of these is tested.
 - The fixed-window content share is therefore *not* robust to the extrapolation critique, especially for 2024–26, when about 31% of papers sit in fast-growing clusters. This failure qualifies both H1b and H1c.
 
 **V4: name-masking leakage.**
-- The R1 lead survives in 22 of 12,962 NAME abstracts (0.17%), against the 0% target.
+- The R1 lead survives in 22 of 12,928 NAME abstracts of 2018–26 (0.17%), against the 0% target; all 22 are from 2023–26. The same denominator is used in VALIDATION V4 and SUMMARY. (`results.json` → `v4.name_papers` = 12,962 counts 2017–26 on the same universe; the 34 NAME papers of 2017, which have no R3 mask, contain no survivor.)
   - All are project-page URLs with a digit suffix (e.g. `resgrad1.github.io`). R1 keeps letter runs, so "resgrad1" becomes "resgrad".
   - This is too few to move any share.
 - Masked-vs-unmasked AUC gap:
@@ -544,7 +553,7 @@ PLAN §1 is the locked pre-registration and is left unchanged here. Text written
 | "dated slope break at 2024 (pilot ITS slope-change OR 1.28/yr)" | Not supported as written. 1.28 was for colon titles; the level+slope sup-LR picks 2023; the year-level CI on U includes 1. | "The NAME trend accelerated (became convex) from about 2022–24, most visibly in 2026: slope change +3.0 pp/yr [2.1, 3.8] (paper level), +2.8 [1.3, 4.4] (year level); log-odds OR 1.098 [1.044, 1.154] (paper level), 1.096 [0.990, 1.214] (year level)." |
 | "Content explains only a minority … about 30–45%" | Not established | "Name-masked content accounts for about 0.37–0.65 of the 2023→26 rise, depending on design and calibration (pre-registered specification: 0.39 fixed, 0.57 rolling); a minority is not established." |
 | "Unexplained drift … 1.7 pp/yr before 2024 … 3.9 pp/yr after" | Point estimate changed; inference weak | "Content-unexplained drift rose from 1.5 to 2.9 pp/yr; the increase is not established once year-level shocks are allowed for and is absent at the year level in the submission-stage pool and the non-LLM subset." |
-| "Detectable LLM drafting adds little … bounded from above" | Not established as a bound | "With the pre-registered abstract fingerprint, LLM drafting accounts for about 7% [1, 13] of the rise at A = 0.39 after a misclassification correction; other markers give up to 16–33%; this is not an upper bound." |
+| "Detectable LLM drafting adds little … bounded from above" | Not established as a bound; not validated by a positive control on D1's fingerprint | "With the pre-registered abstract fingerprint, LLM drafting accounts for about 7% [1, 13] of the rise at A = 0.39 after a misclassification correction; other markers give up to 16–33%; this is not an upper bound, and the fingerprint behind it does not pass D3's slot positive control (OR 1.29 [0.92, 1.81])." |
 | "sped up but did not create" | Not tested by D1 | Drop, unless a new analysis supports it. |
 
 ## Files
@@ -597,7 +606,7 @@ Three audits were received: code (D1-C1…C9), identification (ID-1…6) and rep
 | REP-1 H1c verdict row overstated | **Yes.** | Verdict row lists the year-level, NA-pool, non-LLM and excluding-2026 results; headline rewritten. | As D1-C3. |
 | REP-2 H1a Holm p paper-level only | **Yes.** | Holm uses the year-level p; paper-level and randomization-p families reported; excluding-2026 result and the post hoc label of the kink scan added to the verdict row. | H1a Holm 0.071 (paper level 0.0006; randomization 0.29). |
 | REP-3 F1.1/F1.3 show only the fixed design | **Yes.** | F1.1 adds the rolling cumulative counterfactual; F1.3 adds a rolling-content marker; captions identify the fixed-window bars as the lower end of the bracket. | — |
-| REP-4 positive control asserted though D3 is missing | **Yes.** | Marked PENDING; the "demonstration" sentence and the 2.7-vs-1.08 contrast deleted; `results.json` says pending. | H1e no longer claims a validated toolkit. |
+| REP-4 positive control asserted though D3 is missing | **Yes.** | Marked PENDING in the fixer pass; the "demonstration" sentence and the 2.7-vs-1.08 contrast deleted. **Integration pass:** D3 is now audited; §5 reports its answer and `d1_summary.positive_control_d3()` writes it to `results.json → H1e.positive_control_D3`. | H1e no longer claims a validated toolkit. With F_d1 the D3 slot uplift is OR 1.29 [0.92, 1.81], so D1's tool estimate is not validated by a positive control on its own fingerprint. |
 | REP-5 "at most 16%" and omitted adverse δ rows | **Yes.** | δ table now includes excluding-2026, 2024-only, 2025-only, components, typography, NA pool and DiD rows with n; "with room to spare" removed. | As D1-C5/ID-4. |
 | REP-6 headline omits the content share of the acceleration | **Yes.** | Headline gives the decomposition: +4.7 pp/yr acceleration, of which about 71% is content and 29% unexplained. | — |
 | REP-7 PLAN §1 thesis numbers contradicted | **Yes.** | §9 lists replacement sentences. PLAN.md itself is the locked pre-registration and was not edited; DIRECTIONS.md and LITERATURE_BRIEF.md (which repeat 1.28/yr) are outside D1 and were not edited. | Thesis claims weakened as listed in §9. |
@@ -611,12 +620,13 @@ Three audits were received: code (D1-C1…C9), identification (ID-1…6) and rep
 | REP-15 figure styling | **Yes.** | One colour per quantity; F1.2 whisker caption and content means; F1.3 divider and "not additive" note; "not a CI" legend entries in F1.1; `fig_its_scan` on a log axis with an LR panel. | — |
 | REP-16 "NA" read as missing | **Yes.** | Pool label written `NApool` in all CSV outputs. | — |
 | REP-17 p-values test falsification boundaries; "R3 0.60" | **Yes.** | Footnote with prediction-level tail probabilities; R3 rolling printed as 0.577. | — |
+| Integration pass 2 (cross-direction consistency) | **Yes.** | (i) F_any is defined in full wherever it appears (F24 with ≥ 1 RARE21 word ∪ F26 ∪ title typography; F_d1 differs only in the ≥ 2-word threshold); it was labelled "F24 ≥ 1 word" in the H1e(i) table, the δ table and the positive-control paragraph. (ii) §5 (iii) adds the false-positive-baseline sensitivity: 2021–22 rate (3.2%) gives 7.4% [1.4, 13.4]; 2023 non-accepted papers only, 7.0%. (iii) V4 uses the 2018–26 denominator (22 of 12,928) shared with VALIDATION; the 12,962 in `results.json` includes the 34 NAME papers of 2017 (no survivors), not placeholder rows. (iv) The positive-control reading in `results.json` is now generated from the significance flag instead of hard-coded. | None (wording and disclosure). |
 
 **Claims weakened overall:**
 - H1a: "dated 2024 break", and paper-level significance.
 - H1c: the acceleration verdict, from "supported" to "not established at the year level".
 - H1d: from "supported" to "partially supported".
-- H1e: the "bounded from above / at most 16%" language and the positive-control claim.
+- H1e: the "bounded from above / at most 16%" language and the positive-control claim. After integration with D3, the positive control fails on D1's own fingerprint (OR 1.29 [0.92, 1.81]) and passes only on the broader F_any (1.42 [1.14, 1.79]).
 - Residual: no longer called "fashion".
 
 **Claims strengthened or reversed:**

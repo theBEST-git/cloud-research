@@ -1,5 +1,6 @@
 {
- "frozen_on": "2026-10-11 19:52:40",
+ "frozen_on": "2026-10-11 22:05:18",
+ "source": "WP4 final audit (snapshot_final builders); revision 2",
  "original": {
   "path": "cache/arxiv_audit.jsonl",
   "n_lines": 616,
@@ -8,37 +9,58 @@
   "pairs_by_decision": {
    "accepted": 206,
    "rejected": 125
-  }
+  },
+  "n_pairs_2023_26": 322
  },
  "enlargement": {
   "path": "cache/arxiv_audit_enlarge.jsonl",
-  "n_lines_used": 1261,
-  "sha256_of_lines_used": "776341067801e217ef8ab52b91ae20bd307d3f85a32a3622178acf351ba18cfb",
-  "n_records": 1257,
-  "n_pairs": 634,
-  "note": "append-only file written by the background audit_v2 job; only the first 1261 complete lines were used"
+  "n_lines_used": 2004,
+  "sha256_of_lines_used": "dd51d5faaa0a793778581334c136f2a570d68b2ac2868064fd724df2f24f869f",
+  "wp4_freeze": {
+   "n_lines_used": 2004,
+   "sha256": "dd51d5faaa0a793778581334c136f2a570d68b2ac2868064fd724df2f24f869f"
+  },
+  "matches_wp4": true,
+  "n_records": 2000,
+  "n_pairs": 989,
+  "note": "complete enlargement (2,000 sampled papers; errored lines superseded by retries)"
  },
  "pooled": {
-  "n_pairs": 965,
+  "n_pairs": 1311,
   "pairs_by_decision": {
-   "accepted": 598,
-   "rejected": 367
-  }
+   "accepted": 803,
+   "rejected": 508
+  },
+  "years": "2023-26 (WP4 primary)"
  },
  "v1_abstracts": {
   "path": "cache/arxiv_audit_v1abs.jsonl",
   "n_lines": 331,
   "sha256": "5b72ec8a40ecbb01decf983888f2921c3a1e5b1a60034aeac22499a538703778",
-  "n_pairs": 330,
+  "n_pairs": 1032,
   "pairs_by_decision": {
-   "accepted": 206,
-   "rejected": 124
-  }
+   "accepted": 628,
+   "rejected": 404
+  },
+  "years": "2024-26 (WP4 primary abstract audit: original + enlargement v1 abstracts)"
  },
  "specs": {
-  "title_original": "original 616-paper audit, usable pre-decision pairs",
-  "title_pooled": "original + enlargement (gate spec for title features)",
-  "abstract_v1": "arXiv v1 abstracts of the original pairs (gate spec for abstract markers)"
+  "title_original": "original 616-paper audit, usable pre-decision pairs (2022-26; sensitivity)",
+  "title_primary": "WP4 primary: original 2023-26 + complete enlargement (gate spec for title features)",
+  "abstract_2024_26": "WP4 primary abstract audit, 2024-26 pairs (gate spec for abstract markers)"
+ },
+ "auditable_rule": ">= 10 v1-present titles (abstracts) in BOTH arms AND measurable through arXiv metadata (arXiv titles never ALL-CAPS or U+2011/U+2013-typographic; arXiv abstracts never carry the em dash)",
+ "reproduces_wp4": {
+  "primary": {
+   "max_abs_diff": 9.627715291671279e-17,
+   "auditable_identical": true,
+   "n_features": 26
+  },
+  "abs_2024_26": {
+   "max_abs_diff": 9.71445146547012e-17,
+   "auditable_identical": true,
+   "n_features": 6
+  }
  },
  "ci": "primary net-flip DiD 95% CI: Wald with the pseudo-flip variance floor (WP4); bootstrap B = 2,000 stratified by year x decision for the combined (editing-corrected) intervals"
 }

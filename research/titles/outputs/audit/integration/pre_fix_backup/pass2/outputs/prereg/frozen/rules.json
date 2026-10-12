@@ -1,0 +1,157 @@
+{
+ "date": "2026-10-11",
+ "plan_section": "PLAN.md section 4",
+ "alpha": 0.05,
+ "multiplicity": {
+  "primary": {
+   "tests": [
+    "CT1",
+    "CT2",
+    "CT3",
+    "CT4",
+    "CT5",
+    "CT6"
+   ],
+   "method": "Holm",
+   "family_wise_alpha": 0.05
+  },
+  "secondary": {
+   "tests": [
+    "CT7",
+    "CT8",
+    "CT9",
+    "CT10",
+    "CT11",
+    "CT12"
+   ],
+   "method": "Benjamini-Hochberg",
+   "q": 0.05
+  }
+ },
+ "sidedness": "all tests one-sided in the predicted direction",
+ "verdicts": {
+  "confirmed": "adjusted p < .05, the point estimate beyond the stated minimal effect, the test's CI rule met and, for acceptance-margin tests, the audit gate passed",
+  "contradicted": "the CI excludes the predicted region on the opposite side (test-specific rule)",
+  "not_confirmed": "otherwise; when only the gate fails the result is reported as 'not confirmed (gate)'"
+ },
+ "tests": {
+  "CT1": {
+   "title": "D1 break (H1a)",
+   "data": "held-out U, 2017-2026",
+   "statistic": "Segmented logit NAME ~ (t-2023) + post + post x (t-2023) + log(#authors) + llm_topic + topic100 FE, SEs clustered by topic100 (d1_its.its_fit). Parameter: slope change delta = post x (t-2023), reported as OR per year.",
+   "p": "one-sided Wald z of delta <= 0",
+   "confirm": "Holm-adjusted p < .05 and OR >= 1.10",
+   "contradict": "upper 95% CI bound of the OR < 1",
+   "gate": "none (diachronic)"
+  },
+  "CT2": {
+   "title": "D1 acceleration of unexplained drift (H1c)",
+   "data": "held-out U, 2019-2026",
+   "statistic": "Each held-out year y is scored by the frozen rolling R1 models (trained on discovery y-3..y-1; five fold models; prediction = mean_k expit(s_k + c_y)); the frozen shift c_y makes the discovery cross-fitted predictions of y-1 match discovery obs_{y-1}. u_y = obs_y - p_hat_y. D = mean(u_2024-26) - mean(u_2019-23); ratio = mean(u_post)/mean(u_pre); content share of the 2024-26 steps = sum(p_hat_y - obs^disc_{y-1}) / sum(obs_y - obs^disc_{y-1}).",
+   "p": "bootstrap (B = 2,000): held-out papers resampled within year, discovery calibration-year papers resampled independently and c_y re-solved; p = (1 + #{D_b <= 0})/(B + 1)",
+   "confirm": "Holm-adjusted p < .05, lower 95% bound of D > 0, ratio >= 1.5, and upper 95% bound of the content share < 0.60",
+   "contradict": "upper 95% bound of D < 0",
+   "gate": "none (diachronic)"
+  },
+  "CT3": {
+   "title": "D2 communal change at the last list position (H2a)",
+   "data": "declared profile keys, panel 2021-26; E = 2022-23 papers of discovery \u222a held-out; L = 2025-26 held-out papers",
+   "statistic": "Stayers: keys with >= 1 E paper and >= 1 held-out L paper (any list position). rho_last = (P_SL - P_SE)/(P_L - P_E) on last-list-position rows (weight 1 per row); P_E over all E rows, P_L over all held-out L rows.",
+   "p": "key-cluster bootstrap (B = 1,000, multinomial key counts, seed 20260); p = (1 + #{rho_b <= 0.5})/(B + 1)",
+   "confirm": "Holm-adjusted p < .05 and lower 95% bound > 0.5",
+   "contradict": "upper 95% bound < 0.5",
+   "gate": "none (diachronic within-key change)"
+  },
+  "CT4": {
+   "title": "D3 meaning-fixed slot break (H3a)",
+   "data": "held-out titles 2018-2026 that fill an LLM slot (frozen V2 inventory, PLAN opener rule) or a control pair",
+   "statistic": "Stacked logit y ~ C(slot) + C(slot):(t-2023) + post + post x LLM-slot + llm_topic, SEs clustered by topic100 (d3_slots.STACKED). Parameter: post x LLM-slot, as OR.",
+   "p": "one-sided Wald z of the interaction <= 0",
+   "confirm": "Holm-adjusted p < .05 and OR >= 1.5",
+   "contradict": "upper 95% CI bound of the OR < 1",
+   "gate": "none (diachronic)"
+  },
+  "CT5": {
+   "title": "D4 neutral filter for NAME (H4a)",
+   "data": "held-out 2018-2026 without OTHER rows; stages s0-s3",
+   "statistic": "Pooled 2024-26 NAME G_total = P(NAME | accepted)/P(NAME | U), year-standardised (weights = the year's s0 size).",
+   "p": "paper bootstrap stratified by year (B = 2,000); TOST p = max{(1 + #{G_b <= 0.90})/(B + 1), (1 + #{G_b >= 1.11})/(B + 1)}",
+   "confirm": "Holm-adjusted p < .05, 90% percentile CI inside [0.90, 1.11], and the gate",
+   "contradict": "90% CI entirely outside [0.90, 1.11]",
+   "gate": "acceptance-margin: the editing-corrected 90% CI (held-out bootstrap paired with draws of the audit net-flip DiD, WP4 G1 construction, frozen title audit) must lie inside [0.90, 1.11]"
+  },
+  "CT6": {
+   "title": "D4 depletion of LLM markers (H4b)",
+   "data": "as CT5",
+   "statistic": "L-union (title typography, R24, R26, F24, F26, abstract em dash): pooled 2024-26 G_total and G_desk x G_exit = P(f | s2)/P(f | s0).",
+   "p": "bootstrap as CT5; p = max of (1 + #{G_b >= 1})/(B + 1) over the two gains",
+   "confirm": "Holm-adjusted p < .05 (both gains < 1) and the gate for G_total",
+   "contradict": "lower 95% bound of either gain > 1",
+   "gate": "acceptance-margin association (G_total), WP4 Holm gate: L-union must be auditable (count and arXiv channel), its editing-corrected 95% interval below 1 and its identification p must survive Holm at 0.025. It is not auditable (title typography and the abstract em dash cannot be carried by arXiv metadata), so CT6 cannot reach 'confirmed'; G_desk x G_exit is reported as the audit-free component"
+  },
+  "CT7": {
+   "title": "D3 vintage alignment (H3c)",
+   "data": "held-out U, 2025-2026",
+   "statistic": "Logit R24-in-title ~ F24 + F26 + C(year) + C(topic100) + log(#authors) + llm_topic + log(title words); topic100 cells without outcome variation dropped; SEs clustered by topic100. Statistic: OR(F24)/OR(F26).",
+   "p": "one-sided Wald z of log ratio <= 0",
+   "confirm": "BH-adjusted p < .05 and ratio > 1",
+   "contradict": "upper 95% CI bound < 1",
+   "gate": "none (submission-population association, not acceptance)"
+  },
+  "CT8": {
+   "title": "D3 register turnover (H3b)",
+   "data": "held-out 2025 and 2026 titles in the 16 frozen large areas",
+   "statistic": "Quasi-Poisson counts of titles with R24 (and R26) by area x year, area FE, log(#titles) offset, Pearson dispersion: RR 2026/2025 for R24 and for R26.",
+   "p": "two one-sided Wald tests on log RR (R24 down, R26 up); p = max of the two (intersection-union)",
+   "confirm": "BH-adjusted p < .05, RR_R24 < 1 and RR_R26 > 1",
+   "contradict": "R24 lower 95% bound > 1 or R26 upper 95% bound < 1",
+   "gate": "none (diachronic)"
+  },
+  "CT9": {
+   "title": "D1 tool bound (H1e(i))",
+   "data": "held-out U, 2023 and 2026",
+   "statistic": "F = f24_2 OR f26 OR title_typo. ratio = (NAME_2026 - NAME_2023 among F = 0) / (NAME_2026 - NAME_2023 among all).",
+   "p": "bootstrap within year (B = 2,000); p = (1 + #{ratio_b <= 0.70})/(B + 1)",
+   "confirm": "BH-adjusted p < .05 and lower 95% bound > 0.70",
+   "contradict": "upper 95% bound < 0.70",
+   "gate": "none (diachronic)"
+  },
+  "CT10": {
+   "title": "D4 published-only understatement of LLM use (H4c)",
+   "data": "held-out 2021-2026 without OTHER rows",
+   "statistic": "Kobak-style bound per year Y in 2024-26 = P(F24 | set, Y) - baseline, baseline = max(linear 2021-23 trend extrapolated to Y, max(P_2022, P_2023)), set in {accepted, all}; pooled = mean over the three years; ratio = accepted/all. The held-out split supplies its own baseline years.",
+   "p": "paper bootstrap stratified by year (B = 2,000); p = (1 + #{ratio_b >= 0.90})/(B + 1)",
+   "confirm": "BH-adjusted p < .05, ratio < 0.90, and the gate",
+   "contradict": "lower 95% bound > 0.90",
+   "gate": "acceptance-margin association, WP4 Holm gate: tipping point D* = (b_acc - 0.9 b_all)/(1 - 0.9 a0) (net camera-ready change of the accepted F24 prevalence that would lift the ratio to 0.90); passes if the F24 abstract audit (2024-26 v1-abstract pairs) is auditable, the editing-corrected ratio's upper 95% bound is < 0.90, and the identification p (z = (D_hat - D*)/sqrt(se_D^2 + se_D*^2)) survives Holm at one-sided 0.025 across the run's auditable association claims"
+  },
+  "CT11": {
+   "title": "D4 pool invariance of the break (H4a(iii))",
+   "data": "held-out 2018-2026, ACC, REJ and WD pools",
+   "statistic": "CT1 logit fitted separately per pool; joint cluster-robust covariance from influence functions summed by topic100 (d4_stage_gains.its_pools). Statistic: the three pairwise differences in slope-change log OR.",
+   "p": "TOST at +/-0.1 per pair (normal); p = max over the three pairs",
+   "confirm": "BH-adjusted p < .05, every pairwise 90% CI inside (-0.1, 0.1), and the gate",
+   "contradict": "any pairwise 90% CI entirely outside [-0.1, 0.1]",
+   "gate": "acceptance-margin for the ACC pairs: widen their 90% CIs by b_max = (D_hi - D_lo)/(2 p (1 - p)) from the frozen NAME title audit and the held-out ACC NAME share p (2024-26); widened CIs must stay inside (-0.1, 0.1). The REJ-WD pair is audit-free"
+  },
+  "CT12": {
+   "title": "D2 role gradient (H2b)",
+   "data": "as CT3",
+   "statistic": "rho_first - rho_last (first-list-position minus last-list-position within-stayer share), same stayers and windows as CT3.",
+   "p": "joint key-cluster bootstrap (the CT3 draws); p = (1 + #{diff_b >= 0})/(B + 1)",
+   "confirm": "BH-adjusted p < .05 and upper 95% bound < 0",
+   "contradict": "lower 95% bound > 0",
+   "gate": "none (diachronic within-key change)"
+  }
+ },
+ "gate": "No acceptance-margin result is called confirmed unless the audit rules out camera-ready editing large enough to produce it (PLAN: tipping point beyond the audit CI). Gated: CT5, CT6 (G_total), CT10, CT11 (ACC pairs). Diachronic and camera-ready-free tests are not gated. WP4 multiplicity-controlled gate (revision 2). Association claims (CT6 G_total, CT10): the marker must be auditable (>= 10 v1-present per arm and measurable through arXiv metadata), its editing-corrected 95% interval (bootstrap replicate paired with an audit draw D ~ N(D_hat, se_D)) must lie beyond the claim's boundary, and its one-sided identification p, z = (D_hat - D*)/sqrt(se_D^2 + se_D*^2) with se_D the pseudo-flip SE and se_D* the bootstrap SE of the tipping point, must survive Holm at 0.025 across the run's auditable association claims. Equivalence claims (CT5, CT11): editing-corrected interval rules (CT5 = WP4 G1 TOST; CT11 = ACC-pair CIs widened by the largest editing bias inside the NAME audit CI).",
+ "gate_alpha_one_sided": 0.025,
+ "revision": {
+  "revision": 2,
+  "date": "2026-10-11",
+  "previous_bundle_hash": "f69fdb468702fe11e336b81476869531a71acb1d4f922b8bd1d479934bbac628",
+  "previous_audit": "original audit + first 1,261 enlargement lines (965 pooled title pairs incl. 2022; 330 v1 abstracts of the original pairs); gate = point tipping point beyond the 95% audit CI (uncorrected)",
+  "reason": "Post-audit corrections before any held-out data were requested or seen (no guard file, no heldout.json): (1) the D3 and D4 fixer passes changed required code hashed by revision 1 (d3_register.py, d3_slots.py, d3_vintage.py, d4_bias_atlas.py, d4_stage_gains.py; the frozen test definitions they supply are unchanged); (2) the WP4 enlargement finished (2,004 lines, 2,000 records) and the gate audit is re-frozen on WP4's complete audit; (3) the gate adopts WP4's multiplicity-controlled rule (identification p with the tipping point's sampling error, Holm at 0.025, editing-corrected interval), because the revision-1 uncorrected rule admits acceptance associations that the Holm gate rejects. The R1 models, centroids, lexicons, slot inventory, DFL cells and every test statistic are unchanged (frozen files byte-identical)."
+ },
+ "heldout_runs_allowed": 1
+}

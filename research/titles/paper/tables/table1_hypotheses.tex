@@ -1,0 +1,48 @@
+% derived from outputs/tables/table1_hypotheses.tex by paper/tables/make_tables.py (numbers unchanged)
+{\scriptsize
+\begin{longtable}{l p{2.5cm} p{2.2cm} p{3.9cm} p{3.2cm} r}
+\caption{Pre-specified hypotheses (locked plan): estimates and final post-audit verdicts (discovery split; all numbers regenerated after the three audits of each direction).}\label{tab:hypotheses}\\
+\toprule
+ID & Prediction & Pilot (plan) & Estimate (95\% CI) & Final verdict (post-audit) & Holm p \\
+\midrule
+\endfirsthead
+\multicolumn{6}{l}{\textit{Table \ref{tab:hypotheses}, continued}}\\
+\toprule
+ID & Prediction & Pilot (plan) & Estimate (95\% CI) & Final verdict (post-audit) & Holm p \\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+\multicolumn{6}{l}{\textit{D1 The naming acceleration: content, composition or tool}} \\
+H1a & Slope change at 2024, OR $>$ 1; holds in NA pool; placebo breaks null & OR 1.28/yr (colon titles, not NAME) & OR 1.096 [0.990, 1.214]/yr (year level); paper level 1.098 [1.044, 1.154]; NA pool 1.121 [1.019, 1.232]; sup-LR selects 2023 & Partially supported: the trend accelerated, but a dated 2024 break is not identified (year-level CI includes 1; null without 2026) & 0.071 \\
+H1b & Name-masked content share of the 2023$\rightarrow$26 rise in [0.20, 0.50]; none $\geq$ 0.60 & 29\% fixed; 42\% rolling; 45\% unmasked bge & Fixed: R1 0.39 [0.35, 0.43], R3 0.49; rolling: R1 0.57 [0.53, 0.62], R3 0.58 & Not falsified, prediction fails: content share 0.37-0.65 across specifications; 'minority' not established & 0.18 \\
+H1c & Unexplained drift u accelerates: mean u(2024--26) - mean u(2019--23) $>$ 0, ratio $\geq$ 1.5 & 1.7 $\rightarrow$ 3.9 pp/yr (ratio 2.3) & u 1.51 $\rightarrow$ 2.87 pp/yr; diff +1.35 pp [0.03, 2.71] (year level); NA pool +1.14 pp & Not established at the year level (positive point estimate; fails Holm; CI includes 0 in NA pool and non-LLM subset) & 0.067 \\
+H1d & Composition (team size $\times$ new keys $\times$ LLM topic) explains $\leq$ 30\% (DFL) & 26\% (size $\times$ LLM topic) & DFL 0.29 / 0.32 / 0.26 [0.22, 0.30] (2024/25/26) & Partially supported: met in 2024 and 2026, not in 2025; far from the 0.50 line & 0.008 \\
+H1e & Tool bounded: F = 0 rise $\geq$ 85\% of total; $\delta$ $\leq$ 5 pp; tool share at A = 0.39 $<$ 0.25 & colon adjOR 1.24 & F = 0 rise / total 0.98 [0.96, 1.00]; $\delta$ +1.6 pp; tool share 0.07 [0.01, 0.13]; positive control on F\_d1: slot OR 1.29 [0.92, 1.81] & Supported as pre-registered for the abstract fingerprint; not robust as a bound; D3 positive control fails on D1's own fingerprint & 0.002 \\
+\addlinespace
+\multicolumn{6}{l}{\textit{D2 Who carries the change (declared profile keys)}} \\
+H2a & Within-stayer share $\geq$ 0.70 (last position), $\geq$ 0.60 (any position) & last $\approx$ 1.00; any 0.83 & $\rho$\_last 0.995 [0.943, 1.050]; $\rho$\_any 0.816 [0.777, 0.857]; generational null 0.78--0.93 & Not identified: a generational null with the observed co-authorship also meets it & 0.005 \\
+H2b & First-position share lower than last by $\geq$ 0.2; entrant first keys above stayers & first 0.58 vs last 1.00 & $\rho$\_first 0.525 [0.414, 0.633]; first - last $-$0.47 [$-$0.60, $-$0.36] & Supported on pre-registered groups; magnitude not robust & 0.005 \\
+H2c & Stayer change at zero new co-author keys $\geq$ 0.5 $\times$ population change & 0.60 (rolling) & 0.34 [0.19, 0.48] $\times$ population (6.2 of 18.3 pp) & Not supported (not falsified): newcomer-free teams changed less than predicted & 0.31 \\
+H2d & Slope of within-stayer on population change $\approx$ 1; G larger for style than topic & slope 0.97 & slope 0.92 [0.90, 0.95]; G\_style 0.17 [0.13, 0.20] vs G\_topic $-$0.05 [$-$0.07, $-$0.03] & Supported for the style-vs-topic contrast; slope criterion not diagnostic & 0.005 \\
+H2e & Pre-LLM (2018$\rightarrow$20, email keys): $\geq$ 50\% of the NAME rise within stayers & -- & $\rho$\_NAME 1.20 [0.71, 1.77]; literal Kitagawa share 0.26 & Inconclusive & 0.12 \\
+S2.1 & Retitled resubmissions (destination $\geq$ 2024) do not add NAME on net & 0.000 (se 0.025; 28/28; n = 297) & $\Delta$NAME +0.000 (se 0.025; 28 adds, 28 drops, n = 297); minus topic-adjusted drift $-$4.8 pp & NAME not added on net within retitled projects; lag behind drift not established & expl. \\
+S2.2 & Future-tie placebo: past-collaborator exposure no larger than future-collaborator exposure & past .045 vs future .118 & past $-$0.007 vs future +0.067; difference $-$0.075 (se 0.037; MDE 0.10) & Inconclusive: positive control not detected in the primary specification & expl. \\
+\addlinespace
+\multicolumn{6}{l}{\textit{D3 The machine register}} \\
+H3a & Meaning-fixed LLM slots: post OR $\geq$ 2; controls in [0.67, 1.5]; slot - control $>$ 0 & 2.69 [1.80, 4.01]; controls 0.87 & slots 2.18 [1.41, 3.38]; controls 0.87 [0.64, 1.18]; stacked 2.55 [1.53, 4.25] & Supported (pre-registered spec); OR $>$= 2 depends on 'enhancing'; not sharply dated against 2023; addition rather than substitution & $<$0.001 \\
+H3b & 2025$\rightarrow$26 within area: R24 falls in $\geq$ 10/16, R26 rises in $\geq$ 12/16 & R24 down 12/16; R26 up 16/16 & R24 down 14/16, R26 up 16/16; R24 relative to neutral synonyms 1.08 [0.86, 1.36] & Thresholds met (descriptive); no register turnover identified & 0.004 \\
+H3c & Vintage alignment: OR(F24 $\rightarrow$ R24) $>$ OR(F26 $\rightarrow$ R24), 2025--26 & 1.29 vs 0.83 & 1.11 vs 0.76; ratio 1.46 [1.17, 1.83]; shared-lemma-free 1.32 [1.04, 1.66] with OR(F24) 1.00 & Prediction met; vintage reading not established & 0.001 \\
+H3d & Lexical signature: OR(F $\rightarrow$ slot variant) $\geq$ 1.5 $\times$ OR(F $\rightarrow$ NAME) & $\approx$ 2.7 vs $\approx$ 1.24 & OR\_slot 1.42 [1.14, 1.79] vs OR\_NAME (all papers) 1.14 [1.08, 1.21]; ratio 1.24 [0.99, 1.57] (same-paper comparator, collider-conditioned: 1.55) & Partially supported: ratio $>$ 1 marginal against the population comparator; 1.5x not met & 0.030 (pop.) \\
+H3e & Exploratory: second-hand diffusion claimed only if U$^{*}$ $>$ 0.8 & $\approx$ 0.55 (2024) & U$^{*}$ 0.65 [0.50, 0.81]; contamination-corrected 0.45 & Unresolved (exploratory): no second-hand-diffusion claim & expl. \\
+\addlinespace
+\multicolumn{6}{l}{\textit{D4 The gatekeeper (2024--26 pooled)}} \\
+H4a & NAME accepted/all in [0.95, 1.10] every year; TOST in [0.90, 1.11]; equal break across pools & 1.01--1.04 (2024--26) & G\_total 1.021 (90\% CI 1.001--1.041; editing-corrected [0.949, 1.031]); pool break ORs (ITS 2018--26) 1.05 / 1.12 / 1.11, p = 0.51 & Supported, robust to camera-ready editing; a small decision-stage premium is not identified & 0.002 \\
+H4b & LLM-style and outsider unions depleted (accepted/all $<$ 1); L desk $\times$ exit $<$ 1 & typography 0.79; ALL-CAPS 0.37 & LLM-style 0.975 [0.951, 1.001] (without R24 0.998); desk $\times$ exit 0.981; outsider 0.807 [0.749, 0.870] & Partially supported: L total fails Holm; the L-union depletion is R24-driven and pre-dates 2024 (F24 and style density: new 3-4\% pre-decision depletion); O shortfall not identified as selection & 0.059 \\
+H4c & Accepted-only Kobak LLM bound $\leq$ 0.85 $\times$ all-submission bound in each of 2024--26 & 12.8/8.7/3.0 vs 15.8/12.0/5.8 pp & ratios 0.80 / 0.71 / 0.50 (2024 CI [0.66, 0.92]) & Partially supported: direction only; $>$= 15\% not established; falsified under a post hoc pre-ChatGPT baseline & 0.21 \\
+H4d & Withdrawn vs rejected: NAME $>$ 0 across papers, $\leq$ 0 within last-position key & +3.6 vs $-$1.4 pp & +4.06 vs $-$0.70 pp; difference 4.77 pp (se 0.75); with topic100 FE cross +0.84 [$-$1.05, 2.74] & Partially supported: contrast holds, but the excess is mostly topic composition & $<$0.001 \\
+H4e & Descriptive: published-only atlas within $\pm$10\% for mainstream statistics & -- & mainstream 9/11, outsider 1/4, LLM-style 7/9 within $\pm$10\% & Partially supported (descriptive): prevalences reproduced; 2024 break about half as large (CI $-$0.15 to 1.16) & descr. \\
+Gate & A decision-stage gain enters the headline only if its tipping point lies outside the audit CI (Holm across auditable features) & -- & NAME DiD +1.48 pp [$-$0.63, 3.59] vs D$^{*}$ 2.92 pp; 0 of 26 title features pass (18 auditable) & No title-feature acceptance association identified & --- \\
+\end{longtable}
+\par\noindent \scriptsize Holm p: one-sided, Holm-adjusted within each direction's confirmatory family (D1 uses the year-level tests for H1a and H1c; D1 and D4 p-values test the falsification boundary or an intersection-union of the pre-registered sub-tests; H3d shows the sensitivity family with the population NAME comparator). expl. = exploratory; descr. = descriptive. $\rho$ = stayer-to-population change ratio; G = generational increment; D$^{*}$ = tipping point of the camera-ready net-flip DiD. Discovery-split verdicts are not confirmations; the held-out tests CT1-CT12 are frozen in a hashed bundle (outputs/prereg/). Pilot: value quoted in the locked plan from pilot analyses of the same discovery rows, run before the plan was locked; predictions and thresholds were informed by these pilots. Holm p tests the pre-registered statistic; the verdict also weighs the identification checks added in the audits, so a small Holm p can coexist with `not identified' (e.g.\ H2a).\par
+}

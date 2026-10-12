@@ -269,8 +269,10 @@ def main():
         estimates=dict(primary=pick(sg["ustar"], post="2024-25", baseline="2022-23"),
                        table=[{k: r(v_, 4) if isinstance(v_, float) else v_ for k, v_ in x.items()}
                               for x in sg["ustar"]]),
-        verdict="not_supported", verdict_detail=("second-hand diffusion claimed" if ev["claim_secondhand_diffusion"]
-                                                 else "unresolved (U* <= 0.8): no second-hand-diffusion claim"),
+        # verdict code 'unresolved' (integration pass 2): U* <= 0.8 leaves the question open; it is not a rejection
+        verdict=("supported" if ev["claim_secondhand_diffusion"] else "unresolved"),
+        verdict_detail=("second-hand diffusion claimed" if ev["claim_secondhand_diffusion"]
+                        else "unresolved (U* <= 0.8): no second-hand-diffusion claim"),
         verdict_inputs=ev)
 
     # ---------------- Holm over the confirmatory family
@@ -340,9 +342,14 @@ def main():
             "novel/new, towards/toward) and event-study rows for controls without via; the stacked contrast without "
             "via/using is 1.41 [0.74, 2.68] under the PLAN level-shift model but 6.39 [1.68, 24.3] in 2024 under the "
             "event study with jointly estimated slot trends (the frozen-trend version is unstable for towards/novel).",
-            "Camera-ready audit: pairs from cache/arxiv_audit.jsonl plus the first ENLARGE_N = 1,620 lines of the "
-            "append-only enlargement file (pinned at the fixer pass for reproducibility); reported as counts with "
-            "exact Clopper-Pearson intervals, no bootstrap CI.",
+            f"Camera-ready audit: pairs from cache/arxiv_audit.jsonl plus the first "
+            f"{sl['audit']['meta']['n_enlarge_lines_used']:,} lines of the enlargement file "
+            + ("(WP4's final freeze, outputs/snapshot/results.json -> meta.audit_freeze; SHA-256 checked). "
+               if sl['audit']['meta'].get('matches_wp4_freeze') else "(fixed line count, not WP4's freeze). ")
+            + "The D3 fixer pass had pinned 1,620 lines while "
+            "the enlargement was still running; integration pass 2 moved D3 to WP4's final freeze, the sample D4 and "
+            "the prereg use. D3's own pairing rule (2022-26, v1 dated before the decision) differs slightly from "
+            "WP4's primary pairs (2023-26). Reported as counts with exact Clopper-Pearson intervals, no bootstrap CI.",
             "Fixer pass (audit/d3): H3d adds the population NAME comparator (all papers of the same years/subset, "
             "same topic100 x year FE, same controls, joint topic100-cluster bootstrap) as co-primary, a collider "
             "diagnostic, D1's fingerprint F_d1, a pre-LLM 2018-23 row and a + log authors row; H3e skips empty "

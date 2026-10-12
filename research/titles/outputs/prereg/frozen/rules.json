@@ -87,7 +87,7 @@
    "p": "bootstrap as CT5; p = max of (1 + #{G_b >= 1})/(B + 1) over the two gains",
    "confirm": "Holm-adjusted p < .05 (both gains < 1) and the gate for G_total",
    "contradict": "lower 95% bound of either gain > 1",
-   "gate": "acceptance-margin (G_total): L-union must be auditable with the tipping point beyond the audit CI. It is not auditable (abstract em dash and title typography: 0 v1-present pairs in both arms), so CT6 cannot reach 'confirmed'; G_desk x G_exit is reported as the audit-free component"
+   "gate": "acceptance-margin association (G_total), WP4 Holm gate: L-union must be auditable (count and arXiv channel), its editing-corrected 95% interval below 1 and its identification p must survive Holm at 0.025. It is not auditable (title typography and the abstract em dash cannot be carried by arXiv metadata), so CT6 cannot reach 'confirmed'; G_desk x G_exit is reported as the audit-free component"
   },
   "CT7": {
    "title": "D3 vintage alignment (H3c)",
@@ -123,7 +123,7 @@
    "p": "paper bootstrap stratified by year (B = 2,000); p = (1 + #{ratio_b >= 0.90})/(B + 1)",
    "confirm": "BH-adjusted p < .05, ratio < 0.90, and the gate",
    "contradict": "lower 95% bound > 0.90",
-   "gate": "acceptance-margin: tipping point D* = (b_acc - 0.9 b_all)/(1 - 0.9 a0) (net camera-ready change of the accepted F24 prevalence that would lift the ratio to 0.90); passes if the F24 abstract audit is auditable and its net-flip DiD lower 95% bound > D*"
+   "gate": "acceptance-margin association, WP4 Holm gate: tipping point D* = (b_acc - 0.9 b_all)/(1 - 0.9 a0) (net camera-ready change of the accepted F24 prevalence that would lift the ratio to 0.90); passes if the F24 abstract audit (2024-26 v1-abstract pairs) is auditable, the editing-corrected ratio's upper 95% bound is < 0.90, and the identification p (z = (D_hat - D*)/sqrt(se_D^2 + se_D*^2)) survives Holm at one-sided 0.025 across the run's auditable association claims"
   },
   "CT11": {
    "title": "D4 pool invariance of the break (H4a(iii))",
@@ -144,6 +144,32 @@
    "gate": "none (diachronic within-key change)"
   }
  },
- "gate": "No acceptance-margin result is called confirmed unless the audit rules out camera-ready editing large enough to produce it (PLAN: tipping point beyond the audit CI). Gated: CT5, CT6 (G_total), CT10, CT11 (ACC pairs). Diachronic and camera-ready-free tests are not gated.",
+ "gate": "No acceptance-margin result is called confirmed unless the audit rules out camera-ready editing large enough to produce it (PLAN: tipping point beyond the audit CI). Gated: CT5, CT6 (G_total), CT10, CT11 (ACC pairs). Diachronic and camera-ready-free tests are not gated. WP4 multiplicity-controlled gate (revision 2). Association claims (CT6 G_total, CT10): the marker must be auditable (>= 10 v1-present per arm and measurable through arXiv metadata), its editing-corrected 95% interval (bootstrap replicate paired with an audit draw D ~ N(D_hat, se_D)) must lie beyond the claim's boundary, and its one-sided identification p, z = (D_hat - D*)/sqrt(se_D^2 + se_D*^2) with se_D the pseudo-flip SE and se_D* the bootstrap SE of the tipping point, must survive Holm at 0.025 across the run's auditable association claims. Equivalence claims (CT5, CT11): editing-corrected interval rules (CT5 = WP4 G1 TOST; CT11 = ACC-pair CIs widened by the largest editing bias inside the NAME audit CI).",
+ "gate_alpha_one_sided": 0.025,
+ "revision": {
+  "revision": 3,
+  "date": "2026-10-11",
+  "stage": "second integration pass",
+  "previous_bundle_hash": "853827a92e85ad56ee85376e8b90a881c4f4ca1e46a861e80ed21a04e883d922",
+  "previous_revision": 2,
+  "gate_audit": "unchanged from revision 2 (WP4's complete audit, 2,004 enlargement lines; Holm gate)",
+  "reason": "Cross-direction consistency corrections before any held-out data were requested or seen (no guard file, no heldout.json): (1) reading notes for CT1, CT2, CT4, CT6 and CT12 state what a confirmed statistic would and would not show given the direction audits (CT1 and CT2 use paper-level inference that D1's audit demoted; CT4 leans on via/using and 'enhancing'; CT6 mostly re-detects the pre-2024 R24 penalty; CT12 mixes cohort with tenure); the decision rules are unchanged; (2) required code outside the tests changed: d3_slots.py reads WP4's frozen enlargement sample (2,004 lines, SHA-256 checked) for D3's descriptive slot-word audit instead of a 1,620-line pre-freeze pin and fails loudly without the audit caches; d4_bias_atlas.py makes atlas prevalence ratios reuse the stage-gain bootstrap seed. No CT uses either change. Frozen parameters other than params.json -> revision and rules.json are byte-identical, and the dry run was re-run with every statistic, CI, p-value and gate field unchanged.",
+  "history": [
+   {
+    "revision": 1,
+    "date": "2026-10-11",
+    "bundle_hash": "f69fdb468702fe11e336b81476869531a71acb1d4f922b8bd1d479934bbac628",
+    "gate_audit": "original audit + first 1,261 enlargement lines (965 pooled title pairs incl. 2022; 330 v1 abstracts of the original pairs); gate = point tipping point beyond the 95% audit CI (uncorrected)"
+   },
+   {
+    "revision": 2,
+    "date": "2026-10-11",
+    "bundle_hash": "853827a92e85ad56ee85376e8b90a881c4f4ca1e46a861e80ed21a04e883d922",
+    "previous_bundle_hash": "f69fdb468702fe11e336b81476869531a71acb1d4f922b8bd1d479934bbac628",
+    "previous_audit": "original audit + first 1,261 enlargement lines (965 pooled title pairs incl. 2022; 330 v1 abstracts of the original pairs); gate = point tipping point beyond the 95% audit CI (uncorrected)",
+    "reason": "Post-audit corrections before any held-out data were requested or seen (no guard file, no heldout.json): (1) the D3 and D4 fixer passes changed required code hashed by revision 1 (d3_register.py, d3_slots.py, d3_vintage.py, d4_bias_atlas.py, d4_stage_gains.py; the frozen test definitions they supply are unchanged); (2) the WP4 enlargement finished (2,004 lines, 2,000 records) and the gate audit is re-frozen on WP4's complete audit; (3) the gate adopts WP4's multiplicity-controlled rule (identification p with the tipping point's sampling error, Holm at 0.025, editing-corrected interval), because the revision-1 uncorrected rule admits acceptance associations that the Holm gate rejects. The R1 models, centroids, lexicons, slot inventory, DFL cells and every test statistic are unchanged (frozen files byte-identical)."
+   }
+  ]
+ },
  "heldout_runs_allowed": 1
 }

@@ -1,0 +1,513 @@
+{
+ "date": "2026-10-11",
+ "plan": {
+  "path": "docs/PLAN.md",
+  "sha256": "680eb53564005fd8f563c7d5ff300b328657443640f07385c3d0018eb0e9b4d7",
+  "section": "4"
+ },
+ "copied_files": {
+  "lexicons.json": {
+   "source": "src/analyses/lexicons.json",
+   "sha256": "34ec8f939bfbc2448426d918bd217522c64a42a6f09f31aa2d1a0a54b0737847"
+  },
+  "d4_lexicon.json": {
+   "source": "src/analyses/d4_lexicon.json",
+   "sha256": "2396cb6e730bc116d8972b43081ced46d3c3c2c9c2dab9f1ae82808431038918"
+  },
+  "slot_inventory.json": {
+   "source": "outputs/d3_register/slot_inventory.json",
+   "sha256": "aceb9a2f2c40dff92a3a25e0c556f6a4b4ba7502efa5eb5b061ccfb5ea2cacb4"
+  },
+  "slot_variants_dropped.json": {
+   "source": "outputs/validation/slot_variants_dropped.json",
+   "sha256": "acd249f487cc311662bbe7219f229fdd3bfbfeaa10dd024434584ed39a32ec9b"
+  },
+  "llm_clusters.json": {
+   "source": "outputs/core/llm_clusters.json",
+   "sha256": "a191275ce9e1f591c2e318d11a1f441c3d759c68741e6beaa752665948b63578"
+  },
+  "area_crosswalk.csv": {
+   "source": "outputs/core/area_crosswalk.csv",
+   "sha256": "29d1199d272c836d45cb62d0a0a5aa5ed1b84a6461aed773bdab9bbf3266a1bb"
+  }
+ },
+ "discovery": {
+  "n_U": 43482,
+  "n_by_year": {
+   "2017": 384,
+   "2018": 769,
+   "2019": 1248,
+   "2020": 2070,
+   "2021": 2360,
+   "2022": 2649,
+   "2023": 3872,
+   "2024": 5765,
+   "2025": 8953,
+   "2026": 15412
+  },
+  "name_primary_share_by_year": {
+   "2017": 0.08854166666666667,
+   "2018": 0.10013003901170352,
+   "2019": 0.13141025641025642,
+   "2020": 0.1570048309178744,
+   "2021": 0.1504237288135593,
+   "2022": 0.18346545866364666,
+   "2023": 0.20299586776859505,
+   "2024": 0.2660884648742411,
+   "2025": 0.33117390818719983,
+   "2026": 0.4046197767973008
+  }
+ },
+ "heldout_ratio_assumed": 0.25,
+ "seeds": {
+  "main": 20261011,
+  "d2_key_bootstrap": 20260,
+  "d4_stage": 20261011,
+  "d4_kobak": 20261012,
+  "d1_f0": 3,
+  "snapshot": 4404
+ },
+ "n_boot": {
+  "paper": 2000,
+  "key": 1000
+ },
+ "topics": {
+  "centroids": "frozen/centroids_minilm_k100.npy (MiniLM label means; outputs/topics/centroids.npz minilm_k100)",
+  "assignment": "nearest centroid (Euclidean) of the all-MiniLM-L6-v2 L2-normalised abstract embedding",
+  "discovery_label_reproduction": 1.0,
+  "llm_clusters": [
+   14,
+   16,
+   20,
+   21,
+   23,
+   27,
+   28,
+   32,
+   37,
+   42,
+   43,
+   46,
+   51,
+   63,
+   64,
+   71,
+   79,
+   80,
+   88,
+   93
+  ]
+ },
+ "d1": {
+  "its": {
+   "outcome": "name_primary",
+   "break_year": 2024,
+   "fe": "topic100",
+   "controls": [
+    "log_authors",
+    "llm_topic"
+   ],
+   "cluster": "topic100",
+   "years": [
+    2017,
+    2026
+   ]
+  },
+  "r1_windows": {
+   "2019": {
+    "window": "roll2019",
+    "train_years": [
+     2016,
+     2017,
+     2018
+    ],
+    "calib_year": 2018,
+    "C": 2.0,
+    "shift": 0.13773918725936687,
+    "obs_calib": 0.10013003901170352,
+    "n_train": 1153,
+    "n_calib": 769,
+    "n_features": 7313,
+    "max_abs_diff_test_scores_vs_d1": 6.073662737193786e-07,
+    "max_abs_diff_oof_calib_vs_d1": 0.0,
+    "seconds": 0.7
+   },
+   "2020": {
+    "window": "roll2020",
+    "train_years": [
+     2017,
+     2018,
+     2019
+    ],
+    "calib_year": 2019,
+    "C": 2.0,
+    "shift": 0.26136416017961367,
+    "obs_calib": 0.13141025641025642,
+    "n_train": 2401,
+    "n_calib": 1248,
+    "n_features": 14055,
+    "max_abs_diff_test_scores_vs_d1": 7.323603508080367e-07,
+    "max_abs_diff_oof_calib_vs_d1": 0.0,
+    "seconds": 1.5
+   },
+   "2021": {
+    "window": "roll2021",
+    "train_years": [
+     2018,
+     2019,
+     2020
+    ],
+    "calib_year": 2020,
+    "C": 2.0,
+    "shift": 0.20847430350643759,
+    "obs_calib": 0.1570048309178744,
+    "n_train": 4087,
+    "n_calib": 2070,
+    "n_features": 22266,
+    "max_abs_diff_test_scores_vs_d1": 1.062943114416015e-06,
+    "max_abs_diff_oof_calib_vs_d1": 0.0,
+    "seconds": 2.3
+   },
+   "2022": {
+    "window": "roll2022",
+    "train_years": [
+     2019,
+     2020,
+     2021
+    ],
+    "calib_year": 2021,
+    "C": 2.0,
+    "shift": 0.0784083795550197,
+    "obs_calib": 0.1504237288135593,
+    "n_train": 5678,
+    "n_calib": 2360,
+    "n_features": 30012,
+    "max_abs_diff_test_scores_vs_d1": 1.0251708457698072e-06,
+    "max_abs_diff_oof_calib_vs_d1": 0.0,
+    "seconds": 3.5
+   },
+   "2023": {
+    "window": "roll2023",
+    "train_years": [
+     2020,
+     2021,
+     2022
+    ],
+    "calib_year": 2022,
+    "C": 2.0,
+    "shift": 0.18600083580268484,
+    "obs_calib": 0.18346545866364666,
+    "n_train": 7079,
+    "n_calib": 2649,
+    "n_features": 36971,
+    "max_abs_diff_test_scores_vs_d1": 1.4435945026036734e-06,
+    "max_abs_diff_oof_calib_vs_d1": 0.0,
+    "seconds": 4.6
+   },
+   "2024": {
+    "window": "roll2024",
+    "train_years": [
+     2021,
+     2022,
+     2023
+    ],
+    "calib_year": 2023,
+    "C": 2.0,
+    "shift": 0.13352371911610952,
+    "obs_calib": 0.20299586776859505,
+    "n_train": 8881,
+    "n_calib": 3872,
+    "n_features": 46111,
+    "max_abs_diff_test_scores_vs_d1": 0.0022388842175176116,
+    "max_abs_diff_oof_calib_vs_d1": 0.0017833709716796875,
+    "seconds": 5.8
+   },
+   "2025": {
+    "window": "roll2025",
+    "train_years": [
+     2022,
+     2023,
+     2024
+    ],
+    "calib_year": 2024,
+    "C": 2.0,
+    "shift": 0.12050593061713838,
+    "obs_calib": 0.2660884648742411,
+    "n_train": 12286,
+    "n_calib": 5765,
+    "n_features": 50000,
+    "max_abs_diff_test_scores_vs_d1": 0.0065682472580337325,
+    "max_abs_diff_oof_calib_vs_d1": 0.006265163421630859,
+    "seconds": 9.1
+   },
+   "2026": {
+    "window": "roll2026",
+    "train_years": [
+     2023,
+     2024,
+     2025
+    ],
+    "calib_year": 2025,
+    "C": 1.0,
+    "shift": 0.04464743320278195,
+    "obs_calib": 0.33117390818719983,
+    "n_train": 18590,
+    "n_calib": 8953,
+    "n_features": 50000,
+    "max_abs_diff_test_scores_vs_d1": 0.0044699776715018125,
+    "max_abs_diff_oof_calib_vs_d1": 0.004134535789489746,
+    "seconds": 14.8
+   }
+  },
+  "r1_spec": "name-masked abstract TF-IDF (features_v2.mask_abstract_lower), 1-2-grams, min_df 5, max_df 0.5, 50k features, sublinear tf; L2 logit, C from D1's 5-fold CV; prediction = mean over the 5 fold models of expit(s_k + c), c solved on the fold models' OOF scores of y-1",
+  "pre_years": [
+   2019,
+   2020,
+   2021,
+   2022,
+   2023
+  ],
+  "post_years": [
+   2024,
+   2025,
+   2026
+  ],
+  "tool_F": "f24_2 | f26 | title_typo",
+  "dfl": {
+   "file": "frozen/dfl_cells.csv",
+   "size_bins": [
+    "1-2",
+    "3",
+    "4",
+    "5",
+    "6-7",
+    "8+"
+   ],
+   "newcomer_bins": [
+    "0",
+    "(0,.5]",
+    "(.5,1]"
+   ],
+   "newcomer_lookback_years": 2,
+   "cell": "size_bin|newcomer_bin|llm_topic",
+   "reference_year": 2023,
+   "n_cells": 36
+  }
+ },
+ "d2": {
+  "E": [
+   2022,
+   2023
+  ],
+  "L": [
+   2025,
+   2026
+  ],
+  "panel_years": [
+   2021,
+   2022,
+   2023,
+   2024,
+   2025,
+   2026
+  ],
+  "key_kind": "profile",
+  "stayer": "any-role presence: >= 1 E paper (discovery \u222a held-out) and >= 1 L paper in the L set",
+  "L_set": "held-out papers only (dry run: discovery)",
+  "weights": "paper (each last/first row weight 1)"
+ },
+ "d3": {
+  "large_areas": [
+   "alignment, fairness, safety, privacy, and societal considerations",
+   "applications to computer vision, audio, language, and other modalities",
+   "applications to physical sciences (physics, chemistry, biology, etc.)",
+   "applications to robotics, autonomy, planning",
+   "datasets and benchmarks",
+   "foundation or frontier models, including LLMs",
+   "generative models",
+   "interpretability and explainable AI",
+   "learning on graphs and other geometries & topologies",
+   "learning on time series and dynamical systems",
+   "learning theory",
+   "optimization",
+   "other topics in machine learning (i.e., none of the above)",
+   "reinforcement learning",
+   "transfer learning, meta learning, and lifelong learning",
+   "unsupervised, self-supervised, semi-supervised, and supervised representation learning"
+  ],
+  "large_area_rule": "area_h with >= 500 titles in 2025+2026",
+  "slot_inventory": "frozen/slot_inventory.json",
+  "stacked_formula": "y ~ C(slot) + C(slot):t + post + post:llm_slot + llm_topic",
+  "slot_years_from": 2018,
+  "opener_rule": "primary (PLAN: after an optional NAME lead)",
+  "vintage_controls": "C(year) + C(topic100) + log_authors + llm_topic + lnw",
+  "vintage_years": [
+   2025,
+   2026
+  ]
+ },
+ "d4": {
+  "years": [
+   2018,
+   2026
+  ],
+  "pooled_years": [
+   2024,
+   2025,
+   2026
+  ],
+  "pooling": "year-standardised (weights = s0 size)",
+  "tost_margin": [
+   0.9,
+   1.11
+  ],
+  "kobak_marker": "f24",
+  "kobak_baseline": "cons",
+  "kobak_years": [
+   2021,
+   2026
+  ],
+  "its_pools": [
+   "ACC",
+   "REJ",
+   "WD"
+  ],
+  "equivalence_margin_logOR": 0.1
+ },
+ "audit": {
+  "state": {
+   "frozen_on": "2026-10-11 22:05:18",
+   "source": "WP4 final audit (snapshot_final builders); revision 2",
+   "original": {
+    "path": "cache/arxiv_audit.jsonl",
+    "n_lines": 616,
+    "sha256": "4be6f3f65231cca61a882f978078585e85b0564042f2d8b69a86c1286cca6363",
+    "n_pairs": 331,
+    "pairs_by_decision": {
+     "accepted": 206,
+     "rejected": 125
+    },
+    "n_pairs_2023_26": 322
+   },
+   "enlargement": {
+    "path": "cache/arxiv_audit_enlarge.jsonl",
+    "n_lines_used": 2004,
+    "sha256_of_lines_used": "dd51d5faaa0a793778581334c136f2a570d68b2ac2868064fd724df2f24f869f",
+    "wp4_freeze": {
+     "n_lines_used": 2004,
+     "sha256": "dd51d5faaa0a793778581334c136f2a570d68b2ac2868064fd724df2f24f869f"
+    },
+    "matches_wp4": true,
+    "n_records": 2000,
+    "n_pairs": 989,
+    "note": "complete enlargement (2,000 sampled papers; errored lines superseded by retries)"
+   },
+   "pooled": {
+    "n_pairs": 1311,
+    "pairs_by_decision": {
+     "accepted": 803,
+     "rejected": 508
+    },
+    "years": "2023-26 (WP4 primary)"
+   },
+   "v1_abstracts": {
+    "path": "cache/arxiv_audit_v1abs.jsonl",
+    "n_lines": 331,
+    "sha256": "5b72ec8a40ecbb01decf983888f2921c3a1e5b1a60034aeac22499a538703778",
+    "n_pairs": 1032,
+    "pairs_by_decision": {
+     "accepted": 628,
+     "rejected": 404
+    },
+    "years": "2024-26 (WP4 primary abstract audit: original + enlargement v1 abstracts)"
+   },
+   "specs": {
+    "title_original": "original 616-paper audit, usable pre-decision pairs (2022-26; sensitivity)",
+    "title_primary": "WP4 primary: original 2023-26 + complete enlargement (gate spec for title features)",
+    "abstract_2024_26": "WP4 primary abstract audit, 2024-26 pairs (gate spec for abstract markers)"
+   },
+   "auditable_rule": ">= 10 v1-present titles (abstracts) in BOTH arms AND measurable through arXiv metadata (arXiv titles never ALL-CAPS or U+2011/U+2013-typographic; arXiv abstracts never carry the em dash)",
+   "reproduces_wp4": {
+    "primary": {
+     "max_abs_diff": 9.627715291671279e-17,
+     "auditable_identical": true,
+     "n_features": 26
+    },
+    "abs_2024_26": {
+     "max_abs_diff": 9.71445146547012e-17,
+     "auditable_identical": true,
+     "n_features": 6
+    }
+   },
+   "ci": "primary net-flip DiD 95% CI: Wald with the pseudo-flip variance floor (WP4); bootstrap B = 2,000 stratified by year x decision for the combined (editing-corrected) intervals"
+  },
+  "gate_spec_title": "title_primary",
+  "gate_spec_abstract": "abstract_2024_26",
+  "gate_rule": "WP4 multiplicity-controlled gate (revision 2). Association claims (CT6 G_total, CT10): the marker must be auditable (>= 10 v1-present per arm and measurable through arXiv metadata), its editing-corrected 95% interval (bootstrap replicate paired with an audit draw D ~ N(D_hat, se_D)) must lie beyond the claim's boundary, and its one-sided identification p, z = (D_hat - D*)/sqrt(se_D^2 + se_D*^2) with se_D the pseudo-flip SE and se_D* the bootstrap SE of the tipping point, must survive Holm at 0.025 across the run's auditable association claims. Equivalence claims (CT5, CT11): editing-corrected interval rules (CT5 = WP4 G1 TOST; CT11 = ACC-pair CIs widened by the largest editing bias inside the NAME audit CI).",
+  "holm_alpha_one_sided": 0.025,
+  "refreeze_rule": "closed in revision 2: the enlargement is complete and frozen in the bundle"
+ },
+ "versions": {
+  "python": "3.13.16",
+  "numpy": "2.5.4",
+  "pandas": "3.0.6",
+  "sklearn": "1.9.1",
+  "statsmodels": "0.15.0"
+ },
+ "audit_revision_1": {
+  "state": {
+   "frozen_on": "2026-10-11 19:52:40",
+   "original": {
+    "path": "cache/arxiv_audit.jsonl",
+    "n_lines": 616,
+    "sha256": "4be6f3f65231cca61a882f978078585e85b0564042f2d8b69a86c1286cca6363",
+    "n_pairs": 331,
+    "pairs_by_decision": {
+     "accepted": 206,
+     "rejected": 125
+    }
+   },
+   "enlargement": {
+    "path": "cache/arxiv_audit_enlarge.jsonl",
+    "n_lines_used": 1261,
+    "sha256_of_lines_used": "776341067801e217ef8ab52b91ae20bd307d3f85a32a3622178acf351ba18cfb",
+    "n_records": 1257,
+    "n_pairs": 634,
+    "note": "append-only file written by the background audit_v2 job; only the first 1261 complete lines were used"
+   },
+   "pooled": {
+    "n_pairs": 965,
+    "pairs_by_decision": {
+     "accepted": 598,
+     "rejected": 367
+    }
+   },
+   "v1_abstracts": {
+    "path": "cache/arxiv_audit_v1abs.jsonl",
+    "n_lines": 331,
+    "sha256": "5b72ec8a40ecbb01decf983888f2921c3a1e5b1a60034aeac22499a538703778",
+    "n_pairs": 330,
+    "pairs_by_decision": {
+     "accepted": 206,
+     "rejected": 124
+    }
+   },
+   "specs": {
+    "title_original": "original 616-paper audit, usable pre-decision pairs",
+    "title_pooled": "original + enlargement (gate spec for title features)",
+    "abstract_v1": "arXiv v1 abstracts of the original pairs (gate spec for abstract markers)"
+   },
+   "ci": "primary net-flip DiD 95% CI: Wald with the pseudo-flip variance floor (WP4); bootstrap B = 2,000 stratified by year x decision for the combined (editing-corrected) intervals"
+  },
+  "gate_spec_title": "title_pooled",
+  "gate_spec_abstract": "abstract_v1",
+  "refreeze_rule": "see prereg.md section 5"
+ },
+ "revision": {
+  "revision": 2,
+  "date": "2026-10-11",
+  "previous_bundle_hash": "f69fdb468702fe11e336b81476869531a71acb1d4f922b8bd1d479934bbac628",
+  "previous_audit": "original audit + first 1,261 enlargement lines (965 pooled title pairs incl. 2022; 330 v1 abstracts of the original pairs); gate = point tipping point beyond the 95% audit CI (uncorrected)",
+  "reason": "Post-audit corrections before any held-out data were requested or seen (no guard file, no heldout.json): (1) the D3 and D4 fixer passes changed required code hashed by revision 1 (d3_register.py, d3_slots.py, d3_vintage.py, d4_bias_atlas.py, d4_stage_gains.py; the frozen test definitions they supply are unchanged); (2) the WP4 enlargement finished (2,004 lines, 2,000 records) and the gate audit is re-frozen on WP4's complete audit; (3) the gate adopts WP4's multiplicity-controlled rule (identification p with the tipping point's sampling error, Holm at 0.025, editing-corrected interval), because the revision-1 uncorrected rule admits acceptance associations that the Holm gate rejects. The R1 models, centroids, lexicons, slot inventory, DFL cells and every test statistic are unchanged (frozen files byte-identical)."
+ }
+}

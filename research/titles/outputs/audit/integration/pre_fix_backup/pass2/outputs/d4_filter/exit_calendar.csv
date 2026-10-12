@@ -1,0 +1,3 @@
+year,review_release_calendar,max_nov_withdrawal_day,max_nov_count,median_daily_withdrawals,decision_calendar,max_withdrawal_day_near_decision,count_near_decision,dr_n,dr_mod_min,dr_mod_median,dr_share_after_decision
+2025,2024-11-12,2024-11-15,240,2.0,2025-01-22,2025-01-23,54,53,2024-10-15 00:18:12.823000,2024-10-22 03:42:20.576000,0.05660377358490566
+2026,2025-11-12,2025-11-12,463,3.0,2026-01-26,2026-01-26,108,737,2026-02-11 10:13:52.905000,2026-02-12 14:51:43.630000,1.0

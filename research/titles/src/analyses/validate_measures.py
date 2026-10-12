@@ -1567,7 +1567,7 @@ def write_report(v1, v2, v3, v4, v5, v6) -> tuple[str, dict]:
     o = v6["over"]
     A(f"- **V6.** {len(o)} exact key-years exceed 40 papers (max {int(v6['dist']['max'].max())}); "
       f"{int(v6['al'].alias_over_40.sum())} alias-years do once trailing digits are stripped. Collapsing trailing digits changes "
-      f"{100*v6['eff']['share_papers_share_new_changed']:.1f}% of 2022+ papers' share of new authors "
+      f"{100*v6['eff']['share_papers_share_new_changed']:.1f}% of 2022+ papers' new-key share "
       f"(mean {v6['eff']['mean_share_new_exact']:.3f} → {v6['eff']['mean_share_new_alias']:.3f}).")
     A("")
 
@@ -2009,11 +2009,11 @@ def write_report(v1, v2, v3, v4, v5, v6) -> tuple[str, dict]:
     A(f"  - r(share_new_authors) = {e6['corr_share_new']:.3f}; share_new_authors changes for {100*e6['share_papers_share_new_changed']:.1f}% of papers, "
       f"with mean {e6['mean_share_new_exact']:.3f} → {e6['mean_share_new_alias']:.3f}.")
     A("")
-    A("**Email-key vs profile-key eras** (positions by ID kind; mean paper-level share of new authors from exact keys):")
+    A("**Email-key vs profile-key eras** (positions by ID kind; mean paper-level new-key share from exact keys):")
     A("")
     A(md_table(v6["era"], "{:.3f}"))
     A("")
-    A("- **2021 break:** ID kind switches from email to profile, so 2021 keys have no history. The share of new authors jumps "
+    A("- **2021 break:** ID kind switches from email to profile, so 2021 keys have no history. The new-key share jumps "
       "in 2021 and is not comparable across the switch, which is why the experience covariates are used from 2022 on (`exp_valid`).")
     A("")
 

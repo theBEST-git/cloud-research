@@ -1,0 +1,42 @@
+source_year,source_label,harmonised_label,match_type,n_source,harmonised_short,exists_2024
+2024,"representation learning for computer vision, audio, language, and other modalities","applications to computer vision, audio, language, and other modalities",renamed,833,applications CV/audio/language,True
+2024,"unsupervised, self-supervised, semi-supervised, and supervised representation learning","unsupervised, self-supervised, semi-supervised, and supervised representation learning",identical,690,representation learning,True
+2024,"general machine learning (i.e., none of the above)","other topics in machine learning (i.e., none of the above)",renamed,620,other ML,True
+2024,generative models,generative models,identical,604,generative models,True
+2024,reinforcement learning,reinforcement learning,identical,511,reinforcement learning,True
+2024,"societal considerations including fairness, safety, privacy","alignment, fairness, safety, privacy, and societal considerations",broadened,429,alignment/fairness/safety,True
+2024,"transfer learning, meta learning, and lifelong learning","transfer learning, meta learning, and lifelong learning",identical,290,transfer/meta/lifelong,True
+2024,"applications to physical sciences (physics, chemistry, biology, etc.)","applications to physical sciences (physics, chemistry, biology, etc.)",identical,247,physical sciences,True
+2024,optimization,optimization,identical,242,optimization,True
+2024,datasets and benchmarks,datasets and benchmarks,identical,211,datasets & benchmarks,True
+2024,visualization or interpretation of learned representations,interpretability and explainable AI,broadened,170,interpretability,True
+2024,learning theory,learning theory,identical,166,learning theory,True
+2024,learning on graphs and other geometries & topologies,learning on graphs and other geometries & topologies,identical,146,graphs & geometry,True
+2024,"applications to robotics, autonomy, planning","applications to robotics, autonomy, planning",identical,143,robotics/planning,True
+2024,"probabilistic methods (Bayesian methods, variational inference, sampling, UQ, etc.)","probabilistic methods (Bayesian methods, variational inference, sampling, UQ, etc.)",identical,141,probabilistic methods,True
+2024,applications to neuroscience & cognitive science,applications to neuroscience & cognitive science,identical,108,neuroscience/cognitive,True
+2024,causal reasoning,causal reasoning,identical,80,causal reasoning,True
+2024,"neurosymbolic & hybrid AI systems (physics-informed, logic & formal reasoning, etc.)","neurosymbolic & hybrid AI systems (physics-informed, logic & formal reasoning, etc.)",identical,77,neurosymbolic,True
+2024,"infrastructure, software libraries, hardware, etc.","infrastructure, software libraries, hardware, systems, etc.",renamed,32,infrastructure,True
+2024,"metric learning, kernel learning, and sparse coding","unsupervised, self-supervised, semi-supervised, and supervised representation learning",judgement,26,representation learning,True
+2025-2026,"alignment, fairness, safety, privacy, and societal considerations","alignment, fairness, safety, privacy, and societal considerations",identical,2077,alignment/fairness/safety,True
+2025-2026,"applications to computer vision, audio, language, and other modalities","applications to computer vision, audio, language, and other modalities",identical,3199,applications CV/audio/language,True
+2025-2026,applications to neuroscience & cognitive science,applications to neuroscience & cognitive science,identical,475,neuroscience/cognitive,True
+2025-2026,"applications to physical sciences (physics, chemistry, biology, etc.)","applications to physical sciences (physics, chemistry, biology, etc.)",identical,1077,physical sciences,True
+2025-2026,"applications to robotics, autonomy, planning","applications to robotics, autonomy, planning",identical,663,robotics/planning,True
+2025-2026,causal reasoning,causal reasoning,identical,229,causal reasoning,True
+2025-2026,datasets and benchmarks,datasets and benchmarks,identical,1818,datasets & benchmarks,True
+2025-2026,"foundation or frontier models, including LLMs","foundation or frontier models, including LLMs",identical,3022,foundation/frontier models,False
+2025-2026,generative models,generative models,identical,2117,generative models,True
+2025-2026,"infrastructure, software libraries, hardware, systems, etc.","infrastructure, software libraries, hardware, systems, etc.",identical,211,infrastructure,True
+2025-2026,interpretability and explainable AI,interpretability and explainable AI,identical,1017,interpretability,True
+2025-2026,learning on graphs and other geometries & topologies,learning on graphs and other geometries & topologies,identical,745,graphs & geometry,True
+2025-2026,learning on time series and dynamical systems,learning on time series and dynamical systems,identical,574,time series,False
+2025-2026,learning theory,learning theory,identical,686,learning theory,True
+2025-2026,"neurosymbolic & hybrid AI systems (physics-informed, logic & formal reasoning, etc.)","neurosymbolic & hybrid AI systems (physics-informed, logic & formal reasoning, etc.)",identical,255,neurosymbolic,True
+2025-2026,optimization,optimization,identical,971,optimization,True
+2025-2026,"other topics in machine learning (i.e., none of the above)","other topics in machine learning (i.e., none of the above)",identical,1046,other ML,True
+2025-2026,"probabilistic methods (Bayesian methods, variational inference, sampling, UQ, etc.)","probabilistic methods (Bayesian methods, variational inference, sampling, UQ, etc.)",identical,484,probabilistic methods,True
+2025-2026,reinforcement learning,reinforcement learning,identical,1368,reinforcement learning,True
+2025-2026,"transfer learning, meta learning, and lifelong learning","transfer learning, meta learning, and lifelong learning",identical,747,transfer/meta/lifelong,True
+2025-2026,"unsupervised, self-supervised, semi-supervised, and supervised representation learning","unsupervised, self-supervised, semi-supervised, and supervised representation learning",identical,1599,representation learning,True

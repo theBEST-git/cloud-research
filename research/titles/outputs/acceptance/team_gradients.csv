@@ -1,0 +1,15 @@
+gradient,bin,n,acc_rate
+team_size,1,626,0.1773
+team_size,2,3533,0.3068
+team_size,3,5840,0.3649
+team_size,4,6183,0.387
+team_size,5,5138,0.4062
+team_size,6-7,6325,0.4427
+team_size,8-10,3274,0.485
+team_size,11-15,998,0.5431
+team_size,16+,273,0.5971
+team_prior_iclr_acceptances_2022plus,0,8779,0.3089
+team_prior_iclr_acceptances_2022plus,1,4866,0.4184
+team_prior_iclr_acceptances_2022plus,2-3,5318,0.4622
+team_prior_iclr_acceptances_2022plus,4-7,4449,0.4826
+team_prior_iclr_acceptances_2022plus,8+,3220,0.5078

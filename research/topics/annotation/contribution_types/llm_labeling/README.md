@@ -6,6 +6,8 @@ comes back and how it was checked.
 | Run | Prompt | Set | Main class | Foundation model | Verdict |
 |---|---|---|---|---|---|
 | `returned/calibration_v1` | v1 | pilot 300 | 95.7% (kappa 0.90) | 97.7% (kappa 0.95) | passed, but errors lean one way |
+| `returned/step1_v1_1` | v1.1 | check 300 | 95.7% (kappa 0.91) | **92.3%** (kappa 0.83) | **no-go**: FM `yes` 110 → 91, `system` never used |
+| `returned/step1_v1_1` | v1.1 | pilot 300 | 96.7% (9 fixed, 6 new errors vs v1) | 95.0% (6 fixed, 14 new errors) | |
 
 **v1 → v1.1.** Of the 13 main-class disagreements in v1, 5 were named frameworks/agents labelled `system` and 3 were
 learned distances/similarities labelled `evaluation`. As a result, `other` came out at 13 papers against 7 in the
@@ -24,6 +26,24 @@ random papers from 2024–2026. None of them were looked at when the clarificati
 - foundation-model "yes" count within max(5, 5%) of the reference count.
 
 The pilot 300 are relabelled too, compared paired with v1 (errors fixed vs newly made), as a secondary check.
+
+**v1.1 result: rejected.**
+- The foundation-model clarification backfired. "If the abstract does not indicate that a model is large and broadly
+  pretrained, answer no" made the model answer `no` for clear foundation-model work: video-diffusion acceleration,
+  LLM alignment, an LLM pre-training corpus. 21 of the 23 foundation-model disagreements on the check set are
+  `yes` → `no`.
+- The framework clarification removed `system` altogether: 0 predictions, against 5 in the reference. Our reference
+  itself splits similar LLM-agent papers. In the pilot, RL-Guard and MiLDEdit are `method`; in the check set,
+  SimuAgent and MAV-SLAM are `system`, each agreed by both annotators. So the method/system boundary is fuzzy, and
+  the prompt wording only moves it.
+- The main class stayed at about 96% under both prompts. What the wording changes is how papers spread over the
+  small classes.
+
+**Next: prompt v1 on the check set.** v1 was written before any check-set paper was looked at, so the check set is
+an untuned test for it. Package `iclr_contribution_labeling_v1_r2` has the v1 prompt byte-identical (sha256
+aaa1478fb32e…) and step 1 = the 300 check papers. The go/no-go criteria are those above. The one change: the
+count check no longer covers `other`, for the reason given in `compare_returned.py`, and this change does not
+alter the v1.1 verdict. `other` (about 3% of papers) is treated as a low-reliability residual class in analyses.
 
 ```bash
 python research/topics/annotation/contribution_types/llm_labeling/compare_returned.py <run dir> \

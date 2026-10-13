@@ -1,0 +1,20 @@
+{
+  "model": "gpt-6.1-sol",
+  "provider": "ChatGPT Work collaboration agents",
+  "how_run": "chat agents; each fresh agent read the complete supplied v1.1 system_prompt.md verbatim as its labeling instructions, then the unchanged user_prompt_template.md filled with exactly one 25-paper batch. Prompts were loaded in agent task context rather than isolated API system/user messages.",
+  "temperature": null,
+  "reasoning_effort": "high",
+  "batch_size": 25,
+  "parallel_agents": 6,
+  "prompt_version": "contribution-codebook-v1 + foundation-model-rule-v1 + clarifications-v1.1",
+  "system_prompt_sha256": "62ae3f5a209ee223eedd4af3696240b42988623e2d10c7eda04e87cfad6c4144",
+  "stage": "step_1_check",
+  "started_utc": "2026-10-13T08:06:45.908492+00:00",
+  "finished_utc": "2026-10-13T08:15:22.254989+00:00",
+  "papers_labelled": 600,
+  "papers_failed": 0,
+  "notes": "All 600 papers were labeled from scratch under v1.1, including the original 300 calibration papers; no v1 labels were reused. Twenty-four fresh agents were launched with fork_turns=none, one batch per agent, up to six concurrently. Agents were not supplied other batches' labels, earlier runs' labels or reference labels and were instructed to read only the supplied codebook and their assigned titles/abstracts, with no external lookup or automated classifier. The coordinating agent merged all judgments unchanged and performed structural validation only. No model or reasoning-setting changes, labeling reruns, or adjudication edits. Temperature is not exposed by collaboration tools and could not be set or verified, so its value is null. The supplied validation script printed READY TO SEND for both labels files. Step 2 has not been run; OUTPUT_SPEC.md requires an explicit go after this step-1 submission.",
+  "agents_total": 24,
+  "check_papers_labelled": 300,
+  "calibration_papers_labelled": 300
+}

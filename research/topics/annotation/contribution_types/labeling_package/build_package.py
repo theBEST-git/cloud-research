@@ -1,4 +1,7 @@
-"""Build the contribution labelling package (v1.1) as a zip (data + prompts + spec + scripts).
+"""Build the contribution labelling package as a zip (data + prompts + spec + scripts).
+
+PROMPT selects the system prompt: "v1" (codebook v1 + foundation-model rule + output format) or "v1.1"
+(adds prompts/clarifications_v1_1.md; tested on the check set and rejected, see ../llm_labeling/README.md).
 
     python research/topics/annotation/contribution_types/labeling_package/build_package.py --out <path>.zip
 
@@ -22,10 +25,12 @@ CT = HERE.parent
 sys.path.insert(0, str(HERE.parents[2]))
 from common import embedded_corpus  # noqa: E402
 
-ROOT_DIR = "iclr_contribution_labeling_v1_1"
+PROMPT = "v1"
+ROOT_DIR = "iclr_contribution_labeling_v1_r2"   # prompt v1, package revision 2 (check set added)
+PROMPT_VERSION = {"v1": "contribution-codebook-v1 + foundation-model-rule-v1",
+                  "v1.1": "contribution-codebook-v1 + foundation-model-rule-v1 + clarifications-v1.1"}[PROMPT]
 DOUBLE_SHARE, SEED = 0.05, 41
-STATIC = ["README.md", "OUTPUT_SPEC.md", "prompts/clarifications_v1_1.md", "prompts/user_prompt_template.md",
-          "prompts/output_schema.json",
+STATIC = ["README.md", "OUTPUT_SPEC.md", "prompts/user_prompt_template.md", "prompts/output_schema.json",
           "scripts/run_labeling.py", "scripts/validate_output.py"]
 
 
@@ -37,6 +42,8 @@ def system_prompt() -> str:
     instructions = (CT / "training" / "instructions.md").read_text(encoding="utf-8")
     instructions = re.sub(r"\nLocked after a pilot.*?version\.\n", "\n", instructions, flags=re.S)  # points to a section not included
     instructions = instructions.replace(" (see `open_coding_synthesis.json`)", "")              # internal file, not shipped
+    if PROMPT == "v1":   # byte-identical to the prompt of the v1 calibration run
+        return instructions.rstrip() + "\n\n" + (HERE / "prompts" / "output_format.md").read_text(encoding="utf-8")
     parts = [instructions, (HERE / "prompts" / "clarifications_v1_1.md").read_text(encoding="utf-8"),
              (HERE / "prompts" / "output_format.md").read_text(encoding="utf-8")]
     return "\n\n".join(x.strip() for x in parts) + "\n"
@@ -50,23 +57,22 @@ def main() -> None:
     clean = lambda s: " ".join(str(s).split())
     papers = [{"paper_id": r.submission_id, "title": clean(r.title), "abstract": clean(r.abstract)} for r in corpus.itertuples()]
     by_id = {x["paper_id"]: x for x in papers}
-    calibration = pd.read_csv(CT / "pilot_sample.csv").submission_id.tolist()
     check = pd.read_csv(CT / "llm_labeling" / "check_300.csv").submission_id.tolist()
     double = sorted(random.Random(SEED).sample(sorted(by_id), round(len(papers) * DOUBLE_SHARE)))
     prompt = system_prompt()
     info = json.loads((HERE / "run_info_template.json").read_text(encoding="utf-8"))
-    info["system_prompt_sha256"] = sha256(prompt)
+    info["system_prompt_sha256"], info["prompt_version"] = sha256(prompt), PROMPT_VERSION
     files = {
         "data/papers_all.jsonl": "".join(json.dumps(x, ensure_ascii=False) + "\n" for x in papers),
-        "data/calibration_300.jsonl": "".join(json.dumps(by_id[i], ensure_ascii=False) + "\n" for i in calibration),
         "data/check_300.jsonl": "".join(json.dumps(by_id[i], ensure_ascii=False) + "\n" for i in check),
         "data/double_label_ids.txt": "\n".join(double) + "\n",
         "prompts/system_prompt.md": prompt,
         "run_info_template.json": json.dumps(info, indent=2) + "\n",
         "reference/codebook_v1.md": (CT / "codebook.md").read_text(encoding="utf-8"),
         **{f: (HERE / f).read_text(encoding="utf-8") for f in STATIC},
+        **({"prompts/clarifications_v1_1.md": (HERE / "prompts" / "clarifications_v1_1.md").read_text(encoding="utf-8")} if PROMPT == "v1.1" else {}),
     }
-    files["MANIFEST.json"] = json.dumps({"package": ROOT_DIR, "papers": len(papers), "calibration_papers": len(calibration),
+    files["MANIFEST.json"] = json.dumps({"package": ROOT_DIR, "papers": len(papers), "prompt": PROMPT_VERSION,
                                          "check_papers": len(check),
                                          "double_label_papers": len(double),
                                          "files": {k: {"bytes": len(v.encode("utf-8")), "sha256": sha256(v)} for k, v in sorted(files.items())}},
@@ -78,7 +84,7 @@ def main() -> None:
             info_.compress_type = zipfile.ZIP_DEFLATED
             info_.external_attr = 0o644 << 16
             z.writestr(info_, files[name])
-    print(f"{out} | {len(papers)} papers, {len(calibration)} calibration, {len(check)} check, {len(double)} double-label | "
+    print(f"{out} | {len(papers)} papers, {len(check)} check, {len(double)} double-label | "
           f"{out.stat().st_size / 2**20:.1f} MB | system prompt sha256 {info['system_prompt_sha256'][:12]}…")
 
 

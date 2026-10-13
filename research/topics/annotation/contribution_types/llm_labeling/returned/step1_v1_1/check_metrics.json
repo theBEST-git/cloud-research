@@ -1,0 +1,213 @@
+{
+  "llm_vs_reference": {
+    "main_class": {
+      "agreement": 0.9567,
+      "kappa": 0.9144,
+      "n": 300
+    },
+    "fine_type": {
+      "agreement": 0.9433,
+      "kappa": 0.9072,
+      "n": 300
+    },
+    "secondary_type": {
+      "agreement": 0.8167,
+      "kappa": 0.7547,
+      "n": 300
+    },
+    "foundation_model": {
+      "agreement": 0.9233,
+      "kappa": 0.8287,
+      "n": 300
+    }
+  },
+  "main_class_agreement_by_stratum": {
+    "enriched_benchmark": {
+      "agreement": 1.0,
+      "kappa": 1.0,
+      "n": 11
+    },
+    "enriched_empirical": {
+      "agreement": 1.0,
+      "kappa": 1.0,
+      "n": 7
+    },
+    "enriched_evaluation": {
+      "agreement": 1.0,
+      "kappa": 1.0,
+      "n": 10
+    },
+    "enriched_other": {
+      "agreement": 0.6667,
+      "kappa": 0.0,
+      "n": 3
+    },
+    "enriched_theory": {
+      "agreement": 1.0,
+      "kappa": 1.0,
+      "n": 8
+    },
+    "random": {
+      "agreement": 0.954,
+      "kappa": 0.9024,
+      "n": 261
+    }
+  },
+  "main_class_agreement_by_check_part": {
+    "double_labelled": {
+      "agreement": 0.955,
+      "kappa": 0.9143,
+      "n": 200
+    },
+    "single_2024_2026": {
+      "agreement": 0.96,
+      "kappa": 0.9139,
+      "n": 100
+    }
+  },
+  "class_counts": {
+    "dataset_benchmark": {
+      "reference": 22,
+      "llm": 23,
+      "recall": 1.0,
+      "precision": 0.957
+    },
+    "empirical": {
+      "reference": 28,
+      "llm": 27,
+      "recall": 0.964,
+      "precision": 1.0
+    },
+    "evaluation": {
+      "reference": 16,
+      "llm": 19,
+      "recall": 1.0,
+      "precision": 0.842
+    },
+    "method": {
+      "reference": 203,
+      "llm": 209,
+      "recall": 0.985,
+      "precision": 0.957
+    },
+    "other": {
+      "reference": 10,
+      "llm": 3,
+      "recall": 0.3,
+      "precision": 1.0
+    },
+    "theory": {
+      "reference": 21,
+      "llm": 19,
+      "recall": 0.905,
+      "precision": 1.0
+    }
+  },
+  "fine_type_counts": {
+    "dataset_benchmark": {
+      "reference": 22,
+      "llm": 23
+    },
+    "empirical": {
+      "reference": 28,
+      "llm": 27
+    },
+    "evaluation": {
+      "reference": 16,
+      "llm": 19
+    },
+    "method": {
+      "reference": 179,
+      "llm": 181
+    },
+    "model": {
+      "reference": 24,
+      "llm": 28
+    },
+    "perspective": {
+      "reference": 2,
+      "llm": 2
+    },
+    "problem": {
+      "reference": 3,
+      "llm": 1
+    },
+    "system": {
+      "reference": 5,
+      "llm": 0
+    },
+    "theory": {
+      "reference": 21,
+      "llm": 19
+    }
+  },
+  "foundation_model_yes": {
+    "reference": 110,
+    "llm": 91
+  },
+  "main_class_confusion": {
+    "dataset_benchmark": {
+      "dataset_benchmark": 22,
+      "empirical": 0,
+      "evaluation": 0,
+      "method": 0,
+      "other": 0,
+      "theory": 0
+    },
+    "empirical": {
+      "dataset_benchmark": 0,
+      "empirical": 27,
+      "evaluation": 0,
+      "method": 1,
+      "other": 0,
+      "theory": 0
+    },
+    "evaluation": {
+      "dataset_benchmark": 0,
+      "empirical": 0,
+      "evaluation": 16,
+      "method": 0,
+      "other": 0,
+      "theory": 0
+    },
+    "method": {
+      "dataset_benchmark": 0,
+      "empirical": 0,
+      "evaluation": 3,
+      "method": 200,
+      "other": 0,
+      "theory": 0
+    },
+    "other": {
+      "dataset_benchmark": 1,
+      "empirical": 0,
+      "evaluation": 0,
+      "method": 6,
+      "other": 3,
+      "theory": 0
+    },
+    "theory": {
+      "dataset_benchmark": 0,
+      "empirical": 0,
+      "evaluation": 0,
+      "method": 2,
+      "other": 0,
+      "theory": 19
+    }
+  },
+  "uncertain_flag": {
+    "share": 0.26,
+    "main_class_agreement_if_uncertain": 0.8974,
+    "main_class_agreement_if_certain": 0.9775
+  },
+  "go_checks": {
+    "main_class_agreement": true,
+    "foundation_model_agreement": false,
+    "count_dataset_benchmark": true,
+    "count_empirical": true,
+    "count_evaluation": true,
+    "count_method": true,
+    "count_theory": true,
+    "count_foundation_model_yes": false
+  }
+}

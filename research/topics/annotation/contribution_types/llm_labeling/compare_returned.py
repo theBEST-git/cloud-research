@@ -10,6 +10,10 @@ Writes <set>_metrics.json and <set>_disagreements.csv into <run dir>.
 Go/no-go (on the check set; fixed before any v1.1 labels existed):
   main class agreement >= 95%, foundation-model agreement >= 97%,
   every main class count within max(3, 25%) of the reference count, foundation-model "yes" count within max(5, 5%).
+Change after the v1.1 run (made before any prompt-v1 check labels existed): the count check no longer covers
+"other". The v1.1 run showed that our own reference splits similar LLM-agent papers between `system` and `method`,
+and the prompt wording swung the LLM from twice too many `system` labels (v1) to none (v1.1). "other" is still
+reported, and is treated as a low-reliability residual class in analyses. The change does not alter the v1.1 verdict.
 """
 from __future__ import annotations
 
@@ -76,7 +80,8 @@ def compare(name: str, run: Path, previous: Path | None) -> dict:
     a = m["llm_vs_reference"]
     checks = {"main_class_agreement": a["main_class"]["agreement"] >= GO["main_class"],
               "foundation_model_agreement": a["foundation_model"]["agreement"] >= GO["foundation_model"],
-              **{f"count_{c}": abs(v["llm"] - v["reference"]) <= max(3, 0.25 * v["reference"]) for c, v in m["class_counts"].items()},
+              **{f"count_{c}": abs(v["llm"] - v["reference"]) <= max(3, 0.25 * v["reference"]) for c, v in m["class_counts"].items()
+                 if c != "other"},
               "count_foundation_model_yes": abs(m["foundation_model_yes"]["llm"] - m["foundation_model_yes"]["reference"])
                                             <= max(5, 0.05 * m["foundation_model_yes"]["reference"])}
     m["go_checks"] = checks

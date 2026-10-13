@@ -1,0 +1,229 @@
+{
+  "llm_vs_reference": {
+    "main_class": {
+      "agreement": 0.9533,
+      "kappa": 0.9123,
+      "n": 300
+    },
+    "fine_type": {
+      "agreement": 0.9333,
+      "kappa": 0.8948,
+      "n": 300
+    },
+    "secondary_type": {
+      "agreement": 0.81,
+      "kappa": 0.7509,
+      "n": 300
+    },
+    "foundation_model": {
+      "agreement": 0.98,
+      "kappa": 0.9571,
+      "n": 300
+    }
+  },
+  "main_class_agreement_by_stratum": {
+    "enriched_benchmark": {
+      "agreement": 1.0,
+      "kappa": 1.0,
+      "n": 11
+    },
+    "enriched_empirical": {
+      "agreement": 1.0,
+      "kappa": 1.0,
+      "n": 7
+    },
+    "enriched_evaluation": {
+      "agreement": 1.0,
+      "kappa": 1.0,
+      "n": 10
+    },
+    "enriched_other": {
+      "agreement": 1.0,
+      "kappa": null,
+      "n": 3
+    },
+    "enriched_theory": {
+      "agreement": 1.0,
+      "kappa": 1.0,
+      "n": 8
+    },
+    "random": {
+      "agreement": 0.9464,
+      "kappa": 0.8936,
+      "n": 261
+    }
+  },
+  "main_class_agreement_by_check_part": {
+    "double_labelled": {
+      "agreement": 0.97,
+      "kappa": 0.9445,
+      "n": 200
+    },
+    "single_2024_2026": {
+      "agreement": 0.92,
+      "kappa": 0.8433,
+      "n": 100
+    }
+  },
+  "class_counts": {
+    "dataset_benchmark": {
+      "reference": 22,
+      "llm": 22,
+      "recall": 1.0,
+      "precision": 1.0
+    },
+    "empirical": {
+      "reference": 28,
+      "llm": 29,
+      "recall": 0.964,
+      "precision": 0.931
+    },
+    "evaluation": {
+      "reference": 16,
+      "llm": 17,
+      "recall": 0.938,
+      "precision": 0.882
+    },
+    "method": {
+      "reference": 203,
+      "llm": 197,
+      "recall": 0.956,
+      "precision": 0.985
+    },
+    "other": {
+      "reference": 10,
+      "llm": 15,
+      "recall": 0.9,
+      "precision": 0.6
+    },
+    "theory": {
+      "reference": 21,
+      "llm": 20,
+      "recall": 0.905,
+      "precision": 0.95
+    }
+  },
+  "fine_type_counts": {
+    "dataset_benchmark": {
+      "reference": 22,
+      "llm": 22
+    },
+    "empirical": {
+      "reference": 28,
+      "llm": 29
+    },
+    "evaluation": {
+      "reference": 16,
+      "llm": 17
+    },
+    "method": {
+      "reference": 179,
+      "llm": 169
+    },
+    "model": {
+      "reference": 24,
+      "llm": 28
+    },
+    "perspective": {
+      "reference": 2,
+      "llm": 4
+    },
+    "problem": {
+      "reference": 3,
+      "llm": 1
+    },
+    "system": {
+      "reference": 5,
+      "llm": 10
+    },
+    "theory": {
+      "reference": 21,
+      "llm": 20
+    }
+  },
+  "foundation_model_yes": {
+    "reference": 110,
+    "llm": 112
+  },
+  "main_class_confusion": {
+    "dataset_benchmark": {
+      "dataset_benchmark": 22,
+      "empirical": 0,
+      "evaluation": 0,
+      "method": 0,
+      "other": 0,
+      "theory": 0
+    },
+    "empirical": {
+      "dataset_benchmark": 0,
+      "empirical": 27,
+      "evaluation": 0,
+      "method": 1,
+      "other": 0,
+      "theory": 0
+    },
+    "evaluation": {
+      "dataset_benchmark": 0,
+      "empirical": 0,
+      "evaluation": 15,
+      "method": 0,
+      "other": 1,
+      "theory": 0
+    },
+    "method": {
+      "dataset_benchmark": 0,
+      "empirical": 2,
+      "evaluation": 2,
+      "method": 194,
+      "other": 5,
+      "theory": 0
+    },
+    "other": {
+      "dataset_benchmark": 0,
+      "empirical": 0,
+      "evaluation": 0,
+      "method": 0,
+      "other": 9,
+      "theory": 1
+    },
+    "theory": {
+      "dataset_benchmark": 0,
+      "empirical": 0,
+      "evaluation": 0,
+      "method": 2,
+      "other": 0,
+      "theory": 19
+    }
+  },
+  "uncertain_flag": {
+    "share": 0.29,
+    "main_class_agreement_if_uncertain": 0.8621,
+    "main_class_agreement_if_certain": 0.9906
+  },
+  "go_checks": {
+    "main_class_agreement": true,
+    "foundation_model_agreement": true,
+    "count_dataset_benchmark": true,
+    "count_empirical": true,
+    "count_evaluation": true,
+    "count_method": true,
+    "count_theory": true,
+    "count_foundation_model_yes": true
+  },
+  "paired_with_previous": {
+    "previous_run": "step1_v1_1",
+    "n": 300,
+    "main_class": {
+      "previous": 0.9567,
+      "now": 0.9533,
+      "fixed": 8,
+      "broken": 9
+    },
+    "foundation_model": {
+      "previous": 0.9233,
+      "now": 0.98,
+      "fixed": 19,
+      "broken": 2
+    }
+  }
+}

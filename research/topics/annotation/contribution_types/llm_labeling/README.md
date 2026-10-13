@@ -8,6 +8,7 @@ comes back and how it was checked.
 | `returned/calibration_v1` | v1 | pilot 300 | 95.7% (kappa 0.90) | 97.7% (kappa 0.95) | passed, but errors lean one way |
 | `returned/step1_v1_1` | v1.1 | check 300 | 95.7% (kappa 0.91) | **92.3%** (kappa 0.83) | **no-go**: FM `yes` 110 → 91, `system` never used |
 | `returned/step1_v1_1` | v1.1 | pilot 300 | 96.7% (9 fixed, 6 new errors vs v1) | 95.0% (6 fixed, 14 new errors) | |
+| `returned/step1_v1_r2` | v1 | check 300 | 95.3% (kappa 0.91) | 98.0% (kappa 0.96) | **go** |
 
 **v1 → v1.1.** Of the 13 main-class disagreements in v1, 5 were named frameworks/agents labelled `system` and 3 were
 learned distances/similarities labelled `evaluation`. As a result, `other` came out at 13 papers against 7 in the
@@ -44,6 +45,19 @@ an untuned test for it. Package `iclr_contribution_labeling_v1_r2` has the v1 pr
 aaa1478fb32e…) and step 1 = the 300 check papers. The go/no-go criteria are those above. The one change: the
 count check no longer covers `other`, for the reason given in `compare_returned.py`, and this change does not
 alter the v1.1 verdict. `other` (about 3% of papers) is treated as a low-reliability residual class in analyses.
+
+**Prompt v1 result on the check set: go.** All criteria pass.
+- Main class: 95.3%. On the 200 double-labelled papers it is 97.0% (kappa 0.94); on the 100 single-labelled
+  2024–2026 papers it is 92.0%.
+- Foundation-model flag: 98.0%. "yes" count 110 → 112; the 6 disagreements go both ways (4 no→yes, 2 yes→no).
+- Class counts are within a paper or two of the reference, except `method` 203 → 197 and `other` 10 → 15
+  (`system` 5 → 10). This is the same lean as in the v1 calibration run, and the reason `other` is treated as a
+  low-reliability residual class.
+- The `uncertain` flag is informative: 99.1% main-class agreement when certain, 86.2% when uncertain. 12 of the
+  14 main-class errors are flagged.
+- Pooled over both prompt-v1 runs (600 papers): main class 95.5%, foundation-model flag 97.8%.
+
+Step 2 (all papers plus the independent 5% second pass) runs with package `iclr_contribution_labeling_v1_r2`.
 
 ```bash
 python research/topics/annotation/contribution_types/llm_labeling/compare_returned.py <run dir> \

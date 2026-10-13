@@ -1,0 +1,447 @@
+<title>ICLR Claim Annotator</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+<style>
+/* Layout: reviewer's desk — paper text on the left, a sticky review form on the right; stacks on phones. */
+:root {
+  --bg: #f3f5f7;
+  --paper: #ffffff;
+  --ink: #17202a;
+  --muted: #5b6875;
+  --rule: #d9dfe5;
+  --accent: #1f5f73;
+  --accent-soft: #e2eef2;
+  --ok: #2f7d4f;
+  --ok-soft: #e3f2e8;
+  --warn: #9a6400;
+  --warn-soft: #fbf0d9;
+  --bad: #b03a2e;
+  --bad-soft: #f8e3e0;
+  --focus: #2b7fff;
+  --font-ui: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --font-read: "Source Serif 4", Georgia, "Times New Roman", serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #11161b; --paper: #182028; --ink: #e6ebef; --muted: #9aa7b3; --rule: #2a3540;
+    --accent: #7cc3d6; --accent-soft: #1d3540; --ok: #6cc893; --ok-soft: #173326;
+    --warn: #e6b45a; --warn-soft: #3a2d12; --bad: #f08a7e; --bad-soft: #3d1d19; --focus: #7fb2ff;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #11161b; --paper: #182028; --ink: #e6ebef; --muted: #9aa7b3; --rule: #2a3540;
+  --accent: #7cc3d6; --accent-soft: #1d3540; --ok: #6cc893; --ok-soft: #173326;
+  --warn: #e6b45a; --warn-soft: #3a2d12; --bad: #f08a7e; --bad-soft: #3d1d19; --focus: #7fb2ff;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font-family: var(--font-ui); font-size: 14px; line-height: 1.5; padding-inline: 16px; padding-block: 0 48px; }
+header.bar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--bg); border-bottom: 1px solid var(--rule); margin-inline: -16px; padding: 10px 16px; display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: center; }
+.brand { font-weight: 600; letter-spacing: .01em; }
+.brand small { font-weight: 400; color: var(--muted); margin-left: 6px; }
+.blocks { display: flex; gap: 6px; flex-wrap: wrap; }
+.blocks button { font: inherit; border: 1px solid var(--rule); background: var(--paper); color: var(--ink); padding: 3px 10px; border-radius: 999px; cursor: pointer; font-variant-numeric: tabular-nums; }
+.blocks button[aria-pressed="true"] { border-color: var(--accent); background: var(--accent-soft); color: var(--accent); font-weight: 600; }
+.status { margin-left: auto; display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.chip { font-size: 12px; padding: 2px 8px; border-radius: 999px; background: var(--accent-soft); color: var(--accent); }
+.chip.warn { background: var(--warn-soft); color: var(--warn); }
+.chip.ok { background: var(--ok-soft); color: var(--ok); }
+.btn { font: inherit; border: 1px solid var(--rule); background: var(--paper); color: var(--ink); padding: 6px 12px; border-radius: 6px; cursor: pointer; }
+.btn.primary { background: var(--accent); border-color: var(--accent); color: var(--paper); font-weight: 600; }
+.btn:disabled { opacity: .5; cursor: default; }
+button:focus-visible, input:focus-visible, textarea:focus-visible, label:focus-within { outline: 2px solid var(--focus); outline-offset: 2px; }
+.dots { display: flex; flex-wrap: wrap; gap: 4px; padding: 10px 0 2px; }
+.dot { width: 22px; height: 22px; border-radius: 4px; border: 1px solid var(--rule); background: var(--paper); font: 10px/20px var(--font-mono); text-align: center; color: var(--muted); cursor: pointer; padding: 0; }
+.dot.done { background: var(--ok-soft); border-color: var(--ok); color: var(--ok); }
+.dot.cur { outline: 2px solid var(--accent); outline-offset: 1px; color: var(--ink); }
+main { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 20px; margin-top: 12px; align-items: start; }
+@media (max-width: 900px) { main { grid-template-columns: minmax(0, 1fr); } }
+.paper { background: var(--paper); border: 1px solid var(--rule); border-radius: 8px; padding: 20px 22px; min-width: 0; }
+.meta { font: 12px var(--font-mono); color: var(--muted); display: flex; gap: 12px; flex-wrap: wrap; }
+.paper h1 { font-family: var(--font-read); font-weight: 600; font-size: 1.45rem; line-height: 1.3; margin: 8px 0 14px; text-wrap: balance; }
+.paper .abs { font-family: var(--font-read); font-size: 1.06rem; line-height: 1.65; max-width: 68ch; white-space: pre-wrap; }
+.lbl { font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+form.review { background: var(--paper); border: 1px solid var(--rule); border-radius: 8px; padding: 16px 18px; position: sticky; top: calc(env(safe-area-inset-top, 0px) + 64px); max-height: calc(100vh - 80px); overflow-y: auto; min-width: 0; }
+@media (max-width: 900px) { form.review { position: static; max-height: none; } }
+fieldset { border: 0; border-top: 1px solid var(--rule); margin: 0; padding: 12px 0 10px; min-width: 0; }
+fieldset:first-of-type { border-top: 0; padding-top: 0; }
+legend { font-weight: 600; padding: 0; margin-bottom: 4px; }
+.hint { color: var(--muted); font-size: 12.5px; margin: 0 0 8px; }
+.seg { display: flex; flex-wrap: wrap; gap: 6px; }
+.seg label { position: relative; display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--rule); border-radius: 6px; padding: 5px 10px; cursor: pointer; background: var(--paper); user-select: none; }
+.seg input { position: absolute; opacity: 0; pointer-events: none; }
+.seg label:has(input:checked) { border-color: var(--accent); background: var(--accent-soft); color: var(--accent); font-weight: 600; }
+.seg label.lv-ok:has(input:checked) { border-color: var(--ok); background: var(--ok-soft); color: var(--ok); }
+.seg label.lv-warn:has(input:checked) { border-color: var(--warn); background: var(--warn-soft); color: var(--warn); }
+.seg label.lv-bad:has(input:checked) { border-color: var(--bad); background: var(--bad-soft); color: var(--bad); }
+.seg label:has(input:disabled) { opacity: .45; cursor: default; }
+.seg .k { font: 11px var(--font-mono); color: var(--muted); }
+.scale { display: grid; gap: 4px; }
+.scale label { display: grid; grid-template-columns: 28px minmax(0, 1fr); gap: 8px; align-items: baseline; border: 1px solid var(--rule); border-radius: 6px; padding: 6px 10px; cursor: pointer; }
+.scale input { position: absolute; opacity: 0; pointer-events: none; }
+.scale label:has(input:checked) { border-color: var(--accent); background: var(--accent-soft); }
+.scale b { font: 600 13px var(--font-mono); color: var(--accent); }
+.scale span { font-size: 12.5px; color: var(--muted); }
+.scale span strong { color: var(--ink); font-weight: 600; }
+.flags { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 6px; }
+.flags label { display: flex; gap: 8px; align-items: flex-start; border: 1px solid var(--rule); border-radius: 6px; padding: 6px 8px; cursor: pointer; }
+.flags label:has(input:checked) { border-color: var(--accent); background: var(--accent-soft); }
+.flags small { display: block; color: var(--muted); font-size: 11.5px; }
+.types { display: grid; gap: 8px; }
+.types .row { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.types .row > span { font: 12px var(--font-mono); color: var(--muted); width: 64px; }
+textarea { width: 100%; font: 13px var(--font-ui); color: var(--ink); background: var(--bg); border: 1px solid var(--rule); border-radius: 6px; padding: 6px 8px; resize: vertical; min-height: 38px; }
+.actions { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; padding-top: 12px; border-top: 1px solid var(--rule); }
+.msg { font-size: 12.5px; color: var(--bad); }
+.msg.ok { color: var(--ok); }
+details.cb { margin-top: 16px; background: var(--paper); border: 1px solid var(--rule); border-radius: 8px; padding: 10px 16px; }
+details.cb summary { cursor: pointer; font-weight: 600; }
+details.cb .body { font-family: var(--font-read); font-size: 14.5px; line-height: 1.6; max-width: 80ch; }
+details.cb .body h1 { font-size: 1.1rem; } details.cb .body h2 { font-size: 1rem; margin-top: 1.2em; }
+details.cb .body code { font-family: var(--font-mono); font-size: 12.5px; background: var(--bg); padding: 0 3px; border-radius: 3px; }
+.guide { margin-top: 12px; color: var(--muted); font-size: 13px; max-width: 90ch; }
+.guide b { color: var(--ink); }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+
+<header class="bar">
+  <div class="brand">ICLR Claim Annotator <small>codebook v1.3 · gold set</small></div>
+  <div class="blocks" id="blocks" role="group" aria-label="Block"></div>
+  <div class="status">
+    <span class="chip" id="progress">0 / 50</span>
+    <span class="chip warn" id="dbchip">连接中…</span>
+    <button class="btn" id="copyAll" type="button">复制全部结果</button>
+  </div>
+</header>
+
+<div class="dots" id="dots" aria-label="Items in this block"></div>
+<p class="guide">每篇论文：先读标题和摘要，在心里列出摘要报告了哪些<b>证据</b>（数据集、基线、数字、定理条件），再判断标题和摘要的主张是否超出这些证据。只看<b>论文关于自己工作的主张</b>，背景句不算。看不到录用结果，也不要查外部信息。拿不准时选较低的一档（第 4 项选“相符”）。快捷键：←/→ 翻页，Ctrl+Enter 保存。</p>
+
+<main>
+  <article class="paper" aria-live="polite">
+    <div class="meta"><span id="itemId">—</span><span id="itemPos"></span><span id="timer">0:00</span></div>
+    <div class="lbl" style="margin-top:10px">Title</div>
+    <h1 id="title">Loading…</h1>
+    <div class="lbl">Abstract</div>
+    <div class="abs" id="abstract"></div>
+  </article>
+
+  <form class="review" id="form" novalidate>
+    <fieldset>
+      <legend>1 · 贡献类型</legend>
+      <div class="seg" id="f_type">
+        <label><input type="radio" name="type" value="method">method 方法</label>
+        <label><input type="radio" name="type" value="empirical">empirical 实证分析</label>
+        <label><input type="radio" name="type" value="theory">theory 理论</label>
+        <label><input type="radio" name="type" value="resource">resource 数据/基准/工具</label>
+        <label><input type="radio" name="type" value="position">position 观点/综述</label>
+        <label><input type="radio" name="type" value="other">other</label>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>2 · 证据（可选，帮助思考）</legend>
+      <p class="hint">摘要里报告的证据：点名的数据集/基准、对比的模型、数字、定理条件。没点名的写“unspecified”。</p>
+      <textarea id="f_evidence" rows="2" placeholder="e.g. CIFAR-10, ImageNet; vs ResNet; +3.2%"></textarea>
+    </fieldset>
+
+    <fieldset>
+      <legend>3 · 标题主张强度</legend>
+      <p class="hint">看标题<b>断言</b>了什么，不是含有什么词。习语先换成直白意思再判断。</p>
+      <div class="scale" id="f_ts">
+        <label><input type="radio" name="ts" value="0"><b>0</b><span><strong>无主张</strong>：命名或描述（NAME: …、A Graph Approach to…、Learning to…、Learn to Solve…）</span></label>
+        <label><input type="radio" name="ts" value="1"><b>1</b><span><strong>隐含/试探</strong>：Robust/Efficient/Universal 等修饰语；Improving/Boosting…；问题；Towards/Rethinking/On the…；带对冲的句子</span></label>
+        <label><input type="radio" name="ts" value="2"><b>2</b><span><strong>明确主张</strong>：断言结果的句子（X Reduces Y、Diffusion Models Are Few-Shot Learners）或建议式祈使（Prune Heads, Not Layers）</span></label>
+        <label><input type="radio" name="ts" value="3"><b>3</b><span><strong>强/普遍主张</strong>：充分/必要/不可能/普遍/最优/解决（All You Need、Suffices、X Needs Y、Is Not Necessary、Solving/Overcoming…）</span></label>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>4 · 标题 vs 证据</legend>
+      <p class="hint">只对照第 2 项的证据；摘要重复同样的话不算支持。一类模型只测了一个实例 → 轻微（范围）。设计上合理但没测的属性（Fast…）→ 轻微（无证据）。</p>
+      <div class="seg" id="f_tv">
+        <label><input type="radio" name="tv" value="understated">低估</label>
+        <label class="lv-ok"><input type="radio" name="tv" value="matched">相符</label>
+        <label class="lv-warn"><input type="radio" name="tv" value="mild">轻微超出</label>
+        <label class="lv-bad"><input type="radio" name="tv" value="clear">明显超出</label>
+        <label><input type="radio" name="tv" value="NA">NA（强度 0）</label>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>5 · 摘要用词（只看关于自己工作的句子）</legend>
+      <div class="flags" id="f_flags">
+        <label><input type="checkbox" name="hedge"><span>hedge 对冲<small>may, suggest, preliminary（can/often 不算）</small></span></label>
+        <label><input type="checkbox" name="booster"><span>booster 加强<small>significantly, substantially, dramatically</small></span></label>
+        <label><input type="checkbox" name="superlative"><span>superlative 最高级<small>achieves SOTA, outperforms SOTA methods, first, best, optimal</small></span></label>
+        <label><input type="checkbox" name="universal"><span>universal 普遍<small>超出测试范围：general-purpose, any model（“在全部 5 个基准上”不算）</small></span></label>
+        <label><input type="checkbox" name="quantified"><span>quantified 有数字<small>自己结果的数字或界（设置参数不算）</small></span></label>
+        <label><input type="checkbox" name="scoped"><span>scoped 点名范围<small>至少点名一个具体数据集/模型/基线，或定理假设</small></span></label>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>6 · 摘要 vs 证据</legend>
+      <p class="hint">与第 4 项独立判断：标题和摘要可以一起超出。没点名的“extensive experiments”只支持方向，不支持“广泛”“大幅”“SOTA”。</p>
+      <div class="seg" id="f_ao">
+        <label class="lv-ok"><input type="radio" name="ao" value="none">无</label>
+        <label class="lv-warn"><input type="radio" name="ao" value="mild">轻微超出</label>
+        <label class="lv-bad"><input type="radio" name="ao" value="clear">明显超出</label>
+      </div>
+    </fieldset>
+
+    <fieldset id="typesBox">
+      <legend>7 · 超出类型</legend>
+      <p class="hint">只在第 4 或第 6 项为轻微/明显时选。</p>
+      <div class="types">
+        <div class="row" id="t_row"><span>标题 t:</span></div>
+        <div class="row" id="a_row"><span>摘要 a:</span></div>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>8 · 把握程度</legend>
+      <div class="seg" id="f_conf">
+        <label><input type="radio" name="conf" value="1">1 猜</label>
+        <label><input type="radio" name="conf" value="2">2</label>
+        <label><input type="radio" name="conf" value="3">3</label>
+        <label><input type="radio" name="conf" value="4">4</label>
+        <label><input type="radio" name="conf" value="5">5 确定</label>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>备注（可选）</legend>
+      <textarea id="f_note" rows="2" placeholder="拿不准的原因、手册没覆盖的情况…"></textarea>
+    </fieldset>
+
+    <div class="actions">
+      <button class="btn" type="button" id="prev">← 上一篇</button>
+      <button class="btn primary" type="submit" id="save">保存并下一篇</button>
+      <span class="msg" id="msg" role="status"></span>
+    </div>
+  </form>
+</main>
+
+<details class="cb">
+  <summary>完整编码手册 v1.3（英文原文）</summary>
+  <div class="body">__CODEBOOK__</div>
+</details>
+
+<script id="items" type="application/json">__ITEMS__</script>
+<script>
+(function () {
+  "use strict";
+  var ITEMS = JSON.parse(document.getElementById("items").textContent);
+  var TYPES = ["scope", "certainty", "magnitude", "novelty", "causal", "unsupported"];
+  var TYPE_ZH = { scope: "范围", certainty: "确定性", magnitude: "程度", novelty: "新颖性", causal: "因果", unsupported: "无证据" };
+  var FLAGS = ["hedge", "booster", "superlative", "universal", "quantified", "scoped"];
+  var LS_KEY = "claim-annotator-v13";
+  var state = { block: 1, idx: 0, labels: {}, db: null, uid: null, shownAt: Date.now(), dbOk: false };
+  var $ = function (id) { return document.getElementById(id); };
+  var form = $("form");
+
+  // types checkboxes
+  ["t", "a"].forEach(function (p) {
+    var row = $(p + "_row");
+    TYPES.forEach(function (t) {
+      var lab = document.createElement("label");
+      lab.className = "seg-like";
+      lab.innerHTML = '<input type="checkbox" name="types" value="' + p + ":" + t + '"> ' + t + " " + TYPE_ZH[t];
+      lab.style.cssText = "display:inline-flex;gap:6px;align-items:center;border:1px solid var(--rule);border-radius:6px;padding:4px 8px;cursor:pointer";
+      row.appendChild(lab);
+    });
+  });
+
+  function loadLocal() {
+    try { var s = localStorage.getItem(LS_KEY); if (s) state.labels = JSON.parse(s) || {}; } catch (e) {}
+  }
+  function saveLocal() {
+    try { localStorage.setItem(LS_KEY, JSON.stringify(state.labels)); } catch (e) {}
+  }
+  function blockItems() { return ITEMS.filter(function (it) { return it.block === state.block; }); }
+  function cur() { return blockItems()[state.idx]; }
+  function fmt(s) { var m = Math.floor(s / 60), r = Math.floor(s % 60); return m + ":" + (r < 10 ? "0" : "") + r; }
+
+  function renderBlocks() {
+    var box = $("blocks"); box.innerHTML = "";
+    [1, 2, 3, 4].forEach(function (b) {
+      var n = ITEMS.filter(function (it) { return it.block === b && state.labels[it.id]; }).length;
+      var btn = document.createElement("button");
+      btn.type = "button"; btn.textContent = "Block " + b + " · " + n + "/50";
+      btn.setAttribute("aria-pressed", String(b === state.block));
+      btn.addEventListener("click", function () { state.block = b; state.idx = firstUndone(); render(); });
+      box.appendChild(btn);
+    });
+  }
+  function firstUndone() {
+    var its = blockItems();
+    for (var i = 0; i < its.length; i++) if (!state.labels[its[i].id]) return i;
+    return 0;
+  }
+  function renderDots() {
+    var box = $("dots"); box.innerHTML = "";
+    blockItems().forEach(function (it, i) {
+      var d = document.createElement("button");
+      d.type = "button"; d.className = "dot" + (state.labels[it.id] ? " done" : "") + (i === state.idx ? " cur" : "");
+      d.textContent = String(i + 1); d.title = it.id;
+      d.addEventListener("click", function () { state.idx = i; render(); });
+      box.appendChild(d);
+    });
+    var its = blockItems();
+    var done = its.filter(function (it) { return state.labels[it.id]; }).length;
+    $("progress").textContent = "Block " + state.block + ": " + done + " / " + its.length;
+  }
+
+  function setRadio(name, val) {
+    form.querySelectorAll('input[name="' + name + '"]').forEach(function (el) { el.checked = (val != null && el.value === String(val)); });
+  }
+  function getRadio(name) {
+    var el = form.querySelector('input[name="' + name + '"]:checked'); return el ? el.value : null;
+  }
+  function syncDependent() {
+    var ts = getRadio("ts");
+    var tvInputs = form.querySelectorAll('input[name="tv"]');
+    if (ts === "0") {
+      tvInputs.forEach(function (el) { el.disabled = el.value !== "NA"; el.checked = el.value === "NA"; });
+    } else {
+      tvInputs.forEach(function (el) { el.disabled = el.value === "NA"; if (el.value === "NA") el.checked = false; });
+    }
+    var tv = getRadio("tv"), ao = getRadio("ao");
+    var tOn = tv === "mild" || tv === "clear", aOn = ao === "mild" || ao === "clear";
+    form.querySelectorAll('input[name="types"]').forEach(function (el) {
+      var on = el.value.charAt(0) === "t" ? tOn : aOn;
+      el.disabled = !on; if (!on) el.checked = false;
+      el.parentNode.style.opacity = on ? "1" : ".45";
+      el.parentNode.style.background = el.checked ? "var(--accent-soft)" : "";
+      el.parentNode.style.borderColor = el.checked ? "var(--accent)" : "var(--rule)";
+    });
+  }
+
+  function fill(lab) {
+    form.reset();
+    lab = lab || {};
+    setRadio("type", lab.type); setRadio("ts", lab.title_strength); setRadio("tv", lab.title_vs_evidence);
+    setRadio("ao", lab.abstract_overreach); setRadio("conf", lab.confidence);
+    FLAGS.forEach(function (f) { form.querySelector('input[name="' + f + '"]').checked = lab[f] === 1; });
+    $("f_evidence").value = lab.evidence || ""; $("f_note").value = lab.note || "";
+    syncDependent();
+    (lab.types || []).forEach(function (t) { var el = form.querySelector('input[name="types"][value="' + t + '"]'); if (el && !el.disabled) el.checked = true; });
+    syncDependent();
+  }
+
+  function render() {
+    var it = cur(); if (!it) return;
+    $("itemId").textContent = it.id;
+    $("itemPos").textContent = "Block " + state.block + " · " + (state.idx + 1) + " / " + blockItems().length;
+    $("title").textContent = it.title;
+    $("abstract").textContent = it.abstract;
+    fill(state.labels[it.id]);
+    $("msg").textContent = state.labels[it.id] ? "已保存，可修改后重新保存" : "";
+    $("msg").className = "msg ok";
+    $("prev").disabled = state.idx === 0;
+    state.shownAt = Date.now();
+    renderBlocks(); renderDots();
+    window.scrollTo({ top: 0 }); form.scrollTop = 0;
+  }
+
+  function collect() {
+    var it = cur();
+    var lab = {
+      item_id: it.id, type: getRadio("type"), evidence: $("f_evidence").value.trim(),
+      title_strength: getRadio("ts") == null ? null : Number(getRadio("ts")),
+      title_vs_evidence: getRadio("tv"), abstract_overreach: getRadio("ao"),
+      confidence: getRadio("conf") == null ? null : Number(getRadio("conf")),
+      types: Array.prototype.map.call(form.querySelectorAll('input[name="types"]:checked'), function (el) { return el.value; }),
+      note: $("f_note").value.trim()
+    };
+    FLAGS.forEach(function (f) { lab[f] = form.querySelector('input[name="' + f + '"]').checked ? 1 : 0; });
+    var missing = [];
+    if (!lab.type) missing.push("1 类型");
+    if (lab.title_strength == null) missing.push("3 标题强度");
+    if (!lab.title_vs_evidence) missing.push("4 标题 vs 证据");
+    if (!lab.abstract_overreach) missing.push("6 摘要 vs 证据");
+    if (lab.confidence == null) missing.push("8 把握");
+    var tOn = lab.title_vs_evidence === "mild" || lab.title_vs_evidence === "clear";
+    var aOn = lab.abstract_overreach === "mild" || lab.abstract_overreach === "clear";
+    if (tOn && !lab.types.some(function (t) { return t.charAt(0) === "t"; })) missing.push("7 标题超出类型");
+    if (aOn && !lab.types.some(function (t) { return t.charAt(0) === "a"; })) missing.push("7 摘要超出类型");
+    return { lab: lab, missing: missing };
+  }
+
+  async function save(ev) {
+    if (ev) ev.preventDefault();
+    var r = collect();
+    if (r.missing.length) { $("msg").className = "msg"; $("msg").textContent = "还没填：" + r.missing.join("、"); return; }
+    var it = cur(), prev = state.labels[it.id];
+    var secs = Math.round((Date.now() - state.shownAt) / 1000) + (prev && prev.seconds ? prev.seconds : 0);
+    var lab = Object.assign(r.lab, { block: it.block, seconds: secs, saved_at: new Date().toISOString(), codebook: "v1.3" });
+    if (state.uid) lab.annotator = state.uid;
+    state.labels[it.id] = lab; saveLocal();
+    $("save").disabled = true;
+    if (state.db) {
+      try {
+        await state.db.collection("labels").doc(it.id).set(lab);
+        $("msg").className = "msg ok"; $("msg").textContent = "已保存";
+      } catch (e) {
+        $("msg").className = "msg"; $("msg").textContent = "数据库保存失败（" + (e && e.code || "error") + "），已存在本浏览器；可用“复制全部结果”发给 Claude";
+        $("save").disabled = false; renderDots(); renderBlocks(); return;
+      }
+    }
+    $("save").disabled = false;
+    var its = blockItems();
+    if (state.idx < its.length - 1) { state.idx += 1; render(); }
+    else { renderDots(); renderBlocks(); $("msg").className = "msg ok"; $("msg").textContent = "这一组已全部保存，可以告诉 Claude 了。"; }
+  }
+
+  form.addEventListener("submit", save);
+  form.addEventListener("change", syncDependent);
+  $("prev").addEventListener("click", function () { if (state.idx > 0) { state.idx -= 1; render(); } });
+  document.addEventListener("keydown", function (e) {
+    var tag = (e.target && e.target.tagName) || "";
+    if ((e.ctrlKey || e.metaKey) && e.key === "Enter") { save(e); return; }
+    if (tag === "TEXTAREA") return;
+    if (e.key === "ArrowRight" && state.idx < blockItems().length - 1) { state.idx += 1; render(); }
+    if (e.key === "ArrowLeft" && state.idx > 0) { state.idx -= 1; render(); }
+  });
+  $("copyAll").addEventListener("click", async function () {
+    var txt = JSON.stringify(Object.keys(state.labels).sort().map(function (k) { return state.labels[k]; }));
+    try { await navigator.clipboard.writeText(txt); $("msg").className = "msg ok"; $("msg").textContent = "已复制 " + Object.keys(state.labels).length + " 条结果"; }
+    catch (e) {
+      var ta = document.createElement("textarea"); ta.value = txt; ta.style.cssText = "width:100%;height:120px;margin-top:8px";
+      $("msg").textContent = "无法自动复制，请手动全选下面的文本："; $("msg").after(ta); ta.select();
+    }
+  });
+  setInterval(function () { $("timer").textContent = fmt((Date.now() - state.shownAt) / 1000); }, 1000);
+
+  loadLocal();
+  state.idx = firstUndone();
+  render();
+
+  (async function connect() {
+    var chip = $("dbchip");
+    try {
+      if (!window.claude || !window.claude.use) throw new Error("no runtime");
+      var user = await window.claude.use("user");
+      if (user && user.id) { try { state.uid = await user.id(); } catch (e) {} }
+      var db = await window.claude.use("db");
+      if (!db) throw new Error("db unavailable");
+      state.db = db;
+      chip.className = "chip ok"; chip.textContent = "自动保存到数据库";
+      db.collection("labels").onSnapshot(function (snap) {
+        var changed = false;
+        snap.docs.forEach(function (d) {
+          if (!d.exists) return;
+          var v = d.data(); var have = state.labels[d.id];
+          if (!have || (v.saved_at && (!have.saved_at || v.saved_at > have.saved_at))) { state.labels[d.id] = Object.assign({}, v); changed = true; }
+        });
+        if (changed) { saveLocal(); renderBlocks(); renderDots(); var it = cur(); if (it && state.labels[it.id] && !form.querySelector("input:checked")) fill(state.labels[it.id]); }
+      }, function () { chip.className = "chip warn"; chip.textContent = "数据库连接中断：结果存在本浏览器"; });
+    } catch (e) {
+      chip.className = "chip warn"; chip.textContent = "未连接数据库：结果只存在本浏览器";
+    }
+  })();
+})();
+</script>

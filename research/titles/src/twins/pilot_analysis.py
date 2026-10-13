@@ -47,7 +47,7 @@ def main():
         "kappa_4class": kappa(B.label_L1, B.label_L2),
         "kappa_T_vs_rest": kappa(B.T1, B.T2),
         "kappa_TP_vs_rest": kappa(B.TP1, B.TP2),
-        "confusion": pd.crosstab(B.label_L1, B.label_L2).to_dict(),
+        "confusion": {f"{a}|{b}": int(v) for (a, b), v in pd.crosstab(B.label_L1, B.label_L2).stack().items()},
     }
     # consensus: T only if both T; T-lenient if either T; P-or-better if both in {T,P}
     B["T_strict"] = B.T1 & B.T2
@@ -55,7 +55,7 @@ def main():
     B["TP_strict"] = B.TP1 & B.TP2
     summ["controls"] = {
         "known_positive": B[B.kind == "known_positive"][["label_L1", "label_L2"]].values.tolist(),
-        "random_same_topic": B[B.kind == "random_same_topic"][["label_L1", "label_L2"]].apply(tuple, axis=1).value_counts().to_dict(),
+        "random_same_topic": {"/".join(k): int(v) for k, v in B[B.kind == "random_same_topic"][["label_L1", "label_L2"]].apply(tuple, axis=1).value_counts().items()},
     }
     cand = B[B.kind == "candidate"]
     g = cand.groupby(["band", "era"])

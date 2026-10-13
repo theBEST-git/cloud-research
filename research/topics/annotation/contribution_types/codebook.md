@@ -1,4 +1,7 @@
-# Contribution-type codebook (v0.9, pilot draft)
+# Contribution-type codebook (v1, locked 2026-10-13)
+
+Locked after a pilot on 300 papers not used to derive the categories (two independent annotators, then
+adjudication; see "Pilot evidence" at the end). Do not change the types or rules without bumping the version.
 
 Labels describe **what kind of contribution** a paper offers the research community, judged from its
 title and abstract. They never describe the subject: "graph neural networks" or "LLMs" are subjects.
@@ -26,9 +29,10 @@ For each paper record:
 | `perspective` | Unifying or conceptual perspective | a way of thinking: unifying existing methods, reframing a problem, connecting ML to another field, open questions |
 | `survey_position` | Survey, review or position paper | a review of a literature, or an argued position, as the main contribution |
 
-**Primary class used in analyses** (derived, not annotated): `model` → **method**; `problem`,
-`application`, `recipe`, `perspective`, `survey_position` → **other**; all other types keep their id.
-`model` stays available as the fine type ("new architecture" flag).
+**Primary class used in analyses** (derived, not annotated): `model` → **method**; `system`, `problem`,
+`application`, `recipe`, `perspective`, `survey_position` → **other**; `theory`, `empirical`,
+`dataset_benchmark` and `evaluation` keep their id. That gives six classes: method, empirical, theory,
+dataset_benchmark, evaluation, other. The fine type stays available (e.g. `model` as a "new architecture" flag).
 
 ## Choosing the primary type
 
@@ -66,3 +70,24 @@ Give a secondary type only when the abstract **claims** a second contribution of
 Routine validation is not a secondary: "experiments show our method outperforms baselines" does **not** add
 `empirical`. `empirical` as secondary needs findings or insights beyond showing the method works; `theory`
 as secondary needs stated proofs or guarantees.
+
+## Pilot evidence (v0.9 → v1)
+
+300 papers not used in open coding (240 random, 60 enriched for benchmark, theory and survey/system cues),
+two independent annotators (the same model, so agreement shows consistency more than human-level validity),
+28 disagreements adjudicated (`pilot_gold.csv`).
+
+| Measure | Agreement | Cohen's κ |
+|---|---|---|
+| Primary class | 97.7% | 0.95 |
+| Fine type (12) | 96.7% | 0.95 |
+| Secondary type (incl. none) | 92.0% | 0.88 |
+
+- Prevalence among the 240 random papers (primary class): method 81% (of which `model` 17%), empirical 6%,
+  dataset_benchmark 5%, theory 5%, evaluation 2%, other 2%. 43% have a secondary contribution, most often
+  theory (15%) or empirical (10%).
+- External check: of the 16 pilot papers in ICLR's "datasets and benchmarks" primary area, 15 are labelled
+  `dataset_benchmark` (primary or secondary) and the 16th `evaluation`; 12% of other 2024–26 papers also are.
+- Change for v1: `system` moved from its own primary class into **other**. It was the primary type of 1 of
+  240 random papers, and annotators agreed on it poorly (κ 0.50 on 4 labels). No paper in the pilot was a
+  survey or position paper.

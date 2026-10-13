@@ -1,0 +1,4802 @@
+[
+ {
+  "paper": "p001",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 1
+ },
+ {
+  "paper": "p002",
+  "primary_type": "method",
+  "secondary_type": "empirical",
+  "uncertain": true,
+  "rater": "A",
+  "batch": 1
+ },
+ {
+  "paper": "p003",
+  "primary_type": "method",
+  "secondary_type": "theory",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 1
+ },
+ {
+  "paper": "p004",
+  "primary_type": "model",
+  "secondary_type": "dataset_benchmark",
+  "uncertain": true,
+  "rater": "A",
+  "batch": 1
+ },
+ {
+  "paper": "p005",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 1
+ },
+ {
+  "paper": "p006",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 1
+ },
+ {
+  "paper": "p007",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 1
+ },
+ {
+  "paper": "p008",
+  "primary_type": "method",
+  "secondary_type": "model",
+  "uncertain": true,
+  "rater": "A",
+  "batch": 1
+ },
+ {
+  "paper": "p009",
+  "primary_type": "empirical",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 1
+ },
+ {
+  "paper": "p010",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 1
+ },
+ {
+  "paper": "p011",
+  "primary_type": "system",
+  "secondary_type": "dataset_benchmark",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 1
+ },
+ {
+  "paper": "p012",
+  "primary_type": "empirical",
+  "secondary_type": "method",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 1
+ },
+ {
+  "paper": "p013",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": true,
+  "rater": "A",
+  "batch": 1
+ },
+ {
+  "paper": "p014",
+  "primary_type": "method",
+  "secondary_type": "empirical",
+  "uncertain": true,
+  "rater": "A",
+  "batch": 1
+ },
+ {
+  "paper": "p015",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 1
+ },
+ {
+  "paper": "p016",
+  "primary_type": "dataset_benchmark",
+  "secondary_type": "empirical",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 1
+ },
+ {
+  "paper": "p017",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 1
+ },
+ {
+  "paper": "p018",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": true,
+  "rater": "A",
+  "batch": 1
+ },
+ {
+  "paper": "p019",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 1
+ },
+ {
+  "paper": "p020",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 1
+ },
+ {
+  "paper": "p021",
+  "primary_type": "method",
+  "secondary_type": "theory",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 1
+ },
+ {
+  "paper": "p022",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 1
+ },
+ {
+  "paper": "p023",
+  "primary_type": "method",
+  "secondary_type": "application",
+  "uncertain": true,
+  "rater": "A",
+  "batch": 1
+ },
+ {
+  "paper": "p024",
+  "primary_type": "empirical",
+  "secondary_type": "theory",
+  "uncertain": true,
+  "rater": "A",
+  "batch": 1
+ },
+ {
+  "paper": "p025",
+  "primary_type": "method",
+  "secondary_type": "theory",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 1
+ },
+ {
+  "paper": "p026",
+  "primary_type": "method",
+  "secondary_type": "theory",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 1
+ },
+ {
+  "paper": "p027",
+  "primary_type": "method",
+  "secondary_type": "empirical",
+  "uncertain": true,
+  "rater": "A",
+  "batch": 1
+ },
+ {
+  "paper": "p028",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 1
+ },
+ {
+  "paper": "p029",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 1
+ },
+ {
+  "paper": "p030",
+  "primary_type": "method",
+  "secondary_type": "perspective",
+  "uncertain": true,
+  "rater": "A",
+  "batch": 1
+ },
+ {
+  "paper": "p031",
+  "primary_type": "model",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 1
+ },
+ {
+  "paper": "p032",
+  "primary_type": "theory",
+  "secondary_type": "method",
+  "uncertain": true,
+  "rater": "A",
+  "batch": 1
+ },
+ {
+  "paper": "p033",
+  "primary_type": "model",
+  "secondary_type": "none",
+  "uncertain": true,
+  "rater": "A",
+  "batch": 1
+ },
+ {
+  "paper": "p034",
+  "primary_type": "method",
+  "secondary_type": "empirical",
+  "uncertain": true,
+  "rater": "A",
+  "batch": 1
+ },
+ {
+  "paper": "p035",
+  "primary_type": "dataset_benchmark",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 1
+ },
+ {
+  "paper": "p036",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 1
+ },
+ {
+  "paper": "p037",
+  "primary_type": "method",
+  "secondary_type": "empirical",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 1
+ },
+ {
+  "paper": "p038",
+  "primary_type": "method",
+  "secondary_type": "empirical",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 1
+ },
+ {
+  "paper": "p039",
+  "primary_type": "dataset_benchmark",
+  "secondary_type": "evaluation",
+  "uncertain": true,
+  "rater": "A",
+  "batch": 1
+ },
+ {
+  "paper": "p040",
+  "primary_type": "evaluation",
+  "secondary_type": "empirical",
+  "uncertain": true,
+  "rater": "A",
+  "batch": 1
+ },
+ {
+  "paper": "p041",
+  "primary_type": "model",
+  "secondary_type": "method",
+  "uncertain": true,
+  "rater": "A",
+  "batch": 1
+ },
+ {
+  "paper": "p042",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 1
+ },
+ {
+  "paper": "p043",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 1
+ },
+ {
+  "paper": "p044",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 1
+ },
+ {
+  "paper": "p045",
+  "primary_type": "dataset_benchmark",
+  "secondary_type": "empirical",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 1
+ },
+ {
+  "paper": "p046",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 1
+ },
+ {
+  "paper": "p047",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 1
+ },
+ {
+  "paper": "p048",
+  "primary_type": "empirical",
+  "secondary_type": "recipe",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 1
+ },
+ {
+  "paper": "p049",
+  "primary_type": "method",
+  "secondary_type": "evaluation",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 1
+ },
+ {
+  "paper": "p050",
+  "primary_type": "method",
+  "secondary_type": "application",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 1
+ },
+ {
+  "paper": "p051",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 1
+ },
+ {
+  "paper": "p052",
+  "primary_type": "model",
+  "secondary_type": "none",
+  "uncertain": true,
+  "rater": "A",
+  "batch": 1
+ },
+ {
+  "paper": "p053",
+  "primary_type": "theory",
+  "secondary_type": "problem",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 1
+ },
+ {
+  "paper": "p054",
+  "primary_type": "method",
+  "secondary_type": "empirical",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 1
+ },
+ {
+  "paper": "p055",
+  "primary_type": "model",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 1
+ },
+ {
+  "paper": "p056",
+  "primary_type": "method",
+  "secondary_type": "dataset_benchmark",
+  "uncertain": true,
+  "rater": "A",
+  "batch": 1
+ },
+ {
+  "paper": "p057",
+  "primary_type": "method",
+  "secondary_type": "theory",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 1
+ },
+ {
+  "paper": "p058",
+  "primary_type": "method",
+  "secondary_type": "theory",
+  "uncertain": true,
+  "rater": "A",
+  "batch": 1
+ },
+ {
+  "paper": "p059",
+  "primary_type": "method",
+  "secondary_type": "evaluation",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 1
+ },
+ {
+  "paper": "p060",
+  "primary_type": "dataset_benchmark",
+  "secondary_type": "problem",
+  "uncertain": true,
+  "rater": "A",
+  "batch": 1
+ },
+ {
+  "paper": "p061",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 1
+ },
+ {
+  "paper": "p062",
+  "primary_type": "model",
+  "secondary_type": "theory",
+  "uncertain": true,
+  "rater": "A",
+  "batch": 1
+ },
+ {
+  "paper": "p063",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": true,
+  "rater": "A",
+  "batch": 1
+ },
+ {
+  "paper": "p064",
+  "primary_type": "method",
+  "secondary_type": "theory",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 1
+ },
+ {
+  "paper": "p065",
+  "primary_type": "problem",
+  "secondary_type": "dataset_benchmark",
+  "uncertain": true,
+  "rater": "A",
+  "batch": 1
+ },
+ {
+  "paper": "p066",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 1
+ },
+ {
+  "paper": "p067",
+  "primary_type": "method",
+  "secondary_type": "theory",
+  "uncertain": true,
+  "rater": "A",
+  "batch": 1
+ },
+ {
+  "paper": "p068",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 1
+ },
+ {
+  "paper": "p069",
+  "primary_type": "theory",
+  "secondary_type": "method",
+  "uncertain": true,
+  "rater": "A",
+  "batch": 1
+ },
+ {
+  "paper": "p070",
+  "primary_type": "method",
+  "secondary_type": "empirical",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 1
+ },
+ {
+  "paper": "p071",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 1
+ },
+ {
+  "paper": "p072",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 1
+ },
+ {
+  "paper": "p073",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 1
+ },
+ {
+  "paper": "p074",
+  "primary_type": "method",
+  "secondary_type": "theory",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 1
+ },
+ {
+  "paper": "p075",
+  "primary_type": "method",
+  "secondary_type": "theory",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 1
+ },
+ {
+  "paper": "p001",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 1
+ },
+ {
+  "paper": "p002",
+  "primary_type": "method",
+  "secondary_type": "empirical",
+  "uncertain": true,
+  "rater": "B",
+  "batch": 1
+ },
+ {
+  "paper": "p003",
+  "primary_type": "method",
+  "secondary_type": "theory",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 1
+ },
+ {
+  "paper": "p004",
+  "primary_type": "model",
+  "secondary_type": "dataset_benchmark",
+  "uncertain": true,
+  "rater": "B",
+  "batch": 1
+ },
+ {
+  "paper": "p005",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 1
+ },
+ {
+  "paper": "p006",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 1
+ },
+ {
+  "paper": "p007",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 1
+ },
+ {
+  "paper": "p008",
+  "primary_type": "method",
+  "secondary_type": "model",
+  "uncertain": true,
+  "rater": "B",
+  "batch": 1
+ },
+ {
+  "paper": "p009",
+  "primary_type": "empirical",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 1
+ },
+ {
+  "paper": "p010",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 1
+ },
+ {
+  "paper": "p011",
+  "primary_type": "system",
+  "secondary_type": "dataset_benchmark",
+  "uncertain": true,
+  "rater": "B",
+  "batch": 1
+ },
+ {
+  "paper": "p012",
+  "primary_type": "empirical",
+  "secondary_type": "method",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 1
+ },
+ {
+  "paper": "p013",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": true,
+  "rater": "B",
+  "batch": 1
+ },
+ {
+  "paper": "p014",
+  "primary_type": "method",
+  "secondary_type": "empirical",
+  "uncertain": true,
+  "rater": "B",
+  "batch": 1
+ },
+ {
+  "paper": "p015",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 1
+ },
+ {
+  "paper": "p016",
+  "primary_type": "dataset_benchmark",
+  "secondary_type": "empirical",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 1
+ },
+ {
+  "paper": "p017",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 1
+ },
+ {
+  "paper": "p018",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": true,
+  "rater": "B",
+  "batch": 1
+ },
+ {
+  "paper": "p019",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 1
+ },
+ {
+  "paper": "p020",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 1
+ },
+ {
+  "paper": "p021",
+  "primary_type": "method",
+  "secondary_type": "theory",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 1
+ },
+ {
+  "paper": "p022",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 1
+ },
+ {
+  "paper": "p023",
+  "primary_type": "application",
+  "secondary_type": "method",
+  "uncertain": true,
+  "rater": "B",
+  "batch": 1
+ },
+ {
+  "paper": "p024",
+  "primary_type": "empirical",
+  "secondary_type": "theory",
+  "uncertain": true,
+  "rater": "B",
+  "batch": 1
+ },
+ {
+  "paper": "p025",
+  "primary_type": "method",
+  "secondary_type": "theory",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 1
+ },
+ {
+  "paper": "p026",
+  "primary_type": "method",
+  "secondary_type": "theory",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 1
+ },
+ {
+  "paper": "p027",
+  "primary_type": "method",
+  "secondary_type": "empirical",
+  "uncertain": true,
+  "rater": "B",
+  "batch": 1
+ },
+ {
+  "paper": "p028",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 1
+ },
+ {
+  "paper": "p029",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 1
+ },
+ {
+  "paper": "p030",
+  "primary_type": "method",
+  "secondary_type": "theory",
+  "uncertain": true,
+  "rater": "B",
+  "batch": 1
+ },
+ {
+  "paper": "p031",
+  "primary_type": "model",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 1
+ },
+ {
+  "paper": "p032",
+  "primary_type": "method",
+  "secondary_type": "theory",
+  "uncertain": true,
+  "rater": "B",
+  "batch": 1
+ },
+ {
+  "paper": "p033",
+  "primary_type": "model",
+  "secondary_type": "none",
+  "uncertain": true,
+  "rater": "B",
+  "batch": 1
+ },
+ {
+  "paper": "p034",
+  "primary_type": "method",
+  "secondary_type": "empirical",
+  "uncertain": true,
+  "rater": "B",
+  "batch": 1
+ },
+ {
+  "paper": "p035",
+  "primary_type": "dataset_benchmark",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 1
+ },
+ {
+  "paper": "p036",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 1
+ },
+ {
+  "paper": "p037",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 1
+ },
+ {
+  "paper": "p038",
+  "primary_type": "method",
+  "secondary_type": "dataset_benchmark",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 1
+ },
+ {
+  "paper": "p039",
+  "primary_type": "dataset_benchmark",
+  "secondary_type": "evaluation",
+  "uncertain": true,
+  "rater": "B",
+  "batch": 1
+ },
+ {
+  "paper": "p040",
+  "primary_type": "evaluation",
+  "secondary_type": "empirical",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 1
+ },
+ {
+  "paper": "p041",
+  "primary_type": "model",
+  "secondary_type": "method",
+  "uncertain": true,
+  "rater": "B",
+  "batch": 1
+ },
+ {
+  "paper": "p042",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 1
+ },
+ {
+  "paper": "p043",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 1
+ },
+ {
+  "paper": "p044",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 1
+ },
+ {
+  "paper": "p045",
+  "primary_type": "dataset_benchmark",
+  "secondary_type": "empirical",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 1
+ },
+ {
+  "paper": "p046",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 1
+ },
+ {
+  "paper": "p047",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 1
+ },
+ {
+  "paper": "p048",
+  "primary_type": "empirical",
+  "secondary_type": "recipe",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 1
+ },
+ {
+  "paper": "p049",
+  "primary_type": "method",
+  "secondary_type": "evaluation",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 1
+ },
+ {
+  "paper": "p050",
+  "primary_type": "method",
+  "secondary_type": "application",
+  "uncertain": true,
+  "rater": "B",
+  "batch": 1
+ },
+ {
+  "paper": "p051",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 1
+ },
+ {
+  "paper": "p052",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": true,
+  "rater": "B",
+  "batch": 1
+ },
+ {
+  "paper": "p053",
+  "primary_type": "theory",
+  "secondary_type": "problem",
+  "uncertain": true,
+  "rater": "B",
+  "batch": 1
+ },
+ {
+  "paper": "p054",
+  "primary_type": "method",
+  "secondary_type": "empirical",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 1
+ },
+ {
+  "paper": "p055",
+  "primary_type": "model",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 1
+ },
+ {
+  "paper": "p056",
+  "primary_type": "method",
+  "secondary_type": "dataset_benchmark",
+  "uncertain": true,
+  "rater": "B",
+  "batch": 1
+ },
+ {
+  "paper": "p057",
+  "primary_type": "method",
+  "secondary_type": "theory",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 1
+ },
+ {
+  "paper": "p058",
+  "primary_type": "method",
+  "secondary_type": "theory",
+  "uncertain": true,
+  "rater": "B",
+  "batch": 1
+ },
+ {
+  "paper": "p059",
+  "primary_type": "method",
+  "secondary_type": "evaluation",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 1
+ },
+ {
+  "paper": "p060",
+  "primary_type": "dataset_benchmark",
+  "secondary_type": "problem",
+  "uncertain": true,
+  "rater": "B",
+  "batch": 1
+ },
+ {
+  "paper": "p061",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 1
+ },
+ {
+  "paper": "p062",
+  "primary_type": "model",
+  "secondary_type": "theory",
+  "uncertain": true,
+  "rater": "B",
+  "batch": 1
+ },
+ {
+  "paper": "p063",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": true,
+  "rater": "B",
+  "batch": 1
+ },
+ {
+  "paper": "p064",
+  "primary_type": "method",
+  "secondary_type": "theory",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 1
+ },
+ {
+  "paper": "p065",
+  "primary_type": "problem",
+  "secondary_type": "dataset_benchmark",
+  "uncertain": true,
+  "rater": "B",
+  "batch": 1
+ },
+ {
+  "paper": "p066",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 1
+ },
+ {
+  "paper": "p067",
+  "primary_type": "method",
+  "secondary_type": "theory",
+  "uncertain": true,
+  "rater": "B",
+  "batch": 1
+ },
+ {
+  "paper": "p068",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 1
+ },
+ {
+  "paper": "p069",
+  "primary_type": "theory",
+  "secondary_type": "method",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 1
+ },
+ {
+  "paper": "p070",
+  "primary_type": "method",
+  "secondary_type": "empirical",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 1
+ },
+ {
+  "paper": "p071",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 1
+ },
+ {
+  "paper": "p072",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 1
+ },
+ {
+  "paper": "p073",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 1
+ },
+ {
+  "paper": "p074",
+  "primary_type": "method",
+  "secondary_type": "theory",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 1
+ },
+ {
+  "paper": "p075",
+  "primary_type": "method",
+  "secondary_type": "theory",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 1
+ },
+ {
+  "paper": "p076",
+  "primary_type": "theory",
+  "secondary_type": "perspective",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 2
+ },
+ {
+  "paper": "p077",
+  "primary_type": "model",
+  "secondary_type": "none",
+  "uncertain": true,
+  "rater": "A",
+  "batch": 2
+ },
+ {
+  "paper": "p078",
+  "primary_type": "method",
+  "secondary_type": "theory",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 2
+ },
+ {
+  "paper": "p079",
+  "primary_type": "evaluation",
+  "secondary_type": "theory",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 2
+ },
+ {
+  "paper": "p080",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 2
+ },
+ {
+  "paper": "p081",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 2
+ },
+ {
+  "paper": "p082",
+  "primary_type": "problem",
+  "secondary_type": "method",
+  "uncertain": true,
+  "rater": "A",
+  "batch": 2
+ },
+ {
+  "paper": "p083",
+  "primary_type": "dataset_benchmark",
+  "secondary_type": "empirical",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 2
+ },
+ {
+  "paper": "p084",
+  "primary_type": "dataset_benchmark",
+  "secondary_type": "empirical",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 2
+ },
+ {
+  "paper": "p085",
+  "primary_type": "empirical",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 2
+ },
+ {
+  "paper": "p086",
+  "primary_type": "method",
+  "secondary_type": "empirical",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 2
+ },
+ {
+  "paper": "p087",
+  "primary_type": "method",
+  "secondary_type": "theory",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 2
+ },
+ {
+  "paper": "p088",
+  "primary_type": "theory",
+  "secondary_type": "perspective",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 2
+ },
+ {
+  "paper": "p089",
+  "primary_type": "model",
+  "secondary_type": "none",
+  "uncertain": true,
+  "rater": "A",
+  "batch": 2
+ },
+ {
+  "paper": "p090",
+  "primary_type": "model",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 2
+ },
+ {
+  "paper": "p091",
+  "primary_type": "method",
+  "secondary_type": "dataset_benchmark",
+  "uncertain": true,
+  "rater": "A",
+  "batch": 2
+ },
+ {
+  "paper": "p092",
+  "primary_type": "theory",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 2
+ },
+ {
+  "paper": "p093",
+  "primary_type": "method",
+  "secondary_type": "theory",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 2
+ },
+ {
+  "paper": "p094",
+  "primary_type": "model",
+  "secondary_type": "none",
+  "uncertain": true,
+  "rater": "A",
+  "batch": 2
+ },
+ {
+  "paper": "p095",
+  "primary_type": "model",
+  "secondary_type": "method",
+  "uncertain": true,
+  "rater": "A",
+  "batch": 2
+ },
+ {
+  "paper": "p096",
+  "primary_type": "evaluation",
+  "secondary_type": "empirical",
+  "uncertain": true,
+  "rater": "A",
+  "batch": 2
+ },
+ {
+  "paper": "p097",
+  "primary_type": "theory",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 2
+ },
+ {
+  "paper": "p098",
+  "primary_type": "perspective",
+  "secondary_type": "theory",
+  "uncertain": true,
+  "rater": "A",
+  "batch": 2
+ },
+ {
+  "paper": "p099",
+  "primary_type": "evaluation",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 2
+ },
+ {
+  "paper": "p100",
+  "primary_type": "method",
+  "secondary_type": "empirical",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 2
+ },
+ {
+  "paper": "p101",
+  "primary_type": "theory",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 2
+ },
+ {
+  "paper": "p102",
+  "primary_type": "model",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 2
+ },
+ {
+  "paper": "p103",
+  "primary_type": "dataset_benchmark",
+  "secondary_type": "empirical",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 2
+ },
+ {
+  "paper": "p104",
+  "primary_type": "model",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 2
+ },
+ {
+  "paper": "p105",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": true,
+  "rater": "A",
+  "batch": 2
+ },
+ {
+  "paper": "p106",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 2
+ },
+ {
+  "paper": "p107",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 2
+ },
+ {
+  "paper": "p108",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 2
+ },
+ {
+  "paper": "p109",
+  "primary_type": "model",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 2
+ },
+ {
+  "paper": "p110",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 2
+ },
+ {
+  "paper": "p111",
+  "primary_type": "theory",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 2
+ },
+ {
+  "paper": "p112",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 2
+ },
+ {
+  "paper": "p113",
+  "primary_type": "method",
+  "secondary_type": "problem",
+  "uncertain": true,
+  "rater": "A",
+  "batch": 2
+ },
+ {
+  "paper": "p114",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 2
+ },
+ {
+  "paper": "p115",
+  "primary_type": "empirical",
+  "secondary_type": "method",
+  "uncertain": true,
+  "rater": "A",
+  "batch": 2
+ },
+ {
+  "paper": "p116",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 2
+ },
+ {
+  "paper": "p117",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 2
+ },
+ {
+  "paper": "p118",
+  "primary_type": "method",
+  "secondary_type": "application",
+  "uncertain": true,
+  "rater": "A",
+  "batch": 2
+ },
+ {
+  "paper": "p119",
+  "primary_type": "method",
+  "secondary_type": "theory",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 2
+ },
+ {
+  "paper": "p120",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 2
+ },
+ {
+  "paper": "p121",
+  "primary_type": "empirical",
+  "secondary_type": "recipe",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 2
+ },
+ {
+  "paper": "p122",
+  "primary_type": "empirical",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 2
+ },
+ {
+  "paper": "p123",
+  "primary_type": "method",
+  "secondary_type": "empirical",
+  "uncertain": true,
+  "rater": "A",
+  "batch": 2
+ },
+ {
+  "paper": "p124",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 2
+ },
+ {
+  "paper": "p125",
+  "primary_type": "method",
+  "secondary_type": "empirical",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 2
+ },
+ {
+  "paper": "p126",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 2
+ },
+ {
+  "paper": "p127",
+  "primary_type": "evaluation",
+  "secondary_type": "empirical",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 2
+ },
+ {
+  "paper": "p128",
+  "primary_type": "model",
+  "secondary_type": "method",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 2
+ },
+ {
+  "paper": "p129",
+  "primary_type": "model",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 2
+ },
+ {
+  "paper": "p130",
+  "primary_type": "method",
+  "secondary_type": "dataset_benchmark",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 2
+ },
+ {
+  "paper": "p131",
+  "primary_type": "method",
+  "secondary_type": "theory",
+  "uncertain": true,
+  "rater": "A",
+  "batch": 2
+ },
+ {
+  "paper": "p132",
+  "primary_type": "dataset_benchmark",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 2
+ },
+ {
+  "paper": "p133",
+  "primary_type": "dataset_benchmark",
+  "secondary_type": "evaluation",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 2
+ },
+ {
+  "paper": "p134",
+  "primary_type": "model",
+  "secondary_type": "none",
+  "uncertain": true,
+  "rater": "A",
+  "batch": 2
+ },
+ {
+  "paper": "p135",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 2
+ },
+ {
+  "paper": "p136",
+  "primary_type": "model",
+  "secondary_type": "none",
+  "uncertain": true,
+  "rater": "A",
+  "batch": 2
+ },
+ {
+  "paper": "p137",
+  "primary_type": "method",
+  "secondary_type": "theory",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 2
+ },
+ {
+  "paper": "p138",
+  "primary_type": "method",
+  "secondary_type": "theory",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 2
+ },
+ {
+  "paper": "p139",
+  "primary_type": "dataset_benchmark",
+  "secondary_type": "empirical",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 2
+ },
+ {
+  "paper": "p140",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 2
+ },
+ {
+  "paper": "p141",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 2
+ },
+ {
+  "paper": "p142",
+  "primary_type": "dataset_benchmark",
+  "secondary_type": "evaluation",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 2
+ },
+ {
+  "paper": "p143",
+  "primary_type": "model",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 2
+ },
+ {
+  "paper": "p144",
+  "primary_type": "evaluation",
+  "secondary_type": "empirical",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 2
+ },
+ {
+  "paper": "p145",
+  "primary_type": "evaluation",
+  "secondary_type": "empirical",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 2
+ },
+ {
+  "paper": "p146",
+  "primary_type": "method",
+  "secondary_type": "evaluation",
+  "uncertain": true,
+  "rater": "A",
+  "batch": 2
+ },
+ {
+  "paper": "p147",
+  "primary_type": "method",
+  "secondary_type": "theory",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 2
+ },
+ {
+  "paper": "p148",
+  "primary_type": "method",
+  "secondary_type": "dataset_benchmark",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 2
+ },
+ {
+  "paper": "p149",
+  "primary_type": "method",
+  "secondary_type": "theory",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 2
+ },
+ {
+  "paper": "p150",
+  "primary_type": "theory",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 2
+ },
+ {
+  "paper": "p076",
+  "primary_type": "theory",
+  "secondary_type": "perspective",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 2
+ },
+ {
+  "paper": "p077",
+  "primary_type": "model",
+  "secondary_type": "none",
+  "uncertain": true,
+  "rater": "B",
+  "batch": 2
+ },
+ {
+  "paper": "p078",
+  "primary_type": "method",
+  "secondary_type": "theory",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 2
+ },
+ {
+  "paper": "p079",
+  "primary_type": "evaluation",
+  "secondary_type": "theory",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 2
+ },
+ {
+  "paper": "p080",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 2
+ },
+ {
+  "paper": "p081",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 2
+ },
+ {
+  "paper": "p082",
+  "primary_type": "problem",
+  "secondary_type": "method",
+  "uncertain": true,
+  "rater": "B",
+  "batch": 2
+ },
+ {
+  "paper": "p083",
+  "primary_type": "dataset_benchmark",
+  "secondary_type": "empirical",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 2
+ },
+ {
+  "paper": "p084",
+  "primary_type": "dataset_benchmark",
+  "secondary_type": "empirical",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 2
+ },
+ {
+  "paper": "p085",
+  "primary_type": "empirical",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 2
+ },
+ {
+  "paper": "p086",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 2
+ },
+ {
+  "paper": "p087",
+  "primary_type": "method",
+  "secondary_type": "theory",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 2
+ },
+ {
+  "paper": "p088",
+  "primary_type": "theory",
+  "secondary_type": "perspective",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 2
+ },
+ {
+  "paper": "p089",
+  "primary_type": "model",
+  "secondary_type": "none",
+  "uncertain": true,
+  "rater": "B",
+  "batch": 2
+ },
+ {
+  "paper": "p090",
+  "primary_type": "model",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 2
+ },
+ {
+  "paper": "p091",
+  "primary_type": "method",
+  "secondary_type": "dataset_benchmark",
+  "uncertain": true,
+  "rater": "B",
+  "batch": 2
+ },
+ {
+  "paper": "p092",
+  "primary_type": "theory",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 2
+ },
+ {
+  "paper": "p093",
+  "primary_type": "method",
+  "secondary_type": "theory",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 2
+ },
+ {
+  "paper": "p094",
+  "primary_type": "model",
+  "secondary_type": "none",
+  "uncertain": true,
+  "rater": "B",
+  "batch": 2
+ },
+ {
+  "paper": "p095",
+  "primary_type": "model",
+  "secondary_type": "method",
+  "uncertain": true,
+  "rater": "B",
+  "batch": 2
+ },
+ {
+  "paper": "p096",
+  "primary_type": "evaluation",
+  "secondary_type": "empirical",
+  "uncertain": true,
+  "rater": "B",
+  "batch": 2
+ },
+ {
+  "paper": "p097",
+  "primary_type": "theory",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 2
+ },
+ {
+  "paper": "p098",
+  "primary_type": "perspective",
+  "secondary_type": "theory",
+  "uncertain": true,
+  "rater": "B",
+  "batch": 2
+ },
+ {
+  "paper": "p099",
+  "primary_type": "evaluation",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 2
+ },
+ {
+  "paper": "p100",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 2
+ },
+ {
+  "paper": "p101",
+  "primary_type": "theory",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 2
+ },
+ {
+  "paper": "p102",
+  "primary_type": "model",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 2
+ },
+ {
+  "paper": "p103",
+  "primary_type": "dataset_benchmark",
+  "secondary_type": "empirical",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 2
+ },
+ {
+  "paper": "p104",
+  "primary_type": "model",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 2
+ },
+ {
+  "paper": "p105",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": true,
+  "rater": "B",
+  "batch": 2
+ },
+ {
+  "paper": "p106",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 2
+ },
+ {
+  "paper": "p107",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 2
+ },
+ {
+  "paper": "p108",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 2
+ },
+ {
+  "paper": "p109",
+  "primary_type": "model",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 2
+ },
+ {
+  "paper": "p110",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 2
+ },
+ {
+  "paper": "p111",
+  "primary_type": "theory",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 2
+ },
+ {
+  "paper": "p112",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 2
+ },
+ {
+  "paper": "p113",
+  "primary_type": "method",
+  "secondary_type": "problem",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 2
+ },
+ {
+  "paper": "p114",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 2
+ },
+ {
+  "paper": "p115",
+  "primary_type": "empirical",
+  "secondary_type": "method",
+  "uncertain": true,
+  "rater": "B",
+  "batch": 2
+ },
+ {
+  "paper": "p116",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 2
+ },
+ {
+  "paper": "p117",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 2
+ },
+ {
+  "paper": "p118",
+  "primary_type": "method",
+  "secondary_type": "application",
+  "uncertain": true,
+  "rater": "B",
+  "batch": 2
+ },
+ {
+  "paper": "p119",
+  "primary_type": "method",
+  "secondary_type": "theory",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 2
+ },
+ {
+  "paper": "p120",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 2
+ },
+ {
+  "paper": "p121",
+  "primary_type": "empirical",
+  "secondary_type": "recipe",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 2
+ },
+ {
+  "paper": "p122",
+  "primary_type": "empirical",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 2
+ },
+ {
+  "paper": "p123",
+  "primary_type": "empirical",
+  "secondary_type": "method",
+  "uncertain": true,
+  "rater": "B",
+  "batch": 2
+ },
+ {
+  "paper": "p124",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 2
+ },
+ {
+  "paper": "p125",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 2
+ },
+ {
+  "paper": "p126",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 2
+ },
+ {
+  "paper": "p127",
+  "primary_type": "evaluation",
+  "secondary_type": "empirical",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 2
+ },
+ {
+  "paper": "p128",
+  "primary_type": "model",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 2
+ },
+ {
+  "paper": "p129",
+  "primary_type": "model",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 2
+ },
+ {
+  "paper": "p130",
+  "primary_type": "method",
+  "secondary_type": "dataset_benchmark",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 2
+ },
+ {
+  "paper": "p131",
+  "primary_type": "method",
+  "secondary_type": "theory",
+  "uncertain": true,
+  "rater": "B",
+  "batch": 2
+ },
+ {
+  "paper": "p132",
+  "primary_type": "dataset_benchmark",
+  "secondary_type": "evaluation",
+  "uncertain": true,
+  "rater": "B",
+  "batch": 2
+ },
+ {
+  "paper": "p133",
+  "primary_type": "dataset_benchmark",
+  "secondary_type": "evaluation",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 2
+ },
+ {
+  "paper": "p134",
+  "primary_type": "model",
+  "secondary_type": "none",
+  "uncertain": true,
+  "rater": "B",
+  "batch": 2
+ },
+ {
+  "paper": "p135",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 2
+ },
+ {
+  "paper": "p136",
+  "primary_type": "model",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 2
+ },
+ {
+  "paper": "p137",
+  "primary_type": "method",
+  "secondary_type": "theory",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 2
+ },
+ {
+  "paper": "p138",
+  "primary_type": "method",
+  "secondary_type": "theory",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 2
+ },
+ {
+  "paper": "p139",
+  "primary_type": "dataset_benchmark",
+  "secondary_type": "empirical",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 2
+ },
+ {
+  "paper": "p140",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 2
+ },
+ {
+  "paper": "p141",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 2
+ },
+ {
+  "paper": "p142",
+  "primary_type": "dataset_benchmark",
+  "secondary_type": "evaluation",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 2
+ },
+ {
+  "paper": "p143",
+  "primary_type": "model",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 2
+ },
+ {
+  "paper": "p144",
+  "primary_type": "evaluation",
+  "secondary_type": "empirical",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 2
+ },
+ {
+  "paper": "p145",
+  "primary_type": "evaluation",
+  "secondary_type": "empirical",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 2
+ },
+ {
+  "paper": "p146",
+  "primary_type": "method",
+  "secondary_type": "theory",
+  "uncertain": true,
+  "rater": "B",
+  "batch": 2
+ },
+ {
+  "paper": "p147",
+  "primary_type": "method",
+  "secondary_type": "theory",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 2
+ },
+ {
+  "paper": "p148",
+  "primary_type": "method",
+  "secondary_type": "dataset_benchmark",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 2
+ },
+ {
+  "paper": "p149",
+  "primary_type": "method",
+  "secondary_type": "theory",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 2
+ },
+ {
+  "paper": "p150",
+  "primary_type": "theory",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 2
+ },
+ {
+  "paper": "p151",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 3
+ },
+ {
+  "paper": "p152",
+  "primary_type": "method",
+  "secondary_type": "empirical",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 3
+ },
+ {
+  "paper": "p153",
+  "primary_type": "method",
+  "secondary_type": "dataset_benchmark",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 3
+ },
+ {
+  "paper": "p154",
+  "primary_type": "model",
+  "secondary_type": "none",
+  "uncertain": true,
+  "rater": "A",
+  "batch": 3
+ },
+ {
+  "paper": "p155",
+  "primary_type": "empirical",
+  "secondary_type": "model",
+  "uncertain": true,
+  "rater": "A",
+  "batch": 3
+ },
+ {
+  "paper": "p156",
+  "primary_type": "theory",
+  "secondary_type": "method",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 3
+ },
+ {
+  "paper": "p157",
+  "primary_type": "method",
+  "secondary_type": "empirical",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 3
+ },
+ {
+  "paper": "p158",
+  "primary_type": "model",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 3
+ },
+ {
+  "paper": "p159",
+  "primary_type": "empirical",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 3
+ },
+ {
+  "paper": "p160",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 3
+ },
+ {
+  "paper": "p161",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 3
+ },
+ {
+  "paper": "p162",
+  "primary_type": "method",
+  "secondary_type": "model",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 3
+ },
+ {
+  "paper": "p163",
+  "primary_type": "model",
+  "secondary_type": "none",
+  "uncertain": true,
+  "rater": "A",
+  "batch": 3
+ },
+ {
+  "paper": "p164",
+  "primary_type": "empirical",
+  "secondary_type": "model",
+  "uncertain": true,
+  "rater": "A",
+  "batch": 3
+ },
+ {
+  "paper": "p165",
+  "primary_type": "method",
+  "secondary_type": "dataset_benchmark",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 3
+ },
+ {
+  "paper": "p166",
+  "primary_type": "system",
+  "secondary_type": "application",
+  "uncertain": true,
+  "rater": "A",
+  "batch": 3
+ },
+ {
+  "paper": "p167",
+  "primary_type": "dataset_benchmark",
+  "secondary_type": "evaluation",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 3
+ },
+ {
+  "paper": "p168",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 3
+ },
+ {
+  "paper": "p169",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 3
+ },
+ {
+  "paper": "p170",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 3
+ },
+ {
+  "paper": "p171",
+  "primary_type": "method",
+  "secondary_type": "dataset_benchmark",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 3
+ },
+ {
+  "paper": "p172",
+  "primary_type": "empirical",
+  "secondary_type": "dataset_benchmark",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 3
+ },
+ {
+  "paper": "p173",
+  "primary_type": "theory",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 3
+ },
+ {
+  "paper": "p174",
+  "primary_type": "method",
+  "secondary_type": "empirical",
+  "uncertain": true,
+  "rater": "A",
+  "batch": 3
+ },
+ {
+  "paper": "p175",
+  "primary_type": "method",
+  "secondary_type": "empirical",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 3
+ },
+ {
+  "paper": "p176",
+  "primary_type": "model",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 3
+ },
+ {
+  "paper": "p177",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": true,
+  "rater": "A",
+  "batch": 3
+ },
+ {
+  "paper": "p178",
+  "primary_type": "empirical",
+  "secondary_type": "method",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 3
+ },
+ {
+  "paper": "p179",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": true,
+  "rater": "A",
+  "batch": 3
+ },
+ {
+  "paper": "p180",
+  "primary_type": "method",
+  "secondary_type": "theory",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 3
+ },
+ {
+  "paper": "p181",
+  "primary_type": "model",
+  "secondary_type": "method",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 3
+ },
+ {
+  "paper": "p182",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 3
+ },
+ {
+  "paper": "p183",
+  "primary_type": "dataset_benchmark",
+  "secondary_type": "evaluation",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 3
+ },
+ {
+  "paper": "p184",
+  "primary_type": "method",
+  "secondary_type": "theory",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 3
+ },
+ {
+  "paper": "p185",
+  "primary_type": "theory",
+  "secondary_type": "recipe",
+  "uncertain": true,
+  "rater": "A",
+  "batch": 3
+ },
+ {
+  "paper": "p186",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 3
+ },
+ {
+  "paper": "p187",
+  "primary_type": "method",
+  "secondary_type": "theory",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 3
+ },
+ {
+  "paper": "p188",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 3
+ },
+ {
+  "paper": "p189",
+  "primary_type": "method",
+  "secondary_type": "dataset_benchmark",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 3
+ },
+ {
+  "paper": "p190",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 3
+ },
+ {
+  "paper": "p191",
+  "primary_type": "method",
+  "secondary_type": "theory",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 3
+ },
+ {
+  "paper": "p192",
+  "primary_type": "method",
+  "secondary_type": "dataset_benchmark",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 3
+ },
+ {
+  "paper": "p193",
+  "primary_type": "model",
+  "secondary_type": "none",
+  "uncertain": true,
+  "rater": "A",
+  "batch": 3
+ },
+ {
+  "paper": "p194",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": true,
+  "rater": "A",
+  "batch": 3
+ },
+ {
+  "paper": "p195",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 3
+ },
+ {
+  "paper": "p196",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 3
+ },
+ {
+  "paper": "p197",
+  "primary_type": "method",
+  "secondary_type": "theory",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 3
+ },
+ {
+  "paper": "p198",
+  "primary_type": "model",
+  "secondary_type": "theory",
+  "uncertain": true,
+  "rater": "A",
+  "batch": 3
+ },
+ {
+  "paper": "p199",
+  "primary_type": "empirical",
+  "secondary_type": "dataset_benchmark",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 3
+ },
+ {
+  "paper": "p200",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": true,
+  "rater": "A",
+  "batch": 3
+ },
+ {
+  "paper": "p201",
+  "primary_type": "empirical",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 3
+ },
+ {
+  "paper": "p202",
+  "primary_type": "dataset_benchmark",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 3
+ },
+ {
+  "paper": "p203",
+  "primary_type": "model",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 3
+ },
+ {
+  "paper": "p204",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 3
+ },
+ {
+  "paper": "p205",
+  "primary_type": "model",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 3
+ },
+ {
+  "paper": "p206",
+  "primary_type": "dataset_benchmark",
+  "secondary_type": "empirical",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 3
+ },
+ {
+  "paper": "p207",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 3
+ },
+ {
+  "paper": "p208",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": true,
+  "rater": "A",
+  "batch": 3
+ },
+ {
+  "paper": "p209",
+  "primary_type": "evaluation",
+  "secondary_type": "dataset_benchmark",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 3
+ },
+ {
+  "paper": "p210",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 3
+ },
+ {
+  "paper": "p211",
+  "primary_type": "method",
+  "secondary_type": "problem",
+  "uncertain": true,
+  "rater": "A",
+  "batch": 3
+ },
+ {
+  "paper": "p212",
+  "primary_type": "theory",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 3
+ },
+ {
+  "paper": "p213",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": true,
+  "rater": "A",
+  "batch": 3
+ },
+ {
+  "paper": "p214",
+  "primary_type": "method",
+  "secondary_type": "theory",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 3
+ },
+ {
+  "paper": "p215",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 3
+ },
+ {
+  "paper": "p216",
+  "primary_type": "method",
+  "secondary_type": "dataset_benchmark",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 3
+ },
+ {
+  "paper": "p217",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": true,
+  "rater": "A",
+  "batch": 3
+ },
+ {
+  "paper": "p218",
+  "primary_type": "model",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 3
+ },
+ {
+  "paper": "p219",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 3
+ },
+ {
+  "paper": "p220",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 3
+ },
+ {
+  "paper": "p221",
+  "primary_type": "theory",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 3
+ },
+ {
+  "paper": "p222",
+  "primary_type": "model",
+  "secondary_type": "theory",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 3
+ },
+ {
+  "paper": "p223",
+  "primary_type": "theory",
+  "secondary_type": "problem",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 3
+ },
+ {
+  "paper": "p224",
+  "primary_type": "method",
+  "secondary_type": "theory",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 3
+ },
+ {
+  "paper": "p225",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": true,
+  "rater": "A",
+  "batch": 3
+ },
+ {
+  "paper": "p151",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 3
+ },
+ {
+  "paper": "p152",
+  "primary_type": "method",
+  "secondary_type": "empirical",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 3
+ },
+ {
+  "paper": "p153",
+  "primary_type": "method",
+  "secondary_type": "dataset_benchmark",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 3
+ },
+ {
+  "paper": "p154",
+  "primary_type": "model",
+  "secondary_type": "none",
+  "uncertain": true,
+  "rater": "B",
+  "batch": 3
+ },
+ {
+  "paper": "p155",
+  "primary_type": "perspective",
+  "secondary_type": "model",
+  "uncertain": true,
+  "rater": "B",
+  "batch": 3
+ },
+ {
+  "paper": "p156",
+  "primary_type": "theory",
+  "secondary_type": "method",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 3
+ },
+ {
+  "paper": "p157",
+  "primary_type": "method",
+  "secondary_type": "empirical",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 3
+ },
+ {
+  "paper": "p158",
+  "primary_type": "model",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 3
+ },
+ {
+  "paper": "p159",
+  "primary_type": "empirical",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 3
+ },
+ {
+  "paper": "p160",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 3
+ },
+ {
+  "paper": "p161",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 3
+ },
+ {
+  "paper": "p162",
+  "primary_type": "method",
+  "secondary_type": "model",
+  "uncertain": true,
+  "rater": "B",
+  "batch": 3
+ },
+ {
+  "paper": "p163",
+  "primary_type": "model",
+  "secondary_type": "none",
+  "uncertain": true,
+  "rater": "B",
+  "batch": 3
+ },
+ {
+  "paper": "p164",
+  "primary_type": "empirical",
+  "secondary_type": "model",
+  "uncertain": true,
+  "rater": "B",
+  "batch": 3
+ },
+ {
+  "paper": "p165",
+  "primary_type": "method",
+  "secondary_type": "dataset_benchmark",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 3
+ },
+ {
+  "paper": "p166",
+  "primary_type": "application",
+  "secondary_type": "system",
+  "uncertain": true,
+  "rater": "B",
+  "batch": 3
+ },
+ {
+  "paper": "p167",
+  "primary_type": "dataset_benchmark",
+  "secondary_type": "evaluation",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 3
+ },
+ {
+  "paper": "p168",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 3
+ },
+ {
+  "paper": "p169",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 3
+ },
+ {
+  "paper": "p170",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 3
+ },
+ {
+  "paper": "p171",
+  "primary_type": "method",
+  "secondary_type": "dataset_benchmark",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 3
+ },
+ {
+  "paper": "p172",
+  "primary_type": "empirical",
+  "secondary_type": "dataset_benchmark",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 3
+ },
+ {
+  "paper": "p173",
+  "primary_type": "theory",
+  "secondary_type": "perspective",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 3
+ },
+ {
+  "paper": "p174",
+  "primary_type": "method",
+  "secondary_type": "empirical",
+  "uncertain": true,
+  "rater": "B",
+  "batch": 3
+ },
+ {
+  "paper": "p175",
+  "primary_type": "method",
+  "secondary_type": "empirical",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 3
+ },
+ {
+  "paper": "p176",
+  "primary_type": "model",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 3
+ },
+ {
+  "paper": "p177",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": true,
+  "rater": "B",
+  "batch": 3
+ },
+ {
+  "paper": "p178",
+  "primary_type": "empirical",
+  "secondary_type": "method",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 3
+ },
+ {
+  "paper": "p179",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": true,
+  "rater": "B",
+  "batch": 3
+ },
+ {
+  "paper": "p180",
+  "primary_type": "method",
+  "secondary_type": "theory",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 3
+ },
+ {
+  "paper": "p181",
+  "primary_type": "model",
+  "secondary_type": "method",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 3
+ },
+ {
+  "paper": "p182",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 3
+ },
+ {
+  "paper": "p183",
+  "primary_type": "dataset_benchmark",
+  "secondary_type": "evaluation",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 3
+ },
+ {
+  "paper": "p184",
+  "primary_type": "method",
+  "secondary_type": "theory",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 3
+ },
+ {
+  "paper": "p185",
+  "primary_type": "theory",
+  "secondary_type": "recipe",
+  "uncertain": true,
+  "rater": "B",
+  "batch": 3
+ },
+ {
+  "paper": "p186",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 3
+ },
+ {
+  "paper": "p187",
+  "primary_type": "method",
+  "secondary_type": "theory",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 3
+ },
+ {
+  "paper": "p188",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 3
+ },
+ {
+  "paper": "p189",
+  "primary_type": "method",
+  "secondary_type": "dataset_benchmark",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 3
+ },
+ {
+  "paper": "p190",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 3
+ },
+ {
+  "paper": "p191",
+  "primary_type": "method",
+  "secondary_type": "theory",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 3
+ },
+ {
+  "paper": "p192",
+  "primary_type": "method",
+  "secondary_type": "dataset_benchmark",
+  "uncertain": true,
+  "rater": "B",
+  "batch": 3
+ },
+ {
+  "paper": "p193",
+  "primary_type": "model",
+  "secondary_type": "none",
+  "uncertain": true,
+  "rater": "B",
+  "batch": 3
+ },
+ {
+  "paper": "p194",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": true,
+  "rater": "B",
+  "batch": 3
+ },
+ {
+  "paper": "p195",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 3
+ },
+ {
+  "paper": "p196",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 3
+ },
+ {
+  "paper": "p197",
+  "primary_type": "method",
+  "secondary_type": "theory",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 3
+ },
+ {
+  "paper": "p198",
+  "primary_type": "method",
+  "secondary_type": "theory",
+  "uncertain": true,
+  "rater": "B",
+  "batch": 3
+ },
+ {
+  "paper": "p199",
+  "primary_type": "empirical",
+  "secondary_type": "method",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 3
+ },
+ {
+  "paper": "p200",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": true,
+  "rater": "B",
+  "batch": 3
+ },
+ {
+  "paper": "p201",
+  "primary_type": "empirical",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 3
+ },
+ {
+  "paper": "p202",
+  "primary_type": "dataset_benchmark",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 3
+ },
+ {
+  "paper": "p203",
+  "primary_type": "model",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 3
+ },
+ {
+  "paper": "p204",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 3
+ },
+ {
+  "paper": "p205",
+  "primary_type": "model",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 3
+ },
+ {
+  "paper": "p206",
+  "primary_type": "dataset_benchmark",
+  "secondary_type": "empirical",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 3
+ },
+ {
+  "paper": "p207",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 3
+ },
+ {
+  "paper": "p208",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": true,
+  "rater": "B",
+  "batch": 3
+ },
+ {
+  "paper": "p209",
+  "primary_type": "evaluation",
+  "secondary_type": "dataset_benchmark",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 3
+ },
+ {
+  "paper": "p210",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 3
+ },
+ {
+  "paper": "p211",
+  "primary_type": "method",
+  "secondary_type": "problem",
+  "uncertain": true,
+  "rater": "B",
+  "batch": 3
+ },
+ {
+  "paper": "p212",
+  "primary_type": "theory",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 3
+ },
+ {
+  "paper": "p213",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 3
+ },
+ {
+  "paper": "p214",
+  "primary_type": "method",
+  "secondary_type": "theory",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 3
+ },
+ {
+  "paper": "p215",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 3
+ },
+ {
+  "paper": "p216",
+  "primary_type": "method",
+  "secondary_type": "dataset_benchmark",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 3
+ },
+ {
+  "paper": "p217",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": true,
+  "rater": "B",
+  "batch": 3
+ },
+ {
+  "paper": "p218",
+  "primary_type": "model",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 3
+ },
+ {
+  "paper": "p219",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 3
+ },
+ {
+  "paper": "p220",
+  "primary_type": "method",
+  "secondary_type": "empirical",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 3
+ },
+ {
+  "paper": "p221",
+  "primary_type": "theory",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 3
+ },
+ {
+  "paper": "p222",
+  "primary_type": "model",
+  "secondary_type": "theory",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 3
+ },
+ {
+  "paper": "p223",
+  "primary_type": "theory",
+  "secondary_type": "problem",
+  "uncertain": true,
+  "rater": "B",
+  "batch": 3
+ },
+ {
+  "paper": "p224",
+  "primary_type": "method",
+  "secondary_type": "theory",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 3
+ },
+ {
+  "paper": "p225",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": true,
+  "rater": "B",
+  "batch": 3
+ },
+ {
+  "paper": "p226",
+  "primary_type": "method",
+  "secondary_type": "empirical",
+  "uncertain": true,
+  "rater": "A",
+  "batch": 4
+ },
+ {
+  "paper": "p227",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 4
+ },
+ {
+  "paper": "p228",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 4
+ },
+ {
+  "paper": "p229",
+  "primary_type": "model",
+  "secondary_type": "none",
+  "uncertain": true,
+  "rater": "A",
+  "batch": 4
+ },
+ {
+  "paper": "p230",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 4
+ },
+ {
+  "paper": "p231",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 4
+ },
+ {
+  "paper": "p232",
+  "primary_type": "theory",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 4
+ },
+ {
+  "paper": "p233",
+  "primary_type": "dataset_benchmark",
+  "secondary_type": "method",
+  "uncertain": true,
+  "rater": "A",
+  "batch": 4
+ },
+ {
+  "paper": "p234",
+  "primary_type": "model",
+  "secondary_type": "none",
+  "uncertain": true,
+  "rater": "A",
+  "batch": 4
+ },
+ {
+  "paper": "p235",
+  "primary_type": "method",
+  "secondary_type": "dataset_benchmark",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 4
+ },
+ {
+  "paper": "p236",
+  "primary_type": "theory",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 4
+ },
+ {
+  "paper": "p237",
+  "primary_type": "problem",
+  "secondary_type": "method",
+  "uncertain": true,
+  "rater": "A",
+  "batch": 4
+ },
+ {
+  "paper": "p238",
+  "primary_type": "theory",
+  "secondary_type": "method",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 4
+ },
+ {
+  "paper": "p239",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 4
+ },
+ {
+  "paper": "p240",
+  "primary_type": "theory",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 4
+ },
+ {
+  "paper": "p241",
+  "primary_type": "dataset_benchmark",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 4
+ },
+ {
+  "paper": "p242",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 4
+ },
+ {
+  "paper": "p243",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": true,
+  "rater": "A",
+  "batch": 4
+ },
+ {
+  "paper": "p244",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 4
+ },
+ {
+  "paper": "p245",
+  "primary_type": "method",
+  "secondary_type": "theory",
+  "uncertain": true,
+  "rater": "A",
+  "batch": 4
+ },
+ {
+  "paper": "p246",
+  "primary_type": "dataset_benchmark",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 4
+ },
+ {
+  "paper": "p247",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": true,
+  "rater": "A",
+  "batch": 4
+ },
+ {
+  "paper": "p248",
+  "primary_type": "model",
+  "secondary_type": "none",
+  "uncertain": true,
+  "rater": "A",
+  "batch": 4
+ },
+ {
+  "paper": "p249",
+  "primary_type": "theory",
+  "secondary_type": "method",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 4
+ },
+ {
+  "paper": "p250",
+  "primary_type": "method",
+  "secondary_type": "theory",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 4
+ },
+ {
+  "paper": "p251",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 4
+ },
+ {
+  "paper": "p252",
+  "primary_type": "model",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 4
+ },
+ {
+  "paper": "p253",
+  "primary_type": "empirical",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 4
+ },
+ {
+  "paper": "p254",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 4
+ },
+ {
+  "paper": "p255",
+  "primary_type": "system",
+  "secondary_type": "method",
+  "uncertain": true,
+  "rater": "A",
+  "batch": 4
+ },
+ {
+  "paper": "p256",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 4
+ },
+ {
+  "paper": "p257",
+  "primary_type": "method",
+  "secondary_type": "theory",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 4
+ },
+ {
+  "paper": "p258",
+  "primary_type": "model",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 4
+ },
+ {
+  "paper": "p259",
+  "primary_type": "method",
+  "secondary_type": "dataset_benchmark",
+  "uncertain": true,
+  "rater": "A",
+  "batch": 4
+ },
+ {
+  "paper": "p260",
+  "primary_type": "model",
+  "secondary_type": "none",
+  "uncertain": true,
+  "rater": "A",
+  "batch": 4
+ },
+ {
+  "paper": "p261",
+  "primary_type": "method",
+  "secondary_type": "perspective",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 4
+ },
+ {
+  "paper": "p262",
+  "primary_type": "method",
+  "secondary_type": "empirical",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 4
+ },
+ {
+  "paper": "p263",
+  "primary_type": "empirical",
+  "secondary_type": "theory",
+  "uncertain": true,
+  "rater": "A",
+  "batch": 4
+ },
+ {
+  "paper": "p264",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 4
+ },
+ {
+  "paper": "p265",
+  "primary_type": "problem",
+  "secondary_type": "method",
+  "uncertain": true,
+  "rater": "A",
+  "batch": 4
+ },
+ {
+  "paper": "p266",
+  "primary_type": "method",
+  "secondary_type": "theory",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 4
+ },
+ {
+  "paper": "p267",
+  "primary_type": "method",
+  "secondary_type": "empirical",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 4
+ },
+ {
+  "paper": "p268",
+  "primary_type": "model",
+  "secondary_type": "none",
+  "uncertain": true,
+  "rater": "A",
+  "batch": 4
+ },
+ {
+  "paper": "p269",
+  "primary_type": "method",
+  "secondary_type": "dataset_benchmark",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 4
+ },
+ {
+  "paper": "p270",
+  "primary_type": "model",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 4
+ },
+ {
+  "paper": "p271",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": true,
+  "rater": "A",
+  "batch": 4
+ },
+ {
+  "paper": "p272",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 4
+ },
+ {
+  "paper": "p273",
+  "primary_type": "model",
+  "secondary_type": "none",
+  "uncertain": true,
+  "rater": "A",
+  "batch": 4
+ },
+ {
+  "paper": "p274",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 4
+ },
+ {
+  "paper": "p275",
+  "primary_type": "dataset_benchmark",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 4
+ },
+ {
+  "paper": "p276",
+  "primary_type": "empirical",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 4
+ },
+ {
+  "paper": "p277",
+  "primary_type": "model",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 4
+ },
+ {
+  "paper": "p278",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 4
+ },
+ {
+  "paper": "p279",
+  "primary_type": "method",
+  "secondary_type": "application",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 4
+ },
+ {
+  "paper": "p280",
+  "primary_type": "method",
+  "secondary_type": "empirical",
+  "uncertain": true,
+  "rater": "A",
+  "batch": 4
+ },
+ {
+  "paper": "p281",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 4
+ },
+ {
+  "paper": "p282",
+  "primary_type": "model",
+  "secondary_type": "theory",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 4
+ },
+ {
+  "paper": "p283",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 4
+ },
+ {
+  "paper": "p284",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 4
+ },
+ {
+  "paper": "p285",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 4
+ },
+ {
+  "paper": "p286",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 4
+ },
+ {
+  "paper": "p287",
+  "primary_type": "model",
+  "secondary_type": "none",
+  "uncertain": true,
+  "rater": "A",
+  "batch": 4
+ },
+ {
+  "paper": "p288",
+  "primary_type": "method",
+  "secondary_type": "empirical",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 4
+ },
+ {
+  "paper": "p289",
+  "primary_type": "model",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 4
+ },
+ {
+  "paper": "p290",
+  "primary_type": "method",
+  "secondary_type": "empirical",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 4
+ },
+ {
+  "paper": "p291",
+  "primary_type": "theory",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 4
+ },
+ {
+  "paper": "p292",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 4
+ },
+ {
+  "paper": "p293",
+  "primary_type": "method",
+  "secondary_type": "theory",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 4
+ },
+ {
+  "paper": "p294",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 4
+ },
+ {
+  "paper": "p295",
+  "primary_type": "model",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 4
+ },
+ {
+  "paper": "p296",
+  "primary_type": "method",
+  "secondary_type": "theory",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 4
+ },
+ {
+  "paper": "p297",
+  "primary_type": "method",
+  "secondary_type": "theory",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 4
+ },
+ {
+  "paper": "p298",
+  "primary_type": "method",
+  "secondary_type": "system",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 4
+ },
+ {
+  "paper": "p299",
+  "primary_type": "model",
+  "secondary_type": "dataset_benchmark",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 4
+ },
+ {
+  "paper": "p300",
+  "primary_type": "dataset_benchmark",
+  "secondary_type": "evaluation",
+  "uncertain": false,
+  "rater": "A",
+  "batch": 4
+ },
+ {
+  "paper": "p226",
+  "primary_type": "method",
+  "secondary_type": "empirical",
+  "uncertain": true,
+  "rater": "B",
+  "batch": 4
+ },
+ {
+  "paper": "p227",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 4
+ },
+ {
+  "paper": "p228",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 4
+ },
+ {
+  "paper": "p229",
+  "primary_type": "model",
+  "secondary_type": "none",
+  "uncertain": true,
+  "rater": "B",
+  "batch": 4
+ },
+ {
+  "paper": "p230",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 4
+ },
+ {
+  "paper": "p231",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 4
+ },
+ {
+  "paper": "p232",
+  "primary_type": "theory",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 4
+ },
+ {
+  "paper": "p233",
+  "primary_type": "dataset_benchmark",
+  "secondary_type": "method",
+  "uncertain": true,
+  "rater": "B",
+  "batch": 4
+ },
+ {
+  "paper": "p234",
+  "primary_type": "model",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 4
+ },
+ {
+  "paper": "p235",
+  "primary_type": "method",
+  "secondary_type": "dataset_benchmark",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 4
+ },
+ {
+  "paper": "p236",
+  "primary_type": "theory",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 4
+ },
+ {
+  "paper": "p237",
+  "primary_type": "problem",
+  "secondary_type": "method",
+  "uncertain": true,
+  "rater": "B",
+  "batch": 4
+ },
+ {
+  "paper": "p238",
+  "primary_type": "theory",
+  "secondary_type": "method",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 4
+ },
+ {
+  "paper": "p239",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 4
+ },
+ {
+  "paper": "p240",
+  "primary_type": "theory",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 4
+ },
+ {
+  "paper": "p241",
+  "primary_type": "dataset_benchmark",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 4
+ },
+ {
+  "paper": "p242",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 4
+ },
+ {
+  "paper": "p243",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": true,
+  "rater": "B",
+  "batch": 4
+ },
+ {
+  "paper": "p244",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 4
+ },
+ {
+  "paper": "p245",
+  "primary_type": "method",
+  "secondary_type": "empirical",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 4
+ },
+ {
+  "paper": "p246",
+  "primary_type": "dataset_benchmark",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 4
+ },
+ {
+  "paper": "p247",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": true,
+  "rater": "B",
+  "batch": 4
+ },
+ {
+  "paper": "p248",
+  "primary_type": "model",
+  "secondary_type": "none",
+  "uncertain": true,
+  "rater": "B",
+  "batch": 4
+ },
+ {
+  "paper": "p249",
+  "primary_type": "theory",
+  "secondary_type": "method",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 4
+ },
+ {
+  "paper": "p250",
+  "primary_type": "method",
+  "secondary_type": "theory",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 4
+ },
+ {
+  "paper": "p251",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 4
+ },
+ {
+  "paper": "p252",
+  "primary_type": "model",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 4
+ },
+ {
+  "paper": "p253",
+  "primary_type": "empirical",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 4
+ },
+ {
+  "paper": "p254",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 4
+ },
+ {
+  "paper": "p255",
+  "primary_type": "method",
+  "secondary_type": "system",
+  "uncertain": true,
+  "rater": "B",
+  "batch": 4
+ },
+ {
+  "paper": "p256",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 4
+ },
+ {
+  "paper": "p257",
+  "primary_type": "method",
+  "secondary_type": "theory",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 4
+ },
+ {
+  "paper": "p258",
+  "primary_type": "model",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 4
+ },
+ {
+  "paper": "p259",
+  "primary_type": "method",
+  "secondary_type": "dataset_benchmark",
+  "uncertain": true,
+  "rater": "B",
+  "batch": 4
+ },
+ {
+  "paper": "p260",
+  "primary_type": "model",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 4
+ },
+ {
+  "paper": "p261",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 4
+ },
+ {
+  "paper": "p262",
+  "primary_type": "method",
+  "secondary_type": "empirical",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 4
+ },
+ {
+  "paper": "p263",
+  "primary_type": "empirical",
+  "secondary_type": "theory",
+  "uncertain": true,
+  "rater": "B",
+  "batch": 4
+ },
+ {
+  "paper": "p264",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 4
+ },
+ {
+  "paper": "p265",
+  "primary_type": "problem",
+  "secondary_type": "method",
+  "uncertain": true,
+  "rater": "B",
+  "batch": 4
+ },
+ {
+  "paper": "p266",
+  "primary_type": "method",
+  "secondary_type": "theory",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 4
+ },
+ {
+  "paper": "p267",
+  "primary_type": "method",
+  "secondary_type": "empirical",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 4
+ },
+ {
+  "paper": "p268",
+  "primary_type": "model",
+  "secondary_type": "none",
+  "uncertain": true,
+  "rater": "B",
+  "batch": 4
+ },
+ {
+  "paper": "p269",
+  "primary_type": "method",
+  "secondary_type": "dataset_benchmark",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 4
+ },
+ {
+  "paper": "p270",
+  "primary_type": "model",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 4
+ },
+ {
+  "paper": "p271",
+  "primary_type": "model",
+  "secondary_type": "none",
+  "uncertain": true,
+  "rater": "B",
+  "batch": 4
+ },
+ {
+  "paper": "p272",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 4
+ },
+ {
+  "paper": "p273",
+  "primary_type": "model",
+  "secondary_type": "none",
+  "uncertain": true,
+  "rater": "B",
+  "batch": 4
+ },
+ {
+  "paper": "p274",
+  "primary_type": "method",
+  "secondary_type": "empirical",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 4
+ },
+ {
+  "paper": "p275",
+  "primary_type": "dataset_benchmark",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 4
+ },
+ {
+  "paper": "p276",
+  "primary_type": "empirical",
+  "secondary_type": "recipe",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 4
+ },
+ {
+  "paper": "p277",
+  "primary_type": "model",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 4
+ },
+ {
+  "paper": "p278",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 4
+ },
+ {
+  "paper": "p279",
+  "primary_type": "method",
+  "secondary_type": "application",
+  "uncertain": true,
+  "rater": "B",
+  "batch": 4
+ },
+ {
+  "paper": "p280",
+  "primary_type": "empirical",
+  "secondary_type": "method",
+  "uncertain": true,
+  "rater": "B",
+  "batch": 4
+ },
+ {
+  "paper": "p281",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 4
+ },
+ {
+  "paper": "p282",
+  "primary_type": "model",
+  "secondary_type": "theory",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 4
+ },
+ {
+  "paper": "p283",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 4
+ },
+ {
+  "paper": "p284",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 4
+ },
+ {
+  "paper": "p285",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 4
+ },
+ {
+  "paper": "p286",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 4
+ },
+ {
+  "paper": "p287",
+  "primary_type": "model",
+  "secondary_type": "none",
+  "uncertain": true,
+  "rater": "B",
+  "batch": 4
+ },
+ {
+  "paper": "p288",
+  "primary_type": "method",
+  "secondary_type": "empirical",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 4
+ },
+ {
+  "paper": "p289",
+  "primary_type": "model",
+  "secondary_type": "application",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 4
+ },
+ {
+  "paper": "p290",
+  "primary_type": "method",
+  "secondary_type": "empirical",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 4
+ },
+ {
+  "paper": "p291",
+  "primary_type": "theory",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 4
+ },
+ {
+  "paper": "p292",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 4
+ },
+ {
+  "paper": "p293",
+  "primary_type": "method",
+  "secondary_type": "theory",
+  "uncertain": true,
+  "rater": "B",
+  "batch": 4
+ },
+ {
+  "paper": "p294",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 4
+ },
+ {
+  "paper": "p295",
+  "primary_type": "model",
+  "secondary_type": "application",
+  "uncertain": true,
+  "rater": "B",
+  "batch": 4
+ },
+ {
+  "paper": "p296",
+  "primary_type": "method",
+  "secondary_type": "theory",
+  "uncertain": true,
+  "rater": "B",
+  "batch": 4
+ },
+ {
+  "paper": "p297",
+  "primary_type": "method",
+  "secondary_type": "theory",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 4
+ },
+ {
+  "paper": "p298",
+  "primary_type": "method",
+  "secondary_type": "system",
+  "uncertain": true,
+  "rater": "B",
+  "batch": 4
+ },
+ {
+  "paper": "p299",
+  "primary_type": "model",
+  "secondary_type": "dataset_benchmark",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 4
+ },
+ {
+  "paper": "p300",
+  "primary_type": "dataset_benchmark",
+  "secondary_type": "evaluation",
+  "uncertain": false,
+  "rater": "B",
+  "batch": 4
+ }
+]

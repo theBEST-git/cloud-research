@@ -1,0 +1,170 @@
+[
+ {
+  "paper": "p023",
+  "primary_type": "method",
+  "secondary_type": "application",
+  "reason": "Rule 1 'we propose a method'; domain-specific technique is still method; prosthesis-improvement claim adds application secondary."
+ },
+ {
+  "paper": "p030",
+  "primary_type": "method",
+  "secondary_type": "theory",
+  "reason": "Framework yields new search algorithms; 'provably sound' is a stated guarantee: guarantees for new method gives theory secondary."
+ },
+ {
+  "paper": "p032",
+  "primary_type": "method",
+  "secondary_type": "theory",
+  "reason": "Close call; abstract presents 'novel data-driven approach'; identifiability result underpins it, so guarantees-for-new-method rule gives theory secondary."
+ },
+ {
+  "paper": "p037",
+  "primary_type": "method",
+  "secondary_type": "empirical",
+  "reason": "Feature transformation fix is the focus; claimed finding that MOT favors context-specific features goes beyond method works, so empirical."
+ },
+ {
+  "paper": "p038",
+  "primary_type": "method",
+  "secondary_type": "dataset_benchmark",
+  "reason": "Auxiliary object-model learning is the method; newly introduced task suite is reusable tasks, so dataset_benchmark; representation finding is ablation."
+ },
+ {
+  "paper": "p052",
+  "primary_type": "method",
+  "secondary_type": "none",
+  "reason": "Method vs model rule: novelty is procedures (example-based learning, binary reformulation, region propagation), not structure; no second claim."
+ },
+ {
+  "paper": "p086",
+  "primary_type": "method",
+  "secondary_type": "empirical",
+  "reason": "Learned solver correction is the method; claimed comparative insights across supervised/unsupervised approaches exceed routine validation, so empirical."
+ },
+ {
+  "paper": "p100",
+  "primary_type": "method",
+  "secondary_type": "empirical",
+  "reason": "Empirical-vs-method rule: NorSA fix is focus; analysis challenging the i.i.d. assumption is a finding beyond validation."
+ },
+ {
+  "paper": "p123",
+  "primary_type": "empirical",
+  "secondary_type": "method",
+  "reason": "Close call; rule 1: title and abstract put the churn study first; the two simple mitigations are secondary method."
+ },
+ {
+  "paper": "p125",
+  "primary_type": "method",
+  "secondary_type": "empirical",
+  "reason": "Empirical-vs-method rule: FasterCache fix is focus; claimed investigation revealing cache/CFG redundancy is a finding beyond validation."
+ },
+ {
+  "paper": "p128",
+  "primary_type": "model",
+  "secondary_type": "method",
+  "reason": "Channel-aligned attention and token blend module are structural, so model; separately claimed new robust loss is method."
+ },
+ {
+  "paper": "p132",
+  "primary_type": "dataset_benchmark",
+  "secondary_type": "none",
+  "reason": "Pipeline generating evaluation data is dataset_benchmark; evaluation utility is the same artifact, no separate metric or protocol claimed."
+ },
+ {
+  "paper": "p146",
+  "primary_type": "method",
+  "secondary_type": "theory",
+  "reason": "Rank-aggregation model selection is the method; stated theoretical justification for it gives theory secondary per guarantees rule."
+ },
+ {
+  "paper": "p155",
+  "primary_type": "empirical",
+  "secondary_type": "model",
+  "reason": "Argued thesis is demonstrated by experiments, so empirical by evidence, not perspective; Dynamic Comparator relation-decoder model secondary."
+ },
+ {
+  "paper": "p166",
+  "primary_type": "system",
+  "secondary_type": "application",
+  "reason": "Integrated chart-plus-AIP-agent solution on a platform stresses usability, so system; existing ML applied to analytics adds application."
+ },
+ {
+  "paper": "p173",
+  "primary_type": "theory",
+  "secondary_type": "perspective",
+  "reason": "Bounds and risk decomposition are theory; explicitly claimed unified view of ICL: proven unification gives perspective secondary."
+ },
+ {
+  "paper": "p198",
+  "primary_type": "model",
+  "secondary_type": "theory",
+  "reason": "Frame averaging is a network-design operator yielding new invariant architectures (structure), so model; expressive-power proofs give theory."
+ },
+ {
+  "paper": "p199",
+  "primary_type": "empirical",
+  "secondary_type": "dataset_benchmark",
+  "reason": "Broad study of logo shortcuts is empirical; CC12M-LogoBank is first-listed reusable data, chosen over the discovery algorithm."
+ },
+ {
+  "paper": "p220",
+  "primary_type": "method",
+  "secondary_type": "empirical",
+  "reason": "Regularizer is the method; 'surprisingly we find' rule-engine distillation gain and forgetting analysis exceed routine validation."
+ },
+ {
+  "paper": "p245",
+  "primary_type": "method",
+  "secondary_type": "theory",
+  "reason": "Debiased weighting fix is method; abstract first claims theoretical evidence of bias, so theory secondary; close call with empirical."
+ },
+ {
+  "paper": "p255",
+  "primary_type": "method",
+  "secondary_type": "system",
+  "reason": "Method-vs-system rule: title and evaluation highlight one technique (LeanPremise); LeanHammer end-to-end tool is system secondary."
+ },
+ {
+  "paper": "p261",
+  "primary_type": "method",
+  "secondary_type": "perspective",
+  "reason": "DPH-RL divergence-based objective is the method; explicitly claimed 'fundamental shift in perspective' reframing gives perspective secondary."
+ },
+ {
+  "paper": "p271",
+  "primary_type": "model",
+  "secondary_type": "method",
+  "reason": "Two-stage decoupled design and instance-flow representation format are structural, so model; motion inpainting training strategy is method."
+ },
+ {
+  "paper": "p274",
+  "primary_type": "method",
+  "secondary_type": "empirical",
+  "reason": "FedSSI fix is focus; claimed observation that existing regularizers fail under heterogeneity is a finding, so empirical secondary."
+ },
+ {
+  "paper": "p276",
+  "primary_type": "empirical",
+  "secondary_type": "recipe",
+  "reason": "Re-evaluation critique is empirical; 'simple baseline suffices with L1 normalization' is study-derived guidance, so recipe secondary."
+ },
+ {
+  "paper": "p280",
+  "primary_type": "method",
+  "secondary_type": "empirical",
+  "reason": "Empirical-vs-method rule: ControlValve fix is substantial, not minor, so method; demonstrated defense-evading attacks are empirical."
+ },
+ {
+  "paper": "p289",
+  "primary_type": "model",
+  "secondary_type": "method",
+  "reason": "Released foundation model is model; explicitly novel representation-alignment method is method; no domain findings for application."
+ },
+ {
+  "paper": "p295",
+  "primary_type": "model",
+  "secondary_type": "none",
+  "reason": "Released foundation model is model; medical results are routine validation, not domain findings, so no application secondary."
+ }
+]

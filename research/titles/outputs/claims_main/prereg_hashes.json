@@ -1,0 +1,11 @@
+{
+ "frozen": "2026-10-13",
+ "note": "frozen before any claims label is joined to decisions",
+ "sha256": {
+  "docs/CLAIMS_PREREG.md": "75d8b5b364ab6471311441fa3e3fc4c99723b55f7f688762a77d0aeedd6803c5",
+  "outputs/claims_pilot/CODEBOOK_v1_4.md": "fee24a6f14caf1ce916a2b7f1dc370811dd0b94d3b2a3ea5a51dd9893cbfa81b",
+  "outputs/claims_pilot/HUMAN_CALIBRATION.md": "907f21b6885891333f6ce893e41837b225f47a10627a8b6aeafda31fce967f1f",
+  "outputs/claims_main/sample.parquet": "35e112d4f1d09a71ae4272d784945e12623fa74b2c8f5d9d098feb218916c7cf",
+  "src/claims/sample_main.py": "2c025067c4ce68cf8f82ef92f5924fd7e8a3d647a2b5350b1a5c66f57d3a4963"
+ }
+}

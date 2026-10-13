@@ -1,0 +1,3602 @@
+[
+ {
+  "paper": "q001",
+  "primary": "new architecture",
+  "secondary": "",
+  "evidence": "cross-modality pre-fusion module, temporally deformable attention, and cross-clip fusion for language-guided video colorization",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 1
+ },
+ {
+  "paper": "q002",
+  "primary": "empirical finding",
+  "secondary": "problem formalization",
+  "evidence": "we show that adversarial examples exist in natural language classification: we formalize the notion",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 1
+ },
+ {
+  "paper": "q003",
+  "primary": "new modeling framework",
+  "secondary": "",
+  "evidence": "We formulate a hierarchical rectified flow ... hierarchically couples multiple ODEs",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 1
+ },
+ {
+  "paper": "q004",
+  "primary": "new representation",
+  "secondary": "new method",
+  "evidence": "proposes a probabilistic and differentiable surface representation, G-Surfel ... first end-to-end learned surface-based framework",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 1
+ },
+ {
+  "paper": "q005",
+  "primary": "new architecture",
+  "secondary": "empirical analysis",
+  "evidence": "network that does both classification and reconstruction by adding a 'style memory'; investigate nature of style memory",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 1
+ },
+ {
+  "paper": "q006",
+  "primary": "practical training recipe",
+  "secondary": "empirical finding",
+  "evidence": "fine-tuning pretrained fp32 networks, larger batches, matched annealing: heuristic to discover low-precision networks matching full precision",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 1
+ },
+ {
+  "paper": "q007",
+  "primary": "evaluation methodology",
+  "secondary": "theoretical analysis",
+  "evidence": "develop a theory for estimating accuracy relative to unobserved oracle; executable recipe for certifying superhuman performance",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 1
+ },
+ {
+  "paper": "q008",
+  "primary": "new method",
+  "secondary": "empirical finding",
+  "evidence": "observe an optimal environment setting exists; propose automatically developing a sampling curriculum over environment settings",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 1
+ },
+ {
+  "paper": "q009",
+  "primary": "new method",
+  "secondary": "empirical finding",
+  "evidence": "overfitting encoders in VAEs mitigated by training on samples from a pre-trained diffusion model",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 1
+ },
+ {
+  "paper": "q010",
+  "primary": "problem formalization",
+  "secondary": "new method",
+  "evidence": "we formalize the hypocritical risk for the first time and propose a defense method",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 1
+ },
+ {
+  "paper": "q011",
+  "primary": "new method",
+  "secondary": "",
+  "evidence": "advantage actor multi-critic (A2MC) with past reward statistics and 'hot-wiring' exploration mechanism",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 1
+ },
+ {
+  "paper": "q012",
+  "primary": "new method",
+  "secondary": "",
+  "evidence": "novel iSparse framework ... edge significance score to sparsify network 30-50% without performance loss",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 1
+ },
+ {
+  "paper": "q013",
+  "primary": "new modeling framework",
+  "secondary": "new dataset",
+  "evidence": "TG-Gen, a generic generative framework for temporal graph data ... two benchmark data and a novel dataset",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 1
+ },
+ {
+  "paper": "q014",
+  "primary": "new method",
+  "secondary": "theoretical analysis",
+  "evidence": "derive deep model parameter asymptotic theory ... derive a statistically-grounded pruning criterion",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 1
+ },
+ {
+  "paper": "q015",
+  "primary": "new architecture",
+  "secondary": "theoretical guarantee",
+  "evidence": "new RNN transition architecture ... provably not affected by vanishing or exploding gradients",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 1
+ },
+ {
+  "paper": "q016",
+  "primary": "unifying perspective",
+  "secondary": "new method",
+  "evidence": "interpret training of various GANs in unified perspective of control theory; negative feedback control to stabilize",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 1
+ },
+ {
+  "paper": "q017",
+  "primary": "new method",
+  "secondary": "",
+  "evidence": "translation scheme that starts from an initial guess and then makes iterative improvements",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 1
+ },
+ {
+  "paper": "q018",
+  "primary": "new method",
+  "secondary": "",
+  "evidence": "method that implements an efficient backward pass through blackbox implementations of combinatorial solvers",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 1
+ },
+ {
+  "paper": "q019",
+  "primary": "new architecture",
+  "secondary": "neuroscience insight",
+  "evidence": "thalamocortical inductive bias for RNNs; results shed new light on function of motor preparation in brain",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 1
+ },
+ {
+  "paper": "q020",
+  "primary": "new system/tool",
+  "secondary": "new method",
+  "evidence": "differentiable interpreter for Forth; programmers write program sketches with slots trained from data",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 1
+ },
+ {
+  "paper": "q021",
+  "primary": "new method",
+  "secondary": "empirical finding",
+  "evidence": "on-policy strategies are not appropriate for this setting; develop an off-policy batch policy gradient method",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 1
+ },
+ {
+  "paper": "q022",
+  "primary": "new architecture",
+  "secondary": "",
+  "evidence": "alternative architecture called Posterior Attention Models after principled factorization of joint distribution",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 1
+ },
+ {
+  "paper": "q023",
+  "primary": "new method",
+  "secondary": "",
+  "evidence": "BalaGAN turns imbalanced translation into balanced multi-class conditional translation via learned latent modes",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 1
+ },
+ {
+  "paper": "q024",
+  "primary": "new method",
+  "secondary": "theoretical guarantee",
+  "evidence": "develop a computationally-efficient estimator for mean estimation with provable guarantees for heavy-tailed distributions",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 1
+ },
+ {
+  "paper": "q025",
+  "primary": "new method",
+  "secondary": "unifying perspective",
+  "evidence": "AdvMixup unifies local and in-between neighborhood approaches via virtual data distribution",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 1
+ },
+ {
+  "paper": "q026",
+  "primary": "new evaluation metric",
+  "secondary": "new method",
+  "evidence": "propose internal evaluation metrics as surrogate functions ... integrate with Bayesian optimization for hyper-parameters",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 1
+ },
+ {
+  "paper": "q027",
+  "primary": "new architecture",
+  "secondary": "strong baseline",
+  "evidence": "anchor-free framework for object detection ... will serve as a solid baseline",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 1
+ },
+ {
+  "paper": "q028",
+  "primary": "applied ML system",
+  "secondary": "",
+  "evidence": "data-driven graph-based learning framework for automatic vectorization predicting VF/IF factors for compilers",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 1
+ },
+ {
+  "paper": "q029",
+  "primary": "new architecture",
+  "secondary": "",
+  "evidence": "Grouped-Head Latent Attention, novel attention mechanism reducing memory usage and computational complexity",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 1
+ },
+ {
+  "paper": "q030",
+  "primary": "empirical analysis",
+  "secondary": "new concept definition",
+  "evidence": "define sample importance; found easy samples shape parameters near output, hard samples near input",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 1
+ },
+ {
+  "paper": "q031",
+  "primary": "new method",
+  "secondary": "new perspective",
+  "evidence": "novel multi-objective perspective ... formulate a hypervolume loss to sharpen compositionality of meta-trained clusters",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 1
+ },
+ {
+  "paper": "q032",
+  "primary": "application study",
+  "secondary": "",
+  "evidence": "We apply multi-task learning to image classification tasks on MNIST-like datasets",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 1
+ },
+ {
+  "paper": "q033",
+  "primary": "new architecture",
+  "secondary": "",
+  "evidence": "Active Neural Localizer, fully differentiable neural network that learns to localize efficiently",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 1
+ },
+ {
+  "paper": "q034",
+  "primary": "problem formalization",
+  "secondary": "new architecture",
+  "evidence": "generating Wikipedia articles approached as multi-document summarization; decoder-only architecture for long sequences",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 1
+ },
+ {
+  "paper": "q035",
+  "primary": "new method",
+  "secondary": "",
+  "evidence": "integrate class-hierarchy metric in supervision of a prototypical network",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 1
+ },
+ {
+  "paper": "q036",
+  "primary": "new method",
+  "secondary": "critique of existing methods",
+  "evidence": "existing methods do not produce correct explanation for linear model; propose PatternNet and PatternAttribution",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 1
+ },
+ {
+  "paper": "q037",
+  "primary": "new method",
+  "secondary": "",
+  "evidence": "Sparse Representation Matching (SRM), a method to transfer intermediate knowledge between CNNs",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 1
+ },
+ {
+  "paper": "q038",
+  "primary": "new method",
+  "secondary": "empirical finding",
+  "evidence": "novel global structured pruning approach; re-initialization after pruning followed by re-training results in better performance",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 1
+ },
+ {
+  "paper": "q039",
+  "primary": "new method",
+  "secondary": "",
+  "evidence": "Concept Gradient extends concept-based gradient interpretation methods to non-linear concept functions",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 1
+ },
+ {
+  "paper": "q040",
+  "primary": "new method",
+  "secondary": "empirical finding",
+  "evidence": "generalized exponential matrix gives GCNs global view, challenging assumption that deep GCNs are better",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 1
+ },
+ {
+  "paper": "q041",
+  "primary": "evaluation methodology",
+  "secondary": "empirical comparison",
+  "evidence": "framework for benchmarking algorithms with varying hyperparameters; benchmarking widely-used convex optimizers",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 1
+ },
+ {
+  "paper": "q042",
+  "primary": "empirical analysis",
+  "secondary": "new method",
+  "evidence": "measure compositionality gap; it does not decrease with model size; present self-ask prompting method",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 1
+ },
+ {
+  "paper": "q043",
+  "primary": "new method",
+  "secondary": "",
+  "evidence": "Memory-based Parameter Adaptation stores examples in memory and uses context-based lookup to modify weights",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 1
+ },
+ {
+  "paper": "q044",
+  "primary": "new method",
+  "secondary": "",
+  "evidence": "identity-disentangled adversarial augmentation (IDAA) applied to self-supervised learning methods",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 1
+ },
+ {
+  "paper": "q045",
+  "primary": "new method",
+  "secondary": "",
+  "evidence": "Adversarial Batch Normalization adversarially perturbs feature statistics to produce models robust to distribution shifts",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 1
+ },
+ {
+  "paper": "q046",
+  "primary": "new method",
+  "secondary": "empirical analysis",
+  "evidence": "study use of Bayesian neural networks for learning curves and improve them with specialized learning curve layer",
+  "clarity": "ambiguous",
+  "coder": "A",
+  "batch": 1
+ },
+ {
+  "paper": "q047",
+  "primary": "theoretical guarantee",
+  "secondary": "empirical finding",
+  "evidence": "generalization bound for compressed networks; first non-vacuous guarantees for realistic architectures on ImageNet",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 1
+ },
+ {
+  "paper": "q048",
+  "primary": "new method",
+  "secondary": "",
+  "evidence": "self-supervised method for model-based visual goal reaching using dynamics model and learned distance function",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 1
+ },
+ {
+  "paper": "q049",
+  "primary": "new architecture",
+  "secondary": "new method",
+  "evidence": "novel variational attention mechanism ... informative regularization for context-free visual dialogs",
+  "clarity": "ambiguous",
+  "coder": "A",
+  "batch": 1
+ },
+ {
+  "paper": "q050",
+  "primary": "new method",
+  "secondary": "",
+  "evidence": "method for translating music across instruments and styles via multi-domain wavenet autoencoder",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 1
+ },
+ {
+  "paper": "q001",
+  "primary": "novel model architecture",
+  "secondary": "",
+  "evidence": "we present L-C4 ... introduce cross-modality pre-fusion module ... temporally deformable attention ... cross-clip fusion",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 1
+ },
+ {
+  "paper": "q002",
+  "primary": "vulnerability demonstration",
+  "secondary": "attack algorithm",
+  "evidence": "we show that adversarial examples exist in natural language classification ... describe algorithms that construct such examples",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 1
+ },
+ {
+  "paper": "q003",
+  "primary": "novel modeling formulation",
+  "secondary": "",
+  "evidence": "We formulate a hierarchical rectified flow ... hierarchically couples multiple ODEs",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 1
+ },
+ {
+  "paper": "q004",
+  "primary": "novel representation",
+  "secondary": "novel model architecture",
+  "evidence": "proposes a probabilistic and differentiable surface representation, G-Surfel ... introduce G-SurfelTree, an octree-like hierarchy",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 1
+ },
+ {
+  "paper": "q005",
+  "primary": "novel model architecture",
+  "secondary": "analysis of learned representations",
+  "evidence": "network that has the capacity to do both classification and reconstruction by adding a 'style memory'",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 1
+ },
+ {
+  "paper": "q006",
+  "primary": "practical training recipe",
+  "secondary": "empirical finding",
+  "evidence": "8-bit networks exceed full-precision accuracy after one epoch of finetuning; low-precision weights very close to baseline",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 1
+ },
+ {
+  "paper": "q007",
+  "primary": "evaluation methodology",
+  "secondary": "theoretical analysis",
+  "evidence": "develop a theory for estimating accuracy compared to the oracle ... executable recipe for certifying superhuman performance",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 1
+ },
+ {
+  "paper": "q008",
+  "primary": "novel training method",
+  "secondary": "empirical finding",
+  "evidence": "observe an optimal environment setting yields most robust policy; propose sampling curriculum over environment settings",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 1
+ },
+ {
+  "paper": "q009",
+  "primary": "novel training method",
+  "secondary": "empirical analysis",
+  "evidence": "overfitting encoders in VAEs can be effectively mitigated by training on samples from a pre-trained diffusion model",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 1
+ },
+ {
+  "paper": "q010",
+  "primary": "problem formalization",
+  "secondary": "novel defense method",
+  "evidence": "we formalize the hypocritical risk for the first time and propose a defense method",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 1
+ },
+ {
+  "paper": "q011",
+  "primary": "novel algorithm",
+  "secondary": "",
+  "evidence": "introduce characterization of past reward statistics ... multi-critics supervision ... 'hot-wiring' exploration (A2MC)",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 1
+ },
+ {
+  "paper": "q012",
+  "primary": "novel algorithm",
+  "secondary": "",
+  "evidence": "propose a novel iSparse framework ... sparsify the network by 30-50% without impacting performance",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 1
+ },
+ {
+  "paper": "q013",
+  "primary": "novel model architecture",
+  "secondary": "new dataset",
+  "evidence": "we present TG-Gen, a generic generative framework for temporal graph data ... a novel dataset",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 1
+ },
+ {
+  "paper": "q014",
+  "primary": "novel algorithm",
+  "secondary": "theoretical analysis",
+  "evidence": "derive deep model parameter asymptotic theory ... derive a statistically-grounded pruning criterion",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 1
+ },
+ {
+  "paper": "q015",
+  "primary": "novel model architecture",
+  "secondary": "theoretical guarantee",
+  "evidence": "propose a new RNN transition architecture ... provably not affected by vanishing or exploding gradients",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 1
+ },
+ {
+  "paper": "q016",
+  "primary": "unifying theoretical perspective",
+  "secondary": "novel training method",
+  "evidence": "interpret training of various GANs in a unified perspective of control theory; adopt negative feedback control to stabilize",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 1
+ },
+ {
+  "paper": "q017",
+  "primary": "novel inference method",
+  "secondary": "novel model architecture",
+  "evidence": "translation scheme that starts from an initial guess and then makes iterative improvements",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 1
+ },
+ {
+  "paper": "q018",
+  "primary": "novel algorithm",
+  "secondary": "theoretical analysis",
+  "evidence": "method that implements an efficient backward pass through blackbox implementations of combinatorial solvers",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 1
+ },
+ {
+  "paper": "q019",
+  "primary": "novel model architecture",
+  "secondary": "neuroscience insight",
+  "evidence": "constrain RNNs to function like thalamocortical circuit ... results shed new light on motor preparation in the brain",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 1
+ },
+ {
+  "paper": "q020",
+  "primary": "novel software tool",
+  "secondary": "novel optimization techniques",
+  "evidence": "we present a differentiable interpreter for the programming language Forth ... programmers can write program sketches",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 1
+ },
+ {
+  "paper": "q021",
+  "primary": "novel algorithm",
+  "secondary": "empirical finding",
+  "evidence": "demonstrate on-policy strategies are not appropriate for this setting and develop an off-policy batch policy gradient method",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 1
+ },
+ {
+  "paper": "q022",
+  "primary": "novel model architecture",
+  "secondary": "",
+  "evidence": "We present an alternative architecture called Posterior Attention Models",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 1
+ },
+ {
+  "paper": "q023",
+  "primary": "novel model architecture",
+  "secondary": "",
+  "evidence": "We introduce a new unsupervised translation network, BalaGAN, specifically designed to tackle the domain imbalance problem",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 1
+ },
+ {
+  "paper": "q024",
+  "primary": "novel algorithm",
+  "secondary": "theoretical guarantee",
+  "evidence": "develop a computationally-efficient estimator for mean estimation with provable guarantees",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 1
+ },
+ {
+  "paper": "q025",
+  "primary": "novel training method",
+  "secondary": "unifying perspective",
+  "evidence": "propose AdvMixup, which unifies the local and in-between neighborhood approaches",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 1
+ },
+ {
+  "paper": "q026",
+  "primary": "new evaluation metric",
+  "secondary": "novel algorithm",
+  "evidence": "propose two internal evaluation metrics and one semi-internal metric ... integrate with Bayesian optimization",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 1
+ },
+ {
+  "paper": "q027",
+  "primary": "novel model architecture",
+  "secondary": "baseline for future research",
+  "evidence": "FoveaBox, an accurate, flexible, and completely anchor-free framework ... will serve as a solid baseline",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 1
+ },
+ {
+  "paper": "q028",
+  "primary": "ML-based application system",
+  "secondary": "",
+  "evidence": "propose a data-driven graph-based learning framework for automatic vectorization, called autograph",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 1
+ },
+ {
+  "paper": "q029",
+  "primary": "novel model architecture",
+  "secondary": "empirical finding",
+  "evidence": "observe attention exhibits substantial redundancy ... propose Grouped-Head Latent Attention, a novel attention mechanism",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 1
+ },
+ {
+  "paper": "q030",
+  "primary": "empirical analysis",
+  "secondary": "new concept definition",
+  "evidence": "define sample importance ... found easy samples shape parameters closer to output, hard samples closer to input",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 1
+ },
+ {
+  "paper": "q031",
+  "primary": "novel training method",
+  "secondary": "",
+  "evidence": "propose a novel multi-objective perspective ... formulate a hypervolume loss",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 1
+ },
+ {
+  "paper": "q032",
+  "primary": "applied empirical study",
+  "secondary": "",
+  "evidence": "We apply multi-task learning to image classification tasks on MNIST-like datasets",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 1
+ },
+ {
+  "paper": "q033",
+  "primary": "novel model architecture",
+  "secondary": "",
+  "evidence": "We propose 'Active Neural Localizer', a fully differentiable neural network that learns to localize efficiently",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 1
+ },
+ {
+  "paper": "q034",
+  "primary": "new task formulation",
+  "secondary": "novel model architecture",
+  "evidence": "generating Wikipedia articles can be approached as multi-document summarization ... introduce a decoder-only architecture",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 1
+ },
+ {
+  "paper": "q035",
+  "primary": "novel training method",
+  "secondary": "",
+  "evidence": "integrate this metric in the supervision of a prototypical network to model the hierarchical class structure",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 1
+ },
+ {
+  "paper": "q036",
+  "primary": "novel interpretability method",
+  "secondary": "critique of existing methods",
+  "evidence": "these methods do not produce the theoretically correct explanation for a linear model ... propose PatternNet and PatternAttribution",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 1
+ },
+ {
+  "paper": "q037",
+  "primary": "novel training method",
+  "secondary": "",
+  "evidence": "propose Sparse Representation Matching (SRM), a method to transfer intermediate knowledge from one CNN to another",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 1
+ },
+ {
+  "paper": "q038",
+  "primary": "novel algorithm",
+  "secondary": "empirical finding",
+  "evidence": "propose PvR, a global structured pruning approach ... re-initialization after pruning followed by re-training performs better",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 1
+ },
+ {
+  "paper": "q039",
+  "primary": "novel interpretability method",
+  "secondary": "",
+  "evidence": "we proposed Concept Gradient (CG), which extends concept-based gradient interpretation to non-linear concept functions",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 1
+ },
+ {
+  "paper": "q040",
+  "primary": "novel model architecture",
+  "secondary": "challenge to common assumption",
+  "evidence": "extend k-hop adjacency matrices into a generalized exponential matrix ... challenging the assumption that deep GCNs are better",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 1
+ },
+ {
+  "paper": "q041",
+  "primary": "evaluation methodology",
+  "secondary": "empirical comparison",
+  "evidence": "We introduce a framework for benchmarking algorithms with varying hyperparameters ... benchmarking widely-used convex optimizers",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 1
+ },
+ {
+  "paper": "q042",
+  "primary": "empirical analysis",
+  "secondary": "novel prompting method",
+  "evidence": "measure the compositionality gap ... it does not decrease with model size ... present a new method, self-ask",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 1
+ },
+ {
+  "paper": "q043",
+  "primary": "novel training method",
+  "secondary": "",
+  "evidence": "stores examples in memory and uses a context-based lookup to directly modify the weights of a neural network",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 1
+ },
+ {
+  "paper": "q044",
+  "primary": "novel training method",
+  "secondary": "",
+  "evidence": "simple adversarial augmentation method that modifies training data to be hard positives/negatives without distorting identity",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 1
+ },
+ {
+  "paper": "q045",
+  "primary": "novel training method",
+  "secondary": "",
+  "evidence": "adapt adversarial training by adversarially perturbing feature statistics, rather than image pixels",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 1
+ },
+ {
+  "paper": "q046",
+  "primary": "novel model architecture",
+  "secondary": "empirical study",
+  "evidence": "we study the use of Bayesian neural networks for this purpose and improve them by a specialized learning curve layer",
+  "clarity": "ambiguous",
+  "coder": "B",
+  "batch": 1
+ },
+ {
+  "paper": "q047",
+  "primary": "theoretical guarantee",
+  "secondary": "empirical finding",
+  "evidence": "generalization bound for compressed networks ... first non-vacuous generalization guarantees for realistic architectures on ImageNet",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 1
+ },
+ {
+  "paper": "q048",
+  "primary": "novel algorithm",
+  "secondary": "",
+  "evidence": "We present a self-supervised method for model-based visual goal reaching ... learns entirely using offline, unlabeled data",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 1
+ },
+ {
+  "paper": "q049",
+  "primary": "novel model architecture",
+  "secondary": "novel training method",
+  "evidence": "novel variational attention mechanism ... informative regularization imposed by pretraining on VQA",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 1
+ },
+ {
+  "paper": "q050",
+  "primary": "novel model architecture",
+  "secondary": "new capability demonstration",
+  "evidence": "method for translating music across instruments and styles ... multi-domain wavenet autoencoder ... translating even from a whistle",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 1
+ },
+ {
+  "paper": "q051",
+  "primary": "new method",
+  "secondary": "",
+  "evidence": "decompose phonemes into phonetic attributes; predict attribute distributions, then compute phoneme distributions for unseen languages",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 2
+ },
+ {
+  "paper": "q052",
+  "primary": "benchmark",
+  "secondary": "open-source software tool",
+  "evidence": "introduces FedSecurity, an end-to-end benchmark to simulate adversarial attacks and defenses in FL; open-source",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 2
+ },
+ {
+  "paper": "q053",
+  "primary": "new model architecture",
+  "secondary": "theoretical analysis",
+  "evidence": "rigorous theory implies closed-form optimal estimates... gives rise to a new class of neural encoders, DIFFormer",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 2
+ },
+ {
+  "paper": "q054",
+  "primary": "new model architecture",
+  "secondary": "benchmark",
+  "evidence": "We present FERN, a geometry-aware forecaster... codebase also releases our controlled-shock benchmark and data-cleaning protocol",
+  "clarity": "ambiguous",
+  "coder": "A",
+  "batch": 2
+ },
+ {
+  "paper": "q055",
+  "primary": "new training method",
+  "secondary": "empirical finding",
+  "evidence": "design Cannistraci-Hebb training (CHT); with 1% of links retained, CHT surpasses fully connected networks",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 2
+ },
+ {
+  "paper": "q056",
+  "primary": "new inference-time method",
+  "secondary": "",
+  "evidence": "MMD Guidance, a training-free mechanism that augments the reverse diffusion process with MMD gradients",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 2
+ },
+ {
+  "paper": "q057",
+  "primary": "new training objective",
+  "secondary": "empirical finding",
+  "evidence": "first to observe performance can be recovered with a loss tailored to DP-SGD; introduce a three-term loss",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 2
+ },
+ {
+  "paper": "q058",
+  "primary": "new prompting method",
+  "secondary": "empirical finding",
+  "evidence": "SEC asks LLMs to first create demonstrations on their own; comparable to ICL with hand-crafted demonstrations",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 2
+ },
+ {
+  "paper": "q059",
+  "primary": "theoretical analysis",
+  "secondary": "new model architecture",
+  "evidence": "simple proof that deep linear residual networks have no spurious local optima; radically simple residual architecture",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 2
+ },
+ {
+  "paper": "q060",
+  "primary": "new method",
+  "secondary": "",
+  "evidence": "tackle MBO by leveraging the NML estimator... propose a tractable approximation to scale to neural networks",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 2
+ },
+ {
+  "paper": "q061",
+  "primary": "new model architecture",
+  "secondary": "",
+  "evidence": "framework jointly models spatial and temporal multiscale interactions using Graph Fourier Transforms and Neural ODEs",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 2
+ },
+ {
+  "paper": "q062",
+  "primary": "new model architecture",
+  "secondary": "",
+  "evidence": "propose Seer by inflating pretrained T2I stable diffusion along the temporal axis; Frame Sequential Text Decomposer",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 2
+ },
+ {
+  "paper": "q063",
+  "primary": "new method",
+  "secondary": "",
+  "evidence": "novel mechanism for calibrated uncertainty based on amortized normalized maximum likelihood for reward inference",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 2
+ },
+ {
+  "paper": "q064",
+  "primary": "new method",
+  "secondary": "synthetic data generation pipeline",
+  "evidence": "SynDoc combines discriminative and generative models; synthetic data generation workflow produces high-quality annotations",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 2
+ },
+ {
+  "paper": "q065",
+  "primary": "theoretical analysis",
+  "secondary": "new method",
+  "evidence": "concept of optimal representation space gives theoretical resolution to paradox; straightforward procedure without retraining",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 2
+ },
+ {
+  "paper": "q066",
+  "primary": "empirical analysis",
+  "secondary": "new parameterization method",
+  "evidence": "explores convergence, speed and gradient stability across orthogonality methods; propose weight matrix factorization",
+  "clarity": "ambiguous",
+  "coder": "A",
+  "batch": 2
+ },
+ {
+  "paper": "q067",
+  "primary": "efficiency method",
+  "secondary": "new training method",
+  "evidence": "adaptive token pruning; reduces FLOPs 39-43% and increases throughput 67-91% with <0.5% accuracy loss",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 2
+ },
+ {
+  "paper": "q068",
+  "primary": "efficiency method",
+  "secondary": "empirical finding",
+  "evidence": "framework that accelerates diffusion transformers; observations that guidance importance varies across timesteps; 53% savings",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 2
+ },
+ {
+  "paper": "q069",
+  "primary": "new method",
+  "secondary": "theoretical analysis",
+  "evidence": "propose Maxmin Q-learning to control bias; prove convergence using a novel Generalized Q-learning framework",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 2
+ },
+ {
+  "paper": "q070",
+  "primary": "new training method",
+  "secondary": "",
+  "evidence": "proposes federation of supernet training (FedSup) combining weight-sharing with FedAvg",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 2
+ },
+ {
+  "paper": "q071",
+  "primary": "benchmark",
+  "secondary": "empirical analysis",
+  "evidence": "introduce a general benchmarking framework for one-shot NAS; compare methods and hyperparameter sensitivity",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 2
+ },
+ {
+  "paper": "q072",
+  "primary": "empirical finding",
+  "secondary": "",
+  "evidence": "SGD attains small error with samples nearly linear in dimension, nearly achieving information-theoretic bounds",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 2
+ },
+ {
+  "paper": "q073",
+  "primary": "simple strong baseline",
+  "secondary": "empirical finding",
+  "evidence": "explore a straightforward, general, seemingly overlooked solution - experience replay buffers for all past events",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 2
+ },
+ {
+  "paper": "q074",
+  "primary": "new training objective",
+  "secondary": "theoretical analysis",
+  "evidence": "derive an upper bound from the Bellman equation; propose a novel regularizer, BEER",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 2
+ },
+ {
+  "paper": "q075",
+  "primary": "evaluation framework",
+  "secondary": "new evaluation metrics",
+  "evidence": "introduce the TED framework; propose new metrics; automated error analysis tool for agents",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 2
+ },
+ {
+  "paper": "q076",
+  "primary": "new training method",
+  "secondary": "",
+  "evidence": "propose three levels of model augmentation: neuron masking, layer dropping, encoder complementing for contrastive SSL",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 2
+ },
+ {
+  "paper": "q077",
+  "primary": "new training method",
+  "secondary": "empirical finding",
+  "evidence": "multi-turn online RL approach SCoRe; show SFT on offline correction traces is insufficient",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 2
+ },
+ {
+  "paper": "q078",
+  "primary": "new method",
+  "secondary": "",
+  "evidence": "GaussianFocus: patch attention algorithm, Gaussian constraints strategy, and subdivision reconstruction for large scenes",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 2
+ },
+ {
+  "paper": "q079",
+  "primary": "new method",
+  "secondary": "",
+  "evidence": "propose Feature Restoration and a bottom-up training scheme (BUFR) for source-free adaptation to measurement shift",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 2
+ },
+ {
+  "paper": "q080",
+  "primary": "new model architecture",
+  "secondary": "",
+  "evidence": "novel voice conversion framework ClsVC uses one encoder, dividing latent space into timbre and content",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 2
+ },
+ {
+  "paper": "q081",
+  "primary": "new model architecture",
+  "secondary": "empirical finding",
+  "evidence": "recursively defined neural architectures learning split and merge operators; learnt complexity matching task improves accuracy",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 2
+ },
+ {
+  "paper": "q082",
+  "primary": "new training method",
+  "secondary": "efficiency method",
+  "evidence": "FLSS restricts local updates to global streaming subspace; reduces communication cost by 80%",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 2
+ },
+ {
+  "paper": "q083",
+  "primary": "new training method",
+  "secondary": "",
+  "evidence": "reference-free preference optimization framework DualReform that generates pseudo reference passages",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 2
+ },
+ {
+  "paper": "q084",
+  "primary": "theoretical analysis",
+  "secondary": "new method",
+  "evidence": "for the first time, develop non-asymptotic convergence theory for the SPOS framework",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 2
+ },
+ {
+  "paper": "q085",
+  "primary": "new training method",
+  "secondary": "",
+  "evidence": "SR-VAE defines a Residual learning mechanism as the training regime instead of augmented objective",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 2
+ },
+ {
+  "paper": "q086",
+  "primary": "dataset construction method",
+  "secondary": "benchmark dataset",
+  "evidence": "language-agnostic way of automatically generating clusters with outliers; created gold-standard dataset WikiSem500",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 2
+ },
+ {
+  "paper": "q087",
+  "primary": "new model architecture",
+  "secondary": "empirical analysis",
+  "evidence": "investigate advantages of constituency tree representation; combine with graph neural networks and CRF",
+  "clarity": "ambiguous",
+  "coder": "A",
+  "batch": 2
+ },
+ {
+  "paper": "q088",
+  "primary": "new training method",
+  "secondary": "data curation pipeline",
+  "evidence": "trained using supervision from seven specialist models; importance sampling with LMM scores to improve data quality",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 2
+ },
+ {
+  "paper": "q089",
+  "primary": "efficiency method",
+  "secondary": "empirical finding",
+  "evidence": "structural reparameterization compresses DeiT-Tiny from 12 to 3-6 layers; challenge belief that depth is essential",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 2
+ },
+ {
+  "paper": "q090",
+  "primary": "new method",
+  "secondary": "theoretical analysis",
+  "evidence": "morphing formulated as graph transformation; prove any reasonable module can be morphed from a convolutional layer",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 2
+ },
+ {
+  "paper": "q091",
+  "primary": "new model architecture",
+  "secondary": "software toolkit",
+  "evidence": "propose ASTer framework, coupled with novel syntax-aware tokenization design toolkit",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 2
+ },
+ {
+  "paper": "q092",
+  "primary": "efficiency method",
+  "secondary": "",
+  "evidence": "locality-based mini batching accelerates training up to 20x per epoch and inference up to 100x",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 2
+ },
+ {
+  "paper": "q093",
+  "primary": "empirical finding",
+  "secondary": "",
+  "evidence": "multilingual captions have 21.8% more objects, 24.5% more relations than monolingual captions",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 2
+ },
+ {
+  "paper": "q094",
+  "primary": "new method",
+  "secondary": "",
+  "evidence": "SupportNet uses SVM to identify support data from old data, fed with new data for training",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 2
+ },
+ {
+  "paper": "q095",
+  "primary": "new model architecture",
+  "secondary": "",
+  "evidence": "introduce relation networks (RNs) - a general purpose neural network architecture for object-relation reasoning",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 2
+ },
+ {
+  "paper": "q096",
+  "primary": "empirical finding",
+  "secondary": "theoretical analysis",
+  "evidence": "DNNs usually fail to learn interactions of intermediate complexity; theoretically prove the underlying reason",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 2
+ },
+ {
+  "paper": "q097",
+  "primary": "new model architecture",
+  "secondary": "",
+  "evidence": "propose SGDNet, a novel graph neural network for link sign prediction in signed graphs",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 2
+ },
+ {
+  "paper": "q098",
+  "primary": "new problem formulation",
+  "secondary": "new method",
+  "evidence": "multi-layered OT extends original two-layer structure; MLOT-Sinkhorn algorithm proposed",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 2
+ },
+ {
+  "paper": "q099",
+  "primary": "theoretical analysis",
+  "secondary": "new method",
+  "evidence": "distributional assumptions must match interpolation path geometry; propose modifying prior to put more mass near origin",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 2
+ },
+ {
+  "paper": "q100",
+  "primary": "new training method",
+  "secondary": "",
+  "evidence": "introduce an actor-critic conditional GAN that fills in missing text conditioned on context",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 2
+ },
+ {
+  "paper": "q051",
+  "primary": "new method",
+  "secondary": "",
+  "evidence": "decompose phonemes into phonetic attributes; predict attribute distributions, then compute phoneme distributions for unseen languages",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 2
+ },
+ {
+  "paper": "q052",
+  "primary": "benchmark",
+  "secondary": "software tool",
+  "evidence": "introduces FedSecurity, an end-to-end benchmark to simulate adversarial attacks and defenses in FL; open-source and customizable",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 2
+ },
+ {
+  "paper": "q053",
+  "primary": "new model architecture",
+  "secondary": "theoretical analysis",
+  "evidence": "rigorous theory implies closed-form optimal diffusion strengths, giving rise to a new class of neural encoders (DIFFormer)",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 2
+ },
+ {
+  "paper": "q054",
+  "primary": "new model architecture",
+  "secondary": "benchmark and evaluation protocol",
+  "evidence": "present FERN, a geometry-aware forecaster...; codebase releases our controlled-shock benchmark and data-cleaning protocol",
+  "clarity": "ambiguous",
+  "coder": "B",
+  "batch": 2
+ },
+ {
+  "paper": "q055",
+  "primary": "new method",
+  "secondary": "empirical finding",
+  "evidence": "design Cannistraci-Hebb training (CHT); with 1% of links retained, CHT surpasses fully connected networks",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 2
+ },
+ {
+  "paper": "q056",
+  "primary": "new method",
+  "secondary": "",
+  "evidence": "propose MMD Guidance, a training-free mechanism augmenting reverse diffusion with MMD gradients to a reference dataset",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 2
+ },
+ {
+  "paper": "q057",
+  "primary": "new method",
+  "secondary": "",
+  "evidence": "introduce a loss tailored to DP-SGD combining squared error, focal loss and regularization; new state-of-the-art tradeoffs",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 2
+ },
+ {
+  "paper": "q058",
+  "primary": "new method",
+  "secondary": "empirical finding",
+  "evidence": "propose self-contemplation prompting (SEC) where LLMs create own demonstrations; comparable to ICL with hand-crafted demonstrations",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 2
+ },
+ {
+  "paper": "q059",
+  "primary": "theoretical analysis",
+  "secondary": "new model architecture",
+  "evidence": "simple proof that deep linear residual networks have no spurious local optima; inspired simple all-residual architecture",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 2
+ },
+ {
+  "paper": "q060",
+  "primary": "new method",
+  "secondary": "",
+  "evidence": "tackle MBO by leveraging NML estimator; propose a tractable approximation scaling to high-capacity neural networks",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 2
+ },
+ {
+  "paper": "q061",
+  "primary": "new model architecture",
+  "secondary": "",
+  "evidence": "framework using Graph Fourier Transforms for spatial scales and Neural ODEs for temporal dynamics at each scale",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 2
+ },
+ {
+  "paper": "q062",
+  "primary": "new model architecture",
+  "secondary": "",
+  "evidence": "propose Seer, inflating pretrained T2I diffusion along temporal axis with a Frame Sequential Text Decomposer",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 2
+ },
+ {
+  "paper": "q063",
+  "primary": "new method",
+  "secondary": "",
+  "evidence": "propose mechanism for calibrated uncertainty via amortized normalized maximum likelihood for reward inference from outcome examples",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 2
+ },
+ {
+  "paper": "q064",
+  "primary": "new method",
+  "secondary": "data generation pipeline",
+  "evidence": "SynDoc combines discriminative and generative models with a synthetic data generation workflow producing domain-specific annotations",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 2
+ },
+ {
+  "paper": "q065",
+  "primary": "theoretical analysis",
+  "secondary": "new method",
+  "evidence": "concept of optimal representation space gives simple theoretical resolution to paradox; straightforward procedure without retraining",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 2
+ },
+ {
+  "paper": "q066",
+  "primary": "empirical study",
+  "secondary": "new method",
+  "evidence": "explores optimization convergence, speed and gradient stability across orthogonality methods; proposes weight factorization to bound norms",
+  "clarity": "ambiguous",
+  "coder": "B",
+  "batch": 2
+ },
+ {
+  "paper": "q067",
+  "primary": "new efficiency method",
+  "secondary": "",
+  "evidence": "adaptive token pruning with dense/sparse training; reduces FLOPs 39-43% with under 0.5% accuracy loss",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 2
+ },
+ {
+  "paper": "q068",
+  "primary": "new efficiency method",
+  "secondary": "",
+  "evidence": "OUSAC accelerates diffusion transformers via sparse guidance schedules and adaptive caching; 53% computational savings",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 2
+ },
+ {
+  "paper": "q069",
+  "primary": "new method",
+  "secondary": "theoretical analysis",
+  "evidence": "propose Maxmin Q-learning to control bias; prove convergence via a novel Generalized Q-learning framework",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 2
+ },
+ {
+  "paper": "q070",
+  "primary": "new method",
+  "secondary": "",
+  "evidence": "proposes FedSup framework combining supernet weight-sharing with FedAvg, plus efficient E-FedSup algorithm",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 2
+ },
+ {
+  "paper": "q071",
+  "primary": "benchmark",
+  "secondary": "empirical study",
+  "evidence": "introduce general benchmarking framework for one-shot NAS; compare methods and examine hyperparameter sensitivity",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 2
+ },
+ {
+  "paper": "q072",
+  "primary": "empirical study",
+  "secondary": "",
+  "evidence": "demonstrate SGD with automated width selection nearly achieves information-theoretic sample complexity bounds in teacher-student setting",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 2
+ },
+ {
+  "paper": "q073",
+  "primary": "simple baseline method",
+  "secondary": "empirical study",
+  "evidence": "explore a straightforward, general, seemingly overlooked solution: experience replay buffers for all past events",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 2
+ },
+ {
+  "paper": "q074",
+  "primary": "new method",
+  "secondary": "theoretical analysis",
+  "evidence": "derive upper bound from Bellman equation on representation similarity; propose BEER regularizer adapting representation rank",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 2
+ },
+ {
+  "paper": "q075",
+  "primary": "evaluation framework",
+  "secondary": "diagnostic tool",
+  "evidence": "introduce TED framework with user personas, new metrics, and automated error analysis tool for agents",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 2
+ },
+ {
+  "paper": "q076",
+  "primary": "new method",
+  "secondary": "",
+  "evidence": "propose three levels of model augmentation (neuron masking, layer dropping, encoder complementing) to construct contrastive views",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 2
+ },
+ {
+  "paper": "q077",
+  "primary": "new method",
+  "secondary": "empirical study",
+  "evidence": "develop multi-turn online RL approach SCoRe; first show SFT variants are insufficient for self-correction",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 2
+ },
+ {
+  "paper": "q078",
+  "primary": "new method",
+  "secondary": "",
+  "evidence": "GaussianFocus incorporates patch attention, Gaussian constraints, and subdivision reconstruction for large-scale scenes",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 2
+ },
+ {
+  "paper": "q079",
+  "primary": "new method",
+  "secondary": "",
+  "evidence": "propose Feature Restoration and Bottom-Up Feature Restoration to realign target feature distribution with source",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 2
+ },
+ {
+  "paper": "q080",
+  "primary": "new model architecture",
+  "secondary": "",
+  "evidence": "propose ClsVC, a voice conversion framework using one encoder with divided latent space and constraints",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 2
+ },
+ {
+  "paper": "q081",
+  "primary": "new model architecture",
+  "secondary": "",
+  "evidence": "recursively defined neural architectures learning scale-invariant split and merge operators exploiting divide-and-conquer inductive bias",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 2
+ },
+ {
+  "paper": "q082",
+  "primary": "new method",
+  "secondary": "",
+  "evidence": "introduce streaming subspace update strategy and propose general FL framework FLSS restricting updates to subspace",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 2
+ },
+ {
+  "paper": "q083",
+  "primary": "new method",
+  "secondary": "",
+  "evidence": "introduce reference-free preference optimization framework DualReform generating pseudo reference passages from responses",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 2
+ },
+ {
+  "paper": "q084",
+  "primary": "theoretical analysis",
+  "secondary": "new method",
+  "evidence": "for the first time, develop non-asymptotic convergence theory for stochastic particle-optimization sampling (SPOS)",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 2
+ },
+ {
+  "paper": "q085",
+  "primary": "new method",
+  "secondary": "",
+  "evidence": "propose SR-VAE using residual learning as training regime instead of augmented objective; eliminates hyperparameter tuning",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 2
+ },
+ {
+  "paper": "q086",
+  "primary": "dataset generation method",
+  "secondary": "benchmark dataset",
+  "evidence": "language-agnostic way of automatically generating clusters with outliers; created gold-standard dataset WikiSem500",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 2
+ },
+ {
+  "paper": "q087",
+  "primary": "new method",
+  "secondary": "empirical study",
+  "evidence": "investigate advantages of constituency tree representation for ADU prediction, combined with GNNs and CRF",
+  "clarity": "ambiguous",
+  "coder": "B",
+  "batch": 2
+ },
+ {
+  "paper": "q088",
+  "primary": "new trained model",
+  "secondary": "data generation pipeline",
+  "evidence": "OmniEdit trained with supervision from seven specialist models; importance sampling via LMM scores; new EditNet architecture",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 2
+ },
+ {
+  "paper": "q089",
+  "primary": "new efficiency method",
+  "secondary": "empirical finding",
+  "evidence": "structural reparameterization collapses parallel branches; compresses DeiT-Tiny to 3-6 layers; challenges depth being essential",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 2
+ },
+ {
+  "paper": "q090",
+  "primary": "new method",
+  "secondary": "theoretical analysis",
+  "evidence": "formulate morphing as graph transformation; present morphing solutions and prove any reasonable module is morphable",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 2
+ },
+ {
+  "paper": "q091",
+  "primary": "new method",
+  "secondary": "software tool",
+  "evidence": "propose end-to-end framework ASTer with novel syntax-aware tokenization design toolkit",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 2
+ },
+ {
+  "paper": "q092",
+  "primary": "new efficiency method",
+  "secondary": "",
+  "evidence": "propose locality-based mini batching circumventing sampling; accelerates training up to 20x and inference 100x",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 2
+ },
+ {
+  "paper": "q093",
+  "primary": "empirical study",
+  "secondary": "",
+  "evidence": "demonstrate significant differences in semantic content across languages in dataset and model-produced captions",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 2
+ },
+ {
+  "paper": "q094",
+  "primary": "new method",
+  "secondary": "",
+  "evidence": "propose SupportNet, using SVM to identify support data from old data to counter catastrophic forgetting",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 2
+ },
+ {
+  "paper": "q095",
+  "primary": "new model architecture",
+  "secondary": "",
+  "evidence": "introduce relation networks (RNs), a general purpose neural network architecture for object-relation reasoning",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 2
+ },
+ {
+  "paper": "q096",
+  "primary": "empirical finding",
+  "secondary": "theoretical analysis",
+  "evidence": "discover DNNs fail to learn intermediate-complexity interactions (representation bottleneck); theoretically prove the underlying reason",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 2
+ },
+ {
+  "paper": "q097",
+  "primary": "new model architecture",
+  "secondary": "",
+  "evidence": "propose SGDNet, a novel graph neural network with signed random walk diffusion for link sign prediction",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 2
+ },
+ {
+  "paper": "q098",
+  "primary": "new problem formulation",
+  "secondary": "new method",
+  "evidence": "propose multi-layered OT extending two-layer structure; MLOT-Sinkhorn algorithm outperforms general solvers",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 2
+ },
+ {
+  "paper": "q099",
+  "primary": "theoretical analysis",
+  "secondary": "new method",
+  "evidence": "show prior distribution must match interpolation path geometry; propose modifying prior to concentrate mass near origin",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 2
+ },
+ {
+  "paper": "q100",
+  "primary": "new method",
+  "secondary": "",
+  "evidence": "introduce actor-critic conditional GAN that fills in missing text conditioned on surrounding context",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 2
+ },
+ {
+  "paper": "q101",
+  "primary": "new algorithm",
+  "secondary": "theoretical analysis",
+  "evidence": "propose a variant of SCO algorithms with sparse moving averages... can achieve O(sqrt(1/K)) convergence rate",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 3
+ },
+ {
+  "paper": "q102",
+  "primary": "theoretical analysis",
+  "secondary": "design guidance",
+  "evidence": "rigorously characterize the dependency of the SSM timescale on sequence length based on sequence autocorrelation",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 3
+ },
+ {
+  "paper": "q103",
+  "primary": "benchmark dataset",
+  "secondary": "empirical study",
+  "evidence": "CompAct, a carefully constructed, perceptually grounded dataset... comprehensive assessment of several unimodal and multimodal models",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 3
+ },
+ {
+  "paper": "q104",
+  "primary": "new architectural component",
+  "secondary": "unifying framework",
+  "evidence": "introduce the bipartite graph convolution operation... general enough to subsume conventional graph convolution and pooling",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 3
+ },
+ {
+  "paper": "q105",
+  "primary": "domain-specific method",
+  "secondary": "",
+  "evidence": "develop a learning framework that can nonlinearly aggregate information across multiple time-series modalities... enabling real-time decoding",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 3
+ },
+ {
+  "paper": "q106",
+  "primary": "new algorithm",
+  "secondary": "empirical study",
+  "evidence": "investigate the potential gain from co-learning... realized by a new algorithm, Dyna-PSRO",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 3
+ },
+ {
+  "paper": "q107",
+  "primary": "new architectural component",
+  "secondary": "",
+  "evidence": "propose a link prediction algorithm based on a new pooling scheme called WalkPool",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 3
+ },
+ {
+  "paper": "q108",
+  "primary": "new method",
+  "secondary": "critique of existing approaches",
+  "evidence": "proposes a novel method for fair pricing using data-model efficacy techniques; shows encryption methods impractical",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 3
+ },
+ {
+  "paper": "q109",
+  "primary": "new algorithm",
+  "secondary": "theoretical analysis",
+  "evidence": "propose Projected DP-SGD... provide a general sample complexity analysis on the public dataset",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 3
+ },
+ {
+  "paper": "q110",
+  "primary": "new method",
+  "secondary": "failure diagnosis",
+  "evidence": "identify that tasks with progress dependency pose challenges... introduce Automatic Discount Scheduling (ADS) mechanism",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 3
+ },
+ {
+  "paper": "q111",
+  "primary": "new method",
+  "secondary": "",
+  "evidence": "present the Video Instance Embedding (VIE) framework, which trains deep nonlinear embeddings on video",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 3
+ },
+ {
+  "paper": "q112",
+  "primary": "theoretical analysis",
+  "secondary": "",
+  "evidence": "show that finite-width deep ReLU networks yield rate-distortion optimal approximation of a wide class of functions",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 3
+ },
+ {
+  "paper": "q113",
+  "primary": "new method",
+  "secondary": "",
+  "evidence": "trajectory-level objective that jointly trains the score network and learns M_t; anisotropic reverse-ODE sampler",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 3
+ },
+ {
+  "paper": "q114",
+  "primary": "new method",
+  "secondary": "problem reformulation",
+  "evidence": "novel method to perform transfer learning across domains and tasks, formulating it as learning to cluster",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 3
+ },
+ {
+  "paper": "q115",
+  "primary": "new probabilistic model",
+  "secondary": "",
+  "evidence": "present deep variational CCA, extending latent variable interpretation of linear CCA to deep nonlinear observation models",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 3
+ },
+ {
+  "paper": "q116",
+  "primary": "new method",
+  "secondary": "new problem setting",
+  "evidence": "propose a Few-shot Complementary-Label (FsCL) training pattern with three kinds of surrogate loss",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 3
+ },
+ {
+  "paper": "q117",
+  "primary": "empirical study",
+  "secondary": "dataset annotation",
+  "evidence": "explore effects of face obfuscation on ImageNet... annotate faces... improves the highly-used ImageNet benchmark",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 3
+ },
+ {
+  "paper": "q118",
+  "primary": "new method",
+  "secondary": "empirical comparison",
+  "evidence": "propose a novel semantic program embedding learned from execution traces; evaluate syntactic vs semantic embeddings",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 3
+ },
+ {
+  "paper": "q119",
+  "primary": "domain-specific method",
+  "secondary": "",
+  "evidence": "propose a deep clustering framework named spClust for spatial proteomics data",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 3
+ },
+ {
+  "paper": "q120",
+  "primary": "new attack method",
+  "secondary": "new threat model",
+  "evidence": "call this reverse engineering the Classifier-to-Generator (C2G) Attack... introduce a novel GAN, PreImageGAN",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 3
+ },
+ {
+  "paper": "q121",
+  "primary": "new defense method",
+  "secondary": "theoretical analysis",
+  "evidence": "propose a defense mechanism based on a contraction of the data... theoretically analyze effects on separating margin",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 3
+ },
+ {
+  "paper": "q122",
+  "primary": "new model",
+  "secondary": "new task and benchmark",
+  "evidence": "propose two novel tasks... introduce DreamOmni2... data synthesis pipeline... comprehensive benchmarks for these new tasks",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 3
+ },
+ {
+  "paper": "q123",
+  "primary": "new method",
+  "secondary": "new problem setting",
+  "evidence": "take the opposite perspective from conventional unlearning; method preserves only the ability specified by a dataset",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 3
+ },
+ {
+  "paper": "q124",
+  "primary": "new method",
+  "secondary": "",
+  "evidence": "propose a very different approach, called Parameter Generation and Model Adaptation (PGMA)",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 3
+ },
+ {
+  "paper": "q125",
+  "primary": "domain-specific system",
+  "secondary": "",
+  "evidence": "propose MAPPS, consisting of a Workflow Planner, Tool Code Generator, and Scientific Mediator for materials discovery",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 3
+ },
+ {
+  "paper": "q126",
+  "primary": "theoretical analysis",
+  "secondary": "design guidance",
+  "evidence": "provides theoretical analysis of GANs to explain advantages... also provide a guideline for selecting architecture",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 3
+ },
+ {
+  "paper": "q127",
+  "primary": "new algorithm",
+  "secondary": "",
+  "evidence": "novel Model-Based Behavior-Regularized Policy Optimization (MB2PO) algorithm for fine-tuning offline policies",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 3
+ },
+ {
+  "paper": "q128",
+  "primary": "new method",
+  "secondary": "theoretical analysis",
+  "evidence": "introduce Binary Hyperbolic Embeddings... prove they are retrieval-equivalent to their real-valued counterparts",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 3
+ },
+ {
+  "paper": "q129",
+  "primary": "new attack method",
+  "secondary": "new threat model",
+  "evidence": "first to study long-distance targeted poisoning; bilevel optimization approach and cheaper heuristic approach",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 3
+ },
+ {
+  "paper": "q130",
+  "primary": "new defense method",
+  "secondary": "",
+  "evidence": "propose a practical training method to obtain certified robustness while maintaining clean accuracy",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 3
+ },
+ {
+  "paper": "q131",
+  "primary": "new method",
+  "secondary": "",
+  "evidence": "propose a new method that optimizes the generation of 3D training data based on hybrid gradient",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 3
+ },
+ {
+  "paper": "q132",
+  "primary": "theoretical analysis",
+  "secondary": "new algorithm",
+  "evidence": "improve current analysis, DP-SGD-GC achieves vanishing utility bound; by-product: new value clipping technique",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 3
+ },
+ {
+  "paper": "q133",
+  "primary": "new method",
+  "secondary": "theoretical analysis",
+  "evidence": "novel gradient-based MTL approach aligning independent components... backed up by theoretical analysis",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 3
+ },
+ {
+  "paper": "q134",
+  "primary": "problem identification",
+  "secondary": "formal model",
+  "evidence": "company can game regulation, called Lossgate... leverage game theory to obtain SpecGame model",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 3
+ },
+ {
+  "paper": "q135",
+  "primary": "software system",
+  "secondary": "",
+  "evidence": "implement a matrix library and deep learning framework that uses JavaScript, running in web browsers",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 3
+ },
+ {
+  "paper": "q136",
+  "primary": "new method",
+  "secondary": "",
+  "evidence": "propose to use Graph Convolutional Networks for incorporating prior knowledge into a deep RL framework",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 3
+ },
+ {
+  "paper": "q137",
+  "primary": "new method",
+  "secondary": "",
+  "evidence": "propose an inference-time improvement framework... belief fine-tuning (BFT)",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 3
+ },
+ {
+  "paper": "q138",
+  "primary": "new architectural component",
+  "secondary": "empirical comparison",
+  "evidence": "introduce adaptive input representations... perform a systematic comparison of popular choices",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 3
+ },
+ {
+  "paper": "q139",
+  "primary": "new method",
+  "secondary": "new problem setting",
+  "evidence": "investigate training translation models with weakly paired bilingual documents; mine implicit sentence pairs",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 3
+ },
+ {
+  "paper": "q140",
+  "primary": "new probabilistic model",
+  "secondary": "",
+  "evidence": "introduce a new formulation of semi-supervised learning in variational autoencoders",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 3
+ },
+ {
+  "paper": "q141",
+  "primary": "domain-specific method",
+  "secondary": "",
+  "evidence": "propose an approach to generate realistic stock market data based on generative adversarial networks",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 3
+ },
+ {
+  "paper": "q142",
+  "primary": "new model architecture",
+  "secondary": "",
+  "evidence": "character-aware embedding concatenated with word embedding... employ a residual network on the sentence embedding",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 3
+ },
+ {
+  "paper": "q143",
+  "primary": "new method",
+  "secondary": "",
+  "evidence": "introduce EnTranNAS composed of Engine-cells and Transit-cells to close search-evaluation gap",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 3
+ },
+ {
+  "paper": "q144",
+  "primary": "empirical study",
+  "secondary": "open research questions",
+  "evidence": "thoroughly compare continual learning performance over 5 PLMs and 4 CL approaches on 3 benchmarks",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 3
+ },
+ {
+  "paper": "q145",
+  "primary": "domain-specific system",
+  "secondary": "industry experience report",
+  "evidence": "build a large-scale visual search system... by sharing our approach, expect discussion on applying to e-commerce",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 3
+ },
+ {
+  "paper": "q146",
+  "primary": "new defense method",
+  "secondary": "",
+  "evidence": "propose a Bayesian framework to prune features based on contribution to original and adversarial loss",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 3
+ },
+ {
+  "paper": "q147",
+  "primary": "empirical finding",
+  "secondary": "new method",
+  "evidence": "develop causal analysis methodology uncovering cause/effect tokens; introduce a decoding algorithm (CLA, CID)",
+  "clarity": "ambiguous",
+  "coder": "A",
+  "batch": 3
+ },
+ {
+  "paper": "q148",
+  "primary": "new architectural component",
+  "secondary": "",
+  "evidence": "propose the Fixed Grouping Layer (FGL); a novel feedforward layer for structured smoothness",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 3
+ },
+ {
+  "paper": "q149",
+  "primary": "new model architecture",
+  "secondary": "",
+  "evidence": "propose a new model that solely consists of attention layers augmented with persistent memory vectors",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 3
+ },
+ {
+  "paper": "q150",
+  "primary": "empirical finding",
+  "secondary": "new threat model",
+  "evidence": "investigate multi-agent backdoor scenario; a consistent backfiring phenomenon is observed across a wide range of games",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 3
+ },
+ {
+  "paper": "q101",
+  "primary": "new method",
+  "secondary": "theoretical guarantee",
+  "evidence": "propose a variant of SCO algorithms with sparse moving averages... achieve O(sqrt(1/K)) convergence rate",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 3
+ },
+ {
+  "paper": "q102",
+  "primary": "theoretical analysis",
+  "secondary": "design guidance",
+  "evidence": "rigorously characterize the dependency of the SSM timescale on sequence length based on sequence autocorrelation",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 3
+ },
+ {
+  "paper": "q103",
+  "primary": "new dataset/benchmark",
+  "secondary": "empirical study",
+  "evidence": "CompAct, a carefully constructed, perceptually grounded dataset... comprehensive assessment of several unimodal and multimodal models",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 3
+ },
+ {
+  "paper": "q104",
+  "primary": "new architecture",
+  "secondary": "unifying framework",
+  "evidence": "introduce the bipartite graph convolution operation... general enough to subsume conventional graph convolution and pooling",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 3
+ },
+ {
+  "paper": "q105",
+  "primary": "new method",
+  "secondary": "domain application",
+  "evidence": "develop a learning framework that nonlinearly aggregates multiple time-series modalities while enabling real-time decoding (brain data)",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 3
+ },
+ {
+  "paper": "q106",
+  "primary": "new method",
+  "secondary": "empirical study",
+  "evidence": "investigate the potential gain from co-learning... realized by a new algorithm, Dyna-PSRO",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 3
+ },
+ {
+  "paper": "q107",
+  "primary": "new method",
+  "secondary": "",
+  "evidence": "propose a link prediction algorithm based on a new pooling scheme called WalkPool",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 3
+ },
+ {
+  "paper": "q108",
+  "primary": "new method",
+  "secondary": "critique of existing approaches",
+  "evidence": "proposes a novel method for fair pricing using influence functions, model extraction... existing methods shown impractical",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 3
+ },
+ {
+  "paper": "q109",
+  "primary": "new method",
+  "secondary": "theoretical analysis",
+  "evidence": "propose Projected DP-SGD... provide a general sample complexity analysis for gradient subspace identification",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 3
+ },
+ {
+  "paper": "q110",
+  "primary": "new method",
+  "secondary": "failure-mode diagnosis",
+  "evidence": "identify that progress-dependency tasks pose challenges... introduce an Automatic Discount Scheduling (ADS) mechanism",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 3
+ },
+ {
+  "paper": "q111",
+  "primary": "new method",
+  "secondary": "empirical study",
+  "evidence": "present the Video Instance Embedding (VIE) framework... analyses and ablation studies of key choices",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 3
+ },
+ {
+  "paper": "q112",
+  "primary": "theoretical analysis",
+  "secondary": "",
+  "evidence": "show finite-width deep ReLU networks yield rate-distortion optimal approximation of a wide class of functions",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 3
+ },
+ {
+  "paper": "q113",
+  "primary": "new method",
+  "secondary": "",
+  "evidence": "introduce a trajectory-level objective that jointly trains the score network and learns M_t; anisotropic sampler",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 3
+ },
+ {
+  "paper": "q114",
+  "primary": "new method",
+  "secondary": "problem reformulation",
+  "evidence": "novel method to perform transfer learning across domains and tasks, formulating it as learning to cluster",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 3
+ },
+ {
+  "paper": "q115",
+  "primary": "new method",
+  "secondary": "",
+  "evidence": "present deep variational CCA, extending latent variable interpretation of linear CCA to deep nonlinear models",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 3
+ },
+ {
+  "paper": "q116",
+  "primary": "new method",
+  "secondary": "new problem setting",
+  "evidence": "propose a Few-shot Complementary-Label (FsCL) training pattern with three kinds of surrogate loss",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 3
+ },
+ {
+  "paper": "q117",
+  "primary": "empirical study",
+  "secondary": "dataset improvement",
+  "evidence": "explore effects of face obfuscation on ImageNet... annotate faces... improves the highly-used ImageNet benchmark",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 3
+ },
+ {
+  "paper": "q118",
+  "primary": "new method",
+  "secondary": "empirical comparison",
+  "evidence": "propose a novel semantic program embedding learned from execution traces; evaluate syntactic vs semantic embeddings",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 3
+ },
+ {
+  "paper": "q119",
+  "primary": "new method",
+  "secondary": "domain application",
+  "evidence": "propose a deep clustering framework named spClust for single-cell spatial proteomics data",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 3
+ },
+ {
+  "paper": "q120",
+  "primary": "new attack",
+  "secondary": "new threat model",
+  "evidence": "We call this reverse engineering against the classification model the C2G Attack... introduce PreImageGAN",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 3
+ },
+ {
+  "paper": "q121",
+  "primary": "new method",
+  "secondary": "theoretical analysis",
+  "evidence": "propose a defense mechanism based on contraction of the data... theoretically analyze effects of adversarial perturbations",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 3
+ },
+ {
+  "paper": "q122",
+  "primary": "new method",
+  "secondary": "new task and benchmark",
+  "evidence": "propose two novel tasks... introduce DreamOmni2... data synthesis pipeline... comprehensive benchmarks for these tasks",
+  "clarity": "ambiguous",
+  "coder": "B",
+  "batch": 3
+ },
+ {
+  "paper": "q123",
+  "primary": "new method",
+  "secondary": "new problem setting",
+  "evidence": "opposite perspective from conventional unlearning: preserve only ability specified by a dataset, forgetting all else",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 3
+ },
+ {
+  "paper": "q124",
+  "primary": "new method",
+  "secondary": "",
+  "evidence": "propose a very different approach, Parameter Generation and Model Adaptation (PGMA), for catastrophic forgetting",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 3
+ },
+ {
+  "paper": "q125",
+  "primary": "new system",
+  "secondary": "domain application",
+  "evidence": "propose MAPPS: Workflow Planner, Tool Code Generator, Scientific Mediator for autonomous materials discovery",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 3
+ },
+ {
+  "paper": "q126",
+  "primary": "theoretical analysis",
+  "secondary": "design guidance",
+  "evidence": "theoretically shown GANs do not suffer generalization decrease from disconnected support; guideline for selecting architecture",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 3
+ },
+ {
+  "paper": "q127",
+  "primary": "new method",
+  "secondary": "",
+  "evidence": "propose a two-stage algorithmic framework with novel Model-Based Behavior-Regularized Policy Optimization (MB2PO)",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 3
+ },
+ {
+  "paper": "q128",
+  "primary": "new method",
+  "secondary": "theoretical guarantee",
+  "evidence": "introduce Binary Hyperbolic Embeddings... prove they are retrieval-equivalent to real-valued counterparts",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 3
+ },
+ {
+  "paper": "q129",
+  "primary": "new attack",
+  "secondary": "new threat model",
+  "evidence": "investigate feasibility of long-distance attacks... first to study long-distance targeted poisoning attacks",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 3
+ },
+ {
+  "paper": "q130",
+  "primary": "new method",
+  "secondary": "",
+  "evidence": "propose a practical training method to obtain certified robustness while maintaining clean accuracy via vanilla guide model",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 3
+ },
+ {
+  "paper": "q131",
+  "primary": "new method",
+  "secondary": "",
+  "evidence": "propose a new method that optimizes generation of 3D training data based on hybrid gradient",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 3
+ },
+ {
+  "paper": "q132",
+  "primary": "theoretical analysis",
+  "secondary": "new method",
+  "evidence": "improve current analysis, show DP-SGD-GC achieves vanishing utility bound; propose value clipping as by-product",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 3
+ },
+ {
+  "paper": "q133",
+  "primary": "new method",
+  "secondary": "theoretical guarantee",
+  "evidence": "novel gradient-based MTL approach aligning independent components... backed up by theoretical analysis",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 3
+ },
+ {
+  "paper": "q134",
+  "primary": "phenomenon discovery",
+  "secondary": "formal model",
+  "evidence": "company can game regulation... We call this Lossgate... SpecGame, a game-theoretic model for regulator-company interactions",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 3
+ },
+ {
+  "paper": "q135",
+  "primary": "software platform",
+  "secondary": "",
+  "evidence": "implement a matrix library and deep learning framework in JavaScript that runs in web browsers",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 3
+ },
+ {
+  "paper": "q136",
+  "primary": "new method",
+  "secondary": "",
+  "evidence": "propose using Graph Convolutional Networks to incorporate prior knowledge into deep RL for semantic navigation",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 3
+ },
+ {
+  "paper": "q137",
+  "primary": "new method",
+  "secondary": "",
+  "evidence": "propose an inference-time improvement framework called belief fine-tuning (BFT)",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 3
+ },
+ {
+  "paper": "q138",
+  "primary": "new architecture",
+  "secondary": "empirical comparison",
+  "evidence": "introduce adaptive input representations... perform a systematic comparison of popular factorization choices",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 3
+ },
+ {
+  "paper": "q139",
+  "primary": "new method",
+  "secondary": "new problem setting",
+  "evidence": "investigate training translation models with weakly paired bilingual documents; mine implicit sentence pairs",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 3
+ },
+ {
+  "paper": "q140",
+  "primary": "new method",
+  "secondary": "",
+  "evidence": "introduce a new formulation of semi-supervised learning in VAEs for learning disentangled representations",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 3
+ },
+ {
+  "paper": "q141",
+  "primary": "domain application",
+  "secondary": "",
+  "evidence": "approach to generate realistic stock market data... employ a conditional Wasserstein GAN",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 3
+ },
+ {
+  "paper": "q142",
+  "primary": "new architecture",
+  "secondary": "",
+  "evidence": "character-aware embedding plus word embedding... employ a residual network on the sentence embedding",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 3
+ },
+ {
+  "paper": "q143",
+  "primary": "new method",
+  "secondary": "",
+  "evidence": "introduce EnTranNAS composed of Engine-cells and Transit-cells to close search-evaluation gap",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 3
+ },
+ {
+  "paper": "q144",
+  "primary": "empirical study",
+  "secondary": "open research questions",
+  "evidence": "thoroughly compare 5 PLMs and 4 CL approaches on 3 benchmarks; observations open important research questions",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 3
+ },
+ {
+  "paper": "q145",
+  "primary": "new system",
+  "secondary": "practitioner experience report",
+  "evidence": "build a large-scale visual search system... by sharing our approach, expect discussion on applying DL in e-commerce",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 3
+ },
+ {
+  "paper": "q146",
+  "primary": "new method",
+  "secondary": "",
+  "evidence": "propose a Bayesian framework to prune features based on contribution to original and adversarial loss (ANP)",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 3
+ },
+ {
+  "paper": "q147",
+  "primary": "phenomenon discovery",
+  "secondary": "new method",
+  "evidence": "hypothesize cause-effect relationships among candidate tokens; develop causal analysis; introduce Causally-Informed Decoding",
+  "clarity": "ambiguous",
+  "coder": "B",
+  "batch": 3
+ },
+ {
+  "paper": "q148",
+  "primary": "new architecture",
+  "secondary": "",
+  "evidence": "propose the Fixed Grouping Layer, a novel feedforward layer incorporating structured smoothness inductive bias",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 3
+ },
+ {
+  "paper": "q149",
+  "primary": "new architecture",
+  "secondary": "",
+  "evidence": "augment self-attention layers with persistent memory vectors, removing the feed-forward layer",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 3
+ },
+ {
+  "paper": "q150",
+  "primary": "phenomenon discovery",
+  "secondary": "empirical study",
+  "evidence": "consistent backfiring phenomenon observed... agents suffer from low collective attack success rate",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 3
+ },
+ {
+  "paper": "q151",
+  "primary": "new model architecture",
+  "secondary": "new dataset",
+  "evidence": "introduce an Uncertainty-Guided Depth Fusion (UGDF) framework...; we contribute a spike-depth dataset named CitySpike20K",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 4
+ },
+ {
+  "paper": "q152",
+  "primary": "new model architecture",
+  "secondary": "",
+  "evidence": "structured attention networks are simple extensions of the basic attention procedure... implemented as neural network layers",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 4
+ },
+ {
+  "paper": "q153",
+  "primary": "new foundation model",
+  "secondary": "new training method",
+  "evidence": "first unified visual tokenizer... adversarial-free training objective... progressive training curriculum",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 4
+ },
+ {
+  "paper": "q154",
+  "primary": "new algorithm",
+  "secondary": "theoretical guarantees",
+  "evidence": "propose RTC... attains O(1/eps^2) sample complexity; first sample-efficient algorithm bridging representation learning and policy optimization",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 4
+ },
+ {
+  "paper": "q155",
+  "primary": "new training method",
+  "secondary": "",
+  "evidence": "propose Adaptive Adversarial Augmentation (AAA)... jointly trains a feature extractor alongside DAN and CAN",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 4
+ },
+ {
+  "paper": "q156",
+  "primary": "new algorithm",
+  "secondary": "",
+  "evidence": "novel variational framework for posterior sampling... repulsion mechanism that promotes diversity among particles",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 4
+ },
+ {
+  "paper": "q157",
+  "primary": "new model architecture",
+  "secondary": "",
+  "evidence": "novel hierarchical deep RL architecture that consists of two interacting neural controllers",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 4
+ },
+ {
+  "paper": "q158",
+  "primary": "new probabilistic model",
+  "secondary": "new algorithm",
+  "evidence": "propose BayOTIDE... GPs as functional priors... developing a scalable algorithm for online inference",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 4
+ },
+ {
+  "paper": "q159",
+  "primary": "explanation of phenomenon",
+  "secondary": "empirical analysis",
+  "evidence": "empirically investigate weight decay... identify three distinct mechanisms by which weight decay exerts a regularization effect",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 4
+ },
+ {
+  "paper": "q160",
+  "primary": "new model architecture",
+  "secondary": "empirical analysis",
+  "evidence": "necessity of parallel ordering... first tested... motivating the development of a soft ordering approach",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 4
+ },
+ {
+  "paper": "q161",
+  "primary": "new method",
+  "secondary": "new problem setting",
+  "evidence": "proposing and studying a novel Lifelong Model Editing setting... we propose GRACE, a new Key-Value framework",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 4
+ },
+ {
+  "paper": "q162",
+  "primary": "domain-specific model",
+  "secondary": "",
+  "evidence": "propose surgical VAE (sVAE), a representation learning framework for perioperative data",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 4
+ },
+ {
+  "paper": "q163",
+  "primary": "new algorithm",
+  "secondary": "new conceptual perspective",
+  "evidence": "policy networks... are a form of amortized optimization... iterative amortized policy optimization yields performance improvements",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 4
+ },
+ {
+  "paper": "q164",
+  "primary": "theoretical analysis",
+  "secondary": "explanation of phenomenon",
+  "evidence": "analyze training dynamics of one-layer softmax ViTs... theoretical explanation for distinct behaviors of MAE and CL",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 4
+ },
+ {
+  "paper": "q165",
+  "primary": "new model architecture",
+  "secondary": "",
+  "evidence": "we introduce the Tensorized Attention Model (TAM)... leveraging Tucker decomposition",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 4
+ },
+ {
+  "paper": "q166",
+  "primary": "new method",
+  "secondary": "empirical analysis",
+  "evidence": "propose an approach using deep representation learning algorithms to learn an adequate goal space",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 4
+ },
+ {
+  "paper": "q167",
+  "primary": "theoretical analysis",
+  "secondary": "new method",
+  "evidence": "better understand the limits to reconstruction and to speed up image reconstruction by imposing prior image information",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 4
+ },
+ {
+  "paper": "q168",
+  "primary": "new model architecture",
+  "secondary": "new conceptual perspective",
+  "evidence": "propose associating natural language utterances to a mental workspace... encoded as 3D visual feature representations",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 4
+ },
+ {
+  "paper": "q169",
+  "primary": "new method",
+  "secondary": "empirical analysis",
+  "evidence": "design a family of quantizers named BOF4... explore additional variations through an experimental study",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 4
+ },
+ {
+  "paper": "q170",
+  "primary": "theoretical analysis",
+  "secondary": "",
+  "evidence": "derive bounds on the number of linear regions and the distance to boundaries... on the data manifold",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 4
+ },
+ {
+  "paper": "q171",
+  "primary": "theoretical analysis",
+  "secondary": "connection to another field",
+  "evidence": "new connection between DNNs expressivity and Sharkovsky's Theorem... give general lower bounds for the width",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 4
+ },
+ {
+  "paper": "q172",
+  "primary": "new algorithm",
+  "secondary": "",
+  "evidence": "introduce a model-based planning framework which learns a latent reward prediction model and then plan",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 4
+ },
+ {
+  "paper": "q173",
+  "primary": "explanation of phenomenon",
+  "secondary": "theoretical analysis",
+  "evidence": "grokking... can arise due to a neural network transitioning from lazy training dynamics to a rich regime",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 4
+ },
+ {
+  "paper": "q174",
+  "primary": "new algorithm",
+  "secondary": "theoretical analysis",
+  "evidence": "theoretical framework for sampling from unnormalized densities... We prove one can decompose sampling",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 4
+ },
+ {
+  "paper": "q175",
+  "primary": "domain-specific model",
+  "secondary": "",
+  "evidence": "propose the Complex-Aware tertiary structure-based RNA Design model, CARD, that integrates complex-level information",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 4
+ },
+ {
+  "paper": "q176",
+  "primary": "new problem setting",
+  "secondary": "new method",
+  "evidence": "introduce partially-blind unlearning... also propose a practical framework Reload",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 4
+ },
+ {
+  "paper": "q177",
+  "primary": "new algorithm",
+  "secondary": "theoretical analysis",
+  "evidence": "propose a novel actor-critic method called GAC... show deterministic policy gradient is a special case",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 4
+ },
+ {
+  "paper": "q178",
+  "primary": "scientific analysis method",
+  "secondary": "scientific findings",
+  "evidence": "propose a methodology for clustering the representations of neurons... to find functional cell types",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 4
+ },
+ {
+  "paper": "q179",
+  "primary": "new system",
+  "secondary": "new training method",
+  "evidence": "propose an Efficient single-model Variable-bit-rate Codec (EVC)... design the mask decay",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 4
+ },
+ {
+  "paper": "q180",
+  "primary": "repurposing existing models",
+  "secondary": "empirical analysis",
+  "evidence": "show that recent RL foundation models... can imitate any expert behavior almost instantly with few demonstrations",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 4
+ },
+ {
+  "paper": "q181",
+  "primary": "new system",
+  "secondary": "",
+  "evidence": "introduce a new speech recognition system, leveraging a simple letter-based ConvNet acoustic model",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 4
+ },
+ {
+  "paper": "q182",
+  "primary": "new training method",
+  "secondary": "new model architecture",
+  "evidence": "designing a cooperative and self-supervised network architecture that does not rely on clean speech data",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 4
+ },
+ {
+  "paper": "q183",
+  "primary": "new method",
+  "secondary": "",
+  "evidence": "core of our proposal is the Causal Proxy Model (CPM)... explains a black-box model",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 4
+ },
+ {
+  "paper": "q184",
+  "primary": "new model architecture",
+  "secondary": "new evaluation metric",
+  "evidence": "propose a variant of the basic GAN model (GM-GAN)... propose a new scoring method",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 4
+ },
+ {
+  "paper": "q185",
+  "primary": "new system",
+  "secondary": "",
+  "evidence": "proposes AutoML-Agent, a novel multi-agent framework tailored for full-pipeline AutoML",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 4
+ },
+ {
+  "paper": "q186",
+  "primary": "new model architecture",
+  "secondary": "",
+  "evidence": "we propose a spatio-temporal diffusion transformer (STD-Former)... two-branch network",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 4
+ },
+ {
+  "paper": "q187",
+  "primary": "new training method",
+  "secondary": "",
+  "evidence": "propose to learn the backward weight matrices in DFA, adopting the methodology of Kolen-Pollack learning",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 4
+ },
+ {
+  "paper": "q188",
+  "primary": "new method",
+  "secondary": "scientific analysis method",
+  "evidence": "GrID-Net, a framework... for Granger causal inference on DAG-structured systems; identify genomic loci",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 4
+ },
+ {
+  "paper": "q189",
+  "primary": "new algorithm",
+  "secondary": "unifying perspective",
+  "evidence": "introduce a new algorithm... MPO... several existing methods can directly be related to our derivation",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 4
+ },
+ {
+  "paper": "q190",
+  "primary": "new model architecture",
+  "secondary": "",
+  "evidence": "propose Region Proposal Interaction Networks (RPIN), which reason about each object's trajectory",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 4
+ },
+ {
+  "paper": "q191",
+  "primary": "empirical analysis",
+  "secondary": "practical guidelines",
+  "evidence": "thorough evaluation of nine representative pooling algorithms finds that max pooling outperforms average pooling",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 4
+ },
+ {
+  "paper": "q192",
+  "primary": "new training method",
+  "secondary": "empirical analysis",
+  "evidence": "propose an effective scheme for training CMs... Easy Consistency Tuning; investigate the scaling laws",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 4
+ },
+ {
+  "paper": "q193",
+  "primary": "new algorithm",
+  "secondary": "theoretical guarantees",
+  "evidence": "present an algorithm called Skew-Fit... converges to a uniform distribution over the set of valid states",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 4
+ },
+ {
+  "paper": "q194",
+  "primary": "new algorithm",
+  "secondary": "theoretical guarantees",
+  "evidence": "proposes a new optimization algorithm called Entropy-SGD... improved generalization over SGD using uniform stability",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 4
+ },
+ {
+  "paper": "q195",
+  "primary": "new problem setting",
+  "secondary": "new benchmark",
+  "evidence": "introduce a novel task: few-shot idea auto-generation... construct a benchmark for few-shot idea generation",
+  "clarity": "ambiguous",
+  "coder": "A",
+  "batch": 4
+ },
+ {
+  "paper": "q196",
+  "primary": "new benchmark",
+  "secondary": "empirical analysis",
+  "evidence": "propose a challenging benchmark that tests agents' visual generalization... current methods struggle to generalize",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 4
+ },
+ {
+  "paper": "q197",
+  "primary": "new model architecture",
+  "secondary": "",
+  "evidence": "proposes a general two-step scheme of text classification based on Tensor Network, named TextTN",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 4
+ },
+ {
+  "paper": "q198",
+  "primary": "new statistical measure",
+  "secondary": "new training method",
+  "evidence": "propose a new relational discrepancy, named spherical sliced fused Gromov Wasserstein (SSFG)",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 4
+ },
+ {
+  "paper": "q199",
+  "primary": "new model architecture",
+  "secondary": "unifying perspective",
+  "evidence": "Hybrid ACNs, unifying ACNs and ResNets under a single mathematical formulation",
+  "clarity": "ambiguous",
+  "coder": "A",
+  "batch": 4
+ },
+ {
+  "paper": "q200",
+  "primary": "evaluation methodology",
+  "secondary": "theoretical guarantees",
+  "evidence": "prove asymptotic guarantees for empirical ROC curves... dedicated recentering technique must be used instead",
+  "clarity": "clear",
+  "coder": "A",
+  "batch": 4
+ },
+ {
+  "paper": "q151",
+  "primary": "new method",
+  "secondary": "new dataset",
+  "evidence": "we introduce an Uncertainty-Guided Depth Fusion (UGDF) framework... we contribute a spike-depth dataset named CitySpike20K",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 4
+ },
+ {
+  "paper": "q152",
+  "primary": "new model architecture",
+  "secondary": "",
+  "evidence": "structured attention networks are simple extensions of the basic attention procedure... implemented as neural network layers",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 4
+ },
+ {
+  "paper": "q153",
+  "primary": "new model architecture",
+  "secondary": "new training procedure",
+  "evidence": "first unified visual tokenizer... pure transformer architecture with 4D rotary position embeddings... adversarial-free training objective",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 4
+ },
+ {
+  "paper": "q154",
+  "primary": "new algorithm",
+  "secondary": "theoretical guarantees",
+  "evidence": "propose a reinforcement learning algorithm named Represent to Control (RTC)... attains O(1/eps^2) sample complexity",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 4
+ },
+ {
+  "paper": "q155",
+  "primary": "new method",
+  "secondary": "",
+  "evidence": "We propose Adaptive Adversarial Augmentation (AAA), a Heterogeneous Domain Generalization approach tailored for single-source cross-dataset ReID",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 4
+ },
+ {
+  "paper": "q156",
+  "primary": "new method",
+  "secondary": "",
+  "evidence": "we introduce a novel variational framework for posterior sampling... with a repulsion mechanism",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 4
+ },
+ {
+  "paper": "q157",
+  "primary": "new model architecture",
+  "secondary": "",
+  "evidence": "We present a novel hierarchical deep RL architecture that consists of two interacting neural controllers",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 4
+ },
+ {
+  "paper": "q158",
+  "primary": "new method",
+  "secondary": "",
+  "evidence": "we propose BayOTIDE: Bayesian Online Multivariate Time series Imputation with functional decomposition",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 4
+ },
+ {
+  "paper": "q159",
+  "primary": "empirical analysis",
+  "secondary": "",
+  "evidence": "We empirically investigate weight decay... identify three distinct mechanisms by which weight decay exerts a regularization effect",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 4
+ },
+ {
+  "paper": "q160",
+  "primary": "new method",
+  "secondary": "empirical analysis",
+  "evidence": "necessity of parallel ordering... first tested... motivating the development of a soft ordering approach",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 4
+ },
+ {
+  "paper": "q161",
+  "primary": "new method",
+  "secondary": "new problem setting",
+  "evidence": "proposing and studying a novel Lifelong Model Editing setting... we propose... GRACE",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 4
+ },
+ {
+  "paper": "q162",
+  "primary": "new method",
+  "secondary": "domain application",
+  "evidence": "We propose surgical VAE (sVAE), a representation learning framework for perioperative data",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 4
+ },
+ {
+  "paper": "q163",
+  "primary": "new method",
+  "secondary": "conceptual reframing",
+  "evidence": "policy networks... are a form of amortized optimization... iterative amortized policy optimization yields performance improvements",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 4
+ },
+ {
+  "paper": "q164",
+  "primary": "theoretical explanation of phenomenon",
+  "secondary": "",
+  "evidence": "These results provide a theoretical explanation for distinct behaviors of MAE and CL observed in empirical studies",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 4
+ },
+ {
+  "paper": "q165",
+  "primary": "new model architecture",
+  "secondary": "",
+  "evidence": "we introduce the Tensorized Attention Model (TAM)... integrates them into Transformer outputs",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 4
+ },
+ {
+  "paper": "q166",
+  "primary": "new method",
+  "secondary": "",
+  "evidence": "we propose an approach using deep representation learning algorithms to learn an adequate goal space",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 4
+ },
+ {
+  "paper": "q167",
+  "primary": "theoretical analysis",
+  "secondary": "new method",
+  "evidence": "better understand the limits to reconstruction and to speed up image reconstruction by imposing prior image information",
+  "clarity": "ambiguous",
+  "coder": "B",
+  "batch": 4
+ },
+ {
+  "paper": "q168",
+  "primary": "new method",
+  "secondary": "",
+  "evidence": "we propose associating natural language utterances to... 3-dimensional visual feature representations",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 4
+ },
+ {
+  "paper": "q169",
+  "primary": "new method",
+  "secondary": "empirical analysis",
+  "evidence": "we design a family of quantizers named BOF4... explore additional variations... through an experimental study",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 4
+ },
+ {
+  "paper": "q170",
+  "primary": "theoretical analysis",
+  "secondary": "",
+  "evidence": "We derive bounds on the number of linear regions and the distance to boundaries",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 4
+ },
+ {
+  "paper": "q171",
+  "primary": "theoretical analysis",
+  "secondary": "cross-field connection",
+  "evidence": "new connection between DNNs expressivity and Sharkovsky's Theorem... give general lower bounds for the width",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 4
+ },
+ {
+  "paper": "q172",
+  "primary": "new method",
+  "secondary": "",
+  "evidence": "we introduce a model-based planning framework which learns a latent reward prediction model",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 4
+ },
+ {
+  "paper": "q173",
+  "primary": "theoretical explanation of phenomenon",
+  "secondary": "",
+  "evidence": "grokking phenomenon... can arise due to a neural network transitioning from lazy training dynamics to rich",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 4
+ },
+ {
+  "paper": "q174",
+  "primary": "new algorithm",
+  "secondary": "theoretical analysis",
+  "evidence": "We introduce a theoretical framework for sampling from unnormalized densities... Our sampling algorithm generalizes walk-jump sampling",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 4
+ },
+ {
+  "paper": "q175",
+  "primary": "new method",
+  "secondary": "domain application",
+  "evidence": "we propose the Complex-Aware tertiary structure-based RNA Design model, CARD",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 4
+ },
+ {
+  "paper": "q176",
+  "primary": "new method",
+  "secondary": "new problem setting",
+  "evidence": "We introduce partially-blind unlearning... We also propose a practical framework Reload",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 4
+ },
+ {
+  "paper": "q177",
+  "primary": "new algorithm",
+  "secondary": "theoretical analysis",
+  "evidence": "we propose a novel actor-critic method called the guide actor-critic (GAC). Our main theoretical contributions are two folds",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 4
+ },
+ {
+  "paper": "q178",
+  "primary": "new method",
+  "secondary": "scientific finding",
+  "evidence": "propose a methodology for clustering the representations of neurons... Our results highlight... non-linear computations in mouse V1",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 4
+ },
+ {
+  "paper": "q179",
+  "primary": "new method",
+  "secondary": "code release",
+  "evidence": "we propose an Efficient single-model Variable-bit-rate Codec (EVC)... we meticulously design the mask decay",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 4
+ },
+ {
+  "paper": "q180",
+  "primary": "new use of existing models",
+  "secondary": "",
+  "evidence": "we show that recent RL foundation models... can imitate any expert behavior almost instantly",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 4
+ },
+ {
+  "paper": "q181",
+  "primary": "new system",
+  "secondary": "",
+  "evidence": "we introduce a new speech recognition system, leveraging a simple letter-based ConvNet acoustic model",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 4
+ },
+ {
+  "paper": "q182",
+  "primary": "new method",
+  "secondary": "new problem setting",
+  "evidence": "designing a cooperative and self-supervised network architecture that does not rely on clean speech data",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 4
+ },
+ {
+  "paper": "q183",
+  "primary": "new method",
+  "secondary": "",
+  "evidence": "The core of our proposal is the Causal Proxy Model (CPM)",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 4
+ },
+ {
+  "paper": "q184",
+  "primary": "new model architecture",
+  "secondary": "evaluation metric",
+  "evidence": "we propose a variant of the basic GAN model, GM-GAN... we propose a new scoring method",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 4
+ },
+ {
+  "paper": "q185",
+  "primary": "new system",
+  "secondary": "",
+  "evidence": "proposes AutoML-Agent, a novel multi-agent framework tailored for full-pipeline AutoML",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 4
+ },
+ {
+  "paper": "q186",
+  "primary": "new model architecture",
+  "secondary": "",
+  "evidence": "we propose a spatio-temporal diffusion transformer (STD-Former) to improve the recognition accuracy",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 4
+ },
+ {
+  "paper": "q187",
+  "primary": "new algorithm",
+  "secondary": "",
+  "evidence": "We propose to learn the backward weight matrices in DFA, adopting the methodology of Kolen-Pollack learning",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 4
+ },
+ {
+  "paper": "q188",
+  "primary": "new method",
+  "secondary": "scientific finding",
+  "evidence": "we present GrID-Net... for Granger causal inference on DAG-structured systems... identify genomic loci",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 4
+ },
+ {
+  "paper": "q189",
+  "primary": "new algorithm",
+  "secondary": "unifying perspective",
+  "evidence": "We introduce a new algorithm... MPO... several existing methods can directly be related to our derivation",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 4
+ },
+ {
+  "paper": "q190",
+  "primary": "new model architecture",
+  "secondary": "code release",
+  "evidence": "we propose Region Proposal Interaction Networks (RPIN)... Code, pre-trained models... are available",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 4
+ },
+ {
+  "paper": "q191",
+  "primary": "empirical analysis",
+  "secondary": "practical guidelines",
+  "evidence": "A thorough evaluation of nine representative pooling algorithms finds that max pooling outperforms average pooling",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 4
+ },
+ {
+  "paper": "q192",
+  "primary": "new training procedure",
+  "secondary": "empirical analysis",
+  "evidence": "we propose an effective scheme for training CMs... investigate the scaling laws of CMs under ECT",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 4
+ },
+ {
+  "paper": "q193",
+  "primary": "new algorithm",
+  "secondary": "theoretical guarantees",
+  "evidence": "propose a formal exploration objective... present an algorithm called Skew-Fit... converges to a uniform distribution",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 4
+ },
+ {
+  "paper": "q194",
+  "primary": "new algorithm",
+  "secondary": "theoretical analysis",
+  "evidence": "This paper proposes a new optimization algorithm called Entropy-SGD... show improved generalization over SGD using uniform stability",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 4
+ },
+ {
+  "paper": "q195",
+  "primary": "new problem setting",
+  "secondary": "new benchmark",
+  "evidence": "We introduce a novel task: few-shot idea auto-generation... construct a benchmark for few-shot idea generation",
+  "clarity": "ambiguous",
+  "coder": "B",
+  "batch": 4
+ },
+ {
+  "paper": "q196",
+  "primary": "new benchmark",
+  "secondary": "empirical analysis",
+  "evidence": "We propose a challenging benchmark that tests agents' visual generalization... current methods struggle to generalize",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 4
+ },
+ {
+  "paper": "q197",
+  "primary": "new model architecture",
+  "secondary": "",
+  "evidence": "proposes a general two-step scheme of text classification based on Tensor Network, which is named as TextTN",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 4
+ },
+ {
+  "paper": "q198",
+  "primary": "new method",
+  "secondary": "",
+  "evidence": "we propose a new relational discrepancy, named spherical sliced fused Gromov Wasserstein (SSFG)",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 4
+ },
+ {
+  "paper": "q199",
+  "primary": "new model architecture",
+  "secondary": "empirical analysis",
+  "evidence": "unifying ACNs and ResNets under a single mathematical formulation... learned residual weights exhibit distinct connectivity patterns",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 4
+ },
+ {
+  "paper": "q200",
+  "primary": "evaluation methodology",
+  "secondary": "theoretical guarantees",
+  "evidence": "we prove asymptotic guarantees for empirical ROC curves... A dedicated recentering technique must be used instead",
+  "clarity": "clear",
+  "coder": "B",
+  "batch": 4
+ }
+]

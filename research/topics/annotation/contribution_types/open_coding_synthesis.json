@@ -1,0 +1,2753 @@
+{
+ "categories": [
+  {
+   "name": "New method or algorithm",
+   "definition": "The main contribution is a new procedure that can be applied to models or data: a training scheme, loss or objective, optimisation or learning algorithm, inference, decoding or prompting procedure, pruning, quantisation or acceleration technique, attack or defence, or interpretability procedure. It is the largest category (primary for A 99, B 107).",
+   "decision_rule": "Ask what a reader would reuse. If it is a procedure applied to models, whether existing or new, the paper is METHOD. If it is a new named model whose novelty lies in its structure, it is MODEL. When both are introduced, the primary goes to whichever the title or abstract puts first, and the other becomes the secondary. A domain-specific technique is still METHOD, because the domain is the subject area; add 'Domain application' as the secondary only if the abstract makes a claim about the domain. If the selling point is that a simple, already-known recipe or baseline is enough, use PRACTICAL. If the contribution is an assembled multi-part pipeline or a software artifact, use SYSTEM.",
+   "free_text_labels": [
+    "new method",
+    "new algorithm",
+    "novel algorithm",
+    "new training method",
+    "novel training method",
+    "new training procedure",
+    "new training objective",
+    "novel inference method",
+    "new inference-time method",
+    "new prompting method",
+    "novel prompting method",
+    "efficiency method",
+    "new efficiency method",
+    "novel optimization techniques",
+    "new parameterization method",
+    "new attack method",
+    "new attack",
+    "attack algorithm",
+    "new defense method",
+    "novel defense method",
+    "novel interpretability method",
+    "domain-specific method",
+    "scientific analysis method (q178 primary)",
+    "new statistical measure",
+    "repurposing existing models",
+    "new use of existing models"
+   ],
+   "example_papers": [
+    "q011 Improving On-policy Learning with Statistical Reward Accumulation",
+    "q077 Training Language Models to Self-Correct via Reinforcement Learning",
+    "q056 Training-Free Distribution Adaptation for Diffusion Models via MMD Guidance",
+    "q067 SaiT: Sparse Vision Transformers through Adaptive Token Pruning",
+    "q120 Classifier-to-Generator Attack",
+    "q039 Concept Gradient: Concept-based Interpretation Without Linear Assumption"
+   ],
+   "confusable_with": [
+    "New model or architecture",
+    "System or software artifact",
+    "Domain application or domain insight",
+    "Practical recipe, guideline or baseline",
+    "Problem formulation or new setting"
+   ]
+  },
+  {
+   "name": "New model or architecture",
+   "definition": "The main contribution is a new model whose novelty is its structure: a network architecture, a layer, module, attention or pooling component, a generative or probabilistic model specification, a learned representation format, or a released foundation or trained model.",
+   "decision_rule": "Use this when the abstract centres on 'we propose network/model X' with structural components such as layers, modules, connectivity or a model specification. If what is new is how an existing model is trained, run or optimised, use METHOD. This is the least reliable boundary in the scheme. Coder A counted probabilistic models, model frameworks and 'domain-specific models' here, while coder B (batches 3-4) called them 'new method'. A model specified only by its learning or inference procedure should be coded METHOD. Code MODEL only when the structure itself is the selling point.",
+   "free_text_labels": [
+    "new architecture",
+    "novel model architecture",
+    "new model architecture",
+    "new architectural component",
+    "new representation",
+    "novel representation",
+    "new modeling framework",
+    "novel modeling formulation",
+    "new probabilistic model",
+    "new model",
+    "domain-specific model",
+    "new foundation model",
+    "new trained model"
+   ],
+   "example_papers": [
+    "q001 L-C4: Language-Based Video Colorization",
+    "q029 Grouped-head latenT Attention",
+    "q152 Structured Attention Networks",
+    "q149 Augmenting Self-attention with Persistent Memory",
+    "q153 AToken: A Unified Tokenizer for Vision",
+    "q115 Deep Variational Canonical Correlation Analysis (disputed: A model, B method)"
+   ],
+   "confusable_with": [
+    "New method or algorithm",
+    "System or software artifact"
+   ]
+  },
+  {
+   "name": "Theoretical analysis",
+   "definition": "The contribution is mathematical: proofs, bounds, convergence, approximation or sample-complexity results, theoretical explanations of observed phenomena, or formal models such as game-theoretic ones. It covers both standalone theory and guarantees attached to a proposed method.",
+   "decision_rule": "Code by the type of evidence. If the claim rests on derivation, it is THEORY. If it rests on experiments, it is EMPIRICAL. 'Explanation of a phenomenon' is coded by the means used (q164 and q173 are THEORY, q159 is EMPIRICAL). Guarantees for a newly proposed method are a THEORY secondary under a METHOD primary. A unification that is proven is THEORY primary with PERSPECTIVE secondary. The coders did not distinguish 'guarantee' from 'analysis' (they swapped them on q101, q128, q133 and q194), so both are merged here.",
+   "free_text_labels": [
+    "theoretical analysis",
+    "theoretical guarantee",
+    "theoretical guarantees",
+    "theoretical explanation of phenomenon",
+    "explanation of phenomenon (when argued by derivation: q164, q173)",
+    "formal model"
+   ],
+   "example_papers": [
+    "q112 The Universal Approximation Power of Finite-Width Deep ReLU Networks",
+    "q047 Non-vacuous Generalization Bounds at the ImageNet Scale",
+    "q173 Grokking as the transition from lazy to rich training dynamics",
+    "q132 Improved Convergence of Differential Private SGD with Gradient Clipping",
+    "q170 Effects of Data Geometry in Early Deep Learning"
+   ],
+   "confusable_with": [
+    "Empirical analysis or finding",
+    "Unifying or conceptual perspective"
+   ]
+  },
+  {
+   "name": "Empirical analysis or finding",
+   "definition": "The contribution is knowledge gained from experiments about existing methods, models or phenomena. This includes systematic or comparative studies, discovered phenomena, mechanisms explained through experiments, demonstrated vulnerabilities or capabilities, failure diagnoses, and critiques of existing approaches.",
+   "decision_rule": "Use this when the payoff is an insight rather than an artifact. If the study's reusable output is a dataset or task suite, use DATA. If it is a new way to measure, use EVAL. If it ends in actionable recommendations or a recipe, use PRACTICAL as primary or secondary. If a fix is also proposed, the fix is METHOD, and the primary goes to whichever the abstract puts first. The coders used finding, study, analysis and phenomenon discovery interchangeably (q066, q072, q093, q150), so all are merged here. Critique and failure diagnosis were kept inside this category because they are rare and always come from analysis.",
+   "free_text_labels": [
+    "empirical finding",
+    "empirical analysis",
+    "empirical study",
+    "empirical comparison",
+    "phenomenon discovery",
+    "problem identification",
+    "vulnerability demonstration",
+    "analysis of learned representations",
+    "challenge to common assumption",
+    "critique of existing methods",
+    "critique of existing approaches",
+    "failure diagnosis",
+    "failure-mode diagnosis",
+    "new capability demonstration",
+    "explanation of phenomenon (when argued from experiments: q159)"
+   ],
+   "example_papers": [
+    "q072 Is Stochastic Gradient Descent Near Optimal?",
+    "q093 Cultural and Linguistic Diversity Improves Visual Representations",
+    "q144 Pretrained Language Model in Continual Learning: A Comparative Study",
+    "q159 Three Mechanisms of Weight Decay Regularization",
+    "q150 Backdoors Stuck At The Frontdoor",
+    "q002 Adversarial Examples for Natural Language Classification Problems"
+   ],
+   "confusable_with": [
+    "Theoretical analysis",
+    "Practical recipe, guideline or baseline",
+    "Dataset, benchmark or data pipeline",
+    "Evaluation methodology or metric"
+   ]
+  },
+  {
+   "name": "Problem formulation or new setting",
+   "definition": "The contribution defines what should be solved or studied. This covers a new task, learning setting or threat model, a reformulation of a known problem as a different one, or a formal definition of a notion. It is mostly a secondary contribution (primary for A 5, B 4; secondary 11 times for each coder).",
+   "decision_rule": "Use this when the abstract says 'we introduce, formalise or define the task, problem, setting or notion of X' and X is new. Do not use it for solving a known problem. If the paper reinterprets or unifies existing problems or methods rather than posing a new one, use PERSPECTIVE. If a new task comes with its own data, code the task definition here and the data as DATA (q195).",
+   "free_text_labels": [
+    "problem formalization",
+    "new task formulation",
+    "new problem formulation",
+    "problem reformulation",
+    "new problem setting",
+    "new threat model",
+    "new concept definition",
+    "new task and benchmark"
+   ],
+   "example_papers": [
+    "q098 MLOT: Extending the Bipartite Structure towards Multi-Layered Structure for Optimal Transport",
+    "q176 Mitigating Privacy Risk via Forget Set-Free Unlearning",
+    "q195 Few-Shot Idea Auto-Generation",
+    "q034 Generating Wikipedia by Summarizing Long Sequences",
+    "q010 With False Friends Like These, Who Can Have Self-Knowledge?"
+   ],
+   "confusable_with": [
+    "New method or algorithm",
+    "Unifying or conceptual perspective",
+    "Dataset, benchmark or data pipeline"
+   ]
+  },
+  {
+   "name": "Dataset, benchmark or data pipeline",
+   "definition": "The contribution is data. This covers a new dataset or benchmark suite, annotation or cleaning of an existing dataset, and pipelines that generate, synthesise or curate data for training or evaluation.",
+   "decision_rule": "Use this when the reusable output is data or a set of tasks. If the output is a measurement procedure, protocol or metric, use EVAL. If the output is the set of results obtained on the benchmark, those findings are an EMPIRICAL secondary. A data-generation step that is only one part of a method is a DATA secondary under METHOD (q064, q088).",
+   "free_text_labels": [
+    "benchmark",
+    "new benchmark",
+    "benchmark dataset",
+    "new dataset/benchmark",
+    "new dataset",
+    "benchmark and evaluation protocol",
+    "dataset construction method",
+    "dataset generation method",
+    "synthetic data generation pipeline",
+    "data generation pipeline",
+    "data curation pipeline",
+    "dataset annotation",
+    "dataset improvement"
+   ],
+   "example_papers": [
+    "q052 FedSecurity: A Benchmark for Attacks and Defenses in Federated Learning",
+    "q071 NAS-Bench-1Shot1",
+    "q103 Compositional Generalization in Multimodal Foundation Models",
+    "q086 Automated Generation of Multilingual Clusters for the Evaluation of Distributed Representations",
+    "q196 Measuring Visual Generalization in Continuous Control from Pixels"
+   ],
+   "confusable_with": [
+    "Evaluation methodology or metric",
+    "Problem formulation or new setting",
+    "Empirical analysis or finding"
+   ]
+  },
+  {
+   "name": "Evaluation methodology or metric",
+   "definition": "The contribution is a new way of measuring: an evaluation protocol or framework, a metric, a statistical procedure for assessing or certifying performance, or a diagnostic error-analysis tool.",
+   "decision_rule": "Use this when the reusable output is how to measure. If it is what to measure on (data or tasks), use DATA. If it is what the measurement showed, use EMPIRICAL. A metric used as a training loss or regulariser is METHOD (q198). A metric used to select or evaluate models is EVAL (q026).",
+   "free_text_labels": [
+    "evaluation methodology",
+    "evaluation framework",
+    "new evaluation metric",
+    "new evaluation metrics",
+    "evaluation metric",
+    "diagnostic tool"
+   ],
+   "example_papers": [
+    "q007 Humanly Certifying Superhuman Classifiers",
+    "q041 A Comprehensive Framework for Benchmarking Algorithms Across Hyperparameter Spaces",
+    "q075 Talk, Evaluate, Diagnose: User-aware Agent Evaluation",
+    "q200 Assessing Uncertainty in Similarity Scoring",
+    "q026 AutoUAD: Hyper-parameter Optimization for Unsupervised Anomaly Detection"
+   ],
+   "confusable_with": [
+    "Dataset, benchmark or data pipeline",
+    "Empirical analysis or finding"
+   ]
+  },
+  {
+   "name": "Unifying or conceptual perspective",
+   "definition": "The contribution is a way of thinking. This covers unifying several existing methods or architectures under one framework, reframing a problem through a new lens, connecting ML to another field's concepts, or setting out open research questions. It is primary only once (q016) and is otherwise a secondary.",
+   "decision_rule": "Use this when the abstract claims 'X and Y are special cases of', 'we view X as', or 'a connection to field Z'. A rigorously proven unification is THEORY primary with this category as secondary. If a new problem is posed, rather than an existing one reinterpreted, use PROBLEM.",
+   "free_text_labels": [
+    "unifying perspective",
+    "unifying theoretical perspective",
+    "unifying framework",
+    "new perspective",
+    "new conceptual perspective",
+    "conceptual reframing",
+    "connection to another field",
+    "cross-field connection",
+    "open research questions"
+   ],
+   "example_papers": [
+    "q016 Understanding and Stabilizing GANs' Training Dynamics with Control Theory",
+    "q189 Maximum a Posteriori Policy Optimisation (secondary)",
+    "q171 Depth-Width Trade-offs for ReLU Networks via Sharkovsky's Theorem (secondary)",
+    "q104 Fully Convolutional Graph Neural Networks using Bipartite Graph Convolutions (secondary)",
+    "q163 Iterative Amortized Policy Optimization (secondary)"
+   ],
+   "confusable_with": [
+    "Theoretical analysis",
+    "Problem formulation or new setting"
+   ]
+  },
+  {
+   "name": "System or software artifact",
+   "definition": "The contribution is an engineered artifact valued as a working whole or as reusable software. This covers integrated end-to-end systems and agent frameworks, research platforms, libraries, interpreters, toolkits and code releases.",
+   "decision_rule": "Use this when the abstract presents the work as 'we build or implement a system, platform, toolkit or interpreter', or stresses usability, deployment or released code. If it highlights one new technique, use METHOD. If it highlights one new network, use MODEL. A domain-specific system is SYSTEM, with 'Domain application' as the secondary if the abstract makes domain claims. Coders applied 'system' consistently (6 of 7 primaries agreed), so the category is kept even though it is close to METHOD.",
+   "free_text_labels": [
+    "new system",
+    "new system/tool",
+    "domain-specific system",
+    "novel software tool",
+    "software system",
+    "software platform",
+    "open-source software tool",
+    "software tool",
+    "software toolkit",
+    "code release"
+   ],
+   "example_papers": [
+    "q135 Development of JavaScript-based deep learning platform",
+    "q020 Programming With a Differentiable Forth Interpreter",
+    "q181 Gated ConvNets for Letter-Based ASR",
+    "q185 AutoML-Agent: A Multi-Agent LLM Framework for Full-Pipeline AutoML",
+    "q125 Toward Greater Autonomy in Materials Discovery Agents (MAPPS)"
+   ],
+   "confusable_with": [
+    "New method or algorithm",
+    "New model or architecture",
+    "Domain application or domain insight"
+   ]
+  },
+  {
+   "name": "Domain application or domain insight",
+   "definition": "The contribution's value lies in a field outside ML. This covers applying mostly existing ML to a concrete real-world problem, reports of deployment or industry experience, and findings about the domain itself, such as neuroscience or genomics discoveries.",
+   "decision_rule": "Use this as the primary only when the novelty is solving the domain problem rather than a generalisable technique (q028, q032). A new technique that is merely evaluated on domain data is METHOD primary, with this category as a secondary when the abstract makes domain claims. Use it as a secondary whenever the paper reports scientific or practical findings about the domain (q019, q178, q188, q145). The domain itself is the subject area and is not coded.",
+   "free_text_labels": [
+    "applied ML system",
+    "ML-based application system",
+    "application study",
+    "applied empirical study",
+    "domain application",
+    "industry experience report",
+    "practitioner experience report",
+    "neuroscience insight",
+    "scientific finding",
+    "scientific findings",
+    "scientific analysis method (q188 secondary, where it adds the scientific-use aspect to a 'new method' primary)"
+   ],
+   "example_papers": [
+    "q028 Structural Code Representation Learning for Auto-Vectorization",
+    "q032 Multi-task Learning on MNIST Image Datasets",
+    "q141 Generating Realistic Stock Market Order Streams (disputed)",
+    "q145 Multi-label learning with the RNNs for Fashion Search (secondary)",
+    "q188 Granger causal inference on DAGs identifies genomic loci regulating transcription (secondary)"
+   ],
+   "confusable_with": [
+    "New method or algorithm",
+    "System or software artifact",
+    "Empirical analysis or finding"
+   ]
+  },
+  {
+   "name": "Practical recipe, guideline or baseline",
+   "definition": "The contribution is actionable know-how built from existing components: a training recipe, design or initialisation guidelines, best practices, or a demonstration that a simple baseline is strong enough to be the reference point.",
+   "decision_rule": "Use this when the abstract's takeaway is 'do this in practice' or 'this simple, known approach suffices'. If the takeaway is an understanding with no recommendation, use EMPIRICAL. If the takeaway is a genuinely new technique, use METHOD. Guidelines derived from theory or experiments are coded as THEORY or EMPIRICAL primary with this category as secondary (q102, q126, q191). The coders agreed on all six papers where it appeared.",
+   "free_text_labels": [
+    "practical training recipe",
+    "simple strong baseline",
+    "simple baseline method",
+    "strong baseline",
+    "baseline for future research",
+    "design guidance",
+    "practical guidelines"
+   ],
+   "example_papers": [
+    "q006 Discovering Low-Precision Networks Close to Full-Precision Networks",
+    "q073 Experience replay for continual learning",
+    "q191 On Global Feature Pooling for Fine-grained Visual Categorization (secondary)",
+    "q102 Autocorrelation Matters: Initialization Schemes for State Space Models (secondary)",
+    "q027 FoveaBox (secondary)"
+   ],
+   "confusable_with": [
+    "Empirical analysis or finding",
+    "New method or algorithm"
+   ]
+  }
+ ],
+ "assignments": [
+  {
+   "paper": "q001",
+   "coder": "A",
+   "primary_category": "New model or architecture",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q001",
+   "coder": "B",
+   "primary_category": "New model or architecture",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q002",
+   "coder": "A",
+   "primary_category": "Empirical analysis or finding",
+   "secondary_category": "Problem formulation or new setting"
+  },
+  {
+   "paper": "q002",
+   "coder": "B",
+   "primary_category": "Empirical analysis or finding",
+   "secondary_category": "New method or algorithm"
+  },
+  {
+   "paper": "q003",
+   "coder": "A",
+   "primary_category": "New model or architecture",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q003",
+   "coder": "B",
+   "primary_category": "New model or architecture",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q004",
+   "coder": "A",
+   "primary_category": "New model or architecture",
+   "secondary_category": "New method or algorithm"
+  },
+  {
+   "paper": "q004",
+   "coder": "B",
+   "primary_category": "New model or architecture",
+   "secondary_category": "New model or architecture"
+  },
+  {
+   "paper": "q005",
+   "coder": "A",
+   "primary_category": "New model or architecture",
+   "secondary_category": "Empirical analysis or finding"
+  },
+  {
+   "paper": "q005",
+   "coder": "B",
+   "primary_category": "New model or architecture",
+   "secondary_category": "Empirical analysis or finding"
+  },
+  {
+   "paper": "q006",
+   "coder": "A",
+   "primary_category": "Practical recipe, guideline or baseline",
+   "secondary_category": "Empirical analysis or finding"
+  },
+  {
+   "paper": "q006",
+   "coder": "B",
+   "primary_category": "Practical recipe, guideline or baseline",
+   "secondary_category": "Empirical analysis or finding"
+  },
+  {
+   "paper": "q007",
+   "coder": "A",
+   "primary_category": "Evaluation methodology or metric",
+   "secondary_category": "Theoretical analysis"
+  },
+  {
+   "paper": "q007",
+   "coder": "B",
+   "primary_category": "Evaluation methodology or metric",
+   "secondary_category": "Theoretical analysis"
+  },
+  {
+   "paper": "q008",
+   "coder": "A",
+   "primary_category": "New method or algorithm",
+   "secondary_category": "Empirical analysis or finding"
+  },
+  {
+   "paper": "q008",
+   "coder": "B",
+   "primary_category": "New method or algorithm",
+   "secondary_category": "Empirical analysis or finding"
+  },
+  {
+   "paper": "q009",
+   "coder": "A",
+   "primary_category": "New method or algorithm",
+   "secondary_category": "Empirical analysis or finding"
+  },
+  {
+   "paper": "q009",
+   "coder": "B",
+   "primary_category": "New method or algorithm",
+   "secondary_category": "Empirical analysis or finding"
+  },
+  {
+   "paper": "q010",
+   "coder": "A",
+   "primary_category": "Problem formulation or new setting",
+   "secondary_category": "New method or algorithm"
+  },
+  {
+   "paper": "q010",
+   "coder": "B",
+   "primary_category": "Problem formulation or new setting",
+   "secondary_category": "New method or algorithm"
+  },
+  {
+   "paper": "q011",
+   "coder": "A",
+   "primary_category": "New method or algorithm",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q011",
+   "coder": "B",
+   "primary_category": "New method or algorithm",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q012",
+   "coder": "A",
+   "primary_category": "New method or algorithm",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q012",
+   "coder": "B",
+   "primary_category": "New method or algorithm",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q013",
+   "coder": "A",
+   "primary_category": "New model or architecture",
+   "secondary_category": "Dataset, benchmark or data pipeline"
+  },
+  {
+   "paper": "q013",
+   "coder": "B",
+   "primary_category": "New model or architecture",
+   "secondary_category": "Dataset, benchmark or data pipeline"
+  },
+  {
+   "paper": "q014",
+   "coder": "A",
+   "primary_category": "New method or algorithm",
+   "secondary_category": "Theoretical analysis"
+  },
+  {
+   "paper": "q014",
+   "coder": "B",
+   "primary_category": "New method or algorithm",
+   "secondary_category": "Theoretical analysis"
+  },
+  {
+   "paper": "q015",
+   "coder": "A",
+   "primary_category": "New model or architecture",
+   "secondary_category": "Theoretical analysis"
+  },
+  {
+   "paper": "q015",
+   "coder": "B",
+   "primary_category": "New model or architecture",
+   "secondary_category": "Theoretical analysis"
+  },
+  {
+   "paper": "q016",
+   "coder": "A",
+   "primary_category": "Unifying or conceptual perspective",
+   "secondary_category": "New method or algorithm"
+  },
+  {
+   "paper": "q016",
+   "coder": "B",
+   "primary_category": "Unifying or conceptual perspective",
+   "secondary_category": "New method or algorithm"
+  },
+  {
+   "paper": "q017",
+   "coder": "A",
+   "primary_category": "New method or algorithm",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q017",
+   "coder": "B",
+   "primary_category": "New method or algorithm",
+   "secondary_category": "New model or architecture"
+  },
+  {
+   "paper": "q018",
+   "coder": "A",
+   "primary_category": "New method or algorithm",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q018",
+   "coder": "B",
+   "primary_category": "New method or algorithm",
+   "secondary_category": "Theoretical analysis"
+  },
+  {
+   "paper": "q019",
+   "coder": "A",
+   "primary_category": "New model or architecture",
+   "secondary_category": "Domain application or domain insight"
+  },
+  {
+   "paper": "q019",
+   "coder": "B",
+   "primary_category": "New model or architecture",
+   "secondary_category": "Domain application or domain insight"
+  },
+  {
+   "paper": "q020",
+   "coder": "A",
+   "primary_category": "System or software artifact",
+   "secondary_category": "New method or algorithm"
+  },
+  {
+   "paper": "q020",
+   "coder": "B",
+   "primary_category": "System or software artifact",
+   "secondary_category": "New method or algorithm"
+  },
+  {
+   "paper": "q021",
+   "coder": "A",
+   "primary_category": "New method or algorithm",
+   "secondary_category": "Empirical analysis or finding"
+  },
+  {
+   "paper": "q021",
+   "coder": "B",
+   "primary_category": "New method or algorithm",
+   "secondary_category": "Empirical analysis or finding"
+  },
+  {
+   "paper": "q022",
+   "coder": "A",
+   "primary_category": "New model or architecture",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q022",
+   "coder": "B",
+   "primary_category": "New model or architecture",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q023",
+   "coder": "A",
+   "primary_category": "New method or algorithm",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q023",
+   "coder": "B",
+   "primary_category": "New model or architecture",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q024",
+   "coder": "A",
+   "primary_category": "New method or algorithm",
+   "secondary_category": "Theoretical analysis"
+  },
+  {
+   "paper": "q024",
+   "coder": "B",
+   "primary_category": "New method or algorithm",
+   "secondary_category": "Theoretical analysis"
+  },
+  {
+   "paper": "q025",
+   "coder": "A",
+   "primary_category": "New method or algorithm",
+   "secondary_category": "Unifying or conceptual perspective"
+  },
+  {
+   "paper": "q025",
+   "coder": "B",
+   "primary_category": "New method or algorithm",
+   "secondary_category": "Unifying or conceptual perspective"
+  },
+  {
+   "paper": "q026",
+   "coder": "A",
+   "primary_category": "Evaluation methodology or metric",
+   "secondary_category": "New method or algorithm"
+  },
+  {
+   "paper": "q026",
+   "coder": "B",
+   "primary_category": "Evaluation methodology or metric",
+   "secondary_category": "New method or algorithm"
+  },
+  {
+   "paper": "q027",
+   "coder": "A",
+   "primary_category": "New model or architecture",
+   "secondary_category": "Practical recipe, guideline or baseline"
+  },
+  {
+   "paper": "q027",
+   "coder": "B",
+   "primary_category": "New model or architecture",
+   "secondary_category": "Practical recipe, guideline or baseline"
+  },
+  {
+   "paper": "q028",
+   "coder": "A",
+   "primary_category": "Domain application or domain insight",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q028",
+   "coder": "B",
+   "primary_category": "Domain application or domain insight",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q029",
+   "coder": "A",
+   "primary_category": "New model or architecture",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q029",
+   "coder": "B",
+   "primary_category": "New model or architecture",
+   "secondary_category": "Empirical analysis or finding"
+  },
+  {
+   "paper": "q030",
+   "coder": "A",
+   "primary_category": "Empirical analysis or finding",
+   "secondary_category": "Problem formulation or new setting"
+  },
+  {
+   "paper": "q030",
+   "coder": "B",
+   "primary_category": "Empirical analysis or finding",
+   "secondary_category": "Problem formulation or new setting"
+  },
+  {
+   "paper": "q031",
+   "coder": "A",
+   "primary_category": "New method or algorithm",
+   "secondary_category": "Unifying or conceptual perspective"
+  },
+  {
+   "paper": "q031",
+   "coder": "B",
+   "primary_category": "New method or algorithm",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q032",
+   "coder": "A",
+   "primary_category": "Domain application or domain insight",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q032",
+   "coder": "B",
+   "primary_category": "Domain application or domain insight",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q033",
+   "coder": "A",
+   "primary_category": "New model or architecture",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q033",
+   "coder": "B",
+   "primary_category": "New model or architecture",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q034",
+   "coder": "A",
+   "primary_category": "Problem formulation or new setting",
+   "secondary_category": "New model or architecture"
+  },
+  {
+   "paper": "q034",
+   "coder": "B",
+   "primary_category": "Problem formulation or new setting",
+   "secondary_category": "New model or architecture"
+  },
+  {
+   "paper": "q035",
+   "coder": "A",
+   "primary_category": "New method or algorithm",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q035",
+   "coder": "B",
+   "primary_category": "New method or algorithm",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q036",
+   "coder": "A",
+   "primary_category": "New method or algorithm",
+   "secondary_category": "Empirical analysis or finding"
+  },
+  {
+   "paper": "q036",
+   "coder": "B",
+   "primary_category": "New method or algorithm",
+   "secondary_category": "Empirical analysis or finding"
+  },
+  {
+   "paper": "q037",
+   "coder": "A",
+   "primary_category": "New method or algorithm",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q037",
+   "coder": "B",
+   "primary_category": "New method or algorithm",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q038",
+   "coder": "A",
+   "primary_category": "New method or algorithm",
+   "secondary_category": "Empirical analysis or finding"
+  },
+  {
+   "paper": "q038",
+   "coder": "B",
+   "primary_category": "New method or algorithm",
+   "secondary_category": "Empirical analysis or finding"
+  },
+  {
+   "paper": "q039",
+   "coder": "A",
+   "primary_category": "New method or algorithm",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q039",
+   "coder": "B",
+   "primary_category": "New method or algorithm",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q040",
+   "coder": "A",
+   "primary_category": "New method or algorithm",
+   "secondary_category": "Empirical analysis or finding"
+  },
+  {
+   "paper": "q040",
+   "coder": "B",
+   "primary_category": "New model or architecture",
+   "secondary_category": "Empirical analysis or finding"
+  },
+  {
+   "paper": "q041",
+   "coder": "A",
+   "primary_category": "Evaluation methodology or metric",
+   "secondary_category": "Empirical analysis or finding"
+  },
+  {
+   "paper": "q041",
+   "coder": "B",
+   "primary_category": "Evaluation methodology or metric",
+   "secondary_category": "Empirical analysis or finding"
+  },
+  {
+   "paper": "q042",
+   "coder": "A",
+   "primary_category": "Empirical analysis or finding",
+   "secondary_category": "New method or algorithm"
+  },
+  {
+   "paper": "q042",
+   "coder": "B",
+   "primary_category": "Empirical analysis or finding",
+   "secondary_category": "New method or algorithm"
+  },
+  {
+   "paper": "q043",
+   "coder": "A",
+   "primary_category": "New method or algorithm",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q043",
+   "coder": "B",
+   "primary_category": "New method or algorithm",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q044",
+   "coder": "A",
+   "primary_category": "New method or algorithm",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q044",
+   "coder": "B",
+   "primary_category": "New method or algorithm",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q045",
+   "coder": "A",
+   "primary_category": "New method or algorithm",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q045",
+   "coder": "B",
+   "primary_category": "New method or algorithm",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q046",
+   "coder": "A",
+   "primary_category": "New method or algorithm",
+   "secondary_category": "Empirical analysis or finding"
+  },
+  {
+   "paper": "q046",
+   "coder": "B",
+   "primary_category": "New model or architecture",
+   "secondary_category": "Empirical analysis or finding"
+  },
+  {
+   "paper": "q047",
+   "coder": "A",
+   "primary_category": "Theoretical analysis",
+   "secondary_category": "Empirical analysis or finding"
+  },
+  {
+   "paper": "q047",
+   "coder": "B",
+   "primary_category": "Theoretical analysis",
+   "secondary_category": "Empirical analysis or finding"
+  },
+  {
+   "paper": "q048",
+   "coder": "A",
+   "primary_category": "New method or algorithm",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q048",
+   "coder": "B",
+   "primary_category": "New method or algorithm",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q049",
+   "coder": "A",
+   "primary_category": "New model or architecture",
+   "secondary_category": "New method or algorithm"
+  },
+  {
+   "paper": "q049",
+   "coder": "B",
+   "primary_category": "New model or architecture",
+   "secondary_category": "New method or algorithm"
+  },
+  {
+   "paper": "q050",
+   "coder": "A",
+   "primary_category": "New method or algorithm",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q050",
+   "coder": "B",
+   "primary_category": "New model or architecture",
+   "secondary_category": "Empirical analysis or finding"
+  },
+  {
+   "paper": "q051",
+   "coder": "A",
+   "primary_category": "New method or algorithm",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q051",
+   "coder": "B",
+   "primary_category": "New method or algorithm",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q052",
+   "coder": "A",
+   "primary_category": "Dataset, benchmark or data pipeline",
+   "secondary_category": "System or software artifact"
+  },
+  {
+   "paper": "q052",
+   "coder": "B",
+   "primary_category": "Dataset, benchmark or data pipeline",
+   "secondary_category": "System or software artifact"
+  },
+  {
+   "paper": "q053",
+   "coder": "A",
+   "primary_category": "New model or architecture",
+   "secondary_category": "Theoretical analysis"
+  },
+  {
+   "paper": "q053",
+   "coder": "B",
+   "primary_category": "New model or architecture",
+   "secondary_category": "Theoretical analysis"
+  },
+  {
+   "paper": "q054",
+   "coder": "A",
+   "primary_category": "New model or architecture",
+   "secondary_category": "Dataset, benchmark or data pipeline"
+  },
+  {
+   "paper": "q054",
+   "coder": "B",
+   "primary_category": "New model or architecture",
+   "secondary_category": "Dataset, benchmark or data pipeline"
+  },
+  {
+   "paper": "q055",
+   "coder": "A",
+   "primary_category": "New method or algorithm",
+   "secondary_category": "Empirical analysis or finding"
+  },
+  {
+   "paper": "q055",
+   "coder": "B",
+   "primary_category": "New method or algorithm",
+   "secondary_category": "Empirical analysis or finding"
+  },
+  {
+   "paper": "q056",
+   "coder": "A",
+   "primary_category": "New method or algorithm",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q056",
+   "coder": "B",
+   "primary_category": "New method or algorithm",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q057",
+   "coder": "A",
+   "primary_category": "New method or algorithm",
+   "secondary_category": "Empirical analysis or finding"
+  },
+  {
+   "paper": "q057",
+   "coder": "B",
+   "primary_category": "New method or algorithm",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q058",
+   "coder": "A",
+   "primary_category": "New method or algorithm",
+   "secondary_category": "Empirical analysis or finding"
+  },
+  {
+   "paper": "q058",
+   "coder": "B",
+   "primary_category": "New method or algorithm",
+   "secondary_category": "Empirical analysis or finding"
+  },
+  {
+   "paper": "q059",
+   "coder": "A",
+   "primary_category": "Theoretical analysis",
+   "secondary_category": "New model or architecture"
+  },
+  {
+   "paper": "q059",
+   "coder": "B",
+   "primary_category": "Theoretical analysis",
+   "secondary_category": "New model or architecture"
+  },
+  {
+   "paper": "q060",
+   "coder": "A",
+   "primary_category": "New method or algorithm",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q060",
+   "coder": "B",
+   "primary_category": "New method or algorithm",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q061",
+   "coder": "A",
+   "primary_category": "New model or architecture",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q061",
+   "coder": "B",
+   "primary_category": "New model or architecture",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q062",
+   "coder": "A",
+   "primary_category": "New model or architecture",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q062",
+   "coder": "B",
+   "primary_category": "New model or architecture",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q063",
+   "coder": "A",
+   "primary_category": "New method or algorithm",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q063",
+   "coder": "B",
+   "primary_category": "New method or algorithm",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q064",
+   "coder": "A",
+   "primary_category": "New method or algorithm",
+   "secondary_category": "Dataset, benchmark or data pipeline"
+  },
+  {
+   "paper": "q064",
+   "coder": "B",
+   "primary_category": "New method or algorithm",
+   "secondary_category": "Dataset, benchmark or data pipeline"
+  },
+  {
+   "paper": "q065",
+   "coder": "A",
+   "primary_category": "Theoretical analysis",
+   "secondary_category": "New method or algorithm"
+  },
+  {
+   "paper": "q065",
+   "coder": "B",
+   "primary_category": "Theoretical analysis",
+   "secondary_category": "New method or algorithm"
+  },
+  {
+   "paper": "q066",
+   "coder": "A",
+   "primary_category": "Empirical analysis or finding",
+   "secondary_category": "New method or algorithm"
+  },
+  {
+   "paper": "q066",
+   "coder": "B",
+   "primary_category": "Empirical analysis or finding",
+   "secondary_category": "New method or algorithm"
+  },
+  {
+   "paper": "q067",
+   "coder": "A",
+   "primary_category": "New method or algorithm",
+   "secondary_category": "New method or algorithm"
+  },
+  {
+   "paper": "q067",
+   "coder": "B",
+   "primary_category": "New method or algorithm",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q068",
+   "coder": "A",
+   "primary_category": "New method or algorithm",
+   "secondary_category": "Empirical analysis or finding"
+  },
+  {
+   "paper": "q068",
+   "coder": "B",
+   "primary_category": "New method or algorithm",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q069",
+   "coder": "A",
+   "primary_category": "New method or algorithm",
+   "secondary_category": "Theoretical analysis"
+  },
+  {
+   "paper": "q069",
+   "coder": "B",
+   "primary_category": "New method or algorithm",
+   "secondary_category": "Theoretical analysis"
+  },
+  {
+   "paper": "q070",
+   "coder": "A",
+   "primary_category": "New method or algorithm",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q070",
+   "coder": "B",
+   "primary_category": "New method or algorithm",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q071",
+   "coder": "A",
+   "primary_category": "Dataset, benchmark or data pipeline",
+   "secondary_category": "Empirical analysis or finding"
+  },
+  {
+   "paper": "q071",
+   "coder": "B",
+   "primary_category": "Dataset, benchmark or data pipeline",
+   "secondary_category": "Empirical analysis or finding"
+  },
+  {
+   "paper": "q072",
+   "coder": "A",
+   "primary_category": "Empirical analysis or finding",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q072",
+   "coder": "B",
+   "primary_category": "Empirical analysis or finding",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q073",
+   "coder": "A",
+   "primary_category": "Practical recipe, guideline or baseline",
+   "secondary_category": "Empirical analysis or finding"
+  },
+  {
+   "paper": "q073",
+   "coder": "B",
+   "primary_category": "Practical recipe, guideline or baseline",
+   "secondary_category": "Empirical analysis or finding"
+  },
+  {
+   "paper": "q074",
+   "coder": "A",
+   "primary_category": "New method or algorithm",
+   "secondary_category": "Theoretical analysis"
+  },
+  {
+   "paper": "q074",
+   "coder": "B",
+   "primary_category": "New method or algorithm",
+   "secondary_category": "Theoretical analysis"
+  },
+  {
+   "paper": "q075",
+   "coder": "A",
+   "primary_category": "Evaluation methodology or metric",
+   "secondary_category": "Evaluation methodology or metric"
+  },
+  {
+   "paper": "q075",
+   "coder": "B",
+   "primary_category": "Evaluation methodology or metric",
+   "secondary_category": "Evaluation methodology or metric"
+  },
+  {
+   "paper": "q076",
+   "coder": "A",
+   "primary_category": "New method or algorithm",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q076",
+   "coder": "B",
+   "primary_category": "New method or algorithm",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q077",
+   "coder": "A",
+   "primary_category": "New method or algorithm",
+   "secondary_category": "Empirical analysis or finding"
+  },
+  {
+   "paper": "q077",
+   "coder": "B",
+   "primary_category": "New method or algorithm",
+   "secondary_category": "Empirical analysis or finding"
+  },
+  {
+   "paper": "q078",
+   "coder": "A",
+   "primary_category": "New method or algorithm",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q078",
+   "coder": "B",
+   "primary_category": "New method or algorithm",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q079",
+   "coder": "A",
+   "primary_category": "New method or algorithm",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q079",
+   "coder": "B",
+   "primary_category": "New method or algorithm",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q080",
+   "coder": "A",
+   "primary_category": "New model or architecture",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q080",
+   "coder": "B",
+   "primary_category": "New model or architecture",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q081",
+   "coder": "A",
+   "primary_category": "New model or architecture",
+   "secondary_category": "Empirical analysis or finding"
+  },
+  {
+   "paper": "q081",
+   "coder": "B",
+   "primary_category": "New model or architecture",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q082",
+   "coder": "A",
+   "primary_category": "New method or algorithm",
+   "secondary_category": "New method or algorithm"
+  },
+  {
+   "paper": "q082",
+   "coder": "B",
+   "primary_category": "New method or algorithm",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q083",
+   "coder": "A",
+   "primary_category": "New method or algorithm",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q083",
+   "coder": "B",
+   "primary_category": "New method or algorithm",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q084",
+   "coder": "A",
+   "primary_category": "Theoretical analysis",
+   "secondary_category": "New method or algorithm"
+  },
+  {
+   "paper": "q084",
+   "coder": "B",
+   "primary_category": "Theoretical analysis",
+   "secondary_category": "New method or algorithm"
+  },
+  {
+   "paper": "q085",
+   "coder": "A",
+   "primary_category": "New method or algorithm",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q085",
+   "coder": "B",
+   "primary_category": "New method or algorithm",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q086",
+   "coder": "A",
+   "primary_category": "Dataset, benchmark or data pipeline",
+   "secondary_category": "Dataset, benchmark or data pipeline"
+  },
+  {
+   "paper": "q086",
+   "coder": "B",
+   "primary_category": "Dataset, benchmark or data pipeline",
+   "secondary_category": "Dataset, benchmark or data pipeline"
+  },
+  {
+   "paper": "q087",
+   "coder": "A",
+   "primary_category": "New model or architecture",
+   "secondary_category": "Empirical analysis or finding"
+  },
+  {
+   "paper": "q087",
+   "coder": "B",
+   "primary_category": "New method or algorithm",
+   "secondary_category": "Empirical analysis or finding"
+  },
+  {
+   "paper": "q088",
+   "coder": "A",
+   "primary_category": "New method or algorithm",
+   "secondary_category": "Dataset, benchmark or data pipeline"
+  },
+  {
+   "paper": "q088",
+   "coder": "B",
+   "primary_category": "New model or architecture",
+   "secondary_category": "Dataset, benchmark or data pipeline"
+  },
+  {
+   "paper": "q089",
+   "coder": "A",
+   "primary_category": "New method or algorithm",
+   "secondary_category": "Empirical analysis or finding"
+  },
+  {
+   "paper": "q089",
+   "coder": "B",
+   "primary_category": "New method or algorithm",
+   "secondary_category": "Empirical analysis or finding"
+  },
+  {
+   "paper": "q090",
+   "coder": "A",
+   "primary_category": "New method or algorithm",
+   "secondary_category": "Theoretical analysis"
+  },
+  {
+   "paper": "q090",
+   "coder": "B",
+   "primary_category": "New method or algorithm",
+   "secondary_category": "Theoretical analysis"
+  },
+  {
+   "paper": "q091",
+   "coder": "A",
+   "primary_category": "New model or architecture",
+   "secondary_category": "System or software artifact"
+  },
+  {
+   "paper": "q091",
+   "coder": "B",
+   "primary_category": "New method or algorithm",
+   "secondary_category": "System or software artifact"
+  },
+  {
+   "paper": "q092",
+   "coder": "A",
+   "primary_category": "New method or algorithm",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q092",
+   "coder": "B",
+   "primary_category": "New method or algorithm",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q093",
+   "coder": "A",
+   "primary_category": "Empirical analysis or finding",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q093",
+   "coder": "B",
+   "primary_category": "Empirical analysis or finding",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q094",
+   "coder": "A",
+   "primary_category": "New method or algorithm",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q094",
+   "coder": "B",
+   "primary_category": "New method or algorithm",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q095",
+   "coder": "A",
+   "primary_category": "New model or architecture",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q095",
+   "coder": "B",
+   "primary_category": "New model or architecture",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q096",
+   "coder": "A",
+   "primary_category": "Empirical analysis or finding",
+   "secondary_category": "Theoretical analysis"
+  },
+  {
+   "paper": "q096",
+   "coder": "B",
+   "primary_category": "Empirical analysis or finding",
+   "secondary_category": "Theoretical analysis"
+  },
+  {
+   "paper": "q097",
+   "coder": "A",
+   "primary_category": "New model or architecture",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q097",
+   "coder": "B",
+   "primary_category": "New model or architecture",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q098",
+   "coder": "A",
+   "primary_category": "Problem formulation or new setting",
+   "secondary_category": "New method or algorithm"
+  },
+  {
+   "paper": "q098",
+   "coder": "B",
+   "primary_category": "Problem formulation or new setting",
+   "secondary_category": "New method or algorithm"
+  },
+  {
+   "paper": "q099",
+   "coder": "A",
+   "primary_category": "Theoretical analysis",
+   "secondary_category": "New method or algorithm"
+  },
+  {
+   "paper": "q099",
+   "coder": "B",
+   "primary_category": "Theoretical analysis",
+   "secondary_category": "New method or algorithm"
+  },
+  {
+   "paper": "q100",
+   "coder": "A",
+   "primary_category": "New method or algorithm",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q100",
+   "coder": "B",
+   "primary_category": "New method or algorithm",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q101",
+   "coder": "A",
+   "primary_category": "New method or algorithm",
+   "secondary_category": "Theoretical analysis"
+  },
+  {
+   "paper": "q101",
+   "coder": "B",
+   "primary_category": "New method or algorithm",
+   "secondary_category": "Theoretical analysis"
+  },
+  {
+   "paper": "q102",
+   "coder": "A",
+   "primary_category": "Theoretical analysis",
+   "secondary_category": "Practical recipe, guideline or baseline"
+  },
+  {
+   "paper": "q102",
+   "coder": "B",
+   "primary_category": "Theoretical analysis",
+   "secondary_category": "Practical recipe, guideline or baseline"
+  },
+  {
+   "paper": "q103",
+   "coder": "A",
+   "primary_category": "Dataset, benchmark or data pipeline",
+   "secondary_category": "Empirical analysis or finding"
+  },
+  {
+   "paper": "q103",
+   "coder": "B",
+   "primary_category": "Dataset, benchmark or data pipeline",
+   "secondary_category": "Empirical analysis or finding"
+  },
+  {
+   "paper": "q104",
+   "coder": "A",
+   "primary_category": "New model or architecture",
+   "secondary_category": "Unifying or conceptual perspective"
+  },
+  {
+   "paper": "q104",
+   "coder": "B",
+   "primary_category": "New model or architecture",
+   "secondary_category": "Unifying or conceptual perspective"
+  },
+  {
+   "paper": "q105",
+   "coder": "A",
+   "primary_category": "New method or algorithm",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q105",
+   "coder": "B",
+   "primary_category": "New method or algorithm",
+   "secondary_category": "Domain application or domain insight"
+  },
+  {
+   "paper": "q106",
+   "coder": "A",
+   "primary_category": "New method or algorithm",
+   "secondary_category": "Empirical analysis or finding"
+  },
+  {
+   "paper": "q106",
+   "coder": "B",
+   "primary_category": "New method or algorithm",
+   "secondary_category": "Empirical analysis or finding"
+  },
+  {
+   "paper": "q107",
+   "coder": "A",
+   "primary_category": "New model or architecture",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q107",
+   "coder": "B",
+   "primary_category": "New method or algorithm",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q108",
+   "coder": "A",
+   "primary_category": "New method or algorithm",
+   "secondary_category": "Empirical analysis or finding"
+  },
+  {
+   "paper": "q108",
+   "coder": "B",
+   "primary_category": "New method or algorithm",
+   "secondary_category": "Empirical analysis or finding"
+  },
+  {
+   "paper": "q109",
+   "coder": "A",
+   "primary_category": "New method or algorithm",
+   "secondary_category": "Theoretical analysis"
+  },
+  {
+   "paper": "q109",
+   "coder": "B",
+   "primary_category": "New method or algorithm",
+   "secondary_category": "Theoretical analysis"
+  },
+  {
+   "paper": "q110",
+   "coder": "A",
+   "primary_category": "New method or algorithm",
+   "secondary_category": "Empirical analysis or finding"
+  },
+  {
+   "paper": "q110",
+   "coder": "B",
+   "primary_category": "New method or algorithm",
+   "secondary_category": "Empirical analysis or finding"
+  },
+  {
+   "paper": "q111",
+   "coder": "A",
+   "primary_category": "New method or algorithm",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q111",
+   "coder": "B",
+   "primary_category": "New method or algorithm",
+   "secondary_category": "Empirical analysis or finding"
+  },
+  {
+   "paper": "q112",
+   "coder": "A",
+   "primary_category": "Theoretical analysis",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q112",
+   "coder": "B",
+   "primary_category": "Theoretical analysis",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q113",
+   "coder": "A",
+   "primary_category": "New method or algorithm",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q113",
+   "coder": "B",
+   "primary_category": "New method or algorithm",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q114",
+   "coder": "A",
+   "primary_category": "New method or algorithm",
+   "secondary_category": "Problem formulation or new setting"
+  },
+  {
+   "paper": "q114",
+   "coder": "B",
+   "primary_category": "New method or algorithm",
+   "secondary_category": "Problem formulation or new setting"
+  },
+  {
+   "paper": "q115",
+   "coder": "A",
+   "primary_category": "New model or architecture",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q115",
+   "coder": "B",
+   "primary_category": "New method or algorithm",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q116",
+   "coder": "A",
+   "primary_category": "New method or algorithm",
+   "secondary_category": "Problem formulation or new setting"
+  },
+  {
+   "paper": "q116",
+   "coder": "B",
+   "primary_category": "New method or algorithm",
+   "secondary_category": "Problem formulation or new setting"
+  },
+  {
+   "paper": "q117",
+   "coder": "A",
+   "primary_category": "Empirical analysis or finding",
+   "secondary_category": "Dataset, benchmark or data pipeline"
+  },
+  {
+   "paper": "q117",
+   "coder": "B",
+   "primary_category": "Empirical analysis or finding",
+   "secondary_category": "Dataset, benchmark or data pipeline"
+  },
+  {
+   "paper": "q118",
+   "coder": "A",
+   "primary_category": "New method or algorithm",
+   "secondary_category": "Empirical analysis or finding"
+  },
+  {
+   "paper": "q118",
+   "coder": "B",
+   "primary_category": "New method or algorithm",
+   "secondary_category": "Empirical analysis or finding"
+  },
+  {
+   "paper": "q119",
+   "coder": "A",
+   "primary_category": "New method or algorithm",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q119",
+   "coder": "B",
+   "primary_category": "New method or algorithm",
+   "secondary_category": "Domain application or domain insight"
+  },
+  {
+   "paper": "q120",
+   "coder": "A",
+   "primary_category": "New method or algorithm",
+   "secondary_category": "Problem formulation or new setting"
+  },
+  {
+   "paper": "q120",
+   "coder": "B",
+   "primary_category": "New method or algorithm",
+   "secondary_category": "Problem formulation or new setting"
+  },
+  {
+   "paper": "q121",
+   "coder": "A",
+   "primary_category": "New method or algorithm",
+   "secondary_category": "Theoretical analysis"
+  },
+  {
+   "paper": "q121",
+   "coder": "B",
+   "primary_category": "New method or algorithm",
+   "secondary_category": "Theoretical analysis"
+  },
+  {
+   "paper": "q122",
+   "coder": "A",
+   "primary_category": "New model or architecture",
+   "secondary_category": "Problem formulation or new setting"
+  },
+  {
+   "paper": "q122",
+   "coder": "B",
+   "primary_category": "New method or algorithm",
+   "secondary_category": "Problem formulation or new setting"
+  },
+  {
+   "paper": "q123",
+   "coder": "A",
+   "primary_category": "New method or algorithm",
+   "secondary_category": "Problem formulation or new setting"
+  },
+  {
+   "paper": "q123",
+   "coder": "B",
+   "primary_category": "New method or algorithm",
+   "secondary_category": "Problem formulation or new setting"
+  },
+  {
+   "paper": "q124",
+   "coder": "A",
+   "primary_category": "New method or algorithm",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q124",
+   "coder": "B",
+   "primary_category": "New method or algorithm",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q125",
+   "coder": "A",
+   "primary_category": "System or software artifact",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q125",
+   "coder": "B",
+   "primary_category": "System or software artifact",
+   "secondary_category": "Domain application or domain insight"
+  },
+  {
+   "paper": "q126",
+   "coder": "A",
+   "primary_category": "Theoretical analysis",
+   "secondary_category": "Practical recipe, guideline or baseline"
+  },
+  {
+   "paper": "q126",
+   "coder": "B",
+   "primary_category": "Theoretical analysis",
+   "secondary_category": "Practical recipe, guideline or baseline"
+  },
+  {
+   "paper": "q127",
+   "coder": "A",
+   "primary_category": "New method or algorithm",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q127",
+   "coder": "B",
+   "primary_category": "New method or algorithm",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q128",
+   "coder": "A",
+   "primary_category": "New method or algorithm",
+   "secondary_category": "Theoretical analysis"
+  },
+  {
+   "paper": "q128",
+   "coder": "B",
+   "primary_category": "New method or algorithm",
+   "secondary_category": "Theoretical analysis"
+  },
+  {
+   "paper": "q129",
+   "coder": "A",
+   "primary_category": "New method or algorithm",
+   "secondary_category": "Problem formulation or new setting"
+  },
+  {
+   "paper": "q129",
+   "coder": "B",
+   "primary_category": "New method or algorithm",
+   "secondary_category": "Problem formulation or new setting"
+  },
+  {
+   "paper": "q130",
+   "coder": "A",
+   "primary_category": "New method or algorithm",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q130",
+   "coder": "B",
+   "primary_category": "New method or algorithm",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q131",
+   "coder": "A",
+   "primary_category": "New method or algorithm",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q131",
+   "coder": "B",
+   "primary_category": "New method or algorithm",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q132",
+   "coder": "A",
+   "primary_category": "Theoretical analysis",
+   "secondary_category": "New method or algorithm"
+  },
+  {
+   "paper": "q132",
+   "coder": "B",
+   "primary_category": "Theoretical analysis",
+   "secondary_category": "New method or algorithm"
+  },
+  {
+   "paper": "q133",
+   "coder": "A",
+   "primary_category": "New method or algorithm",
+   "secondary_category": "Theoretical analysis"
+  },
+  {
+   "paper": "q133",
+   "coder": "B",
+   "primary_category": "New method or algorithm",
+   "secondary_category": "Theoretical analysis"
+  },
+  {
+   "paper": "q134",
+   "coder": "A",
+   "primary_category": "Empirical analysis or finding",
+   "secondary_category": "Theoretical analysis"
+  },
+  {
+   "paper": "q134",
+   "coder": "B",
+   "primary_category": "Empirical analysis or finding",
+   "secondary_category": "Theoretical analysis"
+  },
+  {
+   "paper": "q135",
+   "coder": "A",
+   "primary_category": "System or software artifact",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q135",
+   "coder": "B",
+   "primary_category": "System or software artifact",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q136",
+   "coder": "A",
+   "primary_category": "New method or algorithm",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q136",
+   "coder": "B",
+   "primary_category": "New method or algorithm",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q137",
+   "coder": "A",
+   "primary_category": "New method or algorithm",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q137",
+   "coder": "B",
+   "primary_category": "New method or algorithm",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q138",
+   "coder": "A",
+   "primary_category": "New model or architecture",
+   "secondary_category": "Empirical analysis or finding"
+  },
+  {
+   "paper": "q138",
+   "coder": "B",
+   "primary_category": "New model or architecture",
+   "secondary_category": "Empirical analysis or finding"
+  },
+  {
+   "paper": "q139",
+   "coder": "A",
+   "primary_category": "New method or algorithm",
+   "secondary_category": "Problem formulation or new setting"
+  },
+  {
+   "paper": "q139",
+   "coder": "B",
+   "primary_category": "New method or algorithm",
+   "secondary_category": "Problem formulation or new setting"
+  },
+  {
+   "paper": "q140",
+   "coder": "A",
+   "primary_category": "New model or architecture",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q140",
+   "coder": "B",
+   "primary_category": "New method or algorithm",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q141",
+   "coder": "A",
+   "primary_category": "New method or algorithm",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q141",
+   "coder": "B",
+   "primary_category": "Domain application or domain insight",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q142",
+   "coder": "A",
+   "primary_category": "New model or architecture",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q142",
+   "coder": "B",
+   "primary_category": "New model or architecture",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q143",
+   "coder": "A",
+   "primary_category": "New method or algorithm",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q143",
+   "coder": "B",
+   "primary_category": "New method or algorithm",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q144",
+   "coder": "A",
+   "primary_category": "Empirical analysis or finding",
+   "secondary_category": "Unifying or conceptual perspective"
+  },
+  {
+   "paper": "q144",
+   "coder": "B",
+   "primary_category": "Empirical analysis or finding",
+   "secondary_category": "Unifying or conceptual perspective"
+  },
+  {
+   "paper": "q145",
+   "coder": "A",
+   "primary_category": "System or software artifact",
+   "secondary_category": "Domain application or domain insight"
+  },
+  {
+   "paper": "q145",
+   "coder": "B",
+   "primary_category": "System or software artifact",
+   "secondary_category": "Domain application or domain insight"
+  },
+  {
+   "paper": "q146",
+   "coder": "A",
+   "primary_category": "New method or algorithm",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q146",
+   "coder": "B",
+   "primary_category": "New method or algorithm",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q147",
+   "coder": "A",
+   "primary_category": "Empirical analysis or finding",
+   "secondary_category": "New method or algorithm"
+  },
+  {
+   "paper": "q147",
+   "coder": "B",
+   "primary_category": "Empirical analysis or finding",
+   "secondary_category": "New method or algorithm"
+  },
+  {
+   "paper": "q148",
+   "coder": "A",
+   "primary_category": "New model or architecture",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q148",
+   "coder": "B",
+   "primary_category": "New model or architecture",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q149",
+   "coder": "A",
+   "primary_category": "New model or architecture",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q149",
+   "coder": "B",
+   "primary_category": "New model or architecture",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q150",
+   "coder": "A",
+   "primary_category": "Empirical analysis or finding",
+   "secondary_category": "Problem formulation or new setting"
+  },
+  {
+   "paper": "q150",
+   "coder": "B",
+   "primary_category": "Empirical analysis or finding",
+   "secondary_category": "Empirical analysis or finding"
+  },
+  {
+   "paper": "q151",
+   "coder": "A",
+   "primary_category": "New model or architecture",
+   "secondary_category": "Dataset, benchmark or data pipeline"
+  },
+  {
+   "paper": "q151",
+   "coder": "B",
+   "primary_category": "New method or algorithm",
+   "secondary_category": "Dataset, benchmark or data pipeline"
+  },
+  {
+   "paper": "q152",
+   "coder": "A",
+   "primary_category": "New model or architecture",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q152",
+   "coder": "B",
+   "primary_category": "New model or architecture",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q153",
+   "coder": "A",
+   "primary_category": "New model or architecture",
+   "secondary_category": "New method or algorithm"
+  },
+  {
+   "paper": "q153",
+   "coder": "B",
+   "primary_category": "New model or architecture",
+   "secondary_category": "New method or algorithm"
+  },
+  {
+   "paper": "q154",
+   "coder": "A",
+   "primary_category": "New method or algorithm",
+   "secondary_category": "Theoretical analysis"
+  },
+  {
+   "paper": "q154",
+   "coder": "B",
+   "primary_category": "New method or algorithm",
+   "secondary_category": "Theoretical analysis"
+  },
+  {
+   "paper": "q155",
+   "coder": "A",
+   "primary_category": "New method or algorithm",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q155",
+   "coder": "B",
+   "primary_category": "New method or algorithm",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q156",
+   "coder": "A",
+   "primary_category": "New method or algorithm",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q156",
+   "coder": "B",
+   "primary_category": "New method or algorithm",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q157",
+   "coder": "A",
+   "primary_category": "New model or architecture",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q157",
+   "coder": "B",
+   "primary_category": "New model or architecture",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q158",
+   "coder": "A",
+   "primary_category": "New model or architecture",
+   "secondary_category": "New method or algorithm"
+  },
+  {
+   "paper": "q158",
+   "coder": "B",
+   "primary_category": "New method or algorithm",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q159",
+   "coder": "A",
+   "primary_category": "Empirical analysis or finding",
+   "secondary_category": "Empirical analysis or finding"
+  },
+  {
+   "paper": "q159",
+   "coder": "B",
+   "primary_category": "Empirical analysis or finding",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q160",
+   "coder": "A",
+   "primary_category": "New model or architecture",
+   "secondary_category": "Empirical analysis or finding"
+  },
+  {
+   "paper": "q160",
+   "coder": "B",
+   "primary_category": "New method or algorithm",
+   "secondary_category": "Empirical analysis or finding"
+  },
+  {
+   "paper": "q161",
+   "coder": "A",
+   "primary_category": "New method or algorithm",
+   "secondary_category": "Problem formulation or new setting"
+  },
+  {
+   "paper": "q161",
+   "coder": "B",
+   "primary_category": "New method or algorithm",
+   "secondary_category": "Problem formulation or new setting"
+  },
+  {
+   "paper": "q162",
+   "coder": "A",
+   "primary_category": "New model or architecture",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q162",
+   "coder": "B",
+   "primary_category": "New method or algorithm",
+   "secondary_category": "Domain application or domain insight"
+  },
+  {
+   "paper": "q163",
+   "coder": "A",
+   "primary_category": "New method or algorithm",
+   "secondary_category": "Unifying or conceptual perspective"
+  },
+  {
+   "paper": "q163",
+   "coder": "B",
+   "primary_category": "New method or algorithm",
+   "secondary_category": "Unifying or conceptual perspective"
+  },
+  {
+   "paper": "q164",
+   "coder": "A",
+   "primary_category": "Theoretical analysis",
+   "secondary_category": "Theoretical analysis"
+  },
+  {
+   "paper": "q164",
+   "coder": "B",
+   "primary_category": "Theoretical analysis",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q165",
+   "coder": "A",
+   "primary_category": "New model or architecture",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q165",
+   "coder": "B",
+   "primary_category": "New model or architecture",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q166",
+   "coder": "A",
+   "primary_category": "New method or algorithm",
+   "secondary_category": "Empirical analysis or finding"
+  },
+  {
+   "paper": "q166",
+   "coder": "B",
+   "primary_category": "New method or algorithm",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q167",
+   "coder": "A",
+   "primary_category": "Theoretical analysis",
+   "secondary_category": "New method or algorithm"
+  },
+  {
+   "paper": "q167",
+   "coder": "B",
+   "primary_category": "Theoretical analysis",
+   "secondary_category": "New method or algorithm"
+  },
+  {
+   "paper": "q168",
+   "coder": "A",
+   "primary_category": "New model or architecture",
+   "secondary_category": "Unifying or conceptual perspective"
+  },
+  {
+   "paper": "q168",
+   "coder": "B",
+   "primary_category": "New method or algorithm",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q169",
+   "coder": "A",
+   "primary_category": "New method or algorithm",
+   "secondary_category": "Empirical analysis or finding"
+  },
+  {
+   "paper": "q169",
+   "coder": "B",
+   "primary_category": "New method or algorithm",
+   "secondary_category": "Empirical analysis or finding"
+  },
+  {
+   "paper": "q170",
+   "coder": "A",
+   "primary_category": "Theoretical analysis",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q170",
+   "coder": "B",
+   "primary_category": "Theoretical analysis",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q171",
+   "coder": "A",
+   "primary_category": "Theoretical analysis",
+   "secondary_category": "Unifying or conceptual perspective"
+  },
+  {
+   "paper": "q171",
+   "coder": "B",
+   "primary_category": "Theoretical analysis",
+   "secondary_category": "Unifying or conceptual perspective"
+  },
+  {
+   "paper": "q172",
+   "coder": "A",
+   "primary_category": "New method or algorithm",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q172",
+   "coder": "B",
+   "primary_category": "New method or algorithm",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q173",
+   "coder": "A",
+   "primary_category": "Theoretical analysis",
+   "secondary_category": "Theoretical analysis"
+  },
+  {
+   "paper": "q173",
+   "coder": "B",
+   "primary_category": "Theoretical analysis",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q174",
+   "coder": "A",
+   "primary_category": "New method or algorithm",
+   "secondary_category": "Theoretical analysis"
+  },
+  {
+   "paper": "q174",
+   "coder": "B",
+   "primary_category": "New method or algorithm",
+   "secondary_category": "Theoretical analysis"
+  },
+  {
+   "paper": "q175",
+   "coder": "A",
+   "primary_category": "New model or architecture",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q175",
+   "coder": "B",
+   "primary_category": "New method or algorithm",
+   "secondary_category": "Domain application or domain insight"
+  },
+  {
+   "paper": "q176",
+   "coder": "A",
+   "primary_category": "Problem formulation or new setting",
+   "secondary_category": "New method or algorithm"
+  },
+  {
+   "paper": "q176",
+   "coder": "B",
+   "primary_category": "New method or algorithm",
+   "secondary_category": "Problem formulation or new setting"
+  },
+  {
+   "paper": "q177",
+   "coder": "A",
+   "primary_category": "New method or algorithm",
+   "secondary_category": "Theoretical analysis"
+  },
+  {
+   "paper": "q177",
+   "coder": "B",
+   "primary_category": "New method or algorithm",
+   "secondary_category": "Theoretical analysis"
+  },
+  {
+   "paper": "q178",
+   "coder": "A",
+   "primary_category": "New method or algorithm",
+   "secondary_category": "Domain application or domain insight"
+  },
+  {
+   "paper": "q178",
+   "coder": "B",
+   "primary_category": "New method or algorithm",
+   "secondary_category": "Domain application or domain insight"
+  },
+  {
+   "paper": "q179",
+   "coder": "A",
+   "primary_category": "System or software artifact",
+   "secondary_category": "New method or algorithm"
+  },
+  {
+   "paper": "q179",
+   "coder": "B",
+   "primary_category": "New method or algorithm",
+   "secondary_category": "System or software artifact"
+  },
+  {
+   "paper": "q180",
+   "coder": "A",
+   "primary_category": "New method or algorithm",
+   "secondary_category": "Empirical analysis or finding"
+  },
+  {
+   "paper": "q180",
+   "coder": "B",
+   "primary_category": "New method or algorithm",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q181",
+   "coder": "A",
+   "primary_category": "System or software artifact",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q181",
+   "coder": "B",
+   "primary_category": "System or software artifact",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q182",
+   "coder": "A",
+   "primary_category": "New method or algorithm",
+   "secondary_category": "New model or architecture"
+  },
+  {
+   "paper": "q182",
+   "coder": "B",
+   "primary_category": "New method or algorithm",
+   "secondary_category": "Problem formulation or new setting"
+  },
+  {
+   "paper": "q183",
+   "coder": "A",
+   "primary_category": "New method or algorithm",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q183",
+   "coder": "B",
+   "primary_category": "New method or algorithm",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q184",
+   "coder": "A",
+   "primary_category": "New model or architecture",
+   "secondary_category": "Evaluation methodology or metric"
+  },
+  {
+   "paper": "q184",
+   "coder": "B",
+   "primary_category": "New model or architecture",
+   "secondary_category": "Evaluation methodology or metric"
+  },
+  {
+   "paper": "q185",
+   "coder": "A",
+   "primary_category": "System or software artifact",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q185",
+   "coder": "B",
+   "primary_category": "System or software artifact",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q186",
+   "coder": "A",
+   "primary_category": "New model or architecture",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q186",
+   "coder": "B",
+   "primary_category": "New model or architecture",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q187",
+   "coder": "A",
+   "primary_category": "New method or algorithm",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q187",
+   "coder": "B",
+   "primary_category": "New method or algorithm",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q188",
+   "coder": "A",
+   "primary_category": "New method or algorithm",
+   "secondary_category": "Domain application or domain insight"
+  },
+  {
+   "paper": "q188",
+   "coder": "B",
+   "primary_category": "New method or algorithm",
+   "secondary_category": "Domain application or domain insight"
+  },
+  {
+   "paper": "q189",
+   "coder": "A",
+   "primary_category": "New method or algorithm",
+   "secondary_category": "Unifying or conceptual perspective"
+  },
+  {
+   "paper": "q189",
+   "coder": "B",
+   "primary_category": "New method or algorithm",
+   "secondary_category": "Unifying or conceptual perspective"
+  },
+  {
+   "paper": "q190",
+   "coder": "A",
+   "primary_category": "New model or architecture",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q190",
+   "coder": "B",
+   "primary_category": "New model or architecture",
+   "secondary_category": "System or software artifact"
+  },
+  {
+   "paper": "q191",
+   "coder": "A",
+   "primary_category": "Empirical analysis or finding",
+   "secondary_category": "Practical recipe, guideline or baseline"
+  },
+  {
+   "paper": "q191",
+   "coder": "B",
+   "primary_category": "Empirical analysis or finding",
+   "secondary_category": "Practical recipe, guideline or baseline"
+  },
+  {
+   "paper": "q192",
+   "coder": "A",
+   "primary_category": "New method or algorithm",
+   "secondary_category": "Empirical analysis or finding"
+  },
+  {
+   "paper": "q192",
+   "coder": "B",
+   "primary_category": "New method or algorithm",
+   "secondary_category": "Empirical analysis or finding"
+  },
+  {
+   "paper": "q193",
+   "coder": "A",
+   "primary_category": "New method or algorithm",
+   "secondary_category": "Theoretical analysis"
+  },
+  {
+   "paper": "q193",
+   "coder": "B",
+   "primary_category": "New method or algorithm",
+   "secondary_category": "Theoretical analysis"
+  },
+  {
+   "paper": "q194",
+   "coder": "A",
+   "primary_category": "New method or algorithm",
+   "secondary_category": "Theoretical analysis"
+  },
+  {
+   "paper": "q194",
+   "coder": "B",
+   "primary_category": "New method or algorithm",
+   "secondary_category": "Theoretical analysis"
+  },
+  {
+   "paper": "q195",
+   "coder": "A",
+   "primary_category": "Problem formulation or new setting",
+   "secondary_category": "Dataset, benchmark or data pipeline"
+  },
+  {
+   "paper": "q195",
+   "coder": "B",
+   "primary_category": "Problem formulation or new setting",
+   "secondary_category": "Dataset, benchmark or data pipeline"
+  },
+  {
+   "paper": "q196",
+   "coder": "A",
+   "primary_category": "Dataset, benchmark or data pipeline",
+   "secondary_category": "Empirical analysis or finding"
+  },
+  {
+   "paper": "q196",
+   "coder": "B",
+   "primary_category": "Dataset, benchmark or data pipeline",
+   "secondary_category": "Empirical analysis or finding"
+  },
+  {
+   "paper": "q197",
+   "coder": "A",
+   "primary_category": "New model or architecture",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q197",
+   "coder": "B",
+   "primary_category": "New model or architecture",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q198",
+   "coder": "A",
+   "primary_category": "New method or algorithm",
+   "secondary_category": "New method or algorithm"
+  },
+  {
+   "paper": "q198",
+   "coder": "B",
+   "primary_category": "New method or algorithm",
+   "secondary_category": ""
+  },
+  {
+   "paper": "q199",
+   "coder": "A",
+   "primary_category": "New model or architecture",
+   "secondary_category": "Unifying or conceptual perspective"
+  },
+  {
+   "paper": "q199",
+   "coder": "B",
+   "primary_category": "New model or architecture",
+   "secondary_category": "Empirical analysis or finding"
+  },
+  {
+   "paper": "q200",
+   "coder": "A",
+   "primary_category": "Evaluation methodology or metric",
+   "secondary_category": "Theoretical analysis"
+  },
+  {
+   "paper": "q200",
+   "coder": "B",
+   "primary_category": "Evaluation methodology or metric",
+   "secondary_category": "Theoretical analysis"
+  }
+ ],
+ "observations": [
+  "Scale of the merge: 122 distinct free-text labels (A 77, B 81) were grouped into 11 categories. The two coders split method-type contributions finely in different batches. In batch 1, B split training method, algorithm, inference method and interpretability method while A wrote 'new method'. In batch 2, A split training method, training objective, inference-time method, prompting method and efficiency method while B wrote 'new method'. In batch 3, A split attack, defence and domain-specific method while B wrote 'new method'. In every batch only one coder used these subtypes, and they describe the target of a technique, which is closer to subject area than to contribution kind. They were all merged into 'New method or algorithm'.",
+  "Agreement under this scheme, as computed during synthesis: primary categories match on 180 of 200 papers (Cohen's kappa 0.85). Per-category primary kappa is 1.00 for Theoretical, Empirical, Dataset, Evaluation, Practical and Perspective, 0.92 for System, 0.89 for Problem, 0.80 for Method and Application, and 0.75 for Model. Secondary categories (including both-empty) match on 168 of 200.",
+  "Main tension: 17 of the 20 primary disagreements are 'New model or architecture' versus 'New method or algorithm' (q023, q040, q046, q050, q087, q088, q091, q107, q115, q122, q140, q151, q158, q160, q162, q168, q175). Both coders flagged 14 of these as 'clear', so the split is systematic rather than random. Coder A counts probabilistic models, modelling frameworks and 'domain-specific models' as models, while coder B (batches 3-4) calls them 'new method'. The categories were kept separate because 34 of 51 model-type papers agreed and the distinction is meaningful. Merging Model into Method would raise primary agreement to 197 of 200 (kappa 0.97), but one category would then hold about 73% of primaries. If a reliability threshold of kappa 0.8 or higher is required, this is the merge to make.",
+  "The other three primary disagreements are q141 (stock-order GAN: A 'domain-specific method', B 'domain application'), q176 (the coders swapped primary and secondary between problem setting and method) and q179 (A 'new system', B 'new method' with 'code release' as secondary).",
+  "Papers often make more than one kind of contribution. A gave a secondary label on 122 of 200 papers and B on 119. After mapping, 114 (A) and 115 (B) of these name a category different from the primary. 104 papers are multi-kind according to both coders and 125 according to at least one. The most frequent pairings (coder-paper instances) are Method+Empirical (46), Method+Theory (41), Method+Problem formulation (22), Model+Empirical (12), Method+Perspective (9) and Method+Domain application (8). In 12 coder-paper cases the secondary label falls in the same category as the primary (e.g. q067 A 'efficiency method' + 'new training method'; q086 'dataset construction method' + 'benchmark dataset'; q164 and q173 A 'explanation of phenomenon' + 'theoretical analysis'), so no second kind is added there.",
+  "Distribution: Method is the primary for 99 (A) and 107 (B) papers, Model 46/39, Theory 14/14, Empirical 14/14, System 7/6, Evaluation 5/5, Dataset 5/5, Problem 5/4, Application 2/3, Practical 2/2 and Perspective 1/1. Problem formulation, Perspective and Practical are mainly secondary. Problem formulation is secondary 11 times per coder, Perspective 6-9 times, Practical 4 times.",
+  "Rare or unusual kinds: repurposing existing models without training (q180, mapped to Method); an industry or practitioner experience report (q145); open research questions (q144); domain-science discoveries as a by-product (q019 neuroscience, q178 V1 cell types, q188 genomic loci); code release as a contribution (q179, q190); a pure software platform (q135) and a differentiable interpreter (q020); a vulnerability demonstration (q002); a new capability demonstration (q050); critique of existing methods or failure diagnosis (q036, q108, q110); a game-theoretic formal model of regulation (q134); and re-annotating an existing dataset for privacy (q117).",
+  "Merges considered: (1) 'theoretical guarantee' versus 'theoretical analysis' were merged because the coders swapped them (q101, q128, q133, q194). (2) Empirical 'finding', 'study', 'analysis', 'comparison' and 'phenomenon discovery' were merged because they were used interchangeably (q066, q072, q093, q150). (3) A separate 'explanation of a phenomenon' category was rejected. A's label was instead coded by the evidence type (q159 is Empirical; q164 and q173 are Theory), which matches B's labels on the same papers. (4) Critique and failure diagnosis were kept inside Empirical: they are distinct and both coders agreed whenever they were used, but there are only about 5 instances and almost all are secondary. (5) Dataset and Evaluation were kept apart: agreement on both was perfect and the line between data or tasks and a measurement procedure is clear. (6) System combines research software (q020, q135, toolkits, code releases) with integrated end-to-end task systems (q125, q145, q181, q185). These could be split, but the coders used 'system' for both kinds.",
+  "Mapping artefact in Domain application: coder A put the domain into the primary label ('domain-specific method/model/system'), while coder B wrote 'new method/system' plus a secondary 'domain application' (q105, q119, q125, q162, q175). The domain was treated as subject area, so 'domain-specific X' maps to X. As a result, any-label agreement on Application is only kappa 0.65, but this reflects where each coder recorded the domain, not a real disagreement. Read as also signalling Application, the coders would agree on 11 of 12 such papers.",
+  "Judgement-call mappings to check: 'new task and benchmark' (q122) maps to Problem formulation. 'new concept definition' (q030) maps to Problem formulation because it formalises a notion. 'open research questions' (q144) maps to Perspective. 'formal model' (q134) maps to Theory. 'diagnostic tool' (q075) maps to Evaluation. 'new statistical measure' (q198) maps to Method because it is used as a training regulariser. 'scientific analysis method' maps to Method as a primary (q178) but to Application as a secondary under a 'new method' primary (q188). 'new representation' (q004) maps to Model.",
+  "Caution on reliability: agreement outside the Model/Method boundary is near perfect, and many label pairs are verbatim identical (e.g. 'practical training recipe', 'humanly'-style rare labels such as 'neuroscience insight', 'open research questions', 'formal model'). That is unusually high for independent open coding. It is worth checking whether the coders shared a model or prompt, or saw each other's output, before treating these kappas as estimates for human annotators. Only 3 of the 20 primary disagreements (q046, q087, q122) carried an 'ambiguous' flag, so the coders' self-reported ambiguity barely predicts disagreement."
+ ]
+}

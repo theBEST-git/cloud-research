@@ -1,0 +1,8 @@
+Model family: GPT-6 (Codex).
+Exact serving model identifier: not exposed in this session.
+All six annotation agents inherited the parent model; no explicit model overrides were used.
+
+Codebook: v1.1, from the updated chatgpt_round2(1).zip upload.
+Annotation workflow: six concurrent agents manually read and annotated 100 papers; every item received an independent cross-review, and the root agent resolved review recommendations.
+No web searches or automated code-based annotation were used. Code was used only for file splitting, format/completeness validation, and output packaging.
+Validation: four JSONL files, 25 records each; 100 unique ordered item IDs; exact v1.1 fields; valid enums and integer flags; evidence and rationale word limits; consistent overreach prefixes.

@@ -5,6 +5,9 @@
  "C2": {
   "n": 100
  },
+ "G": {
+  "n": 100
+ },
  "C1_vs_C2": {
   "n": 100,
   "type_kappa": 0.9639509733237203,
@@ -108,6 +111,218 @@
     "title_only|both": 0,
     "title_only|neither": 0,
     "title_only|title_only": 7
+   }
+  }
+ },
+ "C1_vs_G": {
+  "n": 100,
+  "type_kappa": 0.9277717587576743,
+  "title_strength": {
+   "exact": 0.93,
+   "kappa_w": 0.9585308056872038
+  },
+  "title_vs_evidence": {
+   "n": 70,
+   "exact": 0.7142857142857143,
+   "kappa_w": 0.4791070406410991,
+   "kappa_over": 0.48880233690360275,
+   "prev_over": [
+    0.24285714285714285,
+    0.34285714285714286
+   ]
+  },
+  "abstract_overreach": {
+   "exact": 0.72,
+   "kappa_w": 0.3786549707602339,
+   "kappa_over": 0.4346733668341707,
+   "prev_over": [
+    0.34,
+    0.43
+   ]
+  },
+  "flags": {
+   "hedge": {
+    "kappa": 0.7025285076846803,
+    "prev": [
+     0.27,
+     0.29
+    ]
+   },
+   "booster": {
+    "kappa": 0.7987117552334944,
+    "prev": [
+     0.48,
+     0.42
+    ]
+   },
+   "superlative": {
+    "kappa": 0.8991935483870968,
+    "prev": [
+     0.45,
+     0.46
+    ]
+   },
+   "universal": {
+    "kappa": 0.6688741721854305,
+    "prev": [
+     0.36,
+     0.44
+    ]
+   },
+   "quantified": {
+    "kappa": 0.9151463725074247,
+    "prev": [
+     0.37,
+     0.39
+    ]
+   },
+   "scoped": {
+    "kappa": 0.10458452722063039,
+    "prev": [
+     0.73,
+     0.98
+    ]
+   }
+  },
+  "types": {
+   "t:scope": 0.5327102803738317,
+   "t:certainty": -0.01781170483460559,
+   "t:magnitude": 1.0,
+   "t:novelty": NaN,
+   "t:causal": 0.0,
+   "t:unsupported": 0.18981481481481477,
+   "a:scope": 0.48051948051948046,
+   "a:certainty": 0.18981481481481477,
+   "a:magnitude": 0.2603550295857987,
+   "a:novelty": 0.5798319327731092,
+   "a:causal": 0.31034482758620696,
+   "a:unsupported": 0.29648241206030135
+  },
+  "joint": {
+   "kappa": 0.4208494208494208,
+   "crosstab": {
+    "abstract_only|abstract_only": 14,
+    "abstract_only|both": 2,
+    "abstract_only|neither": 7,
+    "abstract_only|title_only": 0,
+    "both|abstract_only": 2,
+    "both|both": 7,
+    "both|neither": 1,
+    "both|title_only": 1,
+    "neither|abstract_only": 10,
+    "neither|both": 6,
+    "neither|neither": 40,
+    "neither|title_only": 3,
+    "title_only|abstract_only": 0,
+    "title_only|both": 2,
+    "title_only|neither": 2,
+    "title_only|title_only": 3
+   }
+  }
+ },
+ "C2_vs_G": {
+  "n": 100,
+  "type_kappa": 0.9266593325999266,
+  "title_strength": {
+   "exact": 0.94,
+   "kappa_w": 0.9647266313932981
+  },
+  "title_vs_evidence": {
+   "n": 70,
+   "exact": 0.7714285714285715,
+   "kappa_w": 0.5937690897984116,
+   "kappa_over": 0.6037735849056604,
+   "prev_over": [
+    0.2857142857142857,
+    0.34285714285714286
+   ]
+  },
+  "abstract_overreach": {
+   "exact": 0.72,
+   "kappa_w": 0.37130177514792906,
+   "kappa_over": 0.4210977701543739,
+   "prev_over": [
+    0.26,
+    0.43
+   ]
+  },
+  "flags": {
+   "hedge": {
+    "kappa": 0.7666822211852543,
+    "prev": [
+     0.33,
+     0.29
+    ]
+   },
+   "booster": {
+    "kappa": 0.8389694041867954,
+    "prev": [
+     0.48,
+     0.42
+    ]
+   },
+   "superlative": {
+    "kappa": 0.9192245557350566,
+    "prev": [
+     0.44,
+     0.46
+    ]
+   },
+   "universal": {
+    "kappa": 0.6116107931316435,
+    "prev": [
+     0.41,
+     0.44
+    ]
+   },
+   "quantified": {
+    "kappa": 0.8924268502581756,
+    "prev": [
+     0.34,
+     0.39
+    ]
+   },
+   "scoped": {
+    "kappa": 0.10458452722063039,
+    "prev": [
+     0.73,
+     0.98
+    ]
+   }
+  },
+  "types": {
+   "t:scope": 0.6105919003115265,
+   "t:certainty": -0.017441860465116088,
+   "t:magnitude": 1.0,
+   "t:novelty": NaN,
+   "t:causal": 0.6621621621621622,
+   "t:unsupported": 0.3697478991596639,
+   "a:scope": 0.527027027027027,
+   "a:certainty": 0.4923857868020304,
+   "a:magnitude": -0.024590163934426368,
+   "a:novelty": 0.8520710059171598,
+   "a:causal": 0.4354838709677419,
+   "a:unsupported": 0.29648241206030135
+  },
+  "joint": {
+   "kappa": 0.4666235655406499,
+   "crosstab": {
+    "abstract_only|abstract_only": 13,
+    "abstract_only|both": 0,
+    "abstract_only|neither": 3,
+    "abstract_only|title_only": 0,
+    "both|abstract_only": 1,
+    "both|both": 7,
+    "both|neither": 2,
+    "both|title_only": 0,
+    "neither|abstract_only": 12,
+    "neither|both": 5,
+    "neither|neither": 43,
+    "neither|title_only": 3,
+    "title_only|abstract_only": 0,
+    "title_only|both": 5,
+    "title_only|neither": 2,
+    "title_only|title_only": 4
    }
   }
  }

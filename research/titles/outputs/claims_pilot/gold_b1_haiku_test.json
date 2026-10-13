@@ -1,0 +1,744 @@
+{
+ "HK1_vs_HK2": {
+  "n": 43,
+  "type_kappa": 0.8793264733395697,
+  "title_strength": {
+   "exact": 0.9534883720930233,
+   "kappa_w": 0.9714285714285714
+  },
+  "title_vs_evidence": {
+   "n": 26,
+   "exact": 0.9230769230769231,
+   "kappa_w": 0.847953216374269,
+   "kappa_over": 0.912751677852349,
+   "prev_over": [
+    0.34615384615384615,
+    0.3076923076923077
+   ]
+  },
+  "abstract_overreach": {
+   "exact": 0.7209302325581395,
+   "kappa_w": 0.4241071428571428,
+   "kappa_over": 0.4241071428571428,
+   "prev_over": [
+    0.7209302325581395,
+    0.5348837209302325
+   ]
+  },
+  "flags": {
+   "hedge": {
+    "kappa": 0.7974882260596546,
+    "prev": [
+     0.23255813953488372,
+     0.20930232558139536
+    ]
+   },
+   "booster": {
+    "kappa": 0.8696969696969697,
+    "prev": [
+     0.23255813953488372,
+     0.23255813953488372
+    ]
+   },
+   "superlative": {
+    "kappa": 0.8940886699507389,
+    "prev": [
+     0.32558139534883723,
+     0.32558139534883723
+    ]
+   },
+   "universal": {
+    "kappa": 0.410958904109589,
+    "prev": [
+     0.3953488372093023,
+     0.18604651162790697
+    ]
+   },
+   "quantified": {
+    "kappa": 0.8469750889679715,
+    "prev": [
+     0.20930232558139536,
+     0.16279069767441862
+    ]
+   },
+   "scoped": {
+    "kappa": 0.7171052631578947,
+    "prev": [
+     0.5581395348837209,
+     0.5581395348837209
+    ]
+   }
+  },
+  "types": {
+   "t:scope": 1.0,
+   "t:certainty": NaN,
+   "t:magnitude": NaN,
+   "t:novelty": NaN,
+   "t:causal": NaN,
+   "t:unsupported": 0.656,
+   "a:scope": 0.48036253776435045,
+   "a:certainty": 0.0,
+   "a:magnitude": 0.8594771241830066,
+   "a:novelty": 0.8447653429602888,
+   "a:causal": 0.0,
+   "a:unsupported": 0.6116129032258065
+  },
+  "joint": {
+   "kappa": 0.5341666666666667,
+   "crosstab": {
+    "abstract_only|abstract_only": 16,
+    "abstract_only|both": 0,
+    "abstract_only|neither": 7,
+    "abstract_only|title_only": 0,
+    "both|abstract_only": 1,
+    "both|both": 4,
+    "both|neither": 0,
+    "both|title_only": 3,
+    "neither|abstract_only": 2,
+    "neither|both": 0,
+    "neither|neither": 9,
+    "neither|title_only": 0,
+    "title_only|abstract_only": 0,
+    "title_only|both": 0,
+    "title_only|neither": 0,
+    "title_only|title_only": 1
+   }
+  }
+ },
+ "HK1_vs_G": {
+  "n": 43,
+  "type_kappa": 1.0,
+  "title_strength": {
+   "exact": 0.9069767441860465,
+   "kappa_w": 0.8955223880597015
+  },
+  "title_vs_evidence": {
+   "n": 26,
+   "exact": 0.7307692307692307,
+   "kappa_w": 0.5284974093264247,
+   "kappa_over": 0.5390070921985816,
+   "prev_over": [
+    0.34615384615384615,
+    0.23076923076923078
+   ]
+  },
+  "abstract_overreach": {
+   "exact": 0.7209302325581395,
+   "kappa_w": 0.44753747323340465,
+   "kappa_over": 0.44753747323340465,
+   "prev_over": [
+    0.7209302325581395,
+    0.4883720930232558
+   ]
+  },
+  "flags": {
+   "hedge": {
+    "kappa": 0.8111273792093704,
+    "prev": [
+     0.23255813953488372,
+     0.2558139534883721
+    ]
+   },
+   "booster": {
+    "kappa": 0.823045267489712,
+    "prev": [
+     0.23255813953488372,
+     0.3023255813953488
+    ]
+   },
+   "superlative": {
+    "kappa": 0.8900255754475703,
+    "prev": [
+     0.32558139534883723,
+     0.27906976744186046
+    ]
+   },
+   "universal": {
+    "kappa": 0.39745222929936297,
+    "prev": [
+     0.3953488372093023,
+     0.13953488372093023
+    ]
+   },
+   "quantified": {
+    "kappa": 0.9267461669505963,
+    "prev": [
+     0.20930232558139536,
+     0.18604651162790697
+    ]
+   },
+   "scoped": {
+    "kappa": 0.6681367144432193,
+    "prev": [
+     0.5581395348837209,
+     0.5813953488372093
+    ]
+   }
+  },
+  "types": {
+   "t:scope": 0.6143497757847534,
+   "t:certainty": NaN,
+   "t:magnitude": NaN,
+   "t:novelty": NaN,
+   "t:causal": NaN,
+   "t:unsupported": 0.656,
+   "a:scope": 0.6645865834633385,
+   "a:certainty": -0.03200000000000003,
+   "a:magnitude": 0.7401812688821752,
+   "a:novelty": 0.6446280991735537,
+   "a:causal": 0.0,
+   "a:unsupported": 0.46473029045643166
+  },
+  "joint": {
+   "kappa": 0.4285714285714286,
+   "crosstab": {
+    "abstract_only|abstract_only": 14,
+    "abstract_only|both": 1,
+    "abstract_only|neither": 8,
+    "abstract_only|title_only": 0,
+    "both|abstract_only": 2,
+    "both|both": 3,
+    "both|neither": 1,
+    "both|title_only": 2,
+    "neither|abstract_only": 1,
+    "neither|both": 0,
+    "neither|neither": 10,
+    "neither|title_only": 0,
+    "title_only|abstract_only": 0,
+    "title_only|both": 0,
+    "title_only|neither": 1,
+    "title_only|title_only": 0
+   }
+  }
+ },
+ "HK2_vs_G": {
+  "n": 43,
+  "type_kappa": 0.8793264733395697,
+  "title_strength": {
+   "exact": 0.9534883720930233,
+   "kappa_w": 0.9227452389507725
+  },
+  "title_vs_evidence": {
+   "n": 26,
+   "exact": 0.7307692307692307,
+   "kappa_w": 0.5560975609756098,
+   "kappa_over": 0.6119402985074627,
+   "prev_over": [
+    0.3076923076923077,
+    0.23076923076923078
+   ]
+  },
+  "abstract_overreach": {
+   "exact": 0.813953488372093,
+   "kappa_w": 0.6285097192224622,
+   "kappa_over": 0.6285097192224622,
+   "prev_over": [
+    0.5348837209302325,
+    0.4883720930232558
+   ]
+  },
+  "flags": {
+   "hedge": {
+    "kappa": 0.6102719033232629,
+    "prev": [
+     0.20930232558139536,
+     0.2558139534883721
+    ]
+   },
+   "booster": {
+    "kappa": 0.7050754458161865,
+    "prev": [
+     0.23255813953488372,
+     0.3023255813953488
+    ]
+   },
+   "superlative": {
+    "kappa": 0.8900255754475703,
+    "prev": [
+     0.32558139534883723,
+     0.27906976744186046
+    ]
+   },
+   "universal": {
+    "kappa": 0.6600790513833992,
+    "prev": [
+     0.18604651162790697,
+     0.13953488372093023
+    ]
+   },
+   "quantified": {
+    "kappa": 0.9193245778611633,
+    "prev": [
+     0.16279069767441862,
+     0.18604651162790697
+    ]
+   },
+   "scoped": {
+    "kappa": 0.6681367144432193,
+    "prev": [
+     0.5581395348837209,
+     0.5813953488372093
+    ]
+   }
+  },
+  "types": {
+   "t:scope": 0.6143497757847534,
+   "t:certainty": NaN,
+   "t:magnitude": NaN,
+   "t:novelty": NaN,
+   "t:causal": NaN,
+   "t:unsupported": 1.0,
+   "a:scope": 0.4872231686541736,
+   "a:certainty": 0.0,
+   "a:magnitude": 0.7401812688821752,
+   "a:novelty": 0.7881773399014779,
+   "a:causal": NaN,
+   "a:unsupported": 0.24295774647887314
+  },
+  "joint": {
+   "kappa": 0.5634517766497462,
+   "crosstab": {
+    "abstract_only|abstract_only": 13,
+    "abstract_only|both": 1,
+    "abstract_only|neither": 5,
+    "abstract_only|title_only": 0,
+    "both|abstract_only": 2,
+    "both|both": 2,
+    "both|neither": 0,
+    "both|title_only": 0,
+    "neither|abstract_only": 2,
+    "neither|both": 0,
+    "neither|neither": 14,
+    "neither|title_only": 0,
+    "title_only|abstract_only": 0,
+    "title_only|both": 1,
+    "title_only|neither": 1,
+    "title_only|title_only": 2
+   }
+  }
+ },
+ "HK1_vs_C1": {
+  "n": 43,
+  "type_kappa": 1.0,
+  "title_strength": {
+   "exact": 0.9767441860465116,
+   "kappa_w": 0.9859154929577465
+  },
+  "title_vs_evidence": {
+   "n": 27,
+   "exact": 0.8518518518518519,
+   "kappa_w": 0.6470588235294118,
+   "kappa_over": 0.6470588235294117,
+   "prev_over": [
+    0.3333333333333333,
+    0.25925925925925924
+   ]
+  },
+  "abstract_overreach": {
+   "exact": 0.7906976744186046,
+   "kappa_w": 0.5770491803278688,
+   "kappa_over": 0.5770491803278688,
+   "prev_over": [
+    0.7209302325581395,
+    0.5116279069767442
+   ]
+  },
+  "flags": {
+   "hedge": {
+    "kappa": 0.7050754458161865,
+    "prev": [
+     0.23255813953488372,
+     0.3023255813953488
+    ]
+   },
+   "booster": {
+    "kappa": 0.823045267489712,
+    "prev": [
+     0.23255813953488372,
+     0.3023255813953488
+    ]
+   },
+   "superlative": {
+    "kappa": 1.0,
+    "prev": [
+     0.32558139534883723,
+     0.32558139534883723
+    ]
+   },
+   "universal": {
+    "kappa": 0.28789808917197457,
+    "prev": [
+     0.3953488372093023,
+     0.13953488372093023
+    ]
+   },
+   "quantified": {
+    "kappa": 0.9267461669505963,
+    "prev": [
+     0.20930232558139536,
+     0.18604651162790697
+    ]
+   },
+   "scoped": {
+    "kappa": 0.720173535791757,
+    "prev": [
+     0.5581395348837209,
+     0.5116279069767442
+    ]
+   }
+  },
+  "types": {
+   "t:scope": 0.728421052631579,
+   "t:certainty": 0.0,
+   "t:magnitude": NaN,
+   "t:novelty": NaN,
+   "t:causal": NaN,
+   "t:unsupported": 0.0,
+   "a:scope": 0.8700906344410876,
+   "a:certainty": -0.03200000000000003,
+   "a:magnitude": 0.8594771241830066,
+   "a:novelty": 1.0,
+   "a:causal": 0.0,
+   "a:unsupported": 0.5981308411214954
+  },
+  "joint": {
+   "kappa": 0.5742574257425743,
+   "crosstab": {
+    "abstract_only|abstract_only": 15,
+    "abstract_only|both": 1,
+    "abstract_only|neither": 7,
+    "abstract_only|title_only": 0,
+    "both|abstract_only": 1,
+    "both|both": 5,
+    "both|neither": 1,
+    "both|title_only": 1,
+    "neither|abstract_only": 0,
+    "neither|both": 0,
+    "neither|neither": 11,
+    "neither|title_only": 0,
+    "title_only|abstract_only": 0,
+    "title_only|both": 0,
+    "title_only|neither": 1,
+    "title_only|title_only": 0
+   }
+  }
+ },
+ "HK2_vs_C2": {
+  "n": 43,
+  "type_kappa": 0.9206642066420665,
+  "title_strength": {
+   "exact": 0.9302325581395349,
+   "kappa_w": 0.9565802760013463
+  },
+  "title_vs_evidence": {
+   "n": 26,
+   "exact": 0.8846153846153846,
+   "kappa_w": 0.7450980392156863,
+   "kappa_over": 0.8059701492537313,
+   "prev_over": [
+    0.3076923076923077,
+    0.23076923076923078
+   ]
+  },
+  "abstract_overreach": {
+   "exact": 0.8604651162790697,
+   "kappa_w": 0.7249466950959489,
+   "kappa_over": 0.7249466950959489,
+   "prev_over": [
+    0.5348837209302325,
+    0.3953488372093023
+   ]
+  },
+  "flags": {
+   "hedge": {
+    "kappa": 0.7584269662921348,
+    "prev": [
+     0.20930232558139536,
+     0.3023255813953488
+    ]
+   },
+   "booster": {
+    "kappa": 0.8781869688385269,
+    "prev": [
+     0.23255813953488372,
+     0.27906976744186046
+    ]
+   },
+   "superlative": {
+    "kappa": 0.8940886699507389,
+    "prev": [
+     0.32558139534883723,
+     0.32558139534883723
+    ]
+   },
+   "universal": {
+    "kappa": 0.6194690265486726,
+    "prev": [
+     0.18604651162790697,
+     0.09302325581395349
+    ]
+   },
+   "quantified": {
+    "kappa": 0.9193245778611633,
+    "prev": [
+     0.16279069767441862,
+     0.18604651162790697
+    ]
+   },
+   "scoped": {
+    "kappa": 0.630901287553648,
+    "prev": [
+     0.5581395348837209,
+     0.46511627906976744
+    ]
+   }
+  },
+  "types": {
+   "t:scope": 0.8071748878923767,
+   "t:certainty": 0.0,
+   "t:magnitude": NaN,
+   "t:novelty": NaN,
+   "t:causal": NaN,
+   "t:unsupported": 0.0,
+   "a:scope": 0.4960937499999999,
+   "a:certainty": 0.0,
+   "a:magnitude": 0.693950177935943,
+   "a:novelty": 0.8447653429602888,
+   "a:causal": NaN,
+   "a:unsupported": 0.545774647887324
+  },
+  "joint": {
+   "kappa": 0.7111670864819479,
+   "crosstab": {
+    "abstract_only|abstract_only": 13,
+    "abstract_only|both": 0,
+    "abstract_only|neither": 6,
+    "abstract_only|title_only": 0,
+    "both|abstract_only": 1,
+    "both|both": 3,
+    "both|neither": 0,
+    "both|title_only": 0,
+    "neither|abstract_only": 0,
+    "neither|both": 0,
+    "neither|neither": 16,
+    "neither|title_only": 0,
+    "title_only|abstract_only": 0,
+    "title_only|both": 0,
+    "title_only|neither": 1,
+    "title_only|title_only": 3
+   }
+  }
+ },
+ "C1_vs_G": {
+  "n": 43,
+  "type_kappa": 1.0,
+  "title_strength": {
+   "exact": 0.8837209302325582,
+   "kappa_w": 0.8790436005625879
+  },
+  "title_vs_evidence": {
+   "n": 26,
+   "exact": 0.8846153846153846,
+   "kappa_w": 0.782122905027933,
+   "kappa_over": 0.8976377952755905,
+   "prev_over": [
+    0.2692307692307692,
+    0.23076923076923078
+   ]
+  },
+  "abstract_overreach": {
+   "exact": 0.8372093023255814,
+   "kappa_w": 0.6745945945945946,
+   "kappa_over": 0.6745945945945946,
+   "prev_over": [
+    0.5116279069767442,
+    0.4883720930232558
+   ]
+  },
+  "flags": {
+   "hedge": {
+    "kappa": 0.7694369973190348,
+    "prev": [
+     0.3023255813953488,
+     0.2558139534883721
+    ]
+   },
+   "booster": {
+    "kappa": 0.8897435897435897,
+    "prev": [
+     0.3023255813953488,
+     0.3023255813953488
+    ]
+   },
+   "superlative": {
+    "kappa": 0.8900255754475703,
+    "prev": [
+     0.32558139534883723,
+     0.27906976744186046
+    ]
+   },
+   "universal": {
+    "kappa": 0.8063063063063063,
+    "prev": [
+     0.13953488372093023,
+     0.13953488372093023
+    ]
+   },
+   "quantified": {
+    "kappa": 1.0,
+    "prev": [
+     0.18604651162790697,
+     0.18604651162790697
+    ]
+   },
+   "scoped": {
+    "kappa": 0.8599348534201955,
+    "prev": [
+     0.5116279069767442,
+     0.5813953488372093
+    ]
+   }
+  },
+  "types": {
+   "t:scope": 0.8958837772397095,
+   "t:certainty": 0.0,
+   "t:magnitude": NaN,
+   "t:novelty": NaN,
+   "t:causal": NaN,
+   "t:unsupported": 0.0,
+   "a:scope": 0.7802385008517888,
+   "a:certainty": -0.023809523809523725,
+   "a:magnitude": 0.8700906344410876,
+   "a:novelty": 0.6446280991735537,
+   "a:causal": NaN,
+   "a:unsupported": 0.49011857707509887
+  },
+  "joint": {
+   "kappa": 0.7011294526498697,
+   "crosstab": {
+    "abstract_only|abstract_only": 13,
+    "abstract_only|both": 0,
+    "abstract_only|neither": 3,
+    "abstract_only|title_only": 0,
+    "both|abstract_only": 1,
+    "both|both": 4,
+    "both|neither": 0,
+    "both|title_only": 1,
+    "neither|abstract_only": 3,
+    "neither|both": 0,
+    "neither|neither": 17,
+    "neither|title_only": 0,
+    "title_only|abstract_only": 0,
+    "title_only|both": 0,
+    "title_only|neither": 0,
+    "title_only|title_only": 1
+   }
+  }
+ },
+ "C2_vs_G": {
+  "n": 43,
+  "type_kappa": 0.9597754911131899,
+  "title_strength": {
+   "exact": 0.8837209302325582,
+   "kappa_w": 0.8790436005625879
+  },
+  "title_vs_evidence": {
+   "n": 26,
+   "exact": 0.8461538461538461,
+   "kappa_w": 0.6976744186046511,
+   "kappa_over": 0.7833333333333333,
+   "prev_over": [
+    0.23076923076923078,
+    0.23076923076923078
+   ]
+  },
+  "abstract_overreach": {
+   "exact": 0.8604651162790697,
+   "kappa_w": 0.7195652173913043,
+   "kappa_over": 0.7195652173913043,
+   "prev_over": [
+    0.3953488372093023,
+    0.4883720930232558
+   ]
+  },
+  "flags": {
+   "hedge": {
+    "kappa": 0.7694369973190348,
+    "prev": [
+     0.3023255813953488,
+     0.2558139534883721
+    ]
+   },
+   "booster": {
+    "kappa": 0.8309305373525557,
+    "prev": [
+     0.27906976744186046,
+     0.3023255813953488
+    ]
+   },
+   "superlative": {
+    "kappa": 0.8900255754475703,
+    "prev": [
+     0.32558139534883723,
+     0.27906976744186046
+    ]
+   },
+   "universal": {
+    "kappa": 0.7748691099476439,
+    "prev": [
+     0.09302325581395349,
+     0.13953488372093023
+    ]
+   },
+   "quantified": {
+    "kappa": 1.0,
+    "prev": [
+     0.18604651162790697,
+     0.18604651162790697
+    ]
+   },
+   "scoped": {
+    "kappa": 0.6780748663101603,
+    "prev": [
+     0.46511627906976744,
+     0.5813953488372093
+    ]
+   }
+  },
+  "types": {
+   "t:scope": 0.7736842105263158,
+   "t:certainty": 0.0,
+   "t:magnitude": NaN,
+   "t:novelty": NaN,
+   "t:causal": NaN,
+   "t:unsupported": 0.0,
+   "a:scope": 0.7306889352818371,
+   "a:certainty": 1.0,
+   "a:magnitude": 0.7225806451612903,
+   "a:novelty": 0.6446280991735537,
+   "a:causal": NaN,
+   "a:unsupported": 0.6126126126126126
+  },
+  "joint": {
+   "kappa": 0.734333627537511,
+   "crosstab": {
+    "abstract_only|abstract_only": 13,
+    "abstract_only|both": 0,
+    "abstract_only|neither": 1,
+    "abstract_only|title_only": 0,
+    "both|abstract_only": 1,
+    "both|both": 2,
+    "both|neither": 0,
+    "both|title_only": 0,
+    "neither|abstract_only": 3,
+    "neither|both": 1,
+    "neither|neither": 19,
+    "neither|title_only": 0,
+    "title_only|abstract_only": 0,
+    "title_only|both": 1,
+    "title_only|neither": 0,
+    "title_only|title_only": 2
+   }
+  }
+ }
+}

@@ -1,0 +1,130 @@
+{
+ "C1": {
+  "n": 50,
+  "title_over_rate": 0.1875,
+  "abstract_over_rate": 0.34,
+  "rate_hedge": 0.28,
+  "rate_booster": 0.28,
+  "rate_superlative": 0.32,
+  "rate_universal": 0.1,
+  "rate_quantified": 0.24,
+  "rate_scoped": 0.56
+ },
+ "C2": {
+  "n": 50,
+  "title_over_rate": 0.21875,
+  "abstract_over_rate": 0.34,
+  "rate_hedge": 0.28,
+  "rate_booster": 0.3,
+  "rate_superlative": 0.32,
+  "rate_universal": 0.1,
+  "rate_quantified": 0.24,
+  "rate_scoped": 0.54
+ },
+ "C1_vs_C2": {
+  "n": 50,
+  "type_kappa": 0.8943661971830986,
+  "title_strength": {
+   "exact": 0.94,
+   "kappa_w": 0.9629995066600888
+  },
+  "title_vs_evidence": {
+   "n": 32,
+   "exact": 0.90625,
+   "kappa_w": 0.7735849056603774,
+   "kappa_over": 0.9036144578313253,
+   "prev_over": [
+    0.1875,
+    0.21875
+   ]
+  },
+  "abstract_overreach": {
+   "exact": 0.92,
+   "kappa_w": 0.82174688057041,
+   "kappa_over": 0.82174688057041,
+   "prev_over": [
+    0.34,
+    0.34
+   ]
+  },
+  "flags": {
+   "hedge": {
+    "kappa": 0.9007936507936508,
+    "prev": [
+     0.28,
+     0.28
+    ]
+   },
+   "booster": {
+    "kappa": 0.9514563106796117,
+    "prev": [
+     0.28,
+     0.3
+    ]
+   },
+   "superlative": {
+    "kappa": 1.0,
+    "prev": [
+     0.32,
+     0.32
+    ]
+   },
+   "universal": {
+    "kappa": 1.0,
+    "prev": [
+     0.1,
+     0.1
+    ]
+   },
+   "quantified": {
+    "kappa": 1.0,
+    "prev": [
+     0.24,
+     0.24
+    ]
+   },
+   "scoped": {
+    "kappa": 0.7172859450726978,
+    "prev": [
+     0.56,
+     0.54
+    ]
+   }
+  },
+  "types": {
+   "t:scope": 0.8780487804878049,
+   "t:certainty": 1.0,
+   "t:magnitude": NaN,
+   "t:novelty": NaN,
+   "t:causal": NaN,
+   "t:unsupported": NaN,
+   "a:scope": 0.6938775510204083,
+   "a:certainty": 0.647887323943662,
+   "a:magnitude": 1.0,
+   "a:novelty": NaN,
+   "a:causal": NaN,
+   "a:unsupported": 1.0
+  },
+  "joint": {
+   "kappa": 0.821300929235168,
+   "crosstab": {
+    "abstract_only|abstract_only": 12,
+    "abstract_only|both": 0,
+    "abstract_only|neither": 1,
+    "abstract_only|title_only": 0,
+    "both|abstract_only": 0,
+    "both|both": 3,
+    "both|neither": 0,
+    "both|title_only": 1,
+    "neither|abstract_only": 2,
+    "neither|both": 0,
+    "neither|neither": 28,
+    "neither|title_only": 1,
+    "title_only|abstract_only": 0,
+    "title_only|both": 0,
+    "title_only|neither": 0,
+    "title_only|title_only": 2
+   }
+  }
+ }
+}

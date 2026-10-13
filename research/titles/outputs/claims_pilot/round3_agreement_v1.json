@@ -1,0 +1,114 @@
+{
+ "C1": {
+  "n": 100
+ },
+ "C2": {
+  "n": 100
+ },
+ "C1_vs_C2": {
+  "n": 100,
+  "type_kappa": 0.9493927125506073,
+  "title_strength": {
+   "exact": 0.94,
+   "kappa_w": 0.9411456970965211
+  },
+  "title_vs_evidence": {
+   "n": 62,
+   "exact": 0.9516129032258065,
+   "kappa_w": 0.8972375690607735,
+   "kappa_over": 0.8764940239043825,
+   "prev_over": [
+    0.24193548387096775,
+    0.2903225806451613
+   ]
+  },
+  "abstract_overreach": {
+   "exact": 0.96,
+   "kappa_w": 0.9347471451876019,
+   "kappa_over": 0.9173553719008265,
+   "prev_over": [
+    0.4,
+    0.42
+   ]
+  },
+  "flags": {
+   "hedge": {
+    "kappa": 0.9653739612188366,
+    "prev": [
+     0.17,
+     0.18
+    ]
+   },
+   "booster": {
+    "kappa": 0.9524036173250833,
+    "prev": [
+     0.31,
+     0.29
+    ]
+   },
+   "superlative": {
+    "kappa": 0.9768303985171455,
+    "prev": [
+     0.31,
+     0.32
+    ]
+   },
+   "universal": {
+    "kappa": 0.9079754601226994,
+    "prev": [
+     0.21,
+     0.2
+    ]
+   },
+   "quantified": {
+    "kappa": 0.9721913236929922,
+    "prev": [
+     0.23,
+     0.24
+    ]
+   },
+   "scoped": {
+    "kappa": 0.94,
+    "prev": [
+     0.47,
+     0.5
+    ]
+   }
+  },
+  "types": {
+   "t:scope": 0.7718978102189781,
+   "t:certainty": 1.0,
+   "t:magnitude": NaN,
+   "t:novelty": NaN,
+   "t:causal": 1.0,
+   "t:unsupported": 0.7950819672131147,
+   "a:scope": 0.7863247863247863,
+   "a:certainty": 0.0,
+   "a:magnitude": 0.935064935064935,
+   "a:novelty": 0.8520710059171598,
+   "a:causal": 0.6563573883161511,
+   "a:unsupported": 0.7557997557997558
+  },
+  "joint": {
+   "kappa": 0.8561381074168798,
+   "crosstab": {
+    "abstract_only|abstract_only": 28,
+    "abstract_only|both": 2,
+    "abstract_only|neither": 1,
+    "abstract_only|title_only": 0,
+    "both|abstract_only": 0,
+    "both|both": 9,
+    "both|neither": 0,
+    "both|title_only": 0,
+    "neither|abstract_only": 2,
+    "neither|both": 1,
+    "neither|neither": 48,
+    "neither|title_only": 2,
+    "title_only|abstract_only": 0,
+    "title_only|both": 0,
+    "title_only|neither": 1,
+    "title_only|title_only": 6
+   }
+  }
+ }
+}

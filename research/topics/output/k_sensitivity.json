@@ -1,0 +1,158 @@
+{
+  "k_values": [
+    50,
+    75,
+    100,
+    150,
+    200
+  ],
+  "refit_seeds": [
+    [
+      10,
+      11,
+      12
+    ],
+    [
+      20,
+      21,
+      22
+    ]
+  ],
+  "emerging_rule": "share 2024-2026 >= 3.0x share 2017-2020",
+  "by_k": {
+    "50": {
+      "topics": 50,
+      "smallest": 352,
+      "largest": 1378,
+      "trackable_topics": 50,
+      "trackable_paper_share": 1.0,
+      "nmi_primary_area_2024_2026": 0.294,
+      "keyword_coherence": 0.256,
+      "synonym_overlap": 0.77,
+      "stability_ari_mean": 0.768,
+      "nmi_with_published_k100": 0.721,
+      "effective_topics_over_k_by_year": {
+        "2017": 0.541,
+        "2018": 0.574,
+        "2019": 0.63,
+        "2020": 0.701,
+        "2021": 0.749,
+        "2022": 0.779,
+        "2023": 0.843,
+        "2024": 0.932,
+        "2025": 0.939,
+        "2026": 0.875
+      },
+      "emerging_topics_over_k": 0.28,
+      "late_paper_share_in_emerging_topics": 0.395
+    },
+    "75": {
+      "topics": 75,
+      "smallest": 300,
+      "largest": 1171,
+      "trackable_topics": 72,
+      "trackable_paper_share": 0.973,
+      "nmi_primary_area_2024_2026": 0.302,
+      "keyword_coherence": 0.274,
+      "synonym_overlap": 0.717,
+      "stability_ari_mean": 0.737,
+      "nmi_with_published_k100": 0.804,
+      "effective_topics_over_k_by_year": {
+        "2017": 0.492,
+        "2018": 0.551,
+        "2019": 0.637,
+        "2020": 0.699,
+        "2021": 0.745,
+        "2022": 0.763,
+        "2023": 0.817,
+        "2024": 0.914,
+        "2025": 0.923,
+        "2026": 0.862
+      },
+      "emerging_topics_over_k": 0.293,
+      "late_paper_share_in_emerging_topics": 0.396,
+      "nests_in_k50": 0.816
+    },
+    "100": {
+      "topics": 100,
+      "smallest": 127,
+      "largest": 1121,
+      "trackable_topics": 91,
+      "trackable_paper_share": 0.941,
+      "nmi_primary_area_2024_2026": 0.302,
+      "keyword_coherence": 0.292,
+      "synonym_overlap": 0.67,
+      "stability_ari_mean": 0.676,
+      "nmi_with_published_k100": 1.0,
+      "effective_topics_over_k_by_year": {
+        "2017": 0.443,
+        "2018": 0.525,
+        "2019": 0.582,
+        "2020": 0.66,
+        "2021": 0.703,
+        "2022": 0.725,
+        "2023": 0.797,
+        "2024": 0.897,
+        "2025": 0.91,
+        "2026": 0.84
+      },
+      "emerging_topics_over_k": 0.29,
+      "late_paper_share_in_emerging_topics": 0.409,
+      "nests_in_k75": 0.801
+    },
+    "150": {
+      "topics": 150,
+      "smallest": 117,
+      "largest": 690,
+      "trackable_topics": 105,
+      "trackable_paper_share": 0.757,
+      "nmi_primary_area_2024_2026": 0.301,
+      "keyword_coherence": 0.313,
+      "synonym_overlap": 0.666,
+      "stability_ari_mean": 0.623,
+      "nmi_with_published_k100": 0.776,
+      "effective_topics_over_k_by_year": {
+        "2017": 0.403,
+        "2018": 0.494,
+        "2019": 0.587,
+        "2020": 0.658,
+        "2021": 0.708,
+        "2022": 0.729,
+        "2023": 0.804,
+        "2024": 0.895,
+        "2025": 0.905,
+        "2026": 0.837
+      },
+      "emerging_topics_over_k": 0.28,
+      "late_paper_share_in_emerging_topics": 0.407,
+      "nests_in_k100": 0.762
+    },
+    "200": {
+      "topics": 200,
+      "smallest": 72,
+      "largest": 463,
+      "trackable_topics": 87,
+      "trackable_paper_share": 0.534,
+      "nmi_primary_area_2024_2026": 0.302,
+      "keyword_coherence": 0.326,
+      "synonym_overlap": 0.638,
+      "stability_ari_mean": 0.571,
+      "nmi_with_published_k100": 0.747,
+      "effective_topics_over_k_by_year": {
+        "2017": 0.345,
+        "2018": 0.442,
+        "2019": 0.53,
+        "2020": 0.614,
+        "2021": 0.658,
+        "2022": 0.707,
+        "2023": 0.768,
+        "2024": 0.874,
+        "2025": 0.899,
+        "2026": 0.846
+      },
+      "emerging_topics_over_k": 0.33,
+      "late_paper_share_in_emerging_topics": 0.437,
+      "nests_in_k150": 0.768
+    }
+  }
+}

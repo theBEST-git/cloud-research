@@ -93,6 +93,31 @@ verbatim in titles and abstracts.
 - **Per-topic stability.** Median middle-topic Jaccard with its best match across refits is 0.66;
   26 middle topics score below 0.5, usually because a refit splits or merges them differently.
 
+### Sensitivity to k (`k_sensitivity.py`)
+
+k = 100 for the middle level was a design choice, not tuned. The middle level was refitted with k = 50–200 using
+the same procedure; k = 100 reproduces the published topics exactly. Output: `output/k_sensitivity.json`, plus
+`output/k_sensitivity_assignments.csv.gz` (topic per paper for each k, for rerunning analyses).
+
+| k | Papers in trackable topics | NMI with primary areas | Stability (ARI) | Synonym overlap | Keyword coherence | NMI with k = 100 |
+|---|---|---|---|---|---|---|
+| 50 | 100% | 0.294 | 0.77 | 0.77 | 0.26 | 0.72 |
+| 75 | 97% | 0.302 | 0.74 | 0.72 | 0.27 | 0.80 |
+| **100** | **94%** | **0.302** | **0.68** | **0.67** | **0.29** | 1 |
+| 150 | 76% | 0.301 | 0.62 | 0.67 | 0.31 | 0.78 |
+| 200 | 53% | 0.302 | 0.57 | 0.64 | 0.33 | 0.75 |
+
+- Agreement with ICLR's primary areas does not depend on k (0.294–0.302).
+- Larger k gives more specific topics (keyword coherence up) at the cost of stability and trackability. k = 100 is
+  the largest k that keeps over 90% of papers in topics trackable over time (≥30 papers in ≥3 years).
+- Label-free fashion measures barely move with k:
+  - effective number of topics per year, divided by k, rises from 2017 to 2025 and dips in 2026 at every k;
+  - 28–33% of topics are emerging (2024–26 share ≥3× the 2017–20 share), and they hold 40–44% of 2024–26 papers.
+
+  The 2017 values are biased low by the small number of papers that year.
+- Adjacent solutions nest only partly: 76–82% of a finer topic's papers sit in one coarser topic. Topic-level
+  results should therefore be rerun at several k, not just at k = 100.
+
 ## Limitations
 
 - Topics partition a continuous space, so boundaries move between refits (see stability above).
@@ -110,6 +135,7 @@ pip install -r research/topics/requirements.txt
 python research/topics/embed_specter2.py      # ~2.5 h on 4 CPUs; resumable; writes cache/ (git-ignored)
 python research/topics/build_topics.py        # ~2 min
 python research/topics/evaluate_topics.py     # ~15 min
+python research/topics/k_sensitivity.py       # ~40 min
 python research/topics/naming_inputs.py       # naming material; names come from the annotation workflow
 python research/topics/finalize_catalog.py
 python research/topics/derive_features.py

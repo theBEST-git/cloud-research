@@ -1,0 +1,7 @@
+Annotator: ChatGPT / Codex (GPT-based assistant).
+Exact underlying model/version identifier: not exposed in this session; not independently verified.
+
+50 items annotated manually in source order, with one annotator and one labeling pass per item. No subagents, cross-review, adjudication, web research, or programmatic label generation were used.
+Code was used only for archive/file handling and mechanical output validation.
+
+Protocol deviation: both batches were processed in this existing conversation, not in two fresh conversations. These outputs should not be represented as independent fresh-context runs.

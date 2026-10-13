@@ -1,182 +1,141 @@
 {
-  "run_info": {
-    "model": "gpt-6.1-sol",
-    "provider": "ChatGPT Work collaboration agents",
-    "temperature": null,
-    "batch_size": 25,
-    "prompt_version": "contribution-codebook-v1 + foundation-model-rule-v1",
-    "system_prompt_sha256": "aaa1478fb32e1559edc1e158133a562666d64b29cdf4335bd5361509c1a42410",
-    "started_utc": "2026-10-13T07:47:17.845460+00:00",
-    "finished_utc": "2026-10-13T07:51:36.445881+00:00",
-    "papers_labelled": 300,
-    "papers_failed": 0,
-    "notes": "Calibration only, as README.md requires submission before the full run. Six GPT-6.1 Sol agents at high reasoning effort each personally read and semantically labeled two disjoint batches of 25 papers, using titles and abstracts only. The supplied system_prompt.md and filled user_prompt_template.md were read verbatim and applied within the agent task context; they were not sent as isolated API system/user messages. Agent sampling temperature is not exposed by the collaboration tools, so temperature 0 could not be set or verified; the temperature field is null rather than an invented value. No classifier or external paper content was used. Labels were merged without changing the agents' judgments; the coordinating agent performed structural validation only. No model changes or labeling reruns. The package contains no adjudicated reference labels, so reference agreement and the required go/no-go thresholds cannot yet be assessed. Step 2 (43,480 primary labels and 2,174 independent second-pass labels) has not been run.",
-    "reasoning_effort": "high",
-    "parallel_agents": 6,
-    "stage": "step_1_calibration",
-    "temperature_0_verified": false
-  },
-  "all_300": {
-    "llm_vs_reference": {
-      "main_class": {
-        "agreement": 0.9567,
-        "kappa": 0.904,
-        "n": 300
-      },
-      "fine_type": {
-        "agreement": 0.9367,
-        "kappa": 0.9,
-        "n": 300
-      },
-      "secondary_type": {
-        "agreement": 0.8567,
-        "kappa": 0.8014,
-        "n": 300
-      },
-      "foundation_model": {
-        "agreement": 0.9767,
-        "kappa": 0.9471,
-        "n": 300
-      }
+  "llm_vs_reference": {
+    "main_class": {
+      "agreement": 0.9567,
+      "kappa": 0.904,
+      "n": 300
     },
-    "annotator_A_vs_B": {
-      "main_class": {
-        "agreement": 0.98,
-        "kappa": 0.954,
-        "n": 300
-      },
-      "fine_type": {
-        "agreement": 0.9667,
-        "kappa": 0.9457,
-        "n": 300
-      },
-      "foundation_model": {
-        "agreement": 0.9967,
-        "kappa": 0.9923,
-        "n": 300
-      }
+    "fine_type": {
+      "agreement": 0.9367,
+      "kappa": 0.9,
+      "n": 300
     },
-    "prevalence_reference": {
-      "method": 224,
-      "dataset_benchmark": 21,
-      "theory": 21,
-      "empirical": 19,
-      "evaluation": 8,
-      "other": 7
+    "secondary_type": {
+      "agreement": 0.8567,
+      "kappa": 0.8014,
+      "n": 300
     },
-    "prevalence_llm": {
-      "method": 214,
-      "theory": 23,
-      "dataset_benchmark": 20,
-      "empirical": 18,
-      "other": 13,
-      "evaluation": 12
-    },
-    "foundation_model_yes": {
-      "reference": 96,
-      "llm": 101
+    "foundation_model": {
+      "agreement": 0.9767,
+      "kappa": 0.9471,
+      "n": 300
     }
   },
-  "random_240": {
-    "llm_vs_reference": {
-      "main_class": {
-        "agreement": 0.9583,
-        "kappa": 0.8846,
-        "n": 240
-      },
-      "fine_type": {
-        "agreement": 0.9375,
-        "kappa": 0.8926,
-        "n": 240
-      },
-      "secondary_type": {
-        "agreement": 0.8458,
-        "kappa": 0.7692,
-        "n": 240
-      },
-      "foundation_model": {
-        "agreement": 0.9792,
-        "kappa": 0.951,
-        "n": 240
-      }
+  "main_class_agreement_by_stratum": {
+    "enriched_benchmark": {
+      "agreement": 0.9,
+      "kappa": 0.8561,
+      "n": 20
     },
-    "annotator_A_vs_B": {
-      "main_class": {
-        "agreement": 0.9833,
-        "kappa": 0.9512,
-        "n": 240
-      },
-      "fine_type": {
-        "agreement": 0.9708,
-        "kappa": 0.9478,
-        "n": 240
-      },
-      "foundation_model": {
-        "agreement": 0.9958,
-        "kappa": 0.99,
-        "n": 240
-      }
+    "enriched_survey_system": {
+      "agreement": 1.0,
+      "kappa": 1.0,
+      "n": 20
     },
-    "prevalence_reference": {
-      "method": 194,
-      "empirical": 14,
-      "dataset_benchmark": 11,
-      "theory": 11,
-      "other": 6,
-      "evaluation": 4
+    "enriched_theory": {
+      "agreement": 0.95,
+      "kappa": 0.9267,
+      "n": 20
     },
-    "prevalence_llm": {
-      "method": 187,
-      "empirical": 13,
-      "theory": 13,
-      "dataset_benchmark": 10,
-      "other": 9,
-      "evaluation": 8
-    },
-    "foundation_model_yes": {
-      "reference": 72,
-      "llm": 75
+    "random": {
+      "agreement": 0.9583,
+      "kappa": 0.8846,
+      "n": 240
     }
   },
-  "per_class_all_300": {
+  "annotator_A_vs_B": {
+    "main_class": {
+      "agreement": 0.98,
+      "kappa": 0.954,
+      "n": 300
+    },
+    "foundation_model": {
+      "agreement": 0.9967,
+      "kappa": 0.9923,
+      "n": 300
+    }
+  },
+  "class_counts": {
     "dataset_benchmark": {
-      "reference_n": 21,
-      "llm_n": 20,
+      "reference": 21,
+      "llm": 20,
       "recall": 0.952,
       "precision": 1.0
     },
     "empirical": {
-      "reference_n": 19,
-      "llm_n": 18,
+      "reference": 19,
+      "llm": 18,
       "recall": 0.947,
       "precision": 1.0
     },
     "evaluation": {
-      "reference_n": 8,
-      "llm_n": 12,
+      "reference": 8,
+      "llm": 12,
       "recall": 1.0,
       "precision": 0.667
     },
     "method": {
-      "reference_n": 224,
-      "llm_n": 214,
+      "reference": 224,
+      "llm": 214,
       "recall": 0.955,
       "precision": 1.0
     },
     "other": {
-      "reference_n": 7,
-      "llm_n": 13,
+      "reference": 7,
+      "llm": 13,
       "recall": 0.857,
       "precision": 0.462
     },
     "theory": {
-      "reference_n": 21,
-      "llm_n": 23,
+      "reference": 21,
+      "llm": 23,
       "recall": 1.0,
       "precision": 0.913
     }
   },
-  "main_class_confusion_all_300": {
+  "fine_type_counts": {
+    "dataset_benchmark": {
+      "reference": 21,
+      "llm": 20
+    },
+    "empirical": {
+      "reference": 19,
+      "llm": 18
+    },
+    "evaluation": {
+      "reference": 8,
+      "llm": 12
+    },
+    "method": {
+      "reference": 178,
+      "llm": 165
+    },
+    "model": {
+      "reference": 46,
+      "llm": 49
+    },
+    "perspective": {
+      "reference": 1,
+      "llm": 0
+    },
+    "problem": {
+      "reference": 4,
+      "llm": 6
+    },
+    "system": {
+      "reference": 2,
+      "llm": 7
+    },
+    "theory": {
+      "reference": 21,
+      "llm": 23
+    }
+  },
+  "foundation_model_yes": {
+    "reference": 96,
+    "llm": 101
+  },
+  "main_class_confusion": {
     "dataset_benchmark": {
       "dataset_benchmark": 20,
       "empirical": 0,
@@ -226,19 +185,20 @@
       "theory": 21
     }
   },
-  "foundation_model_confusion_all_300": {
-    "no": {
-      "no": 198,
-      "yes": 6
-    },
-    "yes": {
-      "no": 1,
-      "yes": 95
-    }
-  },
   "uncertain_flag": {
     "share": 0.3567,
     "main_class_agreement_if_uncertain": 0.8972,
     "main_class_agreement_if_certain": 0.9896
+  },
+  "go_checks": {
+    "main_class_agreement": true,
+    "foundation_model_agreement": true,
+    "count_dataset_benchmark": true,
+    "count_empirical": true,
+    "count_evaluation": false,
+    "count_method": true,
+    "count_other": false,
+    "count_theory": true,
+    "count_foundation_model_yes": true
   }
 }

@@ -1,13 +1,17 @@
 {
   "model": "FILL IN: exact model id, e.g. as listed by your provider",
   "provider": "FILL IN: e.g. OpenRouter",
+  "how_run": "FILL IN: 'API' (system prompt sent as the system message) or 'chat agents' (say how the prompt was given)",
   "temperature": 0,
+  "reasoning_effort": "FILL IN if the model has a setting, else null",
   "batch_size": 25,
-  "prompt_version": "contribution-codebook-v1 + foundation-model-rule-v1",
+  "parallel_agents": null,
+  "prompt_version": "contribution-codebook-v1 + foundation-model-rule-v1 + clarifications-v1.1",
   "system_prompt_sha256": "FILLED BY BUILD: do not change; confirms the prompt used",
+  "stage": "FILL IN: step_1_check or step_2_full",
   "started_utc": "FILL IN",
   "finished_utc": "FILL IN",
   "papers_labelled": 0,
   "papers_failed": 0,
-  "notes": "FILL IN: anything unusual (model changes, reruns, edits)"
+  "notes": "FILL IN: anything unusual (model changes, reruns, edits, settings that could not be set)"
 }

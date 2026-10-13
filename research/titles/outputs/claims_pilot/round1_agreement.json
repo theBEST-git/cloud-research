@@ -1,0 +1,115 @@
+{
+ "n": 100,
+ "type": {
+  "agree": 0.98,
+  "kappa": 0.9608916699256942
+ },
+ "title_strength": {
+  "exact": 0.98,
+  "within1": 1.0,
+  "kappa_w": 0.9888293118856122,
+  "dist_C1": {
+   "0": 34,
+   "1": 33,
+   "2": 26,
+   "3": 7
+  },
+  "dist_C2": {
+   "0": 34,
+   "1": 32,
+   "2": 26,
+   "3": 8
+  }
+ },
+ "abstract_strength": {
+  "exact": 0.92,
+  "within1": 1.0,
+  "kappa_w": 0.7126436781609196,
+  "dist_C1": {
+   "1": 5,
+   "2": 88,
+   "3": 7
+  },
+  "dist_C2": {
+   "1": 6,
+   "2": 84,
+   "3": 10
+  }
+ },
+ "title_overreach": {
+  "n_rated_both": 66,
+  "exact": 0.9242424242424242,
+  "kappa_w3": 0.8699763593380614,
+  "kappa_any": 0.847926267281106,
+  "kappa_clear": 0.7924528301886793,
+  "prev_any_C1": 0.30303030303030304,
+  "prev_any_C2": 0.24242424242424243,
+  "prev_clear_C1": 0.045454545454545456,
+  "prev_clear_C2": 0.030303030303030304,
+  "NA_mismatch": 0
+ },
+ "abstract_overreach": {
+  "n_rated_both": 100,
+  "exact": 0.9,
+  "kappa_w3": 0.726027397260274,
+  "kappa_any": 0.726027397260274,
+  "kappa_clear": NaN,
+  "prev_any_C1": 0.23,
+  "prev_any_C2": 0.25,
+  "prev_clear_C1": 0.0,
+  "prev_clear_C2": 0.0,
+  "NA_mismatch": 0
+ },
+ "types": {
+  "t:scope": {
+   "kappa": 0.7340425531914894,
+   "prev_C1": 0.11,
+   "prev_C2": 0.1
+  },
+  "t:certainty": {
+   "kappa": 0.7532894736842106,
+   "prev_C1": 0.07,
+   "prev_C2": 0.06
+  },
+  "t:magnitude": {
+   "kappa": NaN,
+   "prev_C1": 0.0,
+   "prev_C2": 0.0
+  },
+  "t:novelty": {
+   "kappa": 1.0,
+   "prev_C1": 0.01,
+   "prev_C2": 0.01
+  },
+  "t:causal": {
+   "kappa": 0.4897959183673469,
+   "prev_C1": 0.02,
+   "prev_C2": 0.02
+  },
+  "a:scope": {
+   "kappa": 0.680073126142596,
+   "prev_C1": 0.12,
+   "prev_C2": 0.13
+  },
+  "a:certainty": {
+   "kappa": 0.47916666666666663,
+   "prev_C1": 0.04,
+   "prev_C2": 0.04
+  },
+  "a:magnitude": {
+   "kappa": 0.5939675174013921,
+   "prev_C1": 0.08,
+   "prev_C2": 0.11
+  },
+  "a:novelty": {
+   "kappa": 1.0,
+   "prev_C1": 0.02,
+   "prev_C2": 0.02
+  },
+  "a:causal": {
+   "kappa": 0.7899159663865546,
+   "prev_C1": 0.04,
+   "prev_C2": 0.06
+  }
+ }
+}

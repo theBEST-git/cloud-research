@@ -116,9 +116,37 @@ the same procedure; k = 100 reproduces the published topics exactly. Output: `ou
   - effective number of topics per year, divided by k, rises from 2017 to 2025 and dips in 2026 at every k;
   - 28–33% of topics are emerging (2024–26 share ≥3× the 2017–20 share), and they hold 40–44% of 2024–26 papers.
 
-  The 2017 values are biased low by the small number of papers that year.
+  All of these maps are pooled, though, and the hindsight check below shows that both measures depend on which
+  years define the topics. Do not report them as findings.
 - Adjacent solutions nest only partly: 76–82% of a finer topic's papers sit in one coarser topic. Topic-level
   results should therefore be rerun at several k, not just at k = 100.
+
+### Hindsight check (`hindsight_check.py`)
+
+The topics are fitted on all years at once, and 69% of papers are from 2024–2026, so the map reflects today's field.
+Five k = 100 maps are compared:
+
+| Map | Topics defined from | ARI with published | Emerging topics (2024–26 papers in them) | Declining topics | Fit of 2017 vs 2026 papers |
+|---|---|---|---|---|---|
+| pooled (published) | all papers | 1 | 29 (41%) | 13 | 0.62 vs 0.65 |
+| seed refit (baseline) | all papers | 0.69 | 28 (41%) | 15 | 0.62 vs 0.65 |
+| balanced | all years, each year weighted equally | 0.48 | 16 (42%) | 26 | 0.69 vs 0.61 |
+| early | 2017–2020 papers only (no hindsight) | 0.34 | 8 (22%) | 17 | 0.69 vs 0.53 |
+| late | 2024–2026 papers only (full hindsight) | 0.55 | 28 (31%) | 6 | 0.56 vs 0.66 |
+
+Fit is the mean cosine similarity of papers to their topic centroid.
+
+- **The published map is a present-day map.** It fits recent papers better than early ones, and its count of
+  emerging topics (29) equals that of the late-only map (28).
+- **It shows half as many declining topics** as a map that weights every year equally (13 vs 26), so faded topics
+  are partly absorbed into today's topics.
+- **Diversity trends are map-dependent.** Every map shows the most diverse field (effective topics per year) in the
+  years that define it. The pooled map's "diversity rises to 2025" is therefore not a finding.
+- **Emergence is bracketed, not pinned down.** The share of 2024–26 papers in emerging topics is 22% with no
+  hindsight and 41% with the pooled map.
+- **Consequence:** time-trend results must hold under the balanced map and under the early map on 2021–2026
+  (fully prospective), not only under the published map. `output/hindsight_assignments.csv.gz` has every paper's
+  topic in each map; `research/fashion/PREREGISTRATION.md` makes these checks mandatory.
 
 ## Limitations
 
@@ -127,6 +155,8 @@ the same procedure; k = 100 reproduces the published topics exactly. Output: `ou
   by review and by the blind check, but not by human experts; auditing a sample is advisable.
 - Text is the title and abstract in the September 2026 snapshot, which may differ from what was submitted.
 - Topics are fitted on the discovery split only.
+- Topics are fitted on all years at once and are dominated by 2024–2026 papers, so they carry hindsight (see the
+  hindsight check).
 - Keywords used by fewer than 20 papers (47% of keyword uses) are untyped.
 
 ## Reproduce
@@ -138,6 +168,7 @@ python research/topics/embed_specter2.py      # ~2.5 h on 4 CPUs; resumable; wri
 python research/topics/build_topics.py        # ~2 min
 python research/topics/evaluate_topics.py     # ~15 min
 python research/topics/k_sensitivity.py       # ~40 min
+python research/topics/hindsight_check.py     # ~20 min
 python research/topics/naming_inputs.py       # naming material; names come from the annotation workflow
 python research/topics/finalize_catalog.py
 python research/topics/derive_features.py

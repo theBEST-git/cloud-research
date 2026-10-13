@@ -10,9 +10,12 @@ maturity = log(1 + papers in the topic before year t); prior FM adoption = share
 labelled foundation_model = yes. Both use only earlier years.
 
 Main specification: map k100 (published middle topics), all labelled papers. Robustness variants: maps k75, k150,
-balanced and early (if available); k100 restricted to stable papers, coherent topics, certain labels, or 2018-2025.
+balanced and early; the early map on 2021-2026 only (fully prospective: topics defined from 2017-2020 papers);
+k100 restricted to stable papers, coherent topics, certain labels, or 2018-2025.
 Verdict per hypothesis: supported if, in the main specification, the sign is as predicted and the Holm-adjusted
-p < 0.05 (over H1a-H1e), and the sign is as predicted in at least 75% of robustness variants.
+p < 0.05 (over H1a-H1e); the sign is as predicted in at least 75% of robustness variants; and the sign is as
+predicted in both hindsight variants (balanced, early_prospective), because the hindsight check showed the pooled
+map is dominated by recent years.
 
     python research/fashion/rq1_rise.py [--labels <paper_contributions.csv.gz>] [--out <dir>]
 """
@@ -37,6 +40,7 @@ HYPOTHESES = {   # id: (outcome, regressor, predicted sign)
     "H1e": ("studies_models", "fm_adoption", +1),
 }
 ROBUST_SHARE = 0.75
+HINDSIGHT_VARIANTS = ("balanced", "early_prospective")   # must agree in sign
 
 
 def outcomes(lab: pd.DataFrame) -> pd.DataFrame:
@@ -99,8 +103,10 @@ def main() -> None:
 
     variants = {"main": ("k100", None)}
     for m in ["k75", "k150", "balanced", "early"]:
-        if m in maps:
-            variants[m] = (m, None)
+        if m not in maps:
+            raise SystemExit(f"map {m} missing: run research/topics/k_sensitivity.py and hindsight_check.py")
+        variants[m] = (m, None)
+    variants["early_prospective"] = ("early", lambda d: d.year >= 2021)
     variants.update({"stable_papers": ("k100", lambda d: d.stable), "coherent_topics": ("k100", lambda d: ~d.topic.isin(mixed)),
                      "certain_labels": ("k100", lambda d: ~d.uncertain.astype(bool)), "years_2018_2025": ("k100", lambda d: d.year <= 2025)})
     frames = {m: frame_for(m, base, maps, maturity) for m in {v[0] for v in variants.values()}}
@@ -119,11 +125,13 @@ def main() -> None:
     for h, (y, x, sign) in HYPOTHESES.items():
         rob = res[(res.hypothesis == h) & (res.variant != "main")]
         same = float((np.sign(rob.coef) == sign).mean())
+        hind = bool((np.sign(rob[rob.variant.isin(HINDSIGHT_VARIANTS)].coef) == sign).all())
         r = main_res.loc[h]
-        ok = bool(np.sign(r.coef) == sign and r.p_holm < 0.05 and same >= ROBUST_SHARE)
+        ok = bool(np.sign(r.coef) == sign and r.p_holm < 0.05 and same >= ROBUST_SHARE and hind)
         summary[h] = {"outcome": y, "regressor": x, "predicted_sign": sign, "coef": round(float(r.coef), 5),
                       "ci95": [round(float(r.coef - 1.96 * r.se), 5), round(float(r.coef + 1.96 * r.se), 5)],
                       "p": float(r.p), "p_holm": float(r.p_holm), "robustness_same_sign": round(same, 3),
+                      "hindsight_variants_same_sign": hind,
                       "robustness_variants": int(len(rob)), "verdict": "supported" if ok else "not supported"}
     a.out.mkdir(parents=True, exist_ok=True)
     res.to_csv(a.out / "rq1_results.csv", index=False)
@@ -131,7 +139,7 @@ def main() -> None:
                                                        indent=2) + "\n")
     for h, s in summary.items():
         print(f"{h} {s['outcome']:15s} ~ {s['regressor']:12s} coef {s['coef']:+.4f} CI {s['ci95']} p_holm {s['p_holm']:.3g} "
-              f"robust {s['robustness_same_sign']:.0%} -> {s['verdict']}")
+              f"robust {s['robustness_same_sign']:.0%} hindsight {'ok' if s['hindsight_variants_same_sign'] else 'FAIL'} -> {s['verdict']}")
 
 
 if __name__ == "__main__":

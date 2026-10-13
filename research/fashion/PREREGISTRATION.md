@@ -8,6 +8,12 @@ external LLM run. No analysis of these hypotheses has been run on real labels or
 
 - **Topic layer:** topic assignments, quality checks, k sweep and hindsight check. All of it is outcome-blind and
   label-free.
+- **Hindsight check result** (`research/topics/README.md`): the published map is dominated by 2024–2026 papers.
+  - It shows as many emerging topics as a map fitted on 2024–26 alone, and half as many declining topics as a
+    year-balanced map.
+  - Diversity trends reverse depending on which years define the topics.
+
+  This result is the reason for the mandatory hindsight variants below.
 - **Label validation:** contribution labels for 2,300 papers, used only to validate the labelling:
   - reference labels for 300 pilot papers and 2,000 training papers;
   - LLM labels for 600 of them (the pilot 300 and the 300 check papers, which are a subset of the 2,000).
@@ -21,7 +27,9 @@ external LLM run. No analysis of these hypotheses has been run on real labels or
 ## Data and units
 
 - **Corpus:** discovery split, 43,480 submissions with a usable abstract.
-- **Topics:** published middle level, 100 topics (`research/topics/output/topic_assignments.csv.gz`).
+- **Topics:** published middle level, 100 topics (`research/topics/output/topic_assignments.csv.gz`). Other maps
+  (k75, k150, year-balanced, era-specific) are in `k_sensitivity_assignments.csv.gz` and
+  `hindsight_assignments.csv.gz`.
 - **Contribution labels:** LLM labels, prompt v1 (sha256 `aaa1478f…`), merged by `merge_labels.py` into
   `research/topics/output/paper_contributions.csv.gz`.
 - **Main classes:** method (incl. `model`), theory, empirical, dataset_benchmark, evaluation, other. `other` is not
@@ -112,12 +120,20 @@ incumbency.
 ## Decision rule, multiple testing, robustness
 
 - **Holm correction** within each family: H1a–e, H2a–c (+H2d), H3a–b (+H3c), at α = 0.05, two-sided.
-- **Supported** = predicted sign, Holm-adjusted p < 0.05 in the main specification, and the predicted sign in at
-  least 75% of robustness variants. Everything else is "not supported". All estimates are reported either way.
+- **Supported** = all of the following; everything else is "not supported", and all estimates are reported
+  either way:
+  - predicted sign and Holm-adjusted p < 0.05 in the main specification;
+  - predicted sign in at least 75% of robustness variants;
+  - predicted sign in both mandatory hindsight variants.
 - **Main specification:** map k100, all papers in the population.
+- **Mandatory hindsight variants:** a hypothesis is supported only if its sign is also as predicted under
+  - the year-balanced map;
+  - the 2017–2020-only map applied to 2021–2026 papers (fully prospective topics).
+
+  These variants also count among the robustness variants.
 - **Robustness variants:**
   - maps k75 and k150 (k sweep);
-  - year-balanced and 2017–2020-only maps (hindsight check);
+  - year-balanced and 2017–2020-only maps (hindsight check), and the 2017–2020-only map on 2021–2026;
   - k100 restricted to papers that keep their topic in ≥2/3 refits;
   - k100 without mixed topics;
   - k100 without `uncertain` labels;
@@ -135,6 +151,10 @@ When the held-out confirmation split is available:
 1. Assign topics with the frozen model (`research/topics/assign_topics.py`, no refitting).
 2. Label it with prompt v1.
 3. Run the same code.
+
+Alternative maps (k75, k150, balanced, early) are frozen the same way. Each topic's centroid is the normalised mean
+of its discovery papers' projected embeddings (from the saved assignments), and confirmation papers go to the
+nearest one.
 
 Hypotheses supported in discovery are tested there one-sided at α = 0.05 in the predicted direction.
 

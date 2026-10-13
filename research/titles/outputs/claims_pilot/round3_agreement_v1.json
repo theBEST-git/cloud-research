@@ -5,6 +5,9 @@
  "C2": {
   "n": 100
  },
+ "G": {
+  "n": 100
+ },
  "C1_vs_C2": {
   "n": 100,
   "type_kappa": 0.9493927125506073,
@@ -106,6 +109,218 @@
     "neither|title_only": 2,
     "title_only|abstract_only": 0,
     "title_only|both": 0,
+    "title_only|neither": 1,
+    "title_only|title_only": 6
+   }
+  }
+ },
+ "C1_vs_G": {
+  "n": 100,
+  "type_kappa": 0.8260437375745526,
+  "title_strength": {
+   "exact": 0.9,
+   "kappa_w": 0.8950682056663168
+  },
+  "title_vs_evidence": {
+   "n": 62,
+   "exact": 0.8387096774193549,
+   "kappa_w": 0.555678059536935,
+   "kappa_over": 0.5393759286775632,
+   "prev_over": [
+    0.24193548387096775,
+    0.20967741935483872
+   ]
+  },
+  "abstract_overreach": {
+   "exact": 0.83,
+   "kappa_w": 0.6908809891808347,
+   "kappa_over": 0.6613545816733067,
+   "prev_over": [
+    0.4,
+    0.51
+   ]
+  },
+  "flags": {
+   "hedge": {
+    "kappa": 0.9653739612188366,
+    "prev": [
+     0.17,
+     0.18
+    ]
+   },
+   "booster": {
+    "kappa": 0.9524036173250833,
+    "prev": [
+     0.31,
+     0.29
+    ]
+   },
+   "superlative": {
+    "kappa": 0.5973829894313034,
+    "prev": [
+     0.31,
+     0.23
+    ]
+   },
+   "universal": {
+    "kappa": 0.3940578577013293,
+    "prev": [
+     0.21,
+     0.52
+    ]
+   },
+   "quantified": {
+    "kappa": 0.9190064794816415,
+    "prev": [
+     0.23,
+     0.26
+    ]
+   },
+   "scoped": {
+    "kappa": 0.8212867355043686,
+    "prev": [
+     0.47,
+     0.56
+    ]
+   }
+  },
+  "types": {
+   "t:scope": 0.5560488346281909,
+   "t:certainty": 0.6563573883161511,
+   "t:magnitude": NaN,
+   "t:novelty": NaN,
+   "t:causal": 0.0,
+   "t:unsupported": 0.38524590163934425,
+   "a:scope": 0.3678160919540231,
+   "a:certainty": 0.3902439024390244,
+   "a:magnitude": 0.9291784702549575,
+   "a:novelty": 0.8520710059171598,
+   "a:causal": 0.33460076045627385,
+   "a:unsupported": 0.6786632390745502
+  },
+  "joint": {
+   "kappa": 0.5552731893265566,
+   "crosstab": {
+    "abstract_only|abstract_only": 26,
+    "abstract_only|both": 2,
+    "abstract_only|neither": 3,
+    "abstract_only|title_only": 0,
+    "both|abstract_only": 5,
+    "both|both": 4,
+    "both|neither": 0,
+    "both|title_only": 0,
+    "neither|abstract_only": 11,
+    "neither|both": 2,
+    "neither|neither": 38,
+    "neither|title_only": 2,
+    "title_only|abstract_only": 0,
+    "title_only|both": 1,
+    "title_only|neither": 2,
+    "title_only|title_only": 4
+   }
+  }
+ },
+ "C2_vs_G": {
+  "n": 100,
+  "type_kappa": 0.7800048887802493,
+  "title_strength": {
+   "exact": 0.94,
+   "kappa_w": 0.9396459227467812
+  },
+  "title_vs_evidence": {
+   "n": 66,
+   "exact": 0.8939393939393939,
+   "kappa_w": 0.736842105263158,
+   "kappa_over": 0.7298245614035088,
+   "prev_over": [
+    0.30303030303030304,
+    0.22727272727272727
+   ]
+  },
+  "abstract_overreach": {
+   "exact": 0.87,
+   "kappa_w": 0.751937984496124,
+   "kappa_over": 0.740829346092504,
+   "prev_over": [
+    0.42,
+    0.51
+   ]
+  },
+  "flags": {
+   "hedge": {
+    "kappa": 0.9322493224932249,
+    "prev": [
+     0.18,
+     0.18
+    ]
+   },
+   "booster": {
+    "kappa": 0.9028654686741137,
+    "prev": [
+     0.29,
+     0.29
+    ]
+   },
+   "superlative": {
+    "kappa": 0.5779543197616683,
+    "prev": [
+     0.32,
+     0.23
+    ]
+   },
+   "universal": {
+    "kappa": 0.375,
+    "prev": [
+     0.2,
+     0.52
+    ]
+   },
+   "quantified": {
+    "kappa": 0.9466950959488273,
+    "prev": [
+     0.24,
+     0.26
+    ]
+   },
+   "scoped": {
+    "kappa": 0.88,
+    "prev": [
+     0.5,
+     0.56
+    ]
+   }
+  },
+  "types": {
+   "t:scope": 0.755859375,
+   "t:certainty": 0.6563573883161511,
+   "t:magnitude": NaN,
+   "t:novelty": NaN,
+   "t:causal": 0.0,
+   "t:unsupported": 0.6563573883161511,
+   "a:scope": 0.4722222222222223,
+   "a:certainty": 0.0,
+   "a:magnitude": 0.8648648648648649,
+   "a:novelty": 0.7395833333333333,
+   "a:causal": 0.5247148288973384,
+   "a:unsupported": 0.6786632390745502
+  },
+  "joint": {
+   "kappa": 0.7046938141125272,
+   "crosstab": {
+    "abstract_only|abstract_only": 28,
+    "abstract_only|both": 0,
+    "abstract_only|neither": 2,
+    "abstract_only|title_only": 0,
+    "both|abstract_only": 5,
+    "both|both": 7,
+    "both|neither": 0,
+    "both|title_only": 0,
+    "neither|abstract_only": 9,
+    "neither|both": 1,
+    "neither|neither": 40,
+    "neither|title_only": 0,
+    "title_only|abstract_only": 0,
+    "title_only|both": 1,
     "title_only|neither": 1,
     "title_only|title_only": 6
    }

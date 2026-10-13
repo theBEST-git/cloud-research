@@ -1,0 +1,9 @@
+Model family: GPT-6 (Codex).
+Exact serving model identifier: not exposed in this session.
+
+Codebook: v1.2 from chatgpt_round3.zip.
+Annotation workflow: one primary model manually read and annotated each batch once, in order. No subagents assigned, semantically reviewed, or reconciled labels. Earlier-round output files were not reloaded or reused; earlier conversation history remained in context.
+Final file checks: after the user overrode the README's no-agent rule, six parallel agents checked syntax, schema, word limits, coverage, and archive integrity only. They did not change annotation decisions.
+Conversation setup: all four batches were processed sequentially in this existing conversation; four fresh conversations were not created.
+Code usage: file extraction, literal recording of manually chosen labels, syntax/schema/completeness validation, and packaging only. No code-based annotation or web search was used.
+Validation: four UTF-8 JSONL files, 25 records each, 100 unique ordered r3_000 through r3_099 IDs; exact v1.2 schema; valid enums/integer flags; evidence at most 25 words; rationale at most 30 words; consistent overreach prefixes.

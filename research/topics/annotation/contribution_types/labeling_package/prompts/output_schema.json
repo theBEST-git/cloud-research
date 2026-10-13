@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Contribution labels for one request (batch of papers)",
+  "type": "object",
+  "required": ["labels"],
+  "additionalProperties": false,
+  "properties": {
+    "labels": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["paper_id", "primary_type", "secondary_type", "foundation_model", "uncertain"],
+        "additionalProperties": false,
+        "properties": {
+          "paper_id": {"type": "string"},
+          "primary_type": {"enum": ["method", "model", "theory", "empirical", "system", "dataset_benchmark", "evaluation",
+                                     "problem", "application", "recipe", "perspective", "survey_position"]},
+          "secondary_type": {"enum": ["method", "model", "theory", "empirical", "system", "dataset_benchmark", "evaluation",
+                                       "problem", "application", "recipe", "perspective", "survey_position", "none"]},
+          "foundation_model": {"enum": ["yes", "no"]},
+          "uncertain": {"type": "boolean"}
+        }
+      }
+    }
+  }
+}

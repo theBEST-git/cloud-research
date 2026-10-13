@@ -1,0 +1,13 @@
+{
+  "model": "FILL IN: exact model id, e.g. as listed by your provider",
+  "provider": "FILL IN: e.g. OpenRouter",
+  "temperature": 0,
+  "batch_size": 25,
+  "prompt_version": "contribution-codebook-v1 + foundation-model-rule-v1",
+  "system_prompt_sha256": "FILLED BY BUILD: do not change; confirms the prompt used",
+  "started_utc": "FILL IN",
+  "finished_utc": "FILL IN",
+  "papers_labelled": 0,
+  "papers_failed": 0,
+  "notes": "FILL IN: anything unusual (model changes, reruns, edits)"
+}

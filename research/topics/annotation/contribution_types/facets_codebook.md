@@ -1,4 +1,4 @@
-# Facets codebook (v0.9, pilot draft)
+# Facets codebook (v1, locked 2026-10-13)
 
 Three facets that complement the contribution type (codebook.md). Judge from title and abstract only.
 They describe the paper's **main contribution** (the one its primary type refers to). Never decide a facet
@@ -59,3 +59,20 @@ pretrained models such as protein language models.
 
 `no` if the work trains task-specific models from scratch, uses only small standard backbones (e.g. an
 ImageNet-pretrained ResNet as ordinary transfer learning), or is theory not about such models.
+
+## Pilot evidence (v0.9 → v1, no rule changes)
+
+Same 300 pilot papers as the contribution-type pilot, two independent annotators (the same model, so agreement
+shows consistency more than human-level validity), 21 papers adjudicated (`pilot_gold_facets.csv`).
+
+| Facet | Agreement | Cohen's κ | Main confusions |
+|---|---|---|---|
+| Stage | 96.0% | 0.95 | architecture vs training, system vs training |
+| Goal | 96.3% | 0.95 | capability vs generalization, capability vs efficiency |
+| Foundation model | 99.7% | 0.99 | one paper |
+
+Among the 240 random papers: stage training 32%, architecture 24%, post-training 14%, inference 13%,
+evaluation 8%, data 5%, general 3%, system 2%; goal capability 47%, efficiency 15%, understanding 10%,
+generalization 8%, data efficiency 8%, robustness/security 5%, reliability 3%, safety/alignment 2%,
+privacy/fairness 2%; foundation model 30%. The foundation-model share rises from 0% of pilot papers in
+2017–2020 to 57% in 2026. Within method papers, no stage × goal combination exceeds 19%.

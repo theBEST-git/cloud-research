@@ -1,0 +1,149 @@
+[
+ {
+  "paper": "p001",
+  "stage": "training",
+  "goal": "capability",
+  "foundation_model": "no",
+  "reason": "Bayesian learning framework (training); claim is improved recommendation performance; cross-domain is setting, not OOD claim (capability default)."
+ },
+ {
+  "paper": "p027",
+  "stage": "training",
+  "goal": "capability",
+  "foundation_model": "no",
+  "reason": "Regulariser = training; flat-minima i.i.d. generalisation isn't OOD per goal definition, so better test accuracy = capability."
+ },
+ {
+  "paper": "p044",
+  "stage": "architecture",
+  "goal": "efficiency",
+  "foundation_model": "no",
+  "reason": "Dynamic dual-precision gating module changes network computation (architecture); same accuracy at less compute = efficiency."
+ },
+ {
+  "paper": "p065",
+  "stage": "architecture",
+  "goal": "capability",
+  "foundation_model": "yes",
+  "reason": "Conditions recommender on LLM-generated preferences in context (input representation = architecture); SOTA results = capability; uses LLMs."
+ },
+ {
+  "paper": "p072",
+  "stage": "training",
+  "goal": "data_efficiency",
+  "foundation_model": "yes",
+  "reason": "Fits mapping replacing CLIP-style multimodal training (training, encoders unchanged); 50,000x fewer pairs = data_efficiency; pretrained encoders."
+ },
+ {
+  "paper": "p080",
+  "stage": "inference",
+  "goal": "capability",
+  "foundation_model": "no",
+  "reason": "Title foregrounds Lagrangian guidance of diffusion sampling (inference); headline is solution quality (capability); task-specific model."
+ },
+ {
+  "paper": "p093",
+  "stage": "training",
+  "goal": "capability",
+  "foundation_model": "no",
+  "reason": "New estimator minimising KSD objective (training: losses/objectives); new ability to estimate counterfactual densities = capability."
+ },
+ {
+  "paper": "p108",
+  "stage": "inference",
+  "goal": "capability",
+  "foundation_model": "no",
+  "reason": "Changes noise scheduler/compensation, not weights (inference, post-hoc); FID gain at fixed PTQ cost = higher quality = capability."
+ },
+ {
+  "paper": "p113",
+  "stage": "post_training",
+  "goal": "data_efficiency",
+  "foundation_model": "no",
+  "reason": "Adapts pretrained policy (post_training); foregrounds one-shot alignment from single example = data_efficiency, not subject-based safety."
+ },
+ {
+  "paper": "p118",
+  "stage": "training",
+  "goal": "capability",
+  "foundation_model": "no",
+  "reason": "RL reward/policy formulation for QP control (training: RL algorithms); better task performance at given bitrate = capability."
+ },
+ {
+  "paper": "p122",
+  "stage": "post_training",
+  "goal": "understanding",
+  "foundation_model": "no",
+  "reason": "Analysis of pruning takes its stage (post_training); characterises which examples pruning hurts = understanding; no fairness/bias claim."
+ },
+ {
+  "paper": "p134",
+  "stage": "architecture",
+  "goal": "efficiency",
+  "foundation_model": "no",
+  "reason": "Changes model specification of denoising distribution (architecture); same quality, 2000x faster sampling = efficiency."
+ },
+ {
+  "paper": "p146",
+  "stage": "evaluation",
+  "goal": "data_efficiency",
+  "foundation_model": "no",
+  "reason": "Surrogate metrics for model selection (evaluation); selecting without labels = data_efficiency; anomaly detection is only subject."
+ },
+ {
+  "paper": "p152",
+  "stage": "inference",
+  "goal": "generalization",
+  "foundation_model": "yes",
+  "reason": "Training-free context extension of trained Mamba (inference); length extrapolation = generalization; adapts pretrained Mamba language models."
+ },
+ {
+  "paper": "p182",
+  "stage": "architecture",
+  "goal": "generalization",
+  "foundation_model": "yes",
+  "reason": "Conditioned depth model design (architecture); abstract foregrounds zero-shot generalization to unseen priors/datasets; builds on Depth Anything."
+ },
+ {
+  "paper": "p204",
+  "stage": "training",
+  "goal": "capability",
+  "foundation_model": "no",
+  "reason": "Federated training method (training); headline claim is up to 11.3% accuracy gain, footprint secondary (capability default)."
+ },
+ {
+  "paper": "p215",
+  "stage": "data",
+  "goal": "reliability",
+  "foundation_model": "no",
+  "reason": "Next-best-view selection chooses training views (data selection); abstract foregrounds reliability of uncertainty estimates (reliability)."
+ },
+ {
+  "paper": "p275",
+  "stage": "evaluation",
+  "goal": "capability",
+  "foundation_model": "no",
+  "reason": "Dataset benchmarked on three recognition tasks (datasets for evaluation = evaluation); evaluates recognition performance = capability."
+ },
+ {
+  "paper": "p292",
+  "stage": "system",
+  "goal": "capability",
+  "foundation_model": "no",
+  "reason": "Changes training data/flow and inference-time Pareto sampling (whole pipeline = system); SOTA overflow reduction = capability."
+ },
+ {
+  "paper": "p294",
+  "stage": "training",
+  "goal": "capability",
+  "foundation_model": "no",
+  "reason": "Federated scheduling with meta-gradients (training); privacy is setting, claim is state-of-the-art performance (capability)."
+ },
+ {
+  "paper": "p296",
+  "stage": "architecture",
+  "goal": "efficiency",
+  "foundation_model": "no",
+  "reason": "Subgraph-to-node translation changes input representation (architecture: input representations); reduces memory/compute = efficiency."
+ }
+]

@@ -1,0 +1,17 @@
+{
+  "model": "gpt-6.1-sol",
+  "provider": "ChatGPT Work collaboration agents",
+  "temperature": null,
+  "batch_size": 25,
+  "prompt_version": "contribution-codebook-v1 + foundation-model-rule-v1",
+  "system_prompt_sha256": "aaa1478fb32e1559edc1e158133a562666d64b29cdf4335bd5361509c1a42410",
+  "started_utc": "2026-10-13T07:47:17.845460+00:00",
+  "finished_utc": "2026-10-13T07:51:36.445881+00:00",
+  "papers_labelled": 300,
+  "papers_failed": 0,
+  "notes": "Calibration only, as README.md requires submission before the full run. Six GPT-6.1 Sol agents at high reasoning effort each personally read and semantically labeled two disjoint batches of 25 papers, using titles and abstracts only. The supplied system_prompt.md and filled user_prompt_template.md were read verbatim and applied within the agent task context; they were not sent as isolated API system/user messages. Agent sampling temperature is not exposed by the collaboration tools, so temperature 0 could not be set or verified; the temperature field is null rather than an invented value. No classifier or external paper content was used. Labels were merged without changing the agents' judgments; the coordinating agent performed structural validation only. No model changes or labeling reruns. The package contains no adjudicated reference labels, so reference agreement and the required go/no-go thresholds cannot yet be assessed. Step 2 (43,480 primary labels and 2,174 independent second-pass labels) has not been run.",
+  "reasoning_effort": "high",
+  "parallel_agents": 6,
+  "stage": "step_1_calibration",
+  "temperature_0_verified": false
+}

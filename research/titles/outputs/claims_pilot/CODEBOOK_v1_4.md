@@ -55,12 +55,12 @@ These rules were set by the human PI on contested cases; they override any loose
 - **H2 Class generalisation applies to the abstract too.** "Models trained with X are consistently safer" when only one model is reported → mild `scope`.
 - **H3 Absolute wording.** "Eliminates", "solves", "fully", "entirely", "completely", "guarantees" applied to a problem when the evidence shows improvement, not elimination → mild `certainty`.
 - **H4 Unspecified generality.** A claim that the method generalises or transfers ("across architectures", "across backbones", "to new domains") when the abstract does not name what was tested → mild `scope`, even if worded as describing the experiments.
-- **H5 Scoped priority claims are fine.** "The first benchmark for [a specific named domain or task]" is not overreach; only sweeping, unqualified priority ("the first method to…" for a broad problem, "a new paradigm") is `novelty`.
+- **H5 Priority claims need support.** An unhedged priority claim about own work ("the first benchmark for…", "the first method to…", "a new paradigm"), even when restricted to a specific domain, → mild `novelty`, because the abstract reports no evidence of priority. A hedged form ("to the best of our knowledge, the first…") is not overreach.
 - **H6 Dropped conditions in titles.** A title verb that asserts an effect unconditionally ("Enables", "Improves", "Makes", "Needs") while the abstract states a necessary condition or restriction for it → mild `t:scope`.
 - **H7 Necessity/solution titles backed by improvements.** "X Needs Y", "Solving…", "…Fixes…" supported only by gains over baselines → mild `t:certainty`; "fixes the problem entirely" in the abstract with improvement-only evidence → mild `a:certainty`.
 
 ## Step 7 — Overreach types (only for mild/clear in Step 4 or 6; prefix `t:` title, `a:` abstract; multi-select)
-`scope` (beyond the tested settings or class) · `certainty` (definitive wording where evidence is partial) · `magnitude` (intensifier/superlative beyond the reported numbers, or broader comparison than evaluated; an unquantified "significantly" with named benchmarks is not overreach) · `novelty` (sweeping, unqualified priority claims about own work) · `causal` (own mechanism or cause asserted without reported evidence) · `unsupported` (own claim with no reported evidence, or contradicted).
+`scope` (beyond the tested settings or class) · `certainty` (definitive wording where evidence is partial) · `magnitude` (intensifier/superlative beyond the reported numbers, or broader comparison than evaluated; an unquantified "significantly" with named benchmarks is not overreach) · `novelty` (unhedged priority claims about own work; see H5) · `causal` (own mechanism or cause asserted without reported evidence) · `unsupported` (own claim with no reported evidence, or contradicted).
 
 ## Decision rules
 1. Absence of numbers alone is never overreach.

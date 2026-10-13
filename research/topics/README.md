@@ -108,8 +108,10 @@ the same procedure; k = 100 reproduces the published topics exactly. Output: `ou
 | 200 | 53% | 0.302 | 0.57 | 0.64 | 0.33 | 0.75 |
 
 - Agreement with ICLR's primary areas does not depend on k (0.294–0.302).
-- Larger k gives more specific topics (keyword coherence up) at the cost of stability and trackability. k = 100 is
-  the largest k that keeps over 90% of papers in topics trackable over time (≥30 papers in ≥3 years).
+- Larger k gives more specific topics (keyword coherence up) at the cost of stability and trackability. No metric
+  singles out one k. Roughly k = 75–100 keeps nearly all papers in topics trackable over time (≥30 papers in
+  ≥3 years); k = 100 is the finer end of that range, chosen before the sweep and not tuned. Report main results
+  at k = 75, 100 and 150.
 - Label-free fashion measures barely move with k:
   - effective number of topics per year, divided by k, rises from 2017 to 2025 and dips in 2026 at every k;
   - 28–33% of topics are emerging (2024–26 share ≥3× the 2017–20 share), and they hold 40–44% of 2024–26 papers.

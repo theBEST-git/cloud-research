@@ -14,6 +14,7 @@ from analyses import _core as C
 
 OUT = C.OUT / "claims_pilot"
 NB = 4
+CODEBOOK = {2: "CODEBOOK_v1.md"}
 
 README = """# Annotation package — round {r} (ChatGPT)
 
@@ -24,6 +25,7 @@ README = """# Annotation package — round {r} (ChatGPT)
 4. ChatGPT 会输出 25 行 JSON，每行一篇论文。如果中途停下，就回复 "continue from item_id ..." 让它接着输出。
 5. 把输出原样保存为 `batch_0X_output.jsonl`，四批都做完后把 4 个文件发给我，我来校验格式和缺漏。
 6. 不要让它用代码标注。如果它开始写 Python，就提醒它："Read each item yourself; do not use code."
+7. **单人单遍**：每批只让一个模型自己读一遍、标一遍。**不要**开多个代理，不要交叉复核，也不要合并裁决。这样流程才和 Claude 一致。
 
 ## Files
 - `PROMPT.md` — paste this first in each new chat (contains the full codebook).
@@ -49,7 +51,7 @@ def main(rnd: int):
             if line.strip():
                 items.append(json.loads(line))
     items.sort(key=lambda o: o["item_id"])
-    codebook = open(OUT / "CODEBOOK_v1.md").read()
+    codebook = open(OUT / CODEBOOK.get(rnd, "CODEBOOK_v1_2.md")).read()
     (pkg / "README.md").write_text(README.format(r=rnd))
     (pkg / "PROMPT.md").write_text(PROMPT_HEAD + codebook)
     per = (len(items) + NB - 1) // NB

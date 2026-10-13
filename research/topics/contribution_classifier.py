@@ -8,8 +8,8 @@ Labels come from annotation/contribution_types (2,000 training papers + 300 pilo
 Fine types inside "other" (problem, system, application, perspective, survey, recipe) have too few examples
 to learn; they come from annotators for papers routed to them.
 
-Features: SPECTER2 embedding (centred, unit length) and/or TF-IDF of title + abstract (word 1-3 grams; IDF fitted
-on all papers, which is unsupervised). Model: logistic regression per label.
+Features: SPECTER2 embedding (centred, unit length) and/or TF-IDF of title + abstract (word 1-3 grams, top 100k; IDF
+fitted on all papers, which is unsupervised). Model: logistic regression per label.
 Selection: feature set x regularisation x class weighting chosen by 5-fold CV (seed 0); the chosen setting is then
 re-evaluated on fresh 5-fold splits (seed 1), which are the numbers reported.
 
@@ -24,6 +24,7 @@ import pickle
 import numpy as np
 import pandas as pd
 import scipy.sparse as sp
+from joblib import Parallel, delayed
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score, confusion_matrix, f1_score, log_loss, precision_recall_fscore_support
@@ -41,7 +42,7 @@ LABELS = {  # label: (selection metric, class weights tried)
     "secondary_class": ("macro_f1", (None, "balanced")),
     "foundation_model": ("macro_f1", (None,)),
 }
-FEATURES, CS = ("tfidf", "embedding", "both"), (1.0, 4.0, 16.0)
+FEATURES, CS = ("tfidf", "embedding", "both"), (4.0, 16.0, 64.0)
 
 
 def to_class(t: str) -> str:
@@ -65,19 +66,23 @@ def load_labels() -> pd.DataFrame:
 
 def features(corpus: pd.DataFrame, emb: np.ndarray):
     text = (corpus.title.fillna("") + ". " + corpus.abstract.fillna("")).str.lower()
-    vec = TfidfVectorizer(ngram_range=(1, 3), min_df=3, max_df=0.5, sublinear_tf=True, max_features=300000,
+    vec = TfidfVectorizer(ngram_range=(1, 3), min_df=3, max_df=0.5, sublinear_tf=True, max_features=100000,
                           token_pattern=r"(?u)\b[a-zA-Z][a-zA-Z0-9\-]+\b")
     tfidf = vec.fit_transform(text).tocsr()
     e = normalize(emb - emb.mean(axis=0))
     return vec, {"tfidf": tfidf, "embedding": sp.csr_matrix(e), "both": sp.hstack([tfidf, sp.csr_matrix(e)]).tocsr()}
 
 
+def _fold(X, y, tr, te, C, weight):
+    return te, LogisticRegression(C=C, class_weight=weight, max_iter=5000).fit(X[tr], y[tr]).predict_proba(X[te])
+
+
 def cv_proba(X, y, C, weight, seed):
     classes = np.unique(y)
     proba = np.zeros((len(y), len(classes)))
-    for tr, te in StratifiedKFold(5, shuffle=True, random_state=seed).split(X, y):
-        m = LogisticRegression(C=C, class_weight=weight, max_iter=5000).fit(X[tr], y[tr])
-        proba[te] = m.predict_proba(X[te])
+    folds = StratifiedKFold(5, shuffle=True, random_state=seed).split(X, y)
+    for te, p in Parallel(n_jobs=4)(delayed(_fold)(X, y, tr, te, C, weight) for tr, te in folds):
+        proba[te] = p
     return classes, proba
 
 

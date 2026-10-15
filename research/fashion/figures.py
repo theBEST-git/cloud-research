@@ -6,7 +6,7 @@ F2  trends: contribution-class shares; foundation-model vs new-architecture shar
 F3  hot topics: prior growth by topic and year for topics hot in >= 3 years, hot cells marked
 F4  dose-response after removing fixed effects (E6; needs output/frozen_run)
 F5  H2d validation: peripheral share, flagged vs non-flagged, majority and per judge, with the gate thresholds
-F6  dry-run power: full-rule detection rate by planted effect, with 80% line
+F6  dry-run power: detection (predicted sign, p < 0.05/m) by realised planted effect, with 80% line
 F7  acceptance rate by contribution class and year (E10; needs output/frozen_run)
 
     python research/fashion/figures.py
@@ -160,23 +160,29 @@ def f5_validation() -> None:
 
 def f6_power() -> None:
     s = json.loads((OUTPUT / "dryrun" / "summary.json").read_text())
-    sesoi = {"H2a": 2, "H2b": 2, "H2c": 1, "H3a": 1, "H3b": 1}
-    fig, axes = plt.subplots(1, 2, figsize=(6.4, 2.3), sharey=True, constrained_layout=True)
-    for ax, hs, title in [(axes[0], ["H2a", "H2b", "H2c"], "RQ2 (following)"), (axes[1], ["H3a", "H3b"], "RQ3 (reward)")]:
-        for i, h in enumerate(hs):
-            c = s["power"].get(h)
+    fig, axes = plt.subplots(1, 2, figsize=(6.6, 2.4), sharey=True, constrained_layout=True)
+    panels = [(axes[0], [("H2a", "H2a", "-"), ("H2b", "H2b", "-"), ("H2c", "H2c", "-")], "RQ2 (following), calibrated"),
+              (axes[1], [("H3a_hi", "H3a", "-"), ("H3b_hi", "H3b", "-"), ("H3a_lo", "H3a", ":"), ("H3b_lo", "H3b", ":")],
+               "RQ3 (reward); dotted = low-variance setting")]
+    for ax, series, title in panels:
+        colour = {}
+        for key, h, ls in series:
+            c = s["power"].get(key)
             if not c:
                 continue
-            x = [float(m) * sesoi[h] for m in c]
-            y = [c[m]["full_rule"] * 100 for m in c]
-            ax.plot(x, y, color=SERIES[i], marker="o", markersize=3.5, markeredgecolor=SURFACE, markeredgewidth=0.8, label=h)
-            end_label(ax, x[-1], y[-1], h)
+            colour.setdefault(h, SERIES[len(colour)])
+            x = [abs(v["realised_effect"]) * 100 for v in c.values()]
+            y = [v["detected_alpha_over_m"] * 100 for v in c.values()]
+            ax.plot(x, y, color=colour[h], ls=ls, lw=1.6 if ls == "-" else 1.2, marker="o" if ls == "-" else None,
+                    markersize=3.5, markeredgecolor=SURFACE, markeredgewidth=0.8, label=h if ls == "-" else None)
+            if ls == "-":
+                end_label(ax, x[-1], y[-1], h)
         ax.axhline(80, color=INK2, lw=0.8, ls=(0, (3, 2)))
         ax.set_title(title, loc="left")
-        ax.set_xlabel("planted effect (percentage points)")
+        ax.set_xlabel("realised planted effect (percentage points)")
         ax.set_ylim(-3, 103)
         ax.legend(loc="lower right")
-    axes[0].set_ylabel("supported under the full rule (%)")
+    axes[0].set_ylabel("detected at alpha/m, main spec (%)")
     save(fig, "F6_power")
 
 

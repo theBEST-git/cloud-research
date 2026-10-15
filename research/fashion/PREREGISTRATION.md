@@ -465,7 +465,7 @@ Anything added after the freeze is labelled post hoc.
     hypothesis and cluster by the early map; that `run_frozen.py` passes FREEZE.json's remedies to both families; and
     that dry-run v3's null and power replications record and use the right p-values; and, end to end on a fabricated
     dry-run, that `freeze.py` records the remedies with their validation and refuses anything else. All 29 mutations
-    tried (the reviewer's surviving kinds plus the new checks) are caught.
+    the analyst tried (the reviewer's surviving kinds plus the new checks) are caught.
   - **Not a defect (verifier), now stated:** for H2b and H2c only the p-value comes from the bootstrap. The CIs, TOST
     and the "equivalent to null" label stay CR1 with t(G−1), as D8 and D12 define them and as D16 registered (it
     replaces only the confirmatory p-value). A CR1 interval can therefore exclude zero beside a bootstrap p above 0.05,
@@ -473,12 +473,13 @@ Anything added after the freeze is labelled post hoc.
     verdict as the cross-check of the CR1 interval. No bootstrap-inverted interval is added: that would be a new,
     unregistered method.
   - **Minor:**
-    - A bootstrap p-value can be exactly 0 (no draw reaches |t|). It stays as registered and is reported as
-      "< 1/9,999". Using (1 + count)/(B + 1) instead would change Holm-adjusted values only below 3 × 10⁻⁴, so no
-      decision at 0.05.
-    - In `rq2_null_early` the two-way size is close to tautological, because that null's structure lies on the early
-      map, which is S11's second clustering. That size shows the two-way variance is computed correctly; it does not
-      show S11 is robust to cross-cutting structure along other maps.
+    - A bootstrap p-value can be exactly 0 (no draw reaches |t|). It stays as registered (share of |t*| ≥ |t|), is
+      stored as 0 in the outputs and is reported as "< 1/9,999". The alternative (1 + count)/(B + 1) would raise every
+      bootstrap p by (1 − p)/(B + 1) ≤ 10⁻⁴ and a Holm-adjusted p by at most 3 × 10⁻⁴, so it could change a decision
+      only if a Holm-adjusted p fell in [0.0497, 0.05); that would be reported.
+    - In `rq2_null_early` and `rq3_null_early_hi` the two-way size is close to tautological, because those nulls'
+      structure lies on the early map, which is S11's second clustering. Those sizes show the two-way variance is
+      computed correctly; they do not show S11 is robust to cross-cutting structure along other maps.
     - `freeze.py` now also refuses a dry-run that lacks:
       - a bootstrap size for any remedied hypothesis, or an S11 size for any hypothesis, in any null scenario;
       - complete null replications;
@@ -487,3 +488,27 @@ Anything added after the freeze is labelled post hoc.
     - The S11 combination and the early-map column now have tests that run without statsmodels.
   - None of these changes touches a file in the dry-run digest. Dry-run v3, started from the committed remedy code,
     stays valid.
+- **2026-10-15, before any RQ2/RQ3 estimate: review round B5 (re-review of the round-B4 fixes).** One reviewer and its
+  verifiers. The code changes were found correct and safe for the real freeze and run, and the B4 commits touch no file
+  in the dry-run digest. The reviewer's own 18 mutations exposed test gaps:
+  - **Confirmed major, fixed:** no test checked the *value* of the bootstrap p-value. The wiring tests compared the
+    pipeline with the same function, so a one-sided, signed or complementary p (1 − p) went unnoticed. A test now
+    checks p = share of |t*| ≥ |t| against an independently computed t (t* is pinned by the brute-force test), with
+    negative, positive and very large t.
+  - **Confirmed, minor after verification, fixed by tests:**
+    - S11 reaches the fragile flag in both families, and a significant opposite S11 makes a supported hypothesis
+      fragile.
+    - The S11 values in `summary.json` match the two-way estimates.
+  - **Other minors fixed by tests:**
+    - the RQ3 simulated dry-run job records all three p-values;
+    - MDE80 uses the bootstrap p, and the CR1 MDE80 uses the CR1 p;
+    - the two-way fallback (including a variance of exactly 0) and its CIs;
+    - Holm treats a missing p as 1;
+    - `freeze.py` refuses a missing CR1 p;
+    - the printed result line shows the bootstrap p.
+  - Two statements in the B4 entry were corrected above: the early-map caveat also applies to `rq3_null_early_hi`,
+    and the bound on the p = 0 convention.
+  - The reviewer's 18 surviving kinds plus two more, re-applied by the analyst, are all caught by the new tests. One of
+    them (S11's second cluster count read from the first) is invisible on the real maps, which both have 100 topics,
+    and is caught by a direct test.
+  - No file in the dry-run digest was changed.

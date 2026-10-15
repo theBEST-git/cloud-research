@@ -299,6 +299,16 @@ class FrozenRunPassesRemedies(unittest.TestCase):
             self.assertEqual(r["p_method"], summary["rq2" if h.startswith("H2") else "rq3"]["verdicts"][h]["p_method"])
             self.assertEqual(r["ci_tost_method"], "CR1, t(G-1)")
 
+    def test_s11_block_maps_each_field_of_the_s11_row(self):
+        """Direct check (both real maps have 100 topics, so clusters and clusters2 coincide in the runs above)."""
+        rows = pd.DataFrame([{"hypothesis": "H2a", "variant": "main", "coef": 9.0, "se": 9.0, "p": 9.0, "ci95_lo": 9.0,
+                              "ci95_hi": 9.0, "clusters": 9, "clusters2": np.nan},
+                             {"hypothesis": "H2a", "variant": S11, "coef": 0.1, "se": 0.2, "p": 0.3, "ci95_lo": -0.4,
+                              "ci95_hi": 0.6, "clusters": 100, "clusters2": 57}])
+        self.assertEqual(run_frozen.s11_of(rows), {"H2a": {"coef": 0.1, "se": 0.2, "p": 0.3, "ci95": [-0.4, 0.6],
+                                                           "clusters": 100, "clusters2": 57}})
+        self.assertEqual(run_frozen.s11_of(pd.DataFrame()), {})
+
     def test_zero_bootstrap_p_is_printed_as_a_bound(self):
         v = {"p": 0.0, "p_method": "wild cluster restricted bootstrap (Rademacher by topic, 9999 draws)"}
         self.assertEqual(run_frozen.p_text(v), "p_boot < 1/9999")

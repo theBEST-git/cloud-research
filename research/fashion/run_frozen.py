@@ -49,16 +49,17 @@ def clean(o):
     return o
 
 
-def equivalence_table(verdicts: dict, mde: dict, powered: dict) -> list[dict]:
-    """E9: TOST and MDE80 for every hypothesis that is not supported; D16 (c) says whether it was underpowered."""
+def equivalence_table(verdicts: dict, mde: dict, powered: dict, notes: dict | None = None) -> list[dict]:
+    """E9: TOST and MDE80 for every hypothesis that is not supported, with the dry-run's MDE80 note (D16 amendments)
+    and whether criterion (c) found it underpowered at 3 x SESOI."""
     rows = []
     for h, v in verdicts.items():
         if v["verdict"] == "supported":
             continue
         m = mde.get(h)
+        note = (notes or {}).get(h) or ("" if m is not None else "not reached within the grid")
         rows.append({"hypothesis": h, "verdict": v["verdict"], "coef": v["coef"], "ci90": v["ci90"], "sesoi": v["sesoi"],
-                     "tost_p": v["tost_p"], "mde80": m,
-                     "mde80_note": "" if m is not None else "80% detection not reached within the dry-run grid",
+                     "tost_p": v["tost_p"], "mde80": m, "mde80_note": note,
                      "underpowered_at_3x_sesoi": not powered.get(h, False)})
     return rows
 
@@ -133,7 +134,7 @@ def run(freeze: dict, started: str) -> None:
         "rq2": {"family": res2["family"], "verdicts": res2["verdicts"], "label_reliability": res2["label_reliability"]},
         "rq3": {"family": res3["family"], "verdicts": res3["verdicts"], "counts": res3["counts"]},
         "h2d_gate": gate_file, "tau": tau,
-        "e9_equivalence": equivalence_table({**res2["verdicts"], **res3["verdicts"]}, mde, powered),
+        "e9_equivalence": equivalence_table({**res2["verdicts"], **res3["verdicts"]}, mde, powered, freeze.get("mde80_note")),
         "dryrun_criterion_c_detected_80pct_at_3x_sesoi": powered,
         "dropped_hypotheses": [] if gate else ["H2d", "H3c"],
         "exploratory_caveat": sorted(set(exp["estimates"].loc[exp["estimates"].measure_status != "", "label"])),

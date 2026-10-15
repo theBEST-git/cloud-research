@@ -36,8 +36,9 @@ OUTPUTS = ["topic_year_maturity.csv.gz", "paper_variables.csv.gz", "paper_buzzwo
 def check_dryrun(dry: dict, prov: dict, families: dict) -> tuple[list[str], dict[str, str]]:
     """(fatal problems, remediable violations by hypothesis) under D16.
 
-    Fatal: a dry-run not made from the current code and inputs, not at the registered replication counts, or missing a
-    family hypothesis. Remediable (only by the registered wild cluster bootstrap): main-specification size above 0.08,
+    Fatal: a dry-run not made from the current code and inputs, not at the registered replication counts, missing a
+    family hypothesis's power or full-rule results, missing a registered null scenario, or with missing p-values in a
+    null scenario. Remediable (only by the registered wild cluster bootstrap): main-specification size above 0.08,
     or false support above 0.05. A size below 0.02 is only reported."""
     import dryrun
     fatal, remediable = [], {}
@@ -49,6 +50,16 @@ def check_dryrun(dry: dict, prov: dict, families: dict) -> tuple[list[str], dict
     for h in families["rq2"] + families["rq3"]:
         if h not in dry["mde80"] or h not in dry["power"] and f"{h}_hi" not in dry["power"]:
             fatal.append(f"no power curve for {h}")
+        curve = dry["power"].get(h) or dry["power"].get(f"{h}_hi") or {}
+        if not any("full_rule" in v for v in curve.values()):
+            fatal.append(f"no full-rule power for {h}")
+        for sc in dryrun.NULL_SCENARIOS:
+            if sc.startswith("rq2") != h.startswith("H2"):
+                continue
+            if h not in dry["size"].get(sc, {}) or h not in dry["false_support"].get(sc, {}):
+                fatal.append(f"null scenario {sc} has no result for {h}")
+            elif dry.get("missing_p", {}).get(sc, {}).get(h, 0) > 0:
+                fatal.append(f"null scenario {sc}: {h} has missing p-values")
     for sc, sizes in dry["size"].items():
         for h, v in sizes.items():
             if v > 0.08:
@@ -58,6 +69,18 @@ def check_dryrun(dry: dict, prov: dict, families: dict) -> tuple[list[str], dict
             if v > 0.05:
                 remediable[h] = remediable.get(h, "") + f" false support {v} in {sc};"
     return fatal, remediable
+
+
+def validate_remedies(remedies: list[str], remediable: dict[str, str]) -> set[str]:
+    """D16: exactly one bootstrap:<h> per remediable hypothesis, and only once the bootstrap exists."""
+    asked = {r.split(":", 1)[1] for r in remedies if r.startswith("bootstrap:")}
+    if len(asked) != len(remedies) or asked != set(remediable):
+        raise SystemExit(f"remedies must be exactly bootstrap:<h> for each remediable violation {remediable}; got {remedies}")
+    if asked:
+        import analysis
+        if not hasattr(analysis, "wild_cluster_bootstrap_p"):
+            raise SystemExit("the registered wild cluster bootstrap is not implemented yet (D16): implement, validate, log")
+    return asked
 
 
 def main() -> None:
@@ -78,13 +101,7 @@ def main() -> None:
     fatal, remediable = check_dryrun(dry, prov, families)
     if fatal:
         raise SystemExit("refusing to freeze:\n- " + "\n- ".join(fatal))
-    asked = {r.split(":", 1)[1] for r in a.remedy if r.startswith("bootstrap:")}
-    if len(asked) != len(a.remedy) or asked != set(remediable):
-        raise SystemExit(f"remedies must be exactly bootstrap:<h> for each remediable violation {remediable}; got {a.remedy}")
-    if asked:
-        import analysis
-        if not hasattr(analysis, "wild_cluster_bootstrap_p"):
-            raise SystemExit("the registered wild cluster bootstrap is not implemented yet (D16): implement, validate, log")
+    validate_remedies(a.remedy, remediable)
     problems = [f"{h}:{v}" for h, v in remediable.items()]
     freeze = {
         "created_utc": a.created,
@@ -96,7 +113,7 @@ def main() -> None:
         "counted_variants": {"rq2": list(variants.counted(2)), "rq3": list(variants.counted(3))},
         "hindsight_variants": list(variants.HINDSIGHT_VARIANTS), "robust_share": variants.ROBUST_SHARE,
         "mde80": dry["mde80"], "mde80_rq3_lo_variance": dry["mde80_lo"], "dryrun_criteria": dry["criteria"],
-        "mde80_note": dry.get("mde80_note", {}),
+        "mde80_note": dry.get("mde80_note", {}), "mde80_lo_note": dry.get("mde80_lo_note", {}),
         "dryrun_dgp": {"rq2_calibrated": prov["calibrated_rq2_dgp"], "rq3": prov["rq3_dgp"], "reps": prov["reps"],
                        "power_reps": prov["power_reps"], "full_reps": prov["full_reps"], "code_digest": dry["code_digest"]},
         "sha256": {f: outcomes.sha256(ROOT / f) for f in files},

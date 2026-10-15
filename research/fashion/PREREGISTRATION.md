@@ -425,3 +425,14 @@ Anything added after the freeze is labelled post hoc.
     without the planted effects, same random draws) as the outcome, so the topic and cell draws add no noise to it.
   - MDE80 notes flag a value at or below the smallest planted effect, beyond the grid, or on a curve that dips below
     80% again after crossing it.
+- **2026-10-15, before any dry-run v2 result: review round B3 (re-review of the round-B2 fixes).** Two reviewers,
+  verifiers as before. **No confirmed blocker or major finding**, which ends the review loop of the plan. One reported
+  major (the permuted mode's seeded shuffle can be re-created and inverted by someone who deliberately reimplements the
+  loader) was judged by its verifier to be deliberate circumvention, which the protocol already forbids; the loader's
+  description now states this limit. Minor fixes: the frozen run refuses to run under a debugger, a trace function or an
+  interactive session; E9 carries the dry-run's MDE80 notes (and FREEZE.json the low-variance notes too); freeze.py
+  also requires every registered null scenario, full-rule power for every hypothesis and no missing p-values in any
+  null scenario; and tests now fail when any round-B2/B3 fix is reverted (mutation-checked, incl. the frozen run's
+  refusal order, release and attempt log, the remedy rules, the realised-effect measurement, the grid, the permuted
+  block and the derived newcomer columns). The first dry-run v2 launch was stopped at 4% to apply these fixes; none of
+  its results were written or seen.

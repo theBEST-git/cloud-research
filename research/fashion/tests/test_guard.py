@@ -49,6 +49,7 @@ class Guard(unittest.TestCase):
         g = rq2_following.with_columns(f, sim)
         self.assertEqual(g.newcomer.tolist()[:2], [1.0, 0.0])
         self.assertEqual(g.newcomer_w2.tolist()[:2], [1.0, 0.0])
+        self.assertEqual(g.newcomer_s4.tolist()[:2], [1.0, 0.0])
         self.assertTrue(np.isnan(g.newcomer.iloc[2]))                        # no author key: never a newcomer
 
     def test_estimates_carry_no_means_unless_asked(self):

@@ -10,8 +10,9 @@ Modes:
 - "simulated": no file is read. Populations are random (rq3 74% of papers, s9 adds 4%, e3 all) and outcomes come from
   dgp.simulate on the given frame.
 - "permuted":  the real derived block (populations and outcomes together) of the WHOLE table shuffled across papers
-  within year, then the requested ids selected: the real pipeline and per-year marginals, but no link between any paper
-  or any subset of papers and its real status or outcome, whichever ids are requested (a true null).
+  within year, then the requested ids selected: the real pipeline and per-year marginals, and a true null for any set
+  of requested ids. The shuffle is seeded so that dry-runs are reproducible; it hides real outcomes from analysis code,
+  not from someone who deliberately re-creates the seeded shuffle (which, like reading the table, the protocol forbids).
 - "real":      refuses unless called from run_frozen.py, FREEZE.json hashes match, and the git tree is clean.
 """
 from __future__ import annotations
@@ -64,6 +65,8 @@ def require_frozen() -> dict:
     main = getattr(sys.modules.get("__main__"), "__file__", "") or ""
     if Path(main).resolve() != HERE / "run_frozen.py":
         raise PermissionError("real outcomes are only available to research/fashion/run_frozen.py")
+    if sys.gettrace() is not None or sys.flags.inspect or sys.flags.interactive:
+        raise PermissionError("the frozen run cannot run under a debugger or an interactive session")
     if _VERIFIED is not None:
         return _VERIFIED
     if not FREEZE.exists():

@@ -74,6 +74,8 @@ INPUTS = ["paper_variables.csv.gz", "paper_buzzword.csv.gz", "earlier_versions.c
 TOPIC_INPUTS = ["topic_assignments.csv.gz", "k_sensitivity_assignments.csv.gz", "hindsight_assignments.csv.gz",
                 "paper_contributions.csv.gz", "paper_topic_stability.csv.gz", "topic_catalog.csv"]
 REGISTERED = {"reps": 500, "power_reps": 200, "full_reps": 100}           # D16; freeze.py refuses other counts
+NULL_SCENARIOS = ["rq2_null_k100", "rq2_null_early", "rq3_permuted", "rq3_null_k100_lo", "rq3_null_k100_hi",
+                  "rq3_null_early_hi"]
 FRAMES: dict[str, pd.DataFrame] = {}
 CAL: dict[str, DGP] = {}
 
@@ -225,12 +227,13 @@ def summarise(df: pd.DataFrame) -> dict:
     fam = {"rq2": len(RQ2_SPECS), "rq3": len(RQ3_SPECS)}
     conf["m"] = np.where(conf.hypothesis.str.startswith("H2"), fam["rq2"], fam["rq3"])
     conf["detected"] = (conf.p < 0.05 / conf.m) & (np.sign(conf.coef) == conf.predicted_sign)
-    out = {"size": {}, "false_support": {}, "logit_size": {}, "power": {}, "mde80": {}, "mde80_lo": {}}
+    out = {"size": {}, "false_support": {}, "missing_p": {}, "logit_size": {}, "power": {}, "mde80": {}, "mde80_lo": {}}
     nulls = [sc for sc in df.scenario.unique() if "null" in sc or "permuted" in sc]
     for sc in nulls:
         g = conf[conf.scenario == sc]
         out["size"][sc] = g.groupby("hypothesis").p.apply(lambda p: round(float((p < 0.05).mean()), 4)).to_dict()
         out["false_support"][sc] = g.groupby("hypothesis").verdict.apply(lambda v: round(float((v == "supported").mean()), 4)).to_dict()
+        out["missing_p"][sc] = g.groupby("hypothesis").p.apply(lambda p: round(float(p.isna().mean()), 4)).to_dict()
         lg = df[(df.scenario == sc) & df.hypothesis.str.endswith(":logit")]
         if len(lg):
             out["logit_size"][sc] = lg.groupby("hypothesis").p.apply(lambda p: round(float((p < 0.05).mean()), 4)).to_dict()

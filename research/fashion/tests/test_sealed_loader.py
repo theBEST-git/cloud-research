@@ -50,6 +50,10 @@ class SealedLoader(unittest.TestCase):
         self.assertTrue((d.s9 == (rq3 | after)).all())
         self.assertTrue((d.s9_accepted[after] == 0).all())
 
+    def test_permuted_block_covers_every_derived_column(self):
+        derived = set(outcomes._derive(self.table.reset_index()).columns) - {"submission_id", "year"}
+        self.assertEqual(set(outcomes.BLOCK), derived)
+
     def test_missing_review_count_of_a_withdrawal_is_an_error(self):
         t = self.table.reset_index()
         t["review_count"] = t.review_count.astype(float)

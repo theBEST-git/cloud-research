@@ -68,17 +68,19 @@ def equivalence_table(verdicts: dict, mde: dict, powered: dict, notes: dict | No
         rows.append({"hypothesis": h, "verdict": v["verdict"], "coef": v["coef"], "ci90": v["ci90"], "sesoi": v["sesoi"],
                      "tost_p": v["tost_p"], "mde80": m, "mde80_note": note,
                      "underpowered_at_3x_sesoi": not powered.get(h, False),
-                     "p_method": v.get("p_method", CI_METHOD), "ci_tost_method": CI_METHOD})
+                     "p_method": v.get("p_method", CI_METHOD), "ci_tost_method": CI_METHOD,
+                     "qualifier": v.get("qualifier", ""), "s11_agrees": v.get("s11_agrees")})
     return rows
 
 
-def labelled(verdicts: dict, s11: dict | None = None) -> dict:
+def labelled(verdicts: dict, s11: dict | None = None, mde: dict | None = None, powered: dict | None = None) -> dict:
     """Verdicts with the method behind their CIs and TOST stated next to the method behind their p-value (D16), and the
     pre-declared S11 qualifiers (pre-run log: dry-run v3 results, review round B7). S11's p-values are Holm-adjusted
     within the family (missing as 1, as in decide); the S11 coefficient is the main one, the S11 intervals are wider or
     narrower. A directional verdict ('supported', 'significant in the opposite direction') is not robust to S11 unless
     S11 has the verdict's sign with an adjusted p < 0.05; 'equivalent to null' is not robust unless S11's 90% CI also
-    lies inside the bounds. Reporting labels only; verdicts are unchanged."""
+    lies inside the bounds. Each verdict also carries the frozen MDE80 and whether criterion (c) found the hypothesis
+    underpowered (review round B8). Reporting labels only; verdicts are unchanged."""
     s11 = s11 or {}
     p = pd.Series({h: s11.get(h, {}).get("p", np.nan) for h in verdicts}, dtype=float)
     ph = holm(p.fillna(1.0)) if len(p) else p
@@ -95,7 +97,8 @@ def labelled(verdicts: dict, s11: dict | None = None) -> dict:
             agrees = bool(np.all(np.isfinite(ci90)) and -v["sesoi"] < ci90[0] and ci90[1] < v["sesoi"])
             qualifier = "" if agrees else S11_EQUIVALENCE_QUALIFIER
         out[h] = {**v, "ci_tost_method": CI_METHOD, "s11_p_holm": float(ph[h]), "s11_agrees": agrees,
-                  "qualifier": qualifier}
+                  "qualifier": qualifier, "mde80": (mde or {}).get(h),
+                  "underpowered_at_3x_sesoi": None if powered is None else not powered.get(h, False)}
     return out
 
 
@@ -109,7 +112,7 @@ def stressed(verdicts: dict, inflation: dict) -> dict:
     p = {}
     for h, v in verdicts.items():
         if h in inflation:
-            t = v["coef"] / v["se"] / inflation[h]
+            t = v["coef"] / v["se"] / inflation[h] if v["se"] > 0 else np.nan
             p[h] = float(2 * scipy.stats.t.sf(abs(t), v["clusters"] - 1)) if np.isfinite(t) else np.nan
         else:
             p[h] = v["p"]
@@ -122,7 +125,8 @@ def s11_of(rows: pd.DataFrame) -> dict:
     """S11 (two-way clustering, topic and early-map topic) next to each verdict."""
     s = rows[rows.variant == S11] if len(rows) else rows
     return {r.hypothesis: {"coef": r.coef, "se": r.se, "p": r.p, "ci95": [r.ci95_lo, r.ci95_hi],
-                           "ci90": [r.ci90_lo, r.ci90_hi], "clusters": r.clusters, "clusters2": r.clusters2}
+                           "ci90": [r.ci90_lo, r.ci90_hi], "clusters": r.clusters,
+                           "clusters2": getattr(r, "clusters2", np.nan)}
             for r in s.itertuples()}
 
 
@@ -186,6 +190,9 @@ def remedies_of(freeze: dict) -> tuple[str, ...]:
 
 def run(freeze: dict, started: str) -> None:
     remedies = remedies_of(freeze)
+    missing = set(remedies) - set(freeze.get("stress_t_inflation", {}))
+    if missing:
+        raise SystemExit(f"FREEZE.json has no stress_t_inflation for remedied {sorted(missing)}")
     gate_file = json.loads((OUTPUT / "h2d_validation.json").read_text())
     gate = gate_file["gate"] == "pass"
     assert gate == freeze["h2d_gate_passed"], "gate differs from the frozen value"
@@ -211,13 +218,14 @@ def run(freeze: dict, started: str) -> None:
     powered = freeze.get("dryrun_criteria", {}).get("c_detected_80pct_at_3x_sesoi", {})
     s11_2, s11_3 = s11_of(res2["rows"]), s11_of(res3["rows"])
     inflation = {h: v for h, v in freeze.get("stress_t_inflation", {}).items() if h in remedies}
+    v2, v3 = labelled(res2["verdicts"], s11_2, mde, powered), labelled(res3["verdicts"], s11_3, mde, powered)
     summary = {
-        "rq2": {"family": res2["family"], "verdicts": labelled(res2["verdicts"], s11_2), "s11_twoway": s11_2,
+        "rq2": {"family": res2["family"], "verdicts": v2, "s11_twoway": s11_2,
                 "stress_sensitivity": stressed(res2["verdicts"], inflation), "label_reliability": res2["label_reliability"]},
-        "rq3": {"family": res3["family"], "verdicts": labelled(res3["verdicts"], s11_3), "s11_twoway": s11_3,
+        "rq3": {"family": res3["family"], "verdicts": v3, "s11_twoway": s11_3,
                 "stress_sensitivity": stressed(res3["verdicts"], inflation), "counts": res3["counts"]},
         "h2d_gate": gate_file, "tau": tau,
-        "e9_equivalence": equivalence_table({**res2["verdicts"], **res3["verdicts"]}, mde, powered, freeze.get("mde80_note")),
+        "e9_equivalence": equivalence_table({**v2, **v3}, mde, powered, freeze.get("mde80_note")),
         "dryrun_criterion_c_detected_80pct_at_3x_sesoi": powered,
         "dropped_hypotheses": [] if gate else ["H2d", "H3c"],
         "remedies": list(remedies),

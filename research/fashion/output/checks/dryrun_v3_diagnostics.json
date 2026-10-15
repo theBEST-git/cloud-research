@@ -310,5 +310,15 @@
     "rq3_null_k100_lo": true,
     "rq3_null_k100_hi": true,
     "rq3_null_early_hi": true
+  },
+  "stress_p_size": {
+    "rq2_null_k100": {
+      "H2b": 0.006,
+      "H2c": 0.018
+    },
+    "rq2_null_early": {
+      "H2b": 0.042,
+      "H2c": 0.048
+    }
   }
 }

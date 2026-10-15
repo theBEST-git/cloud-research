@@ -10,6 +10,8 @@ Null scenarios, per hypothesis:
   - t_sd: standard deviation of the CR1 t-statistic (1 under a correctly sized test).
 Null scenarios, per family: any hypothesis supported (family-wise false support), the same without the S11 qualifier,
 any directional claim (supported or opposite), and for RQ2 'H2b or H2c supported'.
+Stress sensitivity (review round B7/B8): for H2b and H2c in the RQ2 nulls, the rejection rate of the stress p (CR1 t
+divided by its standard deviation under rq2_null_early, t with 99 df), i.e. how the frozen sensitivity behaves.
 Full-rule scenarios at 1 x SESOI: share of each verdict of the planted hypothesis.
 v2_v3_identical: the CR1 columns and verdicts of every null scenario are the same in dry-run v2 and v3.
 
@@ -21,6 +23,7 @@ import json
 
 import numpy as np
 import pandas as pd
+from scipy import stats
 
 from common import OUTPUT
 from variants import ROBUST_SHARE, holm
@@ -73,9 +76,20 @@ def v2_v3_identical() -> dict:
     return out
 
 
+def stress_size() -> dict:
+    t = lambda d: d.coef / d.se
+    early = pd.read_csv(DRY / "rq2_null_early.csv")
+    r = {h: float(t(g).std(ddof=1)) for h, g in early.groupby("hypothesis") if h in ("H2b", "H2c")}
+    out = {}
+    for sc in ["rq2_null_k100", "rq2_null_early"]:
+        d = pd.read_csv(DRY / f"{sc}.csv")
+        out[sc] = {h: rate(2 * stats.t.sf(np.abs(t(g)) / r[h], 99) < 0.05) for h, g in d.groupby("hypothesis") if h in r}
+    return out
+
+
 def main() -> None:
     out = {"null": {sc: null_scenario(pd.read_csv(DRY / f"{sc}.csv")) for sc in NULLS}, "fullrule_1x_sesoi": {},
-           "v2_v3_identical": v2_v3_identical()}
+           "v2_v3_identical": v2_v3_identical(), "stress_p_size": stress_size()}
     for sc in FULL:
         d = pd.read_csv(DRY / f"{sc}.csv")
         g = d[d.planted == True]                                            # noqa: E712  (the planted hypothesis)

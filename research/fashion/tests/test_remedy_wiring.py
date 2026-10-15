@@ -328,9 +328,29 @@ class FrozenRunPassesRemedies(unittest.TestCase):
                 self.assertIn(f" p {format(v['p'], '.3g')} ", line)
                 self.assertNotIn("p_boot", line)
         e9 = {r["hypothesis"]: r for r in summary["e9_equivalence"]}
+        self.assertTrue(e9)
         for h, r in e9.items():
-            self.assertEqual(r["p_method"], summary["rq2" if h.startswith("H2") else "rq3"]["verdicts"][h]["p_method"])
+            v = summary["rq2" if h.startswith("H2") else "rq3"]["verdicts"][h]
+            self.assertEqual((r["p_method"], r["qualifier"], r["s11_agrees"]), (v["p_method"], v["qualifier"], v["s11_agrees"]))
             self.assertEqual(r["ci_tost_method"], "CR1, t(G-1)")
+        for rq in ["rq2", "rq3"]:
+            for h, v in summary[rq]["verdicts"].items():
+                self.assertEqual(v["mde80"], frz["mde80"].get(h), h)
+                self.assertEqual(v["underpowered_at_3x_sesoi"], h != "H2b", h)
+
+    def test_run_refuses_a_freeze_without_the_stress_factors_before_reading_anything(self):
+        with mock.patch.object(run_frozen.panel, "frame", side_effect=AssertionError("read")), \
+                mock.patch.object(run_frozen.outcomes, "load", side_effect=AssertionError("read")):
+            with self.assertRaises(SystemExit):
+                run_frozen.run({"remedies": ["bootstrap:H2b"], "stress_t_inflation": {"H2c": 1.2}}, "x")
+
+    def test_degenerate_inputs(self):
+        rows = pd.DataFrame([{"hypothesis": "H2a", "variant": S11, "coef": 0.1, "se": 0.2, "p": 0.3, "ci95_lo": -0.4,
+                              "ci95_hi": 0.6, "ci90_lo": -0.3, "ci90_hi": 0.5, "clusters": 100}])
+        self.assertTrue(np.isnan(run_frozen.s11_of(rows)["H2a"]["clusters2"]))
+        out = run_frozen.stressed({"H2b": {"coef": 0.0, "se": 0.0, "p": np.nan, "clusters": 100}}, {"H2b": 1.3})
+        self.assertTrue(np.isnan(out["H2b"]["p_stress"]))
+        self.assertEqual(out["H2b"]["p_holm_stress"], 1.0)
 
     def test_s11_block_maps_each_field_of_the_s11_row(self):
         """Direct check (both real maps have 100 topics, so clusters and clusters2 coincide in the runs above)."""
@@ -534,6 +554,54 @@ class FreezeRemedyChecks(unittest.TestCase):
                                         "raise SystemExit", "validate_remedies(", "check_remedies_applied(",
                                         "FREEZE.json\").write_text"]]
         self.assertEqual(order, sorted(order))
+
+
+class FrozenEvidence(unittest.TestCase):
+    def test_every_hashed_output_exists_and_the_inputs_of_the_freeze_and_the_run_are_hashed(self):
+        for o in freeze.OUTPUTS:
+            self.assertTrue((OUTPUT / o).exists(), o)
+        for o in [f"dryrun/{freeze.STRESS_SCENARIO}.csv", "dryrun/summary.json", "dryrun/provenance.json",
+                  "h2d_validation.json", "resubmission_tau.json", "checks/variables.json", "earlier_versions.csv.gz",
+                  "paper_variables.csv.gz", "checks/dryrun_v3_diagnostics.json", "dryrun_v2/summary.json"]:
+            self.assertIn(o, freeze.OUTPUTS)
+
+
+class Diagnostics(unittest.TestCase):
+    def test_family_rates_s11_holm_and_claims(self):
+        import dryrun_diagnostics as dd
+        rows = []
+        for rep_, (vb, vc, pb, pc) in enumerate([("supported", "supported", 0.01, None),
+                                                 ("supported", "inconclusive", 0.2, 0.01),
+                                                 ("significant in the opposite direction", "inconclusive", 0.5, 0.5),
+                                                 ("inconclusive", "inconclusive", 0.5, 0.5)]):
+            for h, v, pt in [("H2a", "inconclusive", 0.9), ("H2b", vb, pb), ("H2c", vc, pc)]:
+                rows.append({"rep": rep_, "hypothesis": h, "coef": -0.01 if h != "H2c" else 0.01, "se": 0.01,
+                             "p": 0.001, "p_holm": 0.003, "p_twoway": pt, "predicted_sign": -1 if h != "H2c" else 1,
+                             "robust": 1.0, "hindsight": True, "verdict": v})
+        rows.append({"rep": 0, "hypothesis": "H2b:logit", "coef": 1.0, "se": 1.0, "p": 0.5})
+        out = dd.null_scenario(pd.DataFrame(rows))
+        fam = out["family"]
+        self.assertEqual((fam["any_supported"], fam["H2b_or_H2c_supported"], fam["any_directional_claim"]), (0.5, 0.5, 0.75))
+        # rep 0: S11 p (H2a .9, H2b .01, H2c missing -> 1): Holm H2b .03 -> agrees, H2c 1 -> not; rep 1: H2b .2 -> not
+        self.assertEqual(out["hypotheses"]["H2b"]["supported_and_s11_agrees"], 0.25)
+        self.assertEqual(out["hypotheses"]["H2c"]["supported_and_s11_agrees"], 0.0)
+        self.assertEqual(fam["any_supported_and_s11_agrees"], 0.25)
+        self.assertNotIn("H2b:logit", out["hypotheses"])
+
+    def test_v2_v3_identity_compares_cr1_columns_and_verdicts(self):
+        import dryrun_diagnostics as dd
+        with tempfile.TemporaryDirectory() as tmp:
+            tmp = Path(tmp)
+            (tmp / "v2").mkdir(); (tmp / "v3").mkdir()
+            base = pd.DataFrame({"scenario": "s", "rep": [0, 0], "hypothesis": ["H3a", "H3a:logit"], "coef": [0.1, 0.2],
+                                 "se": [0.1, 0.1], "p": [0.3, 0.4], "n": [10, 10], "verdict": ["inconclusive", np.nan]})
+            for sc in dd.NULLS:
+                base.to_csv(tmp / "v2" / f"{sc}.csv", index=False)
+                base.assign(p_cr1=[0.3, np.nan], p=[0.25, 0.4]).to_csv(tmp / "v3" / f"{sc}.csv", index=False)
+            with mock.patch.object(dd, "V2", tmp / "v2"), mock.patch.object(dd, "DRY", tmp / "v3"):
+                self.assertTrue(all(dd.v2_v3_identical().values()))
+                base.assign(p_cr1=[0.31, np.nan]).to_csv(tmp / "v3" / f"{dd.NULLS[0]}.csv", index=False)
+                self.assertFalse(dd.v2_v3_identical()[dd.NULLS[0]])
 
 
 class FreezeWritesTheRemedyRecord(unittest.TestCase):

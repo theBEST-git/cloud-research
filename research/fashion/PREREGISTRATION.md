@@ -519,8 +519,9 @@ Anything added after the freeze is labelled post hoc.
   - **The registered remedy does not restore size under the cross-map null.** In `rq2_null_early` the bootstrap
     rejects 12.4% (H2b) and 9.6% (H2c) of the time at nominal 5% (CR1: 12.6%, 10.0%). In all other null scenarios its
     size is 3.8–6.4%. This is as anticipated, since the bootstrap still clusters by k100 topic. So if the real data
-    hold topic structure that cuts across k100 topics, the confirmatory p-values of H2b and H2c are anti-conservative,
-    with roughly 10–12% rejections at a nominal 5%.
+    hold topic structure that cuts across k100 topics, the confirmatory p-values of H2b and H2c are anti-conservative.
+    In the simulated cross-map scenario they reject about 10–12% of the time at a nominal 5%. How strong such
+    structure is in the real data is unknown.
   - **S11 (two-way clustering):** size 4.4–7.6% in every null scenario. In `rq2_null_early` it is 7.6% (H2b) and
     7.0% (H2c): better, not good, although it clusters on the very map that generates that null's structure (round
     B4). Per round B7's reproduction, one-way clustering on that map gives 8.2%, so no simple clustering choice
@@ -535,12 +536,20 @@ Anything added after the freeze is labelled post hoc.
       - H2b or H2c is supported in 5.8% of replications;
       - some RQ2 hypothesis is supported in 6.4% (2.0% under the k100 null), above Holm's nominal 5%;
       - some directional claim (supported or opposite) is made in 11.2% (4.6%).
+    - **RQ3, per family:** some hypothesis is supported in at most 2.8% of the replications of any RQ3 null, and some
+      directional claim is made in 6.4% under `rq3_null_early_hi` (5.2% permuted). RQ3's family-wise error is
+      approximate under the same caveat.
     - **The 75% and hindsight requirements give no protection against it.** Every H2b/H2c replication that was
       Holm-significant in the predicted direction also passed them (31 of 31), because the variants re-estimate on
       the same papers. The low per-hypothesis rate comes from Holm's α/3 and the sign requirement applied to
       t-statistics whose standard deviation is 1.31 (H2b) and 1.22 (H2c) instead of 1.
   - **Criterion (c):** H3a reaches only 54% detection at 3 x SESOI (88% in the low-variance setting), so it is
-    reported as underpowered. All others reach at least 97%.
+    reported as underpowered. All others reach at least 97%. Pre-declared reading (round B8):
+    - every verdict in the frozen summary carries its MDE80 and underpowered flag;
+    - a supported H3a is reported with the caveat that, at this power, estimates that reach significance overstate
+      the effect;
+    - a non-supported H3a is reported as uninformative about effects below its MDE80 (about 4 pp per log unit), never
+      as evidence of no effect.
   - **MDE80, frozen** (realised effect at 80% detection with p < 0.05/m):
     - H2a 3.6 pp;
     - H2b 1.7 pp and H2c 1.1 pp with the bootstrap p (CR1 1.70 and 1.10);
@@ -580,8 +589,17 @@ Anything added after the freeze is labelled post hoc.
         computed by `freeze.py` from the v3 replications and frozen in `FREEZE.json`), with t(G − 1);
       - Holm-adjusted within the family, the other hypotheses keeping their p;
       - written beside each remedied verdict as a sensitivity, never as the verdict.
+      - The factor comes from one simulated scenario. It is a bracket, not a correction: its rejection rate is 4.2%
+        (H2b) and 4.8% (H2c) in that scenario (calibrated in-sample) and 0.6% and 1.8% under the k100 null
+        (diagnostics file, `stress_p_size`).
     - **Reporting:**
       - the main-specification p-values of H2b and H2c are described as approximate;
+      - their CR1 CIs, TOST p-values and "equivalent to null" labels are approximate in the same way (round B8). Under
+        the cross-map null the 95% CI covers 0 in 87.4% (H2b) and 90.0% (H2c) of replications (1 minus the CR1
+        size). Round B8's approximate reproduction (shifting the null replications to the SESOI bound, ignoring
+        clipping) finds a false equivalence in about 8–11% (H2b) and 8–9% (H2c), about 6–8% with the S11 equivalence
+        qualifier, against about 4–7% under the k100 null. The S11 equivalence qualifier is the pre-declared check;
+        no stressed interval is added;
       - the v3 sizes (copied from `FREEZE.json` into the frozen summary) and the stress sensitivity are stated next to
         them.
     - **What `FREEZE.json` will record:**
@@ -632,7 +650,31 @@ Anything added after the freeze is labelled post hoc.
       written into the frozen summary.
     - A test now covers a missing S11 p within a family.
     - `FREEZE.json` now also hashes the v3 diagnostics, the v2 summary and provenance, and the cross-map replications.
-  - **Diagnostics** (`dryrun_diagnostics.py`) now reproduce every family-wise and conditional figure quoted above,
-    and check that all null replications of v2 and v3 are identical.
+  - **Diagnostics** (`dryrun_diagnostics.py`) now reproduce every family-wise and conditional figure quoted above.
+    They also check that the CR1 columns (coef, se, p, n) and verdicts of every null scenario are identical in v2 and
+    v3.
   - **Mutation check:** 8 mutations of the new reporting code are all caught.
+  - No file in the dry-run digest was changed.
+- **2026-10-15, before any RQ2/RQ3 estimate: review round B8 (re-review of the B6/B7 fixes; last before the
+  freeze).**
+  - **Reviewers:** an Opus reviewer of the log and method, and a Sonnet reviewer of code and tests, with Sonnet
+    verifiers.
+  - **Checked and correct:**
+    - every number in the corrected v3, B6 and B7 entries;
+    - the diagnostics script, which reproduces its committed output;
+    - `freeze.py`'s checks on the real outputs: no fatal problem, remediable = {H2b, H2c}, inflation 1.3078/1.2198.
+  - **No confirmed blocker or major finding, which ends the review loop.** Both reported majors were judged minor by
+    their verifiers:
+    - the CIs, TOST and equivalence label of H2b/H2c are approximate too (now stated above, with figures);
+    - the registered specification table and variants were not pinned by tests (now `tests/test_registered_spec.py`).
+  - **Minor findings, all acted on:**
+    - The E9 table now carries the S11 qualifiers.
+    - Every verdict carries its MDE80 and underpowered flag, and H3a's reading is pre-declared above.
+    - The frozen run refuses a `FREEZE.json` without the stress factors before reading any data.
+    - Two degenerate inputs (no second cluster count; zero SE) no longer crash.
+    - The single-scenario origin of the 10–12% and of the stress factor is stated, with the stress p's rejection
+      rates.
+    - RQ3's family-wise rates are stated.
+    - New tests cover verdict precedence and the CIs' t(G − 1).
+    - New tests check that every hashed output exists, and cover the diagnostics functions.
   - No file in the dry-run digest was changed.

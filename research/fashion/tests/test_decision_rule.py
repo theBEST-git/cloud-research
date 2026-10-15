@@ -103,6 +103,10 @@ class Support(unittest.TestCase):
         v = self.verdict(est(+0.004, 0.6, half90=0.03, half95=0.04), dict.fromkeys(self.FOUR, -1))
         self.assertEqual(v["verdict"], "inconclusive")
 
+    def test_opposite_direction_takes_precedence_over_equivalence(self):
+        v = self.verdict(est(+0.012, 0.001, half90=0.005, half95=0.006), dict.fromkeys(self.FOUR, -1))
+        self.assertEqual(v["verdict"], "significant in the opposite direction")   # ci90 inside the bounds, too
+
     def test_equivalence_uses_the_90_percent_interval_inside_the_bounds(self):
         v = self.verdict(est(0.004, 0.6, half90=0.0155, half95=0.02), dict.fromkeys(self.FOUR, -1))
         self.assertEqual(v["verdict"], "equivalent to null")                 # ci90 (-0.0115, 0.0195), ci95 to 0.024
@@ -119,6 +123,22 @@ class Support(unittest.TestCase):
             self.assertAlmostEqual(v["tost_p"], expect, places=15)
             self.assertNotAlmostEqual(v["tost_p"], max(stats.norm.sf((coef + 0.02) / 0.01),
                                                        stats.norm.cdf((coef - 0.02) / 0.01)), places=4)
+
+
+class IntervalDegreesOfFreedom(unittest.TestCase):
+    def test_cis_use_t_with_clusters_minus_one(self):
+        from scipy import stats
+        rng = np.random.default_rng(9)
+        d = pd.DataFrame({"topic": rng.integers(0, 10, 600).astype(str), "year": rng.integers(2019, 2023, 600)})
+        d["x"] = rng.normal(size=600)
+        d["y"] = 0.1 * d.x + rng.normal(size=600)
+        e = analysis.estimate(d, "y", "x", (), "topic+year", (2019, 2026))
+        self.assertEqual((e["clusters"], e["dof"]), (10, 9))
+        for lvl, lo, hi in [(0.975, "ci95_lo", "ci95_hi"), (0.95, "ci90_lo", "ci90_hi")]:
+            q = stats.t.ppf(lvl, 9)
+            self.assertAlmostEqual(e[lo], e["coef"] - q * e["se"], places=12)
+            self.assertAlmostEqual(e[hi], e["coef"] + q * e["se"], places=12)
+        self.assertAlmostEqual(e["p"], 2 * stats.t.sf(abs(e["coef"] / e["se"]), 9), places=12)
 
 
 class Fragile(unittest.TestCase):

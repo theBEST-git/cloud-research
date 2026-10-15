@@ -18,6 +18,7 @@ import hashlib
 import json
 import subprocess
 import sys
+from functools import lru_cache
 from pathlib import Path
 
 import numpy as np
@@ -29,6 +30,7 @@ from dgp import DGP, simulate
 HERE = Path(__file__).resolve().parent
 FREEZE = HERE / "FREEZE.json"
 COLUMNS = ["submission_id", "year", "administrative_status", "decision", "outcome_eligible", "review_count"]
+SOURCE = DATA / "submissions.csv.gz"                    # the only table with outcomes; freeze.py hashes it via this name
 
 
 def sha256(path: Path) -> str:
@@ -71,10 +73,14 @@ def _derive(s: pd.DataFrame) -> pd.DataFrame:
     return out
 
 
+@lru_cache(maxsize=1)
+def _table() -> pd.DataFrame:
+    s = pd.read_csv(SOURCE, keep_default_na=False, na_values=[r"\N"], usecols=COLUMNS, low_memory=False)
+    return s.set_index("submission_id")
+
+
 def _read(ids: pd.Series) -> pd.DataFrame:
-    s = pd.read_csv(DATA / "submissions.csv.gz", keep_default_na=False, na_values=[r"\N"], usecols=COLUMNS, low_memory=False)
-    s = s.set_index("submission_id").loc[ids.values].reset_index()
-    return _derive(s)
+    return _derive(_table().loc[ids.values].reset_index())
 
 
 def _shuffle_within_year(df: pd.DataFrame, pop: str, cols: list[str], rng: np.random.Generator) -> None:

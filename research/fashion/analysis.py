@@ -59,7 +59,7 @@ def estimate(df: pd.DataFrame, y: str, x: str, controls: tuple[str, ...] | list[
     absorb = d.cell if fe == "cell" else d.topic
     if estimator == "logit":
         absorb = d.topic.astype(str) + ":" + d.year.astype(str) if fe == "cell" else d.topic
-    within = demean(X.to_numpy(float), absorb.to_numpy()).std(axis=0) > 1e-12
+    within = demean(X.to_numpy(float), pd.factorize(absorb)[0]).std(axis=0) > 1e-12
     if estimator == "logit":                                               # logit: variation across rows is enough
         within = X.to_numpy(float).std(axis=0) > 1e-12
     if not within[0]:
@@ -76,7 +76,8 @@ def estimate(df: pd.DataFrame, y: str, x: str, controls: tuple[str, ...] | list[
         row = r.loc[x]
         extra = {"ame": float(row.ame), "dropped_topics": ";".join(info["dropped_groups"])}
     else:
-        row = fe_ols(d[y].astype(float), X, absorb, d.topic).loc[x]
+        codes = pd.Series(pd.factorize(absorb)[0])                       # integer group codes: same result, faster
+        row = fe_ols(d[y].astype(float), X, codes, pd.Series(pd.factorize(d.topic)[0])).loc[x]
         extra = {}
     dof = int(row.clusters) - 1
     q95, q90 = stats.t.ppf(0.975, dof), stats.t.ppf(0.95, dof)

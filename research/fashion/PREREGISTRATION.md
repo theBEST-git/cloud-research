@@ -521,12 +521,24 @@ Anything added after the freeze is labelled post hoc.
     size is 3.8–6.4%. This is as anticipated, since the bootstrap still clusters by k100 topic. So if the real data
     hold topic structure that cuts across k100 topics, the confirmatory p-values of H2b and H2c are anti-conservative,
     with roughly 10–12% rejections at a nominal 5%.
-  - **S11 (two-way clustering):** size 4.4–7.6% in every null scenario. It is 7.6% and 7.0% for H2b and H2c in
-    `rq2_null_early`, where the result is close to tautological (round B4).
-  - **The full decision rule stays valid.**
-    - It supports a hypothesis in at most 3.2% of the replications of every null (unchanged from v2), so criterion (b)
-      passes.
-    - "Significant in the opposite direction" occurs in at most 2.8%.
+  - **S11 (two-way clustering):** size 4.4–7.6% in every null scenario. In `rq2_null_early` it is 7.6% (H2b) and
+    7.0% (H2c): better, not good, although it clusters on the very map that generates that null's structure (round
+    B4). Per round B7's reproduction, one-way clustering on that map gives 8.2%, so no simple clustering choice
+    restores 5% there; CR1 with these 100 unbalanced clusters is itself part of the problem.
+  - **Criterion (b) passes, but the decision rule does not neutralise the size problem** (corrected after round B7;
+    figures in the diagnostics file).
+    - **Per hypothesis:**
+      - the full rule supports a hypothesis in at most 3.2% of the replications of any null (H2b 3.2%, H2c 3.0% in
+        `rq2_null_early`; identical to v2), so criterion (b), which is defined per hypothesis, passes;
+      - "significant in the opposite direction" occurs in at most 2.8%.
+    - **Per family, under the cross-map null:**
+      - H2b or H2c is supported in 5.8% of replications;
+      - some RQ2 hypothesis is supported in 6.4% (2.0% under the k100 null), above Holm's nominal 5%;
+      - some directional claim (supported or opposite) is made in 11.2% (4.6%).
+    - **The 75% and hindsight requirements give no protection against it.** Every H2b/H2c replication that was
+      Holm-significant in the predicted direction also passed them (31 of 31), because the variants re-estimate on
+      the same papers. The low per-hypothesis rate comes from Holm's α/3 and the sign requirement applied to
+      t-statistics whose standard deviation is 1.31 (H2b) and 1.22 (H2c) instead of 1.
   - **Criterion (c):** H3a reaches only 54% detection at 3 x SESOI (88% in the low-variance setting), so it is
     reported as underpowered. All others reach at least 97%.
   - **MDE80, frozen** (realised effect at 80% detection with p < 0.05/m):
@@ -540,22 +552,44 @@ Anything added after the freeze is labelled post hoc.
   - **Decision, made blind to every RQ2/RQ3 estimate.**
     - **The confirmatory procedure stays as registered:** H2b/H2c take their p-value from the bootstrap, and the
       decision rule is unchanged.
-    - **Not adopted:** S11 as the confirmatory test, or requiring both p-values. S11's good size in the failing
-      scenario holds by construction, because its second clustering is that scenario's own map. It is no evidence that
-      S11 controls size under other cross-cutting structure, so adopting it would tune the test to the simulation.
-    - **The registered protection against such structure** is the 75% and hindsight requirements, which re-estimate
-      on other maps. Under the failing null the full rule supports H2b or H2c in at most 3.2% of replications.
-    - **Pre-declared reporting qualifier:**
-      - S11's p-values are Holm-adjusted within each family.
-      - A supported hypothesis whose S11 estimate lacks the predicted sign, or has an adjusted p ≥ 0.05, is reported
-        as "supported, not robust to two-way clustering (S11)".
-      - The verdict itself is unchanged; `run_frozen.py` computes the qualifier mechanically (tested).
-    - **Reporting:** the main-specification p-values of H2b and H2c are described as approximate, with the v3 size
-      stated next to them.
+    - **Not adopted: S11 as the confirmatory test.** Its improvement in the failing scenario comes from clustering on
+      that scenario's own map and still leaves 7–8%; it is no evidence that S11 controls size under other
+      cross-cutting structure.
+    - **Not adopted: requiring both p-values** (an intersection–union rule, corrected reason after round B7). It can
+      only be stricter than the registered test. Round B7's reproduction of the dry-run seeds suggests a small power
+      cost (0.5–3 points near the MDE) and family-wise false support of 4.4% under the cross-map null. It is still
+      not adopted, for three reasons:
+      - it would change the registered decision rule after the validation run;
+      - its power is not part of the frozen dry-run;
+      - its benefit rests on the same scenario.
+      It is reported instead: the S11 qualifier below is its reporting form. Under the cross-map null, "supported
+      without the qualifier" occurs for some RQ2 hypothesis in 4.4% of replications (1.4% under the k100 null).
+    - **No registered element protects against cross-k100 structure.** The H2b/H2c p-values, and family-wise error
+      under such structure, are therefore reported as approximate, with the figures above.
+    - **Pre-declared reporting qualifiers** (extended to all directional and equivalence claims after round B7):
+      - S11's p-values are Holm-adjusted within each family (a missing p counts as 1).
+      - A "supported" or "significant in the opposite direction" verdict whose S11 estimate lacks that verdict's sign,
+        or has an adjusted p ≥ 0.05, is reported as "not robust to two-way clustering (S11)".
+      - An "equivalent to null" verdict whose S11 90% CI is not inside the SESOI bounds is reported as "equivalence
+        not robust to two-way clustering (S11)".
+      - Verdicts are unchanged; `run_frozen.py` computes the qualifiers mechanically (tested).
+      - The qualifier flags about 44% (H2b) and 33% (H2c) of the false supports under the cross-map null, and per
+        round B7's reproduction it would also flag about 0.5–4% of true effects near the MDE.
+    - **Pre-declared stress sensitivity for H2b and H2c** (round B7):
+      - p from the CR1 t-statistic divided by its standard deviation under `rq2_null_early` (1.3078 and 1.2198,
+        computed by `freeze.py` from the v3 replications and frozen in `FREEZE.json`), with t(G − 1);
+      - Holm-adjusted within the family, the other hypotheses keeping their p;
+      - written beside each remedied verdict as a sensitivity, never as the verdict.
+    - **Reporting:**
+      - the main-specification p-values of H2b and H2c are described as approximate;
+      - the v3 sizes (copied from `FREEZE.json` into the frozen summary) and the stress sensitivity are stated next to
+        them.
     - **What `FREEZE.json` will record:**
       - the size violations as `dryrun_problems`;
       - the remedies `bootstrap:H2b` and `bootstrap:H2c`;
-      - the v3 bootstrap and two-way sizes as `remedy_validation`.
+      - the v3 bootstrap and two-way sizes as `remedy_validation`;
+      - the stress inflation factors;
+      - the hashes of the v3 diagnostics and of the v2 summary.
 - **2026-10-15, before any RQ2/RQ3 estimate: review round B6 (re-review of the round-B5 fixes).** One reviewer and its
   verifiers.
   - **Found sound:** the B5 tests are deterministic and use simulated data only, and the B4/B5 log statements are
@@ -577,4 +611,28 @@ Anything added after the freeze is labelled post hoc.
     TOST test, are now caught. Two minor test weaknesses (the printed p-value, the two-way fallback mock) were fixed as well.
   - **Statsmodels cross-checks:** the full suite (115 tests) passes with statsmodels available, so the cross-checks
     that are skipped by default were also run.
+  - No file in the dry-run digest was changed.
+- **2026-10-15, before any RQ2/RQ3 estimate: review round B7 (the dry-run v3 decision and its code).**
+  - **Reviewers:** an Opus methodologist and a Sonnet code-and-numbers reviewer, with Sonnet verifiers. The
+    methodologist reproduced dry-run seeds on simulated data only.
+  - **Sound:** keeping the registered remedy, and not making S11 the confirmatory test. The qualifier code and the
+    diagnostics reading are correct, and the v3 numbers check out.
+  - **Confirmed major findings (log statements), fixed by correcting the v3 entry above:**
+    - The entry credited the 75% and hindsight requirements with protecting against the cross-map structure. They
+      removed none of the 31 main-specification false positives of H2b/H2c.
+    - "At most 3.2%" was per hypothesis; the family-wise rate under the cross-map null is 6.4%.
+  - **Reviewer majors judged minor by their verifiers, acted on anyway:**
+    - The stated reason for not requiring both p-values did not apply to that stricter rule. The reason is now
+      corrected.
+    - The qualifier covered only "supported". It now also covers "significant in the opposite direction" and
+      "equivalent to null".
+  - **Minor findings, all acted on:**
+    - The S11 wording is now "better, not good".
+    - The "approximate p" commitment was prose only. A frozen stress-calibrated sensitivity and the v3 sizes are now
+      written into the frozen summary.
+    - A test now covers a missing S11 p within a family.
+    - `FREEZE.json` now also hashes the v3 diagnostics, the v2 summary and provenance, and the cross-map replications.
+  - **Diagnostics** (`dryrun_diagnostics.py`) now reproduce every family-wise and conditional figure quoted above,
+    and check that all null replications of v2 and v3 are identical.
+  - **Mutation check:** 8 mutations of the new reporting code are all caught.
   - No file in the dry-run digest was changed.

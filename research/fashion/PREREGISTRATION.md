@@ -556,3 +556,25 @@ Anything added after the freeze is labelled post hoc.
       - the size violations as `dryrun_problems`;
       - the remedies `bootstrap:H2b` and `bootstrap:H2c`;
       - the v3 bootstrap and two-way sizes as `remedy_validation`.
+- **2026-10-15, before any RQ2/RQ3 estimate: review round B6 (re-review of the round-B5 fixes).** One reviewer and its
+  verifiers.
+  - **Found sound:** the B5 tests are deterministic and use simulated data only, and the B4/B5 log statements are
+    accurate.
+  - **Five confirmed major test gaps in the decision path,** all pre-dating B5 (the code was correct):
+    - Holm-adjusted values were tested only against the same `holm()`.
+    - The four legs of "supported" were not value-tested: the inclusive 75% share, both hindsight variants (present
+      and same sign), the sign of the main estimate, and the Holm-adjusted bootstrap p as the significance test.
+    - The fragile flag was not tested for unsupported hypotheses or at its p threshold.
+    - The default Rademacher weights of the bootstrap were untested.
+    - The dry-run's counts were untested: detection at p < 0.05/m with the predicted sign, false support, full rule.
+  - **Fixed by `tests/test_decision_rule.py` and new estimator tests,** with hard-coded expected values, including:
+    - Holm step-down, running maximum and cap;
+    - every verdict and the equivalence/TOST definitions (90% interval, t with the estimate's df, both one-sided
+      tests);
+    - the default 9,999 seeded Rademacher draws by topic;
+    - the dry-run's family sizes (m = 3 for RQ2, 2 for RQ3).
+  - **Mutation check:** all 18 surviving mutations the reviewer listed (two-sided TOST mutations counted separately)
+    are now caught. Two minor test weaknesses (the printed p-value, the two-way fallback mock) were fixed as well.
+  - **Statsmodels cross-checks:** the full suite (115 tests) passes with statsmodels available, so the cross-checks
+    that are skipped by default were also run.
+  - No file in the dry-run digest was changed.

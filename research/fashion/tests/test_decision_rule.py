@@ -113,9 +113,12 @@ class Support(unittest.TestCase):
 
     def test_tost_uses_t_with_the_estimate_dof(self):
         from scipy import stats
-        v = self.verdict(est(0.004, 0.6), dict.fromkeys(self.FOUR, -1))
-        expect = max(stats.t.sf((0.004 + 0.02) / 0.01, 99), stats.t.cdf((0.004 - 0.02) / 0.01, 99))
-        self.assertAlmostEqual(v["tost_p"], expect, places=15)
+        for coef in [0.004, -0.004]:                                         # the upper, then the lower test dominates
+            v = self.verdict(est(coef, 0.6), dict.fromkeys(self.FOUR, -1))
+            expect = max(stats.t.sf((coef + 0.02) / 0.01, 99), stats.t.cdf((coef - 0.02) / 0.01, 99))
+            self.assertAlmostEqual(v["tost_p"], expect, places=15)
+            self.assertNotAlmostEqual(v["tost_p"], max(stats.norm.sf((coef + 0.02) / 0.01),
+                                                       stats.norm.cdf((coef - 0.02) / 0.01)), places=4)
 
 
 class Fragile(unittest.TestCase):

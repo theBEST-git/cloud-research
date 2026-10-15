@@ -4,7 +4,7 @@ Per paper and map:
 - incumbent:     at least one author (exact declared_id_key) has a submission in the same topic in an earlier year
 - newcomer:      1 - incumbent
 - incumbent_w2:  same, but only years t-1 and t-2 count (S3)
-- incumbent_s4:  same as incumbent, ignoring the paper's own probable earlier version (S4; needs earlier_versions)
+- incumbent_s4:  same as incumbent, ignoring the paper's own chain of probable earlier versions (S4; needs earlier_versions)
 - hot:           the topic's prior_growth is at or above the 80th percentile of the map's topics in year t (D3)
 Per paper: team_size (distinct author keys), has_author_key.
 Maps: the seven in common.topic_maps() plus `fine` (S5). Every variable uses only papers from years before t.
@@ -51,15 +51,23 @@ def incumbency(authors: pd.DataFrame, topic: pd.Series, year: pd.Series, ids: pd
     at["w2"] = [(k, t, y - 1) in present or (k, t, y - 2) in present for k, t, y in zip(at.key, at.topic, at.year)]
     at["adjust"] = 0
     if earlier is not None and len(earlier):
-        ev = earlier.dropna()
-        ev_topic = papers.set_index("submission_id").topic
-        ev_year = papers.set_index("submission_id").year
-        pairs = pd.DataFrame({"submission_id": ev.index, "earlier": ev.values})
-        pairs = pairs[pairs.earlier.isin(ev_topic.index)]
-        pairs = pairs[(ev_topic.loc[pairs.earlier].values == ev_topic.loc[pairs.submission_id].values)
-                      & (ev_year.loc[pairs.earlier].values < ev_year.loc[pairs.submission_id].values)]
+        # the paper's own chain of earlier versions (earlier version, its earlier version, ...), same topic, earlier year
+        ev = earlier.dropna().to_dict()
+        rows = []
+        for sid in ev:
+            e, seen = ev[sid], set()
+            while e is not None and e not in seen:
+                rows.append((sid, e))
+                seen.add(e)
+                e = ev.get(e)
+        pairs = pd.DataFrame(rows, columns=["submission_id", "earlier"])
+        p_topic = papers.set_index("submission_id").topic
+        p_year = papers.set_index("submission_id").year
+        pairs = pairs[pairs.submission_id.isin(p_topic.index) & pairs.earlier.isin(p_topic.index)]
+        pairs = pairs[(p_topic.loc[pairs.earlier].values == p_topic.loc[pairs.submission_id].values)
+                      & (p_year.loc[pairs.earlier].values < p_year.loc[pairs.submission_id].values)]
         on_earlier = authors[["submission_id", "key"]].rename(columns={"submission_id": "earlier"})
-        hit = pairs.merge(on_earlier, on="earlier")[["submission_id", "key"]].assign(hit=1)
+        hit = pairs.merge(on_earlier, on="earlier").groupby(["submission_id", "key"]).size().rename("hit").reset_index()
         at = at.merge(hit, on=["submission_id", "key"], how="left")
         at["adjust"] = at.hit.fillna(0).astype(int)
     g = at.assign(inc=at.n_prior >= 1, inc_s4=(at.n_prior - at.adjust) >= 1).groupby("submission_id")

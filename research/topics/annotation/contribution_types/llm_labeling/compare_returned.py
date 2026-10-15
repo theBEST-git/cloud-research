@@ -56,9 +56,9 @@ def load(path: Path) -> pd.DataFrame:
 def compare(name: str, run: Path, previous: Path | None) -> dict:
     ref = reference(name)
     d = ref.merge(load(run / f"{name}_labels.jsonl"), left_on="submission_id", right_on="paper_id", validate="1:1")
-    assert len(d) == len(ref) == 300, (len(d), len(ref))
+    missing = len(ref) - len(d)                            # papers the run did not return (scored on the rest)
     d["llm_class"], d["ref_class"] = d.primary_type.map(cls), d.ref_primary.map(cls)
-    m = {"llm_vs_reference": {"main_class": kappa(d.llm_class, d.ref_class), "fine_type": kappa(d.primary_type, d.ref_primary),
+    m = {"papers_missing": int(missing), "llm_vs_reference": {"main_class": kappa(d.llm_class, d.ref_class), "fine_type": kappa(d.primary_type, d.ref_primary),
                               "secondary_type": kappa(d.secondary_type, d.ref_secondary),
                               "foundation_model": kappa(d.foundation_model, d.ref_fm)}}
     for col in [c for c in ["stratum", "check_part"] if c in d]:
@@ -114,6 +114,8 @@ def main() -> None:
             continue
         m = compare(name, a.run, a.previous)
         r = m["llm_vs_reference"]
+        if m["papers_missing"]:
+            print(f"{name}: {m['papers_missing']} papers missing from the run; scored on the rest")
         print(f"{name}: main class {r['main_class']['agreement']:.1%} (kappa {r['main_class']['kappa']}) | "
               f"fine {r['fine_type']['agreement']:.1%} | secondary {r['secondary_type']['agreement']:.1%} | "
               f"FM {r['foundation_model']['agreement']:.1%} (kappa {r['foundation_model']['kappa']})")

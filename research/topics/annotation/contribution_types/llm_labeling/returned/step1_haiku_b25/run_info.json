@@ -1,0 +1,1 @@
+{"model": "haiku (Claude Code subagent alias)", "how_run": "one fresh subagent per 25-paper batch, prompt read from files", "batch_size": 25}

@@ -1,0 +1,214 @@
+{
+  "papers_missing": 1,
+  "llm_vs_reference": {
+    "main_class": {
+      "agreement": 0.9465,
+      "kappa": 0.8951,
+      "n": 299
+    },
+    "fine_type": {
+      "agreement": 0.9064,
+      "kappa": 0.8405,
+      "n": 299
+    },
+    "secondary_type": {
+      "agreement": 0.7926,
+      "kappa": 0.7091,
+      "n": 299
+    },
+    "foundation_model": {
+      "agreement": 0.9699,
+      "kappa": 0.9354,
+      "n": 299
+    }
+  },
+  "main_class_agreement_by_stratum": {
+    "enriched_benchmark": {
+      "agreement": 1.0,
+      "kappa": 1.0,
+      "n": 11
+    },
+    "enriched_empirical": {
+      "agreement": 0.8571,
+      "kappa": 0.7407,
+      "n": 7
+    },
+    "enriched_evaluation": {
+      "agreement": 0.9,
+      "kappa": 0.8438,
+      "n": 10
+    },
+    "enriched_other": {
+      "agreement": 1.0,
+      "kappa": null,
+      "n": 3
+    },
+    "enriched_theory": {
+      "agreement": 1.0,
+      "kappa": 1.0,
+      "n": 8
+    },
+    "random": {
+      "agreement": 0.9462,
+      "kappa": 0.8885,
+      "n": 260
+    }
+  },
+  "main_class_agreement_by_check_part": {
+    "double_labelled": {
+      "agreement": 0.95,
+      "kappa": 0.9037,
+      "n": 200
+    },
+    "single_2024_2026": {
+      "agreement": 0.9394,
+      "kappa": 0.8759,
+      "n": 99
+    }
+  },
+  "class_counts": {
+    "dataset_benchmark": {
+      "reference": 22,
+      "llm": 23,
+      "recall": 0.955,
+      "precision": 0.913
+    },
+    "empirical": {
+      "reference": 28,
+      "llm": 24,
+      "recall": 0.821,
+      "precision": 0.958
+    },
+    "evaluation": {
+      "reference": 16,
+      "llm": 15,
+      "recall": 0.875,
+      "precision": 0.933
+    },
+    "method": {
+      "reference": 202,
+      "llm": 207,
+      "recall": 0.98,
+      "precision": 0.957
+    },
+    "other": {
+      "reference": 10,
+      "llm": 8,
+      "recall": 0.6,
+      "precision": 0.75
+    },
+    "theory": {
+      "reference": 21,
+      "llm": 22,
+      "recall": 1.0,
+      "precision": 0.955
+    }
+  },
+  "fine_type_counts": {
+    "dataset_benchmark": {
+      "reference": 22,
+      "llm": 23
+    },
+    "empirical": {
+      "reference": 28,
+      "llm": 24
+    },
+    "evaluation": {
+      "reference": 16,
+      "llm": 15
+    },
+    "method": {
+      "reference": 178,
+      "llm": 195
+    },
+    "model": {
+      "reference": 24,
+      "llm": 12
+    },
+    "perspective": {
+      "reference": 2,
+      "llm": 1
+    },
+    "problem": {
+      "reference": 3,
+      "llm": 0
+    },
+    "system": {
+      "reference": 5,
+      "llm": 7
+    },
+    "theory": {
+      "reference": 21,
+      "llm": 22
+    }
+  },
+  "foundation_model_yes": {
+    "reference": 109,
+    "llm": 112
+  },
+  "main_class_confusion": {
+    "dataset_benchmark": {
+      "dataset_benchmark": 21,
+      "empirical": 0,
+      "evaluation": 0,
+      "method": 1,
+      "other": 0,
+      "theory": 0
+    },
+    "empirical": {
+      "dataset_benchmark": 1,
+      "empirical": 23,
+      "evaluation": 1,
+      "method": 3,
+      "other": 0,
+      "theory": 0
+    },
+    "evaluation": {
+      "dataset_benchmark": 0,
+      "empirical": 0,
+      "evaluation": 14,
+      "method": 2,
+      "other": 0,
+      "theory": 0
+    },
+    "method": {
+      "dataset_benchmark": 0,
+      "empirical": 1,
+      "evaluation": 0,
+      "method": 198,
+      "other": 2,
+      "theory": 1
+    },
+    "other": {
+      "dataset_benchmark": 1,
+      "empirical": 0,
+      "evaluation": 0,
+      "method": 3,
+      "other": 6,
+      "theory": 0
+    },
+    "theory": {
+      "dataset_benchmark": 0,
+      "empirical": 0,
+      "evaluation": 0,
+      "method": 0,
+      "other": 0,
+      "theory": 21
+    }
+  },
+  "uncertain_flag": {
+    "share": 0.2943,
+    "main_class_agreement_if_uncertain": 0.8636,
+    "main_class_agreement_if_certain": 0.981
+  },
+  "go_checks": {
+    "main_class_agreement": false,
+    "foundation_model_agreement": false,
+    "count_dataset_benchmark": true,
+    "count_empirical": true,
+    "count_evaluation": true,
+    "count_method": true,
+    "count_theory": true,
+    "count_foundation_model_yes": true
+  }
+}

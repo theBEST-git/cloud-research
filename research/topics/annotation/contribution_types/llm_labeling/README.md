@@ -9,6 +9,9 @@ comes back and how it was checked.
 | `returned/step1_v1_1` | v1.1 | check 300 | 95.7% (kappa 0.91) | **92.3%** (kappa 0.83) | **no-go**: FM `yes` 110 → 91, `system` never used |
 | `returned/step1_v1_1` | v1.1 | pilot 300 | 96.7% (9 fixed, 6 new errors vs v1) | 95.0% (6 fixed, 14 new errors) | |
 | `returned/step1_v1_r2` | v1 | check 300 | 95.3% (kappa 0.91) | 98.0% (kappa 0.96) | **go** |
+| `returned/step1_haiku_b25` | v1, Haiku, 25 per batch | check 300 | 95.3% (kappa 0.91) | 98.0% (kappa 0.96) | **go** |
+| `returned/step1_haiku_b100` | v1, Haiku, 100 per batch | check 299 (1 dropped) | 95.7% (kappa 0.91) | 97.3% (kappa 0.94) | no-go by one paper: FM yes 109 → 103 (limit ±5) |
+| `returned/step1_haiku_b300` | v1, Haiku, 300 per batch | check 299 (1 id garbled) | 94.7% (kappa 0.90) | 97.0% (kappa 0.94) | no-go: main class < 95% |
 
 **v1 → v1.1.** Of the 13 main-class disagreements in v1, 5 were named frameworks/agents labelled `system` and 3 were
 learned distances/similarities labelled `evaluation`. As a result, `other` came out at 13 papers against 7 in the
@@ -63,3 +66,10 @@ Step 2 (all papers plus the independent 5% second pass) runs with package `iclr_
 python research/topics/annotation/contribution_types/llm_labeling/compare_returned.py <run dir> \
     --previous research/topics/annotation/contribution_types/llm_labeling/returned/calibration_v1
 ```
+
+**Haiku as labeller (step 1 only).** Same prompt v1, run as Claude Code subagents (model alias `haiku`), each batch
+labelled by a fresh agent that reads the prompt and its papers from files.
+- At 25 papers per batch Haiku matches the external run exactly on the headline numbers (95.3% / 98.0%).
+- Larger batches are about 3.7× cheaper per paper. At 300 per batch quality slips below the main-class threshold,
+  and each large-batch run dropped or garbled one paper id, so a full run must re-ask missing papers.
+- The differences between batch sizes are within sampling noise for 300 papers (±2.5 points).

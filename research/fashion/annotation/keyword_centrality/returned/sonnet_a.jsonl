@@ -1,0 +1,200 @@
+{"confidence": "medium", "item_id": "K003e9c", "judgment": "peripheral", "reason": "Paper is about targeted latent adversarial training; backdoor removal is one of three application experiments alongside jailbreaks and unlearning."}
+{"confidence": "high", "item_id": "K006ccf", "judgment": "central", "reason": "Paper evaluates LLMs' grade-school math problem-solving and the reasoning gap on compositional pairs; math reasoning is the focus."}
+{"confidence": "medium", "item_id": "K020643", "judgment": "peripheral", "reason": "Main contribution is parameter-efficient multimodal Transformers; self-supervised pretraining is only the setting and not engaged directly."}
+{"confidence": "high", "item_id": "K02f63f", "judgment": "central", "reason": "Proposes SpikePoint, a point-based spiking neural network architecture for event-based action recognition."}
+{"confidence": "medium", "item_id": "K073b09", "judgment": "central", "reason": "Framework attaches sparse autoencoders to LLM layers to obtain independent latents for token-level influence; SAEs are core ingredient."}
+{"confidence": "medium", "item_id": "K08a423", "judgment": "central", "reason": "Method uses transformer self-attention values as rationale guidance; the transformer module is the core mechanism of SR-GCL."}
+{"confidence": "medium", "item_id": "K0a8f63", "judgment": "peripheral", "reason": "Paper introduces a long-term memory benchmark and LIGHT memory framework; retrieval augmentation appears only as a baseline condition."}
+{"confidence": "medium", "item_id": "K0ae8af", "judgment": "central", "reason": "Agent-X benchmarks vision-language models' multi-step reasoning and tool use; VLMs are the evaluated systems."}
+{"confidence": "medium", "item_id": "K0d0f97", "judgment": "peripheral", "reason": "LMMs like GPT-4o only motivate the work; paper builds speech-to-text alignment for LLMs."}
+{"confidence": "high", "item_id": "K0f0543", "judgment": "central", "reason": "Benchmark evaluating VLMs on contextual integrity in location disclosure; VLMs are the object of study."}
+{"confidence": "medium", "item_id": "K0fbfd8", "judgment": "central", "reason": "Keyframe selection to overcome MLLM long-video context limits; method and experiments target MLLM video understanding."}
+{"confidence": "medium", "item_id": "K10c375", "judgment": "central", "reason": "Studies scaling behavior of pretrained and finetuned LLMs on machine translation; LLMs are the studied models."}
+{"confidence": "high", "item_id": "K13076b", "judgment": "peripheral", "reason": "Paper improves HNSW vector search via quantization; RAG is not mentioned in the abstract."}
+{"confidence": "medium", "item_id": "K132c4c", "judgment": "central", "reason": "Benchmark evaluates vision-language models on cross-view reasoning and CoRL trains them with RL; VLMs are the studied models."}
+{"confidence": "medium", "item_id": "K13cc0c", "judgment": "peripheral", "reason": "Focus is LLM-based GAN-like synthetic tabular data generation; context usage is a minor component, not studied as in-context learning."}
+{"confidence": "high", "item_id": "K159c3c", "judgment": "central", "reason": "Proposes SGHormerVQ bridging graph transformers and spiking neural networks via spiking vector quantization."}
+{"confidence": "medium", "item_id": "K15dc25", "judgment": "peripheral", "reason": "Paper proposes an OOD detection method for Transformers; text classification is only the evaluation setting, not the subject."}
+{"confidence": "high", "item_id": "K17b883", "judgment": "central", "reason": "Introduces cross-lingual knowledge distillation (XD) as the main contribution."}
+{"confidence": "medium", "item_id": "K181c20", "judgment": "peripheral", "reason": "Paper is a nonlinear multimodal brain encoding model; LLaMA only supplies extracted features as one ingredient."}
+{"confidence": "high", "item_id": "K18a488", "judgment": "central", "reason": "Paper proposes DiSR, a new prompt optimization approach decomposing prompts into scaffolds and residuals."}
+{"confidence": "high", "item_id": "K198a13", "judgment": "central", "reason": "Proposes triplane Gaussian splatting representation and framework for 3D object generation."}
+{"confidence": "medium", "item_id": "K1ad11b", "judgment": "peripheral", "reason": "Paper proposes a kernel relative test for machine-generated text detection; LLMs are only the source of the texts."}
+{"confidence": "high", "item_id": "K1bbc9e", "judgment": "central", "reason": "Develops a split conformal prediction method guaranteeing coherent factuality for language model outputs."}
+{"confidence": "high", "item_id": "K1d7810", "judgment": "central", "reason": "Paper proposes Uni2Det, a multi-dataset 3D detection framework evaluated on KITTI, Waymo and nuScenes."}
+{"confidence": "low", "item_id": "K23e9e8", "judgment": "central", "reason": "Benchmarks graph condensation methods, the graph analogue of dataset distillation; abstract never names dataset distillation itself, so the call is close."}
+{"confidence": "high", "item_id": "K260f0b", "judgment": "central", "reason": "Proposes enhanced Gaussian kernels and compensation to improve 3D Gaussian splatting."}
+{"confidence": "medium", "item_id": "K2770bc", "judgment": "central", "reason": "Learned heuristics for large-scale vehicle routing, a combinatorial optimization problem; the paper's main contribution is solving such problems."}
+{"confidence": "low", "item_id": "K29bead", "judgment": "central", "reason": "New video task, dataset and method that constrains cross-attention in VLMs; evaluated against SOTA VLMs, so MLLMs are the base."}
+{"confidence": "medium", "item_id": "K2cd1e7", "judgment": "peripheral", "reason": "Proposes a metric and benchmark for off-policy evaluation; offline RL is the broad area, not directly addressed."}
+{"confidence": "high", "item_id": "K2f5254", "judgment": "central", "reason": "Core method introduces progressive knowledge distillation between teacher and student classifiers within a meta-learning framework."}
+{"confidence": "high", "item_id": "K31bdb8", "judgment": "central", "reason": "Empirical study of pre-trained models for out-of-distribution (domain) generalization with a resulting SOTA method."}
+{"confidence": "high", "item_id": "K3493d5", "judgment": "central", "reason": "Proposes a Mixture of Heterogeneous Enhancement Experts as a core component of the detector."}
+{"confidence": "high", "item_id": "K354b6d", "judgment": "central", "reason": "OneReward uses a single VLM as a generative reward model to drive multi-task RL; reward model is the core idea."}
+{"confidence": "medium", "item_id": "K35d9e8", "judgment": "central", "reason": "Develops Monte Carlo Forest Search for combinatorial problems such as UNSAT proofs; combinatorial search is the setting."}
+{"confidence": "high", "item_id": "K37147d", "judgment": "central", "reason": "Proposes Projected Conditional Flow Matching for unsupervised MRI reconstruction."}
+{"confidence": "medium", "item_id": "K38d7e4", "judgment": "peripheral", "reason": "Text style-transfer model with back-translation; generative models is a broad umbrella not specifically engaged."}
+{"confidence": "medium", "item_id": "K38f89e", "judgment": "peripheral", "reason": "Paper proposes separable bijective networks for integration over input space; regression is not mentioned or engaged in the abstract."}
+{"confidence": "high", "item_id": "K397fb1", "judgment": "peripheral", "reason": "Benchmark of LLMs on ICU time series classification; agents are never the focus."}
+{"confidence": "medium", "item_id": "K3a30d6", "judgment": "central", "reason": "Pre-training method built on multimodal diffusion trajectories of protein structures; diffusion is central to the method."}
+{"confidence": "medium", "item_id": "K3fbc69", "judgment": "peripheral", "reason": "Paper uses normalizing flows on polytopes; flow matching is not the method or subject."}
+{"confidence": "high", "item_id": "K400f0b", "judgment": "central", "reason": "Benchmarks and enhances LLM agents for Linux kernel fault localization; agents are the object of study."}
+{"confidence": "medium", "item_id": "K405c78", "judgment": "peripheral", "reason": "Modular multi-expert framework for zero-shot multimodal reasoning; vision is one modality among several, not the focus."}
+{"confidence": "high", "item_id": "K415433", "judgment": "central", "reason": "Identifies bias in reward models and proposes calibration method CHARM; reward models are the direct subject."}
+{"confidence": "high", "item_id": "K417ac8", "judgment": "peripheral", "reason": "Paper analyzes flatness and adversarial robustness across architectures; LLMs only appear as an extension of results."}
+{"confidence": "high", "item_id": "K43d517", "judgment": "central", "reason": "Proposes Cooperative Training, a new method for training generative models of discrete data."}
+{"confidence": "low", "item_id": "K4588c7", "judgment": "central", "reason": "Benchmark of expert QA pairs for LLM reasoning in computer architecture; evaluation is on question answering, though domain is the focus."}
+{"confidence": "high", "item_id": "K4c2c58", "judgment": "central", "reason": "Theoretical paper on aligning unpaired modalities via contrastive representations, a core multimodal learning problem."}
+{"confidence": "high", "item_id": "K4e942f", "judgment": "central", "reason": "Proposes UOT-RFM, a reweighted flow matching method for long-tailed generation."}
+{"confidence": "high", "item_id": "K4eb805", "judgment": "central", "reason": "SAE-Tuning uses sparse autoencoders to elicit reasoning abilities; SAEs are the core method."}
+{"confidence": "medium", "item_id": "K4f29af", "judgment": "peripheral", "reason": "Main contributions are annotation tool and dataset; Mamba-based state-space baseline is a secondary demonstration model."}
+{"confidence": "high", "item_id": "K4f4c0a", "judgment": "central", "reason": "Proposes a new dataset distillation method and benchmark for complex scenarios."}
+{"confidence": "medium", "item_id": "K51803b", "judgment": "central", "reason": "TAP planner is chiefly evaluated in the offline RL setting on Adroit and related tasks."}
+{"confidence": "high", "item_id": "K5225bf", "judgment": "central", "reason": "Core idea exploits a latent space of projection-based set representations to refine inputs for network verification."}
+{"confidence": "high", "item_id": "K52d750", "judgment": "central", "reason": "RAR is a retrieval-and-ranking method that augments MLLMs for fine-grained recognition."}
+{"confidence": "high", "item_id": "K5346ac", "judgment": "central", "reason": "Benchmark evaluating temporal reasoning of large language models; LLMs are the subject of evaluation."}
+{"confidence": "high", "item_id": "K5489b3", "judgment": "central", "reason": "Diffusion transformer framework for end-to-end human-to-robot video generation."}
+{"confidence": "low", "item_id": "K54a615", "judgment": "central", "reason": "TnT proposes multimodal table representations for LLMs, so multimodal handling of tables is central, though framed as a table-language model."}
+{"confidence": "medium", "item_id": "K56f49e", "judgment": "central", "reason": "Proposes and evaluates GATS, using a GAN-based dynamics model within tree search; GANs are a core component."}
+{"confidence": "medium", "item_id": "K571ee2", "judgment": "peripheral", "reason": "Multi-agent debate for misinformation detection; LLMs are an unnamed underlying tool, not the subject of study."}
+{"confidence": "high", "item_id": "K573b9b", "judgment": "peripheral", "reason": "Learns canonical head embeddings for dense correspondence; foundation models are not studied or used as a focus."}
+{"confidence": "medium", "item_id": "K586cb8", "judgment": "central", "reason": "Builds a multimodal graph-LLM framework and instruction dataset for proteomics; the multimodal LLM is the proposed model."}
+{"confidence": "high", "item_id": "K5d4a75", "judgment": "central", "reason": "Training-free guidance method for sampling from pretrained diffusion models for inpainting; diffusion is the core."}
+{"confidence": "high", "item_id": "K5dd19e", "judgment": "central", "reason": "Proposes exact guidance framework for discrete flow matching; guidance is the core contribution."}
+{"confidence": "medium", "item_id": "K5ebba8", "judgment": "peripheral", "reason": "Paper proposes a differentiable approximation of low-rank regularization; backpropagation compatibility is a benefit, not the subject."}
+{"confidence": "high", "item_id": "K5ebc54", "judgment": "central", "reason": "Studies how personality shaping affects safety and capability of language models, evaluated on safety benchmarks."}
+{"confidence": "medium", "item_id": "K5fd6b8", "judgment": "peripheral", "reason": "Paper studies Lipschitz singularities in diffusion models; image generation is just the application domain and evaluation setting."}
+{"confidence": "high", "item_id": "K5ff4e4", "judgment": "central", "reason": "Proposes ANN-to-SNN conversion and compression framework for spiking neural networks."}
+{"confidence": "high", "item_id": "K60488a", "judgment": "central", "reason": "Analyses and mitigates language bias in large vision-language models; the models are the subject."}
+{"confidence": "high", "item_id": "K61d9fa", "judgment": "central", "reason": "Proposes PSAO, a prompt optimisation framework that can stand alone or combine with other optimisation methods."}
+{"confidence": "medium", "item_id": "K640b2e", "judgment": "central", "reason": "Code2Video is a framework of three collaborative agents (Planner, Coder, Critic) for educational video generation."}
+{"confidence": "high", "item_id": "K66516a", "judgment": "central", "reason": "Proposes a parameter-efficient multimodal co-adaptation framework tuning only 0.15% extra parameters; PEFT is the core of the method."}
+{"confidence": "medium", "item_id": "K66e5b9", "judgment": "central", "reason": "Studies data scheduling in fine-tuning and mid-training for target-domain data efficiency, which is post-training."}
+{"confidence": "high", "item_id": "K6984fd", "judgment": "central", "reason": "Proposes spectral flow matching as the core generative method for fMRI time series."}
+{"confidence": "medium", "item_id": "K6c396e", "judgment": "peripheral", "reason": "Paper proposes GP-based priors and variational inference for Bayesian neural networks; unit embeddings are only a component, not representation learning itself."}
+{"confidence": "high", "item_id": "K6cbfd3", "judgment": "central", "reason": "Paper trains LLM agents with internalized world models via self-play for agentic RL."}
+{"confidence": "low", "item_id": "K6d61ff", "judgment": "central", "reason": "Proposes a physics-driven energy prediction model built on a Transformer with masked atomic modeling training."}
+{"confidence": "high", "item_id": "K70a71a", "judgment": "central", "reason": "Proposes learned acceleration policies specifically for Diffusion Transformers, evaluated on DiT backbones."}
+{"confidence": "medium", "item_id": "K727931", "judgment": "central", "reason": "Animation framework for 3D Gaussian Splatting trees, binding Gaussians to deformed mesh; Gaussian splatting is the representation operated on."}
+{"confidence": "medium", "item_id": "K728324", "judgment": "central", "reason": "Devises a sequence consistency transformer with new sequence-level tasks as core of the montage generation model."}
+{"confidence": "high", "item_id": "K729b5a", "judgment": "central", "reason": "Proposes a router-free MoE-LoRA method; mixture-of-experts design is the paper's core."}
+{"confidence": "medium", "item_id": "K7321d8", "judgment": "central", "reason": "MatExpert framework leverages LLMs for retrieval, transition and generation in materials design; LLMs are the core engine."}
+{"confidence": "medium", "item_id": "K73d998", "judgment": "central", "reason": "Introduces neural Gaussian radio fields, a Gaussian-primitive representation adapted from splatting to wave-based channel estimation."}
+{"confidence": "medium", "item_id": "K7427b4", "judgment": "peripheral", "reason": "Studies length generalization of Transformers trained from scratch; LLMs appear only as motivation."}
+{"confidence": "medium", "item_id": "K7528b9", "judgment": "peripheral", "reason": "Mask-guided video subject swapping framework; diffusion transformer architecture is not discussed in the abstract."}
+{"confidence": "medium", "item_id": "K759f8c", "judgment": "peripheral", "reason": "Paper proposes a psychotherapy outcome evaluation framework; LLMs appear only as prior approaches, not the study subject."}
+{"confidence": "medium", "item_id": "K75f021", "judgment": "peripheral", "reason": "Paper is about in-the-flow agentic system training; sparse reward is a challenge Flow-GRPO addresses, not the main focus."}
+{"confidence": "low", "item_id": "K76929c", "judgment": "central", "reason": "AudioScope trains audio-visual separation without labels via MixIT and unsupervised coincidence model; close to self-supervised, though called unsupervised."}
+{"confidence": "high", "item_id": "K76a841", "judgment": "central", "reason": "Paper proposes B-cos Vision Transformers that are inherently interpretable with holistic explanations; explainability is the main contribution."}
+{"confidence": "medium", "item_id": "K78af83", "judgment": "peripheral", "reason": "Paper is about GP simplification and winning trees; symbolic regression is only the experimental validation domain."}
+{"confidence": "high", "item_id": "K7abb96", "judgment": "central", "reason": "Creates data and RLHF training to improve multi-step deductive reasoning in LLMs."}
+{"confidence": "high", "item_id": "K7ccc70", "judgment": "central", "reason": "Learns 3D object detectors from other units' predictions; detection is the task studied and evaluated."}
+{"confidence": "high", "item_id": "K7da862", "judgment": "central", "reason": "Core method is a layer-wise weight merging of a multimodal MLLM with a reasoning LLM."}
+{"confidence": "medium", "item_id": "K7f8da4", "judgment": "peripheral", "reason": "Paper aligns vision-language models with gaze; LLMs not studied directly, GPT-4 only used for annotation."}
+{"confidence": "medium", "item_id": "K8046b8", "judgment": "peripheral", "reason": "Paper analyzes spatial ID mechanisms in vision-language models; video VLMs appear only as an extension of the analysis."}
+{"confidence": "high", "item_id": "K819e40", "judgment": "central", "reason": "PhysVidBench benchmarks physical commonsense in text-to-video generation models; video generation is the evaluated subject."}
+{"confidence": "low", "item_id": "K8474cf", "judgment": "peripheral", "reason": "Embodied agent framework ODM; transformers mentioned mainly as background for RL, architecture not the focus."}
+{"confidence": "medium", "item_id": "K85356d", "judgment": "central", "reason": "Bio-xLSTM evaluated for generative modeling, representations and in-context learning on biological sequences; ICL is a named result."}
+{"confidence": "medium", "item_id": "K8548bf", "judgment": "peripheral", "reason": "Neural organoid simulation framework and benchmark; spiking neural network only underlies one expansion platform."}
+{"confidence": "medium", "item_id": "K85b28e", "judgment": "peripheral", "reason": "Time series forecasting method; a frozen pretrained encoder is only one component, not about foundation models."}
+{"confidence": "high", "item_id": "K86e212", "judgment": "central", "reason": "TAAR is a retrieval module scaling tabular foundation models such as TabPFN; these models are the subject."}
+{"confidence": "medium", "item_id": "K8bb033", "judgment": "central", "reason": "LLM-driven framework generating heuristic operators within a genetic metaheuristic; LLM agent paradigm for VRPs."}
+{"confidence": "high", "item_id": "K8f7b83", "judgment": "central", "reason": "Proposes jailbreak detection specifically for large vision-language models via neuron localization."}
+{"confidence": "high", "item_id": "K8faad5", "judgment": "central", "reason": "Extends DDIM to general diffusion models and analyses their sampling; diffusion models are the main topic."}
+{"confidence": "low", "item_id": "K924357", "judgment": "peripheral", "reason": "Paper is about pool-based active learning (ASAL); adversarial sample generation is a component, and GANs are not discussed in the abstract."}
+{"confidence": "medium", "item_id": "K932826", "judgment": "peripheral", "reason": "Uncertainty-aware offline RL with neural SDEs; physics prior is only an optional inductive bias in the drift term."}
+{"confidence": "medium", "item_id": "K984c7f", "judgment": "peripheral", "reason": "Synthetic edit data to improve code synthesis; reasoning is not specifically studied or evaluated."}
+{"confidence": "medium", "item_id": "K9a984c", "judgment": "peripheral", "reason": "Hate speech classification via hand-built LDA/PDC feature sets and frequency models; not about learning representations."}
+{"confidence": "high", "item_id": "K9ad74e", "judgment": "central", "reason": "Studies reasoning behaviors in agentic search and trains better search agents."}
+{"confidence": "high", "item_id": "K9c2ad7", "judgment": "central", "reason": "Train-free multi-LoRA composition method built on and evaluated in text-to-image diffusion models."}
+{"confidence": "high", "item_id": "K9c6fba", "judgment": "central", "reason": "Paper studies transfer of disentangled representations and finds disentanglement predicts OOD performance."}
+{"confidence": "medium", "item_id": "K9cfdf6", "judgment": "central", "reason": "Learns the transition structure of a POMDP with aliased deterministic observations and explores it efficiently."}
+{"confidence": "high", "item_id": "K9d706c", "judgment": "central", "reason": "Analyzes design space and optimization of autoregressive language models for image generation; LMs are the object of study."}
+{"confidence": "medium", "item_id": "K9db8fe", "judgment": "central", "reason": "FilMaster is an end-to-end automated film generation system, producing generated video with camera language and rhythm."}
+{"confidence": "high", "item_id": "K9f8ea2", "judgment": "central", "reason": "Proposes a new backdoor attack on CLIP via explicit concept manipulation, evaluated against defenses."}
+{"confidence": "medium", "item_id": "Ka08e0c", "judgment": "central", "reason": "Proposes prompt tuning and Contextual Meta Transformer for sequence-modeling offline RL; transformer is the core architecture."}
+{"confidence": "high", "item_id": "Ka10a10", "judgment": "central", "reason": "Theoretical generalization analysis of adversarially robust domain adaptation via Rademacher complexity."}
+{"confidence": "high", "item_id": "Ka33e64", "judgment": "central", "reason": "Zero-shot subject-driven video customization with motion control; video generation is the task addressed."}
+{"confidence": "low", "item_id": "Ka34d12", "judgment": "central", "reason": "Preference learning loss for regression, evaluated on alignment with analyst influences; alignment is treated loosely but is a result measure."}
+{"confidence": "medium", "item_id": "Ka359fa", "judgment": "peripheral", "reason": "Paper builds causal knowledge extraction and counterfactual reasoning agents; retrieval-augmented generation is not the named focus."}
+{"confidence": "high", "item_id": "Ka3dbc6", "judgment": "central", "reason": "WETAP is a new speculative decoding method with token-tree construction and pruning; the keyword is the core topic."}
+{"confidence": "low", "item_id": "Ka4345b", "judgment": "peripheral", "reason": "Embodied instruction following in unknown environments; MLLMs are one component of the hierarchical planner and controller framework."}
+{"confidence": "low", "item_id": "Ka62338", "judgment": "central", "reason": "Wolf combines image and video VLMs for video captioning, a vision-language task; multimodal fusion is the approach."}
+{"confidence": "medium", "item_id": "Ka634f0", "judgment": "central", "reason": "Proposes a hierarchical diffusion-based planner for long-horizon planning; the diffuser is the main method."}
+{"confidence": "high", "item_id": "Ka6cf91", "judgment": "central", "reason": "Proposes the first Diffusion Transformer-based framework for video face swapping."}
+{"confidence": "medium", "item_id": "Kaacaf6", "judgment": "peripheral", "reason": "Bayesian system identification for neural responses; visual stimuli are the data domain, not a vision method contribution."}
+{"confidence": "medium", "item_id": "Kabb676", "judgment": "peripheral", "reason": "ACT is an agentic decision-tree classifier; prompt optimization is only a contrasted baseline and TextGrad is a component."}
+{"confidence": "medium", "item_id": "Kaecda6", "judgment": "central", "reason": "Proposes an explicit-solution alternative to reduce reliance on backpropagation and compares optima against backpropagation."}
+{"confidence": "medium", "item_id": "Kb359c8", "judgment": "peripheral", "reason": "Diffusion distillation framework mainly for fast sampling; video models are one of the applications alongside text-to-image."}
+{"confidence": "high", "item_id": "Kb47636", "judgment": "central", "reason": "Proposes a self-evolving multi-agent framework for LLM agents; agents are what the paper builds and evaluates."}
+{"confidence": "low", "item_id": "Kb5590f", "judgment": "peripheral", "reason": "Hierarchical goal-conditioned RL method; sparse rewards form the problem setting and motivation rather than the specific contribution."}
+{"confidence": "medium", "item_id": "Kb5cc78", "judgment": "peripheral", "reason": "Uncertainty-aware active procedure planning from instructional videos; visual reasoning only mentioned as part of existing approaches."}
+{"confidence": "high", "item_id": "Kb66748", "judgment": "central", "reason": "Paper introduces AnyECG, a pre-trained foundation model for ECG analysis; the model is the contribution."}
+{"confidence": "medium", "item_id": "Kb6ca29", "judgment": "central", "reason": "Proposes a separated hierarchical Transformer and trains Transformers for circuit repair; the architecture is central to the method."}
+{"confidence": "high", "item_id": "Kba6568", "judgment": "central", "reason": "Proposes FDNet, a new deep time series forecasting network evaluated on forecasting benchmarks."}
+{"confidence": "medium", "item_id": "Kbb9062", "judgment": "peripheral", "reason": "Paper is about LLM proxies for preference elicitation in course allocation; mechanism design is only a loosely related broader area."}
+{"confidence": "medium", "item_id": "Kbd3357", "judgment": "peripheral", "reason": "Introduces data reliability scoring with the Gram determinant; strategic sources mentioned but mechanism design is not engaged."}
+{"confidence": "high", "item_id": "Kc0a665", "judgment": "central", "reason": "Benchmark specifically measuring higher-level mathematical reasoning in LLMs; main experiments are on it."}
+{"confidence": "medium", "item_id": "Kc129ee", "judgment": "central", "reason": "Video try-on framework built on DiT backbones, injecting details into standard DiT blocks; DiT is the base architecture."}
+{"confidence": "high", "item_id": "Kc1a545", "judgment": "peripheral", "reason": "Paper is about dynamic frames for SE(3)-invariant crystal encoders; physics-informed ML is only a loose umbrella label."}
+{"confidence": "high", "item_id": "Kc1b832", "judgment": "central", "reason": "Paper studies side-channel attacks and defenses on speculative decoding schemes; the technique is the core object of study."}
+{"confidence": "low", "item_id": "Kc5c273", "judgment": "central", "reason": "Paper improves Decision Transformer adaptation in the offline RL setting; offline-trained DT is the base, though adaptation is the focus."}
+{"confidence": "medium", "item_id": "Kc6b6bf", "judgment": "peripheral", "reason": "Paper is an AI-generated text detection corpus; AI safety is only a broad umbrella area."}
+{"confidence": "medium", "item_id": "Kc71a01", "judgment": "central", "reason": "Method modifies final blocks of diffusion transformers to convert flow models into flow maps; DiT is the architecture worked on."}
+{"confidence": "high", "item_id": "Kc9597b", "judgment": "central", "reason": "Proposes a Neural ODE model for forecasting irregularly sampled time series, evaluated on forecasting benchmarks."}
+{"confidence": "medium", "item_id": "Kc9b29b", "judgment": "peripheral", "reason": "Optimizes LLM-based multi-agent systems across five dimensions; prompt optimization is not specifically named or engaged in the abstract."}
+{"confidence": "medium", "item_id": "Kc9e952", "judgment": "central", "reason": "MoRA is a KG-RAG framework evaluated chiefly on knowledge-graph question answering benchmarks."}
+{"confidence": "medium", "item_id": "Kcaa683", "judgment": "central", "reason": "AttMetNet's contribution is an attention-enhanced U-Net fused with NDMI; attention-driven feature selection is a main design element."}
+{"confidence": "medium", "item_id": "Kcbd3b0", "judgment": "central", "reason": "Character image animation framework generating videos with stable backgrounds; video generation is its core task."}
+{"confidence": "medium", "item_id": "Kcc74ec", "judgment": "peripheral", "reason": "Contribution is a desktop grounding dataset and GroundNext models for computer-use agents; MLLMs are not specifically engaged."}
+{"confidence": "high", "item_id": "Kccb4d6", "judgment": "central", "reason": "Builds a hallucination detector for faithful RAG outputs using sparse autoencoders; RAG is the target problem."}
+{"confidence": "medium", "item_id": "Kce8365", "judgment": "peripheral", "reason": "Targeted VAE for causal parameter estimation; disentanglement is not engaged in the abstract."}
+{"confidence": "high", "item_id": "Kcf384f", "judgment": "central", "reason": "Proposes state decomposition theory and metric for the gap between states and observations in POMDPs."}
+{"confidence": "high", "item_id": "Kcff67b", "judgment": "central", "reason": "Routing strategy for MoE-based multimodal large language models; these models are the object of the method."}
+{"confidence": "high", "item_id": "Kd147c1", "judgment": "central", "reason": "Proposes a topic-based domain adaptation method for BERT using semi-structured document information."}
+{"confidence": "low", "item_id": "Kd179c7", "judgment": "peripheral", "reason": "Antimicrobial peptide benchmark comparing sequence and structure inputs; multimodal learning is not itself the focus."}
+{"confidence": "high", "item_id": "Kd3b51f", "judgment": "central", "reason": "FinLoRA benchmarks LoRA methods, a parameter-efficient fine-tuning approach, on financial tasks."}
+{"confidence": "medium", "item_id": "Kd3d810", "judgment": "peripheral", "reason": "Paper proposes flow-matching planner with data balancing; diffusion is only a related generative family, not what is studied."}
+{"confidence": "high", "item_id": "Kd431fb", "judgment": "central", "reason": "Diffusion-based predictor to make offline RL robust to state perturbations; evaluated on offline RL algorithms."}
+{"confidence": "low", "item_id": "Kd50e26", "judgment": "central", "reason": "Data selection for visual instruction finetuning, framed as a post-training step; keyword is the broad stage the method targets."}
+{"confidence": "high", "item_id": "Kd5b5ef", "judgment": "central", "reason": "Paper employs LLMs as decision-makers for autonomous driving; LLM reasoning is the core method."}
+{"confidence": "medium", "item_id": "Kd758b3", "judgment": "central", "reason": "Paper proposes a 3D Gaussian Splatting self-supervised framework pre-training 2D and 3D encoders for 3D tasks such as detection and reconstruction."}
+{"confidence": "low", "item_id": "Kd771f2", "judgment": "central", "reason": "Shows memory-augmented Transformers implement optimization algorithms on regression tasks, the in-context learning setting, though the abstract never names it."}
+{"confidence": "medium", "item_id": "Kd7b06e", "judgment": "peripheral", "reason": "G-code generation for CNC manufacturing from shape data; 3D vision is only a loose umbrella area."}
+{"confidence": "high", "item_id": "Kd81150", "judgment": "central", "reason": "Studies trajectory deviation attacks on agentic LLM systems, targeting agent reasoning loops."}
+{"confidence": "high", "item_id": "Kd90161", "judgment": "central", "reason": "SELF-PARAM proposes a method for updating LLMs by integrating knowledge into parameters; LLMs are the object."}
+{"confidence": "high", "item_id": "Kda98a4", "judgment": "central", "reason": "Studies whether domain generalization methods and stable features improve privacy; domain generalization is a core subject."}
+{"confidence": "high", "item_id": "Kdc51df", "judgment": "central", "reason": "Framework tokenizes and aligns 3D Gaussian Splatting structures with text and images."}
+{"confidence": "high", "item_id": "Kdd264e", "judgment": "central", "reason": "SeqSHAP is a Shapley-based explainer for sequential predictions, a direct XAI contribution."}
+{"confidence": "high", "item_id": "Kddaae0", "judgment": "central", "reason": "Gaze-informed disambiguation evaluated on MLLMs; the title and experiments center on multimodal LLMs."}
+{"confidence": "high", "item_id": "Kdddeb9", "judgment": "central", "reason": "Paper proposes a new hyperparameter-free model merging method (GMF-Mean); merging is the main subject."}
+{"confidence": "medium", "item_id": "Kdde5db", "judgment": "central", "reason": "Whisfusion builds ASR decoding on a masked-diffusion transformer decoder with parallel diffusion decoding."}
+{"confidence": "medium", "item_id": "Kde20d7", "judgment": "central", "reason": "TSci is an LLM-driven framework built from four specialized cooperating agents; the multi-agent design is the contribution."}
+{"confidence": "medium", "item_id": "Ke0aff3", "judgment": "central", "reason": "Builds and evaluates an antibody language model integrating structure and sequence; the paper is about such LLMs."}
+{"confidence": "high", "item_id": "Ke10e33", "judgment": "central", "reason": "Builds a fully SSM-only (Mamba) conditioning path for TTS; state space modeling is the core."}
+{"confidence": "medium", "item_id": "Ke1bcc7", "judgment": "central", "reason": "FineR uses LLM world knowledge to reason about fine-grained category names; LLMs are core to the method and title."}
+{"confidence": "high", "item_id": "Ke4a905", "judgment": "central", "reason": "Introduces Sparse Component Alignment to measure representational alignment between brains and neural networks."}
+{"confidence": "high", "item_id": "Ke687cf", "judgment": "central", "reason": "Case study compressing and interpreting MLP computation in modular addition models; squarely mechanistic interpretability."}
+{"confidence": "medium", "item_id": "Ke87b31", "judgment": "peripheral", "reason": "Paper builds a Transformer DNA encoder for sequence alignment; LLMs serve only as inspiration and motivation."}
+{"confidence": "high", "item_id": "Ke914e3", "judgment": "peripheral", "reason": "Distilling reasoning from free-text rationales evaluated on question answering; text classification is not addressed."}
+{"confidence": "low", "item_id": "Ke925ef", "judgment": "peripheral", "reason": "RepARe rephrases questions to improve zero-shot VQA in LVLMs; visual reasoning is a loose umbrella for the task."}
+{"confidence": "high", "item_id": "Ke9e92c", "judgment": "central", "reason": "Proposes a communication correction for experience replay in multi-agent reinforcement learning."}
+{"confidence": "high", "item_id": "Ke9f551", "judgment": "central", "reason": "Paper introduces a dataset to evaluate and improve MLLMs on music sheet understanding and fine-tunes an MLLM."}
+{"confidence": "medium", "item_id": "Keca94e", "judgment": "central", "reason": "Proposes variance- and energy-controlling guidance for diffusion inference-time scaling, compared against pure guidance baselines."}
+{"confidence": "medium", "item_id": "Ked01cd", "judgment": "central", "reason": "Benchmark evaluates multimodal LLMs (foundation models) on point-light motion; the models themselves are the object of study."}
+{"confidence": "medium", "item_id": "Ked4905", "judgment": "peripheral", "reason": "BugScope is an inference-time alignment framework for LLM auditing; agents are not the explicit subject."}
+{"confidence": "high", "item_id": "Kef3c0c", "judgment": "central", "reason": "Proposes an internal-gap-based self-improvement framework for MLLMs and studies co-improvement."}
+{"confidence": "high", "item_id": "Kf071f5", "judgment": "central", "reason": "Proposes safety margin alignment specifically for vision-language models and analyzes their failures."}
+{"confidence": "medium", "item_id": "Kf21f2a", "judgment": "central", "reason": "Applies dictionary learning to interpret microscopy foundation models' internal features and proposes a new algorithm for monosemantic features."}
+{"confidence": "medium", "item_id": "Kf3815f", "judgment": "central", "reason": "Low-light enhancement framework whose key module is Reliable Cross Attention, named in the title; attention is a core contribution."}
+{"confidence": "low", "item_id": "Kf41e03", "judgment": "central", "reason": "Generative occupancy world model producing 3D/4D scenes; generation of 3D content is the main task, though framed as prediction."}
+{"confidence": "medium", "item_id": "Kf47521", "judgment": "central", "reason": "MVDream is a text-to-image diffusion model generating consistent multi-view images, used as a 3D prior."}
+{"confidence": "high", "item_id": "Kf50f86", "judgment": "central", "reason": "Studies and induces latent point collapse in latent representations; latent space is the subject."}
+{"confidence": "medium", "item_id": "Kf674b5", "judgment": "central", "reason": "Proposes Bayesian Stackelberg Q-learning for a multi-agent Markov game between defender and adversary."}
+{"confidence": "high", "item_id": "Kf67aa0", "judgment": "central", "reason": "Theoretically models LLM self-improvement training dynamics via the solver-verifier gap."}
+{"confidence": "medium", "item_id": "Kf71626", "judgment": "peripheral", "reason": "Paper attacks RAG systems via poisoned documents; LLMs are the victim setting, not what is studied or improved."}
+{"confidence": "high", "item_id": "Kfb5cac", "judgment": "central", "reason": "Paper extends conformal prediction to general right-censored survival data, constructing valid predictive bounds."}
+{"confidence": "medium", "item_id": "Kfd9b4b", "judgment": "central", "reason": "Trains and evaluates LLM-based code preference models and compares to human preference; LLMs are the subject."}
+{"confidence": "medium", "item_id": "Kfe907e", "judgment": "central", "reason": "Mines knowledge from large foundation model SAM to improve small segmentation models; large-model interaction is the key idea."}
+{"confidence": "high", "item_id": "Kfed6e5", "judgment": "central", "reason": "OmniVideoBench evaluates audio-visual video understanding in MLLMs; video is the benchmark's core."}
+{"confidence": "high", "item_id": "Kffd8d8", "judgment": "central", "reason": "Paper explains in-context learning as Bayesian and derives scaling laws for it; ICL is the object of study."}

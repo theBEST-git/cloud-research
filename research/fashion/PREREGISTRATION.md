@@ -328,3 +328,28 @@ Anything added after the freeze is labelled post hoc.
   - The bins come from an outcome-free check: the share of nearest-earlier pairs with a shared author key rises from
     17% to 57% to 97% to 100% across these bins (profile-ID years only).
   - The τ rule is unchanged.
+- **2026-10-15, before any RQ2/RQ3 estimate: review round A (variable builders).** Two independent reviewers
+  (prospectivity and blinding; conformance), each blocker or major finding checked by a separate verifier. No blocker
+  and no confirmed major finding. Changes made:
+  - Exact ties at the 80th percentile are now decided exactly. Keyword growth is rounded to 10 decimals and the fine
+    map's `prior_growth` to 6 decimals (as the maturity file already was), so logically equal values are bit-identical
+    and all of them count as hot under "at or above". Effect: 12 papers' `lists_hot` and 76 fine-map (S5) hot flags; no
+    `buzzword` value and no main-map flag changed.
+  - Tests added for ties, the keyword eligibility boundary, hot keywords over eligible keywords only, atypical use,
+    per-paper flags and S4 chains; each was checked to fail on a deliberately broken copy of the code.
+  - The outcome lint now also catches sealed names inside query strings and calls to the loader's private readers,
+    and checks the loaded corpus columns at runtime.
+  - S4 follows the paper's whole chain of probable earlier versions ("own earlier version" read as the chain).
+  - D15 clarification: the centring mean is the mean over all discovery papers, a fixed constant (saved as
+    `output/specter2_centring_mean.npy`) that the confirmation split (D14) reuses unchanged.
+- **2026-10-15, P3 results, before any RQ2/RQ3 estimate.** Judges, prompts and samples as in D6, R1 and the judge-model
+  entry. Format-only pilots outside the samples; instructions unchanged afterwards. Every batch answered in full; the
+  transcript audit found 0 reads of anything but the instructions and the judge's own batch.
+  - **H2d validation gate: fails.** Peripheral share (2 of 3 judges) among flagged uses 0.42 (95% CI 0.33–0.52), among
+    non-flagged uses 0.15 (0.09–0.23); ratio 2.8. The ratio condition holds, but p_flag < 0.50. Fleiss κ 0.77.
+    As registered (D6, D10), **H2d and H3c are dropped**; the Holm families are {H2a, H2b, H2c} and {H3a, H3b}; S6 and
+    S7 lapse. The exploratory analyses that use the buzzword variable (E3, E7) are still run and reported, labelled as
+    using a measure that failed validation. `output/h2d_validation.json`.
+  - **τ = 0.90** (R1). Majority-yes share by centred-cosine bin: 0.10, 0.475, 0.90, 1.00; Fleiss κ 0.99.
+    170 papers get a probable earlier version (167 by cosine, 3 more by exact title); 93.5% of them share an author key
+    with it. `output/resubmission_tau.json`, `output/checks/resubmissions.json`.

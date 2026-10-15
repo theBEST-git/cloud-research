@@ -1,0 +1,61 @@
+{
+  "tau": 0.9,
+  "rule": "lowest bin edge where that bin and all higher bins have >= 90% majority yes",
+  "fallback_used": false,
+  "bins": {
+    "[0.8,0.85)": {
+      "yes_share": 0.1,
+      "ci95": [
+        0.0396,
+        0.2305
+      ],
+      "n": 40,
+      "per_judge": {
+        "haiku_a": 0.1,
+        "haiku_b": 0.1,
+        "sonnet_a": 0.1
+      }
+    },
+    "[0.85,0.9)": {
+      "yes_share": 0.475,
+      "ci95": [
+        0.3294,
+        0.625
+      ],
+      "n": 40,
+      "per_judge": {
+        "haiku_a": 0.475,
+        "haiku_b": 0.45,
+        "sonnet_a": 0.475
+      }
+    },
+    "[0.9,0.95)": {
+      "yes_share": 0.9,
+      "ci95": [
+        0.7695,
+        0.9604
+      ],
+      "n": 40,
+      "per_judge": {
+        "haiku_a": 0.9,
+        "haiku_b": 0.9,
+        "sonnet_a": 0.9
+      }
+    },
+    "[0.95,1.01)": {
+      "yes_share": 1.0,
+      "ci95": [
+        0.9124,
+        1.0
+      ],
+      "n": 40,
+      "per_judge": {
+        "haiku_a": 1.0,
+        "haiku_b": 1.0,
+        "sonnet_a": 1.0
+      }
+    }
+  },
+  "fleiss_kappa": 0.9912,
+  "audit_violations": 0
+}

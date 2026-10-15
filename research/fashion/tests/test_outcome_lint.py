@@ -17,23 +17,28 @@ SEALED = {"decision", "outcome_eligible", "administrative_status", "review_count
           "disagreement_eligible", "similarity_eligible"}
 ALLOWED = {HERE / "outcomes.py", Path(__file__).resolve()}
 NAME = "|".join(sorted(SEALED, key=len, reverse=True))
+COMPOUND = "|".join(sorted(SEALED - {"decision"}, key=len, reverse=True))   # never ordinary words
 PATTERNS = [re.compile(rf"""["']({NAME})["']"""),              # string literal: df["decision"], usecols=[...]
             re.compile(rf"""\.({NAME})\b"""),                   # attribute access: df.decision
-            re.compile(r"submissions\.csv")]                    # the only table that holds outcomes
+            re.compile(rf"""\b({COMPOUND})\b"""),               # anywhere, e.g. inside query("outcome_eligible == 1")
+            re.compile(r"""["'][^"']*\bdecision\s*[=!<>]"""),     # decision inside a query/eval string
+            re.compile(r"submissions\.csv"),                    # the only table that holds outcomes
+            re.compile(r"\b_read\b|\b_derive\b|outcomes\._")]  # the sealed loader's private readers
 
 
 def sources() -> list[Path]:
-    files = [p for p in HERE.rglob("*") if p.suffix in {".py", ".js"} and p.resolve() not in ALLOWED]
-    return [p for p in files if "__pycache__" not in p.parts and "output" not in p.parts]
+    files = [p for p in HERE.rglob("*") if p.suffix in {".py", ".js", ".ipynb", ".sh"} and p.resolve() not in ALLOWED]
+    return [p for p in files if not {"__pycache__", "output"} & set(p.relative_to(HERE).parts)]
 
 
 class OutcomeLint(unittest.TestCase):
     def test_no_file_but_outcomes_names_sealed_columns(self):
-        hits = []
-        for p in sources():
+        hits, files = [], sources()
+        names = {p.name for p in files}
+        self.assertTrue({"analysis.py", "rq2_following.py", "rq3_reward.py", "variables.py"} <= names, "lint scans nothing")
+        for p in files:
             for n, line in enumerate(p.read_text(encoding="utf-8").splitlines(), 1):
-                code = line.split("#", 1)[0] if p.suffix == ".py" else line
-                if any(pat.search(code) for pat in PATTERNS):
+                if any(pat.search(line) for pat in PATTERNS):
                     hits.append(f"{p.relative_to(ROOT)}:{n}: {line.strip()}")
         self.assertEqual(hits, [], "outcome columns named outside outcomes.py:\n" + "\n".join(hits))
 
@@ -43,9 +48,16 @@ class OutcomeLint(unittest.TestCase):
         spec.loader.exec_module(mod)
         self.assertFalse(SEALED & set(mod.CONTENT_COLUMNS))
 
+    def test_corpus_has_no_sealed_column_at_runtime(self):
+        spec = importlib.util.spec_from_file_location("topics_common_rt", ROOT / "research" / "topics" / "common.py")
+        mod = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(mod)
+        self.assertFalse(SEALED & set(mod.embedded_corpus().columns))
+
     def test_lint_catches_violations(self):
         for bad in ['x = df["decision"]', "y = s.outcome_eligible == 1", "pd.read_csv(DATA / 'submissions.csv.gz')",
-                    "cols = ['review_count']"]:
+                    "cols = ['review_count']", 'df.query("outcome_eligible == 1")', 'df.eval("decision == 1")',
+                    "from outcomes import _read", "outcomes._derive(s)", "x = _read(ids)"]:
             self.assertTrue(any(p.search(bad) for p in PATTERNS), bad)
         for ok in ["decision rule", "holm-adjusted decision", "def decide():"]:
             self.assertFalse(any(p.search(ok) for p in PATTERNS), ok)

@@ -45,6 +45,11 @@ def nearest_earlier(x: np.ndarray, years: np.ndarray) -> tuple[np.ndarray, np.nd
     return nn, cos
 
 
+def probable_earlier(exact: pd.Series, nn: pd.Series, cos: pd.Series, tau: float) -> list:
+    """R1: the exact-title earlier paper if any, else the nearest earlier paper if its cosine is at least tau."""
+    return [e if pd.notna(e) else (n if pd.notna(n) and c >= tau else None) for e, n, c in zip(exact, nn, cos)]
+
+
 def main() -> None:
     p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     p.add_argument("--tau", type=float)
@@ -54,7 +59,9 @@ def main() -> None:
     emb, ids = tl.load_embeddings()
     assert ids.equals(corpus.submission_id)
     x = emb.astype(np.float32)
-    x -= x.mean(axis=0)                                            # centring removes SPECTER2's anisotropy (D15)
+    mean = x.mean(axis=0)                                          # centring removes SPECTER2's anisotropy (D15); the
+    np.save(OUTPUT / "specter2_centring_mean.npy", mean)           # discovery mean is a fixed constant, reused for D14
+    x -= mean
     x /= np.linalg.norm(x, axis=1, keepdims=True)
     years = corpus.year.to_numpy()
     nn, cos = nearest_earlier(x, years)
@@ -81,8 +88,7 @@ def main() -> None:
     out["nn_shared_keys"] = [len(keys[i] & keys[j]) if j >= 0 else np.nan for i, j in enumerate(nn)]
     out["exact_title_id"] = exact
     if a.tau is not None:
-        out["probable_earlier_version"] = [e if e is not None else (n if c >= a.tau else None)
-                                           for e, n, c in zip(out.exact_title_id, out.nn_id, out.nn_cos)]
+        out["probable_earlier_version"] = probable_earlier(out.exact_title_id, out.nn_id, out.nn_cos, a.tau)
     write_csv_gz(out, OUTPUT / "earlier_versions.csv.gz")
     v = out.nn_cos.dropna()
     checks = {"papers_with_earlier_year": int(has.sum()),

@@ -15,8 +15,8 @@ import pandas as pd
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
-from buzzwords import build  # noqa: E402
-from resubmissions import nearest_earlier  # noqa: E402
+from buzzwords import build, per_paper  # noqa: E402
+from resubmissions import nearest_earlier, probable_earlier  # noqa: E402
 from topic_maturity import maturity  # noqa: E402
 from variables import hot_flags, incumbency  # noqa: E402
 
@@ -81,6 +81,27 @@ class Incumbency(unittest.TestCase):
         pd.testing.assert_frame_equal(base.loc[early], pert.loc[early])
 
 
+class IncumbencyS4(unittest.TestCase):
+    def test_s4_discounts_the_whole_chain_and_only_it(self):
+        # one author; papers: a (2017, t0), b (2018, t0), c (2019, t0), d (2020, t0) by the same author.
+        # chain d -> c -> b; a is unrelated. s4(d) still counts a; s4(c) counts a; s4(b) counts a.
+        # e (2020, t1) by the author with earlier version a in another topic: no discount applies.
+        ids = pd.Series(list("abcdef"))
+        year = pd.Series([2017, 2018, 2019, 2020, 2020, 2021])
+        topic = pd.Series([0, 0, 0, 0, 1, 1])
+        authors = pd.DataFrame({"submission_id": list("abcdef"), "key": ["x", "x", "x", "x", "x", "y"]})
+        authors = pd.concat([authors, pd.DataFrame({"submission_id": ["f"], "key": ["x"]})], ignore_index=True)
+        earlier = pd.Series({"d": "c", "c": "b", "e": "a", "f": "e"})
+        got = incumbency(authors, topic, year, ids, earlier)
+        self.assertEqual(got.incumbent.tolist(), [0, 1, 1, 1, 0, 1])
+        self.assertEqual(got.incumbent_s4.tolist(), [0, 1, 1, 1, 0, 0])   # f: only earlier same-topic paper is e, its own version
+        ids2 = pd.Series(list("bcd"))
+        got2 = incumbency(authors[authors.submission_id.isin(list("bcd"))], topic[1:4].reset_index(drop=True),
+                          year[1:4].reset_index(drop=True), ids2, pd.Series({"d": "c", "c": "b"}))
+        self.assertEqual(got2.incumbent.tolist(), [0, 1, 1])
+        self.assertEqual(got2.incumbent_s4.tolist(), [0, 0, 0])            # the whole chain is the author's own work
+
+
 class Maturity(unittest.TestCase):
     def test_prior_growth_and_maturity_ignore_later_years(self):
         rng = np.random.default_rng(2)
@@ -94,6 +115,15 @@ class Maturity(unittest.TestCase):
         a = base[base.year <= 2021][cols].reset_index(drop=True)
         b = pert[pert.year <= 2021][cols].reset_index(drop=True)
         pd.testing.assert_frame_equal(a, b)
+
+    def test_hot_ties_at_the_threshold_are_hot(self):
+        g = np.r_[[0.5] * 70, [1.5] * 20, [3.0] * 10]                      # np.percentile(g, 80) = 1.5, inside the tie
+        mat = pd.DataFrame({"topic": np.arange(100), "year": 2020, "prior_growth": g})
+        self.assertEqual(int(hot_flags(mat).hot.sum()), 30)                 # every tied topic is hot (>=, not >)
+        v = 1.4961038961038961                                              # logically tied growths an ulp apart
+        g = np.r_[[0.5] * 70, [np.nextafter(v, 0)] * 5, [v] * 15, [3.0] * 10]   # percentile lands on v
+        ulp = pd.DataFrame({"topic": np.arange(100), "year": 2020, "prior_growth": g})
+        self.assertEqual(int(hot_flags(ulp).hot.sum()), 30)
 
     def test_hot_is_top_quintile_per_year(self):
         mat = pd.DataFrame({"topic": np.tile(np.arange(10), 2), "year": np.repeat([2019, 2020], 10),
@@ -171,7 +201,60 @@ class Buzzwords(unittest.TestCase):
         pd.testing.assert_frame_equal(a, b)
 
 
+class BuzzwordFlags(unittest.TestCase):
+    def setUp(self):
+        rng = np.random.default_rng(7)
+        self.kws, self.years, self.x, self.vocab = synthetic_keywords(rng, n=3000)
+        recent = np.where(self.years >= 2024)[0]
+        for i in range(12):                                                  # rare, fast-growing, never eligible
+            for j in rng.choice(recent, 6, replace=False):
+                self.kws[j] = self.kws[j] + [f"rare{i}"]
+            self.vocab = self.vocab | {f"rare{i}"}
+        self.kw, self.uses = build(self.kws, self.years, self.x, self.vocab)
+
+    def test_eligibility_boundary(self):
+        kws = pd.Series([["a"]] * 9 + [["b"]] * 10 + [["a", "b"]] * 3)
+        years = np.r_[[2018] * 19, [2019] * 3]
+        x = np.random.default_rng(0).normal(size=(22, 4))
+        x /= np.linalg.norm(x, axis=1, keepdims=True)
+        kw, uses = build(kws, years, x, {"a", "b"})
+        r = kw[kw.year == 2019].set_index("keyword")
+        self.assertFalse(r.loc["a", "eligible"])
+        self.assertTrue(r.loc["b", "eligible"])
+        self.assertEqual(set(uses.keyword), {"b"})
+
+    def test_hot_is_top_quintile_of_eligible_keywords(self):
+        for t, g in self.kw.groupby("year"):
+            e = g[g.eligible]
+            if len(e):
+                want = e.growth >= np.percentile(e.growth, 80)
+                self.assertTrue((e.hot == want).all(), t)
+            self.assertFalse(g[~g.eligible].hot.any(), t)
+
+    def test_atypical_and_paper_flags(self):
+        u = self.uses
+        self.assertTrue((u.atypical == (u.cos < u.threshold)).all())
+        n = len(self.kws)
+        pp = per_paper(u, n, self.years)
+        for i in range(n):
+            mine = u[u.paper == i]
+            if not (2019 <= self.years[i] <= 2026):
+                self.assertTrue(np.isnan(pp.buzzword[i]))
+                continue
+            self.assertEqual(pp.n_eligible_keywords[i], len(mine))
+            self.assertEqual(pp.lists_hot[i], float(mine.hot.any()))
+            self.assertEqual(pp.buzzword[i], float((mine.hot & mine.atypical).any()))
+        self.assertGreater(np.nansum(pp.buzzword), 0)
+        self.assertLess(np.nansum(pp.buzzword), np.nansum(pp.lists_hot))
+
+
 class Resubmissions(unittest.TestCase):
+    def test_probable_earlier_version_rule(self):
+        exact = pd.Series([None, "e1", np.nan, None, None])
+        nn = pd.Series(["n0", "n1", "n2", None, "n4"])
+        cos = pd.Series([0.95, 0.10, 0.90, np.nan, 0.8999])
+        self.assertEqual(probable_earlier(exact, nn, cos, 0.90), ["n0", "e1", "n2", None, None])
+
     def test_nearest_earlier_matches_brute_force(self):
         rng = np.random.default_rng(6)
         years = rng.choice(YEARS, 500)

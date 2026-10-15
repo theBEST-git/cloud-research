@@ -1,0 +1,160 @@
+{"confidence": "high", "item_id": "R026dea", "judgment": "yes", "reason": "Same diffusion Thompson sampling with pre-trained diffusion priors; B adds posterior approximations and regret bound."}
+{"confidence": "low", "item_id": "R077e8c", "judgment": "yes", "reason": "Capsule attention model recurs in both; B's added CGRAN is new, but framing reads as an extended version."}
+{"confidence": "medium", "item_id": "R0bddbc", "judgment": "no", "reason": "A's core is Metric-Softmax plus task-adaptive transformation; B fine-tunes one scale vector instead."}
+{"confidence": "high", "item_id": "R0c3e22", "judgment": "no", "reason": "A uses DP local clustering and consensus loss; B uses inter-class representation learning, a different mechanism."}
+{"confidence": "high", "item_id": "R100ac7", "judgment": "yes", "reason": "Same RealFM mechanism and claims; B adds relaxed assumptions and restates the same utility and contribution results."}
+{"confidence": "high", "item_id": "R12bb8b", "judgment": "yes", "reason": "Same RMwGGIS method with gradient-guided importance sampling; B narrows to binary EBMs and adds Ising experiments."}
+{"confidence": "high", "item_id": "R1542ef", "judgment": "yes", "reason": "Same DriveE2E closed-loop benchmark with 15 digital-twin intersections and 800 scenarios; B only reframes."}
+{"confidence": "high", "item_id": "R184705", "judgment": "no", "reason": "A analyzes convergence impact of MD versus uniform sampling; B proposes a new sampling scheme, DELTA."}
+{"confidence": "high", "item_id": "R186300", "judgment": "no", "reason": "A gives a non-asymptotic convergence analysis of DP-SGD; B proposes a new optimizer, D2P2-SGD, with dynamic privacy."}
+{"confidence": "high", "item_id": "R1a3550", "judgment": "no", "reason": "A is a clean-label backdoor attack; B is a defense that adapts noisy-label algorithms against backdoor poisoning."}
+{"confidence": "high", "item_id": "R1aa5a2", "judgment": "yes", "reason": "Same training-free iterative paradigm and global reference cross-attention module, same long-story goal, reframed under a new name."}
+{"confidence": "high", "item_id": "R1bdfc8", "judgment": "no", "reason": "Attack paper using influence maximization versus defence paper using OOD adversarial training; different contributions."}
+{"confidence": "high", "item_id": "R1c263e", "judgment": "no", "reason": "Different methods: pseudo 3D guidance for inpainting-based texturing versus UV-map garment texture synthesis."}
+{"confidence": "low", "item_id": "R1c984d", "judgment": "no", "reason": "Shares the probabilistic stability framework, but B's core is a new Type-II saddle classification and dynamics."}
+{"confidence": "high", "item_id": "R1fc253", "judgment": "yes", "reason": "Same SMP monomer-based pre-training method and benchmarks; B adds docking and interaction-site tasks."}
+{"confidence": "medium", "item_id": "R2004f5", "judgment": "yes", "reason": "Same three-step community message-passing with virtual nodes; B adds learnable RL community sampling."}
+{"confidence": "high", "item_id": "R21d250", "judgment": "yes", "reason": "Same n-gram phrasal attention entities within Transformer NMT; B reframes as explicit phrasal alignments with multi-headed phrasal attention."}
+{"confidence": "high", "item_id": "R23c945", "judgment": "yes", "reason": "Same EnsembleSHAP attribution method and guarantees; B adds attack types and a robustness framing."}
+{"confidence": "high", "item_id": "R24948c", "judgment": "no", "reason": "Different methods: CLIMB constrained agnostic learning versus FedReLa data-level re-labeling."}
+{"confidence": "high", "item_id": "R24e1bc", "judgment": "yes", "reason": "Same CurvaLID detector combining LID and curvature for adversarial prompts; B reframes curvature via Whewell equation."}
+{"confidence": "high", "item_id": "R254f57", "judgment": "yes", "reason": "Same contrastive-label sharing with DP for openset noisy-label federated learning; B only rewords it."}
+{"confidence": "high", "item_id": "R25b761", "judgment": "no", "reason": "A proves efficiency of pessimistic FQL with differentiable approximation; B gives lower bounds and conceptual analysis of general function approximation."}
+{"confidence": "medium", "item_id": "R27a6c9", "judgment": "yes", "reason": "Same duality-based penalty framework and first-order algorithms; B extends it to nonsmooth lower levels with single-loop solvers."}
+{"confidence": "medium", "item_id": "R2a5522", "judgment": "yes", "reason": "Same ParFam method and SRBench results; B adds a neural-guided extension, DL-ParFam, as an add-on."}
+{"confidence": "medium", "item_id": "R2c89df", "judgment": "yes", "reason": "Both use shared pure-noise surrogate dataset and aligned representations to filter backdoored models; B adds trigger reconstruction."}
+{"confidence": "medium", "item_id": "R2cd092", "judgment": "no", "reason": "Both use LLMs for outliers, but B's core is general ID representations and a different scoring idea."}
+{"confidence": "high", "item_id": "R2d8543", "judgment": "no", "reason": "A is Ref-Gaussian split-sum rendering with inter-reflection; B is radiometric consistency for inverse rendering."}
+{"confidence": "medium", "item_id": "R31491a", "judgment": "no", "reason": "A's core is the BEq metric and dependency retrieval; B is a new graph-of-thought agent with its own checker."}
+{"confidence": "high", "item_id": "R3454fb", "judgment": "no", "reason": "Two different omni-modal evaluation benchmarks with different datasets, findings and contributions; no shared core paper."}
+{"confidence": "high", "item_id": "R35a77e", "judgment": "yes", "reason": "Same BCDR method and distance-resampling claims; B recasts it around shortest-path representation."}
+{"confidence": "high", "item_id": "R37482e", "judgment": "yes", "reason": "Same pseudo-label accuracy estimation finding and calibration approach for source-free adaptation, reworded."}
+{"confidence": "high", "item_id": "R387088", "judgment": "yes", "reason": "Same SSIF continuous spatial-spectral implicit model; B adds physics-inspired incorporation and framing."}
+{"confidence": "high", "item_id": "R39f5e2", "judgment": "yes", "reason": "Same Refine-PPI framework, MMM-trained refinement module and SKEMPI evaluation; only renamed, with PDC-Net emphasized."}
+{"confidence": "high", "item_id": "R3a62cd", "judgment": "no", "reason": "A is a general group-theoretic embedding framework; B proposes a new UniBi model for identity uniqueness."}
+{"confidence": "high", "item_id": "R3ada4a", "judgment": "no", "reason": "A proposes a new DP-SGD loss; B studies adversarial robustness of DP-trained models. Different contributions."}
+{"confidence": "high", "item_id": "R3b5a0a", "judgment": "yes", "reason": "Same benchmark study of multimodal models on standard vision tasks via prompt chaining; B adds more models."}
+{"confidence": "high", "item_id": "R3be7f6", "judgment": "yes", "reason": "Identical ARMCMC method, jump distribution and claims; only the title and wording changed."}
+{"confidence": "high", "item_id": "R3db344", "judgment": "no", "reason": "A is node classification with structural regularized GCNs; B is few-shot graph classification via super-classes."}
+{"confidence": "high", "item_id": "R3df18a", "judgment": "no", "reason": "A's contribution is a subgoal-representation regularizer with active exploration; B introduces a different frontier replay method."}
+{"confidence": "high", "item_id": "R3eb2bb", "judgment": "yes", "reason": "Same Compress Guidance method and model-fitting motivation; B mainly rewords and strengthens cost claims."}
+{"confidence": "high", "item_id": "R422989", "judgment": "no", "reason": "B's core is asymmetric soft labeling and a multi-head regressor, not ConR's contrastive regularizer."}
+{"confidence": "high", "item_id": "R4244bc", "judgment": "no", "reason": "SRAT learns separable features via reweighting; REAT uses an effective-number training strategy and penalty; different methods on a shared problem."}
+{"confidence": "high", "item_id": "R447ebc", "judgment": "yes", "reason": "Same unit-test diagnosis of hidden incentives for auto-induced shift and same toy recommendation environment."}
+{"confidence": "high", "item_id": "R47928b", "judgment": "yes", "reason": "Same SKI-CL framework with structural-knowledge regularization and representation-matching replay; abstract reworded."}
+{"confidence": "high", "item_id": "R4815ea", "judgment": "yes", "reason": "Same core: maximize learning consistency in meta-training to reduce shortcut-feature reliance; B renames it."}
+{"confidence": "high", "item_id": "R4af044", "judgment": "no", "reason": "A is a modularized grounding-based self-reflective VideoQA framework; B is a reinforced multi-turn segment-selection reasoner, a different method."}
+{"confidence": "high", "item_id": "R4dffb4", "judgment": "yes", "reason": "Same AutoJoin gradient-free adversarial training with denoising autoencoder and joint learning; B is a revised write-up."}
+{"confidence": "high", "item_id": "R4e12a7", "judgment": "yes", "reason": "Same node-graph cross-level matching plus siamese GNN core; B renames it and adds datasets."}
+{"confidence": "medium", "item_id": "R4fe9fc", "judgment": "no", "reason": "Same topic, but B uses a different token-selection criterion (sink tokens) and reintegration. New method."}
+{"confidence": "high", "item_id": "R5169ab", "judgment": "no", "reason": "A proposes adaptive smoothing for surrogate gradients; B proposes forward gradient training, a different learning method."}
+{"confidence": "high", "item_id": "R516f56", "judgment": "yes", "reason": "Same truth-guided negative sampling derivation and claims; B rewords it as a more principled method."}
+{"confidence": "high", "item_id": "R5485c7", "judgment": "yes", "reason": "Same RealSR-RAW dataset and RAW adapter for Real SR; B is a reworded, extended version of A."}
+{"confidence": "high", "item_id": "R559011", "judgment": "yes", "reason": "Same finding that scaling training categories closes the one-shot generalization gap, with the same numbers."}
+{"confidence": "high", "item_id": "R585951", "judgment": "no", "reason": "A clusters clients by updates and loss with GMMs; B's RR-Cluster uses random rebalancing of assignments, a different method."}
+{"confidence": "high", "item_id": "R5922f1", "judgment": "yes", "reason": "Same on-the-fly neuron-growing method via backprop bottleneck detection; B mainly reframes and reports CIFAR."}
+{"confidence": "medium", "item_id": "R5a7b5e", "judgment": "no", "reason": "Same label-DP regression setting, but B replaces A's binned randomized response with a new continuous mechanism."}
+{"confidence": "high", "item_id": "R5cf044", "judgment": "yes", "reason": "Same feature-attentive kNN graph construction for imputation and classification; B renames the method."}
+{"confidence": "high", "item_id": "R5e53ca", "judgment": "yes", "reason": "Identical OPRIDE method, exploration strategy and discount scheduling; only the title changed."}
+{"confidence": "high", "item_id": "R603d05", "judgment": "yes", "reason": "Same LLM auction-participant framework, benchmarks against theory and behavioral findings, and learning results; B extends it."}
+{"confidence": "high", "item_id": "R61a120", "judgment": "no", "reason": "A is MxPool with multiplex GCN and pooling; B is a different two-channel global-local attention pooling layer."}
+{"confidence": "high", "item_id": "R61f2ad", "judgment": "no", "reason": "A proposes gradient embedding perturbation; B proposes a new loss combining squared error, focal loss and regularization."}
+{"confidence": "high", "item_id": "R6670db", "judgment": "yes", "reason": "Same three ILA augmentation components: image transforms, reverse adversarial update, attack interpolation."}
+{"confidence": "high", "item_id": "R67e053", "judgment": "yes", "reason": "Same environment predictive coding via masked-zone prediction conditioned on poses, same claims, reframed."}
+{"confidence": "high", "item_id": "R6c58b0", "judgment": "yes", "reason": "Same MAE-based unsupervised NAS and multi-scale vs hierarchical decoder fix for DARTS collapse. Same core."}
+{"confidence": "high", "item_id": "R70695a", "judgment": "yes", "reason": "Same Raw Zero-Shot test and representation-quality metrics; B adds analysis of adversarial defences on the same idea."}
+{"confidence": "high", "item_id": "R70a035", "judgment": "no", "reason": "A is a data-free fake-client attack; B is a collusive aggregation-emergent attack, a different method."}
+{"confidence": "high", "item_id": "R70bf39", "judgment": "yes", "reason": "Same node-perturbation method with directional derivatives and decorrelation; B extends decorrelation to every layer."}
+{"confidence": "high", "item_id": "R732264", "judgment": "yes", "reason": "Same ImageNet-UA benchmark of unforeseen adversarial attacks; B reframes the abstract without changing the contribution."}
+{"confidence": "high", "item_id": "R745485", "judgment": "yes", "reason": "Same INP framework, STNP surrogate and latent information gain acquisition; B reframes it as Bayesian active learning."}
+{"confidence": "high", "item_id": "R76fba1", "judgment": "yes", "reason": "Same ALANS algebraic learner, claims and abstract; B mostly renames the model and tidies wording."}
+{"confidence": "high", "item_id": "R7849ca", "judgment": "yes", "reason": "Same ReLU size upper bound from manifold topology; B reframes it with explicit geometric facets."}
+{"confidence": "high", "item_id": "R79a23a", "judgment": "no", "reason": "A releases the Youku-mPLUG pretraining dataset; B releases a different dense-caption dataset."}
+{"confidence": "high", "item_id": "R7baf12", "judgment": "no", "reason": "TopoSD adds SDMap priors and a topology-guided decoder, a new method built on LaneSegNet's representation."}
+{"confidence": "high", "item_id": "R7ce9ab", "judgment": "yes", "reason": "Same scMoE framework with SMoE in a cross-attention transformer block; B is near-identical."}
+{"confidence": "high", "item_id": "R7d0e40", "judgment": "yes", "reason": "Same SinkhornDRL algorithm and 55-Atari evaluation; B adds convergence theory for the same method."}
+{"confidence": "high", "item_id": "R7d7206", "judgment": "yes", "reason": "Same class-specific scaling and instance-wise adaptive scaling core claims for group robustness; B reframes the same work."}
+{"confidence": "high", "item_id": "R8056ee", "judgment": "no", "reason": "A is HyperAgent for general SE tasks; B studies CI integration with USEAgentPlus. Different core."}
+{"confidence": "high", "item_id": "R828300", "judgment": "no", "reason": "Different attacks: graph-coarsening divide-and-conquer versus over-smoothing amplification for injection attacks."}
+{"confidence": "high", "item_id": "R83a05d", "judgment": "no", "reason": "A proposes attacks on bandits; B proposes robust bandit algorithms under a different attack model. Different contributions."}
+{"confidence": "medium", "item_id": "R8822af", "judgment": "yes", "reason": "Same PROPGCL method with propagation-based GCL; B's removal of transformation is a refinement of A's idea."}
+{"confidence": "high", "item_id": "R8962ef", "judgment": "no", "reason": "PF3plat is pose-free feed-forward 3DGS from unposed views; DRGSplat is depth regularization improving per-scene 3DGS geometry."}
+{"confidence": "high", "item_id": "R89db2c", "judgment": "yes", "reason": "Same sampling-based energy GNN layers and architecture with identical results; B adds wording and a code link."}
+{"confidence": "high", "item_id": "R8a83aa", "judgment": "no", "reason": "Two different docking benchmarks with different tools, datasets and conclusions; B does not repeat A's core contribution."}
+{"confidence": "high", "item_id": "R8a9955", "judgment": "yes", "reason": "Same TELS method: T-symmetry inverse dynamics, latent state-stitching, and guide-policy; B adds experiments."}
+{"confidence": "high", "item_id": "R8b8e2c", "judgment": "yes", "reason": "Same regularization study of policy optimization on continuous control; B is the same work with added analysis and retitled."}
+{"confidence": "high", "item_id": "R8c0116", "judgment": "no", "reason": "Different defences: concealed-sample gradient obfuscation versus random projection filters with input noise."}
+{"confidence": "high", "item_id": "R8c48d6", "judgment": "yes", "reason": "Abstract is nearly identical: same MFP model, mean-field games framing, and fictitious play method."}
+{"confidence": "medium", "item_id": "R8cef58", "judgment": "yes", "reason": "Same hybrid 3D block ranking and ranking map on the same ADNI data; B reframes around a feature-selected 3D CNN."}
+{"confidence": "high", "item_id": "R8da86a", "judgment": "yes", "reason": "Same LEGACY adaptive scheduler based on layer size and training phase; B extends it to more models, datasets and workers."}
+{"confidence": "high", "item_id": "R973a7f", "judgment": "yes", "reason": "Same model-based adversarial attack on cooperative MARL; B adds victim selection and failure-state design to it."}
+{"confidence": "high", "item_id": "R987e0d", "judgment": "no", "reason": "A is node-level DP GNN training via amplification; B is DP graph coarsening, a different method."}
+{"confidence": "high", "item_id": "R9e262a", "judgment": "yes", "reason": "Same Ego-Foresight self-supervised agent-aware prediction for RL; B adds auxiliary-task framing and model-based RL tests."}
+{"confidence": "high", "item_id": "R9ed476", "judgment": "no", "reason": "A proposes peer rank and peer discussion; B proposes consistency-based confidence optimization, a different method."}
+{"confidence": "high", "item_id": "R9f2b32", "judgment": "yes", "reason": "Same mutual-information explanation objective for SAE features and the same two steering strategies."}
+{"confidence": "high", "item_id": "R9f91e2", "judgment": "yes", "reason": "Same CinePile dataset, construction pipeline, and findings; only one title adjective changed."}
+{"confidence": "medium", "item_id": "Ra22637", "judgment": "no", "reason": "Both use audio-to-motion plus video diffusion, but B's core is weakly supervised motion learning and hand refinement."}
+{"confidence": "high", "item_id": "Ra29b61", "judgment": "yes", "reason": "Same fact-based logic pre-training with the same three objectives and evaluation; wording and objective order differ."}
+{"confidence": "medium", "item_id": "Ra2ccf7", "judgment": "yes", "reason": "Same policy-weight diffusion idea, claims and comparisons to Diffusion Policy; B adds a world-model framing."}
+{"confidence": "high", "item_id": "Ra59410", "judgment": "yes", "reason": "Same Cauchy-Schwarz divergence regularizer, same datasets; B reframes it as a general framework."}
+{"confidence": "high", "item_id": "Ra6fb6a", "judgment": "yes", "reason": "Same task-regularized hybrid distillation method; B changes setting to incremental detection and adds analysis."}
+{"confidence": "high", "item_id": "Ra7e6de", "judgment": "yes", "reason": "Same FOML algorithm, same task-boundary-free online meta-learning claims and experiments; B is a near-identical version."}
+{"confidence": "high", "item_id": "Ra81d60", "judgment": "yes", "reason": "Same PAFT system, gradient-inconsistency analysis and experiments; only the title and wording differ."}
+{"confidence": "high", "item_id": "Ra84287", "judgment": "yes", "reason": "Same generative latent-space method for synthesizing critical agent states; B reframes the same approach."}
+{"confidence": "high", "item_id": "Ra8ed93", "judgment": "yes", "reason": "Same Exponential-Wrapped Laplace and Gaussian mechanisms on Hadamard manifolds; B adds utility bounds."}
+{"confidence": "high", "item_id": "Ra906de", "judgment": "yes", "reason": "Same four knowledge-manipulation tasks and same controlled synthetic experiment and central finding; B is a retitled extension."}
+{"confidence": "high", "item_id": "Rae7380", "judgment": "no", "reason": "A is Auto-CoT demonstration generation; B is Meta-CoT, a new mixed-task categorization method building on it."}
+{"confidence": "medium", "item_id": "Raf9adf", "judgment": "yes", "reason": "Same text-to-image plus LVLM VQA on-demand benchmarking framework; B adds validation modules and more models under a new name."}
+{"confidence": "high", "item_id": "Rb27078", "judgment": "yes", "reason": "Same S6-DAMON framework with SALAD token detector and SAFARI pruning pipeline; B rewords and reframes."}
+{"confidence": "high", "item_id": "Rb498c4", "judgment": "no", "reason": "A is DGLC graph-level clustering via mutual information; B is unsupervised multiple kernel learning for graphs."}
+{"confidence": "medium", "item_id": "Rb54112", "judgment": "yes", "reason": "Same ReMax objective inducing emergent exploration without bonuses; B generalizes it and adds a PPO variant."}
+{"confidence": "high", "item_id": "Rb7bb1a", "judgment": "yes", "reason": "Same Populated Region Set concept and low-PRS-ratio robustness finding; B adds a regularizer on the same core."}
+{"confidence": "medium", "item_id": "Rb83ee9", "judgment": "yes", "reason": "Same unsupervised QUBO GNN approach using recurrent refinement of predictions; B reframes it as iterative refinement with modifications."}
+{"confidence": "high", "item_id": "Rb90532", "judgment": "yes", "reason": "Same MPIRL method with multi-task discriminator and proximity-to-expert reward; B reframes it as reward decomposition."}
+{"confidence": "high", "item_id": "Rbad966", "judgment": "no", "reason": "CABINET contributes a relevance-scoring noise-reduction method; CoTabBench is a new benchmark and training corpus, a different contribution."}
+{"confidence": "high", "item_id": "Rbb1fa9", "judgment": "yes", "reason": "Same particle-filter framework and benchmarks; B only rewords the abstract and title."}
+{"confidence": "high", "item_id": "Rbd3793", "judgment": "no", "reason": "Same problem family, but B studies closed-neighborhood concept classes, a new setting with new results."}
+{"confidence": "high", "item_id": "Rbe3e3f", "judgment": "yes", "reason": "Same almost-linear-time multi-layer transformer gradient approximation theory; B adds numerical experiments and retitles."}
+{"confidence": "high", "item_id": "Rbfdcfc", "judgment": "yes", "reason": "Identical title and abstract; same peer-prediction self-play framework."}
+{"confidence": "high", "item_id": "Rc1d3e0", "judgment": "yes", "reason": "Same Gandalf method: label-feature graph-induced augmentation with soft labels; B reframes and adds plug-and-play generality."}
+{"confidence": "high", "item_id": "Rc3f907", "judgment": "no", "reason": "A's core is DeepReShape design principles and HybReNet; B's core is the xMLP square-activation architecture."}
+{"confidence": "high", "item_id": "Rc52fe0", "judgment": "no", "reason": "Different pretraining: multiview contrastive plus self-prediction versus subgraph-centroid distance prediction without views."}
+{"confidence": "high", "item_id": "Rc8a524", "judgment": "no", "reason": "A needs LiDAR RoI points as weak supervision; B uses single-view images with self-knowledge distillation."}
+{"confidence": "medium", "item_id": "Rc8d93e", "judgment": "yes", "reason": "Both use unconditional scores to privately accelerate diffusion inference; B recasts distillation as score correction."}
+{"confidence": "high", "item_id": "Rc99231", "judgment": "no", "reason": "RA-LLM is a robust alignment defense; B is a new weak-to-strong jailbreaking attack. Different contributions."}
+{"confidence": "high", "item_id": "Rca1271", "judgment": "yes", "reason": "Same Padam partially adaptive algorithm with the same generalization claims; B adds a convergence proof and retitles."}
+{"confidence": "medium", "item_id": "Rcaaea5", "judgment": "no", "reason": "A's core is mixup and batch-label regularization for naive pseudo-labeling; B's core is a new uncertainty-aware pseudo-label selection method."}
+{"confidence": "high", "item_id": "Rcbe8e0", "judgment": "no", "reason": "A uses zero-shot CoT with diverse sampling and quality control; B proposes iterative bootstrapping and difficulty-based exemplar selection."}
+{"confidence": "high", "item_id": "Rcc3503", "judgment": "yes", "reason": "Same diffusion-denoising certified defense against seven clean-label attacks; B adds minor specifics."}
+{"confidence": "high", "item_id": "Rcf2a32", "judgment": "yes", "reason": "Same MC-PNL method with maximal correlation, random Fourier features and block coordinate descent; abstract reworded."}
+{"confidence": "high", "item_id": "Rcf6032", "judgment": "no", "reason": "A is min-cut soft-assignment pooling; B is a new MAXCUT solver for attributed graphs with a different objective."}
+{"confidence": "medium", "item_id": "Rd36ceb", "judgment": "no", "reason": "Different explanations (non-robust feature dynamics vs non-effective features) and different mitigation techniques."}
+{"confidence": "high", "item_id": "Rd4d9e7", "judgment": "yes", "reason": "Same expected quadratic utility mean-variance policy-gradient approach avoiding variance gradients; B renames it EQUMRL."}
+{"confidence": "high", "item_id": "Rd7fea8", "judgment": "no", "reason": "FASP's interlinked-layer Wanda-style pruning differs from Thanos's block-wise adaptive-mask pruning; different methods."}
+{"confidence": "high", "item_id": "Rd9420a", "judgment": "yes", "reason": "Same online inverse multiobjective learning framework and implicit update algorithms; mostly rewording."}
+{"confidence": "high", "item_id": "Rdbec66", "judgment": "no", "reason": "Different methods and settings: URT layer on Meta-Dataset versus cross-level distillation for cross-domain few-shot."}
+{"confidence": "high", "item_id": "Rdc1d70", "judgment": "no", "reason": "Different contributions: WL-bounded expressivity theory for GIN versus eigenvalue analysis showing GNNs exceed WL."}
+{"confidence": "high", "item_id": "Rdd7f5e", "judgment": "yes", "reason": "Both present the same ConLUX framework lifting local model-agnostic explainers to concept-based explanations; B adds explanation forms."}
+{"confidence": "high", "item_id": "Re12789", "judgment": "yes", "reason": "Same HCFL four-tier framework and HCFL+ clustering method; B rewords and renames the abstract."}
+{"confidence": "medium", "item_id": "Re15187", "judgment": "no", "reason": "Different core technique: A approximates components via significance analysis; B uses accuracy-driven pruning and sparse hard-attention."}
+{"confidence": "high", "item_id": "Re1b7d5", "judgment": "yes", "reason": "Same warped sl(3) group-convolution method, warp functions and benchmarks; B is a retitled version of A."}
+{"confidence": "high", "item_id": "Re2ac25", "judgment": "yes", "reason": "Same confusion-neuron encryption method and abstract; B only retitles and lightly rewords."}
+{"confidence": "medium", "item_id": "Re2c447", "judgment": "yes", "reason": "Same MCTS-learned replay schedules as the core idea; B adds an RL policy framework as an extension."}
+{"confidence": "high", "item_id": "Re3163a", "judgment": "yes", "reason": "Same identity-preserving IDInit with padded matrices and dead-neuron handling; B rewords it."}
+{"confidence": "high", "item_id": "Re3fbde", "judgment": "yes", "reason": "Same theoretical framework, removal of difficult examples, and margin/temperature results; only lightly reworded."}
+{"confidence": "high", "item_id": "Re41e80", "judgment": "yes", "reason": "Same oriented-bandpass hypothesis and windowed-eigenfunction argument; B adds empirical layer-wise support."}
+{"confidence": "high", "item_id": "Re473e3", "judgment": "yes", "reason": "Same ReLU NTK conditioning and data-separation results; B retitles and generalizes the wording."}
+{"confidence": "high", "item_id": "Re94374", "judgment": "yes", "reason": "Same generated difficulty dataset, pattern finding, and adaptive GRE-style test; B only retitles and rewords."}
+{"confidence": "high", "item_id": "Reaf287", "judgment": "no", "reason": "Different methods: DST-Det uses CLIP pseudo-label self-training; F-VLM uses a frozen VLM as region classifier."}
+{"confidence": "high", "item_id": "Rebce1e", "judgment": "no", "reason": "A prunes SNN kernels by activity levels; B prunes by Taylor-expansion sensitivity, a different criterion."}
+{"confidence": "high", "item_id": "Recbcad", "judgment": "yes", "reason": "Same optimal separable convolution and O(C^{3/2}K) complexity; B reframes the same operator in parameters."}
+{"confidence": "high", "item_id": "Ref3145", "judgment": "no", "reason": "A compares uncertainty heuristics and tunes hyperparameters; B proposes a new Bayesian value expansion method, CBOP."}
+{"confidence": "medium", "item_id": "Rf1ec02", "judgment": "yes", "reason": "Same QAvatar hybrid-Q method and convergence analysis; B adds a cross-domain Bellman consistency framing."}
+{"confidence": "high", "item_id": "Rf26709", "judgment": "no", "reason": "Different core: Bayesian posterior-sampling offline-to-online finetuning versus a fully offline method (SOReL/TOReL) for safe offline RL."}
+{"confidence": "high", "item_id": "Rf84d2a", "judgment": "yes", "reason": "Same AdamBO method and randomness decoupling lemma; B drops the variance-reduced VR-AdamBO variant."}
+{"confidence": "high", "item_id": "Rf8cee9", "judgment": "yes", "reason": "Same DHTM algorithm with sparse transitions and Hebbian rules; B swaps successor representation for features."}
+{"confidence": "medium", "item_id": "Rfa61c9", "judgment": "no", "reason": "A is a unified benchmark of existing GSL models; B proposes a new GSL framework and argues GSL is unnecessary."}
+{"confidence": "high", "item_id": "Rfa8ccd", "judgment": "no", "reason": "A is a backdoor attack exploiting critical layers; B is a defense. Different core contributions."}
+{"confidence": "high", "item_id": "Rfbc5cb", "judgment": "no", "reason": "Different core methods: BA-Net's feature-metric BA with basis depth maps vs DeepSFM's cost-volume depth and pose networks."}
+{"confidence": "high", "item_id": "Rfc48e7", "judgment": "yes", "reason": "Same LeGIT framework, same four benchmarks and same claim that LLM guidance improves intervention targeting."}
+{"confidence": "high", "item_id": "Rfff01b", "judgment": "yes", "reason": "Same proposal: more training shots than test shots to preserve intrinsic dimension in robust MAML."}

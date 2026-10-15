@@ -11,7 +11,7 @@
   ],
   "papers": 43480,
   "papers_without_author_key": 4,
-  "s4_available": false,
+  "s4_available": true,
   "by_map": {
     "k100": {
       "incumbent_rate_by_year": {

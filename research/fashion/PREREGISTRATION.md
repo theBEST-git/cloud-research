@@ -689,3 +689,12 @@ Anything added after the freeze is labelled post hoc.
   - There was no rerun and no deviation after the run. The results are reported in `RESULTS.md`.
 - **Figures.** After the run, `figures.py` was edited for presentation only (F1 titles; F7 legend). These are the
   only code changes since the freeze. They read the frozen outputs and change no number.
+- **Registered for the confirmation split** (post hoc, from the discovery results, before any confirmation data
+  exist).
+  - Besides H1d, as registered, three hypotheses are tested one-sided at α = 0.05 with the same frozen code, variants
+    and decision rule, on the same model as their discovery counterpart:
+    - **H2b′:** newcomer papers are more likely to be method papers (positive);
+    - **H2c′:** newcomer papers are less likely to be measurement papers (negative);
+    - **H3a:** acceptance decreases with topic maturity (negative, the registered direction).
+  - H2b′ and H2c′ reverse the discovery predictions because discovery found the opposite. They are new hypotheses,
+    and are labelled so.

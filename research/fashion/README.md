@@ -79,3 +79,26 @@ SE clustered by topic. 43,096 papers from 2018–2026; 100 topics.
   9 variants, against a mean of 9.2%. The architecture share fell from 24.5% (2017) to 7.5% (2026), while the
   foundation-model share rose from 0% to 54%. The expected shift towards empirical and evaluation work (H1e) is
   not found.
+
+## RQ2 and RQ3 results (single frozen run, 2026-10-15)
+
+Full write-up: [RESULTS.md](RESULTS.md). Outputs: `output/frozen_run/` (committed before interpretation). Protocol:
+`PREREGISTRATION.md` and `FREEZE.json`.
+
+| | Outcome ~ regressor (prediction) | Main estimate (95% CI) | Verdict |
+|---|---|---|---|
+| H2a | incumbent ~ hot topic (−) | −0.73 pp (−2.68, +1.22) | inconclusive |
+| **H2b** | **method ~ newcomer (−)** | **+3.71 pp (+2.61, +4.80)** | **significant in the opposite direction** |
+| **H2c** | **measurement ~ newcomer (+)** | **−1.70 pp (−2.46, −0.93)** | **significant in the opposite direction** |
+| H3a | accepted ~ maturity (−) | −1.68 pp per log unit (−3.68, +0.32) | inconclusive (underpowered) |
+| H3b | accepted ~ maturity × method (−) | −0.36 pp per log unit (−1.51, +0.79) | inconclusive |
+
+- Papers whose authors are all new to a topic propose methods more often, and contribute measurement (datasets,
+  benchmarks, evaluation) less often, than papers with an author who published in the topic before.
+  - Both findings hold in every variant.
+  - About two-thirds of the measurement gap goes with team size.
+- No reward hypothesis is supported. H3a points the predicted way in every variant, but the test was underpowered.
+- H2d/H3c were dropped: the buzzword measure failed its blind validation.
+- The registered bootstrap remedy did not fix an over-rejection found in the dry-run for H2b/H2c (about 10–12% at
+  nominal 5% under cross-map structure). Their findings survive the pre-declared stress sensitivity and two-way
+  clustering.

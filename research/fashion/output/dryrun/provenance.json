@@ -1,0 +1,89 @@
+{
+  "files": {
+    "research/fashion/analysis.py": "1799f29ca440eb4819a12e53c84137cc70523d1460a9feec567d2be5bbb9fee8",
+    "research/fashion/ols.py": "618dbe3fea7deed5ed44f831862edf3e1ee1ceb09d675585dffc8357ec63f845",
+    "research/fashion/logit.py": "a86d76090acb6edd247573ba2240474c6d1bcb637f24e8329019b23f65c8e474",
+    "research/fashion/dgp.py": "a68d9b13af3d8193d958a164b922ff8688ca295289595efe38a7e9347e4350c9",
+    "research/fashion/panel.py": "27459ad819159f747b4a879fb8acf42bbf4e4670955bb9de77fe9cd65e956804",
+    "research/fashion/variants.py": "ba79fd5a73bcbce4c2f21025384dfe0ff06468adda3cfe6c096f0776b1b00b5b",
+    "research/fashion/outcomes.py": "3e2a6fd9337e48c0660471b719bbb5b4d3314141b06348eb35838326c28aa01b",
+    "research/fashion/rq2_following.py": "be1db6719d9d285312df18e471507da42fc22c5a7774ba9117b8efd37b8ee215",
+    "research/fashion/rq3_reward.py": "2c2a3dcfb1950dc3560414032ab51a6ec8d40a506496a8fa4e6d6d91985e1616",
+    "research/fashion/rq1_rise.py": "169d60c88d6d0f1eb0bd8f60de8d78045a85b61ac176648b193a2f0ee494a465",
+    "research/fashion/common.py": "83aa28c2fdb37c4076c02d00468a233198c64aa8403f68d5ead9c2e485c721ce",
+    "research/fashion/topic_maturity.py": "1d1f378e5a030f8ddde427e1572cf3dca427c7116f7a159c5e2d97d1d95e269e",
+    "research/fashion/dryrun.py": "f61203e6c6afbf397522aa898a758b0e1d8436c2397956d13e15ab2a7465940d",
+    "research/fashion/output/paper_variables.csv.gz": "3782506df5ef5fb44def6d5e6006a870914991ecc406c69e0622dd0b347f3d4a",
+    "research/fashion/output/paper_buzzword.csv.gz": "21c0add833728daf1d23a3c40b3119e343dceb4661aafe63386da2ba4df808e5",
+    "research/fashion/output/earlier_versions.csv.gz": "a23a72106dfc73a3ba116fecfc176b1464ecfef3f5c81251f4c6af86fa129b5c",
+    "research/fashion/output/topic_year_maturity.csv.gz": "ed0fac35a3b209a1664fbf06f3325b97f82149fc08a0d5a26eefb25929b741d6",
+    "research/fashion/output/h2d_validation.json": "38b45bac5667120bd6b355a44c7eb5647b4f1fdb7cdf82f5c8c74dee711b0e4e",
+    "research/topics/common.py": "b829e5cf3bffe26e6512f0bd2f0edecfc44c4bfb958b84973b1df41fef2f15c6",
+    "research/topics/output/topic_assignments.csv.gz": "4f32f3d6ad019eddaf828927121bf8e816b958d240e63c5797b08d6ac811b829",
+    "research/topics/output/k_sensitivity_assignments.csv.gz": "9297a07a78b1d8519e20b4b75819b63b3b49e828be48b7316175325068f4f317",
+    "research/topics/output/hindsight_assignments.csv.gz": "7364584b3622817e4f2d8bf4cac5e189d43285b2cdd5de0f7d52881fa8e9bd11",
+    "research/topics/output/paper_contributions.csv.gz": "39eaffd1f35e9973c06230d12b928d4d630e5ff796691b1af03752945cfcff07",
+    "research/topics/output/paper_topic_stability.csv.gz": "3b17bbb3e579c15c0b9e18a30897f1168406644dc14e89541f5fbaab580d79d2",
+    "research/topics/output/topic_catalog.csv": "119239e931d16b153bc27d7403a98d99425e51e61af01a45feae266170cab323",
+    "data/submissions.csv.gz": "203beba9e59024a58240de517c4c6f3d06060a84fe00f4282fe954e2df87b84c"
+  },
+  "combined": "8524f3cbf95bc6f6e225d1dfb1df91e450e2e7d094f21789ec23ff4a78bf6981",
+  "calibrated_rq2_dgp": {
+    "incumbent": {
+      "base": 0.27048,
+      "sd_topic": 0.0849,
+      "sd_year": 0.11713,
+      "sd_trend": 0.02088,
+      "sd_cell": 0.04844
+    },
+    "method": {
+      "base": 0.75048,
+      "sd_topic": 0.14145,
+      "sd_year": 0.02414,
+      "sd_trend": 0.01104,
+      "sd_cell": 0.02756
+    },
+    "measurement": {
+      "base": 0.07712,
+      "sd_topic": 0.07969,
+      "sd_year": 0.01609,
+      "sd_trend": 0.01143,
+      "sd_cell": 0.01212
+    },
+    "buzzword": {
+      "base": 0.04888,
+      "sd_topic": 0.03192,
+      "sd_year": 0.01192,
+      "sd_trend": 0.0,
+      "sd_cell": 0.01972
+    },
+    "lists_hot": {
+      "base": 0.27943,
+      "sd_topic": 0.12865,
+      "sd_year": 0.04909,
+      "sd_trend": 0.02105,
+      "sd_cell": 0.11547
+    }
+  },
+  "rq3_dgp": {
+    "lo": {
+      "base": 0.32,
+      "sd_topic": 0.05,
+      "sd_year": 0.03,
+      "sd_trend": 0.004,
+      "sd_cell": 0.02
+    },
+    "hi": {
+      "base": 0.32,
+      "sd_topic": 0.05,
+      "sd_year": 0.03,
+      "sd_trend": 0.016,
+      "sd_cell": 0.04
+    }
+  },
+  "reps": 500,
+  "power_reps": 200,
+  "full_reps": 100,
+  "jobs": 12400,
+  "seconds": 7256
+}

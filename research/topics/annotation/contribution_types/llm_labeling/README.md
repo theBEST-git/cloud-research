@@ -12,6 +12,7 @@ comes back and how it was checked.
 | `returned/step1_haiku_b25` | v1, Haiku, 25 per batch | check 300 | 95.3% (kappa 0.91) | 98.0% (kappa 0.96) | **go** |
 | `returned/step1_haiku_b100` | v1, Haiku, 100 per batch | check 299 (1 dropped) | 95.7% (kappa 0.91) | 97.3% (kappa 0.94) | no-go by one paper: FM yes 109 → 103 (limit ±5) |
 | `returned/step1_haiku_b300` | v1, Haiku, 300 per batch | check 299 (1 id garbled) | 94.7% (kappa 0.90) | 97.0% (kappa 0.94) | no-go: main class < 95% |
+| `returned/haiku_trial_2300` | v1, Haiku, 100 per batch | all 2,300 reference papers | 95.8% (pilot 300: **97.7%**) | 98.1% (pilot 300: 99.3%) | **go**: passes the pre-registered gate (≥93% on pilot 300); 0 papers missing |
 
 **v1 → v1.1.** Of the 13 main-class disagreements in v1, 5 were named frameworks/agents labelled `system` and 3 were
 learned distances/similarities labelled `evaluation`. As a result, `other` came out at 13 papers against 7 in the
@@ -73,3 +74,11 @@ labelled by a fresh agent that reads the prompt and its papers from files.
 - Larger batches are about 3.7× cheaper per paper. At 300 per batch quality slips below the main-class threshold,
   and each large-batch run dropped or garbled one paper id, so a full run must re-ask missing papers.
 - The differences between batch sizes are within sampling noise for 300 papers (±2.5 points).
+
+**Haiku trial at 100 per batch on all 2,300 reference papers** (`label_batches.js`, scored with `collect.py`):
+- pilot 300 (adjudicated): main class 97.7%, FM 99.3%;
+- training double-labelled 200: 95.5% / 98.5%;
+- training single-labelled 1,800: 95.6% / 97.9%.
+
+Class counts and FM-yes counts are within a few papers of the reference. All 2,300 papers came back on the first
+try. Each 100-paper batch took a median 2.3 minutes and about 104k subagent tokens.

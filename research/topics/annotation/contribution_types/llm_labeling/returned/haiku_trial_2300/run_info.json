@@ -1,0 +1,11 @@
+{
+  "model": "haiku (Claude Code subagent alias)",
+  "how_run": "Claude Code workflows (label_batches.js), one fresh subagent per batch; it reads the prompt v1 system prompt and its papers from files and returns labels through a structured-output schema",
+  "batch_size": 100,
+  "papers": "the 2,300 papers with reference labels (pilot 300 + training 2,000), shuffled with seed 7",
+  "parallel": "3 workflows x 2 concurrent agents",
+  "date_utc": "2026-10-15",
+  "result": "2300/2300 labelled, 0 missing; median 2.3 min per batch; about 2.4M subagent tokens",
+  "prompt_version": "contribution-codebook-v1 + foundation-model-rule-v1",
+  "system_prompt_sha256": "aaa1478fb32e1559edc1e158133a562666d64b29cdf4335bd5361509c1a42410"
+}

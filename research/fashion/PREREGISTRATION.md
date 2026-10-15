@@ -455,3 +455,35 @@ Anything added after the freeze is labelled post hoc.
     standard errors (k100 topic and early-map topic; Cameron–Gelbach–Miller, with the larger one-way variance if the
     two-way variance is not positive; p from t(min(G1, G2) − 1)). It is reported next to each verdict and enters the
     fragile flag like any S-variant; it does not change the decision rule. Its size is also measured in dry-run v3.
+- **2026-10-15, before any RQ2/RQ3 estimate: review round B4 (the remedy and S11 code).** Two reviewers (remedy
+  statistics; wiring and protocol), verifiers as before. The bootstrap matches a brute-force implementation exactly and
+  the two-way variance matches statsmodels; no wrong estimate, verdict or blinding break was found.
+  - **One confirmed major finding, fixed:** no test exercised the remedy wiring behaviourally (17 of the reviewer's 26
+    wiring mutations left the suite green). `tests/test_remedy_wiring.py` now runs RQ2 and RQ3 on simulated outcomes
+    and checks that each remedied hypothesis gets the registered bootstrap p-value (9,999 draws, seed 20261015, on the
+    confirmatory population) in its Holm family while everything else is unchanged; that S11 rows exist for every
+    hypothesis and cluster by the early map; that `run_frozen.py` passes FREEZE.json's remedies to both families; and
+    that dry-run v3's null and power replications record and use the right p-values; and, end to end on a fabricated
+    dry-run, that `freeze.py` records the remedies with their validation and refuses anything else. All 29 mutations
+    tried (the reviewer's surviving kinds plus the new checks) are caught.
+  - **Not a defect (verifier), now stated:** for H2b and H2c only the p-value comes from the bootstrap. The CIs, TOST
+    and the "equivalent to null" label stay CR1 with t(G−1), as D8 and D12 define them and as D16 registered (it
+    replaces only the confirmatory p-value). A CR1 interval can therefore exclude zero beside a bootstrap p above 0.05,
+    or the reverse. The summary and E9 now name both methods next to each verdict, and S11 is reported beside each
+    verdict as the cross-check of the CR1 interval. No bootstrap-inverted interval is added: that would be a new,
+    unregistered method.
+  - **Minor:**
+    - A bootstrap p-value can be exactly 0 (no draw reaches |t|). It stays as registered and is reported as
+      "< 1/9,999". Using (1 + count)/(B + 1) instead would change Holm-adjusted values only below 3 × 10⁻⁴, so no
+      decision at 0.05.
+    - In `rq2_null_early` the two-way size is close to tautological, because that null's structure lies on the early
+      map, which is S11's second clustering. That size shows the two-way variance is computed correctly; it does not
+      show S11 is robust to cross-cutting structure along other maps.
+    - `freeze.py` now also refuses a dry-run that lacks:
+      - a bootstrap size for any remedied hypothesis, or an S11 size for any hypothesis, in any null scenario;
+      - complete null replications;
+      - any CR1, bootstrap or two-way p-value. A missing one would have counted as a non-rejection in the summary's
+        sizes.
+    - The S11 combination and the early-map column now have tests that run without statsmodels.
+  - None of these changes touches a file in the dry-run digest. Dry-run v3, started from the committed remedy code,
+    stays valid.

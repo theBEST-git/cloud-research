@@ -169,3 +169,148 @@ Any change to this plan after registration is listed here with its date and reas
   - The full run passed the label-quality gate before any RQ analysis: 97.7% main-class agreement with the pilot
     300, and second-pass kappa 0.93.
   - Run record: `research/topics/annotation/contribution_types/llm_labeling/returned/haiku_full_v1/`.
+
+### 2026-10-15: pre-run log for RQ2 and RQ3
+
+Written before any RQ2 or RQ3 variable was built and before any acceptance outcome was analysed. Facts checked
+without outcomes:
+- 2017–2020 author IDs are 98–99.6% email-based; 2021 is 85% profile-based and 2025–26 are 100% profile-based;
+- `family_id` is unique per submission;
+- the registered RQ3 population leaves out 9,986 withdrawn submissions.
+
+Tags:
+- **[C]** clarifies something the registration left open; it defines the main specification.
+- **[R]** replaces an infeasible item; it counts in the 75% rule.
+- **[S]** supplementary; reported, never part of the verdict.
+- **[E]** planned exploratory analysis; always labelled exploratory.
+
+**Clarifications [C]**
+
+- **D1. Earlier ICLR paper (for `incumbent`).** Any earlier discovery submission with a topic, whatever its status or
+  outcome. No outcome is ever used to build RQ2 variables.
+- **D2. Incumbency mechanics.**
+  - Author = exact `declared_id_key`. Positions without a key are ignored.
+  - "Earlier" means strictly before year t; history starts in 2017.
+  - "Same topic" uses the map under analysis, so incumbency is recomputed for every map.
+  - Email and profile IDs are not bridged, and names are not matched.
+  - Two known gaps: the 2021 ID-type switch, and earlier papers that sit in the held-out confirmation split. Both
+    turn true incumbents into newcomers, so they bias towards zero.
+  - Papers without any author key are dropped from RQ2.
+  - For the confirmation run, history = discovery ∪ confirmation papers before t.
+- **D3. `hot`.** The map's `prior_growth` (from `topic_year_maturity.csv.gz`) is at or above the 80th percentile
+  (numpy linear) of that map's topics in year t. It is computed on the full corpus before any sample filter.
+- **D4. H2b–d mechanics.**
+  - Regressor: `newcomer = 1 − incumbent`.
+  - The topic×year fixed effect is absorbed as one group; no year dummies.
+  - Singleton topic-year cells are dropped.
+  - SE clustered by topic.
+  - A control without variation in a variant is dropped and logged; the tested regressor is never dropped.
+- **D5. H2d construction.** Everything uses only papers from before year t.
+  - Embedding: raw SPECTER2 vectors, L2-normalised, no PCA (the PCA was fitted on all years).
+  - Eligible keyword in year t: typed research_area or specific_topic, ≥20 papers overall (as registered), and ≥10
+    users before t.
+  - Centroid: normalised sum of the earlier users' vectors.
+  - Reference set: leave-one-out cosine of each earlier user to the centroid of the others. A use is *atypical* if
+    the paper's cosine is below the 10th percentile (numpy linear) of that set.
+  - Keyword growth: `((c_{t−1}+0.5)/N_{t−1}) / ((c_{t−2}+0.5)/N_{t−2})`, where N is the number of papers with a topic
+    that year. A keyword is *hot* if its growth is at or above the 80th percentile of that year's eligible keywords.
+  - *Buzzword* = the paper lists at least one hot keyword and uses it atypically. Papers without an eligible hot
+    keyword are 0.
+  - Keywords match by exact string. Years 2019–2026.
+- **D6. H2d blind validation.**
+  - Sample: 100 flagged (paper, hot keyword) uses, at most one per paper. Each is paired with a non-flagged use of
+    the same keyword in the same year (nearest year if none), from a different paper.
+  - Judges see only the title, the abstract and the one keyword. Items carry random ids, the two items of a pair go
+    to different batches, and each judge gets its own shuffle.
+  - No key file exists during judging; the scorer rebuilds the key from the seeded sampler. Judge transcripts are
+    audited for reading other files.
+  - Three independent LLM judges: two Opus runs with different batch orders, and one Sonnet run. Forced choice:
+    - *central*: the main contribution proposes, studies or is chiefly evaluated on what the keyword names;
+    - *peripheral*: background, motivation, a minor component, an application mentioned in passing, or an umbrella
+      label the paper does not specifically address.
+  - A 20-item pilot outside the sample checks the format only; then the instructions are frozen.
+  - An item is peripheral if at least 2 of 3 judges say so.
+  - **Gate passes** if p_flag ≥ 0.50 and p_flag ≥ 2·p_nonflag. One attempt only; the thresholds are not re-tuned.
+- **D7. One model per hypothesis.**
+  - Base = class dummies (reference `method`) + foundation-model dummy + topic FE + year dummies.
+  - H3a = base + maturity.
+  - H3b = base + maturity + maturity×method.
+  - H3c = base + buzzword, years 2019–2026 (buzzword needs t−2).
+- **D8. Logit variant.**
+  - Maximum-likelihood logit with topic and year dummies, Newton steps with step-halving.
+  - Topics with no variation in the outcome are dropped and reported.
+  - CR1 cluster sandwich by topic, scaled G/(G−1)·(N−1)/(N−K) to match statsmodels; p-values from t(G−1).
+  - The verdict uses the sign of the log-odds coefficient. Average marginal effects are reported for reading only.
+- **D9. Variant mechanics.**
+  - Variables are built on the full corpus first; sample filters come after.
+  - A variant that cannot be estimated counts as wrong sign.
+  - Counted variants:
+    - RQ2: k75, k150, balanced, early, early_prospective (2021–26), stable_papers, coherent_topics, certain_labels,
+      without 2026, and R2.
+    - RQ3: the same nine (without R2), plus logit and R1.
+- **D10. Holm families follow the H2d gate**, read from `output/h2d_validation.json` and never set by hand: {H2a–c}
+  plus H2d if the gate passes; {H3a–b} plus H3c if it passes.
+- **D11. Label error.**
+  - Report the second-pass κ (0.93) and the class-specific agreement for `method` and `measurement` next to each RQ2
+    estimate.
+  - S8 corrects H2b–c for misclassification.
+- **D12. Equivalence and power.**
+  - Smallest effects of interest (SESOI): H2a ±2 pp; H2b ±2 pp; H2c ±1 pp; H2d ±1 pp; H3a and H3b ±1 pp per log
+    unit; H3c ±2 pp.
+  - A non-supported hypothesis is reported as *equivalent to null* if its 90% CI lies inside the bounds, otherwise as
+    *inconclusive*.
+  - The minimum detectable effect at 80% power (MDE80) from the dry-runs is added here at freeze.
+  - Equivalence statements about RQ1 are labelled post hoc.
+- **D13. Outcome-blind protocol.**
+  - Only `outcomes.py` may name outcome or review columns; a lint test enforces this.
+  - Its permuted and simulated modes are used for dry-runs. Its real mode refuses to run unless the hashes in
+    `FREEZE.json` match, git is clean, and the call comes from `run_frozen.py`.
+  - The real run happens once and is committed immediately. A bug found afterwards: fix, rerun, report both, log it.
+- **D14. Confirmation split.** New variables are recomputed on discovery ∪ confirmation with the frozen code, the same
+  keyword list and the same τ.
+
+**Replacements [R] (counted in the 75% rule)**
+
+- **R1. "First submission per family" is vacuous**, because `family_id` is unique per submission. It is replaced by
+  *no probable earlier version*.
+  - Drop a paper if an earlier-year paper has the same normalised title, or SPECTER2 cosine ≥ τ.
+  - τ is calibrated without outcomes: three blind judges rate 4 cosine bins × 40 pairs, answering "Is B a revised
+    version of A?".
+  - τ is the lowest bin edge at which that bin and all higher bins get ≥90% majority "yes". If none qualifies: exact
+    titles, or cosine ≥ the edge of the top bin.
+- **R2. ID-consistent years (RQ2).** The same models on 2019–2020 plus 2023–2026, leaving out the 2021–22 ID
+  transition.
+
+**Supplementary variants [S]** (never part of the verdict)
+
+- **S1.** + log(team size), in all RQ2 and RQ3 models.
+- **S2.** H2a with pool controls: maturity, log(1 + papers in t−1), log team size.
+- **S3.** Incumbency from a fixed two-year window (t−1, t−2), 2023–2026 only.
+- **S4.** Incumbency ignoring the paper's own probable earlier version.
+- **S5.** Fine-level topics.
+- **S6.** H2d and H3c among papers that list at least one hot keyword.
+- **S7.** H2d and H3c with fixed effects for the number of eligible keywords.
+- **S8.** H2b–c corrected for label misclassification.
+- **S9.** RQ3 with withdrawals after review (`administrative_status == 'withdrawn'` and at least one review) counted
+  as not accepted. Excluding them conditions on a choice made after review; counting them brackets the estimate.
+  Withdrawals before review are excluded from both.
+- **S10.** RQ3 + newcomer control.
+- **Fragile flag:** a supported hypothesis is marked *fragile* if any S-variant is significant (p < 0.05) with the
+  opposite sign.
+
+**Planned exploratory analyses [E]**
+
+| ID | Analysis |
+|---|---|
+| E1 | Foundation-model acceptance gap within topic-year |
+| E2 | Acceptance by incumbency |
+| E3 | Withdrawal as an outcome, after vs before review |
+| E4 | Heterogeneity by era (2018–20, 2021–23, 2024–26) for H2b–c and H3a–b |
+| E5 | Newcomer × hot |
+| E6 | Dose-response plots after removing fixed effects (H1d, H2a, H3a) |
+| E7 | Buzzword decomposition: listing a hot keyword vs atypical use |
+| E8 | Acceptance of new-architecture papers by prior FM adoption |
+| E9 | Equivalence tests (TOST) and MDE80 for all non-supported hypotheses |
+| E10 | Acceptance trend by contribution class |
+
+Anything added after the freeze is labelled post hoc.

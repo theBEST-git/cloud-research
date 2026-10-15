@@ -9,6 +9,8 @@ import argparse
 import json
 from pathlib import Path
 
+import pandas as pd
+
 import outcomes
 import rq2_following as rq2
 import rq3_reward as rq3
@@ -71,6 +73,48 @@ def check_dryrun(dry: dict, prov: dict, families: dict) -> tuple[list[str], dict
     return fatal, remediable
 
 
+def check_remedy_validation(dry: dict, remedies: set[str], families: dict) -> list[str]:
+    """D16 / S11: the dry-run must report the bootstrap size of every remedied hypothesis and the two-way (S11) size of
+    every hypothesis, in every null scenario of its family."""
+    import dryrun
+    fatal = []
+    for h in families["rq2"] + families["rq3"]:
+        for sc in dryrun.NULL_SCENARIOS:
+            if sc.startswith("rq2") != h.startswith("H2"):
+                continue
+            if h not in dry.get("size_twoway", {}).get(sc, {}):
+                fatal.append(f"null scenario {sc}: no two-way (S11) size for {h}")
+            if h in remedies and h not in dry.get("size_bootstrap", {}).get(sc, {}):
+                fatal.append(f"null scenario {sc}: no bootstrap size for remedied {h}")
+    return fatal
+
+
+def check_null_replications(directory: Path, families: dict, reps: int) -> list[str]:
+    """Every null scenario has `reps` replications per family hypothesis with all three p-values (CR1, bootstrap,
+    two-way): a missing alternative p-value would count as a non-rejection in the summary's sizes."""
+    import dryrun
+    fatal = []
+    for sc in dryrun.NULL_SCENARIOS:
+        f = directory / f"{sc}.csv"
+        if not f.exists():
+            fatal.append(f"{f.name} is missing")
+            continue
+        d = pd.read_csv(f)
+        for h in families["rq2"] if sc.startswith("rq2") else families["rq3"]:
+            g = d[d.hypothesis == h]
+            if g.rep.nunique() != reps or len(g) != reps:
+                fatal.append(f"{sc}: {h} has {len(g)} rows / {g.rep.nunique()} replications, registered {reps}")
+            for col in ["p_cr1", "p_boot", "p_twoway"]:
+                if col not in g or g[col].isna().any():
+                    fatal.append(f"{sc}: {h} has missing {col}")
+    return fatal
+
+
+def check_remedies_applied(dry_remedies: tuple[str, ...], asked: set[str]) -> None:
+    if set(dry_remedies) != asked:
+        raise SystemExit(f"the dry-run applied remedies {dry_remedies}, the freeze asks for {sorted(asked)}")
+
+
 def validate_remedies(remedies: list[str], remediable: dict[str, str]) -> set[str]:
     """D16: exactly one bootstrap:<h> per remediable hypothesis, and only once the bootstrap exists."""
     asked = {r.split(":", 1)[1] for r in remedies if r.startswith("bootstrap:")}
@@ -98,13 +142,14 @@ def main() -> None:
     families = {"rq2": [s.hid for s in rq2.SPECS if not s.gated or gate["gate"] == "pass"],
                 "rq3": [s.hid for s in rq3.SPECS if not s.gated or gate["gate"] == "pass"]}
     prov = json.loads((OUTPUT / "dryrun" / "provenance.json").read_text())
+    import dryrun
     fatal, remediable = check_dryrun(dry, prov, families)
+    fatal += check_remedy_validation(dry, set(dryrun.REMEDIES), families)
+    fatal += check_null_replications(OUTPUT / "dryrun", families, prov["reps"])
     if fatal:
         raise SystemExit("refusing to freeze:\n- " + "\n- ".join(fatal))
     asked = validate_remedies(a.remedy, remediable)
-    import dryrun
-    if set(dryrun.REMEDIES) != asked:
-        raise SystemExit(f"the dry-run applied remedies {dryrun.REMEDIES}, the freeze asks for {sorted(asked)}")
+    check_remedies_applied(dryrun.REMEDIES, asked)
     problems = [f"{h}:{v}" for h, v in remediable.items()]
     freeze = {
         "created_utc": a.created,

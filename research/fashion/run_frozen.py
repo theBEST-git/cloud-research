@@ -33,6 +33,8 @@ import rq3_reward as rq3
 from common import OUTPUT, ROOT
 
 OUT = OUTPUT / "frozen_run"
+CI_METHOD = "CR1, t(G-1)"          # CIs, TOST and the equivalence label (D8, D12), also for the remedied hypotheses
+S11 = "S11_twoway_topic_early"
 
 
 def clean(o):
@@ -60,8 +62,29 @@ def equivalence_table(verdicts: dict, mde: dict, powered: dict, notes: dict | No
         note = (notes or {}).get(h) or ("" if m is not None else "not reached within the grid")
         rows.append({"hypothesis": h, "verdict": v["verdict"], "coef": v["coef"], "ci90": v["ci90"], "sesoi": v["sesoi"],
                      "tost_p": v["tost_p"], "mde80": m, "mde80_note": note,
-                     "underpowered_at_3x_sesoi": not powered.get(h, False)})
+                     "underpowered_at_3x_sesoi": not powered.get(h, False),
+                     "p_method": v.get("p_method", CI_METHOD), "ci_tost_method": CI_METHOD})
     return rows
+
+
+def labelled(verdicts: dict) -> dict:
+    """Verdicts with the method behind their CIs and TOST stated next to the method behind their p-value (D16)."""
+    return {h: {**v, "ci_tost_method": CI_METHOD} for h, v in verdicts.items()}
+
+
+def s11_of(rows: pd.DataFrame) -> dict:
+    """S11 (two-way clustering, topic and early-map topic) next to each verdict."""
+    s = rows[rows.variant == S11] if len(rows) else rows
+    return {r.hypothesis: {"coef": r.coef, "se": r.se, "p": r.p, "ci95": [r.ci95_lo, r.ci95_hi], "clusters": r.clusters,
+                           "clusters2": r.clusters2} for r in s.itertuples()}
+
+
+def p_text(v: dict) -> str:
+    """A bootstrap p-value of 0 means no draw reached |t|: reported as below 1/draws, never as 0."""
+    if "bootstrap" in v["p_method"]:
+        draws = int(v["p_method"].split(", ")[-1].split()[0])
+        return f"p_boot {'< 1/' + str(draws) if v['p'] == 0 else format(v['p'], '.3g')}"
+    return f"p {v['p']:.3g}"
 
 
 def started_attempts(log) -> list[dict]:
@@ -140,8 +163,10 @@ def run(freeze: dict, started: str) -> None:
     mde = freeze.get("mde80", {})
     powered = freeze.get("dryrun_criteria", {}).get("c_detected_80pct_at_3x_sesoi", {})
     summary = {
-        "rq2": {"family": res2["family"], "verdicts": res2["verdicts"], "label_reliability": res2["label_reliability"]},
-        "rq3": {"family": res3["family"], "verdicts": res3["verdicts"], "counts": res3["counts"]},
+        "rq2": {"family": res2["family"], "verdicts": labelled(res2["verdicts"]), "s11_twoway": s11_of(res2["rows"]),
+                "label_reliability": res2["label_reliability"]},
+        "rq3": {"family": res3["family"], "verdicts": labelled(res3["verdicts"]), "s11_twoway": s11_of(res3["rows"]),
+                "counts": res3["counts"]},
         "h2d_gate": gate_file, "tau": tau,
         "e9_equivalence": equivalence_table({**res2["verdicts"], **res3["verdicts"]}, mde, powered, freeze.get("mde80_note")),
         "dryrun_criterion_c_detected_80pct_at_3x_sesoi": powered,
@@ -159,7 +184,7 @@ def run(freeze: dict, started: str) -> None:
     for part in ("rq2", "rq3"):
         for h, v in summary[part]["verdicts"].items():
             print(f"{h} {v['outcome']:12s} ~ {v['regressor']:18s} coef {v['coef']:+.4f} CI95 [{v['ci95'][0]:+.4f}, "
-                  f"{v['ci95'][1]:+.4f}] p_holm {v['p_holm']:.3g} robust {v['robustness_same_sign']:.0%} "
+                  f"{v['ci95'][1]:+.4f}] {p_text(v)} p_holm {v['p_holm']:.3g} robust {v['robustness_same_sign']:.0%} "
                   f"hindsight {'ok' if v['hindsight_variants_same_sign'] else 'FAIL'} -> {v['verdict']}"
                   f"{' (fragile)' if v['fragile'] else ''}")
 

@@ -290,6 +290,13 @@ class FrozenRunPassesRemedies(unittest.TestCase):
                                  (ref["coef"], ref["se"], ref["p"], [ref["ci95_lo"], ref["ci95_hi"]]), s.hid)
                 self.assertEqual((got["clusters"], got["clusters2"]), (d.topic.nunique(), d.topic_early.nunique()), s.hid)
                 self.assertNotEqual(got["se"], summary[rq]["verdicts"][s.hid]["se"], s.hid)
+        for rq in ["rq2", "rq3"]:
+            fam = summary[rq]["family"]
+            ph = holm(pd.Series({h: summary[rq]["s11_twoway"][h]["p"] for h in fam}))
+            for h in fam:
+                v = summary[rq]["verdicts"][h]
+                self.assertAlmostEqual(v["s11_p_holm"], ph[h], places=12)
+                self.assertEqual(v["qualifier"] != "", v["verdict"] == "supported" and not v["s11_agrees"])
         lines = [str(c.args[0]) for c in printed.call_args_list if c.args]
         for h in summary["rq2"]["family"] + summary["rq3"]["family"]:
             line = next(x for x in lines if x.startswith(h + " "))
@@ -308,6 +315,22 @@ class FrozenRunPassesRemedies(unittest.TestCase):
         self.assertEqual(run_frozen.s11_of(rows), {"H2a": {"coef": 0.1, "se": 0.2, "p": 0.3, "ci95": [-0.4, 0.6],
                                                            "clusters": 100, "clusters2": 57}})
         self.assertEqual(run_frozen.s11_of(pd.DataFrame()), {})
+
+    def test_s11_qualifier_marks_supported_hypotheses_without_two_way_support(self):
+        v = lambda verdict, sign=-1: {"verdict": verdict, "predicted_sign": sign, "p": 0.001}
+        s11 = lambda coef, p: {"coef": coef, "se": 0.01, "p": p}
+        verdicts = {"Ha": v("supported"), "Hb": v("supported"), "Hc": v("supported", +1), "Hd": v("inconclusive")}
+        cases = {"Ha": s11(-0.1, 0.01), "Hb": s11(-0.1, 0.03), "Hc": s11(-0.1, 0.001), "Hd": s11(-0.1, 0.2)}
+        out = run_frozen.labelled(verdicts, cases)
+        ph = holm(pd.Series({h: c["p"] for h, c in cases.items()}))
+        self.assertEqual({h: out[h]["s11_p_holm"] for h in out}, {h: float(ph[h]) for h in out})
+        self.assertEqual({h: out[h]["s11_agrees"] for h in out}, {"Ha": True, "Hb": False, "Hc": False, "Hd": False})
+        self.assertEqual({h: out[h]["qualifier"] for h in out},                # Hb: 0.03 alone, but 0.06 after Holm
+                         {"Ha": "", "Hb": run_frozen.S11_QUALIFIER, "Hc": run_frozen.S11_QUALIFIER, "Hd": ""})
+        missing = run_frozen.labelled({"Ha": v("supported")}, {})["Ha"]
+        self.assertEqual((missing["s11_p_holm"], missing["qualifier"]), (1.0, run_frozen.S11_QUALIFIER))
+        self.assertEqual(run_frozen.labelled({"Ha": v("supported")}, {"Ha": s11(np.nan, np.nan)})["Ha"]["qualifier"],
+                         run_frozen.S11_QUALIFIER)
 
     def test_zero_bootstrap_p_is_printed_as_a_bound(self):
         v = {"p": 0.0, "p_method": "wild cluster restricted bootstrap (Rademacher by topic, 9999 draws)"}

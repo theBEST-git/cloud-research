@@ -31,10 +31,12 @@ import panel
 import rq2_following as rq2
 import rq3_reward as rq3
 from common import OUTPUT, ROOT
+from variants import holm
 
 OUT = OUTPUT / "frozen_run"
 CI_METHOD = "CR1, t(G-1)"          # CIs, TOST and the equivalence label (D8, D12), also for the remedied hypotheses
 S11 = "S11_twoway_topic_early"
+S11_QUALIFIER = "not robust to two-way clustering (S11)"     # pre-run log, dry-run v3 results
 
 
 def clean(o):
@@ -67,9 +69,21 @@ def equivalence_table(verdicts: dict, mde: dict, powered: dict, notes: dict | No
     return rows
 
 
-def labelled(verdicts: dict) -> dict:
-    """Verdicts with the method behind their CIs and TOST stated next to the method behind their p-value (D16)."""
-    return {h: {**v, "ci_tost_method": CI_METHOD} for h, v in verdicts.items()}
+def labelled(verdicts: dict, s11: dict | None = None) -> dict:
+    """Verdicts with the method behind their CIs and TOST stated next to the method behind their p-value (D16), and the
+    pre-declared S11 qualifier (pre-run log, dry-run v3 results): S11's p-values are Holm-adjusted within the family
+    (missing as 1, as in decide), and a supported hypothesis whose S11 estimate does not have the predicted sign with
+    an adjusted p < 0.05 is reported as not robust to two-way clustering. A reporting label; the verdict is unchanged."""
+    s11 = s11 or {}
+    p = pd.Series({h: s11.get(h, {}).get("p", np.nan) for h in verdicts}, dtype=float)
+    ph = holm(p.fillna(1.0)) if len(p) else p
+    out = {}
+    for h, v in verdicts.items():
+        coef = s11.get(h, {}).get("coef", np.nan)
+        agrees = bool(np.isfinite(coef) and np.sign(coef) == v["predicted_sign"] and ph[h] < 0.05)
+        out[h] = {**v, "ci_tost_method": CI_METHOD, "s11_p_holm": float(ph[h]), "s11_agrees": agrees,
+                  "qualifier": S11_QUALIFIER if v["verdict"] == "supported" and not agrees else ""}
+    return out
 
 
 def s11_of(rows: pd.DataFrame) -> dict:
@@ -162,10 +176,11 @@ def run(freeze: dict, started: str) -> None:
     exp["dose_response"].to_csv(OUT / "dose_response.csv", index=False)
     mde = freeze.get("mde80", {})
     powered = freeze.get("dryrun_criteria", {}).get("c_detected_80pct_at_3x_sesoi", {})
+    s11_2, s11_3 = s11_of(res2["rows"]), s11_of(res3["rows"])
     summary = {
-        "rq2": {"family": res2["family"], "verdicts": labelled(res2["verdicts"]), "s11_twoway": s11_of(res2["rows"]),
+        "rq2": {"family": res2["family"], "verdicts": labelled(res2["verdicts"], s11_2), "s11_twoway": s11_2,
                 "label_reliability": res2["label_reliability"]},
-        "rq3": {"family": res3["family"], "verdicts": labelled(res3["verdicts"]), "s11_twoway": s11_of(res3["rows"]),
+        "rq3": {"family": res3["family"], "verdicts": labelled(res3["verdicts"], s11_3), "s11_twoway": s11_3,
                 "counts": res3["counts"]},
         "h2d_gate": gate_file, "tau": tau,
         "e9_equivalence": equivalence_table({**res2["verdicts"], **res3["verdicts"]}, mde, powered, freeze.get("mde80_note")),
@@ -186,7 +201,7 @@ def run(freeze: dict, started: str) -> None:
             print(f"{h} {v['outcome']:12s} ~ {v['regressor']:18s} coef {v['coef']:+.4f} CI95 [{v['ci95'][0]:+.4f}, "
                   f"{v['ci95'][1]:+.4f}] {p_text(v)} p_holm {v['p_holm']:.3g} robust {v['robustness_same_sign']:.0%} "
                   f"hindsight {'ok' if v['hindsight_variants_same_sign'] else 'FAIL'} -> {v['verdict']}"
-                  f"{' (fragile)' if v['fragile'] else ''}")
+                  f"{' (fragile)' if v['fragile'] else ''}{' (' + v['qualifier'] + ')' if v['qualifier'] else ''}")
 
 
 if __name__ == "__main__":

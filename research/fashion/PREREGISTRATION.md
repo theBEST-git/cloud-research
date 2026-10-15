@@ -512,3 +512,47 @@ Anything added after the freeze is labelled post hoc.
     them (S11's second cluster count read from the first) is invisible on the real maps, which both have 100 topics,
     and is caught by a direct test.
   - No file in the dry-run digest was changed.
+- **2026-10-15, dry-run v3 results (remedy validation), before any RQ2/RQ3 estimate.** 12,400 jobs with v2's seeds; the
+  CR1 sizes, false-support rates and MDE80 inputs reproduce v2 exactly, so v3 is the same simulation with the bootstrap
+  and two-way p-values added. Outputs: `output/dryrun/`; reported diagnostics: `dryrun_diagnostics.py` →
+  `output/checks/dryrun_v3_diagnostics.json`.
+  - **The registered remedy does not restore size under the cross-map null.** In `rq2_null_early` the bootstrap
+    rejects 12.4% (H2b) and 9.6% (H2c) of the time at nominal 5% (CR1: 12.6%, 10.0%). In all other null scenarios its
+    size is 3.8–6.4%. This is as anticipated, since the bootstrap still clusters by k100 topic. So if the real data
+    hold topic structure that cuts across k100 topics, the confirmatory p-values of H2b and H2c are anti-conservative,
+    with roughly 10–12% rejections at a nominal 5%.
+  - **S11 (two-way clustering):** size 4.4–7.6% in every null scenario. It is 7.6% and 7.0% for H2b and H2c in
+    `rq2_null_early`, where the result is close to tautological (round B4).
+  - **The full decision rule stays valid.**
+    - It supports a hypothesis in at most 3.2% of the replications of every null (unchanged from v2), so criterion (b)
+      passes.
+    - "Significant in the opposite direction" occurs in at most 2.8%.
+  - **Criterion (c):** H3a reaches only 54% detection at 3 x SESOI (88% in the low-variance setting), so it is
+    reported as underpowered. All others reach at least 97%.
+  - **MDE80, frozen** (realised effect at 80% detection with p < 0.05/m):
+    - H2a 3.6 pp;
+    - H2b 1.7 pp and H2c 1.1 pp with the bootstrap p (CR1 1.70 and 1.10);
+    - H3a 4.1 pp per log unit (low-variance setting 2.8);
+    - H3b 2.4 pp per log unit (2.1).
+  - **Equivalence labels at "1 x SESOI"** (diagnostic): H2a 3%, H2b 3%, H2c 19%. The H2c effect realised there is
+    0.8 pp, because clipping at the low base rate of measurement papers shrinks it. That is inside its ±1 pp bounds,
+    so those labels are not false equivalences.
+  - **Decision, made blind to every RQ2/RQ3 estimate.**
+    - **The confirmatory procedure stays as registered:** H2b/H2c take their p-value from the bootstrap, and the
+      decision rule is unchanged.
+    - **Not adopted:** S11 as the confirmatory test, or requiring both p-values. S11's good size in the failing
+      scenario holds by construction, because its second clustering is that scenario's own map. It is no evidence that
+      S11 controls size under other cross-cutting structure, so adopting it would tune the test to the simulation.
+    - **The registered protection against such structure** is the 75% and hindsight requirements, which re-estimate
+      on other maps. Under the failing null the full rule supports H2b or H2c in at most 3.2% of replications.
+    - **Pre-declared reporting qualifier:**
+      - S11's p-values are Holm-adjusted within each family.
+      - A supported hypothesis whose S11 estimate lacks the predicted sign, or has an adjusted p ≥ 0.05, is reported
+        as "supported, not robust to two-way clustering (S11)".
+      - The verdict itself is unchanged; `run_frozen.py` computes the qualifier mechanically (tested).
+    - **Reporting:** the main-specification p-values of H2b and H2c are described as approximate, with the v3 size
+      stated next to them.
+    - **What `FREEZE.json` will record:**
+      - the size violations as `dryrun_problems`;
+      - the remedies `bootstrap:H2b` and `bootstrap:H2c`;
+      - the v3 bootstrap and two-way sizes as `remedy_validation`.

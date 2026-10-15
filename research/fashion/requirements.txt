@@ -1,0 +1,5 @@
+# Versions used for the RQ1-RQ3 analyses (Python 3.13, CPU only). statsmodels is only needed for the estimator tests.
+numpy==2.5.3
+pandas==3.0.5
+scipy==1.18.1
+matplotlib==3.9.2

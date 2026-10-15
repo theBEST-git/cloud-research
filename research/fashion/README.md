@@ -10,17 +10,41 @@ The plan, hypotheses and decision rules are fixed in [PREREGISTRATION.md](PREREG
 | `topic_maturity.py` | topic-year maturity variables for every map → `output/topic_year_maturity.csv.gz` |
 | `ols.py` | least squares with absorbed fixed effects and CR1 cluster-robust SE; matches statsmodels exactly |
 | `rq1_rise.py` | RQ1 (H1a–e) with 9 robustness variants, including the two mandatory hindsight variants → `output/rq1_results.csv`, `output/rq1_summary.json` |
+| `variables.py` | RQ2/RQ3 paper variables per map: incumbent / newcomer (and S3, S4 versions), hot topics, team size → `output/paper_variables.csv.gz` |
+| `buzzwords.py` | buzzword measure (D5): hot keywords and atypical keyword use → `output/keyword_year.csv.gz`, `keyword_uses.csv.gz`, `paper_buzzword.csv.gz` |
+| `resubmissions.py` | nearest earlier-year paper (centred SPECTER2 cosine), exact titles; with `--tau`, probable earlier versions (R1, S4) → `output/earlier_versions.csv.gz` |
+| `annotation/` | blind LLM judging: H2d validation (`keyword_centrality/`) and τ calibration (`resubmission_pairs/`); seeded samplers (no key file), instructions, collector with transcript audit, scorers → `output/h2d_validation.json`, `output/resubmission_tau.json` |
+| `panel.py`, `variants.py` | outcome-free analysis frame per map; the counted variant registry shared by RQ1–RQ3 |
+| `analysis.py`, `logit.py`, `dgp.py` | estimation (LPM with absorbed FE, FE logit), verdicts (Holm, 75% rule, hindsight, equivalence, fragile flag); synthetic outcomes for dry-runs |
+| `outcomes.py` | the only file that reads acceptance or review columns: simulated, permuted, and (frozen runs only) real modes |
+| `rq2_following.py`, `rq3_reward.py`, `exploratory.py` | H2a–c, H3a–b with counted and supplementary variants; planned exploratory analyses E1–E10 |
+| `dryrun.py` | size and power before the freeze → `output/dryrun/` |
+| `freeze.py`, `run_frozen.py` | `FREEZE.json` (hashes and frozen settings); the single real run → `output/frozen_run/` |
+| `tests/` | prospectivity, outcome lint, guards, estimators (vs statsmodels), variant registry (reproduces RQ1's n) |
 
-## Run order (after the full labels are merged)
+## Run order
 
 ```text
 python research/topics/annotation/contribution_types/llm_labeling/merge_labels.py <returned run dir>
 python research/fashion/topic_maturity.py
 python research/fashion/rq1_rise.py
+# RQ2 / RQ3 (outcome-blind until run_frozen.py)
+python research/fashion/buzzwords.py
+python research/fashion/resubmissions.py
+python research/fashion/annotation/keyword_centrality/sample.py        # then judge with annotation/judge_batches.js
+python research/fashion/annotation/resubmission_pairs/sample.py
+python research/fashion/annotation/collect.py <task dir> <workflow transcript dirs>
+python research/fashion/annotation/keyword_centrality/score.py
+python research/fashion/annotation/resubmission_pairs/score.py
+python research/fashion/resubmissions.py --tau <tau>
+python research/fashion/variables.py
+python research/fashion/dryrun.py
+python research/fashion/freeze.py --created <UTC time>                 # commit, then:
+python research/fashion/run_frozen.py
 ```
 
 The merge writes `research/topics/output/paper_contributions.csv.gz` and checks the label-quality gate in the
-pre-registration. RQ2 and RQ3 code follows the pre-registration and is added after RQ1.
+pre-registration. Tests: `python -m unittest discover -s research/fashion/tests` (estimator tests need statsmodels).
 
 ## Dry-runs (before real labels)
 

@@ -436,3 +436,22 @@ Anything added after the freeze is labelled post hoc.
   refusal order, release and attempt log, the remedy rules, the realised-effect measurement, the grid, the permuted
   block and the derived newcomer columns). The first dry-run v2 launch was stopped at 4% to apply these fixes; none of
   its results were written or seen.
+- **2026-10-15, dry-run v2 results (D16), before any RQ2/RQ3 estimate.** 12,400 jobs on the final code; outputs kept in
+  `output/dryrun_v2/` (code digest in its provenance file).
+  - **Criterion (a) fails** in one scenario: under the RQ2 null whose structure follows the early map, the main
+    specification rejects 12.6% of the time for H2b and 10.0% for H2c (all other sizes 3.8–7.2%, incl. RQ3's permuted
+    real-loader null). The cause: there the simulated regressor (newcomer) and outcome share a topic structure that cuts
+    across k100 topics, which k100-clustered standard errors do not capture.
+  - **Criterion (b) passes**: the full decision rule supports a hypothesis in at most 3.2% of null replications.
+  - **Criterion (c)**: H3a reaches only 54% detection at 3 x SESOI (high-variance setting; 88% in the low setting), so
+    it is reported as underpowered; H2a, H2b, H2c and H3b reach 80% by 3 x SESOI.
+  - MDE80 (realised effect at 80% detection with p < 0.05/m): H2a 3.6 pp, H2b 1.7 pp, H2c 1.1 pp (CR1);
+    H3a 4.1 pp per log unit (2.8 in the low setting), H3b 2.4 pp per log unit (2.1).
+  - **The registered remedy is triggered for H2b and H2c**: their confirmatory p-values will come from the wild cluster
+    restricted bootstrap (Rademacher weights by k100 topic, null imposed, 9,999 draws). Because this bootstrap still
+    clusters by k100 topic, it is not expected to remove a bias from structure that cuts across k100 topics; a validation
+    dry-run (v3, same seeds) measures its size in every null scenario, and the result is reported whatever it is.
+  - **New supplementary analysis S11, declared now:** every confirmatory model re-estimated with two-way clustered
+    standard errors (k100 topic and early-map topic; Cameron–Gelbach–Miller, with the larger one-way variance if the
+    two-way variance is not positive; p from t(min(G1, G2) − 1)). It is reported next to each verdict and enters the
+    fragile flag like any S-variant; it does not change the decision rule. Its size is also measured in dry-run v3.

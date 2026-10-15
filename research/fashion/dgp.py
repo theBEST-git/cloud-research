@@ -3,8 +3,9 @@
 simulate(frame, dgp, rng): P(y = 1) = base + topic intercept + year effect + topic-specific linear trend
 + topic-year shock + sum_k delta_k * (x_k - mean x_k), clipped to [0.005, 0.995]. Topics and years come from the
 frame's map, so clustered structure that the analysis map only partly captures can be simulated by choosing another
-map. Planted effects (delta) are in probability points per unit of the regressor; because of clipping, the effect
-actually planted is measured separately (the dry-run regresses the true probability on the regressor).
+map. Planted effects (delta) are in probability points per unit of the regressor. With return_p, simulate also returns
+the true probability and the probability without the planted effects (same random draws); the dry-run measures the
+effect actually planted (after clipping) by regressing their difference on the regressor.
 
 calibrate(frame, column): method-of-moments variance components of ONE observed binary column from its own topic-year
 cell means (no regressor is involved): year effects, topic intercepts, topic-specific linear trends, and cell shocks
@@ -71,9 +72,10 @@ def simulate(frame: pd.DataFrame, dgp: DGP, rng: np.random.Generator, return_p: 
     p = (dgp.base + rng.normal(0, dgp.sd_topic, len(topics))[t_idx] + rng.normal(0, dgp.sd_year, len(years))[y_idx]
          + rng.normal(0, dgp.sd_trend, len(topics))[t_idx] * (frame.year.to_numpy() - frame.year.mean())
          + rng.normal(0, dgp.sd_cell, len(cells))[c_idx])
+    p_null = np.clip(p, 0.005, 0.995)
     for col, delta in dgp.effects.items():
         x = frame[col].to_numpy(float)
         p = p + delta * (np.nan_to_num(x, nan=np.nanmean(x)) - np.nanmean(x))
     p = np.clip(p, 0.005, 0.995)
     y = (rng.random(len(p)) < p).astype(float)
-    return (y, p) if return_p else y
+    return (y, p, p_null) if return_p else y

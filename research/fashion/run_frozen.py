@@ -49,10 +49,26 @@ def clean(o):
     return o
 
 
-def equivalence_table(verdicts: dict, mde: dict) -> list[dict]:
-    """E9: TOST and MDE80 for every hypothesis that is not supported."""
-    return [{"hypothesis": h, "verdict": v["verdict"], "coef": v["coef"], "ci90": v["ci90"], "sesoi": v["sesoi"],
-             "tost_p": v["tost_p"], "mde80": mde.get(h)} for h, v in verdicts.items() if v["verdict"] != "supported"]
+def equivalence_table(verdicts: dict, mde: dict, powered: dict) -> list[dict]:
+    """E9: TOST and MDE80 for every hypothesis that is not supported; D16 (c) says whether it was underpowered."""
+    rows = []
+    for h, v in verdicts.items():
+        if v["verdict"] == "supported":
+            continue
+        m = mde.get(h)
+        rows.append({"hypothesis": h, "verdict": v["verdict"], "coef": v["coef"], "ci90": v["ci90"], "sesoi": v["sesoi"],
+                     "tost_p": v["tost_p"], "mde80": m,
+                     "mde80_note": "" if m is not None else "80% detection not reached within the dry-run grid",
+                     "underpowered_at_3x_sesoi": not powered.get(h, False)})
+    return rows
+
+
+def started_attempts(log) -> list[dict]:
+    """Attempts recorded so far: one 'started' line per attempt (a finished or failed line follows it)."""
+    if not log.exists():
+        return []
+    with log.open() as f:
+        return [r for r in map(json.loads, f) if r.get("status") == "started"]
 
 
 def now() -> str:
@@ -64,27 +80,32 @@ def main() -> None:
     p.add_argument("--rerun-reason", help="required if output/frozen_run/ already holds an attempt")
     a = p.parse_args()
     started = now()
-    freeze = outcomes.require_frozen()
     log = OUT / "attempts.jsonl"
-    previous = [json.loads(line) for line in log.open()] if log.exists() else []
-    if previous and not a.rerun_reason:
+    previous = started_attempts(log)
+    if previous and not a.rerun_reason:                        # refuse before anything is verified or loaded
         raise SystemExit(f"{len(previous)} earlier attempt(s) recorded in {log}; a rerun needs --rerun-reason")
-    OUT.mkdir(parents=True, exist_ok=True)
-    attempt = {"attempt": len(previous) + 1, "started_utc": started, "freeze_sha256": outcomes.sha256(outcomes.FREEZE),
-               "rerun_reason": a.rerun_reason}
-    with log.open("a") as f:
-        f.write(json.dumps({**attempt, "status": "started"}) + "\n")
     try:
-        run(freeze, started)
-    except BaseException:
+        freeze = outcomes.require_frozen()
+        OUT.mkdir(parents=True, exist_ok=True)
+        attempt = {"attempt": len(previous) + 1, "started_utc": started, "freeze_sha256": outcomes.sha256(outcomes.FREEZE),
+                   "rerun_reason": a.rerun_reason}
         with log.open("a") as f:
-            f.write(json.dumps({**attempt, "status": "failed", "at_utc": now(), "traceback": traceback.format_exc()}) + "\n")
-        raise
-    with log.open("a") as f:
-        f.write(json.dumps({**attempt, "status": "finished", "at_utc": now()}) + "\n")
+            f.write(json.dumps({**attempt, "status": "started"}) + "\n")
+        try:
+            run(freeze, started)
+        except BaseException:
+            with log.open("a") as f:
+                f.write(json.dumps({**attempt, "status": "failed", "at_utc": now(), "traceback": traceback.format_exc()}) + "\n")
+            raise
+        with log.open("a") as f:
+            f.write(json.dumps({**attempt, "status": "finished", "at_utc": now()}) + "\n")
+    finally:
+        outcomes.release()
 
 
 def run(freeze: dict, started: str) -> None:
+    if freeze.get("remedies"):
+        raise SystemExit(f"FREEZE.json lists remedies {freeze['remedies']} that this script does not apply yet (D16)")
     gate_file = json.loads((OUTPUT / "h2d_validation.json").read_text())
     gate = gate_file["gate"] == "pass"
     assert gate == freeze["h2d_gate_passed"], "gate differs from the frozen value"
@@ -107,11 +128,13 @@ def run(freeze: dict, started: str) -> None:
     exp["acceptance_by_class_year"].to_csv(OUT / "acceptance_by_class_year.csv", index=False)
     exp["dose_response"].to_csv(OUT / "dose_response.csv", index=False)
     mde = freeze.get("mde80", {})
+    powered = freeze.get("dryrun_criteria", {}).get("c_detected_80pct_at_3x_sesoi", {})
     summary = {
         "rq2": {"family": res2["family"], "verdicts": res2["verdicts"], "label_reliability": res2["label_reliability"]},
         "rq3": {"family": res3["family"], "verdicts": res3["verdicts"], "counts": res3["counts"]},
         "h2d_gate": gate_file, "tau": tau,
-        "e9_equivalence": equivalence_table({**res2["verdicts"], **res3["verdicts"]}, mde),
+        "e9_equivalence": equivalence_table({**res2["verdicts"], **res3["verdicts"]}, mde, powered),
+        "dryrun_criterion_c_detected_80pct_at_3x_sesoi": powered,
         "dropped_hypotheses": [] if gate else ["H2d", "H3c"],
         "exploratory_caveat": sorted(set(exp["estimates"].loc[exp["estimates"].measure_status != "", "label"])),
     }

@@ -64,6 +64,8 @@ class OutcomeLint(unittest.TestCase):
                     "oc._table()", "pd.read_csv(outcomes.SOURCE)", "usecols=outcomes.COLUMNS",
                     "from outcomes import SOURCE, load"]:
             self.assertTrue(any(p.search(bad) for p in PATTERNS), bad)
+        self.assertTrue(PERMUTED.search('outcomes.load("permuted", ids)'))
+        self.assertEqual(PERMUTED_OK, {"dryrun.py"})
         for ok in ["decision rule", "holm-adjusted decision", "def decide():"]:
             self.assertFalse(any(p.search(ok) for p in PATTERNS), ok)
 

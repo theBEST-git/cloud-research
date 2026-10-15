@@ -9,8 +9,9 @@ load(mode, ...) returns one row per corpus paper with:
 Modes:
 - "simulated": no file is read. Populations are random (rq3 74% of papers, s9 adds 4%, e3 all) and outcomes come from
   dgp.simulate on the given frame.
-- "permuted":  the real derived block (populations and outcomes together) shuffled across papers within year: the real
-  pipeline and per-year marginals, but no link between any paper and its real status or outcome (a true null).
+- "permuted":  the real derived block (populations and outcomes together) of the WHOLE table shuffled across papers
+  within year, then the requested ids selected: the real pipeline and per-year marginals, but no link between any paper
+  or any subset of papers and its real status or outcome, whichever ids are requested (a true null).
 - "real":      refuses unless called from run_frozen.py, FREEZE.json hashes match, and the git tree is clean.
 """
 from __future__ import annotations
@@ -42,7 +43,7 @@ def sha256(path: Path) -> str:
     return h.hexdigest()
 
 
-_VERIFIED: dict | None = None
+_VERIFIED: dict | None = None                           # hashes and clean tree, checked once per frozen run
 
 
 def sealed_files() -> list[Path]:
@@ -50,15 +51,21 @@ def sealed_files() -> list[Path]:
     return [SOURCE]
 
 
-def require_frozen() -> dict:
-    """Guard for every real-data run (RQ2 and RQ3): entry point, frozen hashes, clean tree. Verified once per process,
-    so the frozen run can record its attempt before it loads real data."""
+def release() -> None:
+    """Forget the verification (run_frozen.py calls this when it ends, however it ends)."""
     global _VERIFIED
-    if _VERIFIED is not None:
-        return _VERIFIED
+    _VERIFIED = None
+
+
+def require_frozen() -> dict:
+    """Guard for every real-data run (RQ2 and RQ3): entry point (checked on every call), frozen hashes and clean tree
+    (checked once per frozen run, so the run can record its attempt before it loads real data; released at its end)."""
+    global _VERIFIED
     main = getattr(sys.modules.get("__main__"), "__file__", "") or ""
     if Path(main).resolve() != HERE / "run_frozen.py":
         raise PermissionError("real outcomes are only available to research/fashion/run_frozen.py")
+    if _VERIFIED is not None:
+        return _VERIFIED
     if not FREEZE.exists():
         raise PermissionError("FREEZE.json is missing: the analysis is not frozen")
     freeze = json.loads(FREEZE.read_text())
@@ -121,7 +128,8 @@ def load(mode: str, ids: pd.Series, seed: int | None = None, frame: pd.DataFrame
         return _read(ids)
     rng = np.random.default_rng(seed)
     if mode == "permuted":
-        return _shuffle_within_year(_read(ids), rng)
+        full = _shuffle_within_year(_derive(_table().reset_index()), rng)      # never depends on the requested ids
+        return full.set_index("submission_id").loc[ids.values].reset_index()
     if mode == "simulated":
         if frame is None or dgp is None or not frame.submission_id.reset_index(drop=True).equals(ids.reset_index(drop=True)):
             raise ValueError("simulated mode needs a frame aligned with ids and a DGP")

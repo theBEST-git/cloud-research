@@ -69,6 +69,27 @@ class SealedLoader(unittest.TestCase):
         self.assertLess((wd_real == wd_perm).mean(), 0.9)          # no longer the real withdrawal flag
         self.assertTrue(((perm.s9 & ~perm.rq3) <= perm.e3).all())   # each paper keeps a coherent block
 
+    def test_permuted_mode_does_not_depend_on_the_requested_ids(self):
+        ids = pd.Series(self.table.index)
+        full = outcomes.load("permuted", ids, seed=3).set_index("submission_id")
+        sub = ids.sample(frac=0.3, random_state=0)
+        part = outcomes.load("permuted", sub, seed=3).set_index("submission_id")
+        pd.testing.assert_frame_equal(part, full.loc[sub.values])
+        real = outcomes._derive(self.table.reset_index()).set_index("submission_id")
+        one = ids.groupby(self.table.year.values).head(1)                     # one paper per year
+        agree = np.mean([(outcomes.load("permuted", one, seed=s).set_index("submission_id").rq3
+                          == real.rq3.loc[one.values]).mean() for s in range(30)])
+        self.assertLess(agree, 0.9)                                           # chance agreement, not the real block
+
+    def test_entry_point_is_checked_on_every_call(self):
+        outcomes._VERIFIED = {"sha256": {}}                                   # as if a frozen run had verified
+        try:
+            with self.assertRaises(PermissionError):
+                outcomes.require_frozen()
+        finally:
+            outcomes.release()
+        self.assertIsNone(outcomes._VERIFIED)
+
     def test_entry_point_must_be_the_repo_run_frozen(self):
         with tempfile.TemporaryDirectory() as tmp:
             fake = Path(tmp) / "run_frozen.py"

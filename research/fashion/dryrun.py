@@ -18,9 +18,9 @@ Scenarios:
   rq3_permuted                                       real loader, whole derived block shuffled within year  (R)
   rq3_null_k100_lo, rq3_null_k100_hi, rq3_null_early_hi                                                     (R)
   rq3_power_<H>_m<mult>_hi (P), rq3_power_<H>_m<mult>_lo (P/2), rq3_fullrule_<H>_m<1.0|3.0>_hi (F)
-Planted effects use the k100 regressor (H3b: the interaction centred on the mean method share, so H3a stays null).
-The realised effect is the main-specification coefficient when the true probability is the outcome (so clipping is
-accounted for). Detection = predicted sign and p < 0.05 / m in the main specification (m = family size: Bonferroni,
+Planted effects (0.5, 1, 1.5, 2, 3, 4 and 6 x SESOI) use the k100 regressor (H3b: the interaction centred on the mean
+method share, so H3a stays null). The realised effect is the main-specification coefficient with the planted part of
+the true probability (with minus without effects, same random draws) as the outcome, so clipping is accounted for. Detection = predicted sign and p < 0.05 / m in the main specification (m = family size: Bonferroni,
 i.e. Holm's first step). MDE80 = realised effect at 80% detection, linearly interpolated over the multiples.
 Criteria (fixed before running; D16): (a) main-specification size (two-sided p < 0.05) within [0.02, 0.08] for every
 confirmatory hypothesis and null scenario; (b) the full decision rule supports a hypothesis in at most 5% of null
@@ -59,7 +59,7 @@ from dgp import DGP, calibrate, simulate  # noqa: E402
 
 HERE = Path(__file__).resolve().parent
 OUT = OUTPUT / "dryrun"
-MULTS = (0.5, 1.0, 1.5, 2.0, 3.0)
+MULTS = (0.5, 1.0, 1.5, 2.0, 3.0, 4.0, 6.0)          # criterion (c) is read at 3 x SESOI; 4 and 6 locate larger MDEs
 GATE = json.loads((OUTPUT / "h2d_validation.json").read_text())["gate"] == "pass"
 RQ2_SPECS = {s.hid: s for s in rq2.SPECS if not s.gated or GATE}
 RQ3_SPECS = {s.hid: s for s in rq3.SPECS if not s.gated or GATE}
@@ -71,13 +71,17 @@ CODE = ["analysis.py", "ols.py", "logit.py", "dgp.py", "panel.py", "variants.py"
         "rq3_reward.py", "rq1_rise.py", "common.py", "topic_maturity.py", "dryrun.py"]
 INPUTS = ["paper_variables.csv.gz", "paper_buzzword.csv.gz", "earlier_versions.csv.gz", "topic_year_maturity.csv.gz",
           "h2d_validation.json"]
+TOPIC_INPUTS = ["topic_assignments.csv.gz", "k_sensitivity_assignments.csv.gz", "hindsight_assignments.csv.gz",
+                "paper_contributions.csv.gz", "paper_topic_stability.csv.gz", "topic_catalog.csv"]
+REGISTERED = {"reps": 500, "power_reps": 200, "full_reps": 100}           # D16; freeze.py refuses other counts
 FRAMES: dict[str, pd.DataFrame] = {}
 CAL: dict[str, DGP] = {}
 
 
 def digest() -> dict:
     """sha256 of the code and inputs the dry-run uses; freeze.py refuses a dry-run whose digest is not current."""
-    files = [HERE / c for c in CODE] + [OUTPUT / i for i in INPUTS] + [ROOT / "research/topics/common.py"]
+    files = ([HERE / c for c in CODE] + [OUTPUT / i for i in INPUTS] + [ROOT / "research/topics/common.py"]
+             + [ROOT / "research/topics/output" / t for t in TOPIC_INPUTS] + outcomes.sealed_files())
     per = {str(f.relative_to(ROOT)): outcomes.sha256(f) for f in files}
     return {"files": per, "combined": hashlib.sha256(json.dumps(per, sort_keys=True).encode()).hexdigest()}
 
@@ -98,22 +102,23 @@ def rq2_outcomes(seed: int, dgp_map: str, planted: str | None, delta: float) -> 
     k, f = FRAMES["k100"], FRAMES[dgp_map].assign(hot=FRAMES["k100"].hot.values)
     ids = k.submission_id.values
     eff = lambda h: {PLANT[h][1]: delta} if planted == h else {}
-    inc, p_inc = simulate(f, replace(CAL["incumbent"], effects=eff("H2a")), rng, return_p=True)
+    inc, p_inc, q_inc = simulate(f, replace(CAL["incumbent"], effects=eff("H2a")), rng, return_p=True)
     f = f.assign(newcomer=1 - inc)
-    meth, p_meth = simulate(f, replace(CAL["method"], effects=eff("H2b")), rng, return_p=True)
-    meas, p_meas = simulate(f, replace(CAL["measurement"], effects=eff("H2c")), rng, return_p=True)
+    meth, p_meth, q_meth = simulate(f, replace(CAL["method"], effects=eff("H2b")), rng, return_p=True)
+    meas, p_meas, q_meas = simulate(f, replace(CAL["measurement"], effects=eff("H2c")), rng, return_p=True)
     buzz = simulate(f, CAL["buzzword"], rng)
     lists = simulate(f, CAL["lists_hot"], rng)
     keep = rng.random(len(inc))
     ys = {"incumbent": inc, "incumbent_w2": inc * (keep < 0.8), "incumbent_s4": inc * (keep < 0.995), "method": meth,
           "measurement": meas, "buzzword": buzz * lists, "lists_hot": lists}
     ys = {c: pd.Series(v, index=ids) for c, v in ys.items()}
-    return ys, {"incumbent": p_inc, "method": p_meth, "measurement": p_meas}
+    return ys, {"incumbent": p_inc - q_inc, "method": p_meth - q_meth, "measurement": p_meas - q_meas}
 
 
-def realised(pop: pd.DataFrame, spec, p: np.ndarray, ids: np.ndarray) -> float:
-    """Main-specification coefficient with the true probability as the outcome: the effect actually planted."""
-    d = pop.assign(**{spec.y: pd.Series(p, index=ids).reindex(pop.submission_id).to_numpy()})
+def realised(pop: pd.DataFrame, spec, dp: np.ndarray, ids: np.ndarray) -> float:
+    """The effect actually planted (after clipping): main-specification coefficient with the planted part of the true
+    probability (with effects minus without, same random draws) as the outcome."""
+    d = pop.assign(**{spec.y: pd.Series(dp, index=ids).reindex(pop.submission_id).to_numpy()})
     return estimate(d, spec.y, spec.x, spec.controls, spec.fe, spec.years)["coef"]
 
 
@@ -162,7 +167,7 @@ def job(task: tuple) -> list[dict]:
     base = RQ3_DGP[params["dgp"]]
     dgp = replace(base, effects={PLANT[planted][1]: s.sign * mult * s.sesoi}) if s else base
     f = FRAMES[params["map"]].assign(**{c: FRAMES["k100"][c].values for c in ["maturity", "maturity_x_method_c"]})
-    y, p = simulate(f, dgp, np.random.default_rng(seed), return_p=True)
+    y, p, q = simulate(f, dgp, np.random.default_rng(seed), return_p=True)
     out = outcomes.load("simulated", ids, seed=seed, frame=f, dgp=base)       # populations; outcome replaced below
     out["accepted"] = np.where(out.rq3, y, np.nan)
     out["s9_accepted"] = np.where(out.rq3, y, np.where(out.s9, 0.0, np.nan))
@@ -170,7 +175,7 @@ def job(task: tuple) -> list[dict]:
     if s:
         pop = rq3.attach(FRAMES["k100"], out)
         pop = pop[pop.rq3]
-        eff = realised(pop, s, p, ids.values)
+        eff = realised(pop, s, p - q, ids.values)
         if not full:
             return main_only(pop, s, scenario, rep, eff)
     res = rq3.run(FRAMES, out, GATE, supplementary=False)
@@ -201,15 +206,18 @@ def tasks(reps: int, power_reps: int, full_reps: int) -> list[tuple]:
     return t
 
 
-def mde80(curve: list[tuple[float, float]]) -> float | None:
-    """curve: (realised effect, detection rate) by increasing multiple; linear interpolation at 0.8."""
+def mde80(curve: list[tuple[float, float]]) -> tuple[float | None, str]:
+    """curve: (realised effect, detection rate) by increasing multiple; linear interpolation at the first crossing of 0.8.
+    The note flags an MDE80 at or below the first grid point, one beyond the grid, and a curve that dips below 0.8 again."""
     for i, (x, y) in enumerate(curve):
         if y >= 0.8:
+            dip = any(yy < 0.8 for _, yy in curve[i + 1:])
+            note = "non-monotone after the crossing" if dip else ""
             if i == 0:
-                return x
+                return x, "at or below the smallest planted effect" + (f"; {note}" if note else "")
             x0, y0 = curve[i - 1]
-            return x0 + (0.8 - y0) * (x - x0) / (y - y0)
-    return None
+            return x0 + (0.8 - y0) * (x - x0) / (y - y0), note
+    return None, "not reached within the grid"
 
 
 def summarise(df: pd.DataFrame) -> dict:
@@ -246,11 +254,12 @@ def summarise(df: pd.DataFrame) -> dict:
                     table[str(mult)]["full_rule_reps"] = int(len(fr))
             if table:
                 out["power"][h + tag] = table
-                v = mde80(curve)
+                v, note = mde80(curve)
                 out[key][h] = None if v is None else round(v, 5)
+                out.setdefault(key + "_note", {})[h] = note
     sizes = [v for sc in out["size"].values() for v in sc.values()]
     fs = [v for sc in out["false_support"].values() for v in sc.values()]
-    top = {h: t[str(MULTS[-1])]["detected_alpha_over_m"] for h, t in out["power"].items() if not h.endswith("_lo")}
+    top = {h.replace("_hi", ""): t["3.0"]["detected_alpha_over_m"] for h, t in out["power"].items() if not h.endswith("_lo")}
     out["criteria"] = {
         "a_size_within_2_8pct": bool(sizes) and all(0.02 <= s <= 0.08 for s in sizes),
         "a_size_range": [min(sizes), max(sizes)] if sizes else None,

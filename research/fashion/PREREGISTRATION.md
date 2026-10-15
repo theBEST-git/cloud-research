@@ -399,3 +399,29 @@ Anything added after the freeze is labelled post hoc.
   - **Remedy, fixed now.** If (a) fails upwards or (b) fails for a hypothesis, its confirmatory p-value is computed by a
     wild cluster restricted bootstrap (Rademacher weights by topic, null imposed, 9,999 draws) instead of CR1 with
     t(G−1), implemented and validated before the freeze, and logged. A downward size violation is only reported.
+- **2026-10-15, before any dry-run v2 result: review round B2 (re-review of the round-B fixes).** Three reviewers
+  (blinding; dry-run design; fix conformance), verifiers as before. No blocker. Two confirmed major findings, fixed:
+  - The permuted mode still shuffled only among the ids the caller passed, so a chosen subset got its own real
+    outcomes back. It now shuffles the derived block of the whole table within year and only then selects the ids;
+    the result for any subset equals the matching rows of the full permutation (tested). The dry-run always passed the
+    full corpus, so no dry-run output was affected.
+  - `freeze.py --remedy` accepted any text as a waiver of every problem, and the registered bootstrap remedy did not
+    exist. Now: a stale digest, replication counts other than the registered ones (500 / 200 / 100), or a missing
+    hypothesis are always fatal; only an upward size violation (> 0.08) or false support > 0.05 can be remedied, and
+    only by `bootstrap:<hypothesis>` for exactly the hypotheses concerned, which freeze.py refuses until the wild
+    cluster bootstrap is implemented; run_frozen.py refuses to start if FREEZE.json lists a remedy it does not apply. A
+    size below 0.02 is only reported, as D16 says.
+  - Minor fixes: the entry point is checked on every call and the verification is released when the run ends; a
+    refused rerun verifies nothing; attempts are counted by their "started" line; the dry-run digest also covers the
+    topic maps, the contribution labels and the outcome table; E9 rows say explicitly when 80% detection was not
+    reached; and new tests fail when any of the round-B/B2 fixes is reverted (checked by mutation).
+  - **Disclosure.** To write the loader, the analyst once read the distinct values of `decision`, `administrative_status`
+    and `outcome_eligible`, and whether `review_count` has missing values (none, including among withdrawals), with an
+    ad hoc command outside `outcomes.py`. No counts, rates or joins with any other column were computed.
+- **D16 amendments, before any dry-run v2 result.**
+  - Power grid: 0.5, 1, 1.5, 2, 3, 4 and 6 x SESOI, so that an MDE80 above 3 x SESOI is located instead of undefined.
+    Criterion (c) is still read at 3 x SESOI.
+  - Realised effect: the main-specification coefficient with the planted part of the true probability (with minus
+    without the planted effects, same random draws) as the outcome, so the topic and cell draws add no noise to it.
+  - MDE80 notes flag a value at or below the smallest planted effect, beyond the grid, or on a curve that dips below
+    80% again after crossing it.

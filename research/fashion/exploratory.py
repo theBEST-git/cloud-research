@@ -48,6 +48,11 @@ BUZZ = {"buzzword", "lists_hot"}
 FAILED = "uses the buzzword measure, which failed its blind validation (H2d gate)"
 
 
+def measure_status(uses: set[str], gate: bool) -> str:
+    """The registered label for rows that use the buzzword measure after a failed gate (P3 results entry)."""
+    return FAILED if (not gate and uses & BUZZ) else ""
+
+
 def run(frames: dict[str, pd.DataFrame], out: pd.DataFrame, gate: bool, ys: dict[str, pd.Series] | None = None) -> dict:
     guard(ys)
     describe = ys is None
@@ -68,7 +73,7 @@ def run(frames: dict[str, pd.DataFrame], out: pd.DataFrame, gate: bool, ys: dict
 
     def add(eid: str, label: str, r: dict, tested: str) -> None:
         uses = r.pop("_uses")
-        status = FAILED if (not gate and uses & BUZZ) else ""
+        status = measure_status(uses, gate)
         rows.append({"analysis": eid, "kind": "exploratory", "label": label, "tested": tested, "measure_status": status, **r})
 
     add("E1", "accepted ~ fm | topic x year + classes", estimate(rq3, "accepted", "fm", CLASS_CONTROLS, "cell", (2018, 2026)), "fm")

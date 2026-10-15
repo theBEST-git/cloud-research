@@ -1,7 +1,8 @@
 # Research fashions at ICLR 2017–2026: results
 
 All confirmatory tests follow `PREREGISTRATION.md`: hypotheses and decision rule as registered, plus a dated pre-run log
-of every clarification, replacement and deviation, written before any RQ2/RQ3 estimate existed. RQ2 and RQ3 were run
+of every clarification, replacement and deviation, written before any confirmatory RQ2/RQ3 estimate existed. One
+exploratory estimate (E7) was seen earlier by accident; see Reviews. RQ2 and RQ3 were run
 once, by `run_frozen.py`, on code frozen in `FREEZE.json` (commit e08ece3, attempt 1). Its outputs are in
 `output/frozen_run/` exactly as written; they were committed before interpretation.
 
@@ -98,7 +99,8 @@ smallest effect of interest (E9).
     flag.
   - Logged deviations include:
     - full-corpus labels were produced with Claude Haiku (prompt v1 unchanged) instead of the planned external run;
-    - the H2d and τ judges were Sonnet/Haiku instead of Opus/Sonnet;
+    - the H2d judges were two Sonnet runs plus one Haiku run, instead of two Opus runs plus one Sonnet run;
+    - the τ judges were two Haiku runs plus one Sonnet run; no model had been registered for them;
     - two dry-run launches were stopped before any result was seen.
 - **Outcome blindness.**
   - Only `outcomes.py` may read acceptance or review columns, enforced by a lint test.
@@ -138,7 +140,8 @@ smallest effect of interest (E9).
   conformance, numerics, data plumbing, remedy statistics, wiring, methodology and test strength.
   - Every reported blocker or major finding was checked by a separate verifier and logged.
   - Confirmed findings were fixed, and code fixes were mutation-tested.
-  - Rejected or downgraded findings were documented rather than fixed, e.g. round B3's loader-circumvention point.
+  - Rejected findings were documented rather than fixed, e.g. round B3's loader-circumvention point.
+  - Findings downgraded by the verifiers were still acted on where cheap (rounds B7 and B8).
   - Two blinding incidents are disclosed in the log: during round B a reviewer saw one real exploratory estimate on
     the failed buzzword measure (E7), and the analyst once read the value sets of outcome columns.
 - **One run.** `FREEZE.json` was committed first: the sha256 of 68 code and input files, the gate, τ, the variants,
@@ -153,8 +156,9 @@ fixed effects, SE clustered by topic.
   has accumulated.
   - Net of field-wide year trends, the 95% intervals exclude effects larger than about 1–2 pp per log unit. This is a
     post hoc equivalence reading.
-  - Under the prospective early map the estimates point the predicted way (exploratory), so whether lifecycles appear
-    depends on how topics are defined.
+  - Under the prospective early map the method and measurement estimates point the predicted way: method −3.5 pp,
+    measurement +4.0 pp per log unit (exploratory, unadjusted). The empirical estimate (H1c, −1.0 pp) does not.
+  - Whether lifecycles appear therefore depends on how topics are defined.
 - **Foundation models (H1d–e).** When more of a topic's papers built on foundation models in the previous year, fewer
   of its papers propose new architectures.
   - The main estimate is −8.0 pp for 0 → 100% FM share, and the variants range from −6.3 to −14.2 pp, against a mean
@@ -251,10 +255,14 @@ second-pass κ 0.93 overall; method κ 0.933 (agreement 97.5%), measurement κ 0
   - newcomer control (S10): −2.99 pp (p = 0.003);
   - two-way clustering (S11): −1.68 pp (p = 0.07).
 - **Power and pre-declared reading.**
-  - The dry-run found H3a underpowered: 54% detection at 3 × SESOI, MDE80 4.1 pp per log unit.
+  - The dry-run found H3a underpowered in its high-variance setting: 54% detection at 3 × SESOI, MDE80 4.1 pp per
+    log unit. The low-variance setting gives 88% and 2.8 pp. The pre-declared reading uses the conservative
+    4.1 pp.
   - As declared before the run, a non-supported H3a is uninformative about effects below about 4 pp per log unit. It
     is not evidence of no effect.
-  - The consistent direction is suggestive, not a confirmatory finding.
+  - Neither of these is confirmatory evidence of an effect:
+    - the consistent direction across counted variants, which re-estimate the same papers;
+    - the nominally significant supplementary variants, whose p-values are unadjusted and outside the verdict.
 - **By era (E4, exploratory):** −0.3, −6.5 and −2.9 pp per log unit in 2018–20, 2021–23 and 2024–26, all n.s.
 
 ### H3b: is the maturity–acceptance slope more negative for method papers? Inconclusive
@@ -293,12 +301,13 @@ All are associations within the stated fixed effects, `output/frozen_run/explora
 - **Associations only.** Topic choice, team composition and contribution type are chosen jointly.
   - The newcomer gaps (H2b/H2c, E2) may reflect team size (as for H2c), seniority or resubmission, not newness itself.
 - **Incumbency is undercounted** in every year after 2020, for two reasons:
-  - pre-2021 email author IDs are not linked to later profile IDs, so earlier work is invisible;
-  - earlier work in the held-out confirmation split, or at other venues, is not seen.
+  - pre-2021 email author IDs are not linked to later profile IDs, so earlier ICLR work is invisible;
+  - earlier ICLR work in the held-out confirmation split is not seen.
 
   Both turn some true incumbents into newcomers, which registration D2 treats as a bias towards zero. The
   ID-consistent-years variant (R2) drops only the 2021–22 transition and gives the same results. It does not remove
   the undercount in 2023–2026.
+- **Incumbency is ICLR-only by definition,** so experience at other venues is not captured.
 - **Labels and measures.**
   - The contribution labels are LLM labels. S8's correction for misclassification enlarges the RQ2 estimates
     slightly.
@@ -308,8 +317,9 @@ All are associations within the stated fixed effects, `output/frozen_run/explora
     (dry-run v3).
   - Family-wise error under such structure can exceed 5%: in the simulated case, 6.4% for any RQ2 support and 11.2%
     for any RQ2 directional claim.
-- **RQ3 power.** H3a was underpowered (54% detection at 3 × SESOI; MDE80 4.1 pp per log unit), so its
-  non-significance is uninformative about effects below about 4 pp per log unit. H3b's MDE80 is 2.4 pp per log unit.
+- **RQ3 power.** H3a was underpowered in the high-variance dry-run setting (54% detection at 3 × SESOI; MDE80 4.1 pp
+  per log unit; low-variance setting 88%, 2.8 pp), so its non-significance is uninformative about effects below about
+  4 pp per log unit. H3b's MDE80 is 2.4 pp per log unit.
 - **Selection.** RQ3 conditions on papers that reached a decision; the registered filter leaves out 9,986 withdrawn
   submissions.
   - Withdrawal after review rises with maturity (E3, exploratory: +1.6 pp per log unit), so this conditioning may

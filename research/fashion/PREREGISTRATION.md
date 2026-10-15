@@ -715,3 +715,12 @@ Anything added after the freeze is labelled post hoc.
   - Minor wording and completeness fixes were made as well.
   - One auditor premise was checked and rejected: mean prior FM adoption is 29%, not 1.6%, so E8's 0 → 100% scale
     is not an extreme extrapolation.
+- **Audit round C2** (one Sonnet checker of every statement changed after round C).
+  - Corrected: the RQ1 early-map remark now names only H1a/H1b, since H1c has the wrong sign there.
+  - Also fixed:
+    - the two H3a readings were made consistent;
+    - H3a's power is now given for both variance settings;
+    - "before any RQ2/RQ3 estimate" now says "confirmatory", with the E7 exception;
+    - the treatment of downgraded review findings is stated accurately;
+    - the τ-judge models are stated as unregistered rather than replaced;
+    - experience at other venues is now outside D2's undercount.

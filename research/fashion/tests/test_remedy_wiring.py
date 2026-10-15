@@ -330,5 +330,69 @@ class FreezeRemedyChecks(unittest.TestCase):
         self.assertEqual(order, sorted(order))
 
 
+class FreezeWritesTheRemedyRecord(unittest.TestCase):
+    """freeze.main end to end on a fabricated dry-run (temporary directories; the repository's FREEZE.json is untouched)."""
+    FAM = {"rq2": ["H2a", "H2b", "H2c"], "rq3": ["H3a", "H3b"]}
+
+    def write_dryrun(self, tmp: Path) -> dict:
+        (tmp / "dryrun").mkdir()
+        for f in ["h2d_validation.json", "resubmission_tau.json"]:
+            (tmp / f).write_text((OUTPUT / f).read_text())
+        hyps = lambda sc: self.FAM["rq2"] if sc.startswith("rq2") else self.FAM["rq3"]
+        per = lambda v: {sc: {h: v for h in hyps(sc)} for sc in dryrun.NULL_SCENARIOS}
+        with mock.patch.object(outcomes, "sha256", lambda path: "x"):          # as inside self.freeze
+            digest = dryrun.digest()["combined"]
+        dry = {"code_digest": digest, "size": per(0.05), "false_support": per(0.0),
+               "missing_p": per(0.0), "size_bootstrap": per(0.055), "size_twoway": per(0.06),
+               "mde80": {h: 0.02 for h in sum(self.FAM.values(), [])}, "mde80_lo": {"H3a": 0.03, "H3b": 0.02},
+               "mde80_cr1": {"H2b": 0.017, "H2c": 0.011}, "mde80_note": {}, "mde80_lo_note": {},
+               "power": {k: {"1.0": {"full_rule": 0.5}, "3.0": {"full_rule": 0.9, "detected_alpha_over_m": 0.9}}
+                         for k in ["H2a", "H2b", "H2c", "H3a_hi", "H3b_hi"]},
+               "criteria": {"a_size_within_2_8pct": False, "c_detected_80pct_at_3x_sesoi": {}}}
+        dry["size"]["rq2_null_early"].update(H2b=0.126, H2c=0.10)
+        (tmp / "dryrun" / "summary.json").write_text(json.dumps(dry))
+        prov = {**dryrun.REGISTERED, "calibrated_rq2_dgp": {}, "rq3_dgp": {}}
+        (tmp / "dryrun" / "provenance.json").write_text(json.dumps(prov))
+        for sc in dryrun.NULL_SCENARIOS:
+            rows = [{"rep": r, "hypothesis": h, "p_cr1": 0.5, "p_boot": 0.5, "p_twoway": 0.5}
+                    for r in range(dryrun.REGISTERED["reps"]) for h in hyps(sc)]
+            pd.DataFrame(rows).to_csv(tmp / "dryrun" / f"{sc}.csv", index=False)
+        return dry
+
+    def freeze(self, tmp: Path, remedies: list[str]):
+        argv = ["freeze.py", "--created", "2026-10-15T00:00:00Z"] + [x for r in remedies for x in ("--remedy", r)]
+        with mock.patch.object(freeze, "OUTPUT", tmp), mock.patch.object(freeze, "HERE", tmp), \
+                mock.patch.object(freeze.outcomes, "sha256", lambda path: "x"), mock.patch.object(sys, "argv", argv), \
+                mock.patch("builtins.print"):
+            freeze.main()
+        return json.loads((tmp / "FREEZE.json").read_text())
+
+    def test_registered_remedies_are_recorded_with_their_validation(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            tmp = Path(tmp)
+            dry = self.write_dryrun(tmp)
+            frz = self.freeze(tmp, ["bootstrap:H2b", "bootstrap:H2c"])
+        self.assertEqual(frz["remedies"], ["bootstrap:H2b", "bootstrap:H2c"])
+        self.assertEqual(run_frozen.remedies_of(frz), dryrun.REMEDIES)
+        self.assertEqual(frz["remedy_validation"], {"size_bootstrap": dry["size_bootstrap"], "size_twoway": dry["size_twoway"]})
+        self.assertEqual(frz["mde80_cr1_for_remedied"], dry["mde80_cr1"])
+        self.assertEqual(sorted(p.split(":")[0] for p in frz["dryrun_problems"]), ["H2b", "H2c"])
+
+    def test_refuses_other_remedies_or_missing_bootstrap_p_values(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            tmp = Path(tmp)
+            self.write_dryrun(tmp)
+            for remedies in [["bootstrap:H2b"], [], ["bootstrap:H2a", "bootstrap:H2b", "bootstrap:H2c"]]:
+                with self.assertRaises(SystemExit):
+                    self.freeze(tmp, remedies)
+            f = tmp / "dryrun" / "rq2_null_early.csv"
+            d = pd.read_csv(f)
+            d.loc[0, "p_boot"] = np.nan
+            d.to_csv(f, index=False)
+            with self.assertRaises(SystemExit):
+                self.freeze(tmp, ["bootstrap:H2b", "bootstrap:H2c"])
+            self.assertFalse((tmp / "FREEZE.json").exists())
+
+
 if __name__ == "__main__":
     unittest.main()

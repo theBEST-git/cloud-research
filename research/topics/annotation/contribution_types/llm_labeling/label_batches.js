@@ -59,10 +59,17 @@ ${missing.join('\n')}
 Rules: do not open any other file; do not run commands; judge each paper only from its title and abstract. Return one entry per listed paper, copying each paper_id exactly. secondary_type must differ from primary_type, otherwise use "none".`
 }
 
-// c.only (optional): label just these paper ids from the batch's files (re-ask for missing papers)
-const results = await parallel(args.configs.map(c => () =>
+// A config is {id, parts, n} or the short form "ID:N" (parts ID_0 and ID_1).
+// c.only (optional): label just these paper ids from the batch's files (re-ask for missing papers).
+const configs = args.configs.map(c => {
+  if (typeof c !== 'string') return c
+  const [id, n] = c.split(':')
+  return { id, n: Number(n), parts: [`${id}_0`, `${id}_1`] }
+})
+const results = await parallel(configs.map(c => () =>
   agent(c.only ? retryPrompt(c, c.only) : fullPrompt(c),
         { label: c.only ? c.id + ' re-ask' : c.id, phase: c.only ? 'Re-ask' : 'Label', model: 'haiku', schema: SCHEMA })
     .then(r => ({ id: c.id, n: c.only ? c.only.length : c.n, labels: r ? r.labels : null }))))
 for (const r of results.filter(Boolean)) log(r.id + ': ' + (r.labels ? r.labels.length : 0) + ' of ' + r.n + ' labels')
-return results
+// Labels are in the run journal (one result per agent); return only counts to keep the summary small.
+return results.map((r, i) => r ? { id: r.id, n: r.n, returned: r.labels ? r.labels.length : 0 } : { id: configs[i].id, n: configs[i].n, returned: 0 })

@@ -573,8 +573,8 @@ Anything added after the freeze is labelled post hoc.
       tests);
     - the default 9,999 seeded Rademacher draws by topic;
     - the dry-run's family sizes (m = 3 for RQ2, 2 for RQ3).
-  - **Mutation check:** all 18 surviving mutations the reviewer listed (two-sided TOST mutations counted separately)
-    are now caught. Two minor test weaknesses (the printed p-value, the two-way fallback mock) were fixed as well.
+  - **Mutation check:** all 18 surviving mutations the reviewer listed, plus the mirror mutation of the other one-sided
+    TOST test, are now caught. Two minor test weaknesses (the printed p-value, the two-way fallback mock) were fixed as well.
   - **Statsmodels cross-checks:** the full suite (115 tests) passes with statsmodels available, so the cross-checks
     that are skipped by default were also run.
   - No file in the dry-run digest was changed.

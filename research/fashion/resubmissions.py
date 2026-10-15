@@ -89,6 +89,10 @@ def main() -> None:
               "nn_cos_percentiles": {str(q): round(float(np.percentile(v, q)), 4) for q in (50, 75, 85, 90, 95, 98, 99, 99.5)},
               "pairs_per_tau_bin": {f"[{lo},{hi})": int(((v >= lo) & (v < hi)).sum()) for lo, hi in TAU_BINS},
               "exact_title_matches": int(out.exact_title_id.notna().sum()), "tau": a.tau}
+    prof = out[(out.year >= 2021) & (out.nn_year >= 2021)]      # profile-ID years: shared keys are comparable (D15)
+    checks["shared_author_share_per_tau_bin_2021_on"] = {
+        f"[{lo},{hi})": round(float((prof[(prof.nn_cos >= lo) & (prof.nn_cos < hi)].nn_shared_keys > 0).mean()), 4)
+        for lo, hi in TAU_BINS}
     if a.tau is not None:
         f = out.probable_earlier_version.notna()
         checks["flagged"] = int(f.sum())

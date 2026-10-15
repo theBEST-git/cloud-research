@@ -1,0 +1,8 @@
+{"confidence": "high", "item_id": "R08b13e", "judgment": "no", "reason": "A is BPPO using PPO-style on-policy offline RL; B is a diffusion-based Q-learning method with SWA. Different methods."}
+{"confidence": "high", "item_id": "R3b0325", "judgment": "no", "reason": "A proposes clean-label backdoor attacks; B proposes black-box backdoor detection (AEVA). Same topic, different contribution."}
+{"confidence": "high", "item_id": "R4a08ea", "judgment": "yes", "reason": "Same nonlinear multimodal (Llama, Whisper) speech brain-encoding model, same 14.4% and 7.7% gains and theories; reframed."}
+{"confidence": "high", "item_id": "R83a1a3", "judgment": "no", "reason": "A creates the MMA multilingual dataset; B proposes backtranslation data-quality methods and uses MMA only as a baseline."}
+{"confidence": "medium", "item_id": "R953c36", "judgment": "yes", "reason": "Same Mem2Mem memory-to-memory mechanism for long-text summarization; B refines framing with memory compression and different evaluation."}
+{"confidence": "high", "item_id": "Rcab68c", "judgment": "yes", "reason": "Near-identical abstracts: Mouse-RGC dataset and TAROT regularized optimal transport for temporal trajectory analysis."}
+{"confidence": "high", "item_id": "Rcdc1b5", "judgment": "yes", "reason": "Same mixed-image-size training method with identical results (76.43%, 79.27%); B only adds code release and renames."}
+{"confidence": "medium", "item_id": "Re692e4", "judgment": "yes", "reason": "Same counterfactual-distribution learning of sensitive attribute descendants with counterfactual mediator regularization; B emphasizes theoretical guarantees."}

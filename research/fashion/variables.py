@@ -80,6 +80,7 @@ def hot_flags(mat: pd.DataFrame) -> pd.DataFrame:
     out = []
     for y, g in mat.groupby("year"):
         g = g[["topic", "year", "prior_growth"]].copy()
+        g["prior_growth"] = g.prior_growth.round(6)     # as in topic_year_maturity.csv.gz, so ties are exact (fine map)
         if g.prior_growth.notna().all():
             g["hot"] = (g.prior_growth >= np.percentile(g.prior_growth, HOT_PERCENTILE)).astype(float)
         else:
@@ -145,6 +146,9 @@ def main() -> None:
     checks["k100_incumbent_rate_by_team_size_and_era"] = (k.groupby([era, bins], observed=True).incumbent.mean()
                                                           .round(4).unstack().to_dict(orient="index"))
     e = out[(out["map"] == "early") & out.has_author_key].set_index("submission_id").incumbent
+    kind = authors.assign(year=authors.submission_id.map(maps.set_index("submission_id").year))
+    checks["author_id_kind_share_by_year"] = (kind.groupby("year").kind.value_counts(normalize=True).round(4)
+                                              .unstack().fillna(0).to_dict(orient="index"))
     checks["incumbent_agreement_k100_vs_early_map"] = round(float((k.set_index("submission_id").incumbent == e.loc[k.submission_id]).mean()), 4)
     cat = pd.read_csv(TOPICS / "topic_catalog.csv", keep_default_na=False).set_index("topic").name
     hk = out[(out["map"] == "k100")].drop_duplicates(["topic", "year"])

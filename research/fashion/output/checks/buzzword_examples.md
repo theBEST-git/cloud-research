@@ -47,15 +47,15 @@ Flagged (hot keyword, atypical use):
 Typical use of a hot keyword:
 
 - `exploration` (cos 0.972): QXplore: Q-Learning Exploration by Maximizing Temporal Difference Error
+- `representation learning` (cos 0.926): Mutual Information Maximization for Robust Plannable Representations
+- `stochastic gradient descent` (cos 0.948): Deep Double Descent: Where Bigger Models and More Data Hurt
+- `graph neural networks` (cos 0.952): Adaptive Structural Fingerprints for Graph Attention Networks
+- `information theory` (cos 0.951): Revisiting the Information Plane
+- `graph neural networks` (cos 0.958): Constant Time Graph Neural Networks
 - `optimal transport` (cos 0.960): Learning Deep-Latent Hierarchies by Stacking Wasserstein Autoencoders
-- `knowledge distillation` (cos 0.948): Role-Wise Data Augmentation for Knowledge Distillation
-- `graph neural networks` (cos 0.947): Dynamically Pruned Message Passing Networks for Large-scale Knowledge Graph Reasoning
-- `representation learning` (cos 0.931): Natural Language State Representation for Reinforcement Learning
-- `representation learning` (cos 0.943): DIVA: Domain Invariant Variational Autoencoder
-- `representation learning` (cos 0.938): Unsupervised Distillation of Syntactic Information from Contextualized Word Representations
-- `continual learning` (cos 0.959): Differentiable Hebbian Consolidation for Continual Learning
-- `adversarial attack` (cos 0.965): Nesterov Accelerated Gradient and Scale Invariance for Adversarial Attacks
-- `continual learning` (cos 0.964): Learning with Long-term Remembering: Following the Lead of Mixed Stochastic Gradient
+- `adversarial attack` (cos 0.956): LabelFool: A Trick in the Label Space
+- `representation learning` (cos 0.914): Reflection-based Word Attribute Transfer
+- `optimal transport` (cos 0.966): Potential Flow Generator with $L_2$ Optimal Transport Regularity for Generative Models
 
 ## 2021
 

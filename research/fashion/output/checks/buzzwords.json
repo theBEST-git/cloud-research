@@ -12,7 +12,7 @@
   },
   "hot_keywords_by_year": {
     "2019": 6,
-    "2020": 17,
+    "2020": 18,
     "2021": 30,
     "2022": 49,
     "2023": 67,
@@ -31,15 +31,15 @@
     ],
     "2020": [
       "graph neural networks",
-      "semantic segmentation",
       "knowledge distillation",
+      "semantic segmentation",
       "information theory",
       "adversarial attack",
       "non-convex optimization",
       "adam",
-      "dynamical system",
       "sequence-to-sequence",
       "multi-agent",
+      "dynamical system",
       "optimal transport",
       "batch normalization"
     ],
@@ -128,8 +128,8 @@
       "mllm"
     ]
   },
-  "atypical_rate_hot_uses": 0.1531,
-  "atypical_rate_other_eligible_uses": 0.1518,
+  "atypical_rate_hot_uses": 0.1529,
+  "atypical_rate_other_eligible_uses": 0.1519,
   "atypical_rate_by_year": {
     "2019": 0.1382,
     "2020": 0.1282,
@@ -142,7 +142,7 @@
   },
   "paper_share_listing_hot_keyword_by_year": {
     "2019": 0.1859,
-    "2020": 0.1527,
+    "2020": 0.1585,
     "2021": 0.2246,
     "2022": 0.1993,
     "2023": 0.2376,

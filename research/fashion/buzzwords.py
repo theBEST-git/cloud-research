@@ -56,6 +56,7 @@ def build(keywords: pd.Series, years: np.ndarray, x: np.ndarray, vocab: set[str]
                                                   "threshold": row["threshold"]}))
             kw_rows.append(row)
     kw = pd.DataFrame(kw_rows)
+    kw["growth"] = kw.growth.round(10)          # logically tied growths become bit-identical (no 1-ulp tie splits)
     kw["hot"] = False
     for t, g in kw[kw.eligible].groupby("year"):
         kw.loc[g.index, "hot"] = g.growth >= np.percentile(g.growth, PCT_HOT)

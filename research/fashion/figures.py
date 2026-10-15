@@ -175,13 +175,12 @@ def f6_power() -> None:
             y = [v["detected_alpha_over_m"] * 100 for v in c.values()]
             ax.plot(x, y, color=colour[h], ls=ls, lw=1.6 if ls == "-" else 1.2, marker="o" if ls == "-" else None,
                     markersize=3.5, markeredgecolor=SURFACE, markeredgewidth=0.8, label=h if ls == "-" else None)
-            if ls == "-":
-                end_label(ax, x[-1], y[-1], h)
-        ax.axhline(80, color=INK2, lw=0.8, ls=(0, (3, 2)))
+        ax.axhline(80, color=INK2, lw=0.8, ls=(0, (3, 2)))              # curves meet at 100%: legend, no end labels
         ax.set_title(title, loc="left")
-        ax.set_xlabel("realised planted effect (percentage points)")
+        ax.set_xlabel("realised planted effect (pp)" if ax is axes[0] else "realised planted effect (pp per log unit)")
         ax.set_ylim(-3, 103)
         ax.legend(loc="lower right")
+    axes[0].set_xlim(0, 6.2)                                             # all RQ2 curves reach 100% by 6 pp
     axes[0].set_ylabel("detected at alpha/m, main spec (%)")
     save(fig, "F6_power")
 

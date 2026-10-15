@@ -101,7 +101,10 @@ def main() -> None:
     fatal, remediable = check_dryrun(dry, prov, families)
     if fatal:
         raise SystemExit("refusing to freeze:\n- " + "\n- ".join(fatal))
-    validate_remedies(a.remedy, remediable)
+    asked = validate_remedies(a.remedy, remediable)
+    import dryrun
+    if set(dryrun.REMEDIES) != asked:
+        raise SystemExit(f"the dry-run applied remedies {dryrun.REMEDIES}, the freeze asks for {sorted(asked)}")
     problems = [f"{h}:{v}" for h, v in remediable.items()]
     freeze = {
         "created_utc": a.created,
@@ -112,7 +115,9 @@ def main() -> None:
         "sesoi": {s.hid: s.sesoi for s in rq2.SPECS + rq3.SPECS},
         "counted_variants": {"rq2": list(variants.counted(2)), "rq3": list(variants.counted(3))},
         "hindsight_variants": list(variants.HINDSIGHT_VARIANTS), "robust_share": variants.ROBUST_SHARE,
-        "mde80": dry["mde80"], "mde80_rq3_lo_variance": dry["mde80_lo"], "dryrun_criteria": dry["criteria"],
+        "mde80": dry["mde80"], "mde80_rq3_lo_variance": dry["mde80_lo"], "mde80_cr1_for_remedied": dry["mde80_cr1"],
+        "dryrun_criteria": dry["criteria"],
+        "remedy_validation": {"size_bootstrap": dry["size_bootstrap"], "size_twoway": dry["size_twoway"]},
         "mde80_note": dry.get("mde80_note", {}), "mde80_lo_note": dry.get("mde80_lo_note", {}),
         "dryrun_dgp": {"rq2_calibrated": prov["calibrated_rq2_dgp"], "rq3": prov["rq3_dgp"], "reps": prov["reps"],
                        "power_reps": prov["power_reps"], "full_reps": prov["full_reps"], "code_digest": dry["code_digest"]},

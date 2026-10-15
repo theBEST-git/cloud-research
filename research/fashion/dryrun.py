@@ -26,6 +26,11 @@ Criteria (fixed before running; D16): (a) main-specification size (two-sided p <
 confirmatory hypothesis and null scenario; (b) the full decision rule supports a hypothesis in at most 5% of null
 replications; (c) detection >= 80% at 3 x SESOI, otherwise the hypothesis is reported as underpowered.
 
+Dry-run v3 (validation of the remedy triggered by v2, same seeds): H2b and H2c (REMEDIES) take their main p-value from
+the wild cluster bootstrap in every replication; every null replication also records each hypothesis's CR1, bootstrap
+and two-way (S11) p-values. Criterion (a) is read on CR1 (the trigger); the bootstrap and two-way sizes are reported as
+the remedy's validation. MDE80 of a remedied hypothesis uses the bootstrap p-value (the test actually applied).
+
     python research/fashion/dryrun.py [--reps 500] [--power-reps 200] [--full-reps 100] [--workers 4]
 Clears and writes output/dryrun/: one CSV per scenario, provenance.json (code and input digest), summary.json.
 """
@@ -53,7 +58,7 @@ import outcomes  # noqa: E402
 import panel  # noqa: E402
 import rq2_following as rq2  # noqa: E402
 import rq3_reward as rq3  # noqa: E402
-from analysis import estimate  # noqa: E402
+from analysis import estimate, estimate_twoway, wild_cluster_bootstrap_p  # noqa: E402
 from common import OUTPUT, ROOT  # noqa: E402
 from dgp import DGP, calibrate, simulate  # noqa: E402
 
@@ -74,6 +79,7 @@ INPUTS = ["paper_variables.csv.gz", "paper_buzzword.csv.gz", "earlier_versions.c
 TOPIC_INPUTS = ["topic_assignments.csv.gz", "k_sensitivity_assignments.csv.gz", "hindsight_assignments.csv.gz",
                 "paper_contributions.csv.gz", "paper_topic_stability.csv.gz", "topic_catalog.csv"]
 REGISTERED = {"reps": 500, "power_reps": 200, "full_reps": 100}           # D16; freeze.py refuses other counts
+REMEDIES = ("H2b", "H2c")                    # triggered by dry-run v2 criterion (a) (pre-run log, D16)
 NULL_SCENARIOS = ["rq2_null_k100", "rq2_null_early", "rq3_permuted", "rq3_null_k100_lo", "rq3_null_k100_hi",
                   "rq3_null_early_hi"]
 FRAMES: dict[str, pd.DataFrame] = {}
@@ -124,11 +130,21 @@ def realised(pop: pd.DataFrame, spec, dp: np.ndarray, ids: np.ndarray) -> float:
     return estimate(d, spec.y, spec.x, spec.controls, spec.fe, spec.years)["coef"]
 
 
-def rows_of(res: dict, scenario: str, rep: int, planted: str | None, eff: float | None) -> list[dict]:
+def alternative_p(pop: pd.DataFrame, specs: dict) -> dict:
+    """Null replications: each hypothesis's bootstrap and two-way (S11) main-specification p-values."""
+    out = {}
+    for h, s in specs.items():
+        out[h] = {"p_boot": wild_cluster_bootstrap_p(pop, s.y, s.x, s.controls, s.fe, s.years)["p"],
+                  "p_twoway": estimate_twoway(pop, s.y, s.x, s.controls, s.fe, s.years)["p"]}
+    return out
+
+
+def rows_of(res: dict, scenario: str, rep: int, planted: str | None, eff: float | None, alt: dict | None = None) -> list[dict]:
     out = []
     for h, v in res["verdicts"].items():
         out.append({"scenario": scenario, "rep": rep, "hypothesis": h, "planted": planted == h,
                     "realised_effect": eff if planted == h else np.nan, "coef": v["coef"], "se": v["se"], "p": v["p"],
+                    "p_cr1": v["p_cr1"], **(alt or {}).get(h, {}),
                     "p_holm": v["p_holm"], "n": v["n"], "predicted_sign": v["predicted_sign"],
                     "robust": v["robustness_same_sign"], "hindsight": v["hindsight_variants_same_sign"],
                     "verdict": v["verdict"]})
@@ -139,10 +155,14 @@ def rows_of(res: dict, scenario: str, rep: int, planted: str | None, eff: float 
 
 
 def main_only(pop: pd.DataFrame, spec, scenario: str, rep: int, eff: float) -> list[dict]:
-    """Power replications: the planted hypothesis's main specification only (MDE80 needs nothing else)."""
+    """Power replications: the planted hypothesis's main specification only (MDE80 needs nothing else); a remedied
+    hypothesis is tested with the bootstrap p-value, as in the real run."""
     r = estimate(pop, spec.y, spec.x, spec.controls, spec.fe, spec.years)
+    p = r["p"]
+    if spec.hid in REMEDIES:
+        p = wild_cluster_bootstrap_p(pop, spec.y, spec.x, spec.controls, spec.fe, spec.years)["p"]
     return [{"scenario": scenario, "rep": rep, "hypothesis": spec.hid, "planted": True, "realised_effect": eff,
-             "coef": r["coef"], "se": r["se"], "p": r["p"], "n": r["n"], "predicted_sign": spec.sign}]
+             "coef": r["coef"], "se": r["se"], "p": p, "p_cr1": r["p"], "n": r["n"], "predicted_sign": spec.sign}]
 
 
 def job(task: tuple) -> list[dict]:
@@ -155,16 +175,19 @@ def job(task: tuple) -> list[dict]:
         delta = s.sign * mult * s.sesoi if s else 0.0
         ys, ps = rq2_outcomes(seed, params["map"], planted, delta)
         eff = None
+        pop = rq2.population(rq2.with_columns(FRAMES["k100"], ys))
         if s:
-            pop = rq2.population(rq2.with_columns(FRAMES["k100"], ys))
             eff = realised(pop, s, ps[s.y], ids.values)
             if not full:
                 return main_only(pop, s, scenario, rep, eff)
-        res = rq2.run(FRAMES, GATE, ys=ys, supplementary=False)
-        return rows_of(res, scenario, rep, planted, eff)
+        res = rq2.run(FRAMES, GATE, ys=ys, supplementary=False, remedies=REMEDIES)
+        return rows_of(res, scenario, rep, planted, eff, None if s else alternative_p(pop, RQ2_SPECS))
+    rq3_remedies = tuple(h for h in REMEDIES if h in RQ3_SPECS)
     if params["mode"] == "permuted":
         out = outcomes.load("permuted", ids, seed=seed)
-        return rows_of(rq3.run(FRAMES, out, GATE, supplementary=False), scenario, rep, None, None)
+        pop = rq3.attach(FRAMES["k100"], out)
+        return rows_of(rq3.run(FRAMES, out, GATE, supplementary=False, remedies=rq3_remedies), scenario, rep, None, None,
+                       alternative_p(pop[pop.rq3], RQ3_SPECS))
     s = RQ3_SPECS.get(planted)
     base = RQ3_DGP[params["dgp"]]
     dgp = replace(base, effects={PLANT[planted][1]: s.sign * mult * s.sesoi}) if s else base
@@ -174,14 +197,14 @@ def job(task: tuple) -> list[dict]:
     out["accepted"] = np.where(out.rq3, y, np.nan)
     out["s9_accepted"] = np.where(out.rq3, y, np.where(out.s9, 0.0, np.nan))
     eff = None
+    pop = rq3.attach(FRAMES["k100"], out)
+    pop = pop[pop.rq3]
     if s:
-        pop = rq3.attach(FRAMES["k100"], out)
-        pop = pop[pop.rq3]
         eff = realised(pop, s, p - q, ids.values)
         if not full:
             return main_only(pop, s, scenario, rep, eff)
-    res = rq3.run(FRAMES, out, GATE, supplementary=False)
-    return rows_of(res, scenario, rep, planted, eff)
+    res = rq3.run(FRAMES, out, GATE, supplementary=False, remedies=rq3_remedies)
+    return rows_of(res, scenario, rep, planted, eff, None if s else alternative_p(pop, RQ3_SPECS))
 
 
 def tasks(reps: int, power_reps: int, full_reps: int) -> list[tuple]:
@@ -227,13 +250,18 @@ def summarise(df: pd.DataFrame) -> dict:
     fam = {"rq2": len(RQ2_SPECS), "rq3": len(RQ3_SPECS)}
     conf["m"] = np.where(conf.hypothesis.str.startswith("H2"), fam["rq2"], fam["rq3"])
     conf["detected"] = (conf.p < 0.05 / conf.m) & (np.sign(conf.coef) == conf.predicted_sign)
-    out = {"size": {}, "false_support": {}, "missing_p": {}, "logit_size": {}, "power": {}, "mde80": {}, "mde80_lo": {}}
+    out = {"size": {}, "size_bootstrap": {}, "size_twoway": {}, "false_support": {}, "missing_p": {}, "logit_size": {},
+           "power": {}, "mde80": {}, "mde80_lo": {}, "mde80_cr1": {}}
     nulls = [sc for sc in df.scenario.unique() if "null" in sc or "permuted" in sc]
+    rate = lambda p: round(float((p < 0.05).mean()), 4)
     for sc in nulls:
         g = conf[conf.scenario == sc]
-        out["size"][sc] = g.groupby("hypothesis").p.apply(lambda p: round(float((p < 0.05).mean()), 4)).to_dict()
+        out["size"][sc] = g.groupby("hypothesis").p_cr1.apply(rate).to_dict()          # criterion (a): CR1, the trigger
+        for col, key in [("p_boot", "size_bootstrap"), ("p_twoway", "size_twoway")]:
+            if col in g:
+                out[key][sc] = g.groupby("hypothesis")[col].apply(rate).to_dict()
         out["false_support"][sc] = g.groupby("hypothesis").verdict.apply(lambda v: round(float((v == "supported").mean()), 4)).to_dict()
-        out["missing_p"][sc] = g.groupby("hypothesis").p.apply(lambda p: round(float(p.isna().mean()), 4)).to_dict()
+        out["missing_p"][sc] = g.groupby("hypothesis").p_cr1.apply(lambda p: round(float(p.isna().mean()), 4)).to_dict()
         lg = df[(df.scenario == sc) & df.hypothesis.str.endswith(":logit")]
         if len(lg):
             out["logit_size"][sc] = lg.groupby("hypothesis").p.apply(lambda p: round(float((p < 0.05).mean()), 4)).to_dict()
@@ -260,6 +288,16 @@ def summarise(df: pd.DataFrame) -> dict:
                 v, note = mde80(curve)
                 out[key][h] = None if v is None else round(v, 5)
                 out.setdefault(key + "_note", {})[h] = note
+                if h in REMEDIES and not tag.endswith("_lo"):                      # for comparison: CR1 detection
+                    cr1 = []
+                    for mult in MULTS:
+                        sc = f"rq{2 if h.startswith('H2') else 3}_power_{h}_m{mult}{tag}"
+                        g = conf[(conf.scenario == sc) & (conf.hypothesis == h)]
+                        if len(g):
+                            det = ((g.p_cr1 < 0.05 / g.m) & (np.sign(g.coef) == g.predicted_sign)).mean()
+                            cr1.append((abs(float(g.realised_effect.mean())), float(det)))
+                    v1, _ = mde80(cr1)
+                    out["mde80_cr1"][h] = None if v1 is None else round(v1, 5)
     sizes = [v for sc in out["size"].values() for v in sc.values()]
     fs = [v for sc in out["false_support"].values() for v in sc.values()]
     top = {h.replace("_hi", ""): t["3.0"]["detected_alpha_over_m"] for h, t in out["power"].items() if not h.endswith("_lo")}

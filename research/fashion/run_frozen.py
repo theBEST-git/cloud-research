@@ -104,9 +104,18 @@ def main() -> None:
         outcomes.release()
 
 
+def remedies_of(freeze: dict) -> tuple[str, ...]:
+    """Hypotheses whose main p-value comes from the wild cluster bootstrap (FREEZE.json 'bootstrap:<h>' entries)."""
+    out = []
+    for r in freeze.get("remedies", []):
+        if not r.startswith("bootstrap:"):
+            raise SystemExit(f"FREEZE.json lists an unknown remedy {r!r}")
+        out.append(r.split(":", 1)[1])
+    return tuple(out)
+
+
 def run(freeze: dict, started: str) -> None:
-    if freeze.get("remedies"):
-        raise SystemExit(f"FREEZE.json lists remedies {freeze['remedies']} that this script does not apply yet (D16)")
+    remedies = remedies_of(freeze)
     gate_file = json.loads((OUTPUT / "h2d_validation.json").read_text())
     gate = gate_file["gate"] == "pass"
     assert gate == freeze["h2d_gate_passed"], "gate differs from the frozen value"
@@ -117,9 +126,9 @@ def run(freeze: dict, started: str) -> None:
 
     frames = {m: panel.frame(m) for m in panel.MAPS}
     assert frames["k100"].has_earlier_version.notna().all(), "earlier_versions.csv.gz has no probable_earlier_version"
-    res2 = rq2.run(frames, gate)
+    res2 = rq2.run(frames, gate, remedies=remedies)
     out = outcomes.load("real", frames["k100"].submission_id)
-    res3 = rq3.run(frames, out, gate, describe=True)
+    res3 = rq3.run(frames, out, gate, describe=True, remedies=remedies)
     exp = exploratory.run(frames, out, gate)
     finished = now()
 
@@ -137,6 +146,7 @@ def run(freeze: dict, started: str) -> None:
         "e9_equivalence": equivalence_table({**res2["verdicts"], **res3["verdicts"]}, mde, powered, freeze.get("mde80_note")),
         "dryrun_criterion_c_detected_80pct_at_3x_sesoi": powered,
         "dropped_hypotheses": [] if gate else ["H2d", "H3c"],
+        "remedies": list(remedies),
         "exploratory_caveat": sorted(set(exp["estimates"].loc[exp["estimates"].measure_status != "", "label"])),
     }
     (OUT / "summary.json").write_text(json.dumps(clean(summary), indent=2) + "\n")

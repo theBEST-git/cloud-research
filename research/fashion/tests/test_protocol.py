@@ -88,9 +88,14 @@ class FrozenRunBookkeeping(unittest.TestCase):
         r = subprocess.run([sys.executable, "-c", code], capture_output=True, text=True, timeout=300, cwd=HERE)
         self.assertIn("debugger", r.stderr)
 
-    def test_remedies_are_not_silently_ignored(self):
+    def test_remedies_are_applied(self):
+        self.assertEqual(run_frozen.remedies_of({"remedies": ["bootstrap:H2b", "bootstrap:H2c"]}), ("H2b", "H2c"))
         with self.assertRaises(SystemExit):
-            run_frozen.run({"remedies": ["bootstrap:H2a"]}, "now")
+            run_frozen.remedies_of({"remedies": ["something else"]})
+        runs = [c for c in calls(HERE / "run_frozen.py", "run") if ast.unparse(c.func) in ("rq2.run", "rq3.run")]
+        self.assertEqual([kw(c, "remedies") for c in runs], ["remedies", "remedies"])
+        for f in ["rq2_following.py", "rq3_reward.py"]:
+            self.assertTrue(calls(HERE / f, "apply_bootstrap"), f)
 
     def test_e9_carries_the_dry_run_notes(self):
         v = {"H2b": {"verdict": "inconclusive", "coef": 0.0, "ci90": [-0.01, 0.01], "sesoi": 0.02, "tost_p": 0.01}}
@@ -159,12 +164,16 @@ class FreezeChecksTheDryRun(unittest.TestCase):
         d["false_support"]["rq3_permuted"]["H3a"] = 0.06
         self.assertEqual(list(freeze.check_dryrun(d, self.prov, self.fam)[1]), ["H3a"])
 
-    def test_remedies_must_match_and_need_the_bootstrap(self):
+    def test_remedies_must_match_exactly(self):
         self.assertEqual(freeze.validate_remedies([], {}), set())
+        self.assertEqual(freeze.validate_remedies(["bootstrap:H2a"], {"H2a": "size"}), {"H2a"})
         for remedies, rem in [(["use bootstrap"], {"H2a": "size"}), (["bootstrap:H2b"], {"H2a": "size"}),
-                              ([], {"H2a": "size"}), (["bootstrap:H2a"], {"H2a": "size"})]:   # last: not implemented yet
+                              ([], {"H2a": "size"}), (["bootstrap:H2a", "x"], {"H2a": "size"})]:
             with self.assertRaises(SystemExit):
                 freeze.validate_remedies(remedies, rem)
+
+    def test_dry_run_applied_the_triggered_remedies(self):
+        self.assertEqual(dryrun.REMEDIES, ("H2b", "H2c"))
 
     def test_stale_digest_and_counts_are_fatal(self):
         fatal, _ = freeze.check_dryrun({**self.dry, "code_digest": "x"}, {**self.prov, "reps": 20}, self.fam)
@@ -254,10 +263,12 @@ class DryRunDesign(unittest.TestCase):
     def test_summary_criteria(self):
         rows = []
         for rep in range(100):
-            rows.append({"scenario": "rq2_null_k100", "rep": rep, "hypothesis": "H2a", "coef": 0.01, "p": 0.01 if rep < 10 else 0.5,
-                         "predicted_sign": -1, "verdict": "inconclusive", "realised_effect": np.nan})
+            p = 0.01 if rep < 10 else 0.5
+            rows.append({"scenario": "rq2_null_k100", "rep": rep, "hypothesis": "H2a", "coef": 0.01, "p": 0.5, "p_cr1": p,
+                         "p_boot": 0.5, "predicted_sign": -1, "verdict": "inconclusive", "realised_effect": np.nan})
         s = dryrun.summarise(pd.DataFrame(rows))
-        self.assertEqual(s["size"]["rq2_null_k100"]["H2a"], 0.10)
+        self.assertEqual(s["size"]["rq2_null_k100"]["H2a"], 0.10)                 # criterion (a) reads CR1
+        self.assertEqual(s["size_bootstrap"]["rq2_null_k100"]["H2a"], 0.0)
         self.assertFalse(s["criteria"]["a_size_within_2_8pct"])
         self.assertTrue(s["criteria"]["b_false_support_at_most_5pct"])
 

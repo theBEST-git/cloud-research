@@ -12,7 +12,7 @@ from __future__ import annotations
 import pandas as pd
 
 import variants
-from analysis import Spec, decide, fit
+from analysis import Spec, apply_bootstrap, decide, estimate_twoway, fit
 from panel import CLASS_CONTROLS
 from rq2_following import NEK, with_columns
 
@@ -35,12 +35,15 @@ def attach(frame: pd.DataFrame, out: pd.DataFrame) -> pd.DataFrame:
 
 
 def run(frames: dict[str, pd.DataFrame], out: pd.DataFrame, gate: bool, supplementary: bool = True,
-        describe: bool = False) -> dict:
-    """describe=True (frozen real run only) adds sample means to the main estimates."""
+        describe: bool = False, remedies: tuple[str, ...] = ()) -> dict:
+    """describe=True (frozen real run only) adds sample means to the main estimates; remedies as in rq2_following."""
     specs = [s for s in SPECS if not s.gated or gate]
     full = {m: attach(f, out) for m, f in frames.items()}
     pop = {m: f[f.rq3] for m, f in full.items()}
     main = {s.hid: fit(pop["k100"], s, describe=describe) for s in specs}
+    for s in specs:
+        if s.hid in remedies:
+            main[s.hid] = apply_bootstrap(main[s.hid], pop["k100"], s)
     counted = {s.hid: {} for s in specs}
     rows = [{"hypothesis": h, "variant": "main", "kind": "main", **r} for h, r in main.items()]
     for name, v in variants.counted(3).items():
@@ -61,6 +64,7 @@ def run(frames: dict[str, pd.DataFrame], out: pd.DataFrame, gate: bool, suppleme
                 add(s.hid, "S5_fine", fit(pop["fine"], s))
             add(s.hid, "S9_withdrawn_after_review_as_rejected", fit(s9, s))
             add(s.hid, "S10_newcomer_control", fit(k, s, extra_controls=("newcomer",)))
+            add(s.hid, "S11_twoway_topic_early", estimate_twoway(k, s.y, s.x, s.controls, s.fe, s.years))
         if "H3c" in by:
             add("H3c", "S6_lists_hot_keyword", fit(k[k.lists_hot == 1], by["H3c"]))
             add("H3c", "S7_eligible_keyword_fe", fit(k, by["H3c"], extra_controls=tuple(NEK)))

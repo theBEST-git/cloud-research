@@ -18,7 +18,7 @@ import numpy as np
 import pandas as pd
 
 import variants
-from analysis import Spec, corrected, decide, fit, misclassification_rates
+from analysis import Spec, apply_bootstrap, corrected, decide, estimate_twoway, fit, misclassification_rates
 from common import TOPICS, class_of
 
 YEARS = (2019, 2026)
@@ -87,11 +87,15 @@ def label_reliability() -> dict:
 
 
 def run(frames: dict[str, pd.DataFrame], gate: bool, ys: dict[str, pd.Series] | None = None,
-        supplementary: bool = True) -> dict:
+        supplementary: bool = True, remedies: tuple[str, ...] = ()) -> dict:
+    """remedies: hypotheses whose main-specification p-value comes from the wild cluster bootstrap (D16)."""
     guard(ys)
     specs = [s for s in SPECS if not s.gated or gate]
     pop = {m: population(with_columns(f, ys)) for m, f in frames.items()}
     main = {s.hid: fit(pop["k100"], s, describe=ys is None) for s in specs}
+    for s in specs:
+        if s.hid in remedies:
+            main[s.hid] = apply_bootstrap(main[s.hid], pop["k100"], s)
     counted = {s.hid: {} for s in specs}
     rows = [{"hypothesis": h, "variant": "main", "kind": "main", **r} for h, r in main.items()]
     for name, v in variants.counted(2).items():
@@ -109,6 +113,7 @@ def run(frames: dict[str, pd.DataFrame], gate: bool, ys: dict[str, pd.Series] | 
             add(s.hid, "S1_log_team", fit(k, s, extra_controls=("log_team",)))
             if "fine" in pop:
                 add(s.hid, "S5_fine", fit(pop["fine"], s))
+            add(s.hid, "S11_twoway_topic_early", estimate_twoway(k, s.y, s.x, s.controls, s.fe, s.years))
         add("H2a", "S2_pool_controls", fit(k, by["H2a"], extra_controls=("maturity", "log_papers_prev", "log_team")))
         w2 = (2023, 2026)
         add("H2a", "S3_window_2023_2026", fit(k, Spec("H2a", "incumbent_w2", "hot", -1, 0.02, "topic+year", w2)))

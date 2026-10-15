@@ -55,6 +55,7 @@ def frame(map_name: str) -> pd.DataFrame:
     df = pd.DataFrame({"submission_id": maps.submission_id, "year": maps.year, "map": map_name,
                        "topic": maps[map_name].astype(str)})
     df["cell"] = df.topic + ":" + df.year.astype(str)
+    df["topic_early"] = maps["early"].astype(str).values                 # second clustering for S11 (all maps)
     df["primary_class"], df["primary_type"] = lab.primary_class.values, lab.primary_type.values
     df["fm"] = (lab.foundation_model == "yes").astype(float).values
     df["uncertain"] = lab.uncertain.astype(bool).values

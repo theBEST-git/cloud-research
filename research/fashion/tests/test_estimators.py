@@ -75,6 +75,50 @@ class AgainstStatsmodels(unittest.TestCase):
         self.assertEqual(info["dropped_groups"], ["3", "7"])
 
 
+class Remedies(unittest.TestCase):
+    def frame(self, seed=0, n=4000, topics=40):
+        rng = np.random.default_rng(seed)
+        d = pd.DataFrame({"topic": rng.integers(0, topics, n).astype(str), "year": rng.integers(2019, 2027, n),
+                          "topic_early": rng.integers(0, 30, n).astype(str)})
+        d["cell"] = d.topic + ":" + d.year.astype(str)
+        d["x"] = (rng.random(n) < 0.4).astype(float)
+        d["c1"] = rng.normal(size=n)
+        a = rng.normal(0, 0.3, topics)[d.topic.astype(int)]
+        d["y"] = (rng.random(n) < 1 / (1 + np.exp(-(-0.5 + a + 0.2 * d.c1)))).astype(float)
+        return d
+
+    def test_wild_bootstrap_matches_brute_force(self):
+        import analysis
+        d = self.frame()
+        for fe, ctr in [("cell", ()), ("topic+year", ("c1",))]:
+            W = np.random.default_rng(1).choice([-1.0, 1.0], size=(30, 40))
+            b = analysis.wild_cluster_bootstrap_p(d, "y", "x", ctr, fe, (2019, 2026), weights=W)
+            d2, X, absorb, _ = analysis._design(d, "y", "x", ctr, fe, (2019, 2026))
+            Xd, yd, _, _, _ = analysis._partial(d2, "y", X, absorb)
+            C = Xd[:, 1:]
+            yhat = C @ np.linalg.lstsq(C, yd, rcond=None)[0] if C.shape[1] else np.zeros(len(yd))
+            cl = pd.factorize(d2.topic)[0]
+            brute = [fe_ols(pd.Series(yhat + (yd - yhat) * w[cl]), X.reset_index(drop=True),
+                            pd.Series(pd.factorize(absorb)[0]), pd.Series(cl)).iloc[0].t for w in W]
+            np.testing.assert_allclose(b["t_star"], brute, atol=1e-10)
+            e = analysis.estimate(d, "y", "x", ctr, fe, (2019, 2026))
+            self.assertAlmostEqual(b["t"], e["coef"] / e["se"], places=10)
+
+    @unittest.skipIf(sm is None, "statsmodels not importable")
+    def test_twoway_matches_statsmodels(self):
+        import analysis
+        d = self.frame(2)
+        tw = analysis.estimate_twoway(d, "y", "x", ("c1",), "topic+year", (2019, 2026))
+        X = pd.concat([d[["x", "c1"]], pd.get_dummies(d.year, prefix="y", drop_first=True).astype(float),
+                       pd.get_dummies(d.topic, prefix="t", drop_first=True).astype(float)], axis=1)
+        X = sm.add_constant(X)
+        groups = np.column_stack([pd.factorize(d.topic)[0], pd.factorize(d.topic_early)[0]])
+        ref = sm.OLS(d.y, X).fit(cov_type="cluster", cov_kwds={"groups": groups})
+        n, k_ours = len(d), 2 + 7                                  # absorbed topic FE are not counted, as one-way
+        np.testing.assert_allclose(tw["coef"], ref.params["x"], rtol=1e-9)
+        np.testing.assert_allclose(tw["se"], ref.bse["x"] * np.sqrt((n - X.shape[1]) / (n - k_ours)), rtol=1e-8)
+
+
 class Basic(unittest.TestCase):
     def test_ols_recovers_planted_slope(self):
         rng = np.random.default_rng(3)

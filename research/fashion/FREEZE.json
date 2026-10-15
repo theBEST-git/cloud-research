@@ -1,0 +1,304 @@
+{
+  "created_utc": "2026-10-15T19:02:52Z",
+  "dryrun_problems": [
+    "H2b: size 0.126 in rq2_null_early;",
+    "H2c: size 0.1 in rq2_null_early;"
+  ],
+  "remedies": [
+    "bootstrap:H2b",
+    "bootstrap:H2c"
+  ],
+  "h2d_gate_passed": false,
+  "tau": 0.9,
+  "families": {
+    "rq2": [
+      "H2a",
+      "H2b",
+      "H2c"
+    ],
+    "rq3": [
+      "H3a",
+      "H3b"
+    ]
+  },
+  "sesoi": {
+    "H2a": 0.02,
+    "H2b": 0.02,
+    "H2c": 0.01,
+    "H2d": 0.01,
+    "H3a": 0.01,
+    "H3b": 0.01,
+    "H3c": 0.02
+  },
+  "counted_variants": {
+    "rq2": [
+      "k75",
+      "k150",
+      "balanced",
+      "early",
+      "early_prospective",
+      "stable_papers",
+      "coherent_topics",
+      "certain_labels",
+      "without_2026",
+      "id_consistent_years"
+    ],
+    "rq3": [
+      "k75",
+      "k150",
+      "balanced",
+      "early",
+      "early_prospective",
+      "stable_papers",
+      "coherent_topics",
+      "certain_labels",
+      "without_2026",
+      "logit",
+      "no_earlier_version"
+    ]
+  },
+  "hindsight_variants": [
+    "balanced",
+    "early_prospective"
+  ],
+  "robust_share": 0.75,
+  "mde80": {
+    "H2a": 0.03619,
+    "H2b": 0.01716,
+    "H2c": 0.01086,
+    "H3a": 0.04146,
+    "H3b": 0.0236
+  },
+  "mde80_rq3_lo_variance": {
+    "H3a": 0.02805,
+    "H3b": 0.02136
+  },
+  "mde80_cr1_for_remedied": {
+    "H2b": 0.01704,
+    "H2c": 0.01095
+  },
+  "dryrun_criteria": {
+    "a_size_within_2_8pct": false,
+    "a_size_range": [
+      0.038,
+      0.126
+    ],
+    "a_size_violations": {
+      "rq2_null_early": {
+        "H2b": 0.126,
+        "H2c": 0.1
+      }
+    },
+    "b_false_support_at_most_5pct": true,
+    "c_detected_80pct_at_3x_sesoi": {
+      "H2a": true,
+      "H2b": true,
+      "H2c": true,
+      "H3a": false,
+      "H3b": true
+    }
+  },
+  "remedy_validation": {
+    "size_bootstrap": {
+      "rq2_null_early": {
+        "H2a": 0.05,
+        "H2b": 0.124,
+        "H2c": 0.096
+      },
+      "rq2_null_k100": {
+        "H2a": 0.058,
+        "H2b": 0.044,
+        "H2c": 0.05
+      },
+      "rq3_null_early_hi": {
+        "H3a": 0.064,
+        "H3b": 0.058
+      },
+      "rq3_null_k100_hi": {
+        "H3a": 0.048,
+        "H3b": 0.038
+      },
+      "rq3_null_k100_lo": {
+        "H3a": 0.054,
+        "H3b": 0.04
+      },
+      "rq3_permuted": {
+        "H3a": 0.046,
+        "H3b": 0.054
+      }
+    },
+    "size_twoway": {
+      "rq2_null_early": {
+        "H2a": 0.07,
+        "H2b": 0.076,
+        "H2c": 0.07
+      },
+      "rq2_null_k100": {
+        "H2a": 0.066,
+        "H2b": 0.048,
+        "H2c": 0.054
+      },
+      "rq3_null_early_hi": {
+        "H3a": 0.062,
+        "H3b": 0.06
+      },
+      "rq3_null_k100_hi": {
+        "H3a": 0.062,
+        "H3b": 0.044
+      },
+      "rq3_null_k100_lo": {
+        "H3a": 0.05,
+        "H3b": 0.046
+      },
+      "rq3_permuted": {
+        "H3a": 0.066,
+        "H3b": 0.056
+      }
+    }
+  },
+  "stress_t_inflation": {
+    "H2b": 1.3078,
+    "H2c": 1.2198
+  },
+  "stress_scenario": "rq2_null_early",
+  "mde80_note": {
+    "H2a": "",
+    "H2b": "",
+    "H2c": "",
+    "H3a": "",
+    "H3b": ""
+  },
+  "mde80_lo_note": {
+    "H3a": "",
+    "H3b": ""
+  },
+  "dryrun_dgp": {
+    "rq2_calibrated": {
+      "incumbent": {
+        "base": 0.27048,
+        "sd_topic": 0.0849,
+        "sd_year": 0.11713,
+        "sd_trend": 0.02088,
+        "sd_cell": 0.04844
+      },
+      "method": {
+        "base": 0.75048,
+        "sd_topic": 0.14145,
+        "sd_year": 0.02414,
+        "sd_trend": 0.01104,
+        "sd_cell": 0.02756
+      },
+      "measurement": {
+        "base": 0.07712,
+        "sd_topic": 0.07969,
+        "sd_year": 0.01609,
+        "sd_trend": 0.01143,
+        "sd_cell": 0.01212
+      },
+      "buzzword": {
+        "base": 0.04888,
+        "sd_topic": 0.03192,
+        "sd_year": 0.01192,
+        "sd_trend": 0.0,
+        "sd_cell": 0.01972
+      },
+      "lists_hot": {
+        "base": 0.27943,
+        "sd_topic": 0.12865,
+        "sd_year": 0.04909,
+        "sd_trend": 0.02105,
+        "sd_cell": 0.11547
+      }
+    },
+    "rq3": {
+      "lo": {
+        "base": 0.32,
+        "sd_topic": 0.05,
+        "sd_year": 0.03,
+        "sd_trend": 0.004,
+        "sd_cell": 0.02
+      },
+      "hi": {
+        "base": 0.32,
+        "sd_topic": 0.05,
+        "sd_year": 0.03,
+        "sd_trend": 0.016,
+        "sd_cell": 0.04
+      }
+    },
+    "reps": 500,
+    "power_reps": 200,
+    "full_reps": 100,
+    "code_digest": "8524f3cbf95bc6f6e225d1dfb1df91e450e2e7d094f21789ec23ff4a78bf6981"
+  },
+  "sha256": {
+    "research/fashion/analysis.py": "1799f29ca440eb4819a12e53c84137cc70523d1460a9feec567d2be5bbb9fee8",
+    "research/fashion/annotation/collect.py": "1139466af4aab8191146552c73da0dc372de40af40561bae5d25015dca76779e",
+    "research/fashion/annotation/judge_batches.js": "462bb7d70be8c91dedb2e0787391f84a76258e9a14fb46f4042b2d447f01f8dc",
+    "research/fashion/annotation/keyword_centrality/sample.py": "ae88784391cdc9b76773a18a5e9ded3cfd9487de0c83cada41e1c43dd8991b44",
+    "research/fashion/annotation/keyword_centrality/score.py": "924a68b92059e198afe0b627801bf572a24a1d93ad4f611e1544c332dff4784d",
+    "research/fashion/annotation/resubmission_pairs/sample.py": "cfbc6e9f78f8e66d991742ee5ee8f376c0a2bd76f85e0fd12333f0075a93d41f",
+    "research/fashion/annotation/resubmission_pairs/score.py": "ebfffd1f9767cfc9c1eae0749dee0e860bba9980a6723da4969ed3715a84bc2a",
+    "research/fashion/annotation/stats.py": "1048ac95824f4ee34872b815c74f18afa5e4489fcf6287c2be07c7709b6a78a4",
+    "research/fashion/buzzwords.py": "abbd454ff5982f4d52819fed30ce4b3d13c630b73a8a14d3644c9ec571f85cdc",
+    "research/fashion/common.py": "83aa28c2fdb37c4076c02d00468a233198c64aa8403f68d5ead9c2e485c721ce",
+    "research/fashion/dgp.py": "a68d9b13af3d8193d958a164b922ff8688ca295289595efe38a7e9347e4350c9",
+    "research/fashion/dryrun.py": "f61203e6c6afbf397522aa898a758b0e1d8436c2397956d13e15ab2a7465940d",
+    "research/fashion/dryrun_diagnostics.py": "d83632c16e94d9c0464fe7ca52d50246bf069b5b2b8308a1128dd94400f47a4f",
+    "research/fashion/exploratory.py": "0182a7618ce70e3412485132146ec3c6785fbb0864dd0f1e97873cc11780f81d",
+    "research/fashion/figures.py": "f30e61961052404853feb198429329c5bc712dfeff2a15707b961d33706fe0da",
+    "research/fashion/freeze.py": "eb86d5aea7d64b8d3022427c1c11e157f7c58c711987b128d88c69f7981bbc68",
+    "research/fashion/logit.py": "a86d76090acb6edd247573ba2240474c6d1bcb637f24e8329019b23f65c8e474",
+    "research/fashion/ols.py": "618dbe3fea7deed5ed44f831862edf3e1ee1ceb09d675585dffc8357ec63f845",
+    "research/fashion/outcomes.py": "3e2a6fd9337e48c0660471b719bbb5b4d3314141b06348eb35838326c28aa01b",
+    "research/fashion/panel.py": "27459ad819159f747b4a879fb8acf42bbf4e4670955bb9de77fe9cd65e956804",
+    "research/fashion/resubmissions.py": "27920782f6a5bb5a262133ef31376ce5f96d5fc7d7be711c3b9dd2d4a14e3b7a",
+    "research/fashion/rq1_rise.py": "169d60c88d6d0f1eb0bd8f60de8d78045a85b61ac176648b193a2f0ee494a465",
+    "research/fashion/rq2_following.py": "be1db6719d9d285312df18e471507da42fc22c5a7774ba9117b8efd37b8ee215",
+    "research/fashion/rq3_reward.py": "2c2a3dcfb1950dc3560414032ab51a6ec8d40a506496a8fa4e6d6d91985e1616",
+    "research/fashion/run_frozen.py": "d0e57015cddecd65b59154409356e4c82400ccb063c9695ad7c95276e64ba2f9",
+    "research/fashion/tests/test_decision_rule.py": "4e984ad590a44fa71a23ece7e7eb35e82ef7995c06df424563936ab5d03aaaa0",
+    "research/fashion/tests/test_estimators.py": "b5b2275494aaf1e3f0e363db13ffc8d35419a49cb73521aa1777b13e69bc53e0",
+    "research/fashion/tests/test_guard.py": "38300b9ed68ea74e8eb3cb770908bd5ee5490e3701d94f03c87fa659797428f0",
+    "research/fashion/tests/test_outcome_lint.py": "0ca32d9a87ec28d6f566fd6e24213e54291af4f7947c5dc8ccc2b18f95b8464d",
+    "research/fashion/tests/test_prospectivity.py": "eecb5460e907d8a8a0e0ea4b681cc53a51bce25573809ba0593f7ca35667bf70",
+    "research/fashion/tests/test_protocol.py": "c9e8ad0a83f2cc967b621f8ce83cfda03d1835fb50939508d47312937c6d7855",
+    "research/fashion/tests/test_registered_spec.py": "770486e7af36299ccabdd848a6ece1842c264f2afac58f9bb0876a20376d8153",
+    "research/fashion/tests/test_remedy_wiring.py": "fd5ee9fea668444029ea1fd8c95170257b5f9a81de7b9d25e7e9e31a5fb39ad6",
+    "research/fashion/tests/test_sealed_loader.py": "f12bbccbb4839e23af2dfe5c665640d97607859d36efa8c8c6d39d6aa793a85a",
+    "research/fashion/tests/test_variants.py": "5b2aa430cdf6e06eb731e305bf35ced90f2a1133b65d71b0aea174ab4415aac0",
+    "research/fashion/topic_maturity.py": "1d1f378e5a030f8ddde427e1572cf3dca427c7116f7a159c5e2d97d1d95e269e",
+    "research/fashion/variables.py": "da0277a7eb8a97ea269e46ab32e730840b1859d6b885673e1e131fdcaa7df596",
+    "research/fashion/variants.py": "ba79fd5a73bcbce4c2f21025384dfe0ff06468adda3cfe6c096f0776b1b00b5b",
+    "data/submissions.csv.gz": "203beba9e59024a58240de517c4c6f3d06060a84fe00f4282fe954e2df87b84c",
+    "data/submission_authors.csv.gz": "ed082e276459973770c46bb41362290e346908f7faa5f0f811e419782858f7a5",
+    "research/topics/common.py": "b829e5cf3bffe26e6512f0bd2f0edecfc44c4bfb958b84973b1df41fef2f15c6",
+    "research/topics/output/topic_assignments.csv.gz": "4f32f3d6ad019eddaf828927121bf8e816b958d240e63c5797b08d6ac811b829",
+    "research/topics/output/k_sensitivity_assignments.csv.gz": "9297a07a78b1d8519e20b4b75819b63b3b49e828be48b7316175325068f4f317",
+    "research/topics/output/hindsight_assignments.csv.gz": "7364584b3622817e4f2d8bf4cac5e189d43285b2cdd5de0f7d52881fa8e9bd11",
+    "research/topics/output/paper_contributions.csv.gz": "39eaffd1f35e9973c06230d12b928d4d630e5ff796691b1af03752945cfcff07",
+    "research/topics/output/paper_topic_stability.csv.gz": "3b17bbb3e579c15c0b9e18a30897f1168406644dc14e89541f5fbaab580d79d2",
+    "research/topics/output/topic_catalog.csv": "119239e931d16b153bc27d7403a98d99425e51e61af01a45feae266170cab323",
+    "research/topics/output/keyword_types.csv": "59e6046a7d741fcd1931cc2a4ed2a6079b7ddfe8ef0389ccb16794e88de76d43",
+    "research/topics/annotation/contribution_types/pilot_gold_facets.csv": "c5bbe459d316ae365076340874bc4747dff2cc6720994acb80c7dabfe396e0d8",
+    "research/topics/annotation/contribution_types/training/training_labels.csv": "20ab47bb662ca48fb6e246cf7532966393eb500072ecc318456b18cd5e772ff1",
+    "research/fashion/PREREGISTRATION.md": "093dddd3748d4192da3a2e57e37da952aaca30f315811d3b092836cb470ea9b8",
+    "research/fashion/output/topic_year_maturity.csv.gz": "ed0fac35a3b209a1664fbf06f3325b97f82149fc08a0d5a26eefb25929b741d6",
+    "research/fashion/output/paper_variables.csv.gz": "3782506df5ef5fb44def6d5e6006a870914991ecc406c69e0622dd0b347f3d4a",
+    "research/fashion/output/paper_buzzword.csv.gz": "21c0add833728daf1d23a3c40b3119e343dceb4661aafe63386da2ba4df808e5",
+    "research/fashion/output/earlier_versions.csv.gz": "a23a72106dfc73a3ba116fecfc176b1464ecfef3f5c81251f4c6af86fa129b5c",
+    "research/fashion/output/keyword_uses.csv.gz": "e241c223897d9d96398be09560e4ec284f272b0886aa88c67a0319ea59d540f4",
+    "research/fashion/output/keyword_year.csv.gz": "3fe655a2818f1f38ab723a020a1da032969617067276033a64a2f784c10bfcea",
+    "research/fashion/output/h2d_validation.json": "38b45bac5667120bd6b355a44c7eb5647b4f1fdb7cdf82f5c8c74dee711b0e4e",
+    "research/fashion/output/resubmission_tau.json": "747528b71caefc8046dd0c455cde82f3637dfd1238379cef9cc14f84ab634906",
+    "research/fashion/output/specter2_centring_mean.npy": "f179097ee81cd0a3b548ac0cd956f8713769a3f1fdc8baba77278f703e03e8dd",
+    "research/fashion/output/checks/variables.json": "ddd856027e44a0c0b439a753d857c04e7503f80bfcfb07150e1ae0fd52e98c10",
+    "research/fashion/output/rq1_results.csv": "6f231f37960b7c38a9c9e1b4a92d9390e77dbcd5aa00880d93e73b1d80c99d22",
+    "research/fashion/output/dryrun/summary.json": "376c0b6f0555b938e593fd20a13fa3d29afaad1dd5ee50f22d54729d401a6a7a",
+    "research/fashion/output/dryrun/provenance.json": "e2a34027ceec752c676ea0ab85933f7402ad78ca058128bd32a02153dafae93c",
+    "research/fashion/output/dryrun/rq2_null_early.csv": "a849620880c5aacfe48846b9324699e92273cfc0ecfdf9821b8e639eb2e1ea52",
+    "research/fashion/output/checks/dryrun_v3_diagnostics.json": "77612dc75ada8f2363b98c73d5ec99311eadfee2e2b9394334785cdcdf6d5cc3",
+    "research/fashion/output/dryrun_v2/summary.json": "a056b00945c1ed00a514de3313f6e0658236b99fe638a1af246fb55f4a3fadb3",
+    "research/fashion/output/dryrun_v2/provenance.json": "2e6947ee8180826a2e9278d2c49684ce07ceb3f02c6f3d79665a2ff1c08886b6"
+  }
+}

@@ -76,7 +76,7 @@ class AgainstStatsmodels(unittest.TestCase):
 
 
 class Remedies(unittest.TestCase):
-    def frame(self, seed=0, n=4000, topics=40):
+    def frame(self, seed=0, n=4000, topics=40, beta=0.0):
         rng = np.random.default_rng(seed)
         d = pd.DataFrame({"topic": rng.integers(0, topics, n).astype(str), "year": rng.integers(2019, 2027, n),
                           "topic_early": rng.integers(0, 30, n).astype(str)})
@@ -84,7 +84,7 @@ class Remedies(unittest.TestCase):
         d["x"] = (rng.random(n) < 0.4).astype(float)
         d["c1"] = rng.normal(size=n)
         a = rng.normal(0, 0.3, topics)[d.topic.astype(int)]
-        d["y"] = (rng.random(n) < 1 / (1 + np.exp(-(-0.5 + a + 0.2 * d.c1)))).astype(float)
+        d["y"] = (rng.random(n) < 1 / (1 + np.exp(-(-0.5 + a + 0.2 * d.c1 + beta * d.x)))).astype(float)
         return d
 
     def test_wild_bootstrap_matches_brute_force(self):
@@ -103,6 +103,23 @@ class Remedies(unittest.TestCase):
             np.testing.assert_allclose(b["t_star"], brute, atol=1e-10)
             e = analysis.estimate(d, "y", "x", ctr, fe, (2019, 2026))
             self.assertAlmostEqual(b["t"], e["coef"] / e["se"], places=10)
+
+    def test_wild_bootstrap_p_is_the_two_sided_share_of_bootstrap_t_beyond_the_observed_t(self):
+        """The aggregation itself (review B5): p = share of |t*| >= |t|, with t from the CR1 estimate. t* is pinned by
+        the brute-force test above; cases with negative, positive and very large |t| catch a signed, one-sided or
+        complementary p."""
+        import analysis
+        for beta, seed, lo, hi in [(0.0, 4, 0.3, 0.7), (0.0, 1, 0.1, 0.3), (-0.6, 3, 0.0, 0.0)]:
+            d = self.frame(seed, beta=beta)
+            for fe, ctr in [("cell", ()), ("topic+year", ("c1",))]:
+                W = np.random.default_rng(1).choice([-1.0, 1.0], size=(99, 40))
+                b = analysis.wild_cluster_bootstrap_p(d, "y", "x", ctr, fe, (2019, 2026), weights=W)
+                e = analysis.estimate(d, "y", "x", ctr, fe, (2019, 2026))
+                t = e["coef"] / e["se"]
+                self.assertEqual(b["p"], float(np.mean(np.abs(b["t_star"]) >= abs(t))), (seed, fe))
+                self.assertTrue(lo <= b["p"] <= hi, (seed, fe, b["p"]))
+                if beta:
+                    self.assertLess(t, -5)                                   # p = 0: no draw reaches |t|
 
     @unittest.skipIf(sm is None, "statsmodels not importable")
     def test_twoway_matches_statsmodels(self):

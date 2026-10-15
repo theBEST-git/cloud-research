@@ -28,6 +28,7 @@ import panel  # noqa: E402
 import rq2_following as rq2  # noqa: E402
 import rq3_reward as rq3  # noqa: E402
 import run_frozen  # noqa: E402
+import variants  # noqa: E402
 from common import OUTPUT  # noqa: E402
 from dgp import DGP  # noqa: E402
 from ols import fe_ols  # noqa: E402
@@ -128,6 +129,47 @@ class RQ2Remedy(unittest.TestCase):
             self.assertNotEqual(r.se, rows.loc[(s.hid, "main"), "se"])
 
 
+class S11EntersTheFragileFlag(unittest.TestCase):
+    def capture(self, module, run):
+        seen = {}
+        real = module.decide
+
+        def spy(specs, main, counted, supplementary=None):
+            seen.update(supplementary or {})
+            return real(specs, main, counted, supplementary)
+        with mock.patch.object(module, "decide", spy):
+            run()
+        return seen
+
+    def test_rq2_and_rq3_pass_s11_to_decide(self):
+        supp = self.capture(rq2, lambda: rq2.run(F["frames"], False, ys=F["ys"], supplementary=True))
+        for s in (s for s in rq2.SPECS if not s.gated):
+            ref = analysis.estimate_twoway(F["pop2"], s.y, s.x, s.controls, s.fe, s.years)
+            self.assertEqual(supp[s.hid][S11]["se"], ref["se"], s.hid)
+        supp = self.capture(rq3, lambda: rq3.run(F["frames"], F["out"], False, supplementary=True))
+        for s in (s for s in rq3.SPECS if not s.gated):
+            ref = analysis.estimate_twoway(F["pop3"], s.y, s.x, s.controls, s.fe, s.years)
+            self.assertEqual(supp[s.hid][S11]["se"], ref["se"], s.hid)
+
+    def test_a_significant_opposite_s11_makes_a_supported_hypothesis_fragile(self):
+        s = analysis.Spec("Hx", "y", "x", -1, 0.02, "topic+year", (2019, 2026))
+        est = lambda coef, p: {"coef": coef, "se": 0.01, "p": p, "dof": 99, "n": 1000, "clusters": 100,
+                               "ci95_lo": coef - 0.02, "ci95_hi": coef + 0.02, "ci90_lo": coef - 0.016, "ci90_hi": coef + 0.016}
+        counted = {"Hx": {v: est(-0.1, 0.001) for v in variants.counted(2)}}
+        for s11, fragile in [(est(+0.05, 0.01), True), (est(+0.05, 0.2), False), (est(-0.05, 0.01), False)]:
+            v = analysis.decide([s], {"Hx": est(-0.1, 1e-6)}, counted, {"Hx": {S11: s11}})["Hx"]
+            self.assertEqual(v["verdict"], "supported")
+            self.assertEqual((v["fragile"], v["fragile_by"]), (fragile, [S11] if fragile else []))
+
+    def test_holm_treats_a_missing_p_as_one(self):
+        specs = [analysis.Spec(h, "y", "x", -1, 0.02, "topic+year", (2019, 2026)) for h in ["Ha", "Hb", "Hc"]]
+        est = lambda p: {"coef": -0.1, "se": 0.01, "p": p, "dof": 99, "n": 1000, "clusters": 100,
+                         "ci95_lo": -0.12, "ci95_hi": -0.08, "ci90_lo": -0.116, "ci90_hi": -0.084}
+        v = analysis.decide(specs, {"Ha": est(0.01), "Hb": est(np.nan), "Hc": est(0.02)}, {})
+        expect = holm(pd.Series({"Ha": 0.01, "Hb": 1.0, "Hc": 0.02}))
+        self.assertEqual([v[h]["p_holm"] for h in "Ha Hb Hc".split()], [expect[h] for h in "Ha Hb Hc".split()])
+
+
 class RQ3Remedy(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
@@ -177,7 +219,27 @@ class TwoWayClustering(unittest.TestCase):
         self.assertGreater(v, 0)
         self.assertAlmostEqual(tw["se"], np.sqrt(v), places=12)
         self.assertEqual(tw["dof"], 24)                                    # min(G1, G2) - 1
+        from scipy import stats
+        for lvl, lo, hi in [(0.975, "ci95_lo", "ci95_hi"), (0.95, "ci90_lo", "ci90_hi")]:
+            q = stats.t.ppf(lvl, 24)
+            self.assertAlmostEqual(tw[lo], tw["coef"] - q * tw["se"], places=12)
+            self.assertAlmostEqual(tw[hi], tw["coef"] + q * tw["se"], places=12)
+        self.assertAlmostEqual(tw["p"], 2 * stats.t.sf(abs(tw["coef"] / tw["se"]), 24), places=12)
         self.assertAlmostEqual(tw["coef"], fe_ols(d.y, X, d.topic, d.topic).loc["x", "coef"], places=12)
+
+
+class TwoWayFallback(unittest.TestCase):
+    def test_non_positive_two_way_variance_falls_back_to_the_larger_one_way_variance(self):
+        rng = np.random.default_rng(6)
+        d = pd.DataFrame({"topic": rng.integers(0, 30, 2000).astype(str), "topic_early": rng.integers(0, 20, 2000).astype(str),
+                          "year": rng.integers(2019, 2027, 2000), "x": rng.normal(size=2000), "y": rng.normal(size=2000)})
+        for parts, se in [([(1.0, 30), (2.0, 20), (4.0, 400)], np.sqrt(2.0)),     # v1 + v2 - v12 < 0
+                          ([(1.0, 30), (1.0, 20), (2.0, 400)], 1.0),              # = 0: also the fallback
+                          ([(1.0, 30), (2.0, 20), (0.5, 400)], np.sqrt(2.5))]:    # > 0: the CGM variance
+            with mock.patch.object(analysis, "_cluster_variance", side_effect=parts):
+                tw = analysis.estimate_twoway(d, "y", "x", (), "topic+year", (2019, 2026))
+            self.assertAlmostEqual(tw["se"], se, places=12)
+            self.assertEqual(tw["dof"], 19)
 
 
 class FrozenRunPassesRemedies(unittest.TestCase):
@@ -205,7 +267,7 @@ class FrozenRunPassesRemedies(unittest.TestCase):
                 mock.patch.object(run_frozen.exploratory, "run", lambda *a, **k: exp), \
                 mock.patch.object(run_frozen.outcomes, "load", lambda mode, ids, **k: F["out"]), \
                 mock.patch.object(run_frozen.outcomes, "sha256", lambda path: "x"), \
-                mock.patch.object(run_frozen, "OUT", Path(tmp)), mock.patch("builtins.print"):
+                mock.patch.object(run_frozen, "OUT", Path(tmp)), mock.patch("builtins.print") as printed:
             run_frozen.run(frz, "2026-10-15T00:00:00+00:00")
             summary = json.loads((Path(tmp) / "summary.json").read_text())
         self.assertEqual(seen["rq2"], (None, ("H2b", "H2c")))               # real labels in the real run: ys=None
@@ -219,6 +281,19 @@ class FrozenRunPassesRemedies(unittest.TestCase):
         self.assertEqual(summary["rq2"]["verdicts"]["H2a"]["p_method"], "CR1, t(G-1)")
         self.assertEqual(set(summary["rq2"]["s11_twoway"]), set(summary["rq2"]["family"]))
         self.assertEqual(set(summary["rq3"]["s11_twoway"]), set(summary["rq3"]["family"]))
+        for rq, specs, pop in [("rq2", rq2.SPECS, F["pop2"]), ("rq3", rq3.SPECS, F["pop3"])]:
+            for s in (s for s in specs if not s.gated):
+                ref = analysis.estimate_twoway(pop, s.y, s.x, s.controls, s.fe, s.years, cluster2="topic_early")
+                d = analysis._design(pop, s.y, s.x, s.controls, s.fe, s.years)[0]
+                got = summary[rq]["s11_twoway"][s.hid]
+                self.assertEqual((got["coef"], got["se"], got["p"], got["ci95"]),
+                                 (ref["coef"], ref["se"], ref["p"], [ref["ci95_lo"], ref["ci95_hi"]]), s.hid)
+                self.assertEqual((got["clusters"], got["clusters2"]), (d.topic.nunique(), d.topic_early.nunique()), s.hid)
+                self.assertNotEqual(got["se"], summary[rq]["verdicts"][s.hid]["se"], s.hid)
+        lines = [str(c.args[0]) for c in printed.call_args_list if c.args]
+        for h in summary["rq2"]["family"] + summary["rq3"]["family"]:
+            line = next(x for x in lines if x.startswith(h + " "))
+            self.assertIn("p_boot " if h in dryrun.REMEDIES else " p ", line, h)
         e9 = {r["hypothesis"]: r for r in summary["e9_equivalence"]}
         for h, r in e9.items():
             self.assertEqual(r["p_method"], summary["rq2" if h.startswith("H2") else "rq3"]["verdicts"][h]["p_method"])
@@ -268,6 +343,42 @@ class DryRunV3Wiring(unittest.TestCase):
             self.assertEqual(r["p_cr1"], analysis.estimate(pop, s.y, s.x, s.controls, s.fe, s.years)["p"])
             self.assertEqual(r["p"], boot(pop, s)["p"] if h in dryrun.REMEDIES else r["p_cr1"], h)
 
+    def test_rq3_simulated_null_replication_records_all_three_p_values(self):
+        sc, params = "rq3_null_k100_lo", {"mode": "simulated", "map": "k100", "dgp": "lo"}
+        rows = pd.DataFrame(dryrun.job(("rq3", sc, 0, params)))
+        self.assertTrue(rows.hypothesis.str.endswith(":logit").any())
+        rows = rows[~rows.hypothesis.str.contains(":")].set_index("hypothesis")
+        seed = dryrun.zlib.crc32(sc.encode()) * 1000
+        k = dryrun.FRAMES["k100"]
+        base = dryrun.RQ3_DGP["lo"]
+        y = dryrun.simulate(k, base, np.random.default_rng(seed))
+        out = outcomes.load("simulated", k.submission_id, seed=seed, frame=k, dgp=base)
+        out["accepted"] = np.where(out.rq3, y, np.nan)
+        out["s9_accepted"] = np.where(out.rq3, y, np.where(out.s9, 0.0, np.nan))
+        pop = rq3.attach(k, out)
+        pop = pop[pop.rq3]
+        for h, s in dryrun.RQ3_SPECS.items():
+            cr1 = analysis.estimate(pop, s.y, s.x, s.controls, s.fe, s.years)["p"]
+            tw = analysis.estimate_twoway(pop, s.y, s.x, s.controls, s.fe, s.years)["p"]
+            self.assertEqual((rows.loc[h, "p_cr1"], rows.loc[h, "p_boot"], rows.loc[h, "p_twoway"]),
+                             (cr1, boot(pop, s)["p"], tw), h)
+            self.assertEqual(rows.loc[h, "p"], cr1, h)                       # no RQ3 hypothesis is remedied
+
+    def test_mde80_of_a_remedied_hypothesis_uses_the_bootstrap_p_and_mde80_cr1_the_cr1_p(self):
+        def power_rows(p, p_cr1):
+            rows = []
+            for mult in dryrun.MULTS:
+                for rep in range(10):
+                    rows.append({"scenario": f"rq2_power_H2b_m{mult}", "rep": rep, "hypothesis": "H2b", "planted": True,
+                                 "realised_effect": -0.01 * mult, "coef": -0.01 * mult, "se": 0.01, "p": p, "p_cr1": p_cr1,
+                                 "n": 10, "predicted_sign": -1})
+            return pd.DataFrame(rows)
+        s = dryrun.summarise(power_rows(0.001, 0.5))
+        self.assertEqual((s["mde80"]["H2b"], s["mde80_cr1"]["H2b"]), (0.005, None))
+        self.assertEqual(s["power"]["H2b"]["3.0"]["detected_alpha_over_m"], 1.0)
+        s = dryrun.summarise(power_rows(0.5, 0.001))
+        self.assertEqual((s["mde80"]["H2b"], s["mde80_cr1"]["H2b"]), (None, 0.005))
+
     def test_summary_size_is_cr1_and_validation_sizes_use_their_own_columns(self):
         rows = []
         for rep in range(20):
@@ -315,6 +426,10 @@ class FreezeRemedyChecks(unittest.TestCase):
             d.to_csv(tmp / "rq3_permuted.csv", index=False)
             (tmp / "rq3_null_k100_lo.csv").unlink()
             self.assertEqual(len(freeze.check_null_replications(tmp, self.FAM, 3)), 4)
+            d = pd.read_csv(tmp / "rq2_null_k100.csv")
+            d.loc[(d.hypothesis == "H2a") & (d.rep == 2), "p_cr1"] = np.nan
+            d.to_csv(tmp / "rq2_null_k100.csv", index=False)
+            self.assertEqual(len(freeze.check_null_replications(tmp, self.FAM, 3)), 5)
 
     def test_dry_run_and_freeze_remedies_must_agree(self):
         freeze.check_remedies_applied(("H2b", "H2c"), {"H2b", "H2c"})

@@ -30,17 +30,34 @@ SPECS = [
 ]
 NEK = ["nek_1", "nek_2", "nek_3", "nek_4", "nek_5plus"]                 # S7: number of eligible keywords (ref. 0)
 REFERENCE = TOPICS.parent / "annotation" / "contribution_types"
+# Every column that is an outcome on some side of an RQ2 analysis (confirmatory, supplementary or exploratory). A dry-run
+# must simulate all of them; the newcomer columns are then derived from the simulated incumbency, so no real outcome-side
+# column ever meets a real regressor before the freeze.
+SIMULATED = {"incumbent", "incumbent_w2", "incumbent_s4", "method", "measurement", "buzzword", "lists_hot"}
 
 
 def population(df: pd.DataFrame) -> pd.DataFrame:
     return df[df.has_author_key]
 
 
+def guard(ys: dict[str, pd.Series] | None) -> None:
+    """Real RQ2 labels only through the frozen run; otherwise every outcome-side column must be simulated (fails closed)."""
+    if ys is None:
+        from outcomes import require_frozen
+        require_frozen()
+        return
+    missing = SIMULATED - set(ys)
+    if missing:
+        raise ValueError(f"simulated outcomes missing for {sorted(missing)}: refusing to fall back to real labels")
+
+
 def with_columns(df: pd.DataFrame, ys: dict[str, pd.Series] | None) -> pd.DataFrame:
     df = df.copy()
-    if ys:
+    if ys is not None:
         for c, s in ys.items():
             df[c] = s.reindex(df.submission_id).to_numpy()
+        for w in ["", "_w2", "_s4"]:
+            df[f"newcomer{w}"] = np.where(df.has_author_key, 1 - df[f"incumbent{w}"], np.nan)
     k = df.n_eligible_keywords.clip(upper=5)
     for i, c in enumerate(NEK, start=1):
         df[c] = (k == i).astype(float)
@@ -53,8 +70,11 @@ def label_reliability() -> dict:
     sp = lab[lab.second_pass_primary_type.notna()]
     first, second = sp.primary_type.map(class_of), sp.second_pass_primary_type.map(class_of)
     out = {"second_pass_papers": int(len(sp))}
-    pilot = pd.read_csv(REFERENCE / "pilot_gold_facets.csv")[["submission_id", "gold_primary"]].rename(columns={"gold_primary": "ref"})
-    train = pd.read_csv(REFERENCE / "training" / "training_labels.csv")[["submission_id", "primary_type"]].rename(columns={"primary_type": "ref"})
+    # random stratum only: the enriched strata over-represent rare classes, so their error rates would not be the corpus's
+    pilot = pd.read_csv(REFERENCE / "pilot_gold_facets.csv").query("stratum == 'random'")
+    pilot = pilot[["submission_id", "gold_primary"]].rename(columns={"gold_primary": "ref"})
+    train = pd.read_csv(REFERENCE / "training" / "training_labels.csv").query("stratum == 'random'")
+    train = train[["submission_id", "primary_type"]].rename(columns={"primary_type": "ref"})
     ref = pd.concat([pilot, train]).drop_duplicates("submission_id").merge(lab[["submission_id", "primary_type"]], on="submission_id")
     for name, pos in [("method", {"method"}), ("measurement", {"dataset_benchmark", "evaluation"})]:
         a, b = first.isin(pos), second.isin(pos)
@@ -68,12 +88,10 @@ def label_reliability() -> dict:
 
 def run(frames: dict[str, pd.DataFrame], gate: bool, ys: dict[str, pd.Series] | None = None,
         supplementary: bool = True) -> dict:
-    if ys is None:
-        from outcomes import require_frozen
-        require_frozen()
+    guard(ys)
     specs = [s for s in SPECS if not s.gated or gate]
     pop = {m: population(with_columns(f, ys)) for m, f in frames.items()}
-    main = {s.hid: fit(pop["k100"], s) for s in specs}
+    main = {s.hid: fit(pop["k100"], s, describe=ys is None) for s in specs}
     counted = {s.hid: {} for s in specs}
     rows = [{"hypothesis": h, "variant": "main", "kind": "main", **r} for h, r in main.items()]
     for name, v in variants.counted(2).items():

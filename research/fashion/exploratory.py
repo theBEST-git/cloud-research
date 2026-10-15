@@ -16,11 +16,11 @@ from __future__ import annotations
 import numpy as np
 import pandas as pd
 
-from analysis import estimate
+from analysis import estimate as _estimate
 from ols import demean
 from panel import CLASS_CONTROLS
+from rq2_following import guard, with_columns
 from rq2_following import population as rq2_population
-from rq2_following import with_columns
 from rq3_reward import BASE, OUTCOME_COLUMNS
 
 ERAS_RQ3 = {"2018-2020": (2018, 2020), "2021-2023": (2021, 2023), "2024-2026": (2024, 2026)}
@@ -44,10 +44,13 @@ def binned(df: pd.DataFrame, y: str, x: str, years: tuple[int, int], bins: int =
     return out.reset_index()
 
 
-def run(frames: dict[str, pd.DataFrame], out: pd.DataFrame, ys: dict[str, pd.Series] | None = None) -> dict:
-    if ys is None:
-        from outcomes import require_frozen
-        require_frozen()
+BUZZ = {"buzzword", "lists_hot"}
+FAILED = "uses the buzzword measure, which failed its blind validation (H2d gate)"
+
+
+def run(frames: dict[str, pd.DataFrame], out: pd.DataFrame, gate: bool, ys: dict[str, pd.Series] | None = None) -> dict:
+    guard(ys)
+    describe = ys is None
     k = with_columns(frames["k100"], ys)
     for c in OUTCOME_COLUMNS:
         k[c] = out[c].to_numpy()
@@ -58,8 +61,15 @@ def run(frames: dict[str, pd.DataFrame], out: pd.DataFrame, ys: dict[str, pd.Ser
     rq2 = rq2_population(k)
     rows = []
 
+    def estimate(df, y, x, controls=(), fe="topic+year", years=None):
+        r = _estimate(df, y, x, controls, fe, years, describe=describe)
+        r["_uses"] = {y, x, *controls}
+        return r
+
     def add(eid: str, label: str, r: dict, tested: str) -> None:
-        rows.append({"analysis": eid, "label": label, "tested": tested, **r})
+        uses = r.pop("_uses")
+        status = FAILED if (not gate and uses & BUZZ) else ""
+        rows.append({"analysis": eid, "kind": "exploratory", "label": label, "tested": tested, "measure_status": status, **r})
 
     add("E1", "accepted ~ fm | topic x year + classes", estimate(rq3, "accepted", "fm", CLASS_CONTROLS, "cell", (2018, 2026)), "fm")
     add("E1", "accepted ~ fm | topic x year (no class controls)", estimate(rq3, "accepted", "fm", (), "cell", (2018, 2026)), "fm")

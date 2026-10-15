@@ -34,11 +34,13 @@ def attach(frame: pd.DataFrame, out: pd.DataFrame) -> pd.DataFrame:
     return df
 
 
-def run(frames: dict[str, pd.DataFrame], out: pd.DataFrame, gate: bool, supplementary: bool = True) -> dict:
+def run(frames: dict[str, pd.DataFrame], out: pd.DataFrame, gate: bool, supplementary: bool = True,
+        describe: bool = False) -> dict:
+    """describe=True (frozen real run only) adds sample means to the main estimates."""
     specs = [s for s in SPECS if not s.gated or gate]
     full = {m: attach(f, out) for m, f in frames.items()}
     pop = {m: f[f.rq3] for m, f in full.items()}
-    main = {s.hid: fit(pop["k100"], s) for s in specs}
+    main = {s.hid: fit(pop["k100"], s, describe=describe) for s in specs}
     counted = {s.hid: {} for s in specs}
     rows = [{"hypothesis": h, "variant": "main", "kind": "main", **r} for h, r in main.items()]
     for name, v in variants.counted(3).items():

@@ -353,3 +353,49 @@ Anything added after the freeze is labelled post hoc.
   - **τ = 0.90** (R1). Majority-yes share by centred-cosine bin: 0.10, 0.475, 0.90, 1.00; Fleiss κ 0.99.
     170 papers get a probable earlier version (167 by cosine, 3 more by exact title); 93.5% of them share an author key
     with it. `output/resubmission_tau.json`, `output/checks/resubmissions.json`.
+- **2026-10-15, before any RQ2/RQ3 estimate: review round B (analysis code).** Four independent reviewers (numerics
+  and leakage/blinding; conformance and data plumbing), each blocker or major finding checked by a separate verifier.
+  Confirmed and fixed:
+  - Blinding. (i) Estimates no longer carry sample means except in the frozen run: in a dry-run, the mean of a product
+    of two real columns (E5's newcomer x hot) would reveal the H2a relationship. (ii) The RQ2 and exploratory guard
+    now fails closed: a dry-run must simulate every outcome-side column (incumbent and its S3/S4 versions, method,
+    measurement, buzzword, lists_hot), and newcomer is then derived from the simulated incumbency. (iii) The loader's
+    permuted mode moves each paper's whole derived block (populations and outcomes together) to a random paper of the
+    same year, so it no longer reveals any paper's real status.
+  - Also: the entry-point check uses the resolved path; the outcome lint covers the loader's private readers and the
+    permuted mode; run_frozen.py records every attempt (and any traceback) before it touches real data and needs
+    `--rerun-reason` for a second run; scipy and matplotlib versions are recorded; exploratory rows that use the
+    buzzword measure carry a "failed validation" status and are listed in the summary; a withdrawal without a review
+    count is an error (there are none); the S8 misclassification rates use the random reference stratum only
+    (method 0.905 instead of 0.920); freeze.py refuses a dry-run that does not come from the current code and inputs,
+    misses a hypothesis, or fails criterion (a) or (b) without a registered remedy.
+  - **Disclosure.** Before fix (ii), one reviewer's end-to-end check with simulated outcomes left the real `lists_hot`
+    in place, so the exploratory E7 row "lists_hot ~ newcomer | topic x year" was computed on real data, and its value
+    (about −0.012, p ≈ 0.01) reached the analyst. That exploratory estimate is therefore not blind and is reported as
+    seen before the freeze. No reviewer computed any confirmatory relationship (H2a–c, H3a–b) or any acceptance result.
+  - A first dry-run (v1), started before review B, was stopped once review B showed its power design was flawed;
+    none of its results were written or seen.
+- **2026-10-15, before any dry-run v2 result: D16, dry-run design and criteria.**
+  - Blinding as above; results keep coefficients, SEs, p-values, sample sizes and verdicts only.
+  - RQ2 data-generating process: each outcome's variance components (topic, year, topic-specific linear trend,
+    topic-year cell beyond binomial noise) are calibrated by method of moments from that outcome's own topic-year cell
+    means on k100 (no regressor involved; calibration recovers known components on synthetic data). Simulated
+    incumbency is paper-level, shared by all maps.
+  - RQ3 data-generating process: no real acceptance information is used, because topic-level acceptance trends are
+    close to H3a itself. Base 0.32, sd_topic 0.05, sd_year 0.03, and two settings for the components that drive the SE
+    of a within-topic regressor: lo (sd_cell 0.02, sd_trend 0.004) and hi (sd_cell 0.04, sd_trend 0.016).
+  - Nulls (500 replications each): RQ2 with structure on k100 and on the early map; RQ3 with the loader's permuted mode,
+    k100 lo, k100 hi and early hi.
+  - Power: one hypothesis planted at a time (others null) at 0.5, 1, 1.5, 2 and 3 x SESOI on the k100 regressor
+    (H3b on the interaction centred at the mean method share, so H3a stays null); 200 replications (RQ3 lo: 100),
+    main specification only; full decision rule at 1 and 3 x SESOI with 100 replications. The realised effect is the
+    main-specification coefficient with the true probability as outcome (clipping included).
+  - Detection = predicted sign and p < 0.05/m in the main specification (m = family size, Holm's first step).
+    **MDE80** = realised effect at 80% detection, linear interpolation; frozen for RQ2 (calibrated) and RQ3 (hi
+    setting, the conservative one); RQ3 lo reported alongside.
+  - **Criteria.** (a) Main-specification size (two-sided p < 0.05) within [0.02, 0.08] for every confirmatory
+    hypothesis and null scenario. (b) The full decision rule supports a hypothesis in at most 5% of null replications.
+    (c) Detection at 3 x SESOI >= 80%; otherwise the hypothesis is reported as underpowered.
+  - **Remedy, fixed now.** If (a) fails upwards or (b) fails for a hypothesis, its confirmatory p-value is computed by a
+    wild cluster restricted bootstrap (Rademacher weights by topic, null imposed, 9,999 draws) instead of CR1 with
+    t(G−1), implemented and validated before the freeze, and logged. A downward size violation is only reported.

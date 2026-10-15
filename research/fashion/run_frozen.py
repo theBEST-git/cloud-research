@@ -2,18 +2,25 @@
 
     python research/fashion/run_frozen.py
 
-Refuses to start unless the frozen hashes match and the git tree is clean (outcomes.require_frozen). Order: RQ2
-confirmatory + supplementary (real labels), then the real acceptance outcomes, RQ3 confirmatory + supplementary, then
-the planned exploratory analyses. Nothing is written until everything has run; then all results go to
-output/frozen_run/, which is committed immediately. A bug found afterwards: fix, rerun, report both, log it.
+Refuses to start unless the frozen hashes match and the git tree is clean (outcomes.require_frozen). Every attempt is
+appended to output/frozen_run/attempts.jsonl before any real data is touched, and a failure records its traceback there,
+so an attempt can never go unrecorded. A second run needs --rerun-reason (D13: a bug found afterwards is fixed, rerun,
+both reported, and logged). Order: RQ2 confirmatory + supplementary (real labels), then the real acceptance outcomes,
+RQ3 confirmatory + supplementary, then the planned exploratory analyses. Results are written only after everything has
+run; output/frozen_run/ is committed immediately.
 """
 from __future__ import annotations
 
+import argparse
 import json
 import platform
 import subprocess
 import sys
+import traceback
 from datetime import datetime, timezone
+
+import matplotlib
+import scipy
 
 import numpy as np
 import pandas as pd
@@ -48,9 +55,36 @@ def equivalence_table(verdicts: dict, mde: dict) -> list[dict]:
              "tost_p": v["tost_p"], "mde80": mde.get(h)} for h, v in verdicts.items() if v["verdict"] != "supported"]
 
 
+def now() -> str:
+    return datetime.now(timezone.utc).isoformat(timespec="seconds")
+
+
 def main() -> None:
-    started = datetime.now(timezone.utc).isoformat(timespec="seconds")
+    p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    p.add_argument("--rerun-reason", help="required if output/frozen_run/ already holds an attempt")
+    a = p.parse_args()
+    started = now()
     freeze = outcomes.require_frozen()
+    log = OUT / "attempts.jsonl"
+    previous = [json.loads(line) for line in log.open()] if log.exists() else []
+    if previous and not a.rerun_reason:
+        raise SystemExit(f"{len(previous)} earlier attempt(s) recorded in {log}; a rerun needs --rerun-reason")
+    OUT.mkdir(parents=True, exist_ok=True)
+    attempt = {"attempt": len(previous) + 1, "started_utc": started, "freeze_sha256": outcomes.sha256(outcomes.FREEZE),
+               "rerun_reason": a.rerun_reason}
+    with log.open("a") as f:
+        f.write(json.dumps({**attempt, "status": "started"}) + "\n")
+    try:
+        run(freeze, started)
+    except BaseException:
+        with log.open("a") as f:
+            f.write(json.dumps({**attempt, "status": "failed", "at_utc": now(), "traceback": traceback.format_exc()}) + "\n")
+        raise
+    with log.open("a") as f:
+        f.write(json.dumps({**attempt, "status": "finished", "at_utc": now()}) + "\n")
+
+
+def run(freeze: dict, started: str) -> None:
     gate_file = json.loads((OUTPUT / "h2d_validation.json").read_text())
     gate = gate_file["gate"] == "pass"
     assert gate == freeze["h2d_gate_passed"], "gate differs from the frozen value"
@@ -63,11 +97,10 @@ def main() -> None:
     assert frames["k100"].has_earlier_version.notna().all(), "earlier_versions.csv.gz has no probable_earlier_version"
     res2 = rq2.run(frames, gate)
     out = outcomes.load("real", frames["k100"].submission_id)
-    res3 = rq3.run(frames, out, gate)
-    exp = exploratory.run(frames, out)
-    finished = datetime.now(timezone.utc).isoformat(timespec="seconds")
+    res3 = rq3.run(frames, out, gate, describe=True)
+    exp = exploratory.run(frames, out, gate)
+    finished = now()
 
-    OUT.mkdir(parents=True, exist_ok=True)
     res2["rows"].to_csv(OUT / "rq2_results.csv", index=False)
     res3["rows"].to_csv(OUT / "rq3_results.csv", index=False)
     exp["estimates"].to_csv(OUT / "exploratory_estimates.csv", index=False)
@@ -80,12 +113,14 @@ def main() -> None:
         "h2d_gate": gate_file, "tau": tau,
         "e9_equivalence": equivalence_table({**res2["verdicts"], **res3["verdicts"]}, mde),
         "dropped_hypotheses": [] if gate else ["H2d", "H3c"],
+        "exploratory_caveat": sorted(set(exp["estimates"].loc[exp["estimates"].measure_status != "", "label"])),
     }
     (OUT / "summary.json").write_text(json.dumps(clean(summary), indent=2) + "\n")
     head = subprocess.run(["git", "rev-parse", "HEAD"], cwd=ROOT, capture_output=True, text=True, check=True).stdout.strip()
     info = {"started_utc": started, "finished_utc": finished, "git_head": head,
             "freeze_sha256": outcomes.sha256(outcomes.FREEZE), "python": sys.version.split()[0],
-            "numpy": np.__version__, "pandas": pd.__version__, "platform": platform.platform()}
+            "numpy": np.__version__, "pandas": pd.__version__, "scipy": scipy.__version__,
+            "matplotlib": matplotlib.__version__, "platform": platform.platform()}
     (OUT / "run_info.json").write_text(json.dumps(info, indent=2) + "\n")
     for part in ("rq2", "rq3"):
         for h, v in summary[part]["verdicts"].items():

@@ -8,10 +8,12 @@ import sys
 import unittest
 from pathlib import Path
 
+import numpy as np
 import pandas as pd
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
+import analysis  # noqa: E402
 import exploratory  # noqa: E402
 import outcomes  # noqa: E402
 import rq2_following  # noqa: E402
@@ -28,7 +30,33 @@ class Guard(unittest.TestCase):
 
     def test_exploratory_refused_without_simulated_outcomes(self):
         with self.assertRaises(PermissionError):
-            exploratory.run({}, pd.DataFrame())
+            exploratory.run({}, pd.DataFrame(), gate=False)
+
+    def test_partial_or_empty_simulated_outcomes_refused(self):
+        for ys in [{}, {"method": pd.Series(dtype=float)}, {c: pd.Series(dtype=float) for c in
+                                                             rq2_following.SIMULATED - {"lists_hot"}}]:
+            with self.assertRaises(ValueError):
+                rq2_following.run({}, gate=False, ys=ys)
+            with self.assertRaises(ValueError):
+                exploratory.run({}, pd.DataFrame(), gate=False, ys=ys)
+
+    def test_simulated_run_derives_newcomer_from_simulated_incumbency(self):
+        f = pd.DataFrame({"submission_id": ["a", "b", "c"], "has_author_key": [True, True, False],
+                          "incumbent": [1.0, 1.0, np.nan], "incumbent_w2": [1.0, 0.0, np.nan], "incumbent_s4": [1.0, 1.0, np.nan],
+                          "newcomer": [0.0, 0.0, np.nan], "newcomer_w2": [0.0, 1.0, np.nan], "newcomer_s4": [0.0, 0.0, np.nan],
+                          "n_eligible_keywords": [0, 1, 2]})
+        sim = {c: pd.Series([0.0, 1.0, 1.0], index=["a", "b", "c"]) for c in rq2_following.SIMULATED}
+        g = rq2_following.with_columns(f, sim)
+        self.assertEqual(g.newcomer.tolist()[:2], [1.0, 0.0])
+        self.assertEqual(g.newcomer_w2.tolist()[:2], [1.0, 0.0])
+        self.assertTrue(np.isnan(g.newcomer.iloc[2]))                        # no author key: never a newcomer
+
+    def test_estimates_carry_no_means_unless_asked(self):
+        rng = np.random.default_rng(0)
+        d = pd.DataFrame({"y": rng.random(400) < 0.3, "x": rng.random(400) < 0.5, "topic": rng.integers(0, 20, 400),
+                          "year": rng.integers(2019, 2023, 400)}).astype({"y": float, "x": float})
+        self.assertNotIn("regressor_mean", analysis.estimate(d, "y", "x"))
+        self.assertIn("regressor_mean", analysis.estimate(d, "y", "x", describe=True))
 
     def test_unknown_mode_rejected(self):
         with self.assertRaises(ValueError):

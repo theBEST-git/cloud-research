@@ -44,7 +44,9 @@ def _missing(n: int = 0, clusters: int = 0, why: str = "") -> dict:
 
 
 def estimate(df: pd.DataFrame, y: str, x: str, controls: tuple[str, ...] | list[str] = (), fe: str = "topic+year",
-             years: tuple[int, int] | None = None, estimator: str = "ols") -> dict:
+             years: tuple[int, int] | None = None, estimator: str = "ols", describe: bool = False) -> dict:
+    """describe=True adds the sample means of y and x. Only the frozen real run asks for them: in a dry-run they would
+    be means of real columns (e.g. a product of two real regressors), which can reveal a hypothesis relationship."""
     d = df if years is None else df[(df.year >= years[0]) & (df.year <= years[1])]
     d = d.dropna(subset=[y, x, *controls])
     if fe == "cell":
@@ -84,17 +86,18 @@ def estimate(df: pd.DataFrame, y: str, x: str, controls: tuple[str, ...] | list[
     out = {"coef": float(row.coef), "se": float(row.se), "p": float(row.p), "dof": dof, "n": int(row.n),
            "clusters": int(row.clusters), "ci95_lo": float(row.coef - q95 * row.se), "ci95_hi": float(row.coef + q95 * row.se),
            "ci90_lo": float(row.coef - q90 * row.se), "ci90_hi": float(row.coef + q90 * row.se),
-           "dropped_controls": ";".join(c for c in dropped if not c.startswith("y_")), "note": "",
-           "outcome_mean": float(d[y].mean()), "regressor_mean": float(d[x].mean()), **extra}
+           "dropped_controls": ";".join(c for c in dropped if not c.startswith("y_")), "note": "", **extra}
+    if describe:
+        out["outcome_mean"], out["regressor_mean"] = float(d[y].mean()), float(d[x].mean())
     if fe == "cell":
         out["cells"] = int(d.cell.nunique())
     return out
 
 
 def fit(df: pd.DataFrame, spec: Spec, estimator: str = "ols", extra_controls: tuple[str, ...] = (),
-        x: str | None = None, years: tuple[int, int] | None = None) -> dict:
+        x: str | None = None, years: tuple[int, int] | None = None, describe: bool = False) -> dict:
     return estimate(df, spec.y, x or spec.x, tuple(spec.controls) + tuple(extra_controls), spec.fe,
-                    years or spec.years, estimator)
+                    years or spec.years, estimator, describe)
 
 
 def tost_p(coef: float, se: float, dof: float, bound: float) -> float:

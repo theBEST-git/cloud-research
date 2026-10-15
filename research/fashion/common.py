@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import gzip
+import importlib.util
 import io
 from pathlib import Path
 
@@ -52,3 +53,11 @@ def write_csv_gz(df: pd.DataFrame, path: Path) -> None:
     with path.open("wb") as raw, gzip.GzipFile(filename="", mode="wb", fileobj=raw, mtime=0, compresslevel=6) as gz:
         with io.TextIOWrapper(gz, encoding="utf-8", newline="") as handle:
             handle.write(text)
+
+
+def topic_layer():
+    """The topic layer's common.py (embedded_corpus, load_embeddings, load_corpus), loaded under its own name."""
+    spec = importlib.util.spec_from_file_location("topics_common", ROOT / "research" / "topics" / "common.py")
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    return mod

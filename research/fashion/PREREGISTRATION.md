@@ -314,3 +314,17 @@ Tags:
 | E10 | Acceptance trend by contribution class |
 
 Anything added after the freeze is labelled post hoc.
+
+- **2026-10-15, before any judging: judge models.** On cost and speed grounds, model tier is matched to task
+  difficulty.
+  - H2d judges (D6): two Sonnet runs with different batch orders, plus one Haiku run, replacing two Opus runs plus one
+    Sonnet run.
+  - R1 resubmission judges: two Haiku runs plus one Sonnet run.
+  - Gate, thresholds and majority rule are unchanged.
+- **2026-10-15, before any judging: D15, resubmission similarity.**
+  - R1 uses the cosine of mean-centred SPECTER2 embeddings. Raw SPECTER2 cosines are compressed (median 0.95), so
+    the raw percentiles would mostly pick papers on the same topic.
+  - The four judging bins are fixed at centred cosine [0.80, 0.85), [0.85, 0.90), [0.90, 0.95) and [0.95, 1].
+  - The bins come from an outcome-free check: the share of nearest-earlier pairs with a shared author key rises from
+    17% to 57% to 97% to 100% across these bins (profile-ID years only).
+  - The τ rule is unchanged.

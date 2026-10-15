@@ -233,13 +233,22 @@ class TwoWayFallback(unittest.TestCase):
         rng = np.random.default_rng(6)
         d = pd.DataFrame({"topic": rng.integers(0, 30, 2000).astype(str), "topic_early": rng.integers(0, 20, 2000).astype(str),
                           "year": rng.integers(2019, 2027, 2000), "x": rng.normal(size=2000), "y": rng.normal(size=2000)})
-        for parts, se in [([(1.0, 30), (2.0, 20), (4.0, 400)], np.sqrt(2.0)),     # v1 + v2 - v12 < 0
-                          ([(1.0, 30), (1.0, 20), (2.0, 400)], 1.0),              # = 0: also the fallback
-                          ([(1.0, 30), (2.0, 20), (0.5, 400)], np.sqrt(2.5))]:    # > 0: the CGM variance
-            with mock.patch.object(analysis, "_cluster_variance", side_effect=parts):
+        from scipy import stats
+        for (v1, v2, v12), se in [((1.0, 2.0, 4.0), np.sqrt(2.0)),       # v1 + v2 - v12 < 0
+                                  ((1.0, 1.0, 2.0), 1.0),                # = 0: also the fallback
+                                  ((1.0, 2.0, 0.5), np.sqrt(2.5))]:      # > 0: the CGM variance
+            def fake(Xd, e, q, groups, v=(v1, v2, v12)):                 # by clustering, not by call order
+                g = pd.Series(groups).astype(str)
+                if g.str.contains("|", regex=False).all():
+                    return v[2], 400
+                return (v[0], 30) if pd.Series(groups).name == "topic" else (v[1], 20)
+            with mock.patch.object(analysis, "_cluster_variance", side_effect=fake):
                 tw = analysis.estimate_twoway(d, "y", "x", (), "topic+year", (2019, 2026))
             self.assertAlmostEqual(tw["se"], se, places=12)
-            self.assertEqual(tw["dof"], 19)
+            self.assertEqual((tw["dof"], tw["clusters"], tw["clusters2"]), (19, 30, 20))
+            q = stats.t.ppf(0.975, 19)
+            self.assertAlmostEqual(tw["ci95_lo"], tw["coef"] - q * se, places=12)
+            self.assertAlmostEqual(tw["p"], 2 * stats.t.sf(abs(tw["coef"] / se), 19), places=12)
 
 
 class FrozenRunPassesRemedies(unittest.TestCase):
@@ -300,7 +309,13 @@ class FrozenRunPassesRemedies(unittest.TestCase):
         lines = [str(c.args[0]) for c in printed.call_args_list if c.args]
         for h in summary["rq2"]["family"] + summary["rq3"]["family"]:
             line = next(x for x in lines if x.startswith(h + " "))
-            self.assertIn("p_boot " if h in dryrun.REMEDIES else " p ", line, h)
+            v = summary["rq2" if h.startswith("H2") else "rq3"]["verdicts"][h]
+            if h in dryrun.REMEDIES:
+                self.assertIn(f"p_boot {format(v['p'], '.3g')} ", line)
+                self.assertNotEqual(format(v["p"], ".3g"), format(v["p_cr1"], ".3g"), h)
+            else:
+                self.assertIn(f" p {format(v['p'], '.3g')} ", line)
+                self.assertNotIn("p_boot", line)
         e9 = {r["hypothesis"]: r for r in summary["e9_equivalence"]}
         for h, r in e9.items():
             self.assertEqual(r["p_method"], summary["rq2" if h.startswith("H2") else "rq3"]["verdicts"][h]["p_method"])

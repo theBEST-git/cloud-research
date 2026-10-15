@@ -121,6 +121,28 @@ class Remedies(unittest.TestCase):
                 if beta:
                     self.assertLess(t, -5)                                   # p = 0: no draw reaches |t|
 
+    def test_default_weights_are_seeded_rademacher_by_topic(self):
+        """Without explicit weights, the bootstrap draws a (draws x topics) Rademacher matrix from default_rng(seed),
+        columns in order of first appearance of the topic (as pd.factorize), and the registered defaults are 9,999
+        draws with seed 20261015."""
+        import analysis
+        d = self.frame(4)
+        G = d.topic.nunique()
+        for fe, ctr in [("cell", ()), ("topic+year", ("c1",))]:
+            for draws, seed in [(99, 5), (analysis.BOOT_DRAWS, analysis.BOOT_SEED)]:
+                W = np.random.default_rng(seed).choice([-1.0, 1.0], size=(draws, G))
+                b = analysis.wild_cluster_bootstrap_p(d, "y", "x", ctr, fe, (2019, 2026), draws=draws, seed=seed)
+                ref = analysis.wild_cluster_bootstrap_p(d, "y", "x", ctr, fe, (2019, 2026), weights=W)
+                self.assertEqual((b["p"], b["t"], b["draws"]), (ref["p"], ref["t"], draws), (fe, draws))
+            default = analysis.wild_cluster_bootstrap_p(d, "y", "x", ctr, fe, (2019, 2026))
+            self.assertEqual((default["p"], default["draws"]), (b["p"], 9999))
+            other = analysis.wild_cluster_bootstrap_p(d, "y", "x", ctr, fe, (2019, 2026), draws=999, seed=6)
+            first = analysis.wild_cluster_bootstrap_p(d, "y", "x", ctr, fe, (2019, 2026), draws=999, seed=5)
+            self.assertNotEqual(other["p"], first["p"])
+            for bad in [np.random.default_rng(5).choice([0.0, 1.0], size=(999, G)), np.random.default_rng(5).normal(size=(999, G))]:
+                self.assertNotEqual(analysis.wild_cluster_bootstrap_p(d, "y", "x", ctr, fe, (2019, 2026), weights=bad)["p"],
+                                    first["p"])
+
     @unittest.skipIf(sm is None, "statsmodels not importable")
     def test_twoway_matches_statsmodels(self):
         import analysis

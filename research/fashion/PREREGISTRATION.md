@@ -698,3 +698,20 @@ Anything added after the freeze is labelled post hoc.
     - **H3a:** acceptance decreases with topic maturity (negative, the registered direction).
   - H2b′ and H2c′ reverse the discovery predictions because discovery found the opposite. They are new hypotheses,
     and are labelled so.
+- **Tests after the run.** `test_frozen_run_refuses_a_debugger_or_trace_function` called `run_frozen.py`, which now
+  refuses earlier because the attempt log holds the single run. It now calls the guard directly, and was
+  mutation-checked. No analysis code was changed.
+- **Audit round C** (two Sonnet number checkers, one Opus interpretation auditor, Sonnet verifiers).
+  - No wrong number or verdict was found in `RESULTS.md` or the README.
+  - Confirmed overstatements, corrected:
+    - the reference labels are LLM labels, not human labels;
+    - the H3a and H3b summaries stated non-significant results as findings;
+    - the stress factor is a single-scenario bracket, not "the worst";
+    - "holds in every variant" ignored S1;
+    - the README lacked the association and approximation caveats;
+    - the incumbency undercount extends to every year after 2020;
+    - "One venue" was misattributed to the confirmation split;
+    - newcomer was described as "no author published" instead of the registered definition.
+  - Minor wording and completeness fixes were made as well.
+  - One auditor premise was checked and rejected: mean prior FM adoption is 29%, not 1.6%, so E8's 0 → 100% scale
+    is not an extreme extrapolation.

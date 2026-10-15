@@ -93,12 +93,20 @@ Full write-up: [RESULTS.md](RESULTS.md). Outputs: `output/frozen_run/` (committe
 | H3a | accepted ~ maturity (−) | −1.68 pp per log unit (−3.68, +0.32) | inconclusive (underpowered) |
 | H3b | accepted ~ maturity × method (−) | −0.36 pp per log unit (−1.51, +0.79) | inconclusive |
 
-- Papers whose authors are all new to a topic propose methods more often, and contribute measurement (datasets,
-  benchmarks, evaluation) less often, than papers with an author who published in the topic before.
-  - Both findings hold in every variant.
-  - About two-thirds of the measurement gap goes with team size.
-- No reward hypothesis is supported. H3a points the predicted way in every variant, but the test was underpowered.
+- Newcomer papers are more often method papers, and less often measurement papers (datasets, benchmarks,
+  evaluation), than papers with at least one incumbent author. Newcomer means no author has an earlier ICLR
+  submission in the same topic (any outcome; exact author IDs, so earlier work under another ID or at other venues
+  is not seen).
+  - Both findings hold in all ten counted variants (same sign, p < 0.05) and under two-way clustering.
+  - With team size controlled (S1), the method gap is unchanged (+3.92 pp), but the measurement gap shrinks to
+    −0.54 pp (p = 0.07).
+- No reward hypothesis is supported. H3a points the predicted way in every counted variant, but the test was
+  underpowered, so it is uninformative about effects below about 4 pp per log unit.
 - H2d/H3c were dropped: the buzzword measure failed its blind validation.
-- The registered bootstrap remedy did not fix an over-rejection found in the dry-run for H2b/H2c (about 10–12% at
-  nominal 5% under cross-map structure). Their findings survive the pre-declared stress sensitivity and two-way
-  clustering.
+- All results are associations within topic and year, not causal effects.
+- The H2b/H2c p-values and CIs are approximate.
+  - Under a simulated cross-map null the registered test rejected about 10–12% of the time at nominal 5%, and the
+    bootstrap remedy did not fix this.
+  - Family-wise error can also exceed 5% under such structure: 6.4% for any RQ2 support in the simulated case.
+  - Both findings remain clear under two-way clustering, and under a pre-declared stress bracket from that one
+    simulated scenario (Holm p 4 × 10⁻⁶ and 1 × 10⁻³). The bracket is not a correction.

@@ -82,11 +82,16 @@ class FrozenRunBookkeeping(unittest.TestCase):
         self.assertIn("not reached", rows[0]["mde80_note"])
 
     def test_frozen_run_refuses_a_debugger_or_trace_function(self):
+        """The guard itself, with __main__ posing as run_frozen.py (so the entry-point check passes) and a trace function
+        set. Calling the guard directly keeps the test independent of output/frozen_run/attempts.jsonl, which makes
+        run_frozen.main() refuse earlier once the single run has happened (post-run record)."""
         import subprocess
-        code = ("import sys, runpy; sys.settrace(lambda *a: None); "
-                f"runpy.run_path({str(HERE / 'run_frozen.py')!r}, run_name='__main__')")
+        code = (f"import sys; sys.path.insert(0, {str(HERE)!r}); import __main__; "
+                f"__main__.__file__ = {str(HERE / 'run_frozen.py')!r}; import outcomes; "
+                "sys.settrace(lambda *a: None); outcomes.require_frozen()")
         r = subprocess.run([sys.executable, "-c", code], capture_output=True, text=True, timeout=300, cwd=HERE)
         self.assertIn("debugger", r.stderr)
+        self.assertNotIn("FREEZE", r.stderr)                                   # refused before any hash or tree check
 
     def test_remedies_are_applied(self):
         self.assertEqual(run_frozen.remedies_of({"remedies": ["bootstrap:H2b", "bootstrap:H2c"]}), ("H2b", "H2c"))

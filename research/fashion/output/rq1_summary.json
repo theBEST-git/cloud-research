@@ -1,0 +1,97 @@
+{
+  "labels": "/home/user/cloud-research/research/topics/output/paper_contributions.csv.gz",
+  "variants": [
+    "main",
+    "k75",
+    "k150",
+    "balanced",
+    "early",
+    "early_prospective",
+    "stable_papers",
+    "coherent_topics",
+    "certain_labels",
+    "years_2018_2025"
+  ],
+  "hypotheses": {
+    "H1a": {
+      "outcome": "method",
+      "regressor": "maturity",
+      "predicted_sign": -1,
+      "coef": -0.00145,
+      "ci95": [
+        -0.01781,
+        0.01492
+      ],
+      "p": 0.8628358715410103,
+      "p_holm": 1.0,
+      "robustness_same_sign": 0.778,
+      "hindsight_variants_same_sign": true,
+      "robustness_variants": 9,
+      "verdict": "not supported"
+    },
+    "H1b": {
+      "outcome": "measurement",
+      "regressor": "maturity",
+      "predicted_sign": 1,
+      "coef": 0.00496,
+      "ci95": [
+        -0.0076,
+        0.01753
+      ],
+      "p": 0.4406098052651531,
+      "p_holm": 1.0,
+      "robustness_same_sign": 0.889,
+      "hindsight_variants_same_sign": true,
+      "robustness_variants": 9,
+      "verdict": "not supported"
+    },
+    "H1c": {
+      "outcome": "empirical",
+      "regressor": "maturity",
+      "predicted_sign": 1,
+      "coef": -0.00307,
+      "ci95": [
+        -0.01285,
+        0.00671
+      ],
+      "p": 0.5397805312723741,
+      "p_holm": 1.0,
+      "robustness_same_sign": 0.0,
+      "hindsight_variants_same_sign": false,
+      "robustness_variants": 9,
+      "verdict": "not supported"
+    },
+    "H1d": {
+      "outcome": "model",
+      "regressor": "fm_adoption",
+      "predicted_sign": -1,
+      "coef": -0.07983,
+      "ci95": [
+        -0.12144,
+        -0.03822
+      ],
+      "p": 0.0002875438711790825,
+      "p_holm": 0.0014377193558954126,
+      "robustness_same_sign": 1.0,
+      "hindsight_variants_same_sign": true,
+      "robustness_variants": 9,
+      "verdict": "supported"
+    },
+    "H1e": {
+      "outcome": "studies_models",
+      "regressor": "fm_adoption",
+      "predicted_sign": 1,
+      "coef": -0.00629,
+      "ci95": [
+        -0.03637,
+        0.02379
+      ],
+      "p": 0.6825869936942308,
+      "p_holm": 1.0,
+      "robustness_same_sign": 0.444,
+      "hindsight_variants_same_sign": true,
+      "robustness_variants": 9,
+      "verdict": "not supported"
+    }
+  }
+}

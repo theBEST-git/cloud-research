@@ -21,6 +21,7 @@ from datetime import datetime, timezone
 
 import matplotlib
 import scipy
+import scipy.stats
 
 import numpy as np
 import pandas as pd
@@ -36,7 +37,9 @@ from variants import holm
 OUT = OUTPUT / "frozen_run"
 CI_METHOD = "CR1, t(G-1)"          # CIs, TOST and the equivalence label (D8, D12), also for the remedied hypotheses
 S11 = "S11_twoway_topic_early"
-S11_QUALIFIER = "not robust to two-way clustering (S11)"     # pre-run log, dry-run v3 results
+S11_QUALIFIER = "not robust to two-way clustering (S11)"     # pre-run log, dry-run v3 results and review round B7
+S11_EQUIVALENCE_QUALIFIER = "equivalence not robust to two-way clustering (S11)"
+STRESS_NOTE = "sensitivity, not part of the verdict: CR1 t divided by its dry-run v3 inflation under the cross-map null"
 
 
 def clean(o):
@@ -71,26 +74,56 @@ def equivalence_table(verdicts: dict, mde: dict, powered: dict, notes: dict | No
 
 def labelled(verdicts: dict, s11: dict | None = None) -> dict:
     """Verdicts with the method behind their CIs and TOST stated next to the method behind their p-value (D16), and the
-    pre-declared S11 qualifier (pre-run log, dry-run v3 results): S11's p-values are Holm-adjusted within the family
-    (missing as 1, as in decide), and a supported hypothesis whose S11 estimate does not have the predicted sign with
-    an adjusted p < 0.05 is reported as not robust to two-way clustering. A reporting label; the verdict is unchanged."""
+    pre-declared S11 qualifiers (pre-run log: dry-run v3 results, review round B7). S11's p-values are Holm-adjusted
+    within the family (missing as 1, as in decide); the S11 coefficient is the main one, the S11 intervals are wider or
+    narrower. A directional verdict ('supported', 'significant in the opposite direction') is not robust to S11 unless
+    S11 has the verdict's sign with an adjusted p < 0.05; 'equivalent to null' is not robust unless S11's 90% CI also
+    lies inside the bounds. Reporting labels only; verdicts are unchanged."""
     s11 = s11 or {}
     p = pd.Series({h: s11.get(h, {}).get("p", np.nan) for h in verdicts}, dtype=float)
     ph = holm(p.fillna(1.0)) if len(p) else p
     out = {}
     for h, v in verdicts.items():
-        coef = s11.get(h, {}).get("coef", np.nan)
-        agrees = bool(np.isfinite(coef) and np.sign(coef) == v["predicted_sign"] and ph[h] < 0.05)
+        r = s11.get(h, {})
+        coef, ci90 = r.get("coef", np.nan), r.get("ci90", [np.nan, np.nan])
+        agrees, qualifier = None, ""
+        if v["verdict"] in ("supported", "significant in the opposite direction"):
+            sign = v["predicted_sign"] if v["verdict"] == "supported" else -v["predicted_sign"]
+            agrees = bool(np.isfinite(coef) and np.sign(coef) == sign and ph[h] < 0.05)
+            qualifier = "" if agrees else S11_QUALIFIER
+        elif v["verdict"] == "equivalent to null":
+            agrees = bool(np.all(np.isfinite(ci90)) and -v["sesoi"] < ci90[0] and ci90[1] < v["sesoi"])
+            qualifier = "" if agrees else S11_EQUIVALENCE_QUALIFIER
         out[h] = {**v, "ci_tost_method": CI_METHOD, "s11_p_holm": float(ph[h]), "s11_agrees": agrees,
-                  "qualifier": S11_QUALIFIER if v["verdict"] == "supported" and not agrees else ""}
+                  "qualifier": qualifier}
     return out
+
+
+def stressed(verdicts: dict, inflation: dict) -> dict:
+    """Pre-declared sensitivity for the remedied hypotheses (review round B7): p from the CR1 t-statistic divided by
+    its standard deviation under dry-run v3's cross-map null (frozen in FREEZE.json), with t(G - 1), and Holm within
+    the family (the other hypotheses keep their p). Returned per remedied hypothesis; not part of any verdict."""
+    hs = [h for h in verdicts if h in inflation]
+    if not hs:
+        return {}
+    p = {}
+    for h, v in verdicts.items():
+        if h in inflation:
+            t = v["coef"] / v["se"] / inflation[h]
+            p[h] = float(2 * scipy.stats.t.sf(abs(t), v["clusters"] - 1)) if np.isfinite(t) else np.nan
+        else:
+            p[h] = v["p"]
+    ph = holm(pd.Series(p, dtype=float).fillna(1.0))
+    return {h: {"t_inflation": inflation[h], "p_stress": p[h], "p_holm_stress": float(ph[h]), "note": STRESS_NOTE}
+            for h in hs}
 
 
 def s11_of(rows: pd.DataFrame) -> dict:
     """S11 (two-way clustering, topic and early-map topic) next to each verdict."""
     s = rows[rows.variant == S11] if len(rows) else rows
-    return {r.hypothesis: {"coef": r.coef, "se": r.se, "p": r.p, "ci95": [r.ci95_lo, r.ci95_hi], "clusters": r.clusters,
-                           "clusters2": r.clusters2} for r in s.itertuples()}
+    return {r.hypothesis: {"coef": r.coef, "se": r.se, "p": r.p, "ci95": [r.ci95_lo, r.ci95_hi],
+                           "ci90": [r.ci90_lo, r.ci90_hi], "clusters": r.clusters, "clusters2": r.clusters2}
+            for r in s.itertuples()}
 
 
 def p_text(v: dict) -> str:
@@ -177,16 +210,18 @@ def run(freeze: dict, started: str) -> None:
     mde = freeze.get("mde80", {})
     powered = freeze.get("dryrun_criteria", {}).get("c_detected_80pct_at_3x_sesoi", {})
     s11_2, s11_3 = s11_of(res2["rows"]), s11_of(res3["rows"])
+    inflation = {h: v for h, v in freeze.get("stress_t_inflation", {}).items() if h in remedies}
     summary = {
         "rq2": {"family": res2["family"], "verdicts": labelled(res2["verdicts"], s11_2), "s11_twoway": s11_2,
-                "label_reliability": res2["label_reliability"]},
+                "stress_sensitivity": stressed(res2["verdicts"], inflation), "label_reliability": res2["label_reliability"]},
         "rq3": {"family": res3["family"], "verdicts": labelled(res3["verdicts"], s11_3), "s11_twoway": s11_3,
-                "counts": res3["counts"]},
+                "stress_sensitivity": stressed(res3["verdicts"], inflation), "counts": res3["counts"]},
         "h2d_gate": gate_file, "tau": tau,
         "e9_equivalence": equivalence_table({**res2["verdicts"], **res3["verdicts"]}, mde, powered, freeze.get("mde80_note")),
         "dryrun_criterion_c_detected_80pct_at_3x_sesoi": powered,
         "dropped_hypotheses": [] if gate else ["H2d", "H3c"],
         "remedies": list(remedies),
+        "remedy_validation_dryrun_v3": freeze.get("remedy_validation"),
         "exploratory_caveat": sorted(set(exp["estimates"].loc[exp["estimates"].measure_status != "", "label"])),
     }
     (OUT / "summary.json").write_text(json.dumps(clean(summary), indent=2) + "\n")
@@ -198,10 +233,12 @@ def run(freeze: dict, started: str) -> None:
     (OUT / "run_info.json").write_text(json.dumps(info, indent=2) + "\n")
     for part in ("rq2", "rq3"):
         for h, v in summary[part]["verdicts"].items():
+            st = summary[part]["stress_sensitivity"].get(h)
+            stress = f" [stress p_holm {st['p_holm_stress']:.3g}]" if st else ""
             print(f"{h} {v['outcome']:12s} ~ {v['regressor']:18s} coef {v['coef']:+.4f} CI95 [{v['ci95'][0]:+.4f}, "
                   f"{v['ci95'][1]:+.4f}] {p_text(v)} p_holm {v['p_holm']:.3g} robust {v['robustness_same_sign']:.0%} "
                   f"hindsight {'ok' if v['hindsight_variants_same_sign'] else 'FAIL'} -> {v['verdict']}"
-                  f"{' (fragile)' if v['fragile'] else ''}{' (' + v['qualifier'] + ')' if v['qualifier'] else ''}")
+                  f"{' (fragile)' if v['fragile'] else ''}{' (' + v['qualifier'] + ')' if v['qualifier'] else ''}{stress}")
 
 
 if __name__ == "__main__":

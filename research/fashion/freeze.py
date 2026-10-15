@@ -32,7 +32,9 @@ INPUTS = [
 OUTPUTS = ["topic_year_maturity.csv.gz", "paper_variables.csv.gz", "paper_buzzword.csv.gz", "earlier_versions.csv.gz",
            "keyword_uses.csv.gz", "keyword_year.csv.gz", "h2d_validation.json", "resubmission_tau.json",
            "specter2_centring_mean.npy", "checks/variables.json", "rq1_results.csv", "dryrun/summary.json",
-           "dryrun/provenance.json"]
+           "dryrun/provenance.json", "dryrun/rq2_null_early.csv", "checks/dryrun_v3_diagnostics.json",
+           "dryrun_v2/summary.json", "dryrun_v2/provenance.json"]
+STRESS_SCENARIO = "rq2_null_early"           # the null under which the remedy failed (pre-run log, review round B7)
 
 
 def check_dryrun(dry: dict, prov: dict, families: dict) -> tuple[list[str], dict[str, str]]:
@@ -110,6 +112,13 @@ def check_null_replications(directory: Path, families: dict, reps: int) -> list[
     return fatal
 
 
+def stress_inflation(directory: Path, remedies: set[str]) -> dict[str, float]:
+    """Standard deviation of the CR1 t-statistic of each remedied hypothesis under the cross-map null (1 for a
+    correctly sized test); run_frozen.py divides the real t by it for the pre-declared stress sensitivity."""
+    d = pd.read_csv(directory / f"{STRESS_SCENARIO}.csv")
+    return {h: round(float((g.coef / g.se).std(ddof=1)), 4) for h, g in d.groupby("hypothesis") if h in remedies}
+
+
 def check_remedies_applied(dry_remedies: tuple[str, ...], asked: set[str]) -> None:
     if set(dry_remedies) != asked:
         raise SystemExit(f"the dry-run applied remedies {dry_remedies}, the freeze asks for {sorted(asked)}")
@@ -163,6 +172,7 @@ def main() -> None:
         "mde80": dry["mde80"], "mde80_rq3_lo_variance": dry["mde80_lo"], "mde80_cr1_for_remedied": dry["mde80_cr1"],
         "dryrun_criteria": dry["criteria"],
         "remedy_validation": {"size_bootstrap": dry["size_bootstrap"], "size_twoway": dry["size_twoway"]},
+        "stress_t_inflation": stress_inflation(OUTPUT / "dryrun", asked), "stress_scenario": STRESS_SCENARIO,
         "mde80_note": dry.get("mde80_note", {}), "mde80_lo_note": dry.get("mde80_lo_note", {}),
         "dryrun_dgp": {"rq2_calibrated": prov["calibrated_rq2_dgp"], "rq3": prov["rq3_dgp"], "reps": prov["reps"],
                        "power_reps": prov["power_reps"], "full_reps": prov["full_reps"], "code_digest": dry["code_digest"]},

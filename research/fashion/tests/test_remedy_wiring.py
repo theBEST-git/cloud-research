@@ -269,7 +269,8 @@ class FrozenRunPassesRemedies(unittest.TestCase):
         gate = json.loads((OUTPUT / "h2d_validation.json").read_text())["gate"] == "pass"
         tau = json.loads((OUTPUT / "resubmission_tau.json").read_text())["tau"]
         frz = {"remedies": ["bootstrap:H2b", "bootstrap:H2c"], "h2d_gate_passed": gate, "tau": tau,
-               "mde80": {"H2b": 0.01}, "dryrun_criteria": {"c_detected_80pct_at_3x_sesoi": {"H2b": True}}}
+               "mde80": {"H2b": 0.01}, "dryrun_criteria": {"c_detected_80pct_at_3x_sesoi": {"H2b": True}},
+               "stress_t_inflation": {"H2b": 1.3, "H2c": 1.2}, "remedy_validation": {"size_bootstrap": {"x": 1}}}
         with tempfile.TemporaryDirectory() as tmp, \
                 mock.patch.object(run_frozen.panel, "MAPS", MAPS), \
                 mock.patch.object(run_frozen.rq2, "run", rq2_run), mock.patch.object(run_frozen.rq3, "run", rq3_run), \
@@ -282,6 +283,14 @@ class FrozenRunPassesRemedies(unittest.TestCase):
         self.assertEqual(seen["rq2"], (None, ("H2b", "H2c")))               # real labels in the real run: ys=None
         self.assertEqual(seen["rq3"], (True, ("H2b", "H2c")))
         self.assertEqual(summary["remedies"], ["H2b", "H2c"])
+        self.assertEqual(summary["remedy_validation_dryrun_v3"], {"size_bootstrap": {"x": 1}})
+        self.assertEqual(set(summary["rq2"]["stress_sensitivity"]), {"H2b", "H2c"})
+        self.assertEqual(summary["rq3"]["stress_sensitivity"], {})
+        for h, r in [("H2b", 1.3), ("H2c", 1.2)]:
+            v = summary["rq2"]["verdicts"][h]
+            from scipy import stats
+            expect = 2 * stats.t.sf(abs(v["coef"] / v["se"]) / r, v["clusters"] - 1)
+            self.assertAlmostEqual(summary["rq2"]["stress_sensitivity"][h]["p_stress"], expect, places=12)
         for h in dryrun.REMEDIES:
             v = summary["rq2"]["verdicts"][h]
             self.assertEqual(v["p"], boot(F["pop2"], spec(rq2.SPECS, h))["p"])
@@ -312,6 +321,8 @@ class FrozenRunPassesRemedies(unittest.TestCase):
             v = summary["rq2" if h.startswith("H2") else "rq3"]["verdicts"][h]
             if h in dryrun.REMEDIES:
                 self.assertIn(f"p_boot {format(v['p'], '.3g')} ", line)
+                st = summary["rq2"]["stress_sensitivity"][h]
+                self.assertTrue(line.endswith(f"[stress p_holm {format(st['p_holm_stress'], '.3g')}]"), line)
                 self.assertNotEqual(format(v["p"], ".3g"), format(v["p_cr1"], ".3g"), h)
             else:
                 self.assertIn(f" p {format(v['p'], '.3g')} ", line)
@@ -326,26 +337,58 @@ class FrozenRunPassesRemedies(unittest.TestCase):
         rows = pd.DataFrame([{"hypothesis": "H2a", "variant": "main", "coef": 9.0, "se": 9.0, "p": 9.0, "ci95_lo": 9.0,
                               "ci95_hi": 9.0, "clusters": 9, "clusters2": np.nan},
                              {"hypothesis": "H2a", "variant": S11, "coef": 0.1, "se": 0.2, "p": 0.3, "ci95_lo": -0.4,
-                              "ci95_hi": 0.6, "clusters": 100, "clusters2": 57}])
+                              "ci95_hi": 0.6, "ci90_lo": -0.3, "ci90_hi": 0.5, "clusters": 100, "clusters2": 57}])
         self.assertEqual(run_frozen.s11_of(rows), {"H2a": {"coef": 0.1, "se": 0.2, "p": 0.3, "ci95": [-0.4, 0.6],
-                                                           "clusters": 100, "clusters2": 57}})
+                                                           "ci90": [-0.3, 0.5], "clusters": 100, "clusters2": 57}})
         self.assertEqual(run_frozen.s11_of(pd.DataFrame()), {})
 
-    def test_s11_qualifier_marks_supported_hypotheses_without_two_way_support(self):
-        v = lambda verdict, sign=-1: {"verdict": verdict, "predicted_sign": sign, "p": 0.001}
-        s11 = lambda coef, p: {"coef": coef, "se": 0.01, "p": p}
+    def test_s11_qualifiers(self):
+        v = lambda verdict, sign=-1: {"verdict": verdict, "predicted_sign": sign, "sesoi": 0.02, "p": 0.001}
+        s11 = lambda coef, p, ci90=(-0.01, 0.01): {"coef": coef, "se": 0.01, "p": p, "ci90": list(ci90)}
+        Q, QE = run_frozen.S11_QUALIFIER, run_frozen.S11_EQUIVALENCE_QUALIFIER
         verdicts = {"Ha": v("supported"), "Hb": v("supported"), "Hc": v("supported", +1), "Hd": v("inconclusive")}
         cases = {"Ha": s11(-0.1, 0.01), "Hb": s11(-0.1, 0.03), "Hc": s11(-0.1, 0.001), "Hd": s11(-0.1, 0.2)}
         out = run_frozen.labelled(verdicts, cases)
-        ph = holm(pd.Series({h: c["p"] for h, c in cases.items()}))
-        self.assertEqual({h: out[h]["s11_p_holm"] for h in out}, {h: float(ph[h]) for h in out})
-        self.assertEqual({h: out[h]["s11_agrees"] for h in out}, {"Ha": True, "Hb": False, "Hc": False, "Hd": False})
-        self.assertEqual({h: out[h]["qualifier"] for h in out},                # Hb: 0.03 alone, but 0.06 after Holm
-                         {"Ha": "", "Hb": run_frozen.S11_QUALIFIER, "Hc": run_frozen.S11_QUALIFIER, "Hd": ""})
-        missing = run_frozen.labelled({"Ha": v("supported")}, {})["Ha"]
-        self.assertEqual((missing["s11_p_holm"], missing["qualifier"]), (1.0, run_frozen.S11_QUALIFIER))
-        self.assertEqual(run_frozen.labelled({"Ha": v("supported")}, {"Ha": s11(np.nan, np.nan)})["Ha"]["qualifier"],
-                         run_frozen.S11_QUALIFIER)
+        ph = {"Ha": 0.03, "Hb": 0.06, "Hc": 0.004, "Hd": 0.2}                   # Holm of (0.01, 0.03, 0.001, 0.2)
+        for h in out:
+            self.assertAlmostEqual(out[h]["s11_p_holm"], ph[h], places=15)
+        self.assertEqual({h: out[h]["s11_agrees"] for h in out}, {"Ha": True, "Hb": False, "Hc": False, "Hd": None})
+        self.assertEqual({h: out[h]["qualifier"] for h in out}, {"Ha": "", "Hb": Q, "Hc": Q, "Hd": ""})
+        # opposite direction: S11 must agree with the opposite sign
+        out = run_frozen.labelled({"Ha": v("significant in the opposite direction"),
+                                   "Hb": v("significant in the opposite direction")},
+                                  {"Ha": s11(+0.1, 0.001), "Hb": s11(-0.1, 0.001)})
+        self.assertEqual([(out[h]["s11_agrees"], out[h]["qualifier"]) for h in ["Ha", "Hb"]], [(True, ""), (False, Q)])
+        # equivalence: S11's 90% CI inside the bounds
+        out = run_frozen.labelled({"Ha": v("equivalent to null"), "Hb": v("equivalent to null")},
+                                  {"Ha": s11(0.0, 0.9, (-0.015, 0.019)), "Hb": s11(0.0, 0.9, (-0.015, 0.021))})
+        self.assertEqual([(out[h]["s11_agrees"], out[h]["qualifier"]) for h in ["Ha", "Hb"]], [(True, ""), (False, QE)])
+        # a missing S11 p counts as 1 in the family's Holm adjustment
+        out = run_frozen.labelled({"Ha": v("supported"), "Hb": v("supported"), "Hc": v("supported")},
+                                  {"Ha": s11(-0.1, 0.02), "Hb": s11(-0.1, 0.03)})
+        self.assertEqual([out[h]["s11_p_holm"] for h in ["Ha", "Hb", "Hc"]], [0.06, 0.06, 1.0])
+        self.assertEqual([out[h]["qualifier"] for h in ["Ha", "Hb", "Hc"]], [Q, Q, Q])
+        nan = run_frozen.labelled({"Ha": v("equivalent to null")}, {"Ha": s11(np.nan, np.nan, (np.nan, np.nan))})["Ha"]
+        self.assertEqual((nan["s11_agrees"], nan["qualifier"]), (False, QE))
+
+    def test_stress_sensitivity_divides_the_cr1_t_by_the_frozen_inflation(self):
+        from scipy import stats
+        verdicts = {"H2a": {"coef": -0.05, "se": 0.02, "p": 0.04, "clusters": 100},
+                    "H2b": {"coef": -0.03, "se": 0.01, "p": 0.001, "clusters": 100},
+                    "H2c": {"coef": 0.02, "se": 0.01, "p": 0.03, "clusters": 81}}
+        out = run_frozen.stressed(verdicts, {"H2b": 1.5, "H2c": 1.25})
+        self.assertEqual(set(out), {"H2b", "H2c"})
+        p_b, p_c = 2 * stats.t.sf(2.0, 99), 2 * stats.t.sf(1.6, 80)
+        self.assertAlmostEqual(out["H2b"]["p_stress"], p_b, places=15)
+        self.assertAlmostEqual(out["H2c"]["p_stress"], p_c, places=15)
+        ordered = sorted([("H2a", 0.04), ("H2b", p_b), ("H2c", p_c)], key=lambda x: x[1])
+        adj, running = {}, 0.0
+        for i, (h, p) in enumerate(ordered):                                  # Holm by hand
+            running = max(running, min(1.0, (3 - i) * p))
+            adj[h] = running
+        self.assertAlmostEqual(out["H2b"]["p_holm_stress"], adj["H2b"], places=15)
+        self.assertAlmostEqual(out["H2c"]["p_holm_stress"], adj["H2c"], places=15)
+        self.assertEqual(run_frozen.stressed(verdicts, {}), {})
 
     def test_zero_bootstrap_p_is_printed_as_a_bound(self):
         v = {"p": 0.0, "p_method": "wild cluster restricted bootstrap (Rademacher by topic, 9999 draws)"}
@@ -517,7 +560,9 @@ class FreezeWritesTheRemedyRecord(unittest.TestCase):
         prov = {**dryrun.REGISTERED, "calibrated_rq2_dgp": {}, "rq3_dgp": {}}
         (tmp / "dryrun" / "provenance.json").write_text(json.dumps(prov))
         for sc in dryrun.NULL_SCENARIOS:
-            rows = [{"rep": r, "hypothesis": h, "p_cr1": 0.5, "p_boot": 0.5, "p_twoway": 0.5}
+            rng = np.random.default_rng(len(sc))
+            rows = [{"rep": r, "hypothesis": h, "p_cr1": 0.5, "p_boot": 0.5, "p_twoway": 0.5,
+                     "coef": rng.normal(0, 0.01 * (1 + (h == "H2b"))), "se": 0.01}
                     for r in range(dryrun.REGISTERED["reps"]) for h in hyps(sc)]
             pd.DataFrame(rows).to_csv(tmp / "dryrun" / f"{sc}.csv", index=False)
         return dry
@@ -535,11 +580,16 @@ class FreezeWritesTheRemedyRecord(unittest.TestCase):
             tmp = Path(tmp)
             dry = self.write_dryrun(tmp)
             frz = self.freeze(tmp, ["bootstrap:H2b", "bootstrap:H2c"])
+            early = pd.read_csv(tmp / "dryrun" / "rq2_null_early.csv")
         self.assertEqual(frz["remedies"], ["bootstrap:H2b", "bootstrap:H2c"])
         self.assertEqual(run_frozen.remedies_of(frz), dryrun.REMEDIES)
         self.assertEqual(frz["remedy_validation"], {"size_bootstrap": dry["size_bootstrap"], "size_twoway": dry["size_twoway"]})
         self.assertEqual(frz["mde80_cr1_for_remedied"], dry["mde80_cr1"])
         self.assertEqual(sorted(p.split(":")[0] for p in frz["dryrun_problems"]), ["H2b", "H2c"])
+        expect = {h: round(float((g.coef / g.se).std(ddof=1)), 4) for h, g in early.groupby("hypothesis") if h != "H2a"}
+        self.assertEqual(frz["stress_t_inflation"], expect)
+        self.assertEqual(frz["stress_scenario"], "rq2_null_early")
+        self.assertGreater(expect["H2b"], 1.5 * expect["H2c"])                 # H2b's simulated t is twice as spread
 
     def test_refuses_other_remedies_or_missing_bootstrap_p_values(self):
         with tempfile.TemporaryDirectory() as tmp:

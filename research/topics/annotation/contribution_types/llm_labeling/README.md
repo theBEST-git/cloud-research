@@ -13,6 +13,7 @@ comes back and how it was checked.
 | `returned/step1_haiku_b100` | v1, Haiku, 100 per batch | check 299 (1 dropped) | 95.7% (kappa 0.91) | 97.3% (kappa 0.94) | no-go by one paper: FM yes 109 → 103 (limit ±5) |
 | `returned/step1_haiku_b300` | v1, Haiku, 300 per batch | check 299 (1 id garbled) | 94.7% (kappa 0.90) | 97.0% (kappa 0.94) | no-go: main class < 95% |
 | `returned/haiku_trial_2300` | v1, Haiku, 100 per batch | all 2,300 reference papers | 95.8% (pilot 300: **97.7%**) | 98.1% (pilot 300: 99.3%) | **go**: passes the pre-registered gate (≥93% on pilot 300); 0 papers missing |
+| `returned/haiku_full_v1` | v1, Haiku, 100 per batch | **all 43,480 papers** + 2,174 second pass | pilot 300: 97.7%; 2,300 references: 95.8% | pilot 300: 99.3% | **label gate passed**: second-pass kappa 0.93 (96.8%); used for all analyses |
 
 **v1 → v1.1.** Of the 13 main-class disagreements in v1, 5 were named frameworks/agents labelled `system` and 3 were
 learned distances/similarities labelled `evaluation`. As a result, `other` came out at 13 papers against 7 in the
@@ -82,3 +83,12 @@ labelled by a fresh agent that reads the prompt and its papers from files.
 
 Class counts and FM-yes counts are within a few papers of the reference. All 2,300 papers came back on the first
 try. Each 100-paper batch took a median 2.3 minutes and about 104k subagent tokens.
+
+**Full run (`returned/haiku_full_v1`), 2026-10-15.**
+- **First pass:** the 2,300-paper trial plus 412 batches for the other 41,180 papers.
+- **Second pass:** 22 batches with fresh agents for the 2,174 double-label ids.
+- **Missing papers:** 4 papers were not returned on the first try and were each re-asked once.
+- **Scale:** 6 workflows in parallel took about 90 minutes and about 46M subagent tokens.
+- **Checks** (`merge_labels.py`, output `research/topics/output/contribution_labels_quality.json`):
+  - second pass: main class 96.8% (kappa 0.93), FM 98.2%;
+  - against the step-1 run by the external model on the 300 check papers: main class 93.0%, FM 96.3%.

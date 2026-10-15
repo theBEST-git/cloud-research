@@ -1,0 +1,16 @@
+{
+  "model": "haiku (Claude Code subagent alias)",
+  "provider": "Claude Code workflows in this session",
+  "how_run": "label_batches.js: one fresh subagent per batch reads the prompt v1 system prompt and its papers (two 50-paper files) and returns labels through a structured-output schema; papers shuffled into batches of 100",
+  "temperature": null,
+  "batch_size": 100,
+  "parallel_agents": "6 workflows x 2 concurrent agents (trial: 3 x 2)",
+  "prompt_version": "contribution-codebook-v1 + foundation-model-rule-v1",
+  "system_prompt_sha256": "aaa1478fb32e1559edc1e158133a562666d64b29cdf4335bd5361509c1a42410",
+  "stage": "step_2_full",
+  "started_utc": "2026-10-15 (trial), full run same day",
+  "finished_utc": "2026-10-15",
+  "papers_labelled": 43480,
+  "papers_failed": 0,
+  "notes": "First pass = trial run on the 2,300 reference papers (same protocol) + 412 batches for the other 41,180 papers. Second pass = 22 separate batches with fresh agents for the 2,174 ids in double_label_ids.txt; agents never saw first-pass labels. 4 papers (2 first pass, 2 second pass) were not returned on the first try (id copied wrongly) and were re-asked once, each by a fresh agent. Temperature cannot be set for subagents."
+}

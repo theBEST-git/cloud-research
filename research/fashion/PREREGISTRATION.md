@@ -162,4 +162,10 @@ Hypotheses supported in discovery are tested there one-sided at α = 0.05 in the
 
 Any change to this plan after registration is listed here with its date and reason.
 
-- (none yet)
+- **2026-10-15, label source.** The full-corpus labels were produced in this project with Claude Haiku subagents
+  (prompt v1 unchanged, batches of 100, one fresh agent per batch), not by the external run. The plan never fixed
+  the model.
+  - Haiku was validated first on the check set and on all 2,300 reference papers.
+  - The full run passed the label-quality gate before any RQ analysis: 97.7% main-class agreement with the pilot
+    300, and second-pass kappa 0.93.
+  - Run record: `research/topics/annotation/contribution_types/llm_labeling/returned/haiku_full_v1/`.

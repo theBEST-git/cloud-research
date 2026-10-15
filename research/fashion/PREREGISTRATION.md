@@ -678,3 +678,14 @@ Anything added after the freeze is labelled post hoc.
     - New tests cover verdict precedence and the CIs' t(G − 1).
     - New tests check that every hashed output exists, and cover the diagnostics functions.
   - No file in the dry-run digest was changed.
+
+### 2026-10-15: post-run record (nothing below changes the frozen analysis)
+
+- **The single frozen run.**
+  - Attempt 1 of `run_frozen.py` started at 19:03:11 UTC and finished at 19:03:29 UTC.
+  - It ran on commit e08ece3, whose `FREEZE.json` has sha256 15bc822e…548fd6.
+  - It exited normally. Its outputs were committed unchanged in 604f41c, before any interpretation, with the printed
+    result lines in `stdout.txt`.
+  - There was no rerun and no deviation after the run. The results are reported in `RESULTS.md`.
+- **Figures.** After the run, `figures.py` was edited for presentation only (F1 titles; F7 legend). These are the
+  only code changes since the freeze. They read the frozen outputs and change no number.

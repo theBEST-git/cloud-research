@@ -201,7 +201,7 @@ def f1_forest() -> None:
     rq1s = json.loads((OUTPUT / "rq1_summary.json").read_text())["hypotheses"]
     verdict.update({h: v["verdict"] for h, v in rq1s.items()})
     hyps = list(dict.fromkeys(d.hypothesis))
-    fig, axes = plt.subplots(2, int(np.ceil(len(hyps) / 2)), figsize=(7.4, 3.6), constrained_layout=True)
+    fig, axes = plt.subplots(2, int(np.ceil(len(hyps) / 2)), figsize=(7.4, 4.0), constrained_layout=True)
     for ax, h in zip(axes.flat, hyps):
         g = d[d.hypothesis == h]
         m = g[g.kind == "main"].iloc[0]
@@ -215,7 +215,8 @@ def f1_forest() -> None:
         ax.scatter([m.coef * 100], [0], s=30, color=SERIES[0], edgecolor=SURFACE, linewidth=1.2, zorder=3, label="main (95% CI)")
         ax.set_ylim(1, -0.4)
         ax.set_yticks([])
-        ax.set_title(f"{h}: {verdict.get(h, '')}", loc="left", fontsize=7.5)
+        short = {"significant in the opposite direction": "opposite (significant)"}.get(verdict.get(h, ""), verdict.get(h, ""))
+        ax.set_title(f"{h}\n{short}", loc="left", fontsize=7.2)
         ax.tick_params(axis="x", labelsize=7)
     for ax in list(axes.flat)[len(hyps):]:
         ax.set_visible(False)
@@ -245,11 +246,10 @@ def f7_acceptance() -> None:
     for i, c in enumerate(order):
         s = piv[c].where(n[c] >= 30)
         ax.plot(s.index, s, color=SERIES[i], label=c, marker="o", markersize=3, markeredgecolor=SURFACE, markeredgewidth=0.6)
-        end_label(ax, s.dropna().index[-1], s.dropna().iloc[-1], c)
-    ax.set_xlim(2017.7, 2028.2)
+    ax.set_xlim(2017.7, 2026.3)                                          # six series: legend only (end labels collide)
     ax.set_ylabel("accepted (%)")
     ax.set_title("Acceptance rate by primary contribution class (cells with >= 30 papers)", loc="left")
-    ax.legend(loc="lower left", ncol=2, fontsize=6.5)
+    ax.legend(loc="upper center", bbox_to_anchor=(0.5, -0.14), ncol=3, fontsize=6.5)
     save(fig, "F7_acceptance_by_class")
 
 

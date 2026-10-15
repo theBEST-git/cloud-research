@@ -15,12 +15,12 @@ The plan, hypotheses and decision rules are fixed in [PREREGISTRATION.md](PREREG
 | `resubmissions.py` | nearest earlier-year paper (centred SPECTER2 cosine), exact titles; with `--tau`, probable earlier versions (R1, S4) → `output/earlier_versions.csv.gz` |
 | `annotation/` | blind LLM judging: H2d validation (`keyword_centrality/`) and τ calibration (`resubmission_pairs/`); seeded samplers (no key file), instructions, collector with transcript audit, scorers → `output/h2d_validation.json`, `output/resubmission_tau.json` |
 | `panel.py`, `variants.py` | outcome-free analysis frame per map; the counted variant registry shared by RQ1–RQ3 |
-| `analysis.py`, `logit.py`, `dgp.py` | estimation (LPM with absorbed FE, FE logit), verdicts (Holm, 75% rule, hindsight, equivalence, fragile flag); synthetic outcomes for dry-runs |
+| `analysis.py`, `logit.py`, `dgp.py` | estimation (LPM with absorbed FE, FE logit), the registered remedy (wild cluster restricted bootstrap) and S11 (two-way clustered SE), verdicts (Holm, 75% rule, hindsight, equivalence, fragile flag); synthetic outcomes for dry-runs |
 | `outcomes.py` | the only file that reads acceptance or review columns: simulated, permuted, and (frozen runs only) real modes |
 | `rq2_following.py`, `rq3_reward.py`, `exploratory.py` | H2a–c, H3a–b with counted and supplementary variants; planned exploratory analyses E1–E10 |
-| `dryrun.py` | size and power before the freeze → `output/dryrun/` |
+| `dryrun.py` | size, false support and power before the freeze → `output/dryrun/` (v2, which triggered the remedy for H2b/H2c: `output/dryrun_v2/`) |
 | `freeze.py`, `run_frozen.py` | `FREEZE.json` (hashes and frozen settings); the single real run → `output/frozen_run/` |
-| `tests/` | prospectivity, outcome lint, guards, estimators (vs statsmodels), variant registry (reproduces RQ1's n) |
+| `tests/` | prospectivity, outcome lint, guards, sealed loader, estimators (vs statsmodels and brute force), variant registry (reproduces RQ1's n), protocol, remedy wiring |
 
 ## Run order
 
@@ -39,7 +39,7 @@ python research/fashion/annotation/resubmission_pairs/score.py
 python research/fashion/resubmissions.py --tau <tau>
 python research/fashion/variables.py
 python research/fashion/dryrun.py
-python research/fashion/freeze.py --created <UTC time>                 # commit, then:
+python research/fashion/freeze.py --created <UTC time> --remedy bootstrap:H2b --remedy bootstrap:H2c   # commit, then:
 python research/fashion/run_frozen.py
 ```
 

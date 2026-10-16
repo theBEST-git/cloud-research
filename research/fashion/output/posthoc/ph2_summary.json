@@ -1,0 +1,41 @@
+{
+  "population_papers": 32190,
+  "team_size_median": 4.0,
+  "papers_by_band": {
+    "3-4": 12022,
+    "5-6": 8843,
+    "7+": 7149,
+    "1-2": 4176
+  },
+  "acceptance_by_band": {
+    "1-2": 0.2866,
+    "3-4": 0.3763,
+    "5-6": 0.4155,
+    "7+": 0.4901
+  },
+  "heterogeneity": [
+    {
+      "set": "cls",
+      "groups": 6,
+      "F": 2.0701433005523606,
+      "df1": 5,
+      "df2": 99,
+      "p_naive_invalid": 0.07547180202509912,
+      "p_calibrated": 0.12935323383084577,
+      "null_F_median": 0.8719554976132251,
+      "null_F_95pct": 2.8407106158296207
+    },
+    {
+      "set": "area",
+      "groups": 20,
+      "F": 12.733136195169177,
+      "df1": 19,
+      "df2": 99,
+      "p_naive_invalid": 6.973981872842651e-19,
+      "p_calibrated": 0.03482587064676617,
+      "null_F_median": 2.616170827063912,
+      "null_F_95pct": 9.596801600043795
+    }
+  ],
+  "note": "post hoc exploratory (PREREGISTRATION.md, 2026-10-16); associations, not causal effects"
+}

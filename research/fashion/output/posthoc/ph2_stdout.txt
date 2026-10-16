@@ -1,0 +1,151 @@
+{
+ "population_papers": 32190,
+ "team_size_median": 4.0,
+ "papers_by_band": {
+  "3-4": 12022,
+  "5-6": 8843,
+  "7+": 7149,
+  "1-2": 4176
+ },
+ "acceptance_by_band": {
+  "1-2": 0.2866,
+  "3-4": 0.3763,
+  "5-6": 0.4155,
+  "7+": 0.4901
+ },
+ "heterogeneity": [
+  {
+   "set": "cls",
+   "groups": 6,
+   "F": 2.0701433005523606,
+   "df1": 5,
+   "df2": 99,
+   "p_naive_invalid": 0.07547180202509912,
+   "p_calibrated": 0.12935323383084577,
+   "null_F_median": 0.8719554976132251,
+   "null_F_95pct": 2.8407106158296207
+  },
+  {
+   "set": "area",
+   "groups": 20,
+   "F": 12.733136195169177,
+   "df1": 19,
+   "df2": 99,
+   "p_naive_invalid": 6.973981872842651e-19,
+   "p_calibrated": 0.03482587064676617,
+   "null_F_median": 2.616170827063912,
+   "null_F_95pct": 9.596801600043795
+  }
+ ],
+ "note": "post hoc exploratory (PREREGISTRATION.md, 2026-10-16); associations, not causal effects"
+}
+  block                                                          label               term   coef  ci95_lo  ci95_hi            p  p_holm_slopes     n
+      A                                                     all papers slope per doubling   8.84     7.96     9.72 1.682951e-36            NaN 32159
+      A                                                     all papers         1-2 vs 3-4  -9.05   -10.78    -7.33 1.467119e-17            NaN 32190
+      A                                                     all papers         5-6 vs 3-4   4.02     2.62     5.42 1.244858e-07            NaN 32190
+      A                                                     all papers          7+ vs 3-4  10.83     9.18    12.49 3.916741e-23            NaN 32190
+      A                     papers with an author ID, newcomer control slope per doubling   7.77     6.85     8.69 1.192041e-30            NaN 31534
+B-class                                                         method slope per doubling   9.30     8.24    10.36 6.793419e-32   4.076052e-31 23863
+B-class                                                         method         1-2 vs 3-4  -8.95   -10.89    -7.01 7.893574e-15            NaN 23897
+B-class                                                         method         5-6 vs 3-4   4.68     3.14     6.22 2.952847e-08            NaN 23897
+B-class                                                         method          7+ vs 3-4  11.92    10.05    13.79 2.192901e-22            NaN 23897
+B-class                                                         theory slope per doubling   3.25    -0.79     7.29 1.127675e-01   1.127675e-01  2444
+B-class                                                         theory         1-2 vs 3-4  -6.50   -13.37     0.38 6.359497e-02            NaN  2563
+B-class                                                         theory         5-6 vs 3-4  -1.36    -6.27     3.54 5.825028e-01            NaN  2563
+B-class                                                         theory          7+ vs 3-4  -7.23   -19.20     4.73 2.329321e-01            NaN  2563
+B-class                                                      empirical slope per doubling   5.53     1.58     9.48 6.613914e-03   1.984174e-02  2162
+B-class                                                      empirical         1-2 vs 3-4  -7.46   -13.48    -1.44 1.561127e-02            NaN  2352
+B-class                                                      empirical         5-6 vs 3-4   2.89    -3.16     8.93 3.456951e-01            NaN  2352
+B-class                                                      empirical          7+ vs 3-4   2.16    -3.47     7.80 4.478929e-01            NaN  2352
+B-class                                              dataset_benchmark slope per doubling  13.49    10.30    16.68 3.431455e-12   1.715727e-11  1452
+B-class                                              dataset_benchmark         1-2 vs 3-4 -21.33   -34.80    -7.87 2.237738e-03            NaN  1587
+B-class                                              dataset_benchmark         5-6 vs 3-4   7.17    -1.95    16.29 1.217709e-01            NaN  1587
+B-class                                              dataset_benchmark          7+ vs 3-4  17.77    11.31    24.24 4.354731e-07            NaN  1587
+B-class                                                     evaluation slope per doubling  13.53     8.46    18.61 1.326166e-06   5.304663e-06   588
+B-class                                                     evaluation         1-2 vs 3-4 -21.79   -38.57    -5.01 1.149576e-02            NaN   770
+B-class                                                     evaluation         5-6 vs 3-4   6.49    -7.19    20.17 3.487140e-01            NaN   770
+B-class                                                     evaluation          7+ vs 3-4  14.20     2.60    25.79 1.699809e-02            NaN   770
+B-class                                                          other slope per doubling   6.22     1.54    10.91 9.932957e-03   1.986591e-02   807
+B-class                                                          other         1-2 vs 3-4  -5.94   -17.52     5.64 3.113521e-01            NaN  1021
+B-class                                                          other         5-6 vs 3-4   4.79    -5.73    15.31 3.679410e-01            NaN  1021
+B-class                                                          other          7+ vs 3-4   9.64     0.65    18.64 3.590314e-02            NaN  1021
+ B-area                       c01 LLMs and natural language processing slope per doubling  11.22     8.59    13.85 9.526988e-06   1.905398e-04  2896
+ B-area                       c01 LLMs and natural language processing         1-2 vs 3-4 -13.36   -20.26    -6.45 2.106662e-03            NaN  2903
+ B-area                       c01 LLMs and natural language processing         5-6 vs 3-4   5.96     0.90    11.02 2.633266e-02            NaN  2903
+ B-area                       c01 LLMs and natural language processing          7+ vs 3-4  13.93    10.61    17.25 1.088389e-05            NaN  2903
+ B-area                  c02 LLM reasoning, agents, code and alignment slope per doubling   9.15     6.40    11.90 1.843746e-04   3.318743e-03  2768
+ B-area                  c02 LLM reasoning, agents, code and alignment         1-2 vs 3-4  -9.38   -16.77    -2.00 2.088074e-02            NaN  2775
+ B-area                  c02 LLM reasoning, agents, code and alignment         5-6 vs 3-4   7.54     1.18    13.91 2.728919e-02            NaN  2775
+ B-area                  c02 LLM reasoning, agents, code and alignment          7+ vs 3-4  12.44     6.21    18.68 2.756162e-03            NaN  2775
+ B-area                     c03 Computer vision, 3D vision and imaging slope per doubling   9.77     6.15    13.39 3.763875e-04   6.398588e-03  2178
+ B-area                     c03 Computer vision, 3D vision and imaging         1-2 vs 3-4  -7.50   -17.94     2.94 1.330783e-01            NaN  2180
+ B-area                     c03 Computer vision, 3D vision and imaging         5-6 vs 3-4   1.36    -4.06     6.78 5.718523e-01            NaN  2180
+ B-area                     c03 Computer vision, 3D vision and imaging          7+ vs 3-4  12.20     7.47    16.93 4.906470e-04            NaN  2180
+ B-area                                     c04 Reinforcement learning slope per doubling   7.39     3.66    11.13 8.094490e-03   1.052284e-01  2645
+ B-area                                     c04 Reinforcement learning         1-2 vs 3-4 -10.17   -21.30     0.97 6.218745e-02            NaN  2645
+ B-area                                     c04 Reinforcement learning         5-6 vs 3-4   3.74    -3.66    11.14 2.061489e-01            NaN  2645
+ B-area                                     c04 Reinforcement learning          7+ vs 3-4   7.71    -0.40    15.81 5.652434e-02            NaN  2645
+ B-area            c05 Federated learning, privacy and decision making slope per doubling   4.03     0.98     7.08 1.791646e-02   1.784215e-01  2221
+ B-area            c05 Federated learning, privacy and decision making         1-2 vs 3-4  -8.65   -13.01    -4.29 2.852870e-03            NaN  2222
+ B-area            c05 Federated learning, privacy and decision making         5-6 vs 3-4  -1.39    -7.09     4.30 5.714501e-01            NaN  2222
+ B-area            c05 Federated learning, privacy and decision making          7+ vs 3-4   0.28    -7.29     7.84 9.317535e-01            NaN  2222
+ B-area   c06 Robust, continual, transfer and label-efficient learning slope per doubling   7.71     3.47    11.95 3.575166e-03   5.005233e-02  2048
+ B-area   c06 Robust, continual, transfer and label-efficient learning         1-2 vs 3-4  -8.65   -13.84    -3.47 5.535063e-03            NaN  2049
+ B-area   c06 Robust, continual, transfer and label-efficient learning         5-6 vs 3-4   4.96    -1.02    10.93 9.052838e-02            NaN  2049
+ B-area   c06 Robust, continual, transfer and label-efficient learning          7+ vs 3-4   6.93     1.37    12.49 2.152696e-02            NaN  2049
+ B-area    c07 Optimization, scientific ML and probabilistic inference slope per doubling   5.20    -0.07    10.47 5.213999e-02   1.966579e-01  2176
+ B-area    c07 Optimization, scientific ML and probabilistic inference         1-2 vs 3-4  -9.64   -16.70    -2.58 1.556563e-02            NaN  2178
+ B-area    c07 Optimization, scientific ML and probabilistic inference         5-6 vs 3-4   1.15    -7.69     9.98 7.612392e-01            NaN  2178
+ B-area    c07 Optimization, scientific ML and probabilistic inference          7+ vs 3-4  -0.98    -8.32     6.36 7.548164e-01            NaN  2178
+ B-area                  c08 LLM efficiency, sequence models and audio slope per doubling  10.28     6.82    13.74 1.176659e-03   1.764989e-02  1750
+ B-area                  c08 LLM efficiency, sequence models and audio         1-2 vs 3-4  -2.93   -14.93     9.08 5.355208e-01            NaN  1752
+ B-area                  c08 LLM efficiency, sequence models and audio         5-6 vs 3-4   8.27    -1.57    18.11 7.994296e-02            NaN  1752
+ B-area                  c08 LLM efficiency, sequence models and audio          7+ vs 3-4  16.53    11.41    21.64 8.556056e-04            NaN  1752
+ B-area c09 Generalization theory, compression and architecture design slope per doubling   7.98     1.78    14.18 2.325966e-02   1.860773e-01  1726
+ B-area c09 Generalization theory, compression and architecture design         1-2 vs 3-4 -10.06   -18.44    -1.67 2.915307e-02            NaN  1726
+ B-area c09 Generalization theory, compression and architecture design         5-6 vs 3-4   3.83   -11.49    19.14 5.260697e-01            NaN  1726
+ B-area c09 Generalization theory, compression and architecture design          7+ vs 3-4   6.10   -11.95    24.16 4.010512e-01            NaN  1726
+ B-area               c10 Vision-language models and few-shot learning slope per doubling  11.91     9.47    14.36 1.720199e-04   3.268379e-03  1323
+ B-area               c10 Vision-language models and few-shot learning         1-2 vs 3-4 -15.34   -34.60     3.92 9.145867e-02            NaN  1325
+ B-area               c10 Vision-language models and few-shot learning         5-6 vs 3-4   5.95    -3.67    15.57 1.611567e-01            NaN  1325
+ B-area               c10 Vision-language models and few-shot learning          7+ vs 3-4  13.11     6.11    20.12 6.528171e-03            NaN  1325
+ B-area                         c11 Causal inference and biomedical ML slope per doubling   6.92    -3.39    17.22 1.357886e-01   1.966579e-01  1405
+ B-area                         c11 Causal inference and biomedical ML         1-2 vs 3-4   0.53   -17.41    18.48 9.382290e-01            NaN  1406
+ B-area                         c11 Causal inference and biomedical ML         5-6 vs 3-4   8.18    -0.65    17.00 6.176915e-02            NaN  1406
+ B-area                         c11 Causal inference and biomedical ML          7+ vs 3-4   8.99    -0.39    18.37 5.635243e-02            NaN  1406
+ B-area          c12 Adversarial robustness, backdoors and AI security slope per doubling   9.16     1.13    17.20 3.913146e-02   1.966579e-01  1184
+ B-area          c12 Adversarial robustness, backdoors and AI security         1-2 vs 3-4  -5.45   -16.52     5.61 1.679758e-01            NaN  1185
+ B-area          c12 Adversarial robustness, backdoors and AI security         5-6 vs 3-4   7.09     4.03    10.14 9.918052e-03            NaN  1185
+ B-area          c12 Adversarial robustness, backdoors and AI security          7+ vs 3-4  15.40     9.98    20.81 6.607734e-03            NaN  1185
+ B-area               c13 Embodied AI, driving and video understanding slope per doubling  10.15     1.80    18.51 3.059973e-02   1.966579e-01  1156
+ B-area               c13 Embodied AI, driving and video understanding         1-2 vs 3-4 -20.22   -35.57    -4.88 2.472657e-02            NaN  1156
+ B-area               c13 Embodied AI, driving and video understanding         5-6 vs 3-4   1.50    -9.51    12.52 6.934117e-01            NaN  1156
+ B-area               c13 Embodied AI, driving and video understanding          7+ vs 3-4  10.55    -2.45    23.55 8.160004e-02            NaN  1156
+ B-area                      c14 GANs, VAEs, diffusion and flow models slope per doubling   8.88     3.83    13.92 1.124123e-02   1.348948e-01  1185
+ B-area                      c14 GANs, VAEs, diffusion and flow models         1-2 vs 3-4 -10.56   -19.80    -1.33 3.575307e-02            NaN  1186
+ B-area                      c14 GANs, VAEs, diffusion and flow models         5-6 vs 3-4   3.41    -6.83    13.65 3.671683e-01            NaN  1186
+ B-area                      c14 GANs, VAEs, diffusion and flow models          7+ vs 3-4  11.31    -3.34    25.95 9.107473e-02            NaN  1186
+ B-area       c15 VLM reasoning, knowledge graphs and interpretability slope per doubling  12.32     4.21    20.43 1.689602e-02   1.784215e-01  1026
+ B-area       c15 VLM reasoning, knowledge graphs and interpretability         1-2 vs 3-4 -11.57   -24.72     1.58 6.782185e-02            NaN  1026
+ B-area       c15 VLM reasoning, knowledge graphs and interpretability         5-6 vs 3-4   0.01   -12.11    12.12 9.987149e-01            NaN  1026
+ B-area       c15 VLM reasoning, knowledge graphs and interpretability          7+ vs 3-4  17.10     5.81    28.38 1.699364e-02            NaN  1026
+ B-area                                      c16 Graph neural networks slope per doubling   7.72     1.61    13.82 3.960621e-02   1.966579e-01  1135
+ B-area                                      c16 Graph neural networks         1-2 vs 3-4   0.61   -31.40    32.61 8.497553e-01            NaN  1135
+ B-area                                      c16 Graph neural networks         5-6 vs 3-4   5.90   -22.41    34.21 2.297590e-01            NaN  1135
+ B-area                                      c16 Graph neural networks          7+ vs 3-4  17.07   -76.39   110.54 2.589820e-01            NaN  1135
+ B-area               c17 Diffusion image, video and motion generation slope per doubling  12.89     5.74    20.04 1.622013e-02   1.784215e-01   920
+ B-area               c17 Diffusion image, video and motion generation         1-2 vs 3-4 -16.98   -47.46    13.50 1.386939e-01            NaN   922
+ B-area               c17 Diffusion image, video and motion generation         5-6 vs 3-4   4.29    -3.41    11.98 1.386831e-01            NaN   922
+ B-area               c17 Diffusion image, video and motion generation          7+ vs 3-4  14.70     1.92    27.47 3.846744e-02            NaN   922
+ B-area                    c18 Time series and spatiotemporal modeling slope per doubling   4.29    -1.16     9.74 8.717037e-02   1.966579e-01   868
+ B-area                    c18 Time series and spatiotemporal modeling         1-2 vs 3-4  -1.80   -17.05    13.46 7.328698e-01            NaN   869
+ B-area                    c18 Time series and spatiotemporal modeling         5-6 vs 3-4   2.57   -10.25    15.40 5.687908e-01            NaN   869
+ B-area                    c18 Time series and spatiotemporal modeling          7+ vs 3-4   5.10     2.38     7.83 9.439237e-03            NaN   869
+ B-area     c19 Representation geometry, clustering and kernel methods slope per doubling  10.78     2.84    18.72 2.809398e-02   1.966579e-01   864
+ B-area     c19 Representation geometry, clustering and kernel methods         1-2 vs 3-4 -13.79   -24.66    -2.92 3.194185e-02            NaN   864
+ B-area     c19 Representation geometry, clustering and kernel methods         5-6 vs 3-4   7.75    -3.92    19.42 1.038399e-01            NaN   864
+ B-area     c19 Representation geometry, clustering and kernel methods          7+ vs 3-4   0.89   -27.77    29.56 9.056430e-01            NaN   864
+ B-area          c20 Neuroscience, brain decoding and spiking networks slope per doubling  14.18    12.69    15.66 5.915733e-04   9.465172e-03   685
+ B-area          c20 Neuroscience, brain decoding and spiking networks         1-2 vs 3-4  -8.92   -21.88     4.04 9.756514e-02            NaN   686
+ B-area          c20 Neuroscience, brain decoding and spiking networks         5-6 vs 3-4   5.82     0.18    11.45 4.711380e-02            NaN   686
+ B-area          c20 Neuroscience, brain decoding and spiking networks          7+ vs 3-4  24.14    15.89    32.38 6.244642e-03            NaN   686

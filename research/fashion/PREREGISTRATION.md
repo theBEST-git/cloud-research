@@ -767,3 +767,22 @@ Anything added after the freeze is labelled post hoc.
       outcomes (dry-run RQ3 lo/hi settings; real papers, topics, years and team sizes).
   - **Status:** exploratory and post hoc. These are associations: team size also stands for resources and
     seniority.
+- **PH3: is the newcomer acceptance gap about who the authors are?** (`posthoc.py ph3`; declared before it was
+  run; the question came from the user: newcomer papers may simply be weaker.)
+  - **Data:** author-level rows for PH1's population, with each paper weighing 1 in total.
+  - **Fixed effects:** topic × year and author, absorbed jointly.
+  - **Controls:** class, FM, log2 team size, and the author's earlier ICLR submissions.
+  - **Models:**
+    - M1: newcomer paper, with author FE;
+    - M2: the author is new to the topic, with author FE;
+    - M3 and M4: newcomer paper with first-author or last-author FE, one row per paper.
+
+    Each is shown next to the same model without author FE on exactly the same sample.
+  - **Inference:** CR1 SE by topic; two-way topic × author SE as a check.
+  - **Reading:** if the gap shrinks with author FE, it mostly reflects who writes newcomer papers. If it stays,
+    entering a topic goes with lower acceptance for the same person.
+  - **Validation:** the estimator was checked against explicit dummies and `fe_ols` in tests. The pipeline was run on
+    simulated null outcomes, with all estimates near 0.
+- **Review scores (the user's second request) are not available.** The repository has no review ratings, and the
+  OpenReview API refuses this environment with a challenge. A conditional-on-scores analysis needs the ratings from
+  the upstream corpus.

@@ -25,7 +25,19 @@ Population: the RQ3 filter (decided ordinary submissions), 2018-2026, at least o
      outcomes (dgp.simulate, alternating the dry-run's RQ3 lo/hi settings, real papers, topics, years and team sizes),
      p = (1 + #F_null >= F) / 201. The slope and band tests themselves were sized 5.1% and 4.8% in those nulls.
 
-    python research/fashion/posthoc.py ph1|ph2   (only after the frozen run; the code must be committed: outcomes.py)
+PH3 (2026-10-16): is the newcomer acceptance gap about who the authors are? Author fixed effects.
+Population: PH1's (decided papers with an author ID, 2019-2026). Author rows: one per (paper, author ID); each paper
+weighs 1 in total (weights 1 / its number of author IDs). Fixed effects absorbed jointly by alternating projections:
+topic x year and author. Controls: class, FM, log2(team size), log(1 + the author's earlier ICLR submissions in any
+topic). Singleton authors and cells are dropped iteratively. CR1 SE by k100 topic (a paper sits in one topic), and,
+as a check, two-way by topic and author (Cameron-Gelbach-Miller; larger one-way variance if not positive).
+  M0  newcomer paper | topic x year, same stacked sample, no author FE (the baseline the others are compared with)
+  M1  newcomer paper | topic x year + author                      (the same people, newcomer vs incumbent papers)
+  M2  the author is new to the topic | topic x year + author      (the same person, topics new to them vs not)
+  M3  newcomer paper | topic x year + first author                (one row per paper)
+  M4  newcomer paper | topic x year + last author                 (one row per paper)
+
+    python research/fashion/posthoc.py ph1|ph2|ph3   (only after the frozen run; the code must be committed: outcomes.py)
 Writes output/posthoc/ph{1,2}_*.csv and *.json and output/figures/PH{1,2}_*.png/pdf.
 """
 from __future__ import annotations
@@ -335,16 +347,159 @@ def plot_ph2(res: pd.DataFrame) -> None:
     figures.save(fig, "PH2_team_size")
 
 
+def twfe(y: np.ndarray, X: np.ndarray, fes: list[np.ndarray], w: np.ndarray, tol: float = 1e-10,
+         max_iter: int = 10_000) -> tuple[np.ndarray, np.ndarray]:
+    """Weighted demeaning of y and X by several fixed effects at once (alternating projections)."""
+    Z = np.column_stack([y, X]).astype(float)
+    codes = [pd.factorize(f)[0] for f in fes]
+    wsum = [np.bincount(c, weights=w) for c in codes]
+    for _ in range(max_iter):
+        delta = 0.0
+        for c, ws in zip(codes, wsum):
+            means = np.vstack([np.bincount(c, weights=w * Z[:, j]) for j in range(Z.shape[1])]).T / ws[:, None]
+            Z -= means[c]
+            delta = max(delta, float(np.abs(means).max()))
+        if delta < tol:
+            break
+    else:
+        raise RuntimeError("alternating projections did not converge")
+    return Z[:, 0], Z[:, 1:]
+
+
+def drop_singletons(d: pd.DataFrame, cols: list[str]) -> pd.DataFrame:
+    while True:
+        keep = np.ones(len(d), bool)
+        for c in cols:
+            keep &= d.groupby(c)[c].transform("size").to_numpy() > 1
+        if keep.all():
+            return d
+        d = d[keep]
+
+
+def wls_fe(d: pd.DataFrame, y: str, xs: list[str], fes: list[str], w: str, cluster: str,
+           cluster2: str | None = None) -> pd.DataFrame:
+    """Weighted least squares with several absorbed fixed effects; CR1 SE by `cluster` (t with G - 1 df) and, if
+    given, a two-way (cluster, cluster2) SE for the first regressor."""
+    d = drop_singletons(d.dropna(subset=[y, *xs]), fes).reset_index(drop=True)
+    wv = d[w].to_numpy(float)
+    yd, Xd = twfe(d[y].to_numpy(float), d[xs].to_numpy(float), [d[f].to_numpy() for f in fes], wv)
+    keep = Xd.std(axis=0) > 1e-12
+    xs = [x for x, k in zip(xs, keep) if k]
+    Xd = Xd[:, keep]
+    XtWX_inv = np.linalg.pinv(Xd.T @ (Xd * wv[:, None]))
+    beta = XtWX_inv @ (Xd * wv[:, None]).T @ yd
+    e = yd - Xd @ beta
+    n, k = Xd.shape
+
+    def var(groups):
+        cg = pd.factorize(groups)[0]
+        G = cg.max() + 1
+        S = np.zeros((G, k))
+        np.add.at(S, cg, Xd * (wv * e)[:, None])
+        return (G / (G - 1)) * ((n - 1) / (n - k)) * XtWX_inv @ (S.T @ S) @ XtWX_inv, G
+
+    V, G = var(d[cluster].to_numpy())
+    se = np.sqrt(np.diag(V))
+    out = pd.DataFrame({"coef": beta, "se": se, "p": 2 * stats.t.sf(np.abs(beta / se), G - 1), "dof": G - 1,
+                        "rows": n, "papers": d.submission_id.nunique(), "clusters": G}, index=xs)
+    if cluster2:
+        V2, G2 = var(d[cluster2].to_numpy())
+        V12, _ = var(d[cluster].astype(str).to_numpy() + "|" + d[cluster2].astype(str).to_numpy())
+        v = V[0, 0] + V2[0, 0] - V12[0, 0]
+        out.loc[xs[0], "se_twoway"] = float(np.sqrt(v if v > 0 else max(V[0, 0], V2[0, 0])))
+    return out
+
+
+def author_rows(k: pd.DataFrame) -> pd.DataFrame:
+    """One row per (paper, author ID) for PH1's population, with the author's novelty in the topic and experience.
+    History counts every discovery submission with a topic (any outcome, D1), as for incumbency."""
+    from variables import load_authors
+    from common import DATA
+    a = load_authors(k.submission_id)[["submission_id", "key"]]
+    pos = pd.read_csv(DATA / "submission_authors.csv.gz", keep_default_na=False, na_values=[r"\N"],
+                      usecols=["submission_id", "declared_id_key", "source_list_position"]).rename(
+        columns={"declared_id_key": "key"}).dropna(subset=["key"])
+    pos = pos.groupby(["submission_id", "key"]).source_list_position.min().reset_index()
+    a = a.merge(pos, on=["submission_id", "key"], how="left")
+    papers = k[["submission_id", "topic", "year"]]
+    at = a.merge(papers, on="submission_id")
+    by_topic = at.groupby(["key", "topic", "year"]).size().rename("n").reset_index().sort_values(["key", "topic", "year"])
+    by_topic["prior_in_topic"] = by_topic.groupby(["key", "topic"]).n.cumsum() - by_topic.n
+    by_all = at.groupby(["key", "year"]).size().rename("n").reset_index().sort_values(["key", "year"])
+    by_all["prior_any"] = by_all.groupby("key").n.cumsum() - by_all.n
+    at = at.merge(by_topic[["key", "topic", "year", "prior_in_topic"]], on=["key", "topic", "year"])
+    at = at.merge(by_all[["key", "year", "prior_any"]], on=["key", "year"])
+    at["author_new"] = (at.prior_in_topic == 0).astype(float)
+    at["log_exp"] = np.log1p(at.prior_any)
+    last = at.groupby("submission_id").source_list_position.transform("max")
+    at["first"] = at.source_list_position == at.groupby("submission_id").source_list_position.transform("min")
+    at["last"] = at.source_list_position == last
+    return at[["submission_id", "key", "author_new", "log_exp", "first", "last"]]
+
+
+def ph3(k: pd.DataFrame) -> None:
+    d = population(k)
+    rows_a = author_rows(k)
+    at = rows_a.merge(d, on="submission_id")
+    at["w"] = 1.0 / at.groupby("submission_id").key.transform("size")
+    ctr = CLASS_CONTROLS + ["fm", "log2_team", "log_exp"]
+    res = []
+
+    def add(model, label, r, x):
+        res.append({"model": model, "label": label, "term": x, **r.loc[x].to_dict()})
+
+    def pair(model, sample, x, who):
+        """The author-FE model and, on exactly its sample, the same model without author FE."""
+        same = drop_singletons(sample.dropna(subset=["accepted", x, *ctr]), ["cell", "key"])
+        add(model, f"{x} | topic x year + {who}", wls_fe(same, "accepted", [x] + ctr, ["cell", "key"], "w", "topic", "key"), x)
+        add(model + "-base", f"{x} | topic x year, same sample, no {who} FE", wls_fe(same, "accepted", [x] + ctr, ["cell"], "w", "topic", "key"), x)
+
+    add("M0", "newcomer | topic x year, all author rows (no author FE)", wls_fe(at, "accepted", ["newcomer"] + ctr, ["cell"], "w", "topic", "key"), "newcomer")
+    pair("M1", at, "newcomer", "author")
+    pair("M2", at, "author_new", "author")
+    for m, pos in [("M3", "first"), ("M4", "last")]:
+        pair(m, at[at[pos]].drop_duplicates("submission_id").assign(w=1.0), "newcomer", f"{pos} author")
+    res = pd.DataFrame(res)
+    q = stats.t.ppf(0.975, res.dof)
+    res["ci95_lo"], res["ci95_hi"] = res.coef - q * res.se, res.coef + q * res.se
+    ident = at.groupby("key").newcomer.agg(["min", "max"])
+    summary = {"papers": int(d.submission_id.nunique()), "author_rows": int(len(at)), "authors": int(at.key.nunique()),
+               "authors_with_both_newcomer_and_incumbent_papers": int(((ident["min"] == 0) & (ident["max"] == 1)).sum()),
+               "note": "post hoc exploratory (PREREGISTRATION.md, 2026-10-16); associations, not causal effects"}
+    res.to_csv(OUT / "ph3_estimates.csv", index=False)
+    (OUT / "ph3_summary.json").write_text(json.dumps(summary, indent=2) + "\n")
+    plot_ph3(res)
+    print(json.dumps(summary, indent=1))
+    show = res.assign(**{c: (res[c] * 100).round(2) for c in ["coef", "ci95_lo", "ci95_hi", "se", "se_twoway"]})
+    print(show[["model", "label", "coef", "ci95_lo", "ci95_hi", "se", "se_twoway", "p", "rows", "papers"]].to_string(index=False))
+
+
+def plot_ph3(res: pd.DataFrame) -> None:
+    plt = figures.plt
+    fig, ax = plt.subplots(figsize=(6.6, 3.2), constrained_layout=True)
+    y = np.arange(len(res))[::-1]
+    ax.axvline(0, color=figures.INK2, lw=0.7)
+    ax.hlines(y, res.ci95_lo * 100, res.ci95_hi * 100, color=figures.SERIES[0], lw=1.6)
+    ax.scatter(res.coef * 100, y, s=22, color=figures.SERIES[0], edgecolor=figures.SURFACE, linewidth=1, zorder=3)
+    ax.set_yticks(y, res.label, fontsize=7)
+    ax.set_xlabel("acceptance difference, pp (95% CI)")
+    ax.set_title("Newcomer acceptance gap with and without author fixed effects (post hoc, exploratory)", loc="left")
+    figures.save(fig, "PH3_author_fe")
+
+
 def main() -> None:
     which = sys.argv[1] if len(sys.argv) > 1 else ""
     if which == "plot2":                                   # redraw from the saved estimates; reads no outcome
         plot_ph2(pd.read_csv(OUT / "ph2_estimates.csv"))
         return
-    if which not in ("ph1", "ph2"):
-        raise SystemExit("usage: posthoc.py ph1|ph2|plot2")
+    if which not in ("ph1", "ph2", "ph3"):
+        raise SystemExit("usage: posthoc.py ph1|ph2|ph3|plot2")
     OUT.mkdir(parents=True, exist_ok=True)
     if which == "ph2":
         ph2(with_outcomes())
+        return
+    if which == "ph3":
+        ph3(with_outcomes())
         return
     d = population()
     rows_c, grid = block_c(d)

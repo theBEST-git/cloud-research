@@ -12,14 +12,15 @@ Short answers first. Use the "If pushed" line only if they ask a follow-up. Back
 ## 1. Data and measurement
 
 **Why ICLR?**
-ICLR is the one major ML venue that has published *every* submission, including rejected and withdrawn ones, on
-OpenReview for ten years. That lets us avoid survivorship bias. The cost is that it's one venue. ACL is next.
+ICLR is one of the few major ML venues that has published its submissions, including rejected and withdrawn ones,
+on OpenReview for ten years. That lets us avoid survivorship bias. The cost is that it's one venue. ACL is next.
 
 **How were the topics built? Why 100?**
 We embedded each title and abstract with SPECTER2, a model trained on scientific papers, and clustered the papers
 into 100 groups. We re-ran everything with 75 and 150 topics, and the main results hold. (B4)
 - *If pushed on quality:* the topics agree with ICLR's own area labels better than a keyword baseline (NMI 0.30 vs.
-  0.27). A blind checker matched papers to topic names 61% of the time, against 10% by chance.
+  0.27). From a paper's title and abstract, a blind checker picked its topic 80% of the time at the 100-topic level,
+  and 61% among the 198 finer topics, where chance is 10%.
 
 **Can you trust LLM labels for contribution type?**
 They are very consistent: a blind second pass agrees at kappa 0.93. But the reference labels were also made by an
@@ -30,9 +31,9 @@ LLM, so this shows consistency, not human-level validity. A human check is our n
 **How do you know who is a newcomer?**
 From OpenReview author IDs. A paper is a newcomer paper if none of its authors submitted to ICLR in that topic
 before, whatever the outcome.
-- *If pushed:* ICLR changed its ID system in 2021, so some experienced authors look new. That makes the two groups
-  more alike, which pushes estimates *towards zero*. So our newcomer results are, if anything, conservative.
-  Dropping 2021–22 gives the same results.
+- *If pushed:* ICLR changed its ID system in 2021, so some experienced authors look new. That mixes the two groups,
+  which should push estimates *towards zero*; our registration assumes this. Dropping 2021–22 gives the same
+  results, though later years still undercount incumbents.
 
 **Newcomer to ML, or just to ICLR?**
 Newcomer to that topic at ICLR. A senior person from another field or venue can count as a newcomer. We can't see
@@ -69,13 +70,15 @@ up in a few. It measures diversity.
 ## 3. Design and statistics (Contribution 2)
 
 **You already had the data. What does pre-registration buy you?**
-We registered before the full-corpus labels existed and before any acceptance data were opened. Acceptance stayed
-sealed in code: only one file could read it, and that file refused to run unless the frozen code matched its
-hashes. Then we ran it once, in 18 seconds, and report everything. We also disclosed earlier exploratory work on
-the same corpus.
+We registered before the full-corpus labels existed and before any registered test was run. For those tests,
+acceptance stayed sealed in code: only one file could read it, and that file refused to run unless the frozen code
+matched its hashes. Then we ran it once, in 18 seconds, and report everything. To be transparent: earlier
+exploratory work on keywords, titles and acceptance in the same corpus came before the registration and is disclosed
+in it.
 
-**What are the "10 alternative analyses"?**
-The same test with:
+**What are the "alternative analyses"?**
+For the newcomer results there are 10; RQ1 uses 9 of them, and acceptance adds a logit and a resubmission check
+(11). Each is the same test with:
 - 75 or 150 topics;
 - the year-balanced map, the early map, or the early map on later papers only;
 - only papers with stable topics;
@@ -88,15 +91,16 @@ The same test with:
 Linear models give answers directly in percentage points and handle many fixed effects easily. For acceptance we
 also ran a logit; it gives the same direction.
 
-**What does "within the same topic and year" mean?**
-We compare each paper only with papers from the same topic and year. This removes differences between topics, such
-as LLM papers vs. theory papers, and between years, such as acceptance rates. Technically: topic-by-year fixed
-effects.
+**What does "controlling for topic and year" mean?**
+Every model removes differences between topics, such as LLM papers vs. theory papers, and between years, such as
+field-wide trends and acceptance rates. Technically: topic and year fixed effects. For the newcomer comparison we go
+further: each paper is compared only with papers from the same topic *in the same year* (topic-by-year cells).
 
 **Your simulation found 12.6% false positives. Are your results wrong?**
-No. It means p-values from the standard method are a bit optimistic. Our key results are far stronger than that:
-t = 6.7 and −4.4. Even after shrinking them by the inflation we saw in simulation, p stays below 0.001, and a
-second clustering method agrees. (B3)
+No, but the p-values are approximate. In one scenario, where topic structure cuts across our 100 topics, the
+standard test rejected 12.6% (methods) and 10% (benchmarks) of the time instead of 5%. Our newcomer results are far
+stronger than that inflation: t = 6.7 and −4.4. Even after shrinking them by the inflation we saw, p stays below
+0.001, and a second clustering method agrees. (B3)
 
 **What is Holm?**
 A correction for testing several hypotheses at once. It keeps the chance of *any* false positive in the family at
@@ -110,8 +114,8 @@ fix the problem in simulation, and we report that openly.
 
 ### Foundation models
 
-**Isn't the crowd-out just a time trend?**
-No. We compare topics within the same year, so field-wide trends cancel out. The question is whether topics that
+**Isn't the foundation-model result just a time trend?**
+No. The model controls for year, so field-wide trends cancel out. The question is whether topics that
 adopted foundation models *more* lost architecture papers *more*. They did.
 
 **Could it be reverse causality? Topics where architecture work was already dying adopted foundation models?**
@@ -120,7 +124,7 @@ still an association.
 
 **Maybe architecture papers are just labelled differently now?**
 Partly possible. A paper adding a small adapter to an LLM is labelled "method", not "new architecture". But that is
-the crowd-out we mean: people build on top instead of designing new backbones.
+the pattern we mean: people build on top instead of designing new backbones.
 
 ### Newcomers
 
@@ -133,8 +137,14 @@ Possible. "New method" is a contribution *type*, not a measure of quality or nov
 which type of paper.
 
 **Is it just team size?**
-Not for methods: the method gap stays at +3.9 points with team size controlled. For benchmarks, team size explains
-most of it (−1.7 shrinks to −0.5). Big teams build benchmarks, and big teams usually include an incumbent. (B2)
+Not for methods: the method gap stays at +3.9 points with team size controlled. For benchmarks, team size accounts
+for about two-thirds of it (−1.7 shrinks to −0.5). Big teams write more benchmark papers, and big teams usually
+include an incumbent. (B2)
+
+**Isn't +3.7 points small?**
+On a 75% base, the method gap is modest. But it is very precise (t = 6.7), it holds everywhere we looked, and it
+points the opposite way from our prediction. The benchmark gap is about a fifth of its base rate. The main message is
+the direction: newcomers are not the followers we expected.
 
 **Do newcomer papers get accepted less often?**
 Yes, about 10 points less within the same topic and year. But most of that is about who writes them: team size and
@@ -177,7 +187,12 @@ not advice; team size also stands for compute and seniority. (B7, B8)
 ## 5. Scope and next steps
 
 **Is any of this causal?**
-No. We say "associated with" throughout. Topic, team and paper type are chosen together.
+No. Everything is an association. "Fade" and "lean" describe patterns, not proven causes. Topic, team and paper
+type are chosen together.
+
+**Do you drop withdrawn papers in the acceptance analysis?**
+Yes, the main model uses the 32,190 papers with a final decision. Counting papers withdrawn after review as
+rejections gives a similar estimate (−2.1 points instead of −1.7).
 
 **Why not use review scores?**
 They weren't in our data snapshot. They are the next step, because they could separate reviewers from final
@@ -219,10 +234,10 @@ All code, the frozen inputs and every output are in the repository. One command 
 | Branded titles | 9% → 41% |
 | Papers from 2024–26 | 69% |
 | "Emerging" topics | 8 (early map) vs. 29 (standard map) |
-| FM crowd-out | −8 pp from 0 → 100% FM, so about a third fewer from 10 → 50% |
+| Foundation models vs. new architectures | −8 pp from 0 → 100% FM, so about a third fewer from 10 → 50% |
 | Newcomers and methods | +3.7 pp (base 75%) |
 | Newcomers and benchmarks | −1.7 pp (base 7.7%, about a fifth fewer) |
 | Newcomer share | 73% of papers |
 | Label agreement | κ = 0.93 |
-| False positives found in simulation | 12.6% instead of 5% |
+| False positives found in simulation | up to 12.6% instead of 5% (one scenario) |
 | Newcomer acceptance gap | −10 pp in the same topic and year; −3 pp within the same authors |

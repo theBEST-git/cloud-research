@@ -76,7 +76,7 @@ A pre-registered study of 43,480 ICLR submissions, 2017--2026}
         \item \textbf{Survivorship}: usually only accepted papers are visible\\
           $\to$ \alert{all submissions: accepted, rejected, withdrawn}
         \item \textbf{Hindsight}: topics defined with today's eyes\\
-          $\to$ \alert{prospective topic maps}
+          $\to$ \alert{early-year topic maps}
         \item \textbf{Forking paths}: many ways to analyse\\
           $\to$ \alert{pre-registration, one frozen run}
       \end{itemize}
@@ -93,7 +93,7 @@ A pre-registered study of 43,480 ICLR submissions, 2017--2026}
     \node[pbox,right=of a] (b) {\textbf{Topic}\\paper embeddings\\$\to$ 100 topics};
     \node[pbox,right=of b] (c) {\textbf{Contribution}\\new method, benchmark, theory, \ldots\\\muted{LLM codebook}};
     \node[pbox,right=of c] (d) {\textbf{Authors}\\newcomer or incumbent in the topic};
-    \node[pbox,right=of d,fill=corange!8,draw=corange!60] (e) {\textbf{Acceptance}\\\muted{sealed until the final run}};
+    \node[pbox,right=of d,fill=corange!8,draw=corange!60] (e) {\textbf{Acceptance}\\\muted{sealed until the one registered run}};
     \foreach \x/\y in {a/b,b/c,c/d,d/e} \draw[arr] (\x) -- (\y);
   \end{tikzpicture}
 
@@ -110,7 +110,7 @@ A pre-registered study of 43,480 ICLR submissions, 2017--2026}
       \small
       \begin{itemize}
         \item \textbf{Newcomer paper}: no author has submitted to ICLR \emph{in this topic} before (73\%)
-        \item All comparisons are \textbf{within the same topic and year}
+        \item All models \textbf{control for topic and year}
       \end{itemize}
     \end{column}
   \end{columns}
@@ -141,9 +141,9 @@ A pre-registered study of 43,480 ICLR submissions, 2017--2026}
   {\color{cgreen}\LARGE\bfseries 8} {\small with the 2017--20 map} vs.\
   {\color{cblue}\LARGE\bfseries 29} {\small with the standard map}\\[0.4em]
   Do topics age, from new methods towards benchmarks?\\[0.1em]
-  \includegraphics[width=0.78\textwidth]{figs/lifecycle_flip.pdf}\\[0.1em]
-  \take{Same papers, same model, different map: ``no lifecycle'' becomes ``lifecycle''.\\
-  So every trend result must also hold on prospective maps.}
+  \includegraphics[width=0.74\textwidth]{figs/lifecycle_flip.pdf}\\[0.1em]
+  \take{Same papers, same model, different map: a different answer.\\
+  So every result must also pass two hindsight checks.}
 \end{frame}
 
 % ---------------------------------------------------------------- 6. C2 design
@@ -152,7 +152,7 @@ A pre-registered study of 43,480 ICLR submissions, 2017--2026}
   \begin{tikzpicture}[node distance=0.28cm]
     \node[pbox] (a) {\textbf{Register}\\hypotheses and decision rule};
     \node[pbox,right=of a] (b) {\textbf{Build}\\all variables blind to acceptance};
-    \node[pbox,right=of b] (c) {\textbf{Simulate}\\12,400 fake datasets to test the pipeline};
+    \node[pbox,right=of b] (c) {\textbf{Simulate}\\12,400 runs on fake data to test the pipeline};
     \node[pbox,right=of c] (d) {\textbf{Freeze}\\code and inputs (hashes)};
     \node[pbox,right=of d,fill=corange!8,draw=corange!60] (e) {\textbf{Run once}\\report every result};
     \foreach \x/\y in {a/b,b/c,c/d,d/e} \draw[arr] (\x) -- (\y);
@@ -165,29 +165,28 @@ A pre-registered study of 43,480 ICLR submissions, 2017--2026}
       \begin{enumerate}
         \item the predicted direction
         \item corrected $p < 0.05$ (Holm)
-        \item the same direction in ${\geq}75\%$ of 10 alternative analyses
-        \item agreement on the prospective maps
+        \item the same direction in ${\geq}75\%$ of the alternative analyses (9--11 per question)
+        \item the same direction on both hindsight-check maps
       \end{enumerate}
     \end{column}
     \begin{column}{0.48\textwidth}
       \small\textbf{The simulation caught a real problem}\\[0.3em]
-      In a realistic no-effect simulation, standard clustered errors gave \alert{12.6\%} false positives where 5\%
-      was promised.
-      We report two extra checks for every key result.
+      In a realistic no-effect scenario, standard clustered errors gave up to \alert{12.6\%} false positives where
+      5\% was promised. So the newcomer results get two extra checks.
     \end{column}
   \end{columns}
 \end{frame}
 
 % ---------------------------------------------------------------- 7. F1 FM crowd-out
-\begin{frame}{Finding 1: foundation models crowd out new architectures}
+\begin{frame}{Finding 1: as foundation models spread, new architectures fade}
   \begin{columns}[c]
     \begin{column}{0.55\textwidth}
       \includegraphics[width=\textwidth]{figs/fm_trend.pdf}
     \end{column}
     \begin{column}{0.43\textwidth}
       \small
-      Within the same topic: the more of last year's papers built on foundation models, the fewer new
-      architectures this year.\\[0.6em]
+      Within a topic, net of year trends: the more of last year's papers built on foundation models, the fewer
+      new architectures this year.\\[0.6em]
       \begin{itemize}
         \item 10\% $\to$ 50\% FM use: about \alert{one third fewer} architecture papers
         \item {\footnotesize 0 $\to$ 100\%: $-8$\pp{} (95\% CI $-12$ to $-4$), on a 9\% base}
@@ -198,7 +197,7 @@ A pre-registered study of 43,480 ICLR submissions, 2017--2026}
 \end{frame}
 
 % ---------------------------------------------------------------- 8. F2 newcomers
-\begin{frame}{Finding 2: newcomers bring new methods, incumbents build benchmarks}
+\begin{frame}{Finding 2: newcomer papers lean to new methods, incumbents to benchmarks}
   \begin{columns}[c]
     \begin{column}{0.56\textwidth}
       \includegraphics[width=\textwidth]{figs/newcomers.pdf}
@@ -210,8 +209,8 @@ A pre-registered study of 43,480 ICLR submissions, 2017--2026}
         \item Newcomer papers: \alert{more new methods}, \alert{a fifth fewer} benchmark and evaluation papers
         \item Same direction in all 10 analyses and both extra checks
       \end{itemize}
-      {\scriptsize\muted{Same topic and year. The benchmark gap is partly team size ($-0.5$\pp{} with team size
-      controlled); the method gap is not.}}
+      {\scriptsize\muted{Same topic and year. Base rates: 75\% methods, 8\% benchmarks. Most of the benchmark gap
+      goes with team size ($-0.5$\pp{} with team size controlled); the method gap does not.}}
     \end{column}
   \end{columns}
 \end{frame}
@@ -223,8 +222,8 @@ A pre-registered study of 43,480 ICLR submissions, 2017--2026}
 
   \vspace{0.3em}
   \small
-  Branded titles quadrupled, yet accepted papers carry them at the same rate as all submissions
-  (ratio 1.02).\\
+  Branded titles rose more than fourfold, yet accepted papers carry them at about the same rate as all
+  submissions (ratio 1.02).\\
   Not just LLM writing tools: branding rises in papers with and without LLM-style wording.\\[0.3em]
   {\scriptsize\muted{Exploratory analysis, not part of the pre-registration.}}
 \end{frame}
@@ -235,13 +234,13 @@ A pre-registered study of 43,480 ICLR submissions, 2017--2026}
     \begin{column}{0.31\textwidth}
       \begin{block}{Crowded topics}
         \small No acceptance premium; if anything lower.\\[0.3em]
-        {\footnotesize $-1.7$\pp{} per 2.7$\times$ more prior papers, not significant}
+        {\footnotesize $-1.7$\pp{} per 2.7$\times$ more prior papers; inconclusive (could only detect ${\sim}4$\pp)}
       \end{block}
     \end{column}
     \begin{column}{0.31\textwidth}
       \begin{block}{Branded titles}
         \small No premium.\\[0.3em]
-        {\footnotesize accepted papers use them at the submitted rate}
+        {\footnotesize accepted papers use them at the submitted rate; exploratory}
       \end{block}
     \end{column}
     \begin{column}{0.31\textwidth}
@@ -262,19 +261,20 @@ A pre-registered study of 43,480 ICLR submissions, 2017--2026}
 \begin{frame}{Contributions}
   \begin{enumerate}
     \item \textbf{A measurement warning, with a fix.} Topic maps fitted in hindsight invent ``emerging''
-      topics and can flip trend conclusions. Prospective maps are a cheap check.
+      topics and can flip trend conclusions. Early-year maps are a cheap check.
     \item \textbf{A rigorous template for science-of-science.} Pre-registered, outcome-blind,
       simulation-checked, one frozen run.
     \item \textbf{New evidence on research fashions.}
       \begin{itemize}
-        \item foundation models crowd out new architectures
-        \item newcomers to a topic, not incumbents, bring new methods
-        \item style spreads like topics, without a reward
+        \item where foundation models spread, new architectures fade (pre-registered)
+        \item newcomer papers lean to new methods, not to following (opposite to our prediction)
+        \item style spreads like topics, without a reward (exploratory)
       \end{itemize}
   \end{enumerate}
   \vspace{0.4em}
   {\small\muted{Limits: one venue; associations, not causes; labels from an LLM ($\kappa = 0.93$, not yet checked by
-  humans); author IDs changed in 2021, which undercounts incumbents and makes the newcomer results conservative.}}
+  humans); author IDs changed in 2021, so some incumbents look like newcomers (expected to push estimates towards
+  zero).}}
 \end{frame}
 
 % ---------------------------------------------------------------- 12. next
@@ -347,8 +347,8 @@ A pre-registered study of 43,480 ICLR submissions, 2017--2026}
 \begin{frame}{B3. Why we did not trust standard errors}
   \small
   \begin{itemize}
-    \item Before seeing any result, we simulated 12,400 datasets with \textbf{no true effect} but realistic topic
-      structure.
+    \item Before seeing any result, we ran 12,400 simulations, including scenarios with \textbf{no true effect}
+      but realistic topic structure.
     \item When the true topic structure cuts across our 100 topics, the standard test rejected \alert{12.6\%} (method) and
       10.0\% (benchmark) of the time, not 5\%. A wild bootstrap did not fix it.
     \item So we added, before the run:
@@ -370,8 +370,8 @@ A pre-registered study of 43,480 ICLR submissions, 2017--2026}
       \begin{itemize}
         \item Agreement with ICLR's own primary areas (2024--26): NMI 0.30 vs.\ 0.27 for a keyword (TF-IDF)
           baseline
-        \item Blind naming test: from title and abstract, a checker picks the right topic name 61\% of the time
-          (chance 10\%)
+        \item Blind naming test: from title and abstract, a checker picks the right topic 80\% of the time at the
+          100-topic level (61\% among 198 fine topics; chance 10\%)
         \item Stable across refits (ARI 0.66)
       \end{itemize}
     \end{column}
@@ -435,7 +435,8 @@ A pre-registered study of 43,480 ICLR submissions, 2017--2026}
       \small
       \begin{itemize}
         \item $+8.8$\pp{} per doubling of team size, same topic and year
-        \item Steepest for benchmark papers (1--2 authors 21\% vs.\ 7+ authors 52\%)
+        \item Steepest for benchmark and evaluation papers ($+13.5$\pp{} each; benchmarks by 1--2 authors 21\%
+          vs.\ 7+ authors 52\%); this ranking is only suggestive
         \item Flattest for theory (1--2 authors 42\%)
         \item Positive in all 20 areas; flattest in federated learning and time series
       \end{itemize}
@@ -497,7 +498,8 @@ A pre-registered study of 43,480 ICLR submissions, 2017--2026}
     \item[Newcomer paper] no author has an earlier ICLR submission (any outcome) in that topic
     \item[FM adoption] share of the topic's papers last year that built on a foundation model
     \item[Benchmark \& eval.] primary contribution is a dataset, benchmark or evaluation
-    \item[Model] linear probability model with topic and year fixed effects; errors clustered by topic
+    \item[Model] linear probability model with topic and year fixed effects (topic $\times$ year cells for the
+      newcomer comparisons); errors clustered by topic
     \item[pp] percentage points
   \end{description}
 \end{frame}

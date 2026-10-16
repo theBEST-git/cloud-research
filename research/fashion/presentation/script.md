@@ -1,7 +1,7 @@
 # Talk script: "Following the Fashion?"
 
 - **Length:** about 1,500 spoken words, about 12.5 minutes at a calm pace (120 words a minute). That leaves about
-  2 minutes of buffer under the 15-minute limit.
+  2.5 minutes of buffer under the 15-minute limit.
 - **Rehearsal:** time yourself once. If you run over 14 minutes, cut the sentences marked *(cut if short on
   time)*.
 - **Questions:** see `qa.md`. Backup slides B1–B11 sit after the "Thank you" slide.
@@ -74,10 +74,11 @@ For each paper we measure four things.
   A blind second labelling pass agrees with a kappa of 0.93.
 - **Its authors.** We call a paper a *newcomer paper* if none of its authors has submitted to ICLR in that topic
   before. That's 73 percent of papers.
-- **Acceptance**, which stayed sealed until the very last step.
+- **Acceptance**, which stayed sealed until the one registered run.
 
-One important point: all comparisons are *within the same topic and the same year*. We never compare an LLM paper
-from 2025 with a GAN paper from 2018.
+One important point: every model controls for topic and year, so differences between, say, LLM papers in 2025 and
+GAN papers in 2018 don't drive our results. For newcomers we go further and compare papers only within the same
+topic *and* year.
 
 ## Slide 4: Contribution 1, topic maps carry hindsight (1:20)
 
@@ -89,8 +90,8 @@ the standard thing to do, you get a map of *today's* field.
 Here is what that does. The y-axis shows how many of the 100 topics are really in use each year. Think of it as
 the field's diversity.
 
-- The **blue** line is the standard map. Diversity rises steadily, and you would conclude: "ML is getting more
-  diverse."
+- The **blue** line is the standard map. Diversity rises almost every year, and you would conclude: "ML is getting
+  more diverse."
 - The **green** line is a map built only from 2017–2020 papers. It says the field was most diverse in 2020.
 - The **orange** map, built only from recent papers, peaks in 2025.
 
@@ -108,12 +109,13 @@ Or take a classic question: do topics age? As a topic matures, do people shift f
 building benchmarks?
 
 - With the standard map, the answer is no. Both estimates are basically zero.
-- With the early map, on exactly the same papers and the same model, the answer becomes yes: fewer new methods,
-  more benchmarks.
-- *(cut if short on time)* It gets even stronger if we only use papers written after the map was built.
+- With the early map, on exactly the same papers and the same model, the estimates move the other way: fewer new
+  methods and more benchmarks as topics mature. This is exploratory, but it is clearly different from the standard
+  map.
+- *(cut if short on time)* The pattern is stronger still if we only use papers written after the map was built.
 
-So "no lifecycle" becomes "lifecycle" just by changing the map. That's why, in our study, every trend result must
-also hold on the prospective maps.
+So the same question gets a different answer just by changing the map. That's why, in our study, every result must
+also pass two hindsight checks.
 
 ## Slide 6: Contribution 2, a design that keeps us from fooling ourselves (1:10)
 
@@ -121,33 +123,36 @@ Our second contribution is the design. Read the boxes from left to right.
 
 1. We registered the hypotheses and the decision rule first.
 2. We built every variable without looking at acceptance.
-3. We tested the whole pipeline on 12,400 simulated datasets where we knew the true answer.
+3. We tested the whole pipeline with 12,400 simulation runs on fake data where we knew the true answer.
 4. We froze the code with cryptographic hashes.
 5. Then we ran the real analysis once, and we report every result, including the ones that didn't work out.
 
-A claim needs all four conditions on the left: the predicted direction, a corrected p-value below 0.05, the same
-direction in at least 75 percent of ten alternative analyses, and agreement on the prospective maps.
+A claim needs all four conditions on the left:
+- the predicted direction;
+- a corrected p-value below 0.05;
+- the same direction in at least 75 percent of the alternative analyses;
+- the same direction on both hindsight-check maps.
 
 And the simulation was worth it, because it caught a real problem. In one realistic scenario, the standard
-clustered standard errors gave 12.6 percent false positives instead of 5. So for every key result we report two
+clustered standard errors gave up to 12.6 percent false positives instead of 5. So the newcomer results get two
 extra checks.
 
-## Slide 7: Finding 1, foundation models crowd out new architectures (1:00)
+## Slide 7: Finding 1, as foundation models spread, new architectures fade (1:00)
 
-Now the findings. First: foundation models crowd out new architectures.
+Now the findings. First: as foundation models spread, new architectures fade.
 
 On the left you see the overall trend. But a trend alone doesn't prove much, because lots of things change over
 time.
 
-So we look *within the same topic*. When more of last year's papers in a topic built on foundation models, does
-that topic see fewer new architectures this year? Yes. Going from 10 to 50 percent foundation-model use goes with
+So we look *within topics*, after removing year-wide trends. When more of last year's papers in a topic built on
+foundation models, does that topic see fewer new architectures this year? Yes. Going from 10 to 50 percent foundation-model use goes with
 about a third fewer architecture papers.
 
 This was a pre-registered prediction. It is supported, and it holds in all nine alternative analyses. In plain
-words: once a topic adopts foundation models, people stop designing their own architectures and build on top
-instead.
+words: in topics that adopt foundation models, fewer papers design their own architecture and more build on top.
+It's an association, but a very consistent one.
 
-## Slide 8: Finding 2, newcomers bring new methods, incumbents build benchmarks (1:20)
+## Slide 8: Finding 2, newcomer papers lean to new methods, incumbents to benchmarks (1:20)
 
 The second finding surprised us.
 
@@ -163,18 +168,18 @@ We found the opposite. Within the same topic and year:
 The grey areas show where we predicted the results would be. Both land on the other side. The small tick marks are
 the ten alternative analyses, and they all agree.
 
-One honest caveat: the benchmark gap is partly about team size, because big teams are more likely to include an
-incumbent. The method gap is not.
+One honest caveat: most of the benchmark gap goes with team size, because big teams are more likely to include an
+incumbent. The method gap does not.
 
-So the picture is: new people bring new methods, and established people build the shared infrastructure of their
-field, the benchmarks.
+So the picture is: papers by people new to a topic lean towards new methods, and papers by insiders lean towards
+benchmarks, the shared infrastructure of a field. Newcomers are not the followers we expected.
 
 ## Slide 9: Finding 3, fashion in style, too (0:45)
 
 Third, fashion isn't only about topics. It's also about style.
 
-Branded titles quadrupled. But look at the right panel: accepted papers carry them at about the same rate as all
-submissions, every year. A catchy name doesn't help you get in.
+Branded titles more than quadrupled. But look at the right panel: accepted papers carry them at about the same
+rate as all submissions, every year. Catchy names are not accepted more often. This part is exploratory.
 
 And it's not just LLMs writing our titles. The branded style rises strongly even in papers whose abstracts show
 no sign of LLM writing.
@@ -183,8 +188,8 @@ no sign of LLM writing.
 
 So, does following the fashion pay off? We find no sign that it does.
 
-- **Crowded topics** get no acceptance premium. If anything, it's slightly lower, but that estimate is not
-  significant, and the test had limited power.
+- **Crowded topics** get no acceptance premium. If anything, it's slightly lower, but the test is inconclusive:
+  it could only detect fairly large effects.
 - **Branded titles:** no premium.
 - **Against the tide**, interestingly: in topics dominated by foundation models, the few remaining architecture
   papers are accepted relatively *more* often. That one is exploratory, so take it as a hint, not a result.
@@ -196,12 +201,12 @@ The overall message: fashion spreads, but the review process does not visibly re
 To sum up, three contributions.
 
 1. **A measurement warning, with a fix.** Topic maps built with hindsight invent emerging topics and can flip
-   conclusions. Checking a prospective map is cheap.
+   conclusions. Checking an early-year map is cheap.
 2. **A rigorous template for science-of-science:** pre-registered, outcome-blind, simulation-checked, one frozen
    run.
 3. **New evidence on research fashions:**
-   - foundation models crowd out new architectures;
-   - newcomers, not incumbents, bring new methods;
+   - where foundation models spread, new architectures fade;
+   - newcomer papers lean towards new methods, the opposite of what we predicted;
    - and style spreads like topics, without a reward.
 
 The main limits: this is one venue; these are associations, not causes; and our labels come from an LLM. They are

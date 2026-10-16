@@ -1,7 +1,8 @@
 """Slide figures for the talk. Reads only committed outputs (hindsight check, RQ1 results, frozen-run and post hoc
 estimates) and the outcome-free contribution labels; it never reads acceptance or review columns.
 
-Figures are drawn at about 1.55x their size on the slide, so 15 pt text lands near 10 pt.
+Figures are drawn at about 1.55x their size on the slide, so 15 pt text lands near 10 pt. Academic style: white
+background, plain panel labels (a), (b), formal axis titles; captions are set in LaTeX.
 
     python research/fashion/presentation/make_figures.py      -> research/fashion/presentation/figs/*.pdf
 """
@@ -24,13 +25,13 @@ from common import OUTPUT, TOPICS  # noqa: E402
 
 FIGS = HERE / "figs"
 BLUE, ORANGE, GREEN = "#2a78d6", "#eb6834", "#1baf7a"
-INK, INK2, MUTED, GRID, BG, SHADE = "#0b0b0b", "#52514e", "#8a8984", "#e4e3df", "#fafafa", "#eeeeec"
+INK, INK2, MUTED, GRID, BG, SHADE = "#0b0b0b", "#3a3a38", "#7a7974", "#e4e3df", "#ffffff", "#efefed"
 FS = 15                                                                          # base font size
 
 plt.rcParams.update({
     "font.family": "DejaVu Sans", "font.size": FS, "axes.titlesize": FS + 1, "axes.labelsize": FS,
-    "axes.edgecolor": MUTED, "axes.linewidth": 0.9, "axes.labelcolor": INK2, "axes.titlecolor": INK,
-    "axes.titleweight": "bold", "axes.titlelocation": "left",
+    "axes.edgecolor": INK2, "axes.linewidth": 0.9, "axes.labelcolor": INK2, "axes.titlecolor": INK,
+    "axes.titleweight": "normal", "axes.titlelocation": "left",
     "xtick.color": INK2, "ytick.color": INK2, "axes.grid": True, "grid.color": GRID, "grid.linewidth": 0.8,
     "axes.axisbelow": True, "axes.spines.top": False, "axes.spines.right": False,
     "figure.facecolor": BG, "axes.facecolor": BG, "savefig.facecolor": BG, "legend.frameon": False,
@@ -58,11 +59,12 @@ def hindsight() -> None:
         years, vals = [int(y) for y in eff], [100 * v for v in eff.values()]
         ax.plot(years, vals, color=colour, lw=3, marker="o", ms=6, mec=BG, mew=1.5)
         ax.annotate(label, (years[-1], vals[-1]), xytext=(8, 0), textcoords="offset points", va="center",
-                    color=colour, fontsize=FS, fontweight="bold")
+                    color=colour, fontsize=FS)
     ax.set_xticks(range(2017, 2027, 3))
     ax.set_xlim(2016.6, 2026.4)
     ax.set_ylim(38, 100)
-    ax.set_ylabel("topics in real use (of 100)")
+    ax.set_xlabel("Submission year")
+    ax.set_ylabel("Effective topics (of 100)")
     save(fig, "hindsight_diversity")
 
 
@@ -76,12 +78,12 @@ def emerging() -> None:
     counts = [maps[k]["emerging_topics"] for k, _, _ in rows]
     ax.barh(y, counts, color=[c for _, _, c in rows], height=0.6)
     for yi, c in zip(y, counts):
-        ax.text(c + 0.6, yi, str(c), va="center", fontsize=FS + 1, color=INK, fontweight="bold")
+        ax.text(c + 0.6, yi, str(c), va="center", fontsize=FS + 1, color=INK)
     ax.set_yticks(y, [r for _, r, _ in rows])
     ax.set_xlim(0, 34)
-    ax.set_xlabel("topics that look 'emerging' (≥3× growth)")
+    ax.set_xlabel("Number of emerging topics (≥3× growth)")
     ax.grid(axis="y", visible=False)
-    ax.set_title("Map built from …", fontsize=FS)
+    ax.set_title("Map fitted on", fontsize=FS)
     save(fig, "hindsight_emerging")
 
 
@@ -91,8 +93,8 @@ def lifecycle() -> None:
     rows = [("main", "standard map", BLUE), ("early", "early map", GREEN),
             ("early_prospective", "early map,\n2021–26 papers", GREEN)]
     fig, axes = plt.subplots(1, 2, figsize=(7.4, 3.2), sharey=True)
-    for ax, (h, title, pred) in zip(axes, [("H1a", "New-method papers", "predicted: fewer"),
-                                             ("H1b", "Benchmark & evaluation papers", "predicted: more")]):
+    for ax, (h, title, pred) in zip(axes, [("H1a", "(a) New-method papers", "predicted: −"),
+                                             ("H1b", "(b) Benchmark & evaluation papers", "predicted: +")]):
         for i, (variant, _, colour) in enumerate(rows):
             g = r[(r.hypothesis == h) & (r.variant == variant)].iloc[0]
             c, se = 100 * g.coef, 100 * g.se
@@ -100,14 +102,14 @@ def lifecycle() -> None:
             ax.plot([c - T99 * se, c + T99 * se], [yi, yi], color=colour, lw=3.5, solid_capstyle="round")
             ax.plot(c, yi, "o", color=colour, ms=11, mec=BG, mew=1.5)
             ax.annotate(minus(f"{c:+.1f}"), (c, yi), xytext=(0, 10), textcoords="offset points", ha="center",
-                        fontsize=FS, color=INK, fontweight="bold")
+                        fontsize=FS, color=INK)
         ax.axvline(0, color=INK2, lw=1.2)
         ax.set_title(title)
         ax.set_xlim(-7.5, 7.5)
         ax.set_ylim(-0.6, 2.75)
         ax.text(0.98 if h == "H1b" else 0.02, 0.03, pred, transform=ax.transAxes, fontsize=FS - 2, color=MUTED,
                 ha="right" if h == "H1b" else "left")
-        ax.set_xlabel("pp per 2.7× more papers", fontsize=FS - 1)
+        ax.set_xlabel("Estimate (pp)", fontsize=FS - 1)
         ax.grid(axis="y", visible=False)
     axes[0].set_yticks(range(len(rows))[::-1], [lab for _, lab, _ in rows])
     fig.tight_layout(w_pad=1.5)
@@ -126,13 +128,14 @@ def fm_trend() -> None:
             low = v < 1                                                          # 0.3%: label above the point
             ax.annotate(f"{v:.1f}%" if low else f"{v:.0f}%", (x, v), xytext=(0, 12) if low else (dx, 0),
                         textcoords="offset points", va="center", ha="center" if low else ha, fontsize=FS,
-                        color=INK, fontweight="bold")
-    ax.text(2017.3, 49, "builds on a\nfoundation model", color=BLUE, fontsize=FS, fontweight="bold")
-    ax.text(2017.6, 29, "proposes a new\narchitecture", color=ORANGE, fontsize=FS, fontweight="bold")
+                        color=INK)
+    ax.text(2017.3, 49, "builds on a\nfoundation model", color=BLUE, fontsize=FS)
+    ax.text(2017.6, 29, "proposes a new\narchitecture", color=ORANGE, fontsize=FS)
     ax.set_xticks(range(2017, 2027, 3))
     ax.set_xlim(2014.9, 2027.6)
     ax.set_ylim(-2, 60)
-    ax.set_ylabel("% of submissions")
+    ax.set_xlabel("Submission year")
+    ax.set_ylabel("Share of submissions (%)")
     save(fig, "fm_trend")
 
 
@@ -140,31 +143,31 @@ def newcomers() -> None:
     """H2b / H2c: main estimate with 95% CI, the ten counted variants, and the predicted side shaded."""
     r = pd.read_csv(OUTPUT / "frozen_run" / "rq2_results.csv")
     fig, axes = plt.subplots(2, 1, figsize=(5.4, 3.9), sharex=True)
-    for ax, h, title, sign in [(axes[0], "H2b", "New-method papers", -1),
-                               (axes[1], "H2c", "Benchmark & evaluation papers", 1)]:
+    for ax, h, title, sign in [(axes[0], "H2b", "(a) New-method papers (H2b)", -1),
+                               (axes[1], "H2c", "(b) Benchmark & evaluation papers (H2c)", 1)]:
         g = r[r.hypothesis == h]
         m = g[g.kind == "main"].iloc[0]
         v = g[g.kind == "counted"]
         lo, hi = (-5, 0) if sign < 0 else (0, 5)
         ax.axvspan(lo, hi, color=SHADE, zorder=0)
-        ax.text(lo + 0.15 if sign < 0 else hi - 0.15, 0.72, "we predicted\nthis side", fontsize=FS - 2,
+        ax.text(lo + 0.15 if sign < 0 else hi - 0.15, 0.72, "registered\nprediction", fontsize=FS - 2,
                 color=MUTED, ha="left" if sign < 0 else "right", va="center")
         ax.scatter(100 * v.coef, [0.45] * len(v), s=70, marker="|", color=INK2, lw=2.2, zorder=2)
         ax.plot([100 * m.ci95_lo, 100 * m.ci95_hi], [0, 0], color=INK, lw=3.5, zorder=3, solid_capstyle="round")
         ax.plot(100 * m.coef, 0, "o", color=BLUE if sign < 0 else ORANGE, ms=14, mec=BG, mew=1.5, zorder=4)
         ax.annotate(minus(f"{100 * m.coef:+.1f} pp"), (100 * m.coef, 0), xytext=(0, -26),
-                    textcoords="offset points", ha="center", fontsize=FS + 1, fontweight="bold", color=INK)
+                    textcoords="offset points", ha="center", fontsize=FS + 1, color=INK)
         ax.axvline(0, color=INK2, lw=1.2)
         ax.set_yticks([])
         ax.set_ylim(-1, 1)
         ax.set_title(title, fontsize=FS)
         ax.grid(axis="y", visible=False)
         ax.spines["left"].set_visible(False)
-    axes[1].annotate("10 alternative analyses", (100 * r[(r.hypothesis == "H2c") & (r.kind == "counted")].coef.min(),
+    axes[1].annotate("10 alternative specs.", (100 * r[(r.hypothesis == "H2c") & (r.kind == "counted")].coef.min(),
                                                   0.45), xytext=(-10, 0), textcoords="offset points", ha="right",
                      va="center", fontsize=FS - 2, color=INK2)
     axes[1].set_xlim(-5, 5)
-    axes[1].set_xlabel("newcomer minus incumbent paper (pp)")
+    axes[1].set_xlabel("Coefficient on newcomer paper (pp, 95% CI)")
     fig.tight_layout(h_pad=0.4)
     save(fig, "newcomers")
 
@@ -182,14 +185,14 @@ def newcomer_gap() -> None:
         yi = len(rows) - 1 - i
         ax.barh(yi, 100 * c, color=[MUTED, MUTED, BLUE][i], height=0.55)
         ax.plot([100 * lo, 100 * hi], [yi, yi], color=INK, lw=1.6)
-        ax.text(100 * lo - 0.3, yi, minus(f"{100 * c:.1f}"), ha="right", va="center", fontsize=FS, fontweight="bold")
+        ax.text(100 * lo - 0.3, yi, minus(f"{100 * c:.1f}"), ha="right", va="center", fontsize=FS)
     ax.set_yticks(range(len(rows))[::-1], [r[0] for r in rows])
     ax.yaxis.tick_right()
     ax.spines["left"].set_visible(False)
     ax.spines["right"].set_visible(True)
     ax.set_xlim(-14.5, 0)
     ax.set_xticks([-12, -8, -4, 0], ["−12", "−8", "−4", "0"])
-    ax.set_xlabel("newcomer acceptance gap (pp, 95% CI)")
+    ax.set_xlabel("Coefficient on newcomer paper (pp, 95% CI)")
     ax.grid(axis="y", visible=False)
     save(fig, "newcomer_gap")
 
@@ -202,10 +205,10 @@ def team_size() -> None:
     vals = [100 * s[b] for b in bands]
     ax.bar(bands, vals, color=BLUE, width=0.6)
     for i, v in enumerate(vals):
-        ax.text(i, v + 1, f"{v:.0f}%", ha="center", fontsize=FS, color=INK, fontweight="bold")
+        ax.text(i, v + 1, f"{v:.0f}%", ha="center", fontsize=FS, color=INK)
     ax.set_ylim(0, 58)
-    ax.set_xlabel("authors on the paper")
-    ax.set_ylabel("accepted (%)")
+    ax.set_xlabel("Number of authors")
+    ax.set_ylabel("Acceptance rate (%)")
     ax.grid(axis="x", visible=False)
     save(fig, "team_size")
 

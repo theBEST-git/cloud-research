@@ -1,220 +1,214 @@
 # Talk script: "Following the Fashion?"
 
-- **Length:** about 1,500 spoken words, about 12.5 minutes at a calm pace (120 words a minute). That leaves about
-  2.5 minutes of buffer under the 15-minute limit.
+- **Length:** about 1,400 spoken words, about 12 minutes at a calm pace (120 words a minute). The timing table
+  allows 12.5 minutes, which leaves 2.5 minutes of buffer under the 15-minute limit.
 - **Rehearsal:** time yourself once. If you run over 14 minutes, cut the sentences marked *(cut if short on
   time)*.
-- **Questions:** see `qa.md`. Backup slides B1–B11 sit after the "Thank you" slide.
+- **Questions:** see `qa.md`. Appendix slides A1–A11 and the references come after the "Thank you" slide.
 
 | Slide | Target | Ends by |
 |---|---|---|
-| 0 Title | 0:15 | 0:15 |
-| 1 Waves | 0:55 | 1:10 |
-| 2 Questions and traps | 1:10 | 2:20 |
-| 3 Data | 1:10 | 3:30 |
-| 4 Contribution 1: hindsight | 1:20 | 4:50 |
-| 5 Hindsight changes conclusions | 1:10 | 6:00 |
-| 6 Contribution 2: design | 1:10 | 7:10 |
-| 7 Finding 1: foundation models | 1:00 | 8:10 |
-| 8 Finding 2: newcomers | 1:20 | 9:30 |
-| 9 Finding 3: title style | 0:45 | 10:15 |
-| 10 Reward | 0:55 | 11:10 |
-| 11 Contributions | 0:50 | 12:00 |
-| 12 Next steps, thanks | 0:20 | 12:20 |
+| 1 Title | 0:15 | 0:15 |
+| 2 Outline | 0:15 | 0:30 |
+| 3 Motivation | 0:45 | 1:15 |
+| 4 Research questions and hypotheses | 0:55 | 2:10 |
+| 5 Related work | 0:55 | 3:05 |
+| 6 Data and measurement | 1:05 | 4:10 |
+| 7 Hindsight bias in topic maps | 1:10 | 5:20 |
+| 8 Consequence | 0:55 | 6:15 |
+| 9 Empirical strategy | 1:10 | 7:25 |
+| 10 RQ1 | 0:55 | 8:20 |
+| 11 RQ2 | 1:15 | 9:35 |
+| 12 Exploratory: title style | 0:40 | 10:15 |
+| 13 RQ3 | 0:50 | 11:05 |
+| 14 Contributions | 0:40 | 11:45 |
+| 15 Limitations and future work | 0:35 | 12:20 |
+| 16 Thank you | 0:05 | 12:25 |
 
 ---
 
-## Slide 0: Title (0:15)
+## Slide 1: Title (0:15)
 
-Hi everyone, I'm [name]. Today I'll talk about research fashions in machine learning: how trends rise, who
-drives them, and whether following them actually pays off.
+Good morning, everyone. I'm [name]. Today I'll present a study of research fashions in machine learning: how
+trends rise, who drives them, and whether following them pays off at review.
 
-## Slide 1: Machine learning moves in waves (0:55)
+## Slide 2: Outline (0:15)
 
-Let me start with three numbers from ICLR.
+I'll start with the motivation and our research questions, then describe the data. I'll present one methodological
+result and our empirical strategy, then the main results, and close with contributions and limitations.
 
-In 2017, about a quarter of all submissions proposed a new architecture. By 2026, it's eight percent.
+## Slide 3: Motivation (0:45)
 
-Over the same years, papers that build on a foundation model went from almost zero to more than half of all
-submissions.
+Table 1 shows three shifts at ICLR between 2017 and 2026.
+- The share of submissions proposing a new architecture fell from 24 to 8 percent.
+- The share building on a foundation model rose from almost zero to 54 percent.
+- Titles of the form "NAME, colon, subtitle" rose from 9 to 41 percent.
 
-And it's not only *what* we study, it's also *how we write*. Titles of the form "NAME, colon, subtitle", like
-"BERT: something", went from nine to forty-one percent.
+So ML research moves in waves, both in what is studied and in how it is presented. Our question is whether these
+are fashions, and if so: what they displace, who drives them, and whether followers are rewarded.
 
-So machine learning clearly moves in waves. The question is whether these are *fashions*. Who starts them, who
-follows them, and does following them pay off?
+## Slide 4: Research questions and pre-registered hypotheses (0:55)
 
-## Slide 2: Three questions, three measurement traps (1:10)
+This gives three research questions. The table shows the key hypothesis for each; the full list of ten is in
+Appendix A1.
 
-That gives us three research questions.
+- **RQ1, rise.** H1d predicts that when more of a topic's papers build on foundation models, fewer of its papers
+  propose new architectures.
+- **RQ2, following.** We predicted that newcomer papers would be *less* often new-method papers (H2b) and *more*
+  often benchmark or evaluation papers (H2c). In other words, newcomers imitate and insiders innovate.
+- **RQ3, reward.** H3a predicts that papers in more mature, crowded topics are accepted less often.
 
-- **RQ1, rise:** when a fashion rises, what does it crowd out?
-- **RQ2, following:** who brings new kinds of work into a topic, newcomers or the people already there?
-- **RQ3, reward:** does following the fashion get your paper accepted?
+All hypotheses were registered before any analysis.
 
-These sound simple, but they are hard to measure, for three reasons.
+## Slide 5: Related work and positioning (0:55)
 
-- First, **survivorship**. Most studies only see published papers. We use every submission, including rejected
-  and withdrawn ones.
-- Second, **hindsight**. Topics are usually defined with today's view of the field. We also build topic maps from
-  the early years only, to see the past as it looked at the time.
-- Third, **forking paths**. With this much data, you can always find *something*. So we pre-registered our
-  hypotheses and ran the confirmatory analysis exactly once.
+Our prediction for RQ2 followed one view in the literature.
+- **Fashion and herding.** Classic work on fads and informational cascades argues that ideas spread by imitation
+  (Abrahamson; Bikhchandani and colleagues). That implies newcomers follow.
+- **Outsider innovation.** Other work finds that new entrants bring new ideas. Azoulay and colleagues show that
+  outsiders move into a field after a leading scientist dies prematurely, and their work is often highly cited. Foster and
+  colleagues describe the tension between tradition and innovation.
 
-## Slide 3: Data (1:10)
+On ML specifically, Koch and colleagues show that research concentrates on fewer benchmarks over time.
 
-Our data are 43,480 ICLR submissions from 2017 to 2026, from OpenReview, accepted or not. A separate held-out
-set is saved for replication.
+Studies like these face three measurement challenges, which we address:
+1. survivorship, because usually only published papers are observed;
+2. hindsight in how topics are defined;
+3. forking paths, which we handle with pre-registration.
 
-For each paper we measure four things.
+## Slide 6: Data and measurement (1:05)
 
-- **Its topic.** We embed the title and abstract with a scientific-paper encoder and cluster the papers into
-  100 topics.
-- **Its contribution type:** a new method, a benchmark, theory, and so on. An LLM labels it with a fixed codebook.
-  A blind second labelling pass agrees with a kappa of 0.93.
-- **Its authors.** We call a paper a *newcomer paper* if none of its authors has submitted to ICLR in that topic
-  before. That's 73 percent of papers.
-- **Acceptance**, which stayed sealed until the one registered run.
+Our corpus is 43,480 ICLR submissions from 2017 to 2026, taken from OpenReview. It includes accepted, rejected and
+withdrawn papers, and a separate held-out split is reserved for replication.
 
-One important point: every model controls for topic and year, so differences between, say, LLM papers in 2025 and
-GAN papers in 2018 don't drive our results. For newcomers we go further and compare papers only within the same
-topic *and* year.
+Table 3 lists the measures.
+- **Topics.** We embed each title and abstract with SPECTER2 and cluster the papers into 100 topics. These topics
+  agree with ICLR's own area labels better than a keyword baseline, and the results hold with 75 or 150 topics.
+- **Contribution type.** An LLM applies a fixed codebook: new method, benchmark or evaluation, empirical study,
+  theory, or other. A blind second labelling pass agrees at kappa 0.93.
+- **Newcomer paper.** None of the authors has an earlier ICLR submission in that topic. That's 73 percent of
+  papers.
+- **Acceptance** stayed sealed until the single registered run.
 
-## Slide 4: Contribution 1, topic maps carry hindsight (1:20)
+## Slide 7: Hindsight bias in topic maps (1:10)
 
-Now our first contribution, which is about measurement.
+Before the main results, one methodological finding.
 
-69 percent of ICLR submissions are from the last three years. So if you build a topic map from all years, which is
-the standard thing to do, you get a map of *today's* field.
+69 percent of submissions are from 2024 to 2026. A topic map fitted on all years is therefore mostly a map of the
+present.
 
-Here is what that does. The y-axis shows how many of the 100 topics are really in use each year. Think of it as
-the field's diversity.
+Figure 1 shows the effective number of topics per year, a measure of diversity, under three maps that differ only
+in which years they were fitted on.
+- The **standard map**, in blue, suggests diversity rose almost every year.
+- The map fitted on **2017–2020** papers, in green, peaks in 2020.
+- The map fitted on **2024–2026** papers, in orange, peaks in 2025.
 
-- The **blue** line is the standard map. Diversity rises almost every year, and you would conclude: "ML is getting
-  more diverse."
-- The **green** line is a map built only from 2017–2020 papers. It says the field was most diverse in 2020.
-- The **orange** map, built only from recent papers, peaks in 2025.
+Each map finds peak diversity in the years used to fit it. So topic maps are not neutral preprocessing: the
+fitting window shapes the history one observes.
 
-Each map says the field was most diverse exactly in the years it was built from. So the topic map is not neutral
-preprocessing. It decides which past you see.
+## Slide 8: Consequence (0:55)
 
-## Slide 5: …and hindsight changes the conclusions (1:10)
+This matters for substantive conclusions.
 
-And this changes real conclusions.
+First, the number of emerging topics, those that grew at least three-fold, is 8 under the early map but 29 under
+the standard map.
 
-Take "emerging topics", topics that grew at least three-fold. With the early map there are 8. With the standard
-map, 29. Same papers.
+Second, consider a lifecycle question: as a topic matures, does work shift from new methods towards benchmarks?
+Figure 2 shows the same model on the same papers.
+- Under the standard map, both estimates are essentially zero.
+- Under the early map, they point towards a lifecycle: fewer new methods and more benchmarks.
+- *(cut if short on time)* The pattern is stronger on papers written after the early map was fitted.
 
-Or take a classic question: do topics age? As a topic matures, do people shift from proposing new methods to
-building benchmarks?
-
-- With the standard map, the answer is no. Both estimates are basically zero.
-- With the early map, on exactly the same papers and the same model, the estimates move the other way: fewer new
-  methods and more benchmarks as topics mature. This is exploratory, but it is clearly different from the standard
-  map.
-- *(cut if short on time)* The pattern is stronger still if we only use papers written after the map was built.
-
-So the same question gets a different answer just by changing the map. That's why, in our study, every result must
+The early-map results are exploratory, but the lesson is clear. For that reason, every registered result must
 also pass two hindsight checks.
 
-## Slide 6: Contribution 2, a design that keeps us from fooling ourselves (1:10)
+## Slide 9: Empirical strategy (1:10)
 
-Our second contribution is the design. Read the boxes from left to right.
+Our models are linear probability models. The outcome is a 0/1 variable, such as whether a paper is a new-method
+paper. The regressor of interest is, for example, whether it is a newcomer paper. We include topic and year fixed
+effects; for RQ2 we use topic-by-year fixed effects, so each paper is compared only with papers from the same topic
+in the same year. Standard errors are clustered by topic.
 
-1. We registered the hypotheses and the decision rule first.
-2. We built every variable without looking at acceptance.
-3. We tested the whole pipeline with 12,400 simulation runs on fake data where we knew the true answer.
-4. We froze the code with cryptographic hashes.
-5. Then we ran the real analysis once, and we report every result, including the ones that didn't work out.
+A hypothesis counts as supported only if:
+- it has the predicted sign and a Holm-adjusted p below 0.05;
+- at least 75 percent of the alternative specifications agree;
+- both hindsight checks agree.
 
-A claim needs all four conditions on the left:
-- the predicted direction;
-- a corrected p-value below 0.05;
-- the same direction in at least 75 percent of the alternative analyses;
-- the same direction on both hindsight-check maps.
+The protocol was pre-registered. We built every variable without seeing acceptance, tested the pipeline in 12,400
+simulation runs, froze the code with hashes, and ran it once.
 
-And the simulation was worth it, because it caught a real problem. In one realistic scenario, the standard
-clustered standard errors gave up to 12.6 percent false positives instead of 5. So the newcomer results get two
+The simulation found something important. Under realistic no-effect data, standard clustered errors rejected up to
+12.6 percent of the time instead of 5. So the RQ2 results get two extra checks.
+
+## Slide 10: RQ1, foundation-model adoption and new architectures (0:55)
+
+Now the results. Figure 3 shows the field-wide trends, but those are descriptive only.
+
+The test is within topic, net of year effects. Does prior foundation-model adoption go with fewer new-architecture
+papers?
+- The coefficient is minus 0.08 for going from zero to full adoption, with a Holm-adjusted p of 0.001.
+- All nine alternative specifications agree.
+
+H1d is supported. In practical terms, a topic moving from 10 to 50 percent foundation-model adoption has about a
+third fewer new-architecture papers, against a base rate of 9 percent.
+
+## Slide 11: RQ2, newcomers and contribution types (1:15)
+
+The RQ2 results went against our predictions. In Figure 4 the grey areas mark the predicted side, and both
+estimates fall on the other side.
+- Newcomer papers are 3.7 percentage points *more* likely to be new-method papers, on a base of 75 percent.
+- They are 1.7 points *less* likely to be benchmark or evaluation papers, on a base of 7.7 percent. That's about a
+  fifth fewer.
+
+Both are significant with the wild cluster bootstrap. All ten alternative specifications agree, and so do both
 extra checks.
 
-## Slide 7: Finding 1, as foundation models spread, new architectures fade (1:00)
+These results are consistent with outsider innovation, not with herding.
 
-Now the findings. First: as foundation models spread, new architectures fade.
+One caveat: most of the benchmark gap goes with team size, because larger teams are more likely to include an
+incumbent. The method gap does not depend on team size.
 
-On the left you see the overall trend. But a trend alone doesn't prove much, because lots of things change over
-time.
+## Slide 12: Exploratory: title style (0:40)
 
-So we look *within topics*, after removing year-wide trends. When more of last year's papers in a topic built on
-foundation models, does that topic see fewer new architectures this year? Yes. Going from 10 to 50 percent foundation-model use goes with
-about a third fewer architecture papers.
+One exploratory result, not pre-registered. Fashion also shows up in style.
+- Branded titles rose more than fourfold.
+- But, as the right panel shows, accepted papers carry them at the same rate as all submissions: the ratio is
+  about one in every year.
+- The rise appears with and without LLM-style wording in the abstract, so it is not only a writing-tool effect.
 
-This was a pre-registered prediction. It is supported, and it holds in all nine alternative analyses. In plain
-words: in topics that adopt foundation models, fewer papers design their own architecture and more build on top.
-It's an association, but a very consistent one.
+## Slide 13: RQ3, is following the fashion rewarded? (0:50)
 
-## Slide 8: Finding 2, newcomer papers lean to new methods, incumbents to benchmarks (1:20)
+Table 4 summarises the acceptance results.
+- **Topic maturity (H3a).** The estimate is minus 1.7 points per log unit of prior papers. That is inconclusive:
+  the test could only reliably detect effects of about 4 points.
+- **Branded titles.** No premium.
+- **New architectures where foundation models dominate.** Exploratory, but these papers are accepted relatively
+  more often.
 
-The second finding surprised us.
+So we find no evidence that following the fashion is rewarded at review. If anything, going against the tide may
+help, and that is a hypothesis for the replication.
 
-We predicted that newcomers would *follow*: they would enter a topic and write the safer kind of paper, such as
-benchmarks and evaluations. Incumbents, who know the topic, would bring the new methods.
+## Slide 14: Contributions (0:40)
 
-We found the opposite. Within the same topic and year:
+To summarise, three contributions.
+1. **Methodological.** Topic maps fitted with hindsight can manufacture emerging topics and reverse trend
+   conclusions. Early-year maps are a cheap check.
+2. **Design.** A pre-registered, outcome-blind, simulation-checked, single-run protocol for science-of-science.
+3. **Substantive.**
+   - New architectures fade where foundation models spread.
+   - Newcomer papers lean towards new methods, against the herding prediction.
+   - Style follows fashions without a reward at review.
 
-- newcomer papers are 3.7 points *more* likely to propose a new method;
-- and 1.7 points *less* likely to be a benchmark or evaluation paper. Only about 8 percent of papers are
-  benchmarks, so that's about a fifth fewer.
+## Slide 15: Limitations and future work (0:35)
 
-The grey areas show where we predicted the results would be. Both land on the other side. The small tick marks are
-the ten alternative analyses, and they all agree.
+The main limitations:
+- this is one venue;
+- the results are associations, not causal effects;
+- the labels come from an LLM: highly consistent, but not yet validated by humans.
 
-One honest caveat: most of the benchmark gap goes with team size, because big teams are more likely to include an
-incumbent. The method gap does not.
+Next, we will replicate the four key hypotheses on the held-out ICLR split, where they are already registered. We
+will also extend the study to the ACL Anthology and validate the labels with human annotators.
 
-So the picture is: papers by people new to a topic lean towards new methods, and papers by insiders lean towards
-benchmarks, the shared infrastructure of a field. Newcomers are not the followers we expected.
-
-## Slide 9: Finding 3, fashion in style, too (0:45)
-
-Third, fashion isn't only about topics. It's also about style.
-
-Branded titles more than quadrupled. But look at the right panel: accepted papers carry them at about the same
-rate as all submissions, every year. Catchy names are not accepted more often. This part is exploratory.
-
-And it's not just LLMs writing our titles. The branded style rises strongly even in papers whose abstracts show
-no sign of LLM writing.
-
-## Slide 10: Does following the fashion pay off? (0:55)
-
-So, does following the fashion pay off? We find no sign that it does.
-
-- **Crowded topics** get no acceptance premium. If anything, it's slightly lower, but the test is inconclusive:
-  it could only detect fairly large effects.
-- **Branded titles:** no premium.
-- **Against the tide**, interestingly: in topics dominated by foundation models, the few remaining architecture
-  papers are accepted relatively *more* often. That one is exploratory, so take it as a hint, not a result.
-
-The overall message: fashion spreads, but the review process does not visibly reward following it.
-
-## Slide 11: Contributions (0:50)
-
-To sum up, three contributions.
-
-1. **A measurement warning, with a fix.** Topic maps built with hindsight invent emerging topics and can flip
-   conclusions. Checking an early-year map is cheap.
-2. **A rigorous template for science-of-science:** pre-registered, outcome-blind, simulation-checked, one frozen
-   run.
-3. **New evidence on research fashions:**
-   - where foundation models spread, new architectures fade;
-   - newcomer papers lean towards new methods, the opposite of what we predicted;
-   - and style spreads like topics, without a reward.
-
-The main limits: this is one venue; these are associations, not causes; and our labels come from an LLM. They are
-highly consistent, but humans have not checked them yet.
-
-## Slide 12: Next steps (0:20)
-
-Next, we'll replicate the key results on the held-out ICLR papers, where the hypotheses are already registered.
-We'll also extend the study to ACL and add a human check of the labels.
+## Slide 16: Thank you (0:05)
 
 Thank you. I'm happy to take questions.

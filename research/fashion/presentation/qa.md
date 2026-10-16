@@ -1,6 +1,6 @@
 # Q&A preparation
 
-Short answers first. Use the "If pushed" line only if they ask a follow-up. Backup slides are B1–B11.
+Short answers first. Use the "If pushed" line only if they ask a follow-up. Appendix slides are A1–A11.
 
 **Three habits that keep answers safe:**
 - Say "goes with" or "is associated with", never "causes".
@@ -8,6 +8,41 @@ Short answers first. Use the "If pushed" line only if they ask a follow-up. Back
 - Point to a backup slide when a number helps.
 
 ---
+
+## 0. Related work (slide 5)
+
+Know one sentence per paper. If someone knows a paper better than you, agree and return to what *your* data
+show.
+
+| Paper | One-sentence summary | How it relates to us |
+|---|---|---|
+| Abrahamson (1991) | Management practices spread as fads and fashions through imitation, not only on merit | The fashion view behind our registered RQ2 prediction |
+| Bikhchandani, Hirshleifer & Welch (1992) | Informational cascades: people copy earlier choices and ignore their own information | Also predicts that newcomers follow |
+| Azoulay, Fons-Rosen & Graff Zivin (2019) | After a star scientist dies prematurely, outsiders enter the field, and their papers are often highly cited | Outsider innovation, which our RQ2 result is consistent with |
+| Foster, Rzhetsky & Evans (2015) | Scientists face a trade-off: tradition is safer, innovation is riskier but sometimes highly rewarded | Background on the tradition vs. innovation tension |
+| Wu, Wang & Evans (2019) | Large teams tend to develop existing ideas; small teams tend to disrupt | Fits our team-size caveat: larger teams write more benchmarks |
+| Koch, Denton, Hanna & Foster (2021) | ML research concentrates on fewer benchmark datasets over time, often borrowed from other tasks | Context for benchmark papers as shared infrastructure |
+| Birhane et al. (2022) | Highly cited ML papers mostly value performance and generalisation | Context on what ML rewards |
+| Gelman & Loken (2014) | The "garden of forking paths": many possible analyses make false findings easy | Why we pre-registered |
+| Nosek et al. (2018) | Pre-registration separates confirmatory from exploratory analysis | Our protocol |
+| Singh et al. (2023) | SciRepEval benchmark; it introduced the SPECTER2 embeddings we use | Our topic embeddings |
+| Cameron, Gelbach & Miller (2008) | The wild cluster bootstrap for inference with few clusters | Our registered p-value method for RQ2 |
+
+*[Before the talk, open each reference once to confirm the details.]*
+
+**What is new compared with this literature?**
+Three things together:
+- the full submission pool, including rejected papers;
+- an explicit test of hindsight in topic definitions;
+- a pre-registered, single-run design.
+
+Substantively, we test the herding view against the outsider view on ML papers, and the data favour the outsider
+view.
+
+**Isn't "newcomers bring new methods" just Azoulay et al. again?**
+It is consistent with them, but the setting differs. They study entry after a star's death in the life sciences
+and measure citations. We study all ICLR submissions and measure the *type* of contribution. Agreement across such
+different settings is useful.
 
 ## 1. Data and measurement
 
@@ -17,14 +52,14 @@ on OpenReview for ten years. That lets us avoid survivorship bias. The cost is t
 
 **How were the topics built? Why 100?**
 We embedded each title and abstract with SPECTER2, a model trained on scientific papers, and clustered the papers
-into 100 groups. We re-ran everything with 75 and 150 topics, and the main results hold. (B4)
+into 100 groups. We re-ran everything with 75 and 150 topics, and the main results hold. (A4)
 - *If pushed on quality:* the topics agree with ICLR's own area labels better than a keyword baseline (NMI 0.30 vs.
   0.27). From a paper's title and abstract, a blind checker picked its topic 80% of the time at the 100-topic level,
   and 61% among the 198 finer topics, where chance is 10%.
 
 **Can you trust LLM labels for contribution type?**
 They are very consistent: a blind second pass agrees at kappa 0.93. But the reference labels were also made by an
-LLM, so this shows consistency, not human-level validity. A human check is our next step. (B4)
+LLM, so this shows consistency, not human-level validity. A human check is our next step. (A4)
 - *If pushed:* for label errors to create the newcomer result, they would have to differ between newcomer and
   incumbent papers. Correcting for the measured error rates makes the result slightly *larger*, not smaller.
 
@@ -100,7 +135,7 @@ further: each paper is compared only with papers from the same topic *in the sam
 No, but the p-values are approximate. In one scenario, where topic structure cuts across our 100 topics, the
 standard test rejected 12.6% (methods) and 10% (benchmarks) of the time instead of 5%. Our newcomer results are far
 stronger than that inflation: t = 6.7 and −4.4. Even after shrinking them by the inflation we saw, p stays below
-0.001, and a second clustering method agrees. (B3)
+0.001, and a second clustering method agrees. (A3)
 
 **What is Holm?**
 A correction for testing several hypotheses at once. It keeps the chance of *any* false positive in the family at
@@ -139,7 +174,7 @@ which type of paper.
 **Is it just team size?**
 Not for methods: the method gap stays at +3.9 points with team size controlled. For benchmarks, team size accounts
 for about two-thirds of it (−1.7 shrinks to −0.5). Big teams write more benchmark papers, and big teams usually
-include an incumbent. (B2)
+include an incumbent. (A2)
 
 **Isn't +3.7 points small?**
 On a 75% base, the method gap is modest. But it is very precise (t = 6.7), it holds everywhere we looked, and it
@@ -149,7 +184,7 @@ the direction: newcomers are not the followers we expected.
 **Do newcomer papers get accepted less often?**
 Yes, about 10 points less within the same topic and year. But most of that is about who writes them: team size and
 experience. Within the same authors, the gap is about 3 points. ICLR is double-blind, so this need not be reviewer
-bias; being new to a topic can simply make a paper weaker. (B6)
+bias; being new to a topic can simply make a paper weaker. (A6)
 
 ### Titles
 
@@ -160,11 +195,11 @@ analysis before the talk.]*
 **What does "returning authors lag on style" mean?**
 Authors who submitted before adopt the new title style less than the field does, while they keep pace on topics.
 The lag is largest for first authors. *[Check the exact definition of the lag measure in your title analysis.]*
-(B9)
+(A9)
 
 **Isn't this just ChatGPT?**
 LLM-favoured words like "Enhancing" jump after 2023, but the "NAME:" structure rises with or without LLM
-fingerprints in the abstract. (B10)
+fingerprints in the abstract. (A10)
 
 ### Reward
 
@@ -182,7 +217,7 @@ prospective version.
 
 **What does go with acceptance?**
 Theory papers (+9 points vs. method papers) and larger teams (+9 points per doubling). These are associations,
-not advice; team size also stands for compute and seniority. (B7, B8)
+not advice; team size also stands for compute and seniority. (A7, A8)
 
 ## 5. Scope and next steps
 
@@ -212,6 +247,7 @@ All code, the frozen inputs and every output are in the repository. One command 
 | Term | Plain English | 中文解释 |
 |---|---|---|
 | pp (percentage points) | difference between two percentages: 40% → 45% is +5 pp | 百分点：两个百分比的差 |
+| Linear probability model (LPM) | a regression with a 0/1 outcome; each coefficient is a change in probability, in pp | 线性概率模型：因变量是0/1，系数就是概率变化（百分点） |
 | Within topic and year (fixed effects) | compare a paper only with papers from the same topic and year | 只和同主题、同年份的论文比较，排除主题和年份差异 |
 | 95% CI | the range of values consistent with the data | 置信区间：数据支持的合理范围 |
 | Clustered standard errors | papers in the same topic are not independent, so uncertainty is computed by topic | 同一主题的论文不独立，按主题计算误差 |

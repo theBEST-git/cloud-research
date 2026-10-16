@@ -1,302 +1,391 @@
-% Talk slides (<= 15 min): research fashions at ICLR 2017-2026.
-% Build: cd research/fashion/presentation && python make_figures.py && pdflatex slides && pdflatex slides
+% Talk slides (<= 15 min): research fashions at ICLR 2017-2026. Academic Beamer style.
+% Build: python make_figures.py && pdflatex slides && pdflatex slides
 \documentclass[aspectratio=169,11pt]{beamer}
-\usetheme[progressbar=frametitle,numbering=fraction,block=fill]{metropolis}
+\usetheme{Madrid}
+\usefonttheme{professionalfonts}
 \usepackage[T1]{fontenc}
-\usepackage[scaled=0.95]{helvet}
-\renewcommand{\familydefault}{\sfdefault}
+\usepackage{lmodern}
+\usepackage{amsmath}
 \usepackage{booktabs}
+\usepackage{tabularx}
 \usepackage{tikz}
 \usetikzlibrary{positioning,arrows.meta}
 \usepackage{appendixnumberbeamer}
 
-\definecolor{cblue}{HTML}{2A78D6}
-\definecolor{corange}{HTML}{EB6834}
-\definecolor{cgreen}{HTML}{1BAF7A}
-\definecolor{ink}{HTML}{23373B}
-\definecolor{ink2}{HTML}{52514E}
-\definecolor{muted}{HTML}{8A8984}
-\definecolor{tile}{HTML}{EFEFEC}
-\setbeamercolor{block title}{bg=cblue!15,fg=ink}
-\setbeamercolor{block body}{bg=cblue!5,fg=ink}
-\setbeamercolor{alerted text}{fg=corange}
-\setbeamerfont{footnote}{size=\tiny}
+\definecolor{navy}{HTML}{1F3A68}
+\definecolor{crimson}{HTML}{A31F34}
+\definecolor{note}{HTML}{5A5A5A}
+\usecolortheme[named=navy]{structure}
+\setbeamercolor{alerted text}{fg=crimson}
+\setbeamercolor{block title}{bg=navy!85,fg=white}
+\setbeamercolor{block body}{bg=navy!6,fg=black}
+\setbeamertemplate{blocks}[rounded][shadow=false]
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{caption}[numbered]
+\setbeamerfont{caption}{size=\scriptsize}
+\setbeamertemplate{itemize items}[circle]
+\setbeamertemplate{enumerate items}[default]
+\setbeamertemplate{section in toc}[sections numbered]
 
 \newcommand{\pp}{\,pp}
-\newcommand{\muted}[1]{{\color{muted}#1}}
-\setbeamercolor{takeaway}{bg=cblue!10,fg=ink}
-\newcommand{\take}[1]{\begin{beamercolorbox}[rounded=true,shadow=false,sep=7pt,center]{takeaway}#1\end{beamercolorbox}}
-\newcommand{\stat}[3]{%
-  \begin{tikzpicture}
-    \node[fill=tile,rounded corners=4pt,minimum width=0.29\textwidth,minimum height=3.0cm,align=center,
-          text width=0.26\textwidth] {%
-      {\small\color{ink2}#1}\\[6pt]
-      {\Large\color{muted}#2}\ {\large$\to$}\ {\Huge\bfseries\color{ink}#3}\\[4pt]
-      {\scriptsize\color{muted}2017 \hspace{1.7em} 2026}};
-  \end{tikzpicture}}
-\tikzset{pbox/.style={draw=cblue!60,fill=cblue!6,rounded corners=3pt,align=center,text width=2.2cm,
-  minimum height=1.55cm,font=\footnotesize,execute at begin node={\hyphenpenalty=10000}},
-  arr/.style={-{Stealth[length=2.2mm]},thick,color=muted}}
+\newcommand{\gnote}[1]{{\color{note}#1}}
+\newcommand{\rc}[1]{{\color{note}\footnotesize(#1)}}
 
-\title{Following the Fashion?}
-\subtitle{How ML research trends rise, who drives them, and whether they pay off.\\
-A pre-registered study of 43,480 ICLR submissions, 2017--2026}
-\author{[Your name]}
-\date{[Venue / seminar], [date]}
+\title[Following the Fashion?]{Following the Fashion?}
+\subtitle{How ML Research Trends Rise, Who Drives Them, and Whether They Pay Off\\[0.3em]
+\small A Pre-registered Study of 43,480 ICLR Submissions, 2017--2026}
+\author[{[Your name]}]{[Your name]}
+\institute[{[Institution]}]{[Department], [Institution]}
+\date[{[Date]}]{[Venue / seminar] \quad [Date]}
 
 \begin{document}
 
-\maketitle
-
-% ---------------------------------------------------------------- 1. hook
-\begin{frame}{Machine learning moves in waves}
-  \centering
-  \stat{papers proposing a\\new architecture}{24\%}{8\%}\hfill
-  \stat{papers building on a\\foundation model}{0.3\%}{54\%}\hfill
-  \stat{titles branded\\``\textsc{Name}: subtitle''}{9\%}{41\%}
-
-  \vspace{1.2em}
-  {\large Are these \alert{fashions}? Who starts them, who follows,\\and does following them pay off?}
+\begin{frame}
+  \titlepage
 \end{frame}
 
-% ---------------------------------------------------------------- 2. questions
-\begin{frame}{Three questions, three measurement traps}
+\begin{frame}{Outline}
+  \tableofcontents
+\end{frame}
+
+% ============================================================================ 1
+\section{Motivation and Research Questions}
+
+\begin{frame}{Motivation: Research Fashions in Machine Learning}
+  \begin{table}
+    \centering
+    \begin{tabular}{@{}lrr@{}}
+      \toprule
+      Share of ICLR submissions that \ldots & 2017 & 2026 \\
+      \midrule
+      propose a new architecture & 24\% & 8\% \\
+      build on a foundation model & 0.3\% & 54\% \\
+      carry a branded title (``\textsc{Name}: subtitle'') & 9\% & 41\% \\
+      \bottomrule
+    \end{tabular}
+    \caption{Field-wide shifts in content and in style.}
+  \end{table}
+  \begin{itemize}
+    \item ML research moves in waves, in \emph{what} is studied and in \emph{how} it is presented.
+    \item Are these \alert{fashions}? If so: what do they displace, who drives them, and are followers rewarded?
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Research Questions and Pre-registered Hypotheses}
+  \begin{table}
+    \centering\small
+    \begin{tabularx}{\textwidth}{@{}l X c@{}}
+      \toprule
+      Question & Key hypothesis & Predicted sign \\
+      \midrule
+      \textbf{RQ1 Rise}: what does a fashion displace? &
+        \textbf{H1d}: prior foundation-model (FM) adoption in a topic $\to$ share of new-architecture papers & $-$ \\
+      \addlinespace
+      \textbf{RQ2 Following}: who introduces new work? &
+        \textbf{H2b}: newcomer paper $\to$ new-method paper & $-$ \\
+      & \textbf{H2c}: newcomer paper $\to$ benchmark/evaluation paper & $+$ \\
+      \addlinespace
+      \textbf{RQ3 Reward}: are followers rewarded? &
+        \textbf{H3a}: topic maturity (prior papers in topic) $\to$ acceptance & $-$ \\
+      \bottomrule
+    \end{tabularx}
+    \caption{Selected hypotheses. All ten registered hypotheses and their verdicts: Appendix~A1.}
+  \end{table}
+  \gnote{\footnotesize Our RQ2 prediction followed the fashion view: newcomers imitate, insiders innovate.}
+\end{frame}
+
+\begin{frame}{Related Work and Positioning}
   \begin{columns}[T]
-    \begin{column}{0.48\textwidth}
-      \textbf{Questions}\par\medskip
-      \begin{description}[RQ3\,Reward]
-        \item[RQ1\,Rise] What does a rising fashion crowd out?
-        \item[RQ2\,Follow] Who brings new kinds of work: newcomers or incumbents?
-        \item[RQ3\,Reward] Does following the fashion get papers accepted?
-      \end{description}
-    \end{column}
-    \begin{column}{0.48\textwidth}
-      \textbf{Traps, and our answer}\par\medskip
+    \begin{column}{0.49\textwidth}
+      \textbf{Two views of who drives new work}
       \begin{itemize}
-        \item \textbf{Survivorship}: usually only accepted papers are visible\\
-          $\to$ \alert{all submissions: accepted, rejected, withdrawn}
-        \item \textbf{Hindsight}: topics defined with today's eyes\\
-          $\to$ \alert{early-year topic maps}
-        \item \textbf{Forking paths}: many ways to analyse\\
-          $\to$ \alert{pre-registration, one frozen run}
+        \item \emph{Fashion and herding}: ideas spread by imitation \rc{Abrahamson, 1991; Bikhchandani et al., 1992}
+          $\Rightarrow$ newcomers follow
+        \item \emph{Outsider innovation}: new entrants bring new ideas \rc{Azoulay et al., 2019};
+          tradition vs.\ innovation \rc{Foster et al., 2015}
+        \item Team size: large teams develop, small teams disrupt \rc{Wu et al., 2019}
       \end{itemize}
     \end{column}
-  \end{columns}
-\end{frame}
-
-% ---------------------------------------------------------------- 3. data
-\begin{frame}{Data: ICLR submissions, accepted or not}
-  \centering
-  \begin{tikzpicture}[node distance=0.32cm]
-    \node[pbox] (a) {\textbf{43,480}\\submissions\\2017--2026\\\muted{OpenReview}};
-    \node[below=0.15cm of a,font=\scriptsize,text width=2.3cm,align=center,color=muted] {+ a held-out split\\for replication};
-    \node[pbox,right=of a] (b) {\textbf{Topic}\\paper embeddings\\$\to$ 100 topics};
-    \node[pbox,right=of b] (c) {\textbf{Contribution}\\new method, benchmark, theory, \ldots\\\muted{LLM codebook}};
-    \node[pbox,right=of c] (d) {\textbf{Authors}\\newcomer or incumbent in the topic};
-    \node[pbox,right=of d,fill=corange!8,draw=corange!60] (e) {\textbf{Acceptance}\\\muted{sealed until the one registered run}};
-    \foreach \x/\y in {a/b,b/c,c/d,d/e} \draw[arr] (\x) -- (\y);
-  \end{tikzpicture}
-
-  \vspace{1.2em}
-  \begin{columns}[T]
-    \begin{column}{0.46\textwidth}
-      \small
+    \begin{column}{0.49\textwidth}
+      \textbf{Meta-research on ML}
       \begin{itemize}
-        \item Topics match ICLR's own areas better than a keyword baseline
-        \item Labels: a blind second labelling pass agrees, $\kappa = 0.93$
+        \item Benchmark concentration \rc{Koch et al., 2021}
+        \item Values encoded in ML papers \rc{Birhane et al., 2022}
       \end{itemize}
-    \end{column}
-    \begin{column}{0.46\textwidth}
-      \small
-      \begin{itemize}
-        \item \textbf{Newcomer paper}: no author has submitted to ICLR \emph{in this topic} before (73\%)
-        \item All models \textbf{control for topic and year}
-      \end{itemize}
-    \end{column}
-  \end{columns}
-\end{frame}
-
-% ---------------------------------------------------------------- 4. C1 hindsight
-\begin{frame}{Contribution 1: topic maps carry hindsight}
-  \begin{columns}[c]
-    \begin{column}{0.60\textwidth}
-      \includegraphics[width=\textwidth]{figs/hindsight_diversity.pdf}
-    \end{column}
-    \begin{column}{0.38\textwidth}
-      \small
-      \begin{itemize}
-        \item 69\% of papers are from 2024--26, so the standard map, fitted on all years, is \textbf{a map of today}
-        \item ``Is ML getting more diverse?'' Each map answers: \alert{most diverse in the years it was built from}
-      \end{itemize}
-    \end{column}
-  \end{columns}
-  \vspace{0.3em}
-  \take{The topic map is not neutral preprocessing: it decides which past you see.}
-\end{frame}
-
-% ---------------------------------------------------------------- 5. C1 consequence
-\begin{frame}{\ldots and hindsight changes the conclusions}
-  \centering
-  ``Emerging'' topics (${\geq}3\times$ growth):
-  {\color{cgreen}\LARGE\bfseries 8} {\small with the 2017--20 map} vs.\
-  {\color{cblue}\LARGE\bfseries 29} {\small with the standard map}\\[0.4em]
-  Do topics age, from new methods towards benchmarks?\\[0.1em]
-  \includegraphics[width=0.74\textwidth]{figs/lifecycle_flip.pdf}\\[0.1em]
-  \take{Same papers, same model, different map: a different answer.\\
-  So every result must also pass two hindsight checks.}
-\end{frame}
-
-% ---------------------------------------------------------------- 6. C2 design
-\begin{frame}{Contribution 2: a design that keeps us from fooling ourselves}
-  \centering
-  \begin{tikzpicture}[node distance=0.28cm]
-    \node[pbox] (a) {\textbf{Register}\\hypotheses and decision rule};
-    \node[pbox,right=of a] (b) {\textbf{Build}\\all variables blind to acceptance};
-    \node[pbox,right=of b] (c) {\textbf{Simulate}\\12,400 runs on fake data to test the pipeline};
-    \node[pbox,right=of c] (d) {\textbf{Freeze}\\code and inputs (hashes)};
-    \node[pbox,right=of d,fill=corange!8,draw=corange!60] (e) {\textbf{Run once}\\report every result};
-    \foreach \x/\y in {a/b,b/c,c/d,d/e} \draw[arr] (\x) -- (\y);
-  \end{tikzpicture}
-
-  \vspace{1em}
-  \begin{columns}[T]
-    \begin{column}{0.48\textwidth}
-      \small\textbf{A claim needs all four:}
+      \vspace{0.3em}
+      \textbf{Measurement challenges we address}
       \begin{enumerate}
-        \item the predicted direction
-        \item corrected $p < 0.05$ (Holm)
-        \item the same direction in ${\geq}75\%$ of the alternative analyses (9--11 per question)
-        \item the same direction on both hindsight-check maps
+        \item Survivorship: only published papers observed
+        \item Hindsight: topics defined on the full period
+        \item Forking paths \rc{Gelman \& Loken, 2014} $\Rightarrow$ pre-registration \rc{Nosek et al., 2018}
       \end{enumerate}
     \end{column}
-    \begin{column}{0.48\textwidth}
-      \small\textbf{The simulation caught a real problem}\\[0.3em]
-      In a realistic no-effect scenario, standard clustered errors gave up to \alert{12.6\%} false positives where
-      5\% was promised. So the newcomer results get two extra checks.
-    \end{column}
   \end{columns}
 \end{frame}
 
-% ---------------------------------------------------------------- 7. F1 FM crowd-out
-\begin{frame}{Finding 1: as foundation models spread, new architectures fade}
-  \begin{columns}[c]
-    \begin{column}{0.55\textwidth}
-      \includegraphics[width=\textwidth]{figs/fm_trend.pdf}
-    \end{column}
-    \begin{column}{0.43\textwidth}
-      \small
-      Within a topic, net of year trends: the more of last year's papers built on foundation models, the fewer
-      new architectures this year.\\[0.6em]
-      \begin{itemize}
-        \item 10\% $\to$ 50\% FM use: about \alert{one third fewer} architecture papers
-        \item {\footnotesize 0 $\to$ 100\%: $-8$\pp{} (95\% CI $-12$ to $-4$), on a 9\% base}
-        \item Pre-registered, \textbf{supported}; holds in all 9 alternative analyses
-      \end{itemize}
-    \end{column}
-  \end{columns}
-\end{frame}
+% ============================================================================ 2
+\section{Data and Measurement}
 
-% ---------------------------------------------------------------- 8. F2 newcomers
-\begin{frame}{Finding 2: newcomer papers lean to new methods, incumbents to benchmarks}
-  \begin{columns}[c]
-    \begin{column}{0.56\textwidth}
-      \includegraphics[width=\textwidth]{figs/newcomers.pdf}
-    \end{column}
-    \begin{column}{0.42\textwidth}
-      \small
-      \textbf{We predicted the opposite}:\\newcomers follow, incumbents innovate.
-      \begin{itemize}
-        \item Newcomer papers: \alert{more new methods}, \alert{a fifth fewer} benchmark and evaluation papers
-        \item Same direction in all 10 analyses and both extra checks
-      \end{itemize}
-      {\scriptsize\muted{Same topic and year. Base rates: 75\% methods, 8\% benchmarks. Most of the benchmark gap
-      goes with team size ($-0.5$\pp{} with team size controlled); the method gap does not.}}
-    \end{column}
-  \end{columns}
-\end{frame}
-
-% ---------------------------------------------------------------- 9. F3 style
-\begin{frame}{Finding 3: fashion in style, too}
-  \centering
-  \includegraphics[width=0.86\textwidth]{figs/finding1_no_payoff.png}
-
-  \vspace{0.3em}
+\begin{frame}{Data and Measurement}
   \small
-  Branded titles rose more than fourfold, yet accepted papers carry them at about the same rate as all
-  submissions (ratio 1.02).\\
-  Not just LLM writing tools: branding rises in papers with and without LLM-style wording.\\[0.3em]
-  {\scriptsize\muted{Exploratory analysis, not part of the pre-registration.}}
+  \begin{table}
+    \centering
+    \begin{tabularx}{\textwidth}{@{}l X X@{}}
+      \toprule
+      Construct & Operationalisation & Validation \\
+      \midrule
+      Corpus & 43,480 ICLR submissions, 2017--2026, from OpenReview: accepted, rejected, withdrawn &
+        Held-out split reserved for replication \\
+      Topic & SPECTER2 embeddings of title + abstract \rc{Singh et al., 2023}; $k = 100$ clusters &
+        Agreement with ICLR areas: NMI 0.30 (keyword baseline 0.27); robust to $k = 75, 150$ \\
+      Contribution type & LLM with a fixed codebook: method, benchmark/evaluation, empirical, theory, other &
+        Blind second pass: $\kappa = 0.93$ \\
+      Newcomer paper & No author has an earlier ICLR submission \emph{in the topic} (73\% of papers) &
+        Exact OpenReview author IDs \\
+      Acceptance & Final decision & Sealed until the single registered run \\
+      \bottomrule
+    \end{tabularx}
+    \caption{Constructs, measures and checks.}
+  \end{table}
 \end{frame}
 
-% ---------------------------------------------------------------- 10. reward
-\begin{frame}{Does following the fashion pay off? We find no sign that it does}
-  \begin{columns}[T]
-    \begin{column}{0.31\textwidth}
-      \begin{block}{Crowded topics}
-        \small No acceptance premium; if anything lower.\\[0.3em]
-        {\footnotesize $-1.7$\pp{} per 2.7$\times$ more prior papers; inconclusive (could only detect ${\sim}4$\pp)}
-      \end{block}
+% ============================================================================ 3
+\section{Methodological Contribution: Hindsight Bias in Topic Maps}
+
+\begin{frame}{Hindsight Bias in Topic Maps}
+  \begin{columns}[c]
+    \begin{column}{0.58\textwidth}
+      \begin{figure}
+        \includegraphics[width=\textwidth]{figs/hindsight_diversity.pdf}
+        \caption{Effective number of topics per year under three $k = 100$ maps fitted on different years.}
+      \end{figure}
     \end{column}
-    \begin{column}{0.31\textwidth}
-      \begin{block}{Branded titles}
-        \small No premium.\\[0.3em]
-        {\footnotesize accepted papers use them at the submitted rate; exploratory}
-      \end{block}
-    \end{column}
-    \begin{column}{0.31\textwidth}
-      \begin{block}{Against the tide}
-        \small Where foundation models dominate, the remaining architecture papers do relatively
-        \alert{better}.\\[0.3em]
-        {\footnotesize $+8$\pp{}, exploratory}
+    \begin{column}{0.40\textwidth}
+      \small
+      \begin{itemize}
+        \item 69\% of submissions are from 2024--26: a map fitted on all years is a map of the \emph{present}.
+        \item Each map finds peak diversity in the years used to fit it.
+      \end{itemize}
+      \begin{block}{Implication}
+        Topic maps are not neutral preprocessing: the fitting window shapes the history one observes.
       \end{block}
     \end{column}
   \end{columns}
-  \vspace{1em}
-  \take{Fashion spreads, but the review process does not visibly reward following it.}
-  {\footnotesize\muted{What does go with acceptance (associations, not advice): theory papers ($+9$\pp{} vs.\ new
-  methods), larger teams. See backup.}}
 \end{frame}
 
-% ---------------------------------------------------------------- 11. contributions
+\begin{frame}{Consequence: Substantive Conclusions Depend on the Map}
+  \small
+  \begin{itemize}
+    \item Emerging topics (${\geq}3\times$ growth): \textbf{8} with the 2017--20 map vs.\ \textbf{29} with the standard map.
+    \item Do topics age, from new methods towards benchmarks? Same papers, same model:
+  \end{itemize}
+  \vspace{-0.4em}
+  \begin{figure}
+    \includegraphics[width=0.72\textwidth]{figs/lifecycle_flip.pdf}
+    \caption{Coefficient on topic maturity (log prior papers), 95\% CI. Early-map rows are exploratory.}
+  \end{figure}
+  \vspace{-0.6em}
+  \centering\gnote{$\Rightarrow$ Every registered result must also pass two hindsight checks (early-year and
+  year-balanced maps).}
+\end{frame}
+
+% ============================================================================ 4
+\section{Empirical Strategy}
+
+\begin{frame}{Empirical Strategy}
+  \begin{columns}[T]
+    \begin{column}{0.52\textwidth}
+      \textbf{Specification} (linear probability model)
+      \[
+        y_i \;=\; \beta\, x_i \;+\; \mu_{k(i)} \;+\; \tau_{t(i)} \;+\; \varepsilon_i
+      \]
+      \vspace{-1.2em}
+      \footnotesize
+      \begin{itemize}
+        \item $y_i \in \{0,1\}$: paper type or acceptance; $x_i$: e.g.\ newcomer paper
+        \item $\mu_k$, $\tau_t$: topic and year fixed effects (topic $\times$ year for RQ2)
+        \item Standard errors clustered by topic (100 clusters)
+      \end{itemize}
+      \small\textbf{Decision rule} (registered). Supported only if:
+      \footnotesize
+      \begin{enumerate}
+        \item predicted sign, and Holm-adjusted $p < 0.05$;
+        \item same sign in ${\geq}75\%$ of 9--11 alternative specifications;
+        \item same sign under both hindsight checks.
+      \end{enumerate}
+    \end{column}
+    \begin{column}{0.45\textwidth}
+      \begin{block}{Protocol}
+        \footnotesize
+        Pre-registered; variables built blind to acceptance; pipeline tested on 12,400 simulation runs; code and
+        inputs frozen (SHA-256); a single run; every estimate reported.
+      \end{block}
+      \begin{block}{Simulation finding}
+        \footnotesize Under realistic no-effect data, clustered SEs rejected up to \alert{12.6\%} at nominal 5\%.
+        The RQ2 results therefore get two extra checks: two-way clustering and a stress test.
+      \end{block}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ============================================================================ 5
+\section{Results}
+
+\begin{frame}{RQ1: Foundation-Model Adoption and New Architectures}
+  \begin{columns}[c]
+    \begin{column}{0.50\textwidth}
+      \begin{figure}
+        \includegraphics[width=\textwidth]{figs/fm_trend.pdf}
+        \caption{Field-wide trends (descriptive).}
+      \end{figure}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \small
+      Within topic, net of year effects: prior FM adoption vs.\ new-architecture papers.
+      \begin{table}
+        \centering
+        \begin{tabular}{@{}lr@{}}
+          \toprule
+          $\hat\beta$ (0 $\to$ 100\% FM) & $-0.080$ (0.021) \\
+          95\% CI & [$-0.121$, $-0.038$] \\
+          Holm $p$ & 0.001 \\
+          Specifications with same sign & 9 / 9 \\
+          $N$ & 42,990 \\
+          \bottomrule
+        \end{tabular}
+      \end{table}
+      \begin{itemize}
+        \item H1d \textbf{supported}.
+        \item 10\% $\to$ 50\% FM adoption: about \alert{one third fewer} new-architecture papers (base 9\%).
+      \end{itemize}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{RQ2: Newcomers and Contribution Types}
+  \begin{columns}[c]
+    \begin{column}{0.54\textwidth}
+      \begin{figure}
+        \includegraphics[width=\textwidth]{figs/newcomers.pdf}
+        \caption{Topic $\times$ year fixed effects; grey: registered predicted side.}
+      \end{figure}
+    \end{column}
+    \begin{column}{0.44\textwidth}
+      \small
+      \begin{table}
+        \centering\footnotesize
+        \begin{tabular}{@{}lrr@{}}
+          \toprule
+          & H2b (method) & H2c (bench.) \\
+          \midrule
+          $\hat\beta$ & $+0.037$ & $-0.017$ \\
+          (SE) & (0.006) & (0.004) \\
+          Base rate & 75\% & 7.7\% \\
+          Same sign & 10/10 & 10/10 \\
+          \bottomrule
+        \end{tabular}
+      \end{table}
+      \vspace{-0.6em}
+      \begin{itemize}
+        \item Both significant \alert{opposite} to prediction (wild cluster bootstrap $p < 0.001$; $N = 42{,}315$)
+        \item Consistent with outsider innovation, not with herding
+      \end{itemize}
+      \gnote{\scriptsize Most of the H2c gap goes with team size ($-0.005$ when controlled); H2b does not.}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Exploratory: Fashion in Title Style}
+  \begin{figure}
+    \includegraphics[width=0.84\textwidth]{figs/finding1_no_payoff.png}
+    \caption{Left: share of branded titles. Right: share among accepted $\div$ share among all submissions.}
+  \end{figure}
+  \vspace{-0.4em}
+  \small
+  \begin{itemize}
+    \item Branded titles rose more than fourfold; accepted papers carry them at the submitted rate (ratio 1.02).
+    \item The rise appears with and without LLM-style wording in the abstract. \gnote{(Not pre-registered.)}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{RQ3: Is Following the Fashion Rewarded?}
+  \begin{table}
+    \centering\small
+    \begin{tabularx}{\textwidth}{@{}X r l@{}}
+      \toprule
+      Association with acceptance & Estimate & Status \\
+      \midrule
+      Topic maturity, per log unit of prior papers (H3a) & $-1.7$\pp{} (SE 1.0) & inconclusive; MDE$_{80}$ $\approx$ 4\pp \\
+      Branded title & ratio 1.02 & exploratory \\
+      New architecture $\times$ prior FM adoption (0 $\to$ 100\%) & $+8.3$\pp{} (SE 3.5) & exploratory, $p = 0.02$ \\
+      \bottomrule
+    \end{tabularx}
+    \caption{Topic and year fixed effects; SEs clustered by topic; decided papers, 2018--2026 ($N = 32{,}190$ for H3a).}
+  \end{table}
+  \begin{block}{Reading}
+    No evidence that following the fashion is rewarded at review. If anything, papers that go against the tide
+    (architectures where FMs dominate) do relatively better (exploratory).
+  \end{block}
+  \gnote{\footnotesize Other correlates of acceptance (theory papers, team size): Appendix A7--A8.}
+\end{frame}
+
+% ============================================================================ 6
+\section{Conclusion}
+
 \begin{frame}{Contributions}
   \begin{enumerate}
-    \item \textbf{A measurement warning, with a fix.} Topic maps fitted in hindsight invent ``emerging''
-      topics and can flip trend conclusions. Early-year maps are a cheap check.
-    \item \textbf{A rigorous template for science-of-science.} Pre-registered, outcome-blind,
-      simulation-checked, one frozen run.
-    \item \textbf{New evidence on research fashions.}
+    \item \textbf{Methodological.} Topic maps fitted with hindsight manufacture emerging topics and can reverse trend
+      conclusions; early-year maps provide a cheap check.
+    \item \textbf{Design.} A pre-registered, outcome-blind, simulation-checked, single-run protocol for
+      science-of-science studies.
+    \item \textbf{Substantive.}
       \begin{itemize}
-        \item where foundation models spread, new architectures fade (pre-registered)
-        \item newcomer papers lean to new methods, not to following (opposite to our prediction)
-        \item style spreads like topics, without a reward (exploratory)
+        \item Where foundation models spread, new architectures fade (H1d, supported).
+        \item Newcomer papers lean towards new methods and away from benchmarks, against the herding prediction
+          (H2b/H2c).
+        \item Style follows fashions as topics do, without a reward at review (exploratory).
       \end{itemize}
   \end{enumerate}
-  \vspace{0.4em}
-  {\small\muted{Limits: one venue; associations, not causes; labels from an LLM ($\kappa = 0.93$, not yet checked by
-  humans); author IDs changed in 2021, so some incumbents look like newcomers (expected to push estimates towards
-  zero).}}
 \end{frame}
 
-% ---------------------------------------------------------------- 12. next
-\begin{frame}{Next steps}
-  \begin{itemize}
-    \item \textbf{Replication on held-out ICLR papers}: the four key hypotheses are already registered
-    \item \textbf{Other venues}: ACL Anthology / ARR
-    \item \textbf{Human check} of a sample of contribution labels
-    \item \textbf{Review scores}, to separate reviewers from final decisions
-  \end{itemize}
-  \vspace{1.5em}
+\begin{frame}{Limitations and Future Work}
+  \begin{columns}[T]
+    \begin{column}{0.48\textwidth}
+      \textbf{Limitations}
+      \small
+      \begin{itemize}
+        \item One venue (ICLR)
+        \item Associations, not causal effects
+        \item LLM labels: consistent ($\kappa = 0.93$), not yet human-validated
+        \item 2021 author-ID change undercounts incumbents (expected bias towards zero)
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \textbf{Future work}
+      \small
+      \begin{itemize}
+        \item Replication on the held-out ICLR split (four hypotheses registered)
+        \item Extension to ACL Anthology / ARR
+        \item Human validation of contribution labels
+        \item Review scores: reviewers vs.\ final decisions
+      \end{itemize}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
   \centering
-  {\Large Thank you. Questions?}
+  \vspace{2em}
+  {\Large Thank you}\\[1em]
+  Questions and comments welcome\\[0.5em]
+  \gnote{\small [email]}
 \end{frame}
 
-% ================================================================ backup
+% ============================================================================ appendix
 \appendix
-\begin{frame}[standout]
-  Backup
-\end{frame}
+\section*{Appendix}
 
-\begin{frame}{B1. All pre-registered hypotheses}
+\begin{frame}{A1. All Pre-registered Hypotheses}
   \centering\scriptsize
   \begin{tabular}{@{}llrl@{}}
     \toprule
@@ -321,18 +410,18 @@ A pre-registered study of 43,480 ICLR submissions, 2017--2026}
   before any estimate because the measure failed its blind validation.
 \end{frame}
 
-\begin{frame}{B2. Newcomer results: robustness}
+\begin{frame}{A2. RQ2 Robustness}
   \centering\small
   \begin{tabular}{@{}lrr@{}}
     \toprule
     & New methods & Benchmarks \& eval. \\
     \midrule
     Main estimate & $+3.7$\pp & $-1.7$\pp \\
-    Range over 10 alternative analyses (all $p<0.05$) & $+2.2$ to $+3.9$ & $-1.8$ to $-0.9$ \\
+    Range over 10 alternative specifications (all $p<0.05$) & $+2.2$ to $+3.9$ & $-1.8$ to $-0.9$ \\
     Two-way clustering (topic $\times$ early-map topic) & $+3.7$ & $-1.7$ \\
     Team size controlled & $+3.9$ & $-0.5$ ($p = 0.07$) \\
     Only years with consistent author IDs & $+3.7$ & $-1.7$ \\
-    Ignoring the paper's own earlier versions & $+3.8$ & $-1.7$ \\
+    Excluding the paper's own earlier versions & $+3.8$ & $-1.7$ \\
     Corrected for label errors & $+4.1$ & $-1.8$ \\
     \bottomrule
   \end{tabular}
@@ -340,36 +429,36 @@ A pre-registered study of 43,480 ICLR submissions, 2017--2026}
   \vspace{0.8em}
   \raggedright\footnotesize
   Base rates: 75\% of papers are new methods, 7.7\% benchmark or evaluation; 73\% are newcomer papers. Confirmatory
-  $p$ from a wild cluster bootstrap: $p < 0.001$ for both. By era, the method gap appears in every era (2019--20:
-  $+5.5$\pp).
+  $p$ from a wild cluster restricted bootstrap \rc{Cameron et al., 2008}: $p < 0.001$ for both. The method gap
+  appears in every era (2019--20: $+5.5$\pp).
 \end{frame}
 
-\begin{frame}{B3. Why we did not trust standard errors}
+\begin{frame}{A3. Calibration of Standard Errors}
   \small
   \begin{itemize}
-    \item Before seeing any result, we ran 12,400 simulations, including scenarios with \textbf{no true effect}
-      but realistic topic structure.
-    \item When the true topic structure cuts across our 100 topics, the standard test rejected \alert{12.6\%} (method) and
-      10.0\% (benchmark) of the time, not 5\%. A wild bootstrap did not fix it.
-    \item So we added, before the run:
+    \item Before seeing any result: 12,400 simulation runs, including no-effect scenarios with realistic topic
+      structure.
+    \item When true topic structure cuts across the 100 topics, the standard test rejected \alert{12.6\%} (H2b) and
+      10.0\% (H2c) of the time at nominal 5\%. The wild bootstrap did not fix this.
+    \item Added before the run:
       \begin{itemize}
-        \item two-way clustering (two different topic maps at once);
-        \item a stress test: shrink each $t$-statistic by the inflation seen in simulation (1.31 / 1.22).
+        \item two-way clustering (two topic maps at once);
+        \item a stress test that deflates each $t$-statistic by the simulated inflation (1.31 / 1.22).
       \end{itemize}
-    \item Newcomer results: $t = 6.7$ and $-4.4$. After the stress test, Holm $p$ = $4\times10^{-6}$ and $10^{-3}$.
+    \item RQ2 results: $t = 6.7$ and $-4.4$. After the stress test, Holm $p$ = $4\times10^{-6}$ and $1\times10^{-3}$.
   \end{itemize}
-  \vspace{0.3em}
-  \take{Lesson: check your test on data shaped like yours before trusting its $p$-values.}
+  \begin{block}{Lesson}
+    Check the test on data shaped like yours before trusting its $p$-values.
+  \end{block}
 \end{frame}
 
-\begin{frame}{B4. Are the topics and labels any good?}
+\begin{frame}{A4. Validity of Topics and Labels}
   \begin{columns}[T]
     \begin{column}{0.48\textwidth}
       \textbf{Topics} {\small(SPECTER2, 100 clusters)}
       \small
       \begin{itemize}
-        \item Agreement with ICLR's own primary areas (2024--26): NMI 0.30 vs.\ 0.27 for a keyword (TF-IDF)
-          baseline
+        \item Agreement with ICLR's primary areas (2024--26): NMI 0.30 vs.\ 0.27 for a TF-IDF baseline
         \item Blind naming test: from title and abstract, a checker picks the right topic 80\% of the time at the
           100-topic level (61\% among 198 fine topics; chance 10\%)
         \item Stable across refits (ARI 0.66)
@@ -380,15 +469,15 @@ A pre-registered study of 43,480 ICLR submissions, 2017--2026}
       \small
       \begin{itemize}
         \item Blind second pass on 2,174 papers: $\kappa = 0.93$
-        \item 95.8\% agreement with 2,300 reference labels (also LLM-made, so this is consistency, not human
+        \item 95.8\% agreement with 2,300 reference labels (also LLM-made, so this shows consistency, not human
           validity)
-        \item A correction for label errors makes the newcomer results slightly larger
+        \item A correction for label errors makes the RQ2 estimates slightly larger
       \end{itemize}
     \end{column}
   \end{columns}
 \end{frame}
 
-\begin{frame}{B5. Hindsight: more numbers}
+\begin{frame}{A5. Hindsight: Further Evidence}
   \begin{columns}[c]
     \begin{column}{0.52\textwidth}
       \includegraphics[width=\textwidth]{figs/hindsight_emerging.pdf}
@@ -396,18 +485,17 @@ A pre-registered study of 43,480 ICLR submissions, 2017--2026}
     \begin{column}{0.46\textwidth}
       \small
       \begin{itemize}
-        \item Share of 2024--26 papers in ``emerging'' topics: 22\% with the early map vs.\ 41\% with the
-          standard map
-        \item ``Declining'' topics: 13 with the standard map vs.\ 26 with the year-balanced map, so faded topics
-          get absorbed into today's topics
+        \item Share of 2024--26 papers in emerging topics: 22\% with the early map vs.\ 41\% with the standard map
+        \item Declining topics: 13 with the standard map vs.\ 26 with the year-balanced map, so faded topics are
+          absorbed into today's topics
         \item Fit of papers to their topic: standard map 0.62 (2017) vs.\ 0.65 (2026); early map 0.69 vs.\ 0.53
       \end{itemize}
-      \footnotesize All maps have 100 topics; only the years used to build them differ.
+      \footnotesize All maps have 100 topics; only the fitting years differ.
     \end{column}
   \end{columns}
 \end{frame}
 
-\begin{frame}{B6. Are newcomer papers accepted less often? (exploratory)}
+\begin{frame}{A6. Newcomer Acceptance Gap (Exploratory)}
   \begin{columns}[c]
     \begin{column}{0.55\textwidth}
       \includegraphics[width=\textwidth]{figs/newcomer_gap.pdf}
@@ -415,18 +503,18 @@ A pre-registered study of 43,480 ICLR submissions, 2017--2026}
     \begin{column}{0.43\textwidth}
       \small
       \begin{itemize}
-        \item Raw: 37\% vs.\ 47\% accepted
-        \item The gap shrinks as we compare more similar papers; within the same authors it is about $-3$\pp
+        \item Raw acceptance: 37\% vs.\ 47\%
+        \item The gap shrinks as comparisons tighten; within the same authors it is about $-3$\pp
         \item The same person entering a topic new to them: $-1.4$\pp
       \end{itemize}
-      \footnotesize Mostly about \emph{who} writes newcomer papers. ICLR is double-blind, so the rest need not be
+      \footnotesize Mostly about \emph{who} writes newcomer papers. ICLR is double-blind, so the remainder need not be
       bias: being new to a topic can make a paper weaker.\par
-      \muted{Author-FE sample: $-5.4$\pp{} without, $-3.1$\pp{} with author fixed effects.}
+      \gnote{Author-FE sample: $-5.4$\pp{} without, $-3.1$\pp{} with author fixed effects.}
     \end{column}
   \end{columns}
 \end{frame}
 
-\begin{frame}{B7. Team size and acceptance (exploratory)}
+\begin{frame}{A7. Team Size and Acceptance (Exploratory)}
   \begin{columns}[c]
     \begin{column}{0.48\textwidth}
       \includegraphics[width=\textwidth]{figs/team_size.pdf}
@@ -434,20 +522,19 @@ A pre-registered study of 43,480 ICLR submissions, 2017--2026}
     \begin{column}{0.50\textwidth}
       \small
       \begin{itemize}
-        \item $+8.8$\pp{} per doubling of team size, same topic and year
-        \item Steepest for benchmark and evaluation papers ($+13.5$\pp{} each; benchmarks by 1--2 authors 21\%
-          vs.\ 7+ authors 52\%); this ranking is only suggestive
-        \item Flattest for theory (1--2 authors 42\%)
+        \item $+8.8$\pp{} per doubling of team size, within topic $\times$ year
+        \item Steepest for benchmark and evaluation papers ($+13.5$\pp{} each); this ranking is only suggestive
+        \item Flattest for theory (1--2 authors: 42\%)
         \item Positive in all 20 areas; flattest in federated learning and time series
       \end{itemize}
-      \footnotesize Team size also stands for compute, data and seniority. Not advice to add authors.
+      \footnotesize Team size also proxies compute, data and seniority \rc{Wu et al., 2019}.
     \end{column}
   \end{columns}
 \end{frame}
 
-\begin{frame}{B8. Acceptance by contribution type (exploratory)}
+\begin{frame}{A8. Acceptance by Contribution Type (Exploratory)}
   \centering\small
-  Same topic and year, relative to new-method papers:\\[0.6em]
+  Within topic $\times$ year, relative to new-method papers:\\[0.6em]
   \begin{tabular}{@{}lr@{}}
     \toprule
     Theory & $+8.9$\pp \\
@@ -463,7 +550,7 @@ A pre-registered study of 43,480 ICLR submissions, 2017--2026}
   Unadjusted, exploratory. Selection is likely: who writes theory papers differs from who writes method papers.
 \end{frame}
 
-\begin{frame}{B9. Title style: who carries it?}
+\begin{frame}{A9. Title Style: Who Carries It? (Exploratory)}
   \begin{columns}[c]
     \begin{column}{0.56\textwidth}
       \includegraphics[width=\textwidth]{figs/finding2_style_vs_topic.png}
@@ -472,36 +559,63 @@ A pre-registered study of 43,480 ICLR submissions, 2017--2026}
       \small
       \begin{itemize}
         \item Returning authors move into new topics as fast as the field
-        \item But they lag on the new title style, most as first authors
-        \item \emph{Topics change with the field; style changes with the people}
+        \item They lag on the new title style, most as first authors
+        \item Topics change with the field; style changes with the people
       \end{itemize}
     \end{column}
   \end{columns}
 \end{frame}
 
-\begin{frame}{B10. Is it just LLM writing tools?}
+\begin{frame}{A10. Title Style and LLM Writing Tools (Exploratory)}
   \centering
   \includegraphics[width=0.92\textwidth]{figs/finding3_words_not_structure.png}
 
   \vspace{0.3em}
-  \small Same meaning, new word: LLM-favoured words (``Enhancing'', ``Unveiling'') jump after 2023 (odds ratio 2.2),
-  while control word pairs do not.\\
-  But the ``\textsc{Name}: subtitle'' structure rises with or without LLM fingerprints in the abstract.
+  \small LLM-favoured words (``Enhancing'', ``Unveiling'') jump after 2023 (odds ratio 2.2), while control word pairs do
+  not. The ``\textsc{Name}: subtitle'' structure rises with or without LLM fingerprints in the abstract.
 \end{frame}
 
-\begin{frame}{B11. Definitions}
+\begin{frame}{A11. Definitions}
   \small
-  \begin{description}[Topic maturity]
+  \begin{description}[Benchmark \& eval.]
     \item[Topic] one of 100 clusters of paper embeddings (title + abstract)
     \item[Topic maturity] $\log(1 + \text{earlier papers in the topic})$; $+1$ = 2.7$\times$ more papers
     \item[Hot topic] top fifth of topics by last year's growth
     \item[Newcomer paper] no author has an earlier ICLR submission (any outcome) in that topic
     \item[FM adoption] share of the topic's papers last year that built on a foundation model
     \item[Benchmark \& eval.] primary contribution is a dataset, benchmark or evaluation
-    \item[Model] linear probability model with topic and year fixed effects (topic $\times$ year cells for the
-      newcomer comparisons); errors clustered by topic
+    \item[Model] linear probability model with topic and year fixed effects (topic $\times$ year cells for RQ2);
+      errors clustered by topic
     \item[pp] percentage points
   \end{description}
+\end{frame}
+
+\begin{frame}{References}
+  \scriptsize
+  \begin{itemize}\setlength{\itemsep}{1pt}
+    \item[] Abrahamson, E. (1991). Managerial fads and fashions: The diffusion and rejection of innovations.
+      \emph{Academy of Management Review}, 16(3), 586--612.
+    \item[] Azoulay, P., Fons-Rosen, C., \& Graff Zivin, J. S. (2019). Does science advance one funeral at a time?
+      \emph{American Economic Review}, 109(8), 2889--2920.
+    \item[] Bikhchandani, S., Hirshleifer, D., \& Welch, I. (1992). A theory of fads, fashion, custom, and cultural
+      change as informational cascades. \emph{Journal of Political Economy}, 100(5), 992--1026.
+    \item[] Birhane, A., Kalluri, P., Card, D., Agnew, W., Dotan, R., \& Bao, M. (2022). The values encoded in machine
+      learning research. In \emph{Proceedings of ACM FAccT}.
+    \item[] Cameron, A. C., Gelbach, J. B., \& Miller, D. L. (2008). Bootstrap-based improvements for inference with
+      clustered errors. \emph{Review of Economics and Statistics}, 90(3), 414--427.
+    \item[] Foster, J. G., Rzhetsky, A., \& Evans, J. A. (2015). Tradition and innovation in scientists' research
+      strategies. \emph{American Sociological Review}, 80(5), 875--908.
+    \item[] Gelman, A., \& Loken, E. (2014). The statistical crisis in science. \emph{American Scientist}, 102(6),
+      460--465.
+    \item[] Koch, B., Denton, E., Hanna, A., \& Foster, J. G. (2021). Reduced, reused and recycled: The life of a
+      dataset in machine learning research. In \emph{NeurIPS Datasets and Benchmarks Track}.
+    \item[] Nosek, B. A., Ebersole, C. R., DeHaven, A. C., \& Mellor, D. T. (2018). The preregistration revolution.
+      \emph{Proceedings of the National Academy of Sciences}, 115(11), 2600--2606.
+    \item[] Singh, A., D'Arcy, M., Cohan, A., Downey, D., \& Feldman, S. (2023). SciRepEval: A multi-format benchmark
+      for scientific document representations. In \emph{Proceedings of EMNLP}.
+    \item[] Wu, L., Wang, D., \& Evans, J. A. (2019). Large teams develop and small teams disrupt science and
+      technology. \emph{Nature}, 566(7744), 378--382.
+  \end{itemize}
 \end{frame}
 
 \end{document}

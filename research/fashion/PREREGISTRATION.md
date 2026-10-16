@@ -724,3 +724,29 @@ Anything added after the freeze is labelled post hoc.
     - the treatment of downgraded review findings is stated accurately;
     - the τ-judge models are stated as unregistered rather than replaced;
     - experience at other venues is now outside D2's undercount.
+
+### 2026-10-16: post hoc exploratory analyses (declared before they were run)
+
+- **PH1: among newcomer papers, what goes with a higher acceptance rate?** (`posthoc.py`; the question came from the
+  user after the results.)
+  - **Population:** E2's population (RQ3 filter, at least one author ID, 2019–2026); newcomer as in D1/D2.
+  - **A1:** newcomer papers only. Acceptance ~ class (ref. method) + FM + team-size band (ref. 3–4) + hot +
+    maturity, with topic FE and year dummies.
+  - **A2:** newcomer papers only. Acceptance ~ class + FM, with topic × year FE.
+  - **B:** the newcomer gap within topic × year, separately by class, FM, team-size band, hot and maturity tercile.
+  - **C:** by the 20 coarse areas:
+    - the newcomer gap within topic × year;
+    - newcomer acceptance minus the year's overall acceptance, per area and per area × year (cells with ≥ 50
+      newcomer papers).
+  - **Inference:** CR1 SE by k100 topic. Holm within each block, to rank evidence only.
+  - **Status:** everything is exploratory and post hoc. These are associations, not effects. Nothing is
+    confirmatory.
+- **Access to outcomes.** Real outcomes reach post hoc code only through `outcomes.load("posthoc")`. It refuses
+  unless all of the following hold:
+  - the caller is `posthoc.py`;
+  - the frozen run has finished;
+  - no debugger is attached;
+  - the tree is clean, so the code is committed before it reads.
+
+  Each access is logged to `output/posthoc/access_log.jsonl`. The pipeline was first run end to end on simulated
+  outcomes; under that null, nothing survived Holm.

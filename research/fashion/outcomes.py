@@ -14,6 +14,10 @@ Modes:
   of requested ids. The shuffle is seeded so that dry-runs are reproducible; it hides real outcomes from analysis code,
   not from someone who deliberately re-creates the seeded shuffle (which, like reading the table, the protocol forbids).
 - "real":      refuses unless called from run_frozen.py, FREEZE.json hashes match, and the git tree is clean.
+- "posthoc":   post hoc exploratory analyses after the single frozen run (PREREGISTRATION.md post-run record). Refuses
+  unless called from posthoc.py, output/frozen_run/attempts.jsonl records a finished attempt, no debugger is attached
+  and the git tree is clean (so the code that reads outcomes is committed before it runs); every access is appended
+  to output/posthoc/access_log.jsonl with the commit and the script's sha256.
 """
 from __future__ import annotations
 
@@ -27,7 +31,7 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
-from common import DATA, ROOT
+from common import DATA, OUTPUT, ROOT
 from dgp import DGP, simulate
 
 HERE = Path(__file__).resolve().parent
@@ -82,6 +86,31 @@ def require_frozen() -> dict:
     return freeze
 
 
+POSTHOC = HERE / "posthoc.py"
+ATTEMPTS = OUTPUT / "frozen_run" / "attempts.jsonl"
+POSTHOC_LOG = OUTPUT / "posthoc" / "access_log.jsonl"
+
+
+def require_posthoc() -> None:
+    """Guard for post hoc analyses: only after the confirmatory run has finished, only from committed code, logged."""
+    main = getattr(sys.modules.get("__main__"), "__file__", "") or ""
+    if Path(main).resolve() != POSTHOC:
+        raise PermissionError("post hoc outcomes are only available to research/fashion/posthoc.py")
+    if sys.gettrace() is not None or sys.flags.inspect or sys.flags.interactive:
+        raise PermissionError("post hoc analyses cannot run under a debugger or an interactive session")
+    lines = [json.loads(x) for x in ATTEMPTS.read_text().splitlines()] if ATTEMPTS.exists() else []
+    if not any(x.get("status") == "finished" for x in lines):
+        raise PermissionError("post hoc analyses are only allowed after the single frozen run has finished")
+    dirty = subprocess.run(["git", "status", "--porcelain"], cwd=ROOT, capture_output=True, text=True, check=True).stdout
+    if dirty.strip():
+        raise PermissionError(f"git tree is not clean (post hoc code must be committed before it reads outcomes):\n{dirty}")
+    head = subprocess.run(["git", "rev-parse", "HEAD"], cwd=ROOT, capture_output=True, text=True, check=True).stdout.strip()
+    POSTHOC_LOG.parent.mkdir(parents=True, exist_ok=True)
+    with POSTHOC_LOG.open("a") as f:
+        f.write(json.dumps({"at_utc": pd.Timestamp.now(tz="UTC").isoformat(timespec="seconds"), "git_head": head,
+                            "posthoc_sha256": sha256(POSTHOC)}) + "\n")
+
+
 def _derive(s: pd.DataFrame) -> pd.DataFrame:
     ordinary = s.administrative_status == "ordinary_submission"
     withdrawn = s.administrative_status == "withdrawn"
@@ -128,6 +157,9 @@ def load(mode: str, ids: pd.Series, seed: int | None = None, frame: pd.DataFrame
          dgp: DGP | None = None) -> pd.DataFrame:
     if mode == "real":
         require_frozen()
+        return _read(ids)
+    if mode == "posthoc":
+        require_posthoc()
         return _read(ids)
     rng = np.random.default_rng(seed)
     if mode == "permuted":

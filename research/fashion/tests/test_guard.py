@@ -59,6 +59,26 @@ class Guard(unittest.TestCase):
         self.assertNotIn("regressor_mean", analysis.estimate(d, "y", "x"))
         self.assertIn("regressor_mean", analysis.estimate(d, "y", "x", describe=True))
 
+    def test_posthoc_outcomes_refused_outside_posthoc_py(self):
+        with self.assertRaises(PermissionError):
+            outcomes.load("posthoc", pd.Series(["x"]))
+
+    def test_posthoc_outcomes_refused_before_the_frozen_run_finished(self):
+        import json, sys, tempfile
+        from pathlib import Path
+        from unittest import mock
+        with tempfile.TemporaryDirectory() as tmp:
+            log = Path(tmp) / "attempts.jsonl"
+            with mock.patch.object(sys.modules["__main__"], "__file__", str(outcomes.POSTHOC), create=True), \
+                    mock.patch.object(outcomes, "ATTEMPTS", log), \
+                    mock.patch.object(outcomes, "POSTHOC_LOG", Path(tmp) / "access.jsonl"):
+                for lines in [[], [{"attempt": 1, "status": "started"}], [{"attempt": 1, "status": "failed"}]]:
+                    log.write_text("".join(json.dumps(x) + "\n" for x in lines))
+                    with self.assertRaises(PermissionError) as e:
+                        outcomes.require_posthoc()
+                    self.assertIn("frozen run has finished", str(e.exception))
+                self.assertFalse((Path(tmp) / "access.jsonl").exists())
+
     def test_unknown_mode_rejected(self):
         with self.assertRaises(ValueError):
             outcomes.load("peek", pd.Series(["x"]))

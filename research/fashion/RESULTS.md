@@ -318,12 +318,12 @@ only ranks the evidence.
 - **Topic choice.**
   - Newcomer papers in more mature topics are accepted less often: −2.8 pp per log unit (Holm p = 0.02, A1).
   - Hot topics bring no advantage (+1.2 pp, n.s.).
-- **The newcomer discount is present in every subgroup** (B, within topic × year). It is −10.2 pp overall, and
+- **The newcomer acceptance gap is present in every subgroup** (B, within topic × year). It is −10.2 pp overall, and
   ranges from:
   - −5.1 pp for theory papers and −6.4 pp for teams of 7 or more (the smallest);
   - to −14.6 pp for dataset/benchmark papers and −11.6 pp in the most mature topics (the largest).
 
-  Team size therefore accounts for some of the discount, not all of it. Newcomer dataset/benchmark papers are rarer
+  Team size therefore accounts for some of the gap, not all of it. Newcomer dataset/benchmark papers are rarer
   (H2c), and when written they show the largest gap.
 - **By area (C):**
   - The within-topic-year newcomer gap is negative in all 20 coarse areas, from −3.8 to −20.8 pp.
@@ -332,7 +332,7 @@ only ranks the evidence.
     −9 pp).
   - No area or area × year cell survives Holm, so these are descriptive only.
 - **Reading.** Newcomer papers that are theory papers, come from large teams or build on foundation models are
-  accepted more often. The newcomer discount is smallest for theory papers and large teams.
+  accepted more often. The newcomer gap is smallest for theory papers and large teams.
   - Selection is likely: newcomer theory papers may come from established researchers in other fields, and large
     teams bring resources and seniority.
   - So these are not recommendations about what a newcomer should do.
@@ -376,6 +376,32 @@ only ranks the evidence.
     disadvantaged.
 - **Reading.** Team size also stands for compute, data, engineering and seniority, which are plausibly what large
   benchmark, generation and LLM work needs. These are associations, not advice to add authors.
+
+## Post hoc: is the newcomer gap about who the authors are? (PH3, exploratory)
+
+`posthoc.py ph3`, declared before it was run; outputs in `output/posthoc/ph3_*`, figure `PH3_author_fe.png`. ICLR is
+double-blind, so the gap need not reflect reviewers' treatment of newcomers: newcomer papers may simply be weaker. PH3
+asks how much of the gap is about the authors.
+- **Data:** one row per paper and author ID (160,222 rows; each paper weighs 1 in total).
+- **Fixed effects:** topic × year and author.
+- **Controls:** class, FM, team size and the author's earlier ICLR submissions.
+- **Identification:** 15,579 authors have both newcomer and incumbent papers.
+
+| | Without author FE | With author FE (same sample) |
+|---|---|---|
+| Newcomer paper, all authors | −5.4 pp (−7.1, −3.7) | −3.1 pp (−4.5, −1.6) |
+| The author is new to the topic | −3.1 pp | −1.4 pp (−2.7, −0.0) |
+| Newcomer paper, first-author FE | −4.7 pp | −2.2 pp (−4.8, +0.3) |
+| Newcomer paper, last-author FE | −4.5 pp | −2.9 pp (−4.6, −1.1) |
+
+- **Most of the gap is about who writes newcomer papers.**
+  - The −10.2 pp gap (PH1) falls to about −6.7 pp once team size and the authors' ICLR experience are controlled.
+  - Within the same authors it falls to about −3 pp.
+  - The same person entering a topic new to them is accepted about 1.4 pp less often.
+- **What remains is small and need not be reviewer bias.** Less familiarity with a topic's methods, baselines and
+  framing can make the same person's paper weaker. The data cannot separate the two.
+- **Review scores could separate the reviewer stage from the decision stage,** but they are not in this repository
+  (see the post-run record).
 
 ## Limitations
 

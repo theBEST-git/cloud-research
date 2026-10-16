@@ -476,21 +476,30 @@ def ph3(k: pd.DataFrame) -> None:
 
 def plot_ph3(res: pd.DataFrame) -> None:
     plt = figures.plt
-    fig, ax = plt.subplots(figsize=(6.6, 3.2), constrained_layout=True)
-    y = np.arange(len(res))[::-1]
+    names = {"M1": "newcomer paper, all authors", "M2": "author new to the topic", "M3": "newcomer paper, first author",
+             "M4": "newcomer paper, last author"}
+    fig, ax = plt.subplots(figsize=(6.6, 2.6), constrained_layout=True)
     ax.axvline(0, color=figures.INK2, lw=0.7)
-    ax.hlines(y, res.ci95_lo * 100, res.ci95_hi * 100, color=figures.SERIES[0], lw=1.6)
-    ax.scatter(res.coef * 100, y, s=22, color=figures.SERIES[0], edgecolor=figures.SURFACE, linewidth=1, zorder=3)
-    ax.set_yticks(y, res.label, fontsize=7)
-    ax.set_xlabel("acceptance difference, pp (95% CI)")
-    ax.set_title("Newcomer acceptance gap with and without author fixed effects (post hoc, exploratory)", loc="left")
+    for i, (m, name) in enumerate(names.items()):
+        y = len(names) - 1 - i
+        for suffix, dy, colour, lab in [("-base", 0.15, figures.MUTED, "same sample, no author FE"),
+                                        ("", -0.15, figures.SERIES[0], "with author FE")]:
+            r = res[res.model == m + suffix].iloc[0]
+            ax.hlines(y + dy, r.ci95_lo * 100, r.ci95_hi * 100, color=colour, lw=1.6)
+            ax.scatter(r.coef * 100, y + dy, s=22, color=colour, edgecolor=figures.SURFACE, linewidth=1, zorder=3,
+                       label=lab if i == 0 else None)
+    ax.set_yticks(range(len(names))[::-1], list(names.values()), fontsize=7)
+    ax.set_xlabel("acceptance difference within topic-year, pp (95% CI)")
+    ax.set_title("Within the same authors the newcomer gap shrinks by a third to a half (post hoc, exploratory)",
+                 loc="left")
+    ax.legend(loc="center left", bbox_to_anchor=(1.01, 0.5), fontsize=6.5)
     figures.save(fig, "PH3_author_fe")
 
 
 def main() -> None:
     which = sys.argv[1] if len(sys.argv) > 1 else ""
-    if which == "plot2":                                   # redraw from the saved estimates; reads no outcome
-        plot_ph2(pd.read_csv(OUT / "ph2_estimates.csv"))
+    if which in ("plot2", "plot3"):                        # redraw from the saved estimates; reads no outcome
+        plot_ph2(pd.read_csv(OUT / "ph2_estimates.csv")) if which == "plot2" else plot_ph3(pd.read_csv(OUT / "ph3_estimates.csv"))
         return
     if which not in ("ph1", "ph2", "ph3"):
         raise SystemExit("usage: posthoc.py ph1|ph2|ph3|plot2")

@@ -1,0 +1,83 @@
+{
+ "population_papers": 31549,
+ "newcomer_papers": 22603,
+ "acceptance_newcomer": 0.3720302614697164,
+ "acceptance_incumbent": 0.47250167672702886,
+ "note": "post hoc exploratory (PREREGISTRATION.md post-run record); associations, not causal effects"
+}
+  block                                                          label   coef  ci95_lo  ci95_hi            p  p_holm_within_block     n
+     A1                                                     cls_theory  12.30     9.29    15.32 1.521938e-12         1.369744e-11 22603
+     A1                                                  cls_empirical  -2.34    -5.36     0.69 1.284147e-01         5.136587e-01 22603
+     A1                                          cls_dataset_benchmark  -0.30    -3.34     2.73 8.431141e-01         1.000000e+00 22603
+     A1                                                 cls_evaluation  -0.67    -4.74     3.40 7.455872e-01         1.000000e+00 22603
+     A1                                                      cls_other  -9.43   -12.37    -6.50 5.567561e-09         4.454049e-08 22603
+     A1                                                             fm   2.38     0.32     4.45 2.434299e-02         1.217149e-01 22603
+     A1                                                       band_1-2  -8.47   -10.23    -6.71 9.725790e-16         9.725790e-15 22603
+     A1                                                       band_5-6   3.67     2.15     5.20 6.259246e-06         4.381472e-05 22603
+     A1                                                        band_7+  11.11     9.37    12.85 1.844133e-22         2.028547e-21 22603
+     A1                                                            hot   1.17    -0.89     3.23 2.620877e-01         7.862631e-01 22603
+     A1                                                       maturity  -2.76    -4.59    -0.93 3.539626e-03         2.123775e-02 22603
+     A2                                                     cls_theory  10.17     7.15    13.19 1.429294e-09         8.575767e-09 22603
+     A2                                                  cls_empirical  -3.06    -6.21     0.09 5.671092e-02         1.701328e-01 22603
+     A2                                          cls_dataset_benchmark   2.38    -0.70     5.47 1.285886e-01         2.571773e-01 22603
+     A2                                                 cls_evaluation  -0.45    -4.72     3.82 8.341908e-01         8.341908e-01 22603
+     A2                                                      cls_other  -9.13   -12.12    -6.14 2.431770e-08         1.215885e-07 22603
+     A2                                                             fm   4.13     2.04     6.23 1.673953e-04         6.695811e-04 22603
+      B                                                     all papers -10.22   -11.78    -8.66 3.930334e-23         6.681568e-22 31534
+      B                                                  class: method -10.39   -11.90    -8.88 1.666861e-24         3.000349e-23 23364
+      B                                                  class: theory  -5.12    -9.94    -0.29 3.786139e-02         7.572277e-02  2408
+      B                                               class: empirical -11.28   -16.93    -5.62 1.474694e-04         5.898778e-04  2135
+      B                                       class: dataset_benchmark -14.63   -21.02    -8.25 2.101026e-05         1.260616e-04  1452
+      B                                              class: evaluation  -7.23   -14.89     0.43 6.395112e-02         7.572277e-02   582
+      B                                                   class: other -10.33   -17.58    -3.07 5.872565e-03         1.761770e-02   798
+      B                                                       FM paper -10.68   -13.57    -7.79 7.406952e-11         8.147647e-10 10078
+      B                                                   not FM paper  -9.89   -11.66    -8.12 4.169533e-19         6.254300e-18 21376
+      B                                                  team size 1-2 -10.09   -14.88    -5.30 6.252765e-05         3.126382e-04  3922
+      B                                                  team size 3-4  -9.69   -11.85    -7.53 2.602246e-14         3.382920e-13 11648
+      B                                                  team size 5-6  -8.21   -11.16    -5.25 2.787985e-07         2.230388e-06  8657
+      B                                                   team size 7+  -6.44    -9.13    -3.76 6.679197e-06         4.675438e-05  6990
+      B                                                      hot topic -10.09   -13.51    -6.66 1.105838e-07         9.952540e-07  8039
+      B                                                  not hot topic -10.27   -11.98    -8.56 8.286019e-21         1.325763e-19 23495
+      B                                 young topic (maturity tercile)  -9.24   -12.36    -6.12 5.626331e-08         5.626331e-07 10571
+      B                                middle topic (maturity tercile)  -9.17   -11.43    -6.90 2.793908e-12         3.352690e-11 10455
+      B                                mature topic (maturity tercile) -11.62   -13.79    -9.45 8.690063e-16         1.216609e-14 10508
+  C-gap                       c01 LLMs and natural language processing -11.74   -18.32    -5.16 3.372244e-03         6.407264e-02  2837
+C-level                       c01 LLMs and natural language processing  -1.89    -5.94     2.17 3.149754e-01         1.000000e+00  2173
+  C-gap                  c02 LLM reasoning, agents, code and alignment  -9.65   -18.20    -1.09 3.286512e-02         3.286512e-01  2757
+C-level                  c02 LLM reasoning, agents, code and alignment   0.27    -7.63     8.18 9.354633e-01         1.000000e+00  1991
+  C-gap                     c03 Computer vision, 3D vision and imaging  -7.76   -12.61    -2.91 6.879854e-03         1.169575e-01  2164
+C-level                     c03 Computer vision, 3D vision and imaging   2.21    -2.14     6.55 2.692057e-01         1.000000e+00  1563
+  C-gap                                     c04 Reinforcement learning  -8.22   -17.39     0.95 6.490806e-02         4.259278e-01  2574
+C-level                                     c04 Reinforcement learning  -4.31    -9.96     1.34 9.361654e-02         1.000000e+00  1492
+  C-gap            c05 Federated learning, privacy and decision making -10.48   -17.09    -3.87 8.165455e-03         1.306473e-01  2203
+C-level            c05 Federated learning, privacy and decision making  -8.48   -12.98    -3.99 3.622424e-03         7.244848e-02  1511
+  C-gap   c06 Robust, continual, transfer and label-efficient learning  -3.79    -9.79     2.22 1.794861e-01         5.353848e-01  2010
+C-level   c06 Robust, continual, transfer and label-efficient learning  -3.99    -7.25    -0.73 2.307424e-02         4.384106e-01  1540
+  C-gap    c07 Optimization, scientific ML and probabilistic inference  -8.26   -15.21    -1.31 2.702471e-02         3.066445e-01  2137
+C-level    c07 Optimization, scientific ML and probabilistic inference  -2.92    -8.48     2.63 2.454599e-01         1.000000e+00  1527
+  C-gap                  c08 LLM efficiency, sequence models and audio -13.24   -26.23    -0.25 4.732531e-02         4.259278e-01  1725
+C-level                  c08 LLM efficiency, sequence models and audio   0.71    -3.34     4.76 6.532242e-01         1.000000e+00  1250
+  C-gap c09 Generalization theory, compression and architecture design -13.27   -23.89    -2.66 2.555371e-02         3.066445e-01  1613
+C-level c09 Generalization theory, compression and architecture design  -4.09    -7.85    -0.33 3.903705e-02         6.636298e-01  1268
+  C-gap               c10 Vision-language models and few-shot learning  -6.11   -10.28    -1.95 1.513212e-02         2.242526e-01  1309
+C-level               c10 Vision-language models and few-shot learning   2.01    -3.88     7.89 3.975347e-01         1.000000e+00   984
+  C-gap                         c11 Causal inference and biomedical ML -10.05   -16.87    -3.23 1.495017e-02         2.242526e-01  1392
+C-level                         c11 Causal inference and biomedical ML  -5.82   -12.87     1.23 8.369671e-02         1.000000e+00   936
+  C-gap          c12 Adversarial robustness, backdoors and AI security -13.87   -16.58   -11.15 2.066144e-03         4.132288e-02  1151
+C-level          c12 Adversarial robustness, backdoors and AI security  -8.70   -14.78    -2.62 2.541084e-02         4.573951e-01   798
+  C-gap               c13 Embodied AI, driving and video understanding -14.08   -29.31     1.15 6.039064e-02         4.259278e-01  1142
+C-level               c13 Embodied AI, driving and video understanding  -0.19    -9.06     8.69 9.511218e-01         1.000000e+00   749
+  C-gap                      c14 GANs, VAEs, diffusion and flow models -14.95   -25.94    -3.96 2.273340e-02         2.955341e-01  1119
+C-level                      c14 GANs, VAEs, diffusion and flow models  -0.82    -8.70     7.06 7.625215e-01         1.000000e+00   845
+  C-gap       c15 VLM reasoning, knowledge graphs and interpretability -20.75   -30.37   -11.12 6.344916e-03         1.142085e-01  1002
+C-level       c15 VLM reasoning, knowledge graphs and interpretability  -2.85   -14.17     8.48 4.825114e-01         1.000000e+00   784
+  C-gap                                      c16 Graph neural networks -10.46   -78.28    57.36 3.003535e-01         5.353848e-01  1115
+C-level                                      c16 Graph neural networks  -9.75   -29.91    10.41 1.027306e-01         1.000000e+00   688
+  C-gap               c17 Diffusion image, video and motion generation  -8.04   -16.31     0.23 5.273309e-02         4.259278e-01   916
+C-level               c17 Diffusion image, video and motion generation   8.47    -6.20    23.13 1.309108e-01         1.000000e+00   623
+  C-gap                    c18 Time series and spatiotemporal modeling -10.80   -27.47     5.87 1.312334e-01         5.353848e-01   854
+C-level                    c18 Time series and spatiotemporal modeling  -9.05   -18.07    -0.04 4.946146e-02         7.913833e-01   680
+  C-gap     c19 Representation geometry, clustering and kernel methods  -9.68   -27.08     7.71 1.389189e-01         5.353848e-01   843
+C-level     c19 Representation geometry, clustering and kernel methods  -2.59   -13.51     8.34 4.153039e-01         1.000000e+00   708
+  C-gap          c20 Neuroscience, brain decoding and spiking networks  -9.34   -23.67     4.99 1.070770e-01         5.353848e-01   671
+C-level          c20 Neuroscience, brain decoding and spiking networks  -3.50   -22.20    15.20 5.051827e-01         1.000000e+00   493

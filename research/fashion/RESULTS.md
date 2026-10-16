@@ -337,6 +337,46 @@ only ranks the evidence.
     teams bring resources and seniority.
   - So these are not recommendations about what a newcomer should do.
 
+## Post hoc: where do small or large teams do better? (PH2, exploratory)
+
+`posthoc.py ph2`, declared before it was run; outputs in `output/posthoc/ph2_*`, figure `PH2_team_size.png`.
+- **Population:** all 32,190 RQ3 papers, 2018–2026.
+- **Model:** acceptance per doubling of team size, within topic × year, controlling class and FM. Team size is capped
+  at 16.
+- **Calibration:** in simulated nulls, the slope and band tests were sized about 5%. The nominal heterogeneity test
+  was badly oversized (90% for areas), so its p-value is calibrated on the real design instead.
+
+- **Overall the gradient is steep.**
+  - Acceptance by team size: 1–2 authors 28.7%; 3–4 authors 37.6%; 5–6 authors 41.6%; 7 or more 49.0%.
+  - Within topic and year: +8.8 pp per doubling (95% CI +8.0 to +9.7), and +7.8 pp with a newcomer control.
+  - Relative to 3–4 authors: 1–2 authors −9.1 pp; 7 or more +10.8 pp.
+- **By contribution class.**
+  - Large teams gain most for dataset/benchmark and evaluation papers: +13.5 pp per doubling each. Benchmark papers by
+    1–2 authors are accepted 21% of the time, against 52% with 7 or more.
+  - Method papers +9.3 pp; empirical +5.5 pp.
+  - Theory is the flattest: +3.3 pp, n.s. Theory papers by 1–2 authors are accepted 42% of the time, against 27% for
+    method papers by 1–2 authors.
+  - The joint test that all classes share one slope is not rejected (calibrated p = 0.13), so the class ranking is
+    suggestive. The gap between theory and dataset/benchmark is the clearest contrast: their CIs do not overlap.
+- **By area.** Areas do differ (calibrated p = 0.035).
+  - **Steepest** (large teams most favoured):
+    - neuroscience/spiking networks, +14.2 pp;
+    - diffusion image/video generation, +12.9 pp (1–2 authors 25% vs 7 or more 59%);
+    - VLM reasoning, +12.3 pp;
+    - vision-language, +11.9 pp;
+    - LLMs/NLP, +11.2 pp;
+    - LLM efficiency, +10.3 pp;
+    - embodied AI, +10.2 pp.
+  - **Flattest** (small teams least disadvantaged):
+    - federated learning/privacy, +4.0 pp (7 or more vs 3–4: +0.3 pp);
+    - time series, +4.3 pp;
+    - optimisation, scientific ML and probabilistic inference, +5.2 pp (7 or more vs 3–4: −1.0 pp);
+    - causal inference/biomedical ML, +6.9 pp, n.s.
+  - The slope is positive in every area. There is no area where small teams do better, only areas where they are less
+    disadvantaged.
+- **Reading.** Team size also stands for compute, data, engineering and seniority, which are plausibly what large
+  benchmark, generation and LLM work needs. These are associations, not advice to add authors.
+
 ## Limitations
 
 - **Associations only.** Topic choice, team composition and contribution type are chosen jointly.

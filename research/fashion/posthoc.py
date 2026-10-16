@@ -329,7 +329,7 @@ def plot_ph2(res: pd.DataFrame) -> None:
         ax.scatter(g.coef * 100, y, s=22, color=figures.SERIES[0], edgecolor=figures.SURFACE, linewidth=1, zorder=3)
         ax.set_yticks(y, [lab.split(" ", 1)[1] if blk == "B-area" else lab for lab in g.label], fontsize=6.8)
         ax.set_title(title, loc="left")
-        ax.set_xlabel("pp acceptance per doubling of team size (95% CI)")
+        ax.set_xlabel("pp per doubling of team size (95% CI)")
     fig.suptitle("Acceptance and team size within topic-year (post hoc, exploratory); dashed: all papers",
                  x=0.01, ha="left", fontsize=8.5)
     figures.save(fig, "PH2_team_size")
@@ -337,8 +337,11 @@ def plot_ph2(res: pd.DataFrame) -> None:
 
 def main() -> None:
     which = sys.argv[1] if len(sys.argv) > 1 else ""
+    if which == "plot2":                                   # redraw from the saved estimates; reads no outcome
+        plot_ph2(pd.read_csv(OUT / "ph2_estimates.csv"))
+        return
     if which not in ("ph1", "ph2"):
-        raise SystemExit("usage: posthoc.py ph1|ph2")
+        raise SystemExit("usage: posthoc.py ph1|ph2|plot2")
     OUT.mkdir(parents=True, exist_ok=True)
     if which == "ph2":
         ph2(with_outcomes())

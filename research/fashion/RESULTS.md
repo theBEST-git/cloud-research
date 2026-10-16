@@ -296,6 +296,47 @@ All are associations within the stated fixed effects, `output/frozen_run/explora
 - **E7 and the buzzword rows of E3** use the failed buzzword measure. They are reported in the output, labelled, and
   not interpreted.
 
+## Post hoc: what goes with acceptance for newcomer papers? (PH1, exploratory)
+
+This analysis was asked after the results and declared in `PREREGISTRATION.md` before it was run (`posthoc.py`,
+outputs in `output/posthoc/`, figures `PH1_newcomer_what.png` and `PH1_newcomer_areas.png`). It is not
+pre-registered: these are associations within topic and year, not effects. Holm is applied within each block and
+only ranks the evidence.
+
+- **Population:** the E2 population, 31,549 decided papers from 2019–2026 with an author ID.
+  - 22,603 are newcomer papers, accepted 37.2% of the time; incumbent papers are accepted 47.3% of the time.
+- **Among newcomer papers, within the same topic and year** (A2, relative to newcomer method papers):
+  - theory papers +10.2 pp (95% CI +7.2 to +13.2; raw 44.9% vs 36.9%);
+  - papers building on foundation models +4.1 pp (+2.0 to +6.2), about the same as for all papers (E1);
+  - dataset/benchmark +2.4 pp and evaluation −0.5 pp, both n.s.;
+  - empirical −3.1 pp (n.s.);
+  - "other" −9.1 pp.
+- **Team size is the strongest correlate** (A1, topic and year FE, relative to newcomer teams of 3–4 authors):
+  - 1–2 authors: −8.5 pp;
+  - 5–6 authors: +3.7 pp;
+  - 7 or more authors: +11.1 pp.
+- **Topic choice.**
+  - Newcomer papers in more mature topics are accepted less often: −2.8 pp per log unit (Holm p = 0.02, A1).
+  - Hot topics bring no advantage (+1.2 pp, n.s.).
+- **The newcomer discount is present in every subgroup** (B, within topic × year). It is −10.2 pp overall, and
+  ranges from:
+  - −5.1 pp for theory papers and −6.4 pp for teams of 7 or more (the smallest);
+  - to −14.6 pp for dataset/benchmark papers and −11.6 pp in the most mature topics (the largest).
+
+  Team size therefore accounts for some of the discount, not all of it. Newcomer dataset/benchmark papers are rarer
+  (H2c), and when written they show the largest gap.
+- **By area (C):**
+  - The within-topic-year newcomer gap is negative in all 20 coarse areas, from −3.8 to −20.8 pp.
+  - Newcomer acceptance relative to the year's overall rate is near zero in computer vision, vision-language and LLM
+    areas, and lowest in federated learning, adversarial robustness, graph neural networks and time series (about
+    −9 pp).
+  - No area or area × year cell survives Holm, so these are descriptive only.
+- **Reading.** Newcomer papers that are theory papers, come from large teams or build on foundation models are
+  accepted more often. The newcomer discount is smallest for theory papers and large teams.
+  - Selection is likely: newcomer theory papers may come from established researchers in other fields, and large
+    teams bring resources and seniority.
+  - So these are not recommendations about what a newcomer should do.
+
 ## Limitations
 
 - **Associations only.** Topic choice, team composition and contribution type are chosen jointly.

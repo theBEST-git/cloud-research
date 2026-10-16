@@ -12,12 +12,26 @@ Newcomer: no author ID with an earlier discovery submission in the same k100 top
   C   by coarse area (20): the newcomer gap | topic x year; and newcomer acceptance minus the same year's overall
       acceptance, per area (all years) and per area x year (cells with >= 50 newcomer papers; grey otherwise)
 
-    python research/fashion/posthoc.py     (only after the frozen run; the code must be committed: outcomes.py)
-Writes output/posthoc/ph1_*.csv, ph1_summary.json and output/figures/PH1_*.png/pdf.
+PH2 (2026-10-16): which contribution types and areas favour small or large teams?
+Population: the RQ3 filter (decided ordinary submissions), 2018-2026, at least one author. Team size capped at 16.
+  A  all papers: acceptance ~ team-size band (ref. 3-4) + class + FM | topic x year; and the slope per doubling of
+     team size (log2), also with a newcomer control on papers with an author ID (2019-2026)
+  B  slope per doubling and band effects (ref. 3-4), separately within each contribution class and each coarse area,
+     controls class (areas only) + FM | topic x year; Holm across the slopes of each set
+  H  heterogeneity: one pooled model per set with log2(team) x group interactions | topic x year; joint Wald F
+     statistic that the slope is the same in every group. Its F(q, G - 1) p-value is NOT valid: in 40 simulated nulls
+     it rejected 10% (classes) and 90% (areas) at 0.05, because each area's interaction rests on about 5 topic
+     clusters. The p-value used is calibrated on the real design instead: the same F computed on 200 simulated null
+     outcomes (dgp.simulate, alternating the dry-run's RQ3 lo/hi settings, real papers, topics, years and team sizes),
+     p = (1 + #F_null >= F) / 201. The slope and band tests themselves were sized 5.1% and 4.8% in those nulls.
+
+    python research/fashion/posthoc.py ph1|ph2   (only after the frozen run; the code must be committed: outcomes.py)
+Writes output/posthoc/ph{1,2}_*.csv and *.json and output/figures/PH{1,2}_*.png/pdf.
 """
 from __future__ import annotations
 
 import json
+import sys
 
 import numpy as np
 import pandas as pd
@@ -28,7 +42,8 @@ import outcomes
 import panel
 from analysis import estimate
 from common import OUTPUT, TOPICS
-from ols import fe_ols
+from dgp import simulate
+from ols import demean, fe_ols
 from panel import CLASS_CONTROLS
 from variants import holm
 
@@ -37,14 +52,25 @@ YEARS = (2019, 2026)
 CLASSES = ["method", "theory", "empirical", "dataset_benchmark", "evaluation", "other"]
 BANDS = ["1-2", "3-4", "5-6", "7+"]
 MIN_CELL = 50
+TEAM_CAP = 16
 
 
-def population() -> pd.DataFrame:
+def with_outcomes(load=None) -> pd.DataFrame:
+    """The k100 frame with the post hoc outcome columns (the only place post hoc code reads outcomes)."""
     k = panel.frame("k100")
-    out = outcomes.load("posthoc", k.submission_id)
+    out = (load or outcomes.load)("posthoc", k.submission_id)
     assert (out.submission_id.to_numpy() == k.submission_id.to_numpy()).all()
-    d = k.assign(rq3=out.rq3.to_numpy(), accepted=out.accepted.to_numpy())
-    d = d[d.rq3 & d.has_author_key & d.year.between(*YEARS)].copy()
+    return k.assign(rq3=out.rq3.to_numpy(), accepted=out.accepted.to_numpy())
+
+
+def population(k: pd.DataFrame | None = None) -> pd.DataFrame:
+    """PH1 population (E2's): decided papers with an author ID, 2019-2026."""
+    k = with_outcomes() if k is None else k
+    d = k[k.rq3 & k.has_author_key & k.year.between(*YEARS)].copy()
+    return add_columns(d)
+
+
+def add_columns(d: pd.DataFrame) -> pd.DataFrame:
     cat = pd.read_csv(TOPICS / "topic_catalog.csv", keep_default_na=False)
     d["area"] = d.topic.map(cat[cat.level == "mid"].set_index("topic").parent_coarse)
     d["area_name"] = d.area.map(cat[cat.level == "coarse"].set_index("topic").name)
@@ -53,6 +79,7 @@ def population() -> pd.DataFrame:
     for b in BANDS:
         d[f"band_{b}"] = (d.band == b).astype(float)
     d["incumbent"] = 1 - d.newcomer
+    d["log2_team"] = np.log2(d.team_size.clip(lower=1, upper=TEAM_CAP))
     return d
 
 
@@ -178,9 +205,145 @@ def plot(res: pd.DataFrame, grid: pd.DataFrame) -> None:
     figures.save(fig, "PH1_newcomer_areas")
 
 
+def fe_vcov(y: pd.Series, X: pd.DataFrame, absorb: pd.Series, cluster: pd.Series):
+    """fe_ols with the full CR1 covariance (same estimator as ols.fe_ols): (beta, vcov, G)."""
+    keep = (y.notna() & X.notna().all(axis=1)).to_numpy()
+    yd = demean(y.to_numpy(float)[keep], absorb.to_numpy()[keep])
+    Xd = demean(X.to_numpy(float)[keep], absorb.to_numpy()[keep])
+    xtx_inv = np.linalg.pinv(Xd.T @ Xd)
+    beta = xtx_inv @ Xd.T @ yd
+    resid = yd - Xd @ beta
+    _, cinv = np.unique(cluster.to_numpy()[keep], return_inverse=True)
+    G, n, k = cinv.max() + 1, len(yd), Xd.shape[1]
+    scores = np.zeros((G, k))
+    np.add.at(scores, cinv, Xd * resid[:, None])
+    vcov = (G / (G - 1)) * ((n - 1) / (n - k)) * xtx_inv @ (scores.T @ scores) @ xtx_inv
+    return pd.Series(beta, X.columns), pd.DataFrame(vcov, X.columns, X.columns), int(G)
+
+
+def wald(beta: pd.Series, vcov: pd.DataFrame, cols: list[str], G: int) -> tuple[float, float, int]:
+    """Joint test that the coefficients in cols are all zero: (F, p, q), F(q, G - 1)."""
+    b, V = beta[cols].to_numpy(), vcov.loc[cols, cols].to_numpy()
+    q = len(cols)
+    F = float(b @ np.linalg.pinv(V) @ b / q)
+    return F, float(stats.f.sf(F, q, G - 1)), q
+
+
+def ph2_group(d: pd.DataFrame, block: str, label: str, controls) -> list[dict]:
+    e = estimate(d, "accepted", "log2_team", tuple(controls), "cell", (2018, 2026))
+    out = [row(block, label, e["coef"], e["se"], e["p"], e["n"], e["dof"], term="slope per doubling",
+               rate_1_2=float(d[d.band == "1-2"].accepted.mean()), rate_7plus=float(d[d.band == "7+"].accepted.mean()),
+               papers_1_2=int((d.band == "1-2").sum()), papers_7plus=int((d.band == "7+").sum()))]
+    bands = [f"band_{b}" for b in BANDS if b != "3-4"]
+    X = d[bands + list(controls)].astype(float)
+    X = X.loc[:, X.groupby(d.cell.to_numpy()).transform(lambda c: c - c.mean()).std() > 1e-12]
+    r = fe_ols(d.accepted.astype(float), X, d.cell, d.topic)
+    for b in bands:
+        if b in r.index:
+            out.append(row(block, label, r.loc[b, "coef"], r.loc[b, "se"], r.loc[b, "p"], int(r.loc[b, "n"]),
+                           r.loc[b, "clusters"] - 1, term=f"{b[5:]} vs 3-4"))
+    return out
+
+
+def ph2_heterogeneity(d: pd.DataFrame, group: str, levels: list[str], controls) -> dict:
+    X = d[["log2_team"] + list(controls)].astype(float)
+    inter = []
+    for g in levels[1:]:
+        c = f"log2_team_x_{g}"
+        X[c] = d.log2_team * (d[group] == g)
+        inter.append(c)
+    beta, vcov, G = fe_vcov(d.accepted.astype(float), X, d.cell, d.topic)
+    F, p, q = wald(beta, vcov, inter, G)
+    return {"set": group, "groups": len(levels), "F": F, "df1": q, "df2": G - 1, "p": p}
+
+
+HET_DRAWS, HET_SEED = 200, 20261016
+
+
+def het_null_p(d: pd.DataFrame, sets: list[tuple], observed: list[dict]) -> None:
+    """Calibrated p for each heterogeneity F (see the module docstring); adds 'p_calibrated' to observed in place."""
+    import dryrun
+    rng = np.random.default_rng(HET_SEED)
+    null = {name: [] for name, *_ in sets}
+    for i in range(HET_DRAWS):
+        dd = d.assign(accepted=simulate(d, dryrun.RQ3_DGP["lo" if i % 2 == 0 else "hi"], rng))
+        for name, group, levels, ctr in sets:
+            null[name].append(ph2_heterogeneity(dd, group, levels, ctr)["F"])
+    for (name, *_), obs in zip(sets, observed):
+        f = np.array(null[name])
+        obs["p_naive_invalid"] = obs.pop("p")
+        obs["p_calibrated"] = float((1 + (f >= obs["F"]).sum()) / (1 + len(f)))
+        obs["null_F_median"], obs["null_F_95pct"] = float(np.median(f)), float(np.quantile(f, 0.95))
+
+
+def ph2(k: pd.DataFrame) -> None:
+    d = add_columns(k[k.rq3 & k.year.between(2018, 2026) & (k.team_size >= 1)].copy())
+    base = CLASS_CONTROLS + ["fm"]
+    rows = ph2_group(d, "A", "all papers", base)
+    keyed = d[d.has_author_key & d.year.between(*YEARS)]
+    e = estimate(keyed, "accepted", "log2_team", tuple(base) + ("newcomer",), "cell", YEARS)
+    rows.append(row("A", "papers with an author ID, newcomer control", e["coef"], e["se"], e["p"], e["n"], e["dof"],
+                    term="slope per doubling"))
+    for c in CLASSES:
+        rows += ph2_group(d[d.primary_class == c], "B-class", c, ["fm"])
+    names = d.drop_duplicates("area").set_index("area").area_name
+    areas = sorted(d.area.dropna().unique())
+    for a in areas:
+        rows += ph2_group(d[d.area == a], "B-area", f"{a} {names[a]}", base)
+    res = pd.DataFrame(rows)
+    for blk in ["B-class", "B-area"]:
+        m = (res.block == blk) & (res.term == "slope per doubling")
+        res.loc[m, "p_holm_slopes"] = holm(res.loc[m, "p"].fillna(1.0)).to_numpy()
+    d["cls"] = d.primary_class
+    sets = [("classes", "cls", CLASSES, base), ("areas", "area", areas, base)]
+    het = [ph2_heterogeneity(d, g, lv, c) for _, g, lv, c in sets]
+    het_null_p(d, sets, het)
+    res.to_csv(OUT / "ph2_estimates.csv", index=False)
+    rates = (d.groupby(["primary_class", "band"]).accepted.agg(["mean", "size"]).rename(
+        columns={"mean": "acceptance_rate", "size": "papers"}).reset_index())
+    rates.to_csv(OUT / "ph2_rates_by_class_and_band.csv", index=False)
+    summary = {"population_papers": int(len(d)), "team_size_median": float(d.team_size.median()),
+               "papers_by_band": d.band.value_counts().to_dict(),
+               "acceptance_by_band": d.groupby("band").accepted.mean().round(4).to_dict(), "heterogeneity": het,
+               "note": "post hoc exploratory (PREREGISTRATION.md, 2026-10-16); associations, not causal effects"}
+    (OUT / "ph2_summary.json").write_text(json.dumps(summary, indent=2) + "\n")
+    plot_ph2(res)
+    print(json.dumps(summary, indent=1))
+    show = res.assign(**{c: (res[c] * 100).round(2) for c in ["coef", "ci95_lo", "ci95_hi"]})
+    cols = ["block", "label", "term", "coef", "ci95_lo", "ci95_hi", "p", "p_holm_slopes", "n"]
+    print(show[cols].to_string(index=False))
+
+
+def plot_ph2(res: pd.DataFrame) -> None:
+    plt = figures.plt
+    slopes = res[res.term == "slope per doubling"]
+    overall = slopes[(slopes.block == "A") & (slopes.label == "all papers")].coef.iloc[0] * 100
+    fig, axes = plt.subplots(1, 2, figsize=(7.6, 4.6), constrained_layout=True,
+                             gridspec_kw={"width_ratios": [1, 1.5]})
+    for ax, blk, title in [(axes[0], "B-class", "By contribution class"), (axes[1], "B-area", "By area")]:
+        g = slopes[slopes.block == blk].sort_values("coef")
+        y = np.arange(len(g))
+        ax.axvline(0, color=figures.INK2, lw=0.7)
+        ax.axvline(overall, color=figures.MUTED, lw=0.8, ls=(0, (3, 2)))
+        ax.hlines(y, g.ci95_lo * 100, g.ci95_hi * 100, color=figures.SERIES[0], lw=1.6)
+        ax.scatter(g.coef * 100, y, s=22, color=figures.SERIES[0], edgecolor=figures.SURFACE, linewidth=1, zorder=3)
+        ax.set_yticks(y, [lab.split(" ", 1)[1] if blk == "B-area" else lab for lab in g.label], fontsize=6.8)
+        ax.set_title(title, loc="left")
+        ax.set_xlabel("pp acceptance per doubling of team size (95% CI)")
+    fig.suptitle("Acceptance and team size within topic-year (post hoc, exploratory); dashed: all papers",
+                 x=0.01, ha="left", fontsize=8.5)
+    figures.save(fig, "PH2_team_size")
+
+
 def main() -> None:
-    d = population()
+    which = sys.argv[1] if len(sys.argv) > 1 else ""
+    if which not in ("ph1", "ph2"):
+        raise SystemExit("usage: posthoc.py ph1|ph2")
     OUT.mkdir(parents=True, exist_ok=True)
+    if which == "ph2":
+        ph2(with_outcomes())
+        return
+    d = population()
     rows_c, grid = block_c(d)
     res = pd.DataFrame(block_a(d) + block_b(d) + rows_c)
     for blk, g in res.groupby("block"):

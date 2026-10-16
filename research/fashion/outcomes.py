@@ -108,7 +108,7 @@ def require_posthoc() -> None:
     POSTHOC_LOG.parent.mkdir(parents=True, exist_ok=True)
     with POSTHOC_LOG.open("a") as f:
         f.write(json.dumps({"at_utc": pd.Timestamp.now(tz="UTC").isoformat(timespec="seconds"), "git_head": head,
-                            "posthoc_sha256": sha256(POSTHOC)}) + "\n")
+                            "posthoc_sha256": sha256(POSTHOC), "argv": sys.argv[1:]}) + "\n")
 
 
 def _derive(s: pd.DataFrame) -> pd.DataFrame:

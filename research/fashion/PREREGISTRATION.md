@@ -750,3 +750,20 @@ Anything added after the freeze is labelled post hoc.
 
   Each access is logged to `output/posthoc/access_log.jsonl`. The pipeline was first run end to end on simulated
   outcomes; under that null, nothing survived Holm.
+- **PH2: which contribution types and areas favour small or large teams?** (`posthoc.py ph2`; declared before it
+  was run.)
+  - **Population:** the RQ3 filter, 2018–2026, at least one author. Team size is capped at 16.
+  - **Within topic × year, controlling class and FM:**
+    - acceptance per doubling of team size;
+    - team-size bands 1–2, 5–6 and 7+ against 3–4.
+  - **Groups:** overall (plus a newcomer control on papers with an author ID), and separately within each
+    contribution class and each of the 20 coarse areas. Holm is applied across the slopes of each set.
+  - **Heterogeneity:** a joint Wald F for equal slopes across groups.
+  - **Calibration first, on simulated null outcomes (40 seeds).**
+    - The per-group slope tests rejected 5.1% of the time and the band tests 4.8%.
+    - The Wald F with its nominal F(q, G − 1) reference rejected 10% for classes and 90% for areas. Each area's
+      interaction rests on about 5 topic clusters.
+    - Its p-value is therefore replaced by one calibrated on the real design: the same F on 200 simulated null
+      outcomes (dry-run RQ3 lo/hi settings; real papers, topics, years and team sizes).
+  - **Status:** exploratory and post hoc. These are associations: team size also stands for resources and
+    seniority.

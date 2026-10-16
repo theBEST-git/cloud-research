@@ -1,5 +1,6 @@
 """Slide figures for the talk. Reads only committed outputs (hindsight check, RQ1 results, frozen-run and post hoc
-estimates) and the outcome-free contribution labels; it never reads acceptance or review columns.
+estimates), the outcome-free contribution labels, and values transcribed from the earlier keyword analysis
+(data/keyword_gaps_transcribed.csv); it never reads acceptance or review columns.
 
 Figures are drawn at about 1.55x their size on the slide, so 15 pt text lands near 10 pt. Academic style: white
 background, plain panel labels (a), (b), formal axis titles; captions are set in LaTeX.
@@ -197,6 +198,39 @@ def newcomer_gap() -> None:
     save(fig, "newcomer_gap")
 
 
+def keyword_trajectories() -> None:
+    """Exploratory: keyword acceptance gap by year for four fashions. Values are transcribed from the keyword x year
+    heatmap of the earlier keyword analysis (Notion report; data/keyword_gaps_transcribed.csv); no outcome is read
+    here. Cells with fewer than 5 keyword papers are omitted; hollow markers have fewer than 50."""
+    d = pd.read_csv(HERE / "data" / "keyword_gaps_transcribed.csv")
+    panels = [("federated learning", "(a) Federated learning", ORANGE),
+              ("graph neural networks", "(b) Graph neural networks", ORANGE),
+              ("diffusion models", "(c) Diffusion models", BLUE),
+              ("large language models", "(d) Large language models", BLUE)]
+    fig, axes = plt.subplots(2, 2, figsize=(7.6, 4.6), sharex=True, sharey=True)
+    for ax, (kw, title, colour) in zip(axes.flat, panels):
+        g = d[d.keyword == kw]
+        ax.axhline(0, color=INK2, lw=1)
+        ax.plot(g.year, g.gap_pp, color=colour, lw=2.4, zorder=2)
+        big = g.n >= 50
+        ax.scatter(g.year[big], g.gap_pp[big], s=46, color=colour, zorder=3, edgecolor=BG, lw=1)
+        ax.scatter(g.year[~big], g.gap_pp[~big], s=46, facecolor=BG, edgecolor=colour, lw=1.8, zorder=3)
+        for row, dx, ha in [(g.iloc[0], -8, "right"), (g.iloc[-1], 8, "left")]:
+            ax.annotate(f"n={int(row.n):,}", (row.year, row.gap_pp), xytext=(dx, 0), textcoords="offset points",
+                        ha=ha, va="center", fontsize=FS - 4, color=INK2)
+        ax.set_title(title, fontsize=FS - 1)
+        ax.grid(axis="x", visible=False)
+    for ax in axes[1]:
+        ax.set_xticks([2020, 2023, 2026])
+        ax.set_xlim(2017.4, 2028.0)
+    for ax in axes[:, 0]:
+        ax.set_ylabel("Gap (pp)")
+    axes[0, 0].set_ylim(-24, 38)
+    axes[0, 0].set_yticks([-20, 0, 20])
+    fig.tight_layout(h_pad=0.8, w_pad=1.0)
+    save(fig, "keyword_trajectories")
+
+
 def team_size() -> None:
     """Backup: acceptance by team-size band (post hoc PH2, committed summary)."""
     s = json.loads((OUTPUT / "posthoc" / "ph2_summary.json").read_text())["acceptance_by_band"]
@@ -215,6 +249,6 @@ def team_size() -> None:
 
 if __name__ == "__main__":
     FIGS.mkdir(exist_ok=True)
-    for make in (hindsight, emerging, lifecycle, fm_trend, newcomers, newcomer_gap, team_size):
+    for make in (hindsight, emerging, lifecycle, fm_trend, newcomers, newcomer_gap, keyword_trajectories, team_size):
         make()
     print("figures written to", FIGS)

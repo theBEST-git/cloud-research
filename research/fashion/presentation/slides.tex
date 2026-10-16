@@ -329,6 +329,31 @@
   \gnote{\footnotesize Other correlates of acceptance (theory papers, team size): Appendix A7--A8.}
 \end{frame}
 
+\begin{frame}{Exploratory: Acceptance Premia Fade as Fashions Mature}
+  \begin{columns}[c]
+    \begin{column}{0.56\textwidth}
+      \begin{figure}
+        \includegraphics[width=\textwidth]{figs/keyword_trajectories.pdf}
+        \caption{Acceptance gap, keyword papers minus all others in the same year (pp). Hollow: $n<50$; $n<5$
+        omitted. Author keywords from an earlier exploratory analysis; full grid in Appendix A12.}
+      \end{figure}
+    \end{column}
+    \begin{column}{0.42\textwidth}
+      \small
+      \begin{itemize}
+        \item Young fashions carry a premium (small early cells)
+        \item It fades; for federated learning and GNNs it \alert{reverses} ($-12$ to $-15$\pp, 100--200 papers
+          a year)
+        \item Diffusion and LLMs follow the same path, later
+      \end{itemize}
+      \begin{block}{Two readings}
+        \footnotesize Reviewers grow sceptical, or later papers in a crowded topic are weaker. These data cannot
+        separate the two.
+      \end{block}
+    \end{column}
+  \end{columns}
+\end{frame}
+
 % ============================================================================ 6
 \section{Conclusion}
 
@@ -588,6 +613,12 @@
       errors clustered by topic
     \item[pp] percentage points
   \end{description}
+\end{frame}
+
+\begin{frame}{A12. Keyword $\times$ Year Acceptance Gaps (Exploratory)}
+  \centering
+  \includegraphics[height=0.80\textheight]{figs/keyword_year_heatmap.png}\\
+  {\tiny\gnote{Keyword papers minus all others, same year (pp); hatched: a group below 50 papers; 31,239 submissions.}}
 \end{frame}
 
 \begin{frame}{References}

@@ -1,10 +1,11 @@
 # Talk script: "Following the Fashion?"
 
-- **Length:** about 1,400 spoken words, about 12 minutes at a calm pace (120 words a minute). The timing table
-  allows 12.5 minutes, which leaves 2.5 minutes of buffer under the 15-minute limit.
+- **Length:** about 1,560 spoken words, about 13 minutes at a calm pace (120 words a minute). The timing table
+  allows 13.25 minutes, which leaves 1.75 minutes of buffer under the 15-minute limit. If a rehearsal runs long,
+  cut the lines marked *(cut if short on time)* first.
 - **Rehearsal:** time yourself once. If you run over 14 minutes, cut the sentences marked *(cut if short on
   time)*.
-- **Questions:** see `qa.md`. Appendix slides A1–A11 and the references come after the "Thank you" slide.
+- **Questions:** see `qa.md`. Appendix slides A1–A12 and the references come after the "Thank you" slide.
 
 | Slide | Target | Ends by |
 |---|---|---|
@@ -21,9 +22,10 @@
 | 11 RQ2 | 1:15 | 9:35 |
 | 12 Exploratory: title style | 0:40 | 10:15 |
 | 13 RQ3 | 0:50 | 11:05 |
-| 14 Contributions | 0:40 | 11:45 |
-| 15 Limitations and future work | 0:35 | 12:20 |
-| 16 Thank you | 0:05 | 12:25 |
+| 14 Exploratory: acceptance premia fade | 0:50 | 11:55 |
+| 15 Contributions | 0:40 | 12:35 |
+| 16 Limitations and future work | 0:35 | 13:10 |
+| 17 Thank you | 0:05 | 13:15 |
 
 ---
 
@@ -188,7 +190,21 @@ Table 4 summarises the acceptance results.
 So we find no evidence that following the fashion is rewarded at review. If anything, going against the tide may
 help, and that is a hypothesis for the replication.
 
-## Slide 14: Contributions (0:40)
+## Slide 14: Exploratory, acceptance premia fade as fashions mature (0:50)
+
+This last result comes from an earlier, exploratory keyword analysis. It shows the reward side of a fashion over
+time. Each panel plots the acceptance gap between papers that list a keyword and all other papers from the same
+year.
+- Federated learning and graph neural networks started with a premium, although the early cells are small.
+- The premium then faded and reversed. In recent years, papers with these keywords are accepted 12 to 15 points
+  less often, with 100 to 200 such papers a year.
+- Diffusion models and large language models are on the same path, just later.
+
+There are two readings. Reviewers may grow sceptical, or later papers in a crowded topic may be weaker, and these
+data cannot separate the two. *(cut if short on time)* Either way, the reward for joining a fashion fades as the
+fashion matures.
+
+## Slide 15: Contributions (0:40)
 
 To summarise, three contributions.
 1. **Methodological.** Topic maps fitted with hindsight can manufacture emerging topics and reverse trend
@@ -199,7 +215,7 @@ To summarise, three contributions.
    - Newcomer papers lean towards new methods, against the herding prediction.
    - Style follows fashions without a reward at review.
 
-## Slide 15: Limitations and future work (0:35)
+## Slide 16: Limitations and future work (0:35)
 
 The main limitations:
 - this is one venue;
@@ -209,6 +225,6 @@ The main limitations:
 Next, we will replicate the four key hypotheses on the held-out ICLR split, where they are already registered. We
 will also extend the study to the ACL Anthology and validate the labels with human annotators.
 
-## Slide 16: Thank you (0:05)
+## Slide 17: Thank you (0:05)
 
 Thank you. I'm happy to take questions.

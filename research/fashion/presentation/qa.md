@@ -1,6 +1,6 @@
 # Q&A preparation
 
-Short answers first. Use the "If pushed" line only if they ask a follow-up. Appendix slides are A1–A11.
+Short answers first. Use the "If pushed" line only if they ask a follow-up. Appendix slides are A1–A12.
 
 **Three habits that keep answers safe:**
 - Say "goes with" or "is associated with", never "causes".
@@ -218,6 +218,38 @@ prospective version.
 **What does go with acceptance?**
 Theory papers (+9 points vs. method papers) and larger teams (+9 points per doubling). These are associations,
 not advice; team size also stands for compute and seniority. (A7, A8)
+
+### Topic trajectories (slide 14, Appendix A12)
+
+**So is federated learning a scam?**
+*Don't use the word "scam" yourself.* Answer: "We can't judge that from acceptance data. What we see is that FL
+papers went from an apparent premium to being accepted about 14 points less often than other papers in the same
+year, consistently from 2023 to 2026. That fits growing scepticism among reviewers. It also fits a change in who
+writes FL papers and how incremental they are. Descriptively, newcomer papers fare among the worst in the FL
+area, which suggests composition is part of the story."
+
+**Aren't the early cells tiny?**
+Yes, FL had only 11 papers in 2020, so I don't rely on the early premium. The robust part is the later penalty: four
+years in a row, about 100 papers each, all between −11 and −15 points. With about 400 papers pooled, random noise is
+roughly ±5 points, so −14 is well outside it.
+
+**Isn't this regression to the mean, or just dilution as the keyword grows?**
+Both could pull a gap *towards zero*: early extreme values shrink, and a keyword that covers more of the field looks
+more like the field. Neither pushes a gap clearly *below* zero for four years, which is what FL and GNNs show.
+
+**Did you cherry-pick these four keywords?**
+The four illustrate the pattern; Appendix A12 shows all 23, which were chosen by sample size, not by acceptance.
+Not every topic busts. Reinforcement learning and generative models, for example, stay near zero or positive in
+2026.
+
+**Why keywords here and topics elsewhere?**
+Keywords are chosen by the authors, so they don't depend on a topic map and have no hindsight problem. Our
+pre-registered topic-level test (H3a) points the same way on average (−1.7 points per 2.7× more earlier papers) but
+is inconclusive. The keyword view shows that the average hides some strong boom-and-bust cases.
+
+**Is this pre-registered?**
+No. It is earlier exploratory work, disclosed in the registration. A registered version is a natural next step:
+for example, testing whether a topic's acceptance gap declines as its volume grows, on the held-out split.
 
 ## 5. Scope and next steps
 

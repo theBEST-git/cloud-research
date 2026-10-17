@@ -31,7 +31,7 @@ from common import OUTPUT, ROOT
 
 CACHE = ROOT / "research" / "topics" / "cache"
 CLEAN, CHANGED = CACHE / "specter2_clean.npy", CACHE / "specter2_clean_changed.csv"
-CLEAN_SHA256 = None   # frozen in PREREGISTRATION.md before the run; compute() refuses any other file
+CLEAN_SHA256 = "f4a2af266b56dbcafecfbcf4cfedd6f1beb893a13e0604fd10ee520572bd6aa4"   # frozen before the run (PREREGISTRATION.md)
 COMMITTED = {"pivot": OUTPUT / "posthoc" / "ph5_pivot" / "tests.csv",
              "position": OUTPUT / "posthoc" / "ph5_position" / "tests.csv"}
 KEY = {"pivot": ("E1", "E4"), "position": ("P1b", "P7")}   # the results the robustness check is about

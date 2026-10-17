@@ -1676,7 +1676,12 @@ Anything added after the freeze is labelled post hoc.
         - The first embedding job was killed for memory. The script now embeds in resumable chunks.
         - About 10% of the sentences dropped by the availability pattern are ordinary content (e.g. "no negative data are available"). The pattern reads the text only, never the decision, so these drops hit accepted and rejected papers alike.
       - Other venue markers are negligible in the outcome-free counts: "ICLR" appears in 81 abstracts, "camera-ready / published at / accepted at" in 28, "oral/spotlight" in 14 (all years together). They are left in.
-      - The file is frozen by its sha256 (`CLEAN_SHA256` in the module; value recorded below before the run). `compute()` refuses any other file.
+      - The file is frozen by its sha256, `f4a2af266b56dbcafecfbcf4cfedd6f1beb893a13e0604fd10ee520572bd6aa4` (`CLEAN_SHA256` in the module), recorded before the run. `compute()` refuses any other file.
+      - Outcome-free build facts:
+        - 5,820 papers changed: 2,487 in 2026, 1,486 in 2025, 811 in 2024, 435 in 2023, 9–218 per year before.
+        - The 64 unchanged papers re-embedded as a check match `specter2.npy` (minimum cosine 0.99999994).
+        - For changed papers, the cosine between the original and clean vectors has a median of 0.9993 and a minimum of 0.961.
+        - In 11 changed papers the removed text lay beyond the 512-token limit, so their vectors are identical.
     - **Analyses** (everything else unchanged: the same code paths, the same frozen `ph5_pivot.REF` reference points and knots, the same seeds and the same 200 calibration nulls):
       - pivot: the declared family E1–E4 (Holm over the four), via `ph5_pivot.declared`;
       - position: Family 1, P1a–P7 (calibrated p for P3–P7, Holm over the eight, p_used as declared), via `ph5_position.declared` and `calibrated_p`.

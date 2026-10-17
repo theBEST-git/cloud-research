@@ -42,6 +42,8 @@ Among accepted ICLR papers from 2017 to 2025, do papers whose titles use LLM-fav
 
 - **R3–R7.** All are between −7% and −12%, and every CI includes 0.
 - **R2 (PPML, a sign check).** It is slightly positive, +2.1%, so its sign is opposite to the primary.
+  - That sign rests on one paper: DeBERTa (2021, 4,241 citations). Its title, "Decoding-enhanced BERT", uses enhanc\* in a technical sense.
+  - Without it, PPML is −13.2% (−39.4, +24.4). With the top 1% per year dropped, it is −8.4% (−27.5, +15.6) (audit diagnostic (g)).
 - **R1.** It is more than three times the size of the primary. The R1 calibration diagnostic (d) below shows that the R1 procedure itself is shifted by about −20% in this design: under no association it produces −20.5% on average. Corrected for this shift, R1 is −12.5% (−29.3, +8.4).
 
 ## Verdict (pre-registered rule)
@@ -49,6 +51,7 @@ Among accepted ICLR papers from 2017 to 2025, do papers whose titles use LLM-fav
 **"Inconclusive."**
 
 - **Not "fewer citations".** That label needs Holm p < 0.05, and Holm p is 0.36. The sign condition also fails: R2 PPML is +2.1%, against the primary's −9.0% (R1 does have the same sign).
+  - The R2 failure hinges on DeBERTa alone (see above). The verdict does not depend on it, because Holm p fails.
 - **Not "no meaningful difference".** That label needs the 95% CI to lie within ±10%. The CI is −20.7% to +4.3%, and its lower end is below −10%.
 
 The data fit anything from about 21% fewer to 4% more citations. A modest negative association cannot be ruled out, and no difference cannot be established.
@@ -74,7 +77,8 @@ This is one model with all 8 family dummies, so the reference group is exactly t
 - **leverag\* and boost\*.** Both are negative (−34% and −30%), with nominal p < 0.05.
   - These secondary tests carry no multiplicity correction.
   - A descriptive Holm across the 8 families gives 0.057 for leverag\* and 0.11 for boost\*. Diagnostic (not pre-registered).
-  - Calibrated content-matched pairs do not confirm either one (diagnostic (d)).
+  - Calibrated content-matched pairs point the same way, at about −37% each, but their CIs include 0 (diagnostic (d)).
+  - Estimating each family in its own model, against all other papers, gives the same values: −33.2% and −30.0% (audit diagnostic (g)).
   - Treat them as hypotheses, not findings.
 - **Families with n < 20** are reported but not interpreted. This is the same n ≥ 20 threshold the prereg uses for G6 templates. The elevat\* estimate rests on 2 papers.
 
@@ -166,7 +170,9 @@ Some matches are technical terms, not style choices: the boosting algorithm fami
   - Placebo-adjusted R1 is **−12.5% (−29.3, +8.4)**. The approximate SE is the placebo SD of the R1 statistic.
 - **Mechanism.** The nearest-neighbour controls are not typical papers.
   - On average they sit 0.27 log points above the mean (for papers without the feature) of their own year × topic50 cell, about 31% more citations. The G4 papers sit 0.07 below.
-  - One reading: being a paper's nearest neighbour in the embedding selects papers from dense, well-cited regions. This was not tested further.
+  - One reading: being a paper's nearest neighbour in the embedding selects papers from dense, well-cited regions. The audit tested this and confirmed it (audit diagnostic (f)).
+    - Matched controls are each the nearest neighbour of 2.9 papers on average, against 1.0 for all papers.
+    - With the primary controls and FE, such hubs are cited more: +27.8% per unit of log(1 + k-occurrence).
   - Only 64% of pairs share a topic50 cluster. There are 260 distinct controls for 273 pairs.
 - **Pair-level adjustment.** Adjusting for within-pair differences in log team size, log abstract words and arXiv id gives −23.7% (−37.6, −6.6). This still carries the placebo shift; within pairs the G4 paper is 7.0 pp less likely to have an arXiv id.
 - **Calipers.** Cosine ≥ 0.85 gives −29.1% (−44.9, −9.5) with 216 pairs. Cosine ≥ 0.90 gives −11.6% (−43.4, +38.2) with 75 pairs.
@@ -182,6 +188,7 @@ Some matches are technical terms, not style choices: the boosting algorithm fami
 - Raw R1 overstates the negative association. Once calibrated, R1 agrees with the primary in sign and rough size, and its CI includes 0.
 - The verdict does not change: it already fails on Holm p.
 - **The shift is a property of the R1 procedure, not of G4.** It likely affects R1 for every G-question: it pushes R1 down, so it understates positive associations and overstates negative ones. It should be checked wherever R1 is used as a verdict input.
+  - The audit confirmed this for G3: null mean −21.7% (G3 `results.json`, diagnostics.f_audit_r1_calibration).
 
 ### (e) Team prior (pre-registered R6 compared with R5 on the same 2022–25 sample)
 
@@ -202,9 +209,97 @@ Some matches are technical terms, not style choices: the boosting algorithm fami
   - G4 is a stem regex on the camera-ready title, so it includes some technical uses (diagnostic (c)) and does not separate LLM-assisted writing from authors' own word choice.
   - The feature is not LLM-use detection.
 - **Artefact sensitivity.** G4 papers have 5–6 pp fewer arXiv ids. With an arXiv-id indicator the point estimate moves from −9.0% to −3.2%, though among arXiv-linked records alone it is −11.5% (diagnostic (a)).
-- **R1 is shifted negative by construction in this design** (diagnostic (d)). This matters beyond G4.
+- **R1 is shifted negative by construction in this design** (diagnostic (d)). The cause is hub selection by nearest-neighbour matching (audit (f)). This matters beyond G4.
+- **R2's sign rests on one 2021 paper** (DeBERTa). On the count scale, the sign of the comparison depends on that one paper (audit (g)).
 - **Labels.** Secondary analyses (families, era, joint model, LLM heterogeneity) carry no multiplicity correction. **Diagnostics** were added after seeing the primary and are labelled as such. The family-level contrasts for leverag\* and boost\* are hypotheses only.
 
 ## One-sentence advice for authors (observational)
 
 Among accepted ICLR papers with similar content, papers whose titles use LLM-favoured words (enhancing, leveraging, boosting, …) receive about 9% fewer citations on average, but the 95% CI runs from 21% fewer to 4% more and the pre-registered verdict is inconclusive, so these data neither establish nor rule out a modest citation shortfall for such titles.
+
+## Audit (adversarial review, 2026-10-17)
+
+### What was checked
+
+- **Reproduction.** `core.primary(core.load(), "G4_llm_words")` reproduces `primary.json` exactly: b −0.09478, SE 0.06981, p 0.181, n 8,574, 273 G4 papers.
+  - Holm p 0.361 is taken from `primary.json`. It was not recomputed.
+- **Verdict.** Holm p ≥ 0.05; R1 −30.5% (same sign); R2 +2.1% (opposite sign); CI not inside ±10%. So "inconclusive" follows the pre-registered rule (`core.verdict`).
+- **Feature definition.**
+  - `G4_llm_words` = `r24_any`, as frozen in `core.load`. It equals "any of the 8 family columns" for all 8,602 papers.
+  - A plain stem regex, `\b(enhanc|leverag|unveil|unleash|harness|empower|elevat|boost)\w*` on the title, reproduces it exactly.
+  - It counts inflections and nouns ("enhanced", "enhancement", "boost"), not only the -ing forms listed in the prereg's examples. This matches the prereg's "word families" and the frozen core.
+- **Secondary analyses.**
+  - The era split is pre-2023 vs 2023+, as pre-specified.
+  - The family secondary uses one model with all 8 family dummies. Estimating each family in its own model, against all other papers, gives the same values (audit (g)).
+- **Frozen files.**
+  - SHA-256 of `core.py`, `CITES_PREREG.md` and `matched_venue.parquet` match `prereg_hashes.json`.
+  - `primary.json` is unchanged.
+- **Leakage.** No control uses the outcome.
+- **Numbers.** Every number in this file was compared with `results.json`, and all match. The SUMMARY.md figures (finding 9: R24 pre-decision 0.900 [0.870, 0.931]) were checked against `outputs/SUMMARY.md`.
+- **Placebo.** The R1 placebo in (d) was re-derived independently in `audit_g3g4.py`.
+  - With the same seed it is identical: null −20.5%, adjusted −12.5%.
+  - With another seed (12345, scratch run) the null is −21.1% and the adjusted R1 −11.8%.
+- **Re-run.** `g4.py` was re-run after the changes. Every pre-existing value in `results.json` reproduced. The exceptions are the QC note text and R7's SE, which differs at the 1e-8 level (iterative FE demeaning).
+
+### What was changed
+
+1. **R2 sign (interpretation).** The verdict text now states that R2's opposite sign rests on a single 2021 paper, DeBERTa. The verdict is unchanged.
+2. **Family wording.** "Calibrated content-matched pairs do not confirm either one" was misleading. The calibrated pairs agree in sign and rough size (about −37%); they are only imprecise. Reworded.
+3. **R1 mechanism.** It had been called "not tested further". It is now tested, in audit (f).
+4. **QC note.** The split-record QC run has finished: its log ends "DONE" at 30 records. The counts are final.
+5. **Audit diagnostics added.**
+   - Code: new module `src/cites/audit_g3g4.py`, called from `g4.py`.
+   - Results: `results.json` → `diagnostics_not_preregistered.f_audit_r1_mechanism` and `diagnostics_not_preregistered.g_audit_alt_explanations`.
+
+### (f) R1 mechanism — diagnostic (not pre-registered)
+
+| Check | Result |
+|---|---|
+| **Placebo null of R1** (as in (d)) | Null mean −20.5%. Placebo-adjusted R1 **−12.5% (−29.3, +8.4)**. |
+| **Who are the matched controls?** | On average each is the nearest same-year neighbour of **2.9** papers, against 1.0 for all papers and 1.0 for G4 papers. Local density is +0.77 SD for controls and +0.30 SD for G4 papers. |
+| **Are hubs cited more?** Primary controls and FE. | +27.8% (+20.7, +35.3) per unit of log(1 + times-a-nearest-neighbour). +40.5% (+34.3, +47.0) per SD of local density. |
+| **Residual decomposition.** Residual from the primary model fitted on non-G4 papers. | G4 papers sit −0.099 log points below their content prediction; their matched controls sit +0.208 above. R1 with the controls' excess removed: **−14.4%**. |
+| **Hub-penalised (CSLS-style) matching** | Raw −29.0% (−42.4, −11.1), 270 pairs. Its own null is −11.3%, so calibrated it is **−19.9% (−36.1, +0.3)**. |
+| **Pair-level adjustment** for the hubness difference | −31.3% (−47.7, −10.3). Within G4 pairs the hubness difference does not predict the citation gap (slope −0.02), so this adjustment does not remove the shift here. |
+| **Does the primary miss hubness?** | Primary + hubness: −9.6% (−21.0, +3.4). Primary + density: −10.6% (−22.0, +2.6). |
+
+**Reading.**
+- The R1 shift is hub selection. Nearest-neighbour matching picks papers that are the nearest neighbour of many others. These papers sit in dense regions and are cited more than the primary model's content controls predict.
+- Every corrected version of R1 for G4 is negative, from −12% to −31%. Most CIs include 0. Calibrated matched pairs therefore agree with the primary in sign. They do not establish a shortfall.
+- G4 papers are not unusually hub-like, so adding hubness or density to the primary leaves G4 at −10% to −11%.
+
+### (g) Alternative explanations tested — diagnostic (not pre-registered)
+
+Each re-fit uses the primary controls, year × topic50 FE and SEs clustered by topic50.
+
+| Alternative explanation | Test | Result for G4 |
+|---|---|---|
+| **S2 split records** | arXiv-id records only; arXiv-id indicator (diagnostic (a)) | arXiv-id records only: −11.5% (−24.2, +3.2). **With the indicator: −3.2% (−14.4, +9.5).** |
+| **Preprint exposure time** | Months from first arXiv posting to the conference; arXiv-id records with lead-month FE bins | G4 papers are posted later: 6.0 vs 6.7 months before. **−8.2% (−21.8, +7.8)** (from −11.5% on the same records). |
+| **Promotion / code release** | Abstract announces code or a URL | 31.5% vs 21.4%. With the indicator: −9.7% (−21.3, +3.6). |
+| **Paper type** | Method, findings and benchmark-paper indicators (crude regexes) | Findings abstracts 33% vs 47%; benchmark papers 8.1% vs 6.4%. With all three: **−8.5% (−20.3, +5.0)**. Within findings abstracts: −18.1% (−33.7, +1.1). Within other abstracts: −2.1% (−18.8, +18.0). |
+| **LLM-topic composition** | + llm_topic indicator (diagnostic (b)) | −9.2% (−20.9, +4.4) |
+| **LLM-assisted writing** | + F24 abstract fingerprint | 22.0% vs 9.4% of abstracts. With it: −8.6% (−20.4, +4.9). |
+| **"Improvement" framing rather than LLM vocabulary** | Neutral synonyms N24 = improv\*, utili[sz]\*, exploit\* (as in D3), 271 titles | N24 itself: −6.0% (−18.4, +8.2); 2023+ −1.2% (−18.5, +19.9), against G4 2023+ −9.1%. G4 vs N24 within improvement-framed titles: −6.8% (−26.4, +18.0). |
+| **Team prior success** | Pre-registered R6 (diagnostic (e)) | −7.9% (−20.0, +5.9) |
+| **Superstar outliers / heavy tail** | Within-year citation percentile outcome; drop the top 5% per year; drop zero-citation records | Percentile: −2.5 points (−5.3, +0.2), p 0.08. Top 5% dropped: −7.5% (−18.9, +5.6). Zero-citation records dropped: −12.5% (−23.4, −0.1). |
+| **R2 sign** | PPML after dropping the most-cited G4 paper; PPML with the top 1% per year dropped | DeBERTa dropped: −13.2% (−39.4, +24.4). Top 1% per year dropped: −8.4% (−27.5, +15.6). |
+| **Retitling** | WP4 audit pairs: arXiv v1 vs camera-ready title; 568 accepted 2023–25 papers | 21 G4 titles on the camera-ready version, 23 on v1: 1 added at camera-ready, 3 removed. Too few for an estimate. |
+
+**Reading.**
+- No single explanation removes the negative point estimate. Across all variants it lies between −3% and −13%, and almost every CI includes 0.
+- **Exposure and indexing.** The adjustments that move it most both concern exposure and indexing. G4 papers are posted to arXiv later and are less often linked to an arXiv record.
+  - The arXiv-id indicator takes the estimate to −3%. Lead-time FE take the arXiv-only estimate from −11.5% to −8.2%.
+  - Part of the shortfall may therefore reflect exposure, not the title's wording.
+- **Vocabulary vs framing.** Neutral "improvement" synonyms show a smaller negative point estimate overall (−6%), and the two cannot be separated (−6.8%, CI −26 to +18). So the data do not show that the LLM-favoured vocabulary, as opposed to "we improve X" framing, carries the association.
+- **Findings vs method abstracts.** The estimate is more negative within findings abstracts (−18%) than elsewhere (−2%). This is post-hoc and uncorrected: a hypothesis only.
+- **Retitling** is rare (4 changes among 24 papers with a G4 word on either version), so the camera-ready exposure is close to the pre-decision one.
+- **Not testable with these data.** Lab reputation beyond prior ICLR acceptances, social-media promotion, and quality signals not reflected in the abstract.
+
+### Confidence in the advice
+
+- **"Neither establish nor rule out a modest shortfall": high.** Holm p is 0.36; the CI spans −21% to +4%; and both pre-registered sign checks are fragile. R1 is shifted by construction, and R2's sign rests on one paper.
+- **Direction of the point estimate: medium-low.**
+  - It is negative under every log-scale adjustment, under the percentile outcome, and in every hubness-corrected matched-pairs version.
+  - The arXiv-id indicator shrinks it to −3%. Neutral improvement words show a similar, smaller pattern.
+- The one-sentence advice stands as written. It remains an association. It does not show that avoiding these words would change a given paper's citations.

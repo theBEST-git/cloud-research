@@ -121,12 +121,12 @@
      "n": 6599
     },
     "R7_year_plus_topic100_fe": {
-     "b": -0.07745580767572306,
-     "se": 0.029229691716416095,
-     "p": 0.010809339159818743,
-     "pct": -0.07453207792853134,
-     "lo": -0.12606213928994014,
-     "hi": -0.01996364582786525,
+     "b": -0.07745580767575601,
+     "se": 0.029229696269065544,
+     "p": 0.010809350676677099,
+     "pct": -0.07453207792856187,
+     "lo": -0.126062147088285,
+     "hi": -0.0199636370828441,
      "n": 8602
     }
    },
@@ -258,12 +258,12 @@
      "n": 6599
     },
     "R7_year_plus_topic100_fe": {
-     "b": 0.08520523965476862,
-     "se": 0.014534931195803652,
-     "p": 3.8145479486217937e-07,
-     "pct": 0.08894053754506381,
-     "lo": 0.058356014542828794,
-     "hi": 0.12040889645357322,
+     "b": 0.08520523965468284,
+     "se": 0.014534928620962407,
+     "p": 3.814533937607223e-07,
+     "pct": 0.08894053754497033,
+     "lo": 0.058356019883931465,
+     "hi": 0.12040889079912209,
      "n": 8602
     }
    },
@@ -884,12 +884,12 @@
      "n": 6599
     },
     "R7_year_plus_topic100_fe": {
-     "b": 0.04571811680200827,
-     "se": 0.016241171044214648,
-     "p": 0.007006602673949702,
-     "pct": 0.04677929986882412,
-     "lo": 0.013982271770742294,
-     "hi": 0.08063714045052839,
+     "b": 0.04571811680200712,
+     "se": 0.01624116854659659,
+     "p": 0.007006594571258962,
+     "pct": 0.04677929986882279,
+     "lo": 0.01398227673452035,
+     "hi": 0.08063713516045024,
      "n": 8602
     }
    },
@@ -1248,6 +1248,7 @@
   },
   "d_R1_scale": {
    "label": "diagnostic (not pre-registered)",
+   "audit_note": "The R1 pairing is shifted downward when there is no association (see g_audit.r1_null). The no-intercept 'pair_difference_slope_per_unit' absorbs that shift and is biased toward a negative slope (null means: g_audit.r1_null.<feature>.null.slope_no_intercept_null_mean_pct); use the null-corrected or with-intercept slopes in g_audit.r1_null instead.",
    "G5a_length5": {
     "n_pairs": 2547,
     "reimplemented_pct": -0.22989705410384909,
@@ -1559,6 +1560,894 @@
     },
     "change_in_b": 0.002660476950266194,
     "corr_feature_lprior_acc": -0.029495374568918636
+   }
+  },
+  "g_audit": {
+   "label": "diagnostic (not pre-registered; added by the adversarial audit)",
+   "r1_null": {
+    "G5a_length5": {
+     "label": "diagnostic (not pre-registered; added by the adversarial audit)",
+     "feature": "G5a_length5",
+     "unit": "per +5 words",
+     "n_pairs": 2547,
+     "observed_pct": -0.22989705410384909,
+     "mean_feature_contrast_in_pairs": 1.1509226541028659,
+     "covariates_differenced": [
+      "log_authors",
+      "log_abs_words",
+      "G1_name"
+     ],
+     "treated_y_minus_own_cell_mean": -0.008960361065487378,
+     "controls_y_minus_own_cell_mean": 0.2043851748943162,
+     "n_unique_controls": 1303,
+     "mechanism_note": "cell = year x topic50 over all papers; controls chosen as nearest neighbours are re-used (with replacement) and sit above their cell mean",
+     "reproduces_core_R1": true,
+     "observed_slope_no_intercept": {
+      "pct": -0.1950820179912479,
+      "lo": -0.26497750304598156,
+      "hi": -0.11853996245563536,
+      "p": 2.8348455612337662e-06,
+      "note": "g5 diagnostic (d) 'pair_difference_slope_per_unit'"
+     },
+     "observed_slope_with_intercept": {
+      "pct": -0.06531633764126799,
+      "lo": -0.23770426612171958,
+      "hi": 0.1460559332210949,
+      "p": 0.5160897013300156,
+      "intercept_pct": -0.17806005599441377,
+      "note": "intercept absorbs any constant shift of the pairing procedure; slope identified from variation in the feature contrast across pairs"
+     },
+     "null": {
+      "n_rep": 200,
+      "method": "feature permuted within year; terciles and core R1 pairing rebuilt",
+      "mean_log_diff": -0.1818923578614732,
+      "sd_log_diff": 0.05046938492607262,
+      "pct_at_mean": -0.16630892412373177,
+      "q2.5_q97.5_pct": [
+       -0.24443407426535058,
+       -0.0907781130810823
+      ],
+      "slope_no_intercept_null_mean_pct": -0.11840036695940714,
+      "slope_no_intercept_null_q2.5_q97.5_pct": [
+       -0.18411309217274585,
+       -0.05744183549466486
+      ],
+      "slope_with_intercept_null_mean_pct": -0.005253672767073669,
+      "slope_with_intercept_null_q2.5_q97.5_pct": [
+       -0.1683867339341577,
+       0.18531604296038684
+      ],
+      "intercept_null_mean_pct": -0.14862863245384295
+     },
+     "placebo_p_two_sided": 0.14925373134328357,
+     "placebo_adjusted": {
+      "pct": -0.07627301265433573,
+      "lo": -0.16348071575234757,
+      "hi": 0.020026152676338116,
+      "note": "exp(observed mean log diff - null mean) - 1; approximate CI from the null SD"
+     },
+     "slope_no_intercept_null_corrected": {
+      "pct": -0.08698013038795127,
+      "lo": -0.16626270088275474,
+      "hi": -0.00015834341462550583,
+      "note": "observed no-intercept slope minus its null mean (approximate CI)"
+     }
+    },
+    "G5b_informative": {
+     "label": "diagnostic (not pre-registered; added by the adversarial audit)",
+     "feature": "G5b_informative",
+     "unit": "per +1 SD (within year)",
+     "n_pairs": 2711,
+     "observed_pct": 0.04404233017940418,
+     "mean_feature_contrast_in_pairs": 2.0567833331679117,
+     "covariates_differenced": [
+      "log_authors",
+      "log_abs_words",
+      "G1_name",
+      "G5a_length5"
+     ],
+     "treated_y_minus_own_cell_mean": 0.10404916517028454,
+     "controls_y_minus_own_cell_mean": 0.05426567385852958,
+     "n_unique_controls": 1387,
+     "mechanism_note": "cell = year x topic50 over all papers; controls chosen as nearest neighbours are re-used (with replacement) and sit above their cell mean",
+     "reproduces_core_R1": true,
+     "observed_slope_no_intercept": {
+      "pct": 0.01141065669656438,
+      "lo": -0.04241487233185959,
+      "hi": 0.06826170010640387,
+      "p": 0.6842663686643284,
+      "note": "g5 diagnostic (d) 'pair_difference_slope_per_unit'"
+     },
+     "observed_slope_with_intercept": {
+      "pct": -0.05027583297427629,
+      "lo": -0.15605858355732138,
+      "hi": 0.0687661203246186,
+      "p": 0.3919028843079455,
+      "intercept_pct": 0.16801788423234387,
+      "note": "intercept absorbs any constant shift of the pairing procedure; slope identified from variation in the feature contrast across pairs"
+     },
+     "null": {
+      "n_rep": 200,
+      "method": "feature permuted within year; terciles and core R1 pairing rebuilt",
+      "mean_log_diff": -0.18730289434312689,
+      "sd_log_diff": 0.04987537184858787,
+      "pct_at_mean": -0.1708074593854797,
+      "q2.5_q97.5_pct": [
+       -0.2612925568834189,
+       -0.0930920431890283
+      ],
+      "slope_no_intercept_null_mean_pct": -0.0681510760925288,
+      "slope_no_intercept_null_q2.5_q97.5_pct": [
+       -0.10991531662905085,
+       -0.032412240000373904
+      ],
+      "slope_with_intercept_null_mean_pct": 0.00034474337568757285,
+      "slope_with_intercept_null_q2.5_q97.5_pct": [
+       -0.09149230005469366,
+       0.10690992671554023
+      ],
+      "intercept_null_mean_pct": -0.1592754221338636
+     },
+     "placebo_p_two_sided": 0.009950248756218905,
+     "placebo_adjusted": {
+      "pct": 0.25910723871883534,
+      "lo": 0.14156841068689996,
+      "hi": 0.3887481676549187,
+      "note": "exp(observed mean log diff - null mean) - 1; approximate CI from the null SD"
+     },
+     "slope_no_intercept_null_corrected": {
+      "pct": 0.0853805061613111,
+      "lo": 0.027618429447502146,
+      "hi": 0.1463893692412288,
+      "note": "observed no-intercept slope minus its null mean (approximate CI)"
+     }
+    },
+    "G5b_minilm": {
+     "label": "diagnostic (not pre-registered; added by the adversarial audit)",
+     "feature": "G5b_minilm",
+     "unit": "per +1 SD (within year) (MiniLM measure)",
+     "n_pairs": 2684,
+     "observed_pct": -0.1132198803712684,
+     "mean_feature_contrast_in_pairs": 2.1391404666583957,
+     "covariates_differenced": [
+      "log_authors",
+      "log_abs_words",
+      "G1_name",
+      "G5a_length5"
+     ],
+     "treated_y_minus_own_cell_mean": 0.036663190465025766,
+     "controls_y_minus_own_cell_mean": 0.1282493750277191,
+     "n_unique_controls": 1365,
+     "mechanism_note": "cell = year x topic50 over all papers; controls chosen as nearest neighbours are re-used (with replacement) and sit above their cell mean",
+     "reproduces_core_R1": true,
+     "observed_slope_no_intercept": {
+      "pct": -0.05317272935666062,
+      "lo": -0.10077665962075333,
+      "hi": -0.003048697495079411,
+      "p": 0.03789272117705133,
+      "note": "g5 diagnostic (d) 'pair_difference_slope_per_unit'"
+     },
+     "observed_slope_with_intercept": {
+      "pct": -0.005136036525631993,
+      "lo": -0.12842612520745023,
+      "hi": 0.1355942788619129,
+      "p": 0.9391944283753481,
+      "intercept_pct": -0.11609773672487733,
+      "note": "intercept absorbs any constant shift of the pairing procedure; slope identified from variation in the feature contrast across pairs"
+     },
+     "null": {
+      "n_rep": 200,
+      "method": "feature permuted within year; terciles and core R1 pairing rebuilt",
+      "mean_log_diff": -0.18270975925604907,
+      "sd_log_diff": 0.04590768014456385,
+      "pct_at_mean": -0.16699010593439012,
+      "q2.5_q97.5_pct": [
+       -0.23414525747255632,
+       -0.09502916464394928
+      ],
+      "slope_no_intercept_null_mean_pct": -0.06683154051257245,
+      "slope_no_intercept_null_q2.5_q97.5_pct": [
+       -0.10135633177623093,
+       -0.03129664628055073
+      ],
+      "slope_with_intercept_null_mean_pct": -0.0006265557659045351,
+      "slope_with_intercept_null_q2.5_q97.5_pct": [
+       -0.10780371001492195,
+       0.13022779300997356
+      ],
+      "intercept_null_mean_pct": -0.153997821015451
+     },
+     "placebo_p_two_sided": 0.208955223880597,
+     "placebo_adjusted": {
+      "pct": 0.06454932401905733,
+      "lo": -0.027273358803261205,
+      "hi": 0.16503981208449647,
+      "note": "exp(observed mean log diff - null mean) - 1; approximate CI from the null SD"
+     },
+     "slope_no_intercept_null_corrected": {
+      "pct": 0.014637026162901412,
+      "lo": -0.036376196348113066,
+      "hi": 0.06835083458835256,
+      "note": "observed no-intercept slope minus its null mean (approximate CI)"
+     }
+    }
+   },
+   "alt_explanations": {
+    "G5a_length5": {
+     "label": "diagnostic (not pre-registered; added by the adversarial audit)",
+     "feature": "G5a_length5",
+     "doc": "Alternative explanations, as audit_g1g2.py:\n    timing     Preprint exposure time. arXiv-id records only; months from first arXiv posting (from the id) to May of\n               the ICLR year, entered as FE bins.\n    code       Promotion / reuse: the abstract announces code or a URL.\n    paper_type Method vs findings paper (abstract regexes, crude and unvalidated).\n    tail       Superstars and zero-citation records: within-year citation percentile outcome; drop the top 5% per\n               year; drop zero-citation records.\n    retitling  Reverse causation through camera-ready retitling. The WP4 camera-ready audit (audit_pairs.csv, read\n               only) gives the arXiv v1 title posted before the decision for 568 accepted 2023-25 papers in this\n               sample. The feature is rebuilt on the v1 title (word count; bge v1-title-abstract cosine, z-scored with\n               the camera-ready year mean and SD; template regexes from features.py) and used as the exposure on the\n               same papers. Title-derived primary controls (G1, G5a) are rebuilt on the v1 title as well.\n    combined   arXiv-id records; lead-month FE bins added to year^topic50; code + method + findings indicators.",
+     "timing": {
+      "label": "diagnostic (not pre-registered; added by the adversarial audit)",
+      "lead_months_on_feature_primary_controls": {
+       "b": 0.0009278218393728262,
+       "se": 0.10437655517728459,
+       "p": 0.9929436482390059,
+       "pct": 0.0009282523992062419,
+       "lo": -0.18425235164021925,
+       "hi": 0.22814619014269688,
+       "n": 6575
+      },
+      "arxiv_only_primary_spec": {
+       "b": -0.03711265516565214,
+       "se": 0.03414318590524325,
+       "p": 0.28236775846160067,
+       "pct": -0.03643242163074223,
+       "lo": -0.09880471246691114,
+       "hi": 0.030256694557233565,
+       "n": 6575
+      },
+      "arxiv_only_plus_lead_bin_fe": {
+       "b": -0.03810275258367558,
+       "se": 0.033666428749777315,
+       "p": 0.26323840556815403,
+       "pct": -0.0373859752687824,
+       "lo": -0.09885486564708723,
+       "hi": 0.028275829591664303,
+       "n": 6575
+      },
+      "lead_bins_months": [
+       -1000,
+       -1,
+       3,
+       6,
+       9,
+       12,
+       18,
+       1000
+      ]
+     },
+     "code": {
+      "label": "diagnostic (not pre-registered; added by the adversarial audit)",
+      "regex": "github\\.com|https?://|\\bcode\\b[^.]{0,40}\\b(?:available|released|public)|open[- ]source",
+      "code_on_feature_lpm_pp": {
+       "b_pp": -1.6747404491860671,
+       "lo_pp": -3.2521660128840946,
+       "hi_pp": -0.09731488548803992,
+       "p": 0.04269014024530571,
+       "n": 8574
+      },
+      "plus_code_control": {
+       "b": -0.05146330462642078,
+       "se": 0.03220074091193945,
+       "p": 0.11642727919474627,
+       "pct": -0.05016149599855113,
+       "lo": -0.10825651159776006,
+       "hi": 0.01171827483730059,
+       "n": 8574
+      },
+      "code_indicator_coef": {
+       "b": 0.3164781724736982,
+       "se": 0.037696908676666724,
+       "p": 4.7799764146816415e-11,
+       "pct": 0.3722862882942566,
+       "lo": 0.2745487972484013,
+       "hi": 0.47751868041927126,
+       "n": 8574
+      }
+     },
+     "paper_type": {
+      "label": "diagnostic (not pre-registered; added by the adversarial audit)",
+      "method_regex": "\\b(?:we propose|we introduce|we present|this paper proposes)\\b",
+      "finding_regex": "\\bwe (?:show|find|demonstrate|study|investigate|analy[sz]e|observe|reveal|identify|prove|argue)\\b|\\bempirical (?:study|analysis|investigation)\\b",
+      "method_on_feature_lpm_pp": {
+       "b_pp": -2.870908548104088,
+       "lo_pp": -4.86856370821396,
+       "hi_pp": -0.8732533879942151,
+       "p": 0.00697222475207826,
+       "n": 8574
+      },
+      "finding_on_feature_lpm_pp": {
+       "b_pp": 0.2694985645193636,
+       "lo_pp": -1.797178761456291,
+       "hi_pp": 2.336175890495018,
+       "p": 0.7993391268113799,
+       "n": 8574
+      },
+      "plus_method_and_finding_controls": {
+       "b": -0.05673708509978734,
+       "se": 0.03251434439994992,
+       "p": 0.08725644717629333,
+       "pct": -0.05515755012795054,
+       "lo": -0.1134920628248477,
+       "hi": 0.0070155242206648705,
+       "n": 8574
+      },
+      "within_method_abstracts": {
+       "b": -0.05792573693777897,
+       "se": 0.041514006707402816,
+       "p": 0.1692084088283412,
+       "pct": -0.05627997162625986,
+       "lo": -0.13002707637183153,
+       "hi": 0.023718632804696105,
+       "n": 5773
+      },
+      "within_non_method_abstracts": {
+       "b": -0.05675011900978542,
+       "se": 0.04685179062321736,
+       "p": 0.23160180677230469,
+       "pct": -0.05516986503914867,
+       "lo": -0.13806862997746816,
+       "hi": 0.03570193054558901,
+       "n": 2720
+      },
+      "within_finding_abstracts": {
+       "b": -0.03482554499573649,
+       "se": 0.04056808137093769,
+       "p": 0.3948256270575152,
+       "pct": -0.034226114350686454,
+       "lo": -0.1080444544601652,
+       "hi": 0.04570143979279506,
+       "n": 3930
+      }
+     },
+     "tail": {
+      "label": "diagnostic (not pre-registered; added by the adversarial audit)",
+      "cite_percentile_outcome_pp": {
+       "b_pp": -1.047910880824478,
+       "lo_pp": -2.2661564316807485,
+       "hi_pp": 0.17033467003179248,
+       "p": 0.09816322134109723,
+       "n": 8574
+      },
+      "drop_top5pct_per_year": {
+       "b": -0.046252060512068045,
+       "se": 0.027636840372041376,
+       "p": 0.10058908132506716,
+       "pct": -0.04519873583881295,
+       "lo": -0.09554277595423877,
+       "hi": 0.00794756214769965,
+       "n": 8142
+      },
+      "drop_zero_citation_records": {
+       "b": -0.05315466217428867,
+       "se": 0.029475263253528023,
+       "p": 0.0774811592090281,
+       "pct": -0.05176665469025998,
+       "lo": -0.10499518259934515,
+       "hi": 0.004627527892726135,
+       "n": 8221
+      }
+     },
+     "retitling": {
+      "label": "diagnostic (not pre-registered; added by the adversarial audit)",
+      "source": "outputs/snapshot/audit_pairs.csv (accepted, arXiv v1 posted before the decision)",
+      "n_papers": 568,
+      "years": [
+       2023,
+       2024,
+       2025
+      ],
+      "n_title_changed": 151,
+      "reproduction_of_camera_ready_feature_from_or_title": {
+       "G1_name": 1.0,
+       "G5a_length5": 1.0,
+       "G6a_meme": 1.0,
+       "G6b_tentative": 1.0,
+       "G5b_informative_max_abs_diff_reencoded_vs_frozen": 0.0007543563842773438
+      },
+      "v1_controls": [
+       "log_authors",
+       "log_abs_words",
+       "pc0",
+       "pc1",
+       "pc2",
+       "pc3",
+       "pc4",
+       "pc5",
+       "pc6",
+       "pc7",
+       "pc8",
+       "pc9",
+       "pc10",
+       "pc11",
+       "pc12",
+       "pc13",
+       "pc14",
+       "pc15",
+       "pc16",
+       "pc17",
+       "pc18",
+       "pc19",
+       "G1_name_v1"
+      ],
+      "camera_ready_exposure_same_papers": {
+       "b": -0.08334063447312841,
+       "se": 0.18542367727039874,
+       "p": 0.6552101502530765,
+       "pct": -0.07996230271904348,
+       "lo": -0.36030964621757255,
+       "hi": 0.32324859897128855,
+       "n": 540
+      },
+      "v1_exposure_same_papers": {
+       "b": -0.053675557034320226,
+       "se": 0.1669681812953341,
+       "p": 0.7493091128220688,
+       "pct": -0.05226045594550921,
+       "lo": -0.31677646736196174,
+       "hi": 0.314665260279424,
+       "n": 540
+      },
+      "note": "small, selected subsample (accepted 2023-25 papers with a pre-decision arXiv v1); SEs are wide",
+      "corr_camera_ready_v1": 0.8975115686284766,
+      "mean_change_cr_minus_v1": -0.008098591549295778,
+      "mean_abs_change_among_changed_titles": 0.3033112582781457,
+      "stable_status_papers_only": {
+       "b": 0.10823433595472289,
+       "se": 0.21039507821795567,
+       "p": 0.6095231703164048,
+       "pct": 0.11430883741892006,
+       "lo": -0.26224243964192906,
+       "hi": 0.6830517935285589,
+       "n": 385
+      },
+      "full_sample_same_years_primary_spec": {
+       "b": -0.04052548586949476,
+       "se": 0.03730005701469307,
+       "p": 0.28258597178752964,
+       "pct": -0.03971530949075641,
+       "lo": -0.10741505877701385,
+       "hi": 0.033119252004121025,
+       "n": 5749
+      }
+     },
+     "combined_arxiv_only_lead_fe_code_method_finding": {
+      "b": -0.03686469475669613,
+      "se": 0.033078353691463995,
+      "p": 0.2705160105000086,
+      "pct": -0.03619346539533441,
+      "lo": -0.09669793430014839,
+      "hi": 0.02836367968111797,
+      "n": 6575,
+      "label": "diagnostic (not pre-registered; added by the adversarial audit)"
+     }
+    },
+    "G5b_informative": {
+     "label": "diagnostic (not pre-registered; added by the adversarial audit)",
+     "feature": "G5b_informative",
+     "doc": "Alternative explanations, as audit_g1g2.py:\n    timing     Preprint exposure time. arXiv-id records only; months from first arXiv posting (from the id) to May of\n               the ICLR year, entered as FE bins.\n    code       Promotion / reuse: the abstract announces code or a URL.\n    paper_type Method vs findings paper (abstract regexes, crude and unvalidated).\n    tail       Superstars and zero-citation records: within-year citation percentile outcome; drop the top 5% per\n               year; drop zero-citation records.\n    retitling  Reverse causation through camera-ready retitling. The WP4 camera-ready audit (audit_pairs.csv, read\n               only) gives the arXiv v1 title posted before the decision for 568 accepted 2023-25 papers in this\n               sample. The feature is rebuilt on the v1 title (word count; bge v1-title-abstract cosine, z-scored with\n               the camera-ready year mean and SD; template regexes from features.py) and used as the exposure on the\n               same papers. Title-derived primary controls (G1, G5a) are rebuilt on the v1 title as well.\n    combined   arXiv-id records; lead-month FE bins added to year^topic50; code + method + findings indicators.",
+     "timing": {
+      "label": "diagnostic (not pre-registered; added by the adversarial audit)",
+      "lead_months_on_feature_primary_controls": {
+       "b": -0.08255513756212961,
+       "se": 0.05725157782279868,
+       "p": 0.1556718289771275,
+       "pct": -0.07923933204138289,
+       "lo": -0.17697461153137006,
+       "hi": 0.030102132374149937,
+       "n": 6575
+      },
+      "arxiv_only_primary_spec": {
+       "b": 0.06606447685151205,
+       "se": 0.0156240925388633,
+       "p": 0.0001024201141444081,
+       "pct": 0.06829559528191531,
+       "lo": 0.03607678250222168,
+       "hi": 0.1015163144014326,
+       "n": 6575
+      },
+      "arxiv_only_plus_lead_bin_fe": {
+       "b": 0.07243176222456753,
+       "se": 0.015361123070567473,
+       "p": 2.0386210285217032e-05,
+       "pct": 0.07511943982811009,
+       "lo": 0.0432323906276979,
+       "hi": 0.10798113659108277,
+       "n": 6575
+      },
+      "lead_bins_months": [
+       -1000,
+       -1,
+       3,
+       6,
+       9,
+       12,
+       18,
+       1000
+      ]
+     },
+     "code": {
+      "label": "diagnostic (not pre-registered; added by the adversarial audit)",
+      "regex": "github\\.com|https?://|\\bcode\\b[^.]{0,40}\\b(?:available|released|public)|open[- ]source",
+      "code_on_feature_lpm_pp": {
+       "b_pp": 0.15599858204291303,
+       "lo_pp": -0.7279389209543493,
+       "hi_pp": 1.0399360850401753,
+       "p": 0.7308959076029757,
+       "n": 8574
+      },
+      "plus_code_control": {
+       "b": 0.0763566878249922,
+       "se": 0.014362900619666797,
+       "p": 2.5933586380588736e-06,
+       "pct": 0.07934749561542587,
+       "lo": 0.04938617984976901,
+       "hi": 0.11016424521435275,
+       "n": 8574
+      },
+      "code_indicator_coef": {
+       "b": 0.3157811109738989,
+       "se": 0.03685442086034585,
+       "p": 2.617372985014299e-11,
+       "pct": 0.37133005367187333,
+       "lo": 0.27576557078410424,
+       "hi": 0.47405303855934244,
+       "n": 8574
+      }
+     },
+     "paper_type": {
+      "label": "diagnostic (not pre-registered; added by the adversarial audit)",
+      "method_regex": "\\b(?:we propose|we introduce|we present|this paper proposes)\\b",
+      "finding_regex": "\\bwe (?:show|find|demonstrate|study|investigate|analy[sz]e|observe|reveal|identify|prove|argue)\\b|\\bempirical (?:study|analysis|investigation)\\b",
+      "method_on_feature_lpm_pp": {
+       "b_pp": 1.3705225453795065,
+       "lo_pp": 0.296233027059252,
+       "hi_pp": 2.4448120636997612,
+       "p": 0.015797411595855015,
+       "n": 8574
+      },
+      "finding_on_feature_lpm_pp": {
+       "b_pp": -0.6060123134301814,
+       "lo_pp": -1.5601664156933879,
+       "hi_pp": 0.3481417888330252,
+       "p": 0.21910579668707597,
+       "n": 8574
+      },
+      "plus_method_and_finding_controls": {
+       "b": 0.07741600068471342,
+       "se": 0.014470851944090223,
+       "p": 2.3074662980349103e-06,
+       "pct": 0.08049146810304775,
+       "lo": 0.050276151347821374,
+       "hi": 0.11157604706654856,
+       "n": 8574
+      },
+      "within_method_abstracts": {
+       "b": 0.07715452753608916,
+       "se": 0.022378629429165315,
+       "p": 0.0011705021829349072,
+       "pct": 0.0802089855292345,
+       "lo": 0.03385280793036749,
+       "hi": 0.12864369421598387,
+       "n": 5773
+      },
+      "within_non_method_abstracts": {
+       "b": 0.06066986289757067,
+       "se": 0.02605919607301579,
+       "p": 0.024075180180635813,
+       "pct": 0.06254806973606208,
+       "lo": 0.009640006989877659,
+       "hi": 0.11822866832093593,
+       "n": 2720
+      },
+      "within_finding_abstracts": {
+       "b": 0.05562895634435994,
+       "se": 0.02253543326205822,
+       "p": 0.0171040213382605,
+       "pct": 0.05720534161836932,
+       "lo": 0.011525418833981282,
+       "hi": 0.10494814419473841,
+       "n": 3930
+      }
+     },
+     "tail": {
+      "label": "diagnostic (not pre-registered; added by the adversarial audit)",
+      "cite_percentile_outcome_pp": {
+       "b_pp": 1.5913246944675226,
+       "lo_pp": 1.0086948243290268,
+       "hi_pp": 2.173954564606018,
+       "p": 2.2793526892606053e-06,
+       "n": 8574
+      },
+      "drop_top5pct_per_year": {
+       "b": 0.08152379497061975,
+       "se": 0.014305179589597001,
+       "p": 6.78726991942824e-07,
+       "pct": 0.08493903336927877,
+       "lo": 0.05494184583242223,
+       "hi": 0.11578918854949505,
+       "n": 8142
+      },
+      "drop_zero_citation_records": {
+       "b": 0.06574329252198155,
+       "se": 0.01260078411514402,
+       "p": 3.655492938792193e-06,
+       "pct": 0.06795253057385775,
+       "lo": 0.041899777262952576,
+       "hi": 0.09465673421606247,
+       "n": 8221
+      }
+     },
+     "retitling": {
+      "label": "diagnostic (not pre-registered; added by the adversarial audit)",
+      "source": "outputs/snapshot/audit_pairs.csv (accepted, arXiv v1 posted before the decision)",
+      "n_papers": 568,
+      "years": [
+       2023,
+       2024,
+       2025
+      ],
+      "n_title_changed": 151,
+      "reproduction_of_camera_ready_feature_from_or_title": {
+       "G1_name": 1.0,
+       "G5a_length5": 1.0,
+       "G6a_meme": 1.0,
+       "G6b_tentative": 1.0,
+       "G5b_informative_max_abs_diff_reencoded_vs_frozen": 0.0007543563842773438
+      },
+      "v1_controls": [
+       "log_authors",
+       "log_abs_words",
+       "pc0",
+       "pc1",
+       "pc2",
+       "pc3",
+       "pc4",
+       "pc5",
+       "pc6",
+       "pc7",
+       "pc8",
+       "pc9",
+       "pc10",
+       "pc11",
+       "pc12",
+       "pc13",
+       "pc14",
+       "pc15",
+       "pc16",
+       "pc17",
+       "pc18",
+       "pc19",
+       "G1_name_v1",
+       "G5a_length5_v1"
+      ],
+      "camera_ready_exposure_same_papers": {
+       "b": 0.07260809888878804,
+       "se": 0.07909788423123865,
+       "p": 0.3634319292646495,
+       "pct": 0.07530903951996537,
+       "lo": -0.07911835146595458,
+       "hi": 0.2556331558067766,
+       "n": 540
+      },
+      "v1_exposure_same_papers": {
+       "b": 0.031225745023780418,
+       "se": 0.07204284058373062,
+       "p": 0.6667260764601615,
+       "pct": 0.03171838289077589,
+       "lo": -0.10414635548137396,
+       "hi": 0.18818830297522626,
+       "n": 540
+      },
+      "note": "small, selected subsample (accepted 2023-25 papers with a pre-decision arXiv v1); SEs are wide",
+      "corr_camera_ready_v1": 0.9219435360530549,
+      "mean_change_cr_minus_v1": 0.047498226165771484,
+      "mean_abs_change_among_changed_titles": 0.5255012512207031,
+      "stable_status_papers_only": {
+       "b": 0.17891277701335112,
+       "se": 0.11700688177850373,
+       "p": 0.1334028952723878,
+       "pct": 0.1959164282159238,
+       "lo": -0.04917068426988602,
+       "hi": 0.5041775422947616,
+       "n": 385
+      },
+      "full_sample_same_years_primary_spec": {
+       "b": 0.058662754804755406,
+       "se": 0.018405511091699984,
+       "p": 0.002501693965549112,
+       "pct": 0.06041755970348062,
+       "lo": 0.022844992560469235,
+       "hi": 0.09937029472332948,
+       "n": 5749
+      }
+     },
+     "combined_arxiv_only_lead_fe_code_method_finding": {
+      "b": 0.07217682874366659,
+      "se": 0.01541586746682978,
+      "p": 2.280617766237114e-05,
+      "pct": 0.07484539082054842,
+      "lo": 0.042854566387529935,
+      "hi": 0.10781757246375712,
+      "n": 6575,
+      "label": "diagnostic (not pre-registered; added by the adversarial audit)"
+     }
+    }
+   },
+   "content_controls": {
+    "label": "diagnostic (not pre-registered; added by the adversarial audit)",
+    "first_20_bge_pcs_equal_core_pcs": true,
+    "G5a_length5": {
+     "primary": {
+      "b": -0.05676349259368264,
+      "se": 0.03248952320112473,
+      "p": 0.08687975240619283,
+      "pct": -0.05518250071973474,
+      "lo": -0.11347234484655666,
+      "hi": 0.006939943449035146,
+      "n": 8574
+     },
+     "bge_50_pcs": {
+      "b": -0.0687281995316783,
+      "se": 0.032346039713649466,
+      "p": 0.038673789412345894,
+      "pct": -0.06641960681494696,
+      "lo": -0.12376980016716821,
+      "hi": -0.005315782649539136,
+      "n": 8574
+     },
+     "bge_100_pcs": {
+      "b": -0.06670635559605285,
+      "se": 0.03234222441555417,
+      "p": 0.04448044871389811,
+      "pct": -0.06453014350225073,
+      "lo": -0.12198984157212356,
+      "hi": -0.0033101052237946016,
+      "n": 8574
+     },
+     "bge_20_plus_minilm_20_pcs": {
+      "b": -0.05555946992352549,
+      "se": 0.03202647514717079,
+      "p": 0.08906344732094928,
+      "pct": -0.05404423391943336,
+      "lo": -0.11159837800232197,
+      "hi": 0.007238493519331479,
+      "n": 8574
+     },
+     "minilm_20_pcs_instead_of_bge": {
+      "b": -0.057764855534582674,
+      "se": 0.032183342086888306,
+      "p": 0.07884409689777483,
+      "pct": -0.056128132410145026,
+      "lo": -0.11382799090111007,
+      "hi": 0.005328641934281286,
+      "n": 8574
+     }
+    },
+    "G5b_informative": {
+     "primary": {
+      "b": 0.07684930188047086,
+      "se": 0.014342857606058437,
+      "p": 2.2422261909404995e-06,
+      "pct": 0.07987932834589584,
+      "lo": 0.04994449511041843,
+      "hi": 0.11066762978374878,
+      "n": 8574
+     },
+     "bge_50_pcs": {
+      "b": 0.08193025218876887,
+      "se": 0.014732535628464865,
+      "p": 1.1016616978665184e-06,
+      "pct": 0.08538010430280352,
+      "lo": 0.05448709449666378,
+      "hi": 0.11717817786919493,
+      "n": 8574
+     },
+     "bge_100_pcs": {
+      "b": 0.0853007138333777,
+      "se": 0.013671593596623939,
+      "p": 1.0000984396185686e-07,
+      "pct": 0.08904450821161802,
+      "lo": 0.06024964058743132,
+      "hi": 0.1186214033600348,
+      "n": 8574
+     },
+     "bge_20_plus_minilm_20_pcs": {
+      "b": 0.08141910881672264,
+      "se": 0.014397809181636625,
+      "p": 7.923004003984602e-07,
+      "pct": 0.08482546121948209,
+      "lo": 0.05463992232907566,
+      "hi": 0.11587496015806464,
+      "n": 8574
+     },
+     "minilm_20_pcs_instead_of_bge": {
+      "b": 0.07942036548284942,
+      "se": 0.014264477932958056,
+      "p": 1.0767190794513937e-06,
+      "pct": 0.08265933904271772,
+      "lo": 0.05280916692251858,
+      "hi": 0.11335584951520383,
+      "n": 8574
+     }
+    }
+   },
+   "split_record_mechanism": {
+    "label": "diagnostic (not pre-registered; added by the adversarial audit)",
+    "n_papers": 568,
+    "years": [
+     2023,
+     2024,
+     2025
+    ],
+    "share_venue_record_with_arxiv_id": 0.8503521126760564,
+    "mean_y_by_venue_arxiv_status": {
+     "0": 0.8765582908356696,
+     "1": 3.58490378190711
+    },
+    "median_cites_by_venue_arxiv_status": {
+     "0": 0.0,
+     "1": 30.0
+    },
+    "y_gap_has_minus_no_arxiv_year_fe": {
+     "b": 2.569313637455871,
+     "ci95": [
+      2.254804537715954,
+      2.883822737195788
+     ]
+    },
+    "share_with_arxiv_id_by_title_changed": {
+     "0": 0.8920863309352518,
+     "1": 0.7350993377483444
+    },
+    "n_by_title_changed": {
+     "0": 417,
+     "1": 151
+    },
+    "by_length_tercile": [
+     {
+      "len_tercile": "short",
+      "mean_words": 6.089473684210526,
+      "share_with_arxiv_id": 0.9,
+      "share_title_changed": 0.21578947368421053,
+      "n": 190
+     },
+     {
+      "len_tercile": "middle",
+      "mean_words": 8.587301587301587,
+      "share_with_arxiv_id": 0.8201058201058201,
+      "share_title_changed": 0.25925925925925924,
+      "n": 189
+     },
+     {
+      "len_tercile": "long",
+      "mean_words": 11.37037037037037,
+      "share_with_arxiv_id": 0.8306878306878307,
+      "share_title_changed": 0.32275132275132273,
+      "n": 189
+     }
+    ],
+    "lpm_has_arxiv_on_title_changed_and_length": {
+     "title_changed_pp": -14.792044901314489,
+     "title_changed_ci_pp": [
+      -22.409695020974596,
+      -7.174394781654381
+     ],
+     "per_5_words_pp": -3.3075472355624767,
+     "per_5_words_ci_pp": [
+      -8.934026287744734,
+      2.31893181661978
+     ],
+     "model": "OLS, year FE, HC1"
+    },
+    "lpm_title_changed_on_length_per_5_words_pp": {
+     "b_pp": 10.495477203378169,
+     "ci_pp": [
+      3.4343142277479144,
+      17.556640179008422
+     ]
+    }
    }
   }
  },

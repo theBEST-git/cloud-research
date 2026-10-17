@@ -93,12 +93,12 @@
    "n": 6599
   },
   "R7_year_plus_topic100_fe": {
-   "b": -0.12528024830956377,
-   "se": 0.07592848683501151,
-   "p": 0.1053443698941634,
-   "pct": -0.11775038102852342,
-   "lo": -0.23974401687093472,
-   "hi": 0.023818828720978402,
+   "b": -0.12528024831026927,
+   "se": 0.07592847745053205,
+   "p": 0.10534432799958693,
+   "pct": -0.11775038102914592,
+   "lo": -0.23974400288764197,
+   "hi": 0.023818809888562997,
    "n": 8602
   }
  },
@@ -431,7 +431,7 @@
       "split": 0
      }
     },
-    "note": "Random sample of matched records without an arXiv id (qc_split.py); too small for a G4 comparison."
+    "note": "Random sample of matched records without an arXiv id (qc_split.py; the run has finished, its log ends 'DONE' at 30 records); too small for a G4 comparison."
    },
    "primary_spec_arxiv_only": {
     "b": -0.12264221863200257,
@@ -964,7 +964,529 @@
    },
    "n_2022_25": 6602,
    "n_G4_2022_25": 250
+  },
+  "f_audit_r1_mechanism": {
+   "label": "diagnostic (not pre-registered; added by the adversarial audit)",
+   "feature": "G4_llm_words",
+   "reimplementation_check": {
+    "n_pairs": 273,
+    "pct": -0.3047178052032792
+   },
+   "placebo": {
+    "observed_pct": -0.3047178052032792,
+    "null_n_rep": 200,
+    "null_mean_pct": -0.20544309416589324,
+    "null_sd_log": 0.10882868790456197,
+    "null_q2.5_q97.5_pct": [
+     -0.34746427661428236,
+     -0.004284116032396645
+    ],
+    "placebo_p_two_sided": 0.21890547263681592,
+    "adjusted_pct": -0.12494348775833719,
+    "adjusted_lo": -0.2934092487562814,
+    "adjusted_hi": 0.08368797393504002,
+    "seed": 0,
+    "note": "pseudo-treated = random papers without the feature, same per-year counts; adjusted CI uses the placebo SD of the R1 statistic as its SE"
+   },
+   "hubness": {
+    "mean_log1p_kocc": {
+     "treated": 0.5516729441995797,
+     "matched_controls": 1.205757051336209,
+     "all_papers": 0.5310238815992007
+    },
+    "mean_kocc": {
+     "treated": 1.021978021978022,
+     "matched_controls": 2.901098901098901,
+     "all_papers": 1.0
+    },
+    "mean_density10_z": {
+     "treated": 0.2964256869443725,
+     "matched_controls": 0.7738343276156369
+    },
+    "y_on_log1p_kocc_primary_controls": {
+     "b": 0.2450710563705902,
+     "se": 0.029069593130880707,
+     "p": 4.228395411587371e-11,
+     "pct": 0.27771209956382803,
+     "lo": 0.2069477521753016,
+     "hi": 0.35262541931035307,
+     "n": 8574
+    },
+    "y_on_density10_z_primary_controls": {
+     "b": 0.3402056286350154,
+     "se": 0.023143575257790823,
+     "p": 0.0,
+     "pct": 0.40523651772374025,
+     "lo": 0.3429171442755268,
+     "hi": 0.4704478821808802,
+     "n": 8574
+    },
+    "y_on_log1p_kocc_plus_density": {
+     "b": 0.0675345704249331,
+     "se": 0.03116671138850033,
+     "p": 0.03513394171794615,
+     "pct": 0.06986724472387462,
+     "lo": 0.00646864801911029,
+     "hi": 0.13725939062865056,
+     "n": 8574
+    },
+    "mean_log1p_kocc_feature_vs_rest": {
+     "with_feature": 0.5516729441995797,
+     "without_feature": 0.53034706636449
+    },
+    "note": "k-occurrence counts how often a paper is the nearest same-year neighbour (R1 embedding) of another paper (all papers); density = mean cosine to the 10 nearest same-year neighbours, z-scored. Coefficients are per unit of log(1 + k-occurrence) and per SD of density, with the primary controls and FE."
+   },
+   "residual_decomposition": {
+    "treated_mean_residual_log": -0.09924182129848742,
+    "matched_controls_mean_residual_log": 0.20804202594723115,
+    "R1_on_residuals_pct": -0.2645581818570173,
+    "R1_minus_control_excess_pct": -0.14392342854060025,
+    "note": "residual = y - prediction of y ~ primary controls | year x topic50 cell, fitted on papers without the feature. A positive control residual means the matched controls are cited more than their content predicts; R1_minus_control_excess removes that excess from R1 for this treated group's own pairs."
+   },
+   "csls_matching": {
+    "pct": -0.2901417947278785,
+    "lo": -0.4243892510064474,
+    "hi": -0.11145506689433748,
+    "n_pairs": 270,
+    "calibration": {
+     "observed_pct": -0.2901417947278785,
+     "null_n_rep": 200,
+     "null_mean_pct": -0.1133212421012173,
+     "null_sd_log": 0.11472006602030825,
+     "null_q2.5_q97.5_pct": [
+      -0.27581604305707086,
+      0.12191202926203082
+     ],
+     "placebo_p_two_sided": 0.04975124378109453,
+     "adjusted_pct": -0.19941895647267316,
+     "adjusted_lo": -0.3609868637796293,
+     "adjusted_hi": 0.0029997365097544915
+    },
+    "matched_controls_mean_log1p_kocc": 0.9212707750854852,
+    "note": "control = argmax(2 cos - density_c); caliper 0.80 on the raw cosine"
+   },
+   "R1_pair_adjusted_for_hubness": {
+    "pct": -0.31318508923655375,
+    "lo": -0.47697433002806133,
+    "hi": -0.10293444988900202,
+    "slope_on_d_log1p_kocc": -0.01873300302451448,
+    "mean_d_log1p_kocc": -0.6540841071366293,
+    "n_pairs": 273
+   },
+   "primary_plus_log1p_kocc": {
+    "b": -0.10137546874665908,
+    "se": 0.06855345082755517,
+    "p": 0.14559936531139872,
+    "pct": -0.09640630200824707,
+    "lo": -0.21001413996305696,
+    "hi": 0.03353947501317189,
+    "n": 8574
+   },
+   "primary_plus_density10": {
+    "b": -0.1116521107922453,
+    "se": 0.07005012880232148,
+    "p": 0.1173918252068229,
+    "pct": -0.10564466004322615,
+    "lo": -0.2203813298346149,
+    "hi": 0.025977833418888263,
+    "n": 8574
+   }
+  },
+  "g_audit_alt_explanations": {
+   "label": "diagnostic (not pre-registered; added by the adversarial audit)",
+   "feature": "G4_llm_words",
+   "timing": {
+    "label": "diagnostic (not pre-registered; added by the adversarial audit)",
+    "mean_lead_months": {
+     "with_feature": 6.0,
+     "without_feature": 6.674770141810815
+    },
+    "lead_months_diff_primary_controls": {
+     "b": -0.6834759387389222,
+     "se": 0.3209530137826507,
+     "p": 0.038260159889393686,
+     "pct": -0.49514092029566403,
+     "lo": -0.7308654519364147,
+     "hi": -0.05295439699666182,
+     "n": 6575
+    },
+    "arxiv_only_primary_spec": {
+     "b": -0.12264221863200257,
+     "se": 0.0787480746900866,
+     "p": 0.12581163198119727,
+     "pct": -0.11541990777337385,
+     "lo": -0.2419367435377977,
+     "hi": 0.03221193336216244,
+     "n": 6575,
+     "n_with": 193
+    },
+    "arxiv_only_plus_lead_bin_fe": {
+     "b": -0.08519040359745285,
+     "se": 0.08168499366681782,
+     "p": 0.3021065012856643,
+     "pct": -0.08166258699319773,
+     "lo": -0.2175247536959405,
+     "hi": 0.07778949955474235,
+     "n": 6575,
+     "n_with": 193
+    }
+   },
+   "code": {
+    "label": "diagnostic (not pre-registered; added by the adversarial audit)",
+    "share": {
+     "with_feature": 0.315018315018315,
+     "without_feature": 0.21383119221995436
+    },
+    "plus_code_control": {
+     "b": -0.10177684485317778,
+     "se": 0.0700982378690642,
+     "p": 0.15289786840959674,
+     "pct": -0.09676891015263112,
+     "lo": -0.21271848738578125,
+     "hi": 0.036257537609211576,
+     "n": 8574
+    }
+   },
+   "paper_type": {
+    "label": "diagnostic (not pre-registered; added by the adversarial audit)",
+    "bench_title_regex": "bench",
+    "bench_abstract_regex": "\\b(?:we|this paper|this work)\\s+(?:introduce|present|propose|release|build|construct|create|curate|develop|contribute)s?\\b[^.]{0,120}\\b(?:benchmark|dataset|testbed|test suite|evaluation suite)s?\\b",
+    "share_method": {
+     "with_feature": 0.7912087912087912,
+     "without_feature": 0.6721094969384079
+    },
+    "share_finding": {
+     "with_feature": 0.3333333333333333,
+     "without_feature": 0.46728298715331973
+    },
+    "share_benchmark": {
+     "with_feature": 0.08058608058608059,
+     "without_feature": 0.06387321407131709
+    },
+    "benchmark_share_diff_primary_controls_pp": {
+     "b_pp": -2.241242503808493,
+     "lo_pp": -5.302865797339313,
+     "hi_pp": 0.8203807897223279,
+     "p": 0.1576945923328692,
+     "n": 8574
+    },
+    "benchmark_indicator_coef": {
+     "b": 0.06363470783499088,
+     "se": 0.053517210703021185,
+     "p": 0.24014990475012077,
+     "pct": 0.06570303468121552,
+     "lo": -0.04041945773315514,
+     "hi": 0.18356188782840555,
+     "n": 8574
+    },
+    "plus_benchmark_control": {
+     "b": -0.09335844247637291,
+     "se": 0.06970652949265264,
+     "p": 0.18665030969662966,
+     "pct": -0.08913305163002361,
+     "lo": -0.2054530812259362,
+     "hi": 0.0442159903067465,
+     "n": 8574
+    },
+    "benchmark_papers_excluded": {
+     "b": -0.13509568219332221,
+     "se": 0.07027573714718104,
+     "p": 0.06038340049197832,
+     "pct": -0.12636768336739346,
+     "lo": -0.23878247959415844,
+     "hi": 0.002648263085088365,
+     "n": 8018,
+     "n_with": 251
+    },
+    "plus_method_finding_benchmark_controls": {
+     "b": -0.08891435047434082,
+     "se": 0.07009873434456788,
+     "p": 0.21064272453201283,
+     "pct": -0.08507606698044323,
+     "lo": -0.20252745383702053,
+     "hi": 0.049673505676895324,
+     "n": 8574
+    },
+    "within_finding_abstracts": {
+     "b": -0.19959599388771743,
+     "se": 0.10758025831095044,
+     "p": 0.06957100325598042,
+     "pct": -0.18093840786746085,
+     "lo": -0.3366505144661792,
+     "hi": 0.011324959673140844,
+     "n": 3930,
+     "n_with": 91
+    },
+    "within_non_finding_abstracts": {
+     "b": -0.021497036777503715,
+     "se": 0.09549381491943111,
+     "p": 0.8228264580912752,
+     "pct": -0.02126762233335,
+     "lo": -0.18833283163067438,
+     "hi": 0.1801845687777548,
+     "n": 4573,
+     "n_with": 182
+    }
+   },
+   "topic": {
+    "label": "diagnostic (not pre-registered; added by the adversarial audit)",
+    "share_llm_topic": {
+     "with_feature": 0.336996336996337,
+     "without_feature": 0.22079481330291753
+    },
+    "plus_llm_topic_control": {
+     "b": -0.09613218889137115,
+     "se": 0.07078159324825294,
+     "p": 0.18063623850411137,
+     "pct": -0.0916560648455722,
+     "lo": -0.20932171370970332,
+     "hi": 0.04352012548995288,
+     "n": 8574
+    }
+   },
+   "llm_style": {
+    "label": "diagnostic (not pre-registered; added by the adversarial audit)",
+    "share_f24_abstract": {
+     "with_feature": 0.21978021978021978,
+     "without_feature": 0.09412894705246728
+    },
+    "plus_f24_abstract_control": {
+     "b": -0.08989416972190857,
+     "se": 0.07050691338913188,
+     "p": 0.2083324824848547,
+     "pct": -0.08597208801906109,
+     "lo": -0.20394557309352612,
+     "hi": 0.04948480360425056,
+     "n": 8574
+    }
+   },
+   "tail": {
+    "label": "diagnostic (not pre-registered; added by the adversarial audit)",
+    "cite_percentile_outcome_pp": {
+     "b_pp": -2.539469682698521,
+     "lo_pp": -5.320300650666875,
+     "hi_pp": 0.24136128526983258,
+     "p": 0.07965313172735922,
+     "n": 8574
+    },
+    "drop_top5pct_per_year": {
+     "b": -0.07750526913537638,
+     "se": 0.06755103244335353,
+     "p": 0.2568047406701872,
+     "pct": -0.07457785179078902,
+     "lo": -0.18933898216882217,
+     "hi": 0.05642942433245213,
+     "n": 8142,
+     "n_with": 260
+    },
+    "drop_zero_citation_records": {
+     "b": -0.13363885553147462,
+     "se": 0.06763268099999788,
+     "p": 0.05380505246820633,
+     "pct": -0.1250940249913931,
+     "lo": -0.2337133099680332,
+     "hi": -0.00107821907512351,
+     "n": 8221,
+     "n_with": 261
+    },
+    "most_cited_feature_papers": [
+     {
+      "year": 2021,
+      "cites": 4241,
+      "title": "DEBERTA: DECODING-ENHANCED BERT WITH DISENTANGLED ATTENTION"
+     },
+     {
+      "year": 2024,
+      "cites": 3402,
+      "title": "MiniGPT-4: Enhancing Vision-Language Understanding with Advanced Large Language Models"
+     },
+     {
+      "year": 2018,
+      "cites": 2649,
+      "title": "Enhancing The Reliability of Out-of-distribution Image Detection in Neural Networks"
+     },
+     {
+      "year": 2024,
+      "cites": 1344,
+      "title": "WizardLM: Empowering Large Pre-Trained Language Models to Follow Complex Instructions"
+     },
+     {
+      "year": 2024,
+      "cites": 1063,
+      "title": "WizardCoder: Empowering Code Large Language Models with Evol-Instruct"
+     }
+    ],
+    "ppml_drop_k_most_cited_feature_papers": {
+     "0": {
+      "b": 0.02075735264722987,
+      "se": 0.19788851764822096,
+      "p": 0.9164597817623097,
+      "pct": 0.020974284871299043,
+      "lo": -0.3072625017415501,
+      "hi": 0.5047380760952556,
+      "n": 8574
+     },
+     "1": {
+      "b": -0.1416381505971881,
+      "se": 0.1835036531310795,
+      "p": 0.440200511065751,
+      "pct": -0.1320647384727175,
+      "lo": -0.39426053477838285,
+      "hi": 0.24362314403078233,
+      "n": 8573
+     },
+     "2": {
+      "b": -0.2998364379034431,
+      "se": 0.1246866542668923,
+      "p": 0.016184880093522702,
+      "pct": -0.2590605996270079,
+      "lo": -0.41970708685943714,
+      "hi": -0.05394123796216621,
+      "n": 8572
+     },
+     "3": {
+      "b": -0.41972726808731653,
+      "se": 0.13716984559226908,
+      "p": 0.002214041281622503,
+      "pct": -0.3427739581103738,
+      "lo": -0.49771127009018834,
+      "hi": -0.14004427251341534,
+      "n": 8571
+     }
+    },
+    "ppml_drop_top1pct_per_year": {
+     "b": -0.08806307827378147,
+     "se": 0.11886789973024708,
+     "p": 0.45878544180843517,
+     "pct": -0.08429688607016683,
+     "lo": -0.27460878425916235,
+     "hi": 0.15594478491778463,
+     "n": 8481
+    },
+    "note": "Dropping only the most-cited feature papers is one-sided (biased against the feature by construction); it shows how many papers the R2 sign rests on. Dropping the top 1% per year is symmetric."
+   },
+   "retitling": {
+    "label": "diagnostic (not pre-registered; added by the adversarial audit)",
+    "source": "outputs/snapshot/audit_pairs.csv (accepted, arXiv v1 posted before the decision)",
+    "n_papers": 568,
+    "years": [
+     2023,
+     2024,
+     2025
+    ],
+    "camera_ready_rule_reproduces_feature": 1.0,
+    "n_with_camera_ready": 21,
+    "n_with_v1": 23,
+    "added_at_camera_ready": 1,
+    "removed_at_camera_ready": 3,
+    "added_titles": [
+     {
+      "v1_title": "Towards Better Time Series Contrastive Learning: A Dynamic Bad Pair Mining Approach",
+      "title": "Towards Enhancing Time Series Contrastive Learning: A Dynamic Bad Pair Mining Approach"
+     }
+    ],
+    "note": "too few feature papers in the audited subsample for an estimate; counts only"
+   },
+   "neutral_synonyms_N24": {
+    "label": "diagnostic (not pre-registered; added by the adversarial audit)",
+    "regex": "\\b(improv\\w*|utili[sz]\\w*|exploit\\w*)",
+    "n": 271,
+    "n_2023plus": 190,
+    "N24_primary_spec": {
+     "b": -0.06220867113359667,
+     "se": 0.0721252560369862,
+     "p": 0.39260937034124055,
+     "pct": -0.06031321917480714,
+     "lo": -0.18419030894607313,
+     "hi": 0.08237405824006672,
+     "n": 8574,
+     "n_with": 271
+    },
+    "N24_primary_spec_2023plus": {
+     "b": -0.01161010425758909,
+     "se": 0.09838153137408032,
+     "p": 0.9065413686493531,
+     "pct": -0.011542967071582533,
+     "lo": -0.18489464629888996,
+     "hi": 0.1986760993646015,
+     "n": 5749,
+     "n_with": 190
+    },
+    "G4_primary_spec_2023plus": {
+     "b": -0.0950228801420203,
+     "se": 0.07611947184963819,
+     "p": 0.21783904326354842,
+     "pct": -0.09064787187563172,
+     "lo": -0.2166823993319692,
+     "hi": 0.05566540598487846,
+     "n": 5749,
+     "n_with": 241
+    },
+    "G4_vs_N24_within_improvement_framed_titles": {
+     "b": -0.0704169230238174,
+     "se": 0.12031015021395608,
+     "p": 0.5612098530004515,
+     "pct": -0.06799483551950825,
+     "lo": -0.26377891449271484,
+     "hi": 0.17985431783685724,
+     "n": 464,
+     "n_with": 273,
+     "n_titles": 537
+    },
+    "G4_plus_N24_control": {
+     "b": -0.09548351066843203,
+     "se": 0.06986159073324091,
+     "p": 0.17794145824926488,
+     "pct": -0.09106665076652798,
+     "lo": -0.20738068432439716,
+     "hi": 0.04231604883939166,
+     "n": 8574
+    },
+    "note": "N24 is the D3 neutral-synonym benchmark. If 'improvement-framed' titles in general go with fewer citations, the G4 point estimate is not specific to LLM-favoured vocabulary."
+   },
+   "families_one_at_a_time_vs_all_other_papers": {
+    "label": "diagnostic (not pre-registered; added by the adversarial audit)",
+    "r24_enhanc": {
+     "b": -0.004503324676284348,
+     "se": 0.11455404034681381,
+     "p": 0.9688015409309108,
+     "pct": -0.004493199913780499,
+     "lo": -0.20469472454843296,
+     "hi": 0.24610488526585494,
+     "n": 8574,
+     "n_with": 131
+    },
+    "r24_leverag": {
+     "b": -0.40395465459996854,
+     "se": 0.1454584533897309,
+     "p": 0.00774891854386639,
+     "pct": -0.3323256034548965,
+     "lo": -0.4979488254964045,
+     "hi": -0.11206442203298617,
+     "n": 8574,
+     "n_with": 40
+    },
+    "r24_boost": {
+     "b": -0.3573145424687357,
+     "se": 0.14683727074545355,
+     "p": 0.018651451820295817,
+     "pct": -0.30044757582132553,
+     "lo": -0.4753981017736755,
+     "hi": -0.06715245250002155,
+     "n": 8574,
+     "n_with": 55
+    },
+    "note": "each family with n >= 20 in its own model against all other papers (including other-family G4 papers); sensitivity for the pre-specified one-model family secondary"
+   }
   }
+ },
+ "audit": {
+  "date": "2026-10-17",
+  "label": "adversarial audit; changes are diagnostic only (not pre-registered)",
+  "changes": [
+   "added diagnostics_not_preregistered.f_audit_r1_mechanism and g_audit_alt_explanations (cites/audit_g3g4.py)",
+   "qc_split_sample note: the QC run has finished (30 records); counts unchanged"
+  ]
  },
  "figure": {
   "pdf": "/home/user/cloud-research/research/titles/outputs/cites/G4/fig.pdf",

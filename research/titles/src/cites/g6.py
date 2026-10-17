@@ -34,6 +34,9 @@ What this module does
            per-year counts, matched with the R1 rule), as in g4.py, which found R1 shifted down under the null; the
            placebo-adjusted R1 and where treated papers and their matched controls sit relative to their own
            year x topic50 cell.
+       (g) adversarial audit (cites/audit_g5g6.py, added 2026-10-17): alternative explanations (preprint timing, code
+           links, paper type, tail, camera-ready retitling via WP4 v1 titles, combined) and richer / non-bge content
+           controls.
 
 Run:  cd research/titles/src && OMP_NUM_THREADS=2 /home/user/venv/bin/python -m cites.g6
 Writes outputs/cites/G6/{results.json, fig.png, fig.csv}.
@@ -438,6 +441,14 @@ def diag_measure(df: pd.DataFrame) -> dict:
                        "prefix, except 'On the' (title start only)."}
 
 
+def diag_audit(df: pd.DataFrame) -> dict:
+    """(g) Adversarial-audit diagnostics (cites/audit_g5g6.py)."""
+    from cites import audit_g5g6 as AU
+    v1 = AU.v1_frame(df)
+    return {"label": AU.LABEL, "alt_explanations": {F: AU.alt_explanations(df, F, True, v1) for F in FAMILY},
+            "content_controls": AU.content_controls(df, list(FAMILY))}
+
+
 def _emb(d: pd.DataFrame) -> np.ndarray:
     """Same embedding as core.matched_pairs: name-masked abstract (unmasked where no masked text, e.g. 2017)."""
     from analyses import _core as C
@@ -625,6 +636,7 @@ def main():
         "d_power": {F: diag_power(prim_frozen[F], res["primary"][F]["holm_step_alpha"]) for F in FAMILY},
         "e_measure_spot_check": diag_measure(df),
         "f_r1_calibration": diag_r1_calibration(df, res["robustness"]),
+        "g_audit": diag_audit(df),
     }
     figure(res, OUT / "fig.png", OUT / "fig.csv")
     res["figure"] = {"png": str(OUT / "fig.png"), "csv": str(OUT / "fig.csv")}
@@ -706,6 +718,13 @@ def main():
     for F in FAMILY:
         R = D["f_r1_calibration"][F]
         print(F, "R1 calib", {k: v for k, v in R.items() if k != "note"})
+    from cites import audit_g5g6 as AU
+    G = D["g_audit"]
+    for F in FAMILY:
+        print("(g)", F)
+        for line in AU.summary_lines(G["alt_explanations"][F]):
+            print("     ", line)
+        print("      content:", {k: fmt(v) for k, v in G["content_controls"][F].items()})
 
 
 if __name__ == "__main__":

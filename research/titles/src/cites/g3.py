@@ -21,7 +21,13 @@ What this module does
        (d) overlap with other title features and paper type: crosstabs, + G6a / G1 controls, meme ('Do X
            really ...?') and named titles excluded, + method-paper indicator;
        (e) why R1 (matched pairs) differs from the primary: pair composition and balance, pair-level regression
-           adjustment, caliper / era / arXiv-only variants, and matching against plain (non-named, non-assertive) titles.
+           adjustment, caliper / era / arXiv-only variants, and matching against plain (non-named, non-assertive) titles;
+       (f) audit (2026-10-17): R1 calibration from cites/audit_g3g4.py -- placebo null of the R1 procedure, the
+           hubness mechanism (matched controls are embedding hubs, and hubs are cited more), residual decomposition,
+           hub-penalised (CSLS-style) matching with its own null, pair-level hubness adjustment;
+       (g) audit (2026-10-17): alternative explanations from cites/audit_g3g4.py -- preprint timing, code links,
+           method / findings / benchmark paper type, llm_topic, F24 abstract style, tail and PPML superstar
+           dependence, retitling between arXiv v1 and camera-ready.
 
 Run:  cd research/titles/src && OMP_NUM_THREADS=2 /home/user/venv/bin/python -m cites.g3
 Writes outputs/cites/G3/{results.json, fig.png}.
@@ -40,7 +46,7 @@ import numpy as np  # noqa: E402
 import pandas as pd  # noqa: E402
 from scipy.stats import norm  # noqa: E402
 
-from cites import core  # noqa: E402
+from cites import audit_g3g4, core  # noqa: E402
 
 warnings.filterwarnings("ignore")
 
@@ -198,8 +204,8 @@ def diag_arxiv(df: pd.DataFrame) -> dict:
     out["qc_split_sample"] = {
         "n_checked": int(len(q)), "n_split": int(q.split.sum()),
         "n_checked_question": int((q[F] == 1).sum()), "n_split_question": int((q.split & (q[F] == 1)).sum()),
-        "note": "Random sample of matched records without an arXiv id (qc_split.py; file may still be growing). Sizes the "
-                "artefact only; far too few question titles for a comparison."}
+        "note": "Random sample of matched records without an arXiv id (qc_split.py; the run has finished, its log ends "
+                "'DONE' at 30 records). Sizes the artefact only; far too few question titles for a comparison."}
     return out
 
 
@@ -429,7 +435,13 @@ def diag_r1(df: pd.DataFrame, rob: dict) -> dict:
 # --------------------------------------------------------------------------------------------
 def figure(res: dict, path):
     prim, rob = res["primary"]["frozen"], res["robustness"]
-    rows = [("Primary", prim, True)] + [(ROB_LABEL[k], rob[k], False) for k in ROB_LABEL]
+    rows = [("Primary", prim, True)]
+    for k in ROB_LABEL:
+        rows.append((ROB_LABEL[k], rob[k], False))
+        if k == "R1_matched_pairs":  # audit: placebo-calibrated R1 (diagnostic, not pre-registered)
+            P = res["diagnostics"]["f_audit_r1_calibration"]["placebo"]
+            rows.append(("   R1 placebo-adjusted (diagnostic)", {"pct": P["adjusted_pct"], "lo": P["adjusted_lo"],
+                                                                  "hi": P["adjusted_hi"]}, False))
     BLUE, INK, INK2, MUTED, GRID, BAND = "#2a78d6", "#0b0b0b", "#52514e", "#8a8984", "#e6e5e1", "#f1f0ec"
     plt.rcParams.update({"font.family": "DejaVu Sans", "font.size": 10})
     fig, ax = plt.subplots(figsize=(8.6, 4.6), facecolor="white")
@@ -438,7 +450,7 @@ def figure(res: dict, path):
     hi_all = max(r[1]["hi"] for r in rows) * 100
     ax.axvspan(-10, 10, color=BAND, zorder=0, lw=0)
     for i, (name, e, is_p) in enumerate(rows):
-        col = BLUE if is_p else INK2
+        col = BLUE if is_p else (MUTED if "diagnostic" in name else INK2)
         ax.plot([e["lo"] * 100, e["hi"] * 100], [i, i], color=col, lw=2.4 if is_p else 2, solid_capstyle="round", zorder=2)
         ax.scatter([e["pct"] * 100], [i], s=60 if is_p else 34, color=col, edgecolor="white", linewidth=1.2, zorder=3)
         lab = f"{e['pct'] * 100:+.0f}%  [{e['lo'] * 100:+.0f}, {e['hi'] * 100:+.0f}]".replace("-", "\u2212")
@@ -508,6 +520,13 @@ def main():
             "c_power_fragility": diag_power(df, pj, rob),
             "d_overlap_paper_type": diag_overlap(df),
             "e_r1_vs_primary": diag_r1(df, rob)}
+    diag["f_audit_r1_calibration"] = audit_g3g4.r1_calibration(df, F)
+    diag["g_audit_alt_explanations"] = audit_g3g4.alt_explanations(df, F)
+    rc = diag["f_audit_r1_calibration"]["reimplementation_check"]
+    assert rc["n_pairs"] == rob["R1_matched_pairs"]["n_pairs"] and abs(rc["pct"] - rob["R1_matched_pairs"]["pct"]) < 1e-9, rc
+    print("AUDIT (diagnostic, not pre-registered):")
+    for line in audit_g3g4.summary_lines(diag["f_audit_r1_calibration"], diag["g_audit_alt_explanations"]):
+        print("  ", line)
     e = diag["e_r1_vs_primary"]
     assert e["reimplementation_check"]["matches_core"], e["reimplementation_check"]
     print("R1 diag:", e["pair_balance"])
@@ -537,7 +556,12 @@ def main():
            "primary": pb, "robustness": rob, "verdict": ver,
            "verdict_rule": "more/fewer citations: Holm p < 0.05 and same sign in R1 and R2; no meaningful difference: 95% CI "
                            "within +/-10%; else inconclusive",
-           "secondary": sec, "diagnostics": diag}
+           "secondary": sec, "diagnostics": diag,
+           "audit": {"date": "2026-10-17", "label": "adversarial audit; changes are diagnostic only (not pre-registered)",
+                     "changes": ["added diagnostics.f_audit_r1_calibration and diagnostics.g_audit_alt_explanations "
+                                 "(cites/audit_g3g4.py)",
+                                 "figure: added the placebo-adjusted R1 row (diagnostic)",
+                                 "qc_split_sample note: the QC run has finished (30 records); counts unchanged"]}}
     json.dump(_clean(res), open(OUT / "results.json", "w"), indent=1, ensure_ascii=False)
     figure(res, OUT / "fig.png")
     print("wrote", OUT / "results.json", OUT / "fig.png")

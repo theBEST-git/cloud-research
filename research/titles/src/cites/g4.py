@@ -26,7 +26,14 @@ What this module does
        (d) R1 calibration: placebo null of the R1 matched-pairs procedure (random non-G4 'treated' papers with the
            same per-year counts), placebo-adjusted R1 for G4 and for each family with n >= 20, where matched controls
            sit within their own year x topic50 cell, a pair-level adjustment, and tighter calipers;
-       (e) team prior: R6 compared with the same-sample R5 (2022-25) estimate.
+       (e) team prior: R6 compared with the same-sample R5 (2022-25) estimate;
+       (f) audit (2026-10-17): R1 mechanism from cites/audit_g3g4.py -- the placebo of (d) re-derived, the hubness
+           mechanism (matched controls are embedding hubs, and hubs are cited more), residual decomposition,
+           hub-penalised (CSLS-style) matching with its own null, pair-level hubness adjustment;
+       (g) audit (2026-10-17): alternative explanations from cites/audit_g3g4.py -- preprint timing, code links,
+           method / findings / benchmark paper type, llm_topic, F24 abstract style, tail and PPML superstar
+           dependence (the R2 sign), retitling between arXiv v1 and camera-ready, the N24 neutral-synonym benchmark,
+           and word families one at a time.
 
 Run:  cd research/titles/src && OMP_NUM_THREADS=2 /home/user/venv/bin/python -m cites.g4
 Writes outputs/cites/G4/{results.json, fig.png, fig.pdf, fig.csv}.
@@ -42,7 +49,7 @@ import pandas as pd
 import pyfixest as pf
 
 from analyses import _core as C
-from cites import core
+from cites import audit_g3g4, core
 
 warnings.filterwarnings("ignore")
 
@@ -233,7 +240,8 @@ def diag_split_records(df: pd.DataFrame) -> dict:
         "n_checked": int(len(q)), "n_split": int(q.split.sum()),
         "split_by_G4": {str(k): {"n": int(len(g)), "split": int(g.split.sum())}
                         for k, g in q.groupby(q[F].fillna(-1).astype(int))},
-        "note": "Random sample of matched records without an arXiv id (qc_split.py); too small for a G4 comparison.",
+        "note": "Random sample of matched records without an arXiv id (qc_split.py; the run has finished, its log ends "
+                "'DONE' at 30 records); too small for a G4 comparison.",
     }
 
     # primary spec within arXiv / non-arXiv records, with an arXiv indicator, and the interacted difference
@@ -527,8 +535,16 @@ def main():
             "c_word_sense": diag_word_sense(df),
             "d_r1_calibration_and_family_pairs": diag_r1_calibration(df, rob),
             "e_team_prior": diag_team_prior(df, rob),
+            "f_audit_r1_mechanism": audit_g3g4.r1_calibration(df, F),
+            "g_audit_alt_explanations": audit_g3g4.alt_explanations(df, F),
         },
+        "audit": {"date": "2026-10-17", "label": "adversarial audit; changes are diagnostic only (not pre-registered)",
+                  "changes": ["added diagnostics_not_preregistered.f_audit_r1_mechanism and g_audit_alt_explanations "
+                              "(cites/audit_g3g4.py)",
+                              "qc_split_sample note: the QC run has finished (30 records); counts unchanged"]},
     }
+    rc = res["diagnostics_not_preregistered"]["f_audit_r1_mechanism"]["reimplementation_check"]
+    assert rc["n_pairs"] == rob["R1_matched_pairs"]["n_pairs"] and abs(rc["pct"] - rob["R1_matched_pairs"]["pct"]) < 1e-9, rc
     res["figure"] = {k: str(v) for k, v in figure(prim, rob, res["diagnostics_not_preregistered"]
                                                   ["d_r1_calibration_and_family_pairs"]["G4_llm_words"]).items()}
     json.dump(res, open(DST / "results.json", "w"), indent=1, default=float)
@@ -596,6 +612,9 @@ def main():
     TP = D["e_team_prior"]
     print("R5", fmt(TP["R5_2022_25_no_team_prior"]), "R6", fmt(TP["R6_2022_25_with_team_prior"]), "dB", round(TP["change_in_b"], 4),
           TP["mean_log1p_prior_accs"])
+    print("AUDIT (diagnostic, not pre-registered):")
+    for line in audit_g3g4.summary_lines(D["f_audit_r1_mechanism"], D["g_audit_alt_explanations"]):
+        print("  ", line)
 
 
 if __name__ == "__main__":

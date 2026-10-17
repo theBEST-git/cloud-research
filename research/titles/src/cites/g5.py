@@ -27,6 +27,10 @@ What this module does
            at that contrast, and a pair-difference regression that adjusts for the other covariates;
        (e) shape of G5b: within-year quintile dummies vs the middle quintile; the bottom tail; trimming |z| > 3;
        (f) team prior: pre-registered R6 compared with R5 on the same 2022-25 sample.
+       (g) adversarial audit (cites/audit_g5g6.py, added 2026-10-17): R1 calibration for continuous features (feature
+           permuted within year; null of the R1 statistic and of the pair-difference slopes in (d)); alternative
+           explanations (preprint timing, code links, paper type, tail, camera-ready retitling via WP4 v1 titles,
+           combined); richer / non-bge content controls; the S2 split-record mechanism on WP4 audit pairs.
 
 Run:  cd research/titles/src && OMP_NUM_THREADS=2 /home/user/venv/bin/python -m cites.g5
 Writes outputs/cites/G5/{results.json, fig.png, fig.pdf, fig.csv}.
@@ -512,9 +516,31 @@ def diag_r1_scale(df: pd.DataFrame, prims: dict, robs: dict) -> dict:
     """(d) R1 compares top with bottom within-year terciles, not a 1-unit change. Put R1 and the primary on one scale,
     and adjust the within-pair difference for the covariates R1 leaves unmatched (team size, abstract length, G1, G5a,
     and, as a further variant, arXiv-id status)."""
-    out = {"label": DIAG}
+    out = {"label": DIAG,
+           "audit_note": "The R1 pairing is shifted downward when there is no association (see g_audit.r1_null). The "
+                         "no-intercept 'pair_difference_slope_per_unit' absorbs that shift and is biased toward a negative "
+                         "slope (null means: g_audit.r1_null.<feature>.null.slope_no_intercept_null_mean_pct); use the "
+                         "null-corrected or with-intercept slopes in g_audit.r1_null instead."}
     for F in FEATS:
         out[F] = pair_scale(df, F, prims[F], robs[F]["R1_matched_pairs"])
+    return out
+
+
+def diag_audit(df: pd.DataFrame, robs: dict, minilm_r1: dict) -> dict:
+    """(g) Adversarial-audit diagnostics (cites/audit_g5g6.py)."""
+    from cites import audit_g5g6 as AU
+    out = {"label": AU.LABEL}
+    cov = lambda F: ["log_authors", "log_abs_words"] + list(core.EXTRA_CONTROLS.get(F, []))
+    dd = df.copy()
+    dd[FB] = AU.minilm_informativeness(df)
+    out["r1_null"] = {FA: AU.r1_null_continuous(df, FA, cov(FA), robs[FA]["R1_matched_pairs"], unit=UNIT[FA]),
+                      FB: AU.r1_null_continuous(df, FB, cov(FB), robs[FB]["R1_matched_pairs"], unit=UNIT[FB]),
+                      "G5b_minilm": AU.r1_null_continuous(dd, FB, cov(FB), minilm_r1, unit=UNIT[FB] + " (MiniLM measure)")}
+    out["r1_null"]["G5b_minilm"]["feature"] = "G5b_minilm"
+    v1 = AU.v1_frame(df)
+    out["alt_explanations"] = {F: AU.alt_explanations(df, F, False, v1) for F in FEATS}
+    out["content_controls"] = AU.content_controls(df, FEATS)
+    out["split_record_mechanism"] = AU.split_record_mechanism(df)
     return out
 
 
@@ -635,6 +661,8 @@ def main():
             "f_team_prior": diag_team_prior(df, robs),
         },
     }
+    D_ = res["diagnostics_not_preregistered"]
+    D_["g_audit"] = diag_audit(df, robs, D_["b_minilm_alternative"]["robustness"]["R1_matched_pairs"])
     res["figure"] = {k: str(v) for k, v in figure(prims, robs).items()}
     json.dump(res, open(DST / "results.json", "w"), indent=1, default=float)
 
@@ -721,6 +749,18 @@ def main():
     for F in FEATS:
         print(f"(f) {F} R5", fmt(TP[F]["R5_2022_25_no_team_prior"]), "R6", fmt(TP[F]["R6_2022_25_with_team_prior"]),
               "dB", round(TP[F]["change_in_b"], 4), "corr", round(TP[F]["corr_feature_lprior_acc"], 3))
+    from cites import audit_g5g6 as AU
+    G = D["g_audit"]
+    for k, r in G["r1_null"].items():
+        print("(g)", AU.r1_lines(r), "| hub: treated", round(r["treated_y_minus_own_cell_mean"], 3), "controls",
+              round(r["controls_y_minus_own_cell_mean"], 3))
+    for F in FEATS:
+        print("(g)", F)
+        for line in AU.summary_lines(G["alt_explanations"][F]):
+            print("     ", line)
+        cc = G["content_controls"][F]
+        print("      content:", {k: fmt(v) for k, v in cc.items()})
+    print("(g) split records", {k: v for k, v in G["split_record_mechanism"].items() if k not in ("label", "by_length_tercile")})
 
 
 if __name__ == "__main__":

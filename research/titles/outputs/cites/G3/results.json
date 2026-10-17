@@ -314,7 +314,7 @@
     "n_split": 7,
     "n_checked_question": 1,
     "n_split_question": 0,
-    "note": "Random sample of matched records without an arXiv id (qc_split.py; file may still be growing). Sizes the artefact only; far too few question titles for a comparison."
+    "note": "Random sample of matched records without an arXiv id (qc_split.py; the run has finished, its log ends 'DONE' at 30 records). Sizes the artefact only; far too few question titles for a comparison."
    }
   },
   "b_titles_validity": {
@@ -1194,6 +1194,442 @@
     "hi": 0.18590624998277328,
     "note": "control pool restricted to non-question titles that are neither named (G1) nor assertive (G2); matched-pairs counterpart of the joint model"
    }
+  },
+  "f_audit_r1_calibration": {
+   "label": "diagnostic (not pre-registered; added by the adversarial audit)",
+   "feature": "G3_question",
+   "reimplementation_check": {
+    "n_pairs": 221,
+    "pct": -0.03701385116883815
+   },
+   "placebo": {
+    "observed_pct": -0.03701385116883815,
+    "null_n_rep": 200,
+    "null_mean_pct": -0.21709692393475022,
+    "null_sd_log": 0.12437496298109295,
+    "null_q2.5_q97.5_pct": [
+     -0.3950528095492928,
+     -0.03657616452343526
+    ],
+    "placebo_p_two_sided": 0.06965174129353234,
+    "adjusted_pct": 0.23001962601933013,
+    "adjusted_lo": -0.03666444420534665,
+    "adjusted_hi": 0.5705309238219753,
+    "seed": 0,
+    "note": "pseudo-treated = random papers without the feature, same per-year counts; adjusted CI uses the placebo SD of the R1 statistic as its SE"
+   },
+   "hubness": {
+    "mean_log1p_kocc": {
+     "treated": 0.5860842365485751,
+     "matched_controls": 1.2399957097870031,
+     "all_papers": 0.5310238815992007
+    },
+    "mean_kocc": {
+     "treated": 1.0995475113122173,
+     "matched_controls": 2.97737556561086,
+     "all_papers": 1.0
+    },
+    "mean_density10_z": {
+     "treated": 0.364893240825703,
+     "matched_controls": 0.8606176387225545
+    },
+    "y_on_log1p_kocc_primary_controls": {
+     "b": 0.2450710563705902,
+     "se": 0.029069593130880707,
+     "p": 4.228395411587371e-11,
+     "pct": 0.27771209956382803,
+     "lo": 0.2069477521753016,
+     "hi": 0.35262541931035307,
+     "n": 8574
+    },
+    "y_on_density10_z_primary_controls": {
+     "b": 0.3402056286350154,
+     "se": 0.023143575257790823,
+     "p": 0.0,
+     "pct": 0.40523651772374025,
+     "lo": 0.3429171442755268,
+     "hi": 0.4704478821808802,
+     "n": 8574
+    },
+    "y_on_log1p_kocc_plus_density": {
+     "b": 0.0675345704249331,
+     "se": 0.03116671138850033,
+     "p": 0.03513394171794615,
+     "pct": 0.06986724472387462,
+     "lo": 0.00646864801911029,
+     "hi": 0.13725939062865056,
+     "n": 8574
+    },
+    "mean_log1p_kocc_feature_vs_rest": {
+     "with_feature": 0.5808278756826687,
+     "without_feature": 0.5296983904092479
+    },
+    "note": "k-occurrence counts how often a paper is the nearest same-year neighbour (R1 embedding) of another paper (all papers); density = mean cosine to the 10 nearest same-year neighbours, z-scored. Coefficients are per unit of log(1 + k-occurrence) and per SD of density, with the primary controls and FE."
+   },
+   "residual_decomposition": {
+    "treated_mean_residual_log": 0.12849461667608517,
+    "matched_controls_mean_residual_log": 0.12753287267126173,
+    "R1_on_residuals_pct": -0.006710198021310454,
+    "R1_minus_control_excess_pct": 0.093973654643275,
+    "note": "residual = y - prediction of y ~ primary controls | year x topic50 cell, fitted on papers without the feature. A positive control residual means the matched controls are cited more than their content predicts; R1_minus_control_excess removes that excess from R1 for this treated group's own pairs."
+   },
+   "csls_matching": {
+    "pct": 0.1452407170838219,
+    "lo": -0.10789883799981792,
+    "hi": 0.4752007411929504,
+    "n_pairs": 220,
+    "calibration": {
+     "observed_pct": 0.1452407170838219,
+     "null_n_rep": 200,
+     "null_mean_pct": -0.10800107504320622,
+     "null_sd_log": 0.12485247083754052,
+     "null_q2.5_q97.5_pct": [
+      -0.2974681852116736,
+      0.16222672679182626
+     ],
+     "placebo_p_two_sided": 0.06965174129353234,
+     "adjusted_pct": 0.2839036965647628,
+     "adjusted_lo": 0.004593862226740741,
+     "adjusted_hi": 0.6408707678134411
+    },
+    "matched_controls_mean_log1p_kocc": 0.8435893385572512,
+    "note": "control = argmax(2 cos - density_c); caliper 0.80 on the raw cosine"
+   },
+   "R1_pair_adjusted_for_hubness": {
+    "pct": 0.05525568390105362,
+    "lo": -0.2324986290066724,
+    "hi": 0.4516274530186206,
+    "slope_on_d_log1p_kocc": 0.1399261923953301,
+    "mean_d_log1p_kocc": -0.653911473238428,
+    "n_pairs": 221
+   },
+   "primary_plus_log1p_kocc": {
+    "b": 0.12882447870206304,
+    "se": 0.08130519684958573,
+    "p": 0.11952356187624846,
+    "pct": 0.13749045284228556,
+    "lo": -0.03007226195748569,
+    "hi": 0.3340009565234576,
+    "n": 8574
+   },
+   "primary_plus_density10": {
+    "b": 0.10200356213734317,
+    "se": 0.0810347169192423,
+    "p": 0.21407994526893703,
+    "pct": 0.10738741638697702,
+    "lo": -0.0552401237886927,
+    "hi": 0.2980090717759749,
+    "n": 8574
+   }
+  },
+  "g_audit_alt_explanations": {
+   "label": "diagnostic (not pre-registered; added by the adversarial audit)",
+   "feature": "G3_question",
+   "timing": {
+    "label": "diagnostic (not pre-registered; added by the adversarial audit)",
+    "mean_lead_months": {
+     "with_feature": 6.92,
+     "without_feature": 6.647863247863248
+    },
+    "lead_months_diff_primary_controls": {
+     "b": 0.22408210315723562,
+     "se": 0.2917932792576839,
+     "p": 0.4462031765718464,
+     "pct": 0.2511737405257888,
+     "lo": -0.29378300064332397,
+     "hi": 1.2166497413788084,
+     "n": 6575
+    },
+    "arxiv_only_primary_spec": {
+     "b": 0.14612675697154978,
+     "se": 0.09069691544377163,
+     "p": 0.11356973176054819,
+     "pct": 0.1573428800320018,
+     "lo": -0.031143915082325724,
+     "hi": 0.3824989725636945,
+     "n": 6575,
+     "n_with": 175
+    },
+    "arxiv_only_plus_lead_bin_fe": {
+     "b": 0.12060414357049629,
+     "se": 0.08904822599085876,
+     "p": 0.18183161133120063,
+     "pct": 0.12817822735668494,
+     "lo": -0.05250193038339823,
+     "hi": 0.3433126182480728,
+     "n": 6575,
+     "n_with": 175
+    }
+   },
+   "code": {
+    "label": "diagnostic (not pre-registered; added by the adversarial audit)",
+    "share": {
+     "with_feature": 0.21076233183856502,
+     "without_feature": 0.2172096908939014
+    },
+    "plus_code_control": {
+     "b": 0.14200079898063014,
+     "se": 0.08259365812482916,
+     "p": 0.0918772570092794,
+     "pct": 0.15257756942378986,
+     "lo": -0.019686412192587155,
+     "hi": 0.35511235390509377,
+     "n": 8574
+    }
+   },
+   "paper_type": {
+    "label": "diagnostic (not pre-registered; added by the adversarial audit)",
+    "bench_title_regex": "bench",
+    "bench_abstract_regex": "\\b(?:we|this paper|this work)\\s+(?:introduce|present|propose|release|build|construct|create|curate|develop|contribute)s?\\b[^.]{0,120}\\b(?:benchmark|dataset|testbed|test suite|evaluation suite)s?\\b",
+    "share_method": {
+     "with_feature": 0.4484304932735426,
+     "without_feature": 0.6819429526196443
+    },
+    "share_finding": {
+     "with_feature": 0.6322869955156951,
+     "without_feature": 0.45852727055734577
+    },
+    "share_benchmark": {
+     "with_feature": 0.10762331838565023,
+     "without_feature": 0.06325337152404821
+    },
+    "benchmark_share_diff_primary_controls_pp": {
+     "b_pp": 0.5183694143705619,
+     "lo_pp": -4.248790502297784,
+     "hi_pp": 5.285529331038908,
+     "p": 0.8321132079230316,
+     "n": 8574
+    },
+    "benchmark_indicator_coef": {
+     "b": 0.06453526940330889,
+     "se": 0.05340388835953916,
+     "p": 0.23267858080864046,
+     "pct": 0.0666631981557595,
+     "lo": -0.03934155726824329,
+     "hi": 0.18436514757989908,
+     "n": 8574
+    },
+    "plus_benchmark_control": {
+     "b": 0.13354070705608279,
+     "se": 0.08308655449883814,
+     "p": 0.11442554851213949,
+     "pct": 0.14286778797135957,
+     "lo": -0.028883598351326367,
+     "hi": 0.3449950784119087,
+     "n": 8574
+    },
+    "benchmark_papers_excluded": {
+     "b": 0.17792347286092278,
+     "se": 0.08515480448893847,
+     "p": 0.041884998016723074,
+     "pct": 0.1947338881698697,
+     "lo": 0.011081000545213548,
+     "hi": 0.4117455107669832,
+     "n": 8018,
+     "n_with": 199
+    },
+    "plus_method_finding_benchmark_controls": {
+     "b": 0.12876119328256086,
+     "se": 0.08345143559828236,
+     "p": 0.12927771553312972,
+     "pct": 0.13741846855959938,
+     "lo": -0.034204940003542794,
+     "hi": 0.33953964583874585,
+     "n": 8574
+    },
+    "within_finding_abstracts": {
+     "b": 0.13409751954232865,
+     "se": 0.09861146160640145,
+     "p": 0.18009953970425174,
+     "pct": 0.143504328226165,
+     "lo": -0.05746379368191923,
+     "hi": 0.3873229907846025,
+     "n": 3930,
+     "n_with": 141
+    },
+    "within_non_finding_abstracts": {
+     "b": 0.11802287148314863,
+     "se": 0.181586792875049,
+     "p": 0.5187582751269226,
+     "pct": 0.125269847663386,
+     "lo": -0.2117084281713454,
+     "hi": 0.6062993381027955,
+     "n": 4573,
+     "n_with": 82
+    }
+   },
+   "topic": {
+    "label": "diagnostic (not pre-registered; added by the adversarial audit)",
+    "share_llm_topic": {
+     "with_feature": 0.36771300448430494,
+     "without_feature": 0.22067072443012292
+    },
+    "plus_llm_topic_control": {
+     "b": 0.13791897714954948,
+     "se": 0.08383618607064583,
+     "p": 0.10634994428597722,
+     "pct": 0.14788254179080496,
+     "lo": -0.026054515406184087,
+     "hi": 0.35288304180355534,
+     "n": 8574
+    }
+   },
+   "llm_style": {
+    "label": "diagnostic (not pre-registered; added by the adversarial audit)",
+    "share_f24_abstract": {
+     "with_feature": 0.09865470852017937,
+     "without_feature": 0.09810239885427856
+    },
+    "plus_f24_abstract_control": {
+     "b": 0.13344880670569928,
+     "se": 0.0829496283968708,
+     "p": 0.11408641407047604,
+     "pct": 0.1427627628471997,
+     "lo": -0.02871220564656707,
+     "hi": 0.34451059690241603,
+     "n": 8574
+    }
+   },
+   "tail": {
+    "label": "diagnostic (not pre-registered; added by the adversarial audit)",
+    "cite_percentile_outcome_pp": {
+     "b_pp": 2.9528993304075137,
+     "lo_pp": -0.472752456331341,
+     "hi_pp": 6.378551117146369,
+     "p": 0.09747519354023249,
+     "n": 8574
+    },
+    "drop_top5pct_per_year": {
+     "b": 0.1708188746767829,
+     "se": 0.08567021413786215,
+     "p": 0.05174257710597652,
+     "pct": 0.18627586496236082,
+     "lo": 0.0029094793097241833,
+     "hi": 0.4031679397035617,
+     "n": 8142,
+     "n_with": 212
+    },
+    "drop_zero_citation_records": {
+     "b": 0.1053732978373627,
+     "se": 0.07926087668461641,
+     "p": 0.18985639959327116,
+     "pct": 0.11112531362358746,
+     "lo": -0.048749667688596565,
+     "hi": 0.29787020370885364,
+     "n": 8221,
+     "n_with": 215
+    },
+    "most_cited_feature_papers": [
+     {
+      "year": 2019,
+      "cites": 10670,
+      "title": "How Powerful are Graph Neural Networks?"
+     },
+     {
+      "year": 2024,
+      "cites": 4404,
+      "title": "SWE-bench: Can Language Models Resolve Real-world Github Issues?"
+     },
+     {
+      "year": 2022,
+      "cites": 2162,
+      "title": "How Attentive are Graph Attention Networks? "
+     },
+     {
+      "year": 2024,
+      "cites": 1286,
+      "title": "Can LLMs Express Their Uncertainty? An Empirical Evaluation of Confidence Elicitation in LLMs"
+     },
+     {
+      "year": 2019,
+      "cites": 988,
+      "title": "What do you learn from context? Probing for sentence structure in contextualized word representations"
+     }
+    ],
+    "ppml_drop_k_most_cited_feature_papers": {
+     "0": {
+      "b": 0.19346410435424868,
+      "se": 0.3045869644967819,
+      "p": 0.5253183988491452,
+      "pct": 0.21344582834813686,
+      "lo": -0.332039571557987,
+      "hi": 1.204398218274576,
+      "n": 8574
+     },
+     "1": {
+      "b": -0.10859986643709278,
+      "se": 0.18785894929725505,
+      "p": 0.5632016099969424,
+      "pct": -0.10291069876891867,
+      "lo": -0.379235444772536,
+      "hi": 0.29641618163650096,
+      "n": 8573
+     },
+     "2": {
+      "b": -0.2703066109553244,
+      "se": 0.15465336707800983,
+      "p": 0.08049479453283603,
+      "pct": -0.2368545303000883,
+      "lo": -0.436409418506138,
+      "hi": 0.033358304852795895,
+      "n": 8572
+     },
+     "3": {
+      "b": -0.36569981279356695,
+      "se": 0.13733267793014026,
+      "p": 0.007747609130375199,
+      "pct": -0.306288986871982,
+      "lo": -0.46999660221246486,
+      "hi": -0.09201531208293134,
+      "n": 8571
+     }
+    },
+    "ppml_drop_top1pct_per_year": {
+     "b": -0.21120895082725455,
+     "se": 0.12120149538262036,
+     "p": 0.08139885903335542,
+     "pct": -0.1903951184035697,
+     "lo": -0.3615831772556808,
+     "hi": 0.026696103475450705,
+     "n": 8481
+    },
+    "note": "Dropping only the most-cited feature papers is one-sided (biased against the feature by construction); it shows how many papers the R2 sign rests on. Dropping the top 1% per year is symmetric."
+   },
+   "retitling": {
+    "label": "diagnostic (not pre-registered; added by the adversarial audit)",
+    "source": "outputs/snapshot/audit_pairs.csv (accepted, arXiv v1 posted before the decision)",
+    "n_papers": 568,
+    "years": [
+     2023,
+     2024,
+     2025
+    ],
+    "camera_ready_rule_reproduces_feature": 1.0,
+    "n_with_camera_ready": 19,
+    "n_with_v1": 19,
+    "added_at_camera_ready": 2,
+    "removed_at_camera_ready": 2,
+    "added_titles": [
+     {
+      "v1_title": "CIDER: Exploiting Hyperspherical Embeddings for Out-of-Distribution Detection",
+      "title": "How to Exploit Hyperspherical Embeddings for Out-of-Distribution Detection?"
+     },
+     {
+      "v1_title": "Jogging the Memory of Unlearned Model Through Targeted Relearning Attack",
+      "title": "Unlearning or Obfuscating? Jogging the Memory of Unlearned LLMs via Benign Relearning"
+     }
+    ],
+    "note": "too few feature papers in the audited subsample for an estimate; counts only"
+   }
   }
+ },
+ "audit": {
+  "date": "2026-10-17",
+  "label": "adversarial audit; changes are diagnostic only (not pre-registered)",
+  "changes": [
+   "added diagnostics.f_audit_r1_calibration and diagnostics.g_audit_alt_explanations (cites/audit_g3g4.py)",
+   "figure: added the placebo-adjusted R1 row (diagnostic)",
+   "qc_split_sample note: the QC run has finished (30 records); counts unchanged"
+  ]
  }
 }

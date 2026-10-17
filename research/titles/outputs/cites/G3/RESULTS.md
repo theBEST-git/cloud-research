@@ -44,13 +44,18 @@ Among accepted ICLR papers from 2017 to 2025, do papers whose title is a direct 
 - R4, R6 and R7 are within about 3 points of the primary.
 - R3 (influential citations) is smaller, at +5%.
 - R1 (matched pairs) and R5 2017–21 have the opposite sign. Both rest on few papers, and their CIs span roughly ±25 to ±40 points.
+  - The R1 procedure itself is shifted downward. With no true association it gives about −22% (audit diagnostic (f)).
+  - Placebo-adjusted, R1 is **+23% (−4, +57)**, the same sign as the primary. This is a diagnostic; the verdict rule uses raw R1.
 - R2 is positive but uninformative: its CI runs from −33% to +120%.
+  - Its sign rests on one paper, GIN (10,670 citations). Without GIN, PPML gives −10.3% (−37.9, +29.6). With the top 1% per year dropped, it gives −19.0% (−36.2, +2.7) (audit diagnostic (g)).
 
 ## Verdict (pre-registered rule)
 
 **"Inconclusive."**
 
 - **"More citations" fails.** That verdict needs Holm p < 0.05, but Holm p = 0.348. R1 also has the opposite sign (−3.7%), so the sign condition fails too. R2 has the same sign.
+  - Both sign checks are weak here. Raw R1 is shifted about −22% by construction, and R2's sign rests on GIN alone (audit diagnostics (f) and (g)).
+  - The verdict does not depend on either, because Holm p fails.
 - **"No meaningful difference" fails.** The 95% CI (−2.8% to +34.5%) is not inside ±10%.
 - **That second verdict was unattainable here.** With 223 question titles, the 95% CI is wider than the ±10% band whatever the point estimate (see diagnostic (c)).
 
@@ -62,6 +67,7 @@ Among accepted ICLR papers from 2017 to 2025, do papers whose title is a direct 
 - In this model the comparison group changes. G2 ("assertive") is defined as "assertive verb and not a question", so G2 and G3 never co-occur, and only 6% of question titles are named (G1) against 25% of other titles. G1 and G2 both go with more citations: +22% and +26% in their own primary models.
 - So the joint model compares question titles with "plain" titles: not named, not assertive and without the other features. The primary compares them with all other titles.
 - This is a secondary result without multiplicity control. The matched-pairs version of this comparison, diagnostic (e), does not reproduce it: −6.0%.
+  - That matched-pairs figure is raw. It carries the same downward shift of about 22% as R1 (audit diagnostic (f)), so it is not evidence against the joint-model estimate either.
 
 **Heterogeneity by LLM-topic papers.** Question titles are more common among LLM-topic papers: 36.8% of question titles vs 22.1% of other titles.
 
@@ -159,7 +165,8 @@ Question forms, descriptive only (counts and raw median within-year percentile; 
 - main-clause yes/no questions: 91 (0.55);
 - main-clause wh- questions: 78 (0.64);
 - other openers: 21 (0.55);
-- questions after a "NAME:" prefix: 33.
+- questions after a colon, in the second part of the title: 33. Only 14 of these follow a coined name (e.g. "SWE-bench: Can …?"). The other 19 follow a descriptive phrase (e.g. "Permutation-Based SGD: Is Random Optimal?").
+  - Audit correction: an earlier version called all 33 "questions after a 'NAME:' prefix".
 
 ### (c) Power and fragility (n = 223)
 
@@ -238,13 +245,16 @@ Question forms, descriptive only (counts and raw median within-year percentile; 
 
 **Reading.**
 - All matched-pairs estimates lie between −8% and +18%, with CIs about ±25 points or wider. Each CI overlaps the primary's.
-- The matched design gives no support for a positive association, and no clear evidence against one.
+- Raw, the matched design gives no support for a positive association, and no clear evidence against one.
 - It does not reproduce the larger joint-model estimate: −6.0% against plain-title controls.
-- Nothing in the pair balance explains the gap. Small n and a heavy-tailed outcome are enough.
+- **Audit correction.** An earlier version said that nothing in the pair balance explains the gap. The balance checks above cover team size, abstract length and title features. They miss how the controls are chosen.
+  - The nearest-neighbour controls are embedding "hubs": on average each is the nearest neighbour of 3.0 papers, against 1.0 for all papers and 1.1 for the question papers.
+  - Hubs are cited more than their content predicts. This holds with the primary controls and FE.
+  - So raw R1 is biased downward by about 12–22%. Every hubness-corrected version of R1 is positive (+5% to +28%). Details are in audit diagnostic (f).
 
 ## Interpretation and caveats
 
-- **Inconclusive, not null.** The data are consistent with anything from somewhat fewer citations (R1's CI reaches −26%) to substantially more (the primary CI reaches +35%). Nothing here supports "question titles get more citations" or "question titles make no difference".
+- **Inconclusive, not null.** The data are consistent with anything from slightly fewer citations (the primary CI reaches −3%) to substantially more (+35%). Raw R1's CI reaches −26%, but raw R1 is shifted downward by construction (audit (f)). Nothing here supports "question titles get more citations" or "question titles make no difference".
 - **Observational.** Authors choose titles. Question titles mark a type of paper: analysis, evaluation or benchmark papers, less often method papers (45% vs 68%), and more often LLM-topic papers (37% vs 22%). Content controls, matched pairs and the method-paper indicator reduce but do not remove differences in what such papers are and how they are promoted. None of this shows that rephrasing a given title as a question would change its citations.
 - **Small and recent.**
   - 223 question titles, of which only 39 are from 2017–21 and 86 (39%) are from 2025.
@@ -257,8 +267,97 @@ Question forms, descriptive only (counts and raw median within-year percentile; 
 - **Exposure.** The exposure is the camera-ready title as indexed; counts are a single S2 snapshot (2026-10-17).
 - **Multiplicity.** Secondary analyses and diagnostics carry no multiplicity correction.
   - The diagnostics were added after the primary was seen, and are labelled as such.
-  - The joint-model estimate (+27%, p 0.010) and the non-LLM subgroup (+25.5%, p 0.040) are hypotheses for a future pre-registered test, not findings. The matched-pairs version of the joint-model comparison is −6%.
+  - The joint-model estimate (+27%, p 0.010) and the non-LLM subgroup (+25.5%, p 0.040) are hypotheses for a future pre-registered test, not findings. The raw matched-pairs version of the joint-model comparison is −6%, but raw matched pairs are shifted downward (audit (f)).
 
 ## One-sentence advice for authors (observational)
 
-Among accepted ICLR papers with similar content, papers whose titles are questions receive about 14% more citations on average in the pre-registered model, but the 95% CI runs from −3% to +35% and content-matched pairs show −4%; these data neither support nor rule out a question title, so we give no advice for or against one.
+Among accepted ICLR papers with similar content, papers whose titles are questions receive about 14% more citations on average in the pre-registered model, but the 95% CI runs from −3% to +35%, the estimate leans on a few very highly cited papers, and the pre-registered verdict is inconclusive; these data neither support nor rule out a question title, so we give no advice for or against one.
+
+*(Audit, 2026-10-17: the earlier sentence cited "content-matched pairs show −4%" as counter-evidence. That raw R1 is shifted downward by about 22% by construction, and calibrated it is +23% (−4, +57); see the Audit section. The advice itself is unchanged.)*
+
+## Audit (adversarial review, 2026-10-17)
+
+### What was checked
+
+- **Reproduction.** `core.primary(core.load(), "G3_question")` reproduces `primary.json` exactly: b 0.13388, SE 0.08298, p 0.113, n 8,574, 223 question titles.
+  - Holm p 0.348 is taken from `primary.json`. It was not recomputed.
+- **Verdict.** Holm p ≥ 0.05, R1 −3.7% (opposite sign), R2 +21.3% (same sign), CI not inside ±10%. So "inconclusive" follows the pre-registered rule (`core.verdict`).
+- **Feature definition.** `G3_question` equals "the title contains '?'" for all 8,602 papers, as frozen in `core.load` and the prereg.
+- **Frozen files.**
+  - SHA-256 of `core.py`, `CITES_PREREG.md` and `matched_venue.parquet` match `prereg_hashes.json`.
+  - `primary.json` is unchanged.
+- **Leakage.** No control uses the outcome. The PCs, topic clusters and matching embedding are built from abstracts only.
+- **Numbers.** Every number in this file was compared with `results.json`. They match, except the question-form label (fix 2).
+- **Labels and wording.**
+  - Every non-pre-registered block in `results.json` carries "diagnostic (not pre-registered)".
+  - The text uses observational wording.
+- **Re-run.** `g3.py` was re-run after the changes. Every pre-existing value in `results.json` reproduced identically. The only exception is the QC note text.
+
+### What was changed
+
+1. **R1 used as counter-evidence (interpretation error).**
+   - The advice sentence and several readings cited raw content-matched pairs (−3.7%; −6.0% against plain titles) as evidence against a positive association.
+   - Raw R1 is shifted about −22% by construction (diagnostic (f) below), so it cannot carry that weight. Those passages now say so.
+   - The advice is unchanged: no advice for or against.
+   - The reading of (e), "nothing in the pair balance explains the gap", was wrong and is corrected.
+2. **Question-form label (error).** "Questions after a 'NAME:' prefix: 33" counted every question after a colon. Only 14 of the 33 follow a coined name.
+3. **R2 sign.** Its dependence on a single paper is now stated (diagnostic (g)).
+4. **QC note.** The split-record QC run has finished: its log ends "DONE" at 30 records. The counts (30 checked, 7 split, 1 question title) are final. The earlier caveat that the file was still growing no longer applies.
+5. **Audit diagnostics added.**
+   - Code: new module `src/cites/audit_g3g4.py`, called from `g3.py`.
+   - Results: `results.json` → `diagnostics.f_audit_r1_calibration` and `diagnostics.g_audit_alt_explanations`.
+   - Figure: one added row, "R1 placebo-adjusted (diagnostic)".
+
+### (f) R1 calibration — diagnostic (not pre-registered)
+
+| Check | Result |
+|---|---|
+| **Placebo null of R1.** 200 draws of random non-question papers, with the same per-year counts as the 223 question titles, run through the R1 procedure. | Null mean **−21.7%**; null 95% range −39.5% to −3.7%. Observed −3.7%, at the top edge of that range: placebo p 0.07. **Placebo-adjusted R1 +23.0% (−3.7, +57.1).** |
+| **Mechanism: who are the matched controls?** | On average each matched control is the nearest same-year neighbour of **3.0** papers, against 1.0 for all papers and 1.1 for question papers. Controls are also in denser regions: +0.86 SD of local density, against +0.36 SD for question papers. |
+| **Are hubs cited more?** Primary controls and FE. | +27.8% (+20.7, +35.3) per unit of log(1 + times-a-nearest-neighbour). +40.5% (+34.3, +47.0) per SD of local density. |
+| **Residual decomposition.** Residual from the primary model fitted on non-question papers. | Question papers sit +0.128 log points above their content prediction. Their matched controls also sit +0.128 above. R1 with the controls' excess removed: **+9.4%**. |
+| **Hub-penalised (CSLS-style) matching.** | Raw +14.5% (−10.8, +47.5), 220 pairs. Its own null is −10.8%, so calibrated it is **+28.4% (+0.5, +64.1)**. |
+| **Pair-level adjustment** for the hubness difference. | **+5.5% (−23.2, +45.2)** |
+| **Does the primary miss hubness?** | Primary + hubness: +13.7% (−3.0, +33.4). Primary + density: +10.7% (−5.5, +29.8). |
+
+**Reading.**
+- Nearest-neighbour matching picks hub papers as controls. Hubs sit in dense, well-cited regions, and are cited more than the 20 PCs and year × topic50 FE predict.
+- This pushes R1 down for any feature. G4 shows the same: null −20.5%.
+- Every hubness-corrected version of R1 for G3 is positive, from +5% to +28%. So the opposite sign of raw R1 is most likely an artefact of the procedure, not evidence against the primary.
+- The corrected versions are themselves imprecise: most CIs include 0. They support "consistent with the primary", not "confirms it".
+- Question papers are only slightly more hub-like than other papers: k-occurrence 1.1 vs 1.0, density +0.36 SD. Adding hubness or density to the primary moves G3 only to +11–14%, so the primary is not driven by it.
+
+### (g) Alternative explanations tested — diagnostic (not pre-registered)
+
+Each re-fit uses the primary controls, year × topic50 FE and SEs clustered by topic50.
+
+| Alternative explanation | Test | Result for G3 |
+|---|---|---|
+| **S2 split records** (venue record without an arXiv id under-counts) | arXiv-id records only; arXiv-id indicator (diagnostic (a)) | +15.7% (−3.1, +38.2) on arXiv-id records; +13.1% with the indicator. Share with an arXiv id: 78.5% vs 76.8%. |
+| **Preprint exposure time** | Months from first arXiv posting to the conference; arXiv-id records with lead-month FE bins | Posted 6.9 vs 6.6 months before. **+12.8% (−5.3, +34.3)** |
+| **Promotion / code release** | Abstract announces code or a URL | 21.1% vs 21.7%. With the indicator: +15.3% (−2.0, +35.5). |
+| **Paper type: analysis / findings / benchmark** | Method, findings and benchmark-paper indicators (crude regexes) | Findings abstracts 63% vs 46%; benchmark papers 10.8% vs 6.3%. With all three: **+13.7% (−3.4, +34.0)**. Benchmark papers excluded: +19.5% (+1.1, +41.2), 199 question titles. Within findings abstracts: +14.4% (−5.7, +38.7). |
+| **LLM-topic composition** | + llm_topic indicator | +14.8% (−2.6, +35.3) |
+| **LLM-assisted writing** | + F24 abstract fingerprint | 9.9% vs 9.8%. +14.3%. |
+| **Team prior success** | Pre-registered R6 (2022–25) | +15.2% (−2.1, +35.5) |
+| **Superstar outliers** | Within-year citation percentile outcome; drop the top 5% per year; drop zero-citation records | Percentile: +3.0 points (−0.5, +6.4), p 0.10. Top 5% dropped: +18.6% (+0.3, +40.3). Zero-citation records dropped: +11.1% (−4.9, +29.8). |
+| **R2 sign** | PPML after dropping the most-cited question paper(s); PPML with the top 1% per year dropped | GIN dropped: −10.3% (−37.9, +29.6). Top 1% per year dropped: −19.0% (−36.2, +2.7). |
+| **Retitling** | WP4 audit pairs: arXiv v1 title, posted before the decision, vs camera-ready; 568 accepted 2023–25 papers | 19 question titles on each version: 2 added at camera-ready, 2 removed. Too few for an estimate. |
+
+**Reading.**
+- On the log scale, none of these explanations removes or reverses the point estimate. It stays between +11% and +20%. Excluding benchmark papers and dropping the top 5% per year both raise it slightly.
+- Most CIs include 0, as the primary's does. A few just exclude it (benchmark papers excluded; top 5% dropped). These are post-hoc and uncorrected, so they are not findings.
+- **Count scale.** On raw counts the comparison has no stable sign. The mean is carried by GIN, and with the top 1% per year removed PPML is negative.
+  - The log-scale primary describes the typical paper. Question-title papers are shifted up modestly in the middle of the distribution (percentile +3 points), but no more often among the very top papers.
+- **Retitling** is rare (4 of 21 changes in the audited subsample), so the camera-ready exposure is close to the pre-decision one.
+- **Not testable with these data.** Lab reputation beyond prior ICLR acceptances, social-media promotion, and quality signals not reflected in the abstract.
+
+### Confidence in the advice
+
+- **"No advice for or against": high.** Holm p is 0.35, the CI spans −3% to +35%, and the pre-registered ±10% band was unattainable at n = 223.
+- **Direction of the point estimate: low to medium.**
+  - It is positive under every log-scale adjustment and under every hubness-corrected matched-pairs version.
+  - It is sensitive to a few very highly cited papers: dropping the 10 most-cited question titles gives +2%.
+  - It has no stable sign on the count scale.
+- The one-sentence advice stands, with the R1 clause replaced. It remains an association: it does not show that rephrasing a given title as a question would change its citations.
+- **Cross-cutting note for the integrator.** Raw R1 (`core.matched_pairs`) is shifted about −20% under the null for both G3 and G4. The cause is hub selection by nearest-neighbour matching. Any G-question whose write-up quotes raw R1 as a size estimate or as counter-evidence should be re-read with this in mind. For example, G1's audit quotes R1 (+5.6% to +8.4%) as the low end of its size range.

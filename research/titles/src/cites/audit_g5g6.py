@@ -117,21 +117,43 @@ def r1_null_continuous(df: pd.DataFrame, F: str, covs: list[str], core_r1: dict 
                                             "intercept_pct": float(np.exp(m1.params["const"]) - 1),
                                             "note": "intercept absorbs any constant shift of the pairing procedure; slope "
                                                     "identified from variation in the feature contrast across pairs"}
+    def reverse(xv):
+        """Reverse direction: each bottom-tercile paper matched to its nearest top-tercile paper; mean(y_top - y_bottom).
+        Hub re-use now inflates the top side, so its bias has the opposite sign to R1's."""
+        tr, co = _terciles(xv, years)
+        Cb, Tt = _nn_pairs(E, years, co, tr)
+        return float((y[Tt] - y[Cb]).mean()), int(len(Cb))
+
+    rev_obs, rev_n = reverse(x)
     # null: permute the feature within year
     rng = np.random.default_rng(seed)
     idx_by_year = {yy: np.where(years == yy)[0] for yy in np.unique(years)}
-    stats, b0s, b1s, a1s = [], [], [], []
+    stats, b0s, b1s, a1s, revs, hub_t, hub_c = [], [], [], [], [], [], []
     for _ in range(n_rep):
         xp = x.copy()
         for yy, ii in idx_by_year.items():
             xp[ii] = x[rng.permutation(ii)]
-        _, _, dyp, dxp, Zp = run(xp)
+        Tp, Cp, dyp, dxp, Zp = run(xp)
         stats.append(float(dyp.mean()))
+        hub_t.append(float((y[Tp] - cm[Tp]).mean()))
+        hub_c.append(float((y[Cp] - cm[Cp]).mean()))
         b0, a1, b1 = _slopes(dyp, dxp, Zp)
         b0s.append(b0)
         b1s.append(b1)
         a1s.append(a1)
-    stats, b0s, b1s = np.array(stats), np.array(b0s), np.array(b1s)
+        revs.append(reverse(xp)[0])
+    stats, b0s, b1s, revs = np.array(stats), np.array(b0s), np.array(b1s), np.array(revs)
+    sym_obs, sym_null = 0.5 * (obs + rev_obs), 0.5 * (stats + revs)
+    out["reverse_direction"] = {"n_pairs": rev_n, "observed_pct": float(np.exp(rev_obs) - 1),
+                                "null_mean_pct": float(np.exp(revs.mean()) - 1),
+                                "null_q2.5_q97.5_pct": [float(np.exp(q) - 1) for q in np.percentile(revs, [2.5, 97.5])],
+                                "placebo_adjusted_pct": float(np.exp(rev_obs - revs.mean()) - 1)}
+    out["symmetric_average"] = {"observed_pct": float(np.exp(sym_obs) - 1), "null_mean_pct": float(np.exp(sym_null.mean()) - 1),
+                                "null_sd_log": float(sym_null.std(ddof=1)),
+                                "placebo_adjusted_pct": float(np.exp(sym_obs - sym_null.mean()) - 1),
+                                "note": "mean of the R1 direction and the reverse direction; their hub biases have "
+                                        "opposite signs, so the raw symmetric average needs little calibration"}
+    out["null_hub"] = {"treated_y_minus_own_cell_mean": float(np.mean(hub_t)), "controls_y_minus_own_cell_mean": float(np.mean(hub_c))}
     adj = obs - stats.mean()
     se = float(stats.std(ddof=1) * np.sqrt(1 + 1 / n_rep))
     p_lo = (1 + (stats <= obs).sum()) / (n_rep + 1)

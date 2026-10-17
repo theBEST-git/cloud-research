@@ -753,7 +753,9 @@ def main():
     G = D["g_audit"]
     for k, r in G["r1_null"].items():
         print("(g)", AU.r1_lines(r), "| hub: treated", round(r["treated_y_minus_own_cell_mean"], 3), "controls",
-              round(r["controls_y_minus_own_cell_mean"], 3))
+              round(r["controls_y_minus_own_cell_mean"], 3), "| null hub", {k: round(v, 3) for k, v in r["null_hub"].items()})
+        print("     reverse", {k: v for k, v in r["reverse_direction"].items()}, "| symmetric",
+              {k: v for k, v in r["symmetric_average"].items() if k != "note"})
     for F in FEATS:
         print("(g)", F)
         for line in AU.summary_lines(G["alt_explanations"][F]):

@@ -121,12 +121,12 @@
      "n": 6599
     },
     "R7_year_plus_topic100_fe": {
-     "b": -0.07745580767575601,
-     "se": 0.029229696269065544,
-     "p": 0.010809350676677099,
-     "pct": -0.07453207792856187,
-     "lo": -0.126062147088285,
-     "hi": -0.0199636370828441,
+     "b": -0.07745580767572306,
+     "se": 0.029229691716416095,
+     "p": 0.010809339159818743,
+     "pct": -0.07453207792853134,
+     "lo": -0.12606213928994014,
+     "hi": -0.01996364582786525,
      "n": 8602
     }
    },
@@ -258,12 +258,12 @@
      "n": 6599
     },
     "R7_year_plus_topic100_fe": {
-     "b": 0.08520523965468284,
-     "se": 0.014534928620962407,
-     "p": 3.814533937607223e-07,
-     "pct": 0.08894053754497033,
-     "lo": 0.058356019883931465,
-     "hi": 0.12040889079912209,
+     "b": 0.08520523965476862,
+     "se": 0.014534931195803652,
+     "p": 3.8145479486217937e-07,
+     "pct": 0.08894053754506381,
+     "lo": 0.058356014542828794,
+     "hi": 0.12040889645357322,
      "n": 8602
     }
    },
@@ -884,12 +884,12 @@
      "n": 6599
     },
     "R7_year_plus_topic100_fe": {
-     "b": 0.04571811680200712,
-     "se": 0.01624116854659659,
-     "p": 0.007006594571258962,
-     "pct": 0.04677929986882279,
-     "lo": 0.01398227673452035,
-     "hi": 0.08063713516045024,
+     "b": 0.04571811680200827,
+     "se": 0.016241171044214648,
+     "p": 0.007006602673949702,
+     "pct": 0.04677929986882412,
+     "lo": 0.013982271770742294,
+     "hi": 0.08063714045052839,
      "n": 8602
     }
    },
@@ -1597,6 +1597,27 @@
       "intercept_pct": -0.17806005599441377,
       "note": "intercept absorbs any constant shift of the pairing procedure; slope identified from variation in the feature contrast across pairs"
      },
+     "reverse_direction": {
+      "n_pairs": 2536,
+      "observed_pct": 0.08439302179189956,
+      "null_mean_pct": 0.20779223493874022,
+      "null_q2.5_q97.5_pct": [
+       0.09106255303794053,
+       0.3212245167127912
+      ],
+      "placebo_adjusted_pct": -0.10216923869617323
+     },
+     "symmetric_average": {
+      "observed_pct": -0.08616508022992975,
+      "null_mean_pct": 0.003456829056975863,
+      "null_sd_log": 0.04578068324536393,
+      "placebo_adjusted_pct": -0.0893131689293799,
+      "note": "mean of the R1 direction and the reverse direction; their hub biases have opposite signs, so the raw symmetric average needs little calibration"
+     },
+     "null_hub": {
+      "treated_y_minus_own_cell_mean": 0.010275773913948199,
+      "controls_y_minus_own_cell_mean": 0.15061639298125132
+     },
      "null": {
       "n_rep": 200,
       "method": "feature permuted within year; terciles and core R1 pairing rebuilt",
@@ -1666,6 +1687,27 @@
       "intercept_pct": 0.16801788423234387,
       "note": "intercept absorbs any constant shift of the pairing procedure; slope identified from variation in the feature contrast across pairs"
      },
+     "reverse_direction": {
+      "n_pairs": 2701,
+      "observed_pct": 0.4314580028310995,
+      "null_mean_pct": 0.2100739434565062,
+      "null_q2.5_q97.5_pct": [
+       0.10620270481488348,
+       0.3354685137203506
+      ],
+      "placebo_adjusted_pct": 0.1829508523604948
+     },
+     "symmetric_average": {
+      "observed_pct": 0.22249856802768364,
+      "null_mean_pct": 0.00169071449531355,
+      "null_sd_log": 0.045024178457271816,
+      "placebo_adjusted_pct": 0.2204351606110484,
+      "note": "mean of the R1 direction and the reverse direction; their hub biases have opposite signs, so the raw symmetric average needs little calibration"
+     },
+     "null_hub": {
+      "treated_y_minus_own_cell_mean": 0.012423681402958561,
+      "controls_y_minus_own_cell_mean": 0.1580749919274232
+     },
      "null": {
       "n_rep": 200,
       "method": "feature permuted within year; terciles and core R1 pairing rebuilt",
@@ -1734,6 +1776,27 @@
       "p": 0.9391944283753481,
       "intercept_pct": -0.11609773672487733,
       "note": "intercept absorbs any constant shift of the pairing procedure; slope identified from variation in the feature contrast across pairs"
+     },
+     "reverse_direction": {
+      "n_pairs": 2727,
+      "observed_pct": 0.24504981680365923,
+      "null_mean_pct": 0.21046720622905224,
+      "null_q2.5_q97.5_pct": [
+       0.11394033346525911,
+       0.31296764699083335
+      ],
+      "placebo_adjusted_pct": 0.028569638563230138
+     },
+     "symmetric_average": {
+      "observed_pct": 0.05075469329852589,
+      "null_mean_pct": 0.004156939542200089,
+      "null_sd_log": 0.039733474669977877,
+      "placebo_adjusted_pct": 0.04640485159378582,
+      "note": "mean of the R1 direction and the reverse direction; their hub biases have opposite signs, so the raw symmetric average needs little calibration"
+     },
+     "null_hub": {
+      "treated_y_minus_own_cell_mean": 0.012024326413816488,
+      "controls_y_minus_own_cell_mean": 0.15513405321470222
      },
      "null": {
       "n_rep": 200,

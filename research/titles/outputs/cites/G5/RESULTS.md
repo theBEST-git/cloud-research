@@ -47,6 +47,11 @@ R1 compares the top with the bottom within-year tercile, not a one-unit change. 
 - **G5b.** Every check is positive. R3–R7 sit between +4.5% and +12.4%. The two checks the decision rule uses are weak:
   - R1 matched pairs: +4.4%, CI includes 0.
   - R2 PPML: +1.8%, CI includes 0.
+- **R1 is shifted by the pairing procedure itself (correction added by the audit; diagnostic (g)).**
+  - With the feature permuted within year, so that there is no association, the R1 statistic still averages −16.6% for G5a and −17.1% for G5b.
+  - The reason is that nearest-neighbour controls are re-used "hub" papers, which sit above their cell's mean citations.
+  - Calibrated against that null, R1 is −7.6% [−16.3, +2.0] for G5a and **+25.9% [+14.2, +38.9]** for G5b. The primary implies −6.3% and +17.1% at the same contrasts.
+  - So raw R1 overstates the length association and understates the informativeness association. The verdict uses raw R1, as pre-registered.
 
 ## Verdict (pre-registered rule)
 
@@ -58,7 +63,10 @@ R1 compares the top with the bottom within-year tercile, not a one-unit change. 
   - R1 has the same sign (+4.4%);
   - R2 has the same sign (+1.8%).
 
-  The rule checks only the sign of R1 and R2. Both are small and their CIs include zero. The diagnostics below show that the size of the G5b association depends on the similarity model and on how content is held fixed.
+  The rule checks only the sign of R1 and R2.
+  - R2 is small, and its CI includes zero.
+  - Raw R1 is also small, but only because the pairing procedure is shifted by about −17% when there is no association. Calibrated, R1 is +25.9% at a 2.06-SD contrast (audit, diagnostic (g)).
+  - The size of the G5b association depends somewhat on the similarity model and on whether the title's topic vocabulary counts as informativeness (diagnostics (a), (b)).
 
 ## Secondary analyses (pre-specified in prereg section 6; no multiplicity claim)
 

@@ -1,0 +1,38 @@
+{
+ "n_perm": 200,
+ "model": "primary OLS, CRV1 topic50",
+ "fpr": {
+  "G1_name": {
+   "fpr05": 0.055,
+   "fpr01": 0.015
+  },
+  "G2_assertive": {
+   "fpr05": 0.065,
+   "fpr01": 0.01
+  },
+  "G3_question": {
+   "fpr05": 0.04,
+   "fpr01": 0.005
+  },
+  "G4_llm_words": {
+   "fpr05": 0.045,
+   "fpr01": 0.015
+  },
+  "G5a_length5": {
+   "fpr05": 0.055,
+   "fpr01": 0.01
+  },
+  "G5b_informative": {
+   "fpr05": 0.04,
+   "fpr01": 0.01
+  },
+  "G6a_meme": {
+   "fpr05": 0.07,
+   "fpr01": 0.01
+  },
+  "G6b_tentative": {
+   "fpr05": 0.035,
+   "fpr01": 0.01
+  }
+ }
+}

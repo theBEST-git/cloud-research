@@ -1,0 +1,11 @@
+{
+ "frozen": "2026-10-17",
+ "note": "frozen before any real title-citation estimate; core checked on permuted outcomes only",
+ "sha256": {
+  "docs/CITES_PREREG.md": "2df658a55f9d5c3ffbda84356d6e55e03c116e7ab124cc9e22a4abc7ce5e1c96",
+  "src/cites/core.py": "c69916b70138089016fd256c04b38e15957f299cc635b4bd8c3aa9b2bc5f015e",
+  "src/cites/match.py": "2c000a5a87a65455bb72db47c0dbae9f3e50d1900322ab23d3bceedc3c43a68a",
+  "outputs/cites/matched_venue.parquet": "e7c013e3815439795d3dda7d57286803e77ed39b4addf5d7050faa2428306d85",
+  "outputs/cites/calibration_permutation.json": "a4291d66bf42849a210839cf5e90e03d6f4615b582a66ff1a5122e11261899e6"
+ }
+}

@@ -1,0 +1,138 @@
+{
+  "reference_points": {
+    "F_max": {
+      "knots": [
+        -0.0478,
+        0.2632,
+        0.4615,
+        0.7113
+      ],
+      "p10": 0.0336,
+      "p50": 0.366,
+      "p90": 0.6514,
+      "papers": 27593,
+      "quintiles": [
+        0.1437,
+        0.2984,
+        0.4289,
+        0.5662
+      ]
+    },
+    "F_first": {
+      "knots": [
+        -0.0993,
+        0.2045,
+        0.4396,
+        0.7279
+      ],
+      "p10": -0.0297,
+      "p50": 0.3244,
+      "p90": 0.6601,
+      "papers": 10518
+    },
+    "F_last": {
+      "knots": [
+        -0.1334,
+        0.155,
+        0.363,
+        0.6507
+      ],
+      "p10": -0.0606,
+      "p50": 0.2581,
+      "p90": 0.5789,
+      "papers": 23175
+    },
+    "F_team": {
+      "knots": [
+        -0.1192,
+        0.1786,
+        0.3816,
+        0.6503
+      ],
+      "p10": -0.0426,
+      "p50": 0.2797,
+      "p90": 0.5834,
+      "papers": 27593
+    },
+    "F_nn": {
+      "knots": [
+        0.0272,
+        0.3302,
+        0.5028,
+        0.7194
+      ],
+      "p10": 0.114,
+      "p50": 0.4194,
+      "p90": 0.6636,
+      "papers": 27593
+    },
+    "F_max3": {
+      "knots": [
+        -0.0821,
+        0.2345,
+        0.4311,
+        0.6781
+      ],
+      "p10": 0.0027,
+      "p50": 0.3373,
+      "p90": 0.6197,
+      "papers": 20446
+    },
+    "prior_cos": {
+      "quintiles": [
+        0.0353,
+        0.1876,
+        0.3305,
+        0.4885
+      ],
+      "author_rows": 84965
+    }
+  },
+  "summary": {
+    "clean_sha256": "f4a2af266b56dbcafecfbcf4cfedd6f1beb893a13e0604fd10ee520572bd6aa4",
+    "papers_text_changed": 5820,
+    "text_changed_share_2019_2026_decided": {
+      "accepted": 0.22443811332700223,
+      "rejected": 0.08544387458361974
+    },
+    "key_tests": [
+      {
+        "analysis": "pivot",
+        "test": "E1",
+        "coef_committed": -0.0543930954588125,
+        "coef_clean": -0.05389178475928663,
+        "p_holm_committed": 1.3481798325010654e-08,
+        "p_holm_clean": 1.9752447763866072e-08,
+        "verdict": "holds"
+      },
+      {
+        "analysis": "pivot",
+        "test": "E4",
+        "coef_committed": 0.0055313154979411,
+        "coef_clean": 0.0052758131833351065,
+        "p_holm_committed": 0.0060862441875098,
+        "p_holm_clean": 0.009343277352490706,
+        "verdict": "holds"
+      },
+      {
+        "analysis": "position",
+        "test": "P1b",
+        "coef_committed": -0.0326763377618859,
+        "coef_clean": -0.03513070496519485,
+        "p_holm_committed": 0.0014319929041302,
+        "p_holm_clean": 0.00041755875318243526,
+        "verdict": "holds"
+      },
+      {
+        "analysis": "position",
+        "test": "P7",
+        "coef_committed": 0.0038832737562911,
+        "coef_clean": 0.004599862327236351,
+        "p_holm_committed": 0.1046757548555373,
+        "p_holm_clean": 0.03482587064676617,
+        "verdict": "holds"
+      }
+    ],
+    "note": "post hoc exploratory (PH5 cleantext); the PH5 pivot and position families on URL- and availability-stripped SPECTER2 vectors; associations, not causal effects"
+  }
+}

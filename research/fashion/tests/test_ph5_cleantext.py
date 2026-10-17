@@ -37,9 +37,15 @@ class Cleaner(unittest.TestCase):
         clean = cleaner()
         a = ("We propose X. It beats Y on Z. Code is available at https://github.com/lab/x. "
              "See www.example.org for more.")
-        self.assertEqual(clean(a), "We propose X. It beats Y on Z. See for more.")
+        self.assertEqual(clean(a), "We propose X. It beats Y on Z.")
         self.assertEqual(clean("Our models are publicly released."), "")
+        self.assertEqual(clean("We study X. Code will be released upon acceptance."), "We study X.")
         self.assertEqual(clean("No link here.  Two  spaces."), "No link here. Two spaces.")
+        long = ("We introduce Bench (https://bench.org), a suite of forty tasks that tests whether large models can "
+                "reason over long documents, tables, figures and programs written in many different languages, formats and visual styles.")
+        self.assertEqual(clean(long), long.replace(" (https://bench.org),", " ("))
+        self.assertEqual(clean("Videos: \\href{https://a.github.io}{https://a.github.io}. We win."), "We win.")
+        self.assertEqual(clean("Rejected papers have no data available."), "Rejected papers have no data available.")
 
 
 class Compare(unittest.TestCase):

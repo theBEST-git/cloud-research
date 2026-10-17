@@ -786,3 +786,46 @@ Anything added after the freeze is labelled post hoc.
 - **Review scores (the user's second request) are not available.** The repository has no review ratings, and the
   OpenReview API refuses this environment with a challenge. A conditional-on-scores analysis needs the ratings from
   the upstream corpus.
+- **PH4: which research areas are accepted more or less often, and how does that change over time?**
+  (`posthoc.py ph4`; declared 2026-10-17, before it was run. The user and their supervisor asked for it after seeing
+  the earlier keyword × year acceptance grid.)
+  - **Disclosure.** That earlier exploratory grid (23 author keywords, before registration) already showed some
+    patterns, for example a falling gap for federated learning. PH4 is therefore not a test of those keywords. It adds
+    a systematic screen of every eligible area, with uncertainty and a multiple-testing correction.
+  - **Population:** the RQ3 filter (decided ordinary submissions), 2018–2026.
+  - **Units, two sets.**
+    - K: author keywords typed `research_area`, `specific_topic`, `property` or `application_domain` and used by at
+      least 200 discovery submissions (any outcome). That is 68 keywords, fixed before the run. A paper belongs to a
+      keyword if it lists it. Keywords are chosen by authors, so they carry no topic-map hindsight.
+    - T: the 100 k100 topics. These are content-based and carry the hindsight caveat.
+  - **Cell gap:** for unit u and year t, g = the acceptance rate of u's papers minus that of all other papers in year t.
+    Its binomial variance uses the rates shrunk to (k + 0.5) / (n + 1).
+  - **Level L:** the average of g over 2018–2026, weighted by u's papers per year.
+    - Its SE comes from the cell variances, multiplied by max(1, √φ). φ is the weighted dispersion of g around L
+      across the years with at least 10 papers in u (m years). This allows for year-to-year shocks within an area.
+    - The p-value uses t(m − 1).
+    - **Recent level R:** the same over 2024–2026, using the unit's φ and m.
+  - **Trend S:**
+    - weighted least squares of g on year, with weights 1/variance, over the years with at least 10 papers in u, in
+      pp per year;
+    - SE multiplied by max(1, √(weighted RSS / (m − 2))); p from t(m − 2);
+    - estimated only if m ≥ 4. Otherwise the unit is "too new for a trend".
+  - **Check:** the level adjusted for contribution class, FM and log2 team size (a linear probability model with
+    year fixed effects, HC1 SE). It shows whether type or team size explains the gap.
+  - **Multiple testing:**
+    - Benjamini–Hochberg FDR within each set (K, T) and each estimand (L, R, S); q < 0.05 is "flagged";
+    - Holm is reported alongside;
+    - **calibration:** 200 within-year permutations of acceptance on the same units; we report the per-test rejection
+      rate at 0.05 and the share of permutations with any BH flag.
+  - **Selection rules for figures:**
+    - the keyword map shows level against trend for every keyword with a trend, labelling the flagged ones;
+    - the trend panels show up to four flagged keywords with the most negative trends and up to four with the most
+      positive, by trend estimate, plus "federated learning" as the motivating example, flagged or not;
+    - topic m029 ("Federated learning") is reported next to the keyword.
+  - **Reading:** these are associations. A falling gap means papers in that area were accepted relatively less often
+    over time. That may reflect reviewers' views, the quality or composition of the papers, or who submits them. It is
+    not a judgement of an area's merit.
+  - **Validation before the run:**
+    - unit tests of the gap, level, trend and BH computations against direct calculations;
+    - an end-to-end run on simulated outcomes (rq3 and accepted drawn at random by year), checking that per-test
+      sizes are near 5%.

@@ -143,6 +143,8 @@ def secondary_families(df: pd.DataFrame) -> dict:
         r["interpretable"] = r["n_with"] >= MIN_N
         out[w] = r
     out["n_titles_two_families"] = int((d[FAM].sum(axis=1) >= 2).sum())
+    out["holm_across_8_families"] = {"label": DIAG + " - descriptive only; the prereg makes no multiplicity claim here",
+                                     **core.holm({w: out[w]["p"] for w in FAM})}
     out["note"] = (f"One model: y ~ 8 family dummies + primary controls | year^topic50, SE clustered by topic50. "
                    f"Families with n < {MIN_N} are reported but not interpreted.")
     return out

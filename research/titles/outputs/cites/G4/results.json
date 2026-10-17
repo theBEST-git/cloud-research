@@ -216,6 +216,17 @@
     "interpretable": true
    },
    "n_titles_two_families": 11,
+   "holm_across_8_families": {
+    "label": "diagnostic (not pre-registered) - descriptive only; the prereg makes no multiplicity claim here",
+    "r24_elevat": 0.009466467583454374,
+    "r24_leverag": 0.056730915113288205,
+    "r24_boost": 0.10784951264080744,
+    "r24_unveil": 0.7247601026111528,
+    "r24_empower": 0.8978223161190151,
+    "r24_harness": 1.0,
+    "r24_unleash": 1.0,
+    "r24_enhanc": 1.0
+   },
    "note": "One model: y ~ 8 family dummies + primary controls | year^topic50, SE clustered by topic50. Families with n < 20 are reported but not interpreted."
   },
   "era_pre2023_vs_2023plus": {

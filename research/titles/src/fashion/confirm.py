@@ -386,6 +386,7 @@ def main(argv):
         s = s[s.year.between(2019, 2025)].sample(1500, random_state=7)
         a = a[a.submission_id.isin(s.submission_id)]
         h, _ = raw_frame(s, a, "check")
+        h.to_parquet(OUT / "pipeline_check_frame.parquet")
         d = pd.read_parquet(OUT / "dryrun_frame.parquet")
         m = h.merge(d, on="submission_id", suffixes=("_h", "_d"))
         rep = {"n": len(m)}

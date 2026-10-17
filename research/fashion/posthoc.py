@@ -802,6 +802,7 @@ def ph4_mechanisms(k: pd.DataFrame, d: pd.DataFrame, member: np.ndarray, names: 
     d = d.assign(established=established_authors(k)[d.orig_index.to_numpy()].astype(float))
     ctr = CLASS_CONTROLS + ["fm", "log2_team", "established", "has_key"]
     d["has_key"] = d.has_author_key.astype(float)
+    ctr = [c for c in ctr if d[c].nunique() > 1]                 # all decided papers have an author ID: drop has_key
     X = d[ctr].astype(float)
     fit = fe_ols(d.accepted.astype(float), X, d.year, d.submission_id)
     resid = acc - X.to_numpy() @ fit.loc[ctr, "coef"].to_numpy()

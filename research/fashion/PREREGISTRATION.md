@@ -865,3 +865,7 @@ Anything added after the freeze is labelled post hoc.
     binomial noise, because the dispersion factor never shrinks a SE and the t reference has few degrees of freedom.
     The method is kept as declared. Flags are therefore conservative, and a non-flagged area is not evidence of no
     change.
+  - **PH4 run note.** The first real attempt stopped with an error before any estimate was written or printed: in
+    the real population every decided paper has an author ID, so the `has_key` control in the PH4b adjustment was
+    constant. Constant controls are now dropped, nothing else changed, and the run was repeated. Both attempts are in
+    `output/posthoc/access_log.jsonl`.

@@ -1,4 +1,4 @@
-# Talk: "Does Following Trends Pay Off?"
+# Talk: "Riding the Wave?"
 
 A talk of 15 minutes or less on the research-fashion study, with backup slides.
 

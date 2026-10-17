@@ -1,4 +1,4 @@
-# Talk script: "Does Following Trends Pay Off?"
+# Talk script: "Riding the Wave?"
 
 - **Length:** about 1,420 spoken words, about 12 minutes at a calm pace (120 words a minute). The timing table
   allows 13:00, which leaves 2 minutes of buffer under the 15-minute limit.

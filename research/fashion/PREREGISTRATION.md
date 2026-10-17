@@ -854,4 +854,14 @@ Anything added after the freeze is labelled post hoc.
       - If the adjustment removes more than half, and the decline is confined to newcomer or non-established papers,
         composition is the leading explanation.
       - Anything in between is reported as mixed.
+      - Operationally, "appears among established or incumbent papers" means that at least one of those two
+        subgroups has a trend with the same sign as the raw trend and an unadjusted p < 0.05. "Confined to newcomer
+        or non-established papers" means that neither experienced subgroup qualifies while at least one of the other
+        two does.
       - None of this observes reviewers' beliefs. Those are explanations consistent with the data, not tested causes.
+  - **PH4 validation result (before the real run).** On simulated outcomes (acceptance drawn at random, 40% within
+    the simulated decided papers, no area effects), the end-to-end run flagged no unit in either set. The per-test
+    rejection at nominal 0.05 was 0.4–1.4% for level, recent level and trend: the tests are conservative under pure
+    binomial noise, because the dispersion factor never shrinks a SE and the t reference has few degrees of freedom.
+    The method is kept as declared. Flags are therefore conservative, and a non-flagged area is not evidence of no
+    change.

@@ -6,3 +6,4 @@
 {"at_utc": "2026-10-17T15:51:22+00:00", "git_head": "7ddb858273f044a93cfe819bb8355978773ec2e6", "posthoc_sha256": "abaead7d9ad35e3cee5246909b858d74977fe1d2777a7a5f113979a2e32b0912", "argv": ["ph5", "fmwave"]}
 {"at_utc": "2026-10-17T15:51:39+00:00", "git_head": "7027e82a1c154b3da96e6b2138efbaa62f4e999d", "posthoc_sha256": "abaead7d9ad35e3cee5246909b858d74977fe1d2777a7a5f113979a2e32b0912", "argv": ["ph5", "premia"]}
 {"at_utc": "2026-10-17T15:52:24+00:00", "git_head": "cacf1b0c1cd0c8d6c531644fbc2525de6e9ad02f", "posthoc_sha256": "abaead7d9ad35e3cee5246909b858d74977fe1d2777a7a5f113979a2e32b0912", "argv": ["ph5", "kwtiming"]}
+{"at_utc": "2026-10-17T15:54:25+00:00", "git_head": "5dbff38e799bcaa3281501bff1625e7d5d9161bb", "posthoc_sha256": "abaead7d9ad35e3cee5246909b858d74977fe1d2777a7a5f113979a2e32b0912", "argv": ["ph5", "pivot"]}

@@ -1,0 +1,1698 @@
+{
+ "feature": "G2_assertive",
+ "label": "Title states a finding (assertive verb, not a question; rule-based)",
+ "n_papers": 8602,
+ "n_with": 456,
+ "primary": {
+  "b": 0.23168618179555714,
+  "se": 0.08111695586680838,
+  "p": 0.0062727473455230776,
+  "pct": 0.26072402859165744,
+  "lo": 0.0754045843358424,
+  "hi": 0.47797870626522276,
+  "n": 8574,
+  "n_with": 456,
+  "p_holm": 0.037636484073138465,
+  "label": "Title states a finding (assertive verb, not a question; rule-based)",
+  "source": "outputs/cites/primary.json (Holm across the 8 primary tests)"
+ },
+ "reproduction_check": {
+  "b_json": 0.23168618179555714,
+  "b_recomputed": 0.23168618179555714,
+  "abs_diff_b": 0.0,
+  "se_json": 0.08111695586680838,
+  "se_recomputed": 0.08111695586680838,
+  "n_json": 8574,
+  "n_recomputed": 8574,
+  "n_with_json": 456,
+  "n_with_recomputed": 456,
+  "reproduced": true
+ },
+ "robustness": {
+  "R1_matched_pairs": {
+   "n_pairs": 454,
+   "pct": -0.06528859092271388,
+   "lo": -0.21807633319563435,
+   "hi": 0.11088665653187602
+  },
+  "R2_ppml_counts": {
+   "b": 0.4340877071795726,
+   "se": 0.1389260719171655,
+   "p": 0.0017805002859718755,
+   "pct": 0.5435542429688951,
+   "lo": 0.17561640050947536,
+   "hi": 1.0266472124366013,
+   "n": 8574
+  },
+  "R3_influential": {
+   "b": 0.20059141746730091,
+   "se": 0.06840149554700771,
+   "p": 0.005099013611024716,
+   "pct": 0.22212533073591523,
+   "lo": 0.0687871342851285,
+   "hi": 0.39746285870607556,
+   "n": 8574
+  },
+  "R4_drop_top1pct": {
+   "b": 0.17737279221326754,
+   "se": 0.08352800758634119,
+   "p": 0.038784962228330055,
+   "pct": 0.19407615245634258,
+   "lo": 0.013751592497631693,
+   "hi": 0.4064765652817197,
+   "n": 8481
+  },
+  "R5_era_2017_21": {
+   "b": 0.44454679876628517,
+   "se": 0.14412666670235516,
+   "p": 0.0034109960766854908,
+   "pct": 0.5597831399821094,
+   "lo": 0.17592906882181825,
+   "hi": 1.0689372414358562,
+   "n": 1975
+  },
+  "R5_era_2022_25": {
+   "b": 0.17148304565292977,
+   "se": 0.09699279619305318,
+   "p": 0.08328710945865136,
+   "pct": 0.1870640166663431,
+   "lo": -0.018450501333758473,
+   "hi": 0.43560867952027604,
+   "n": 6599
+  },
+  "R6_team_prior_2022_25": {
+   "b": 0.16551925071942428,
+   "se": 0.09657909130293396,
+   "p": 0.09288199162305433,
+   "pct": 0.18000567845904714,
+   "lo": -0.02349535142798853,
+   "hi": 0.4259157938795146,
+   "n": 6599
+  },
+  "R7_year_plus_topic100_fe": {
+   "b": 0.22489404172670913,
+   "se": 0.08041149437275111,
+   "p": 0.007354292824487851,
+   "pct": 0.25219002926901646,
+   "lo": 0.06960295846476838,
+   "hi": 0.4659457109685883,
+   "n": 8602
+  }
+ },
+ "verdict": "inconclusive",
+ "verdict_rule": "more/fewer citations: Holm p < 0.05 and same sign in R1 and R2; no meaningful difference: 95% CI within +/-10%; else inconclusive",
+ "secondary": {
+  "validity_vs_llm_title_strength": {
+   "label": "pre-specified secondary (prereg section 6; no multiplicity claim)",
+   "definition": "LLM explicit claim = title_strength >= 2 (codebook step 3); rule = G2_assertive (core.ASSERT verb, not a question)",
+   "pilot_items_keyed": 500,
+   "pilot_items_labelled": 350,
+   "overlap_keyed": 129,
+   "overlap_labelled": 91,
+   "overlap_keyed_by_round": {
+    "g": 55,
+    "r1": 26,
+    "r2": 24,
+    "r3": 24
+   },
+   "overlap_labelled_by_round": {
+    "r1": 26,
+    "r2": 24,
+    "r3": 24,
+    "g": 17
+   },
+   "overlap_labelled_by_rule": {
+    "0": 54,
+    "1": 37
+   },
+   "pilot_form_equals_rule_strata": true,
+   "titles_identical_to_pilot_text": 91,
+   "note_sampling": "pilot items were drawn from all ICLR submissions 2017-2026 (incl. rejected), stratified by title form with assertive titles oversampled (~40%); overlap = accepted, 2017-2025, S2-matched items only",
+   "per_label_set": {
+    "C1 gold_b1 v1.3": {
+     "model": "Claude",
+     "codebook": "v1.3",
+     "n": 17,
+     "counts": {
+      "rule1_llm1": 4,
+      "rule1_llm0": 4,
+      "rule0_llm1": 1,
+      "rule0_llm0": 8
+     },
+     "agreement": 0.7058823529411764,
+     "kappa": 0.3971631205673758,
+     "sensitivity": 0.7999999999999999,
+     "specificity": 0.6666666666666667,
+     "ppv": 0.5,
+     "npv": 0.8888888888888888,
+     "prev_rule": 0.47058823529411764,
+     "prev_llm": 0.29411764705882354,
+     "agreement_ci": [
+      0.468664666737861,
+      0.8672020613444361
+     ],
+     "ppv_ci": [
+      0.21521252682444186,
+      0.7847874731755582
+     ],
+     "npv_ci": [
+      0.5649937852319399,
+      0.9801096286728695
+     ]
+    },
+    "C1 gold_b1 v1.4": {
+     "model": "Claude",
+     "codebook": "v1.4",
+     "n": 17,
+     "counts": {
+      "rule1_llm1": 5,
+      "rule1_llm0": 3,
+      "rule0_llm1": 1,
+      "rule0_llm0": 8
+     },
+     "agreement": 0.7647058823529411,
+     "kappa": 0.5211267605633801,
+     "sensitivity": 0.8333333333333333,
+     "specificity": 0.7272727272727272,
+     "ppv": 0.625,
+     "npv": 0.8888888888888888,
+     "prev_rule": 0.47058823529411764,
+     "prev_llm": 0.35294117647058826,
+     "agreement_ci": [
+      0.5273775411082839,
+      0.9044511092832406
+     ],
+     "ppv_ci": [
+      0.30573785458380187,
+      0.863158240538479
+     ],
+     "npv_ci": [
+      0.5649937852319399,
+      0.9801096286728695
+     ]
+    },
+    "C1 r1 v0": {
+     "model": "Claude",
+     "codebook": "v0",
+     "n": 26,
+     "counts": {
+      "rule1_llm1": 10,
+      "rule1_llm0": 2,
+      "rule0_llm1": 1,
+      "rule0_llm0": 13
+     },
+     "agreement": 0.8846153846153846,
+     "kappa": 0.7664670658682634,
+     "sensitivity": 0.9090909090909091,
+     "specificity": 0.8666666666666667,
+     "ppv": 0.8333333333333334,
+     "npv": 0.9285714285714286,
+     "prev_rule": 0.46153846153846156,
+     "prev_llm": 0.42307692307692313,
+     "agreement_ci": [
+      0.7102370691310166,
+      0.959968281788505
+     ],
+     "ppv_ci": [
+      0.5519636426153274,
+      0.9530358523851776
+     ],
+     "npv_ci": [
+      0.6853073044604219,
+      0.9872781138877085
+     ]
+    },
+    "C1 r2 v1.1": {
+     "model": "Claude",
+     "codebook": "v1.1",
+     "n": 24,
+     "counts": {
+      "rule1_llm1": 7,
+      "rule1_llm0": 0,
+      "rule0_llm1": 0,
+      "rule0_llm0": 17
+     },
+     "agreement": 1.0,
+     "kappa": 1.0,
+     "sensitivity": 1.0,
+     "specificity": 1.0,
+     "ppv": 1.0,
+     "npv": 1.0,
+     "prev_rule": 0.2916666666666667,
+     "prev_llm": 0.2916666666666667,
+     "agreement_ci": [
+      0.8620194241710247,
+      1.0
+     ],
+     "ppv_ci": [
+      0.6456611570247934,
+      1.0
+     ],
+     "npv_ci": [
+      0.8156763396284354,
+      1.0
+     ]
+    },
+    "C1 r3 v1.2": {
+     "model": "Claude",
+     "codebook": "v1.2",
+     "n": 24,
+     "counts": {
+      "rule1_llm1": 9,
+      "rule1_llm0": 1,
+      "rule0_llm1": 0,
+      "rule0_llm0": 14
+     },
+     "agreement": 0.9583333333333334,
+     "kappa": 0.9130434782608696,
+     "sensitivity": 1.0,
+     "specificity": 0.9333333333333333,
+     "ppv": 0.8999999999999999,
+     "npv": 1.0,
+     "prev_rule": 0.4166666666666667,
+     "prev_llm": 0.375,
+     "agreement_ci": [
+      0.7975777375115778,
+      0.992606734645195
+     ],
+     "ppv_ci": [
+      0.5958436145024278,
+      0.9821242504842788
+     ],
+     "npv_ci": [
+      0.7846829880728186,
+      1.0
+     ]
+    },
+    "C2 gold_b1 v1.3": {
+     "model": "Claude",
+     "codebook": "v1.3",
+     "n": 17,
+     "counts": {
+      "rule1_llm1": 5,
+      "rule1_llm0": 3,
+      "rule0_llm1": 1,
+      "rule0_llm0": 8
+     },
+     "agreement": 0.7647058823529411,
+     "kappa": 0.5211267605633801,
+     "sensitivity": 0.8333333333333333,
+     "specificity": 0.7272727272727272,
+     "ppv": 0.625,
+     "npv": 0.8888888888888888,
+     "prev_rule": 0.47058823529411764,
+     "prev_llm": 0.35294117647058826,
+     "agreement_ci": [
+      0.5273775411082839,
+      0.9044511092832406
+     ],
+     "ppv_ci": [
+      0.30573785458380187,
+      0.863158240538479
+     ],
+     "npv_ci": [
+      0.5649937852319399,
+      0.9801096286728695
+     ]
+    },
+    "C2 gold_b1 v1.4": {
+     "model": "Claude",
+     "codebook": "v1.4",
+     "n": 17,
+     "counts": {
+      "rule1_llm1": 5,
+      "rule1_llm0": 3,
+      "rule0_llm1": 1,
+      "rule0_llm0": 8
+     },
+     "agreement": 0.7647058823529411,
+     "kappa": 0.5211267605633801,
+     "sensitivity": 0.8333333333333333,
+     "specificity": 0.7272727272727272,
+     "ppv": 0.625,
+     "npv": 0.8888888888888888,
+     "prev_rule": 0.47058823529411764,
+     "prev_llm": 0.35294117647058826,
+     "agreement_ci": [
+      0.5273775411082839,
+      0.9044511092832406
+     ],
+     "ppv_ci": [
+      0.30573785458380187,
+      0.863158240538479
+     ],
+     "npv_ci": [
+      0.5649937852319399,
+      0.9801096286728695
+     ]
+    },
+    "C2 r1 v0": {
+     "model": "Claude",
+     "codebook": "v0",
+     "n": 26,
+     "counts": {
+      "rule1_llm1": 10,
+      "rule1_llm0": 2,
+      "rule0_llm1": 1,
+      "rule0_llm0": 13
+     },
+     "agreement": 0.8846153846153846,
+     "kappa": 0.7664670658682634,
+     "sensitivity": 0.9090909090909091,
+     "specificity": 0.8666666666666667,
+     "ppv": 0.8333333333333334,
+     "npv": 0.9285714285714286,
+     "prev_rule": 0.46153846153846156,
+     "prev_llm": 0.42307692307692313,
+     "agreement_ci": [
+      0.7102370691310166,
+      0.959968281788505
+     ],
+     "ppv_ci": [
+      0.5519636426153274,
+      0.9530358523851776
+     ],
+     "npv_ci": [
+      0.6853073044604219,
+      0.9872781138877085
+     ]
+    },
+    "C2 r2 v1.1": {
+     "model": "Claude",
+     "codebook": "v1.1",
+     "n": 24,
+     "counts": {
+      "rule1_llm1": 6,
+      "rule1_llm0": 1,
+      "rule0_llm1": 0,
+      "rule0_llm0": 17
+     },
+     "agreement": 0.9583333333333334,
+     "kappa": 0.8947368421052633,
+     "sensitivity": 1.0,
+     "specificity": 0.9444444444444445,
+     "ppv": 0.8571428571428571,
+     "npv": 1.0,
+     "prev_rule": 0.2916666666666667,
+     "prev_llm": 0.25,
+     "agreement_ci": [
+      0.7975777375115778,
+      0.992606734645195
+     ],
+     "ppv_ci": [
+      0.48686549668097007,
+      0.9743210440510253
+     ],
+     "npv_ci": [
+      0.8156763396284354,
+      1.0
+     ]
+    },
+    "C2 r3 v1.2": {
+     "model": "Claude",
+     "codebook": "v1.2",
+     "n": 24,
+     "counts": {
+      "rule1_llm1": 9,
+      "rule1_llm0": 1,
+      "rule0_llm1": 0,
+      "rule0_llm0": 14
+     },
+     "agreement": 0.9583333333333334,
+     "kappa": 0.9130434782608696,
+     "sensitivity": 1.0,
+     "specificity": 0.9333333333333333,
+     "ppv": 0.8999999999999999,
+     "npv": 1.0,
+     "prev_rule": 0.4166666666666667,
+     "prev_llm": 0.375,
+     "agreement_ci": [
+      0.7975777375115778,
+      0.992606734645195
+     ],
+     "ppv_ci": [
+      0.5958436145024278,
+      0.9821242504842788
+     ],
+     "npv_ci": [
+      0.7846829880728186,
+      1.0
+     ]
+    },
+    "G gold_b1 v1.3": {
+     "model": "ChatGPT",
+     "codebook": "v1.3",
+     "n": 17,
+     "counts": {
+      "rule1_llm1": 5,
+      "rule1_llm0": 3,
+      "rule0_llm1": 1,
+      "rule0_llm0": 8
+     },
+     "agreement": 0.7647058823529411,
+     "kappa": 0.5211267605633801,
+     "sensitivity": 0.8333333333333333,
+     "specificity": 0.7272727272727272,
+     "ppv": 0.625,
+     "npv": 0.8888888888888888,
+     "prev_rule": 0.47058823529411764,
+     "prev_llm": 0.35294117647058826,
+     "agreement_ci": [
+      0.5273775411082839,
+      0.9044511092832406
+     ],
+     "ppv_ci": [
+      0.30573785458380187,
+      0.863158240538479
+     ],
+     "npv_ci": [
+      0.5649937852319399,
+      0.9801096286728695
+     ]
+    },
+    "G r2 v1.1": {
+     "model": "ChatGPT",
+     "codebook": "v1.1",
+     "n": 24,
+     "counts": {
+      "rule1_llm1": 7,
+      "rule1_llm0": 0,
+      "rule0_llm1": 0,
+      "rule0_llm0": 17
+     },
+     "agreement": 1.0,
+     "kappa": 1.0,
+     "sensitivity": 1.0,
+     "specificity": 1.0,
+     "ppv": 1.0,
+     "npv": 1.0,
+     "prev_rule": 0.2916666666666667,
+     "prev_llm": 0.2916666666666667,
+     "agreement_ci": [
+      0.8620194241710247,
+      1.0
+     ],
+     "ppv_ci": [
+      0.6456611570247934,
+      1.0
+     ],
+     "npv_ci": [
+      0.8156763396284354,
+      1.0
+     ]
+    },
+    "G r3 v1.2": {
+     "model": "ChatGPT",
+     "codebook": "v1.2",
+     "n": 24,
+     "counts": {
+      "rule1_llm1": 9,
+      "rule1_llm0": 1,
+      "rule0_llm1": 0,
+      "rule0_llm0": 14
+     },
+     "agreement": 0.9583333333333334,
+     "kappa": 0.9130434782608696,
+     "sensitivity": 1.0,
+     "specificity": 0.9333333333333333,
+     "ppv": 0.8999999999999999,
+     "npv": 1.0,
+     "prev_rule": 0.4166666666666667,
+     "prev_llm": 0.375,
+     "agreement_ci": [
+      0.7975777375115778,
+      0.992606734645195
+     ],
+     "ppv_ci": [
+      0.5958436145024278,
+      0.9821242504842788
+     ],
+     "npv_ci": [
+      0.7846829880728186,
+      1.0
+     ]
+    },
+    "HK1 gold_b1 v1.4": {
+     "model": "Claude Haiku",
+     "codebook": "v1.4",
+     "n": 17,
+     "counts": {
+      "rule1_llm1": 5,
+      "rule1_llm0": 3,
+      "rule0_llm1": 1,
+      "rule0_llm0": 8
+     },
+     "agreement": 0.7647058823529411,
+     "kappa": 0.5211267605633801,
+     "sensitivity": 0.8333333333333333,
+     "specificity": 0.7272727272727272,
+     "ppv": 0.625,
+     "npv": 0.8888888888888888,
+     "prev_rule": 0.47058823529411764,
+     "prev_llm": 0.35294117647058826,
+     "agreement_ci": [
+      0.5273775411082839,
+      0.9044511092832406
+     ],
+     "ppv_ci": [
+      0.30573785458380187,
+      0.863158240538479
+     ],
+     "npv_ci": [
+      0.5649937852319399,
+      0.9801096286728695
+     ]
+    },
+    "HK2 gold_b1 v1.4": {
+     "model": "Claude Haiku",
+     "codebook": "v1.4",
+     "n": 17,
+     "counts": {
+      "rule1_llm1": 5,
+      "rule1_llm0": 3,
+      "rule0_llm1": 1,
+      "rule0_llm0": 8
+     },
+     "agreement": 0.7647058823529411,
+     "kappa": 0.5211267605633801,
+     "sensitivity": 0.8333333333333333,
+     "specificity": 0.7272727272727272,
+     "ppv": 0.625,
+     "npv": 0.8888888888888888,
+     "prev_rule": 0.47058823529411764,
+     "prev_llm": 0.35294117647058826,
+     "agreement_ci": [
+      0.5273775411082839,
+      0.9044511092832406
+     ],
+     "ppv_ci": [
+      0.30573785458380187,
+      0.863158240538479
+     ],
+     "npv_ci": [
+      0.5649937852319399,
+      0.9801096286728695
+     ]
+    }
+   },
+   "pooled_all_labels": {
+    "n": 315,
+    "counts": {
+     "rule1_llm1": 101,
+     "rule1_llm0": 30,
+     "rule0_llm1": 9,
+     "rule0_llm0": 175
+    },
+    "agreement": 0.8761904761904762,
+    "kappa": 0.7391442828325725,
+    "sensitivity": 0.9181818181818182,
+    "specificity": 0.8536585365853658,
+    "ppv": 0.7709923664122138,
+    "npv": 0.9510869565217391,
+    "prev_rule": 0.4158730158730159,
+    "prev_llm": 0.34920634920634924,
+    "agreement_ci": [
+     0.8352218365346167,
+     0.9080939666729948
+    ],
+    "ppv_ci": [
+     0.6919287457582938,
+     0.8346149914859987
+    ],
+    "npv_ci": [
+     0.9096667646617362,
+     0.9740565426354759
+    ],
+    "note": "label-level (item x label set); items with more label sets count more than once"
+   },
+   "consensus_item_level": {
+    "n": 91,
+    "counts": {
+     "rule1_llm1": 31,
+     "rule1_llm0": 6,
+     "rule0_llm1": 2,
+     "rule0_llm0": 52
+    },
+    "agreement": 0.9120879120879121,
+    "kappa": 0.8146639511201629,
+    "sensitivity": 0.9393939393939394,
+    "specificity": 0.896551724137931,
+    "ppv": 0.8378378378378378,
+    "npv": 0.9629629629629629,
+    "prev_rule": 0.4065934065934066,
+    "prev_llm": 0.3626373626373626,
+    "agreement_ci": [
+     0.8360118928653627,
+     0.9547803333307369
+    ],
+    "ppv_ci": [
+     0.6886320070454415,
+     0.923488967647029
+    ],
+    "npv_ci": [
+     0.8746459065659669,
+     0.9897838464145869
+    ],
+    "rule": "explicit if the median title_strength across all label sets on the item is >= 2",
+    "n_label_sets_per_item": {
+     "2": 26,
+     "3": 48,
+     "7": 17
+    },
+    "mean_title_strength_by_rule": {
+     "0": 0.5555555555555556,
+     "1": 2.0
+    },
+    "distribution_by_rule": {
+     "0": {
+      "0.0": 26,
+      "1.0": 26,
+      "2.0": 2
+     },
+     "1": {
+      "1.0": 6,
+      "2.0": 25,
+      "3.0": 6
+     }
+    }
+   },
+   "G_item_level": {
+    "n": 65,
+    "counts": {
+     "rule1_llm1": 21,
+     "rule1_llm0": 4,
+     "rule0_llm1": 1,
+     "rule0_llm0": 39
+    },
+    "agreement": 0.9230769230769231,
+    "kappa": 0.833759590792839,
+    "sensitivity": 0.9545454545454546,
+    "specificity": 0.9069767441860465,
+    "ppv": 0.84,
+    "npv": 0.9749999999999999,
+    "prev_rule": 0.38461538461538464,
+    "prev_llm": 0.3384615384615385,
+    "agreement_ci": [
+     0.8322385378144039,
+     0.9666969895411486
+    ],
+    "ppv_ci": [
+     0.6534598601976183,
+     0.9359665239142201
+    ],
+    "npv_ci": [
+     0.8711834051199223,
+     0.9955732825922052
+    ]
+   },
+   "C1_item_level": {
+    "n": 91,
+    "counts": {
+     "rule1_llm1": 30,
+     "rule1_llm0": 7,
+     "rule0_llm1": 2,
+     "rule0_llm0": 52
+    },
+    "agreement": 0.901098901098901,
+    "kappa": 0.7905906417795958,
+    "sensitivity": 0.9375000000000001,
+    "specificity": 0.8813559322033899,
+    "ppv": 0.8108108108108107,
+    "npv": 0.9629629629629629,
+    "prev_rule": 0.4065934065934066,
+    "prev_llm": 0.3516483516483516,
+    "agreement_ci": [
+     0.8226124740847462,
+     0.9470919594127909
+    ],
+    "ppv_ci": [
+     0.6579498842904441,
+     0.9052014124266288
+    ],
+    "npv_ci": [
+     0.8746459065659669,
+     0.9897838464145869
+    ]
+   },
+   "consensus_reweighted_to_sample": {
+    "n": 91,
+    "counts": {
+     "rule1_llm1": 31,
+     "rule1_llm0": 6,
+     "rule0_llm1": 2,
+     "rule0_llm0": 52
+    },
+    "agreement": 0.9484611886727671,
+    "kappa": 0.6068925911281715,
+    "sensitivity": 0.508425863226328,
+    "specificity": 0.9905808002620451,
+    "ppv": 0.8378378378378378,
+    "npv": 0.9546537062250295,
+    "prev_rule": 0.05301092769123459,
+    "prev_llm": 0.08735700571320193,
+    "label": "diagnostic (not pre-registered)",
+    "how": "items weighted by N_stratum(sample) / n_stratum(labelled overlap), strata = pilot title forms",
+    "sample_strata_N": {
+     "other": 5887,
+     "name_colon": 2036,
+     "assertive": 456,
+     "question": 223
+    },
+    "overlap_strata_n": {
+     "assertive": 37,
+     "other": 22,
+     "name_colon": 20,
+     "question": 12
+    },
+    "ci95_stratified_bootstrap": {
+     "agreement": [
+      0.8726736618305436,
+      0.9942690888982443
+     ],
+     "kappa": [
+      0.34979050528478645,
+      0.9398507807091695
+     ],
+     "sensitivity": [
+      0.26802796230145676,
+      1.0
+     ],
+     "specificity": [
+      0.9832656134478812,
+      0.9968414437857875
+     ],
+     "ppv": [
+      0.7027027027027027,
+      0.9459459459459459
+     ],
+     "npv": [
+      0.876458049684173,
+      1.0
+     ],
+     "prev_llm": [
+      0.041549105487724405,
+      0.1657080512959959
+     ]
+    }
+   },
+   "disagreements": [
+    {
+     "item_id": "g_030",
+     "title": "Weakly Supervised Disentanglement with Guarantees",
+     "year": 2020,
+     "rule": 1,
+     "median_ts": 1.0,
+     "labels": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "matched_verb": "guarantees"
+    },
+    {
+     "item_id": "g_032",
+     "title": "Network Pruning That Matters:  A Case Study on Retraining Variants",
+     "year": 2021,
+     "rule": 1,
+     "median_ts": 1.0,
+     "labels": [
+      1,
+      1,
+      1,
+      1,
+      2,
+      1,
+      1
+     ],
+     "matched_verb": "matters"
+    },
+    {
+     "item_id": "g_050",
+     "title": "Context-Parametric Inversion: Why Instruction Finetuning May Not Actually Improve Context Reliance",
+     "year": 2025,
+     "rule": 1,
+     "median_ts": 1.0,
+     "labels": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+     ],
+     "matched_verb": "improve"
+    },
+    {
+     "item_id": "r1_023",
+     "title": "ProbGAN: Towards Probabilistic GAN with Theoretical Guarantees",
+     "year": 2019,
+     "rule": 1,
+     "median_ts": 1.0,
+     "labels": [
+      1,
+      1
+     ],
+     "matched_verb": "guarantees"
+    },
+    {
+     "item_id": "r1_033",
+     "title": "Dual-mode ASR: Unify and Improve Streaming ASR with Full-context Modeling",
+     "year": 2021,
+     "rule": 1,
+     "median_ts": 1.0,
+     "labels": [
+      1,
+      1
+     ],
+     "matched_verb": "improve"
+    },
+    {
+     "item_id": "r3_069",
+     "title": "A Simple but Tough-to-Beat Baseline for Sentence Embeddings",
+     "year": 2017,
+     "rule": 1,
+     "median_ts": 1.0,
+     "labels": [
+      1,
+      1,
+      1
+     ],
+     "matched_verb": "beat"
+    },
+    {
+     "item_id": "g_001",
+     "title": "How I Learned to Stop Worrying and Love Retraining",
+     "year": 2023,
+     "rule": 0,
+     "median_ts": 2.0,
+     "labels": [
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2
+     ],
+     "matched_verb": null
+    },
+    {
+     "item_id": "r1_075",
+     "title": "InstaSHAP: Interpretable Additive Models Explain Shapley Values Instantly",
+     "year": 2025,
+     "rule": 0,
+     "median_ts": 2.0,
+     "labels": [
+      2,
+      2
+     ],
+     "matched_verb": null
+    }
+   ]
+  },
+  "joint_model_all8": {
+   "label": "pre-specified secondary (prereg section 6; no multiplicity claim)",
+   "b": 0.2917004431021294,
+   "se": 0.08127358497042209,
+   "p": 0.000765519769387657,
+   "pct": 0.3387019401691611,
+   "lo": 0.14156966738274557,
+   "hi": 0.5698760538386072,
+   "n": 8574,
+   "other_features": [
+    "G1_name",
+    "G3_question",
+    "G4_llm_words",
+    "G5a_length5",
+    "G5b_informative",
+    "G6a_meme",
+    "G6b_tentative"
+   ]
+  },
+  "heterogeneity_llm_topic": {
+   "label": "pre-specified secondary (prereg section 6; no multiplicity claim)",
+   "llm_topic": {
+    "b": 0.2542235163038955,
+    "se": 0.15858726022840164,
+    "p": 0.116418324480279,
+    "pct": 0.28945998739019396,
+    "lo": -0.05503511767880154,
+    "hi": 0.7595437567966217,
+    "n": 1879,
+    "n_with": 135
+   },
+   "non_llm_topic": {
+    "b": 0.1939311225286001,
+    "se": 0.0893920718643102,
+    "p": 0.035031385945133,
+    "pct": 0.21401266195406166,
+    "lo": 0.018899029677996504,
+    "hi": 0.4464894954807854,
+    "n": 6627,
+    "n_with": 321
+   },
+   "interaction_ratio": {
+    "b": 0.1440035555678506,
+    "se": 0.19893970027619962,
+    "p": 0.47259641242875494,
+    "pct": 0.1548882148010211,
+    "lo": -0.2180138557729272,
+    "hi": 0.7056143494775156,
+    "n": 8574,
+    "note": "pct = ratio of the G2 citation ratio in LLM-topic vs other papers, minus 1"
+   }
+  }
+ },
+ "diagnostics": {
+  "label": "diagnostic (not pre-registered)",
+  "a_artefact_arxiv": {
+   "label": "diagnostic (not pre-registered)",
+   "why": "S2 venue records without an arXiv id can miss citations that accrue to a separate arXiv record (QC snapshot: 7 of 30 checked no-arXiv venue records have a separate S2 record, 7 of them with more citations)",
+   "arxiv_share_by_G2": {
+    "0": {
+     "share": 0.7688436042229315,
+     "n_arxiv": 6263.0,
+     "n": 8146.0
+    },
+    "1": {
+     "share": 0.7609649122807017,
+     "n_arxiv": 347.0,
+     "n": 456.0
+    }
+   },
+   "arxiv_share_by_era_and_G2": {
+    "2017-21": {
+     "0": 0.7902973395931142,
+     "1": 0.7710843373493976
+    },
+    "2022-25": {
+     "0": 0.7622411301974634,
+     "1": 0.7587131367292225
+    }
+   },
+   "arxiv_share_diff_adjusted_pp": {
+    "b": -1.1507672868354386,
+    "lo": -5.568464703254589,
+    "hi": 3.2669301295837125,
+    "p": 0.6119510691412795,
+    "model": "linear probability, primary controls and FE"
+   },
+   "multi_s2_records_by_G2": {
+    "0": 14,
+    "1": 0
+   },
+   "qc_split_records": {
+    "n_checked": 30,
+    "n_split": 7,
+    "split": [
+     {
+      "sid": "03EkqSCKuO",
+      "venue_cites": 0.0,
+      "other_record_cites": 20
+     },
+     {
+      "sid": "23uY3FpQxc",
+      "venue_cites": 0.0,
+      "other_record_cites": 15
+     },
+     {
+      "sid": "kZEXgtMNNo",
+      "venue_cites": 0.0,
+      "other_record_cites": 11
+     },
+     {
+      "sid": "VWqiPBB_EM",
+      "venue_cites": 0.0,
+      "other_record_cites": 18
+     },
+     {
+      "sid": "dqnNW2omZL6",
+      "venue_cites": 12.0,
+      "other_record_cites": 82
+     },
+     {
+      "sid": "aueXfY0Clv",
+      "venue_cites": 46.0,
+      "other_record_cites": 599
+     },
+     {
+      "sid": "izjNI5bcOV",
+      "venue_cites": 1.0,
+      "other_record_cites": 16
+     }
+    ],
+    "qc_papers_in_sample": 30,
+    "qc_papers_in_sample_assertive": 3
+   },
+   "rerun_arxiv_id_only": {
+    "b": 0.28044019940128867,
+    "se": 0.08524124310938083,
+    "p": 0.0018608333633041152,
+    "pct": 0.32371238150254666,
+    "lo": 0.12004331974963356,
+    "hi": 0.5644166953603376,
+    "n": 6575,
+    "n_with": 347
+   },
+   "rerun_no_arxiv_id_only": {
+    "b": 0.16544920624469164,
+    "se": 0.1521222680912918,
+    "p": 0.28208970450813053,
+    "pct": 0.17992302847573893,
+    "lo": -0.12428137082582824,
+    "hi": 0.5898010008537355,
+    "n": 1926,
+    "n_with": 109
+   },
+   "rerun_has_arxiv_control": {
+    "b": 0.24486270759558648,
+    "se": 0.07583025046336765,
+    "p": 0.002218821259871051,
+    "pct": 0.2774459175433883,
+    "lo": 0.10101823155142142,
+    "hi": 0.48214445999576117,
+    "n": 8574
+   },
+   "zero_citation_share_by_G2_and_era": {
+    "2017-21": {
+     "0": 0.0036515388628064684,
+     "1": 0.0
+    },
+    "2022-25": {
+     "0": 0.05153315138866592,
+     "1": 0.06970509383378017
+    }
+   },
+   "zero_citation_share_by_arxiv_status": {
+    "0": 0.15612449799196787,
+    "1": 0.006505295007564297
+   }
+  },
+  "b_overlap_other_features": {
+   "label": "diagnostic (not pre-registered)",
+   "crosstab_G1_G2": {
+    "0": {
+     "0": 6096,
+     "1": 2050
+    },
+    "1": {
+     "0": 401,
+     "1": 55
+    }
+   },
+   "crosstab_G6a_G2": {
+    "0": {
+     "0": 8105,
+     "1": 41
+    },
+    "1": {
+     "0": 414,
+     "1": 42
+    }
+   },
+   "share_named_among_assertive": 0.1206140350877193,
+   "share_named_among_other": 0.2516572550945249,
+   "plus_G1_name_control": {
+    "b": 0.2536805078141831,
+    "se": 0.08123114889411677,
+    "p": 0.0030032683288081508,
+    "pct": 0.2887599897394302,
+    "lo": 0.09907339428632111,
+    "hi": 0.5111841663965275,
+    "n": 8574
+   },
+   "non_named_titles_only": {
+    "b": 0.18050805272505657,
+    "se": 0.0863870277777594,
+    "p": 0.04187416512474407,
+    "pct": 0.19782576720321843,
+    "lo": 0.01125231464274612,
+    "hi": 0.4188215421616692,
+    "n": 6465,
+    "n_with": 401
+   },
+   "plus_G6a_meme_control": {
+    "b": 0.21190947132145507,
+    "se": 0.08204709595194788,
+    "p": 0.012838133209913671,
+    "pct": 0.23603598330921738,
+    "lo": 0.052425145368989234,
+    "hi": 0.4516803962333391,
+    "n": 8574
+   },
+   "plus_G1_and_G6a_controls": {
+    "b": 0.23232393495646667,
+    "se": 0.08223145734261374,
+    "p": 0.006816392967265994,
+    "pct": 0.26152831576700986,
+    "lo": 0.07374257423762853,
+    "hi": 0.4821557137304553,
+    "n": 8574
+   },
+   "meme_titles_excluded": {
+    "b": 0.24302485403269133,
+    "se": 0.08653539559079118,
+    "p": 0.007130491374664594,
+    "pct": 0.2751003151095499,
+    "lo": 0.0761775728730818,
+    "hi": 0.5107923214306014,
+    "n": 8491,
+    "n_with": 414
+   }
+  },
+  "c_titles": {
+   "label": "diagnostic (not pre-registered)",
+   "ranking": "within-year citation percentile among all papers in the sample (age-adjusted); raw count shown",
+   "top15": [
+    {
+     "title": "Self-Consistency Improves Chain of Thought Reasoning in Language Models",
+     "year": 2023,
+     "cites": 8013,
+     "pctile_in_year": 0.999,
+     "matched_verb": "improves",
+     "named": 0,
+     "venue_record_has_arxiv_id": 1,
+     "llm_median_ts": null
+    },
+    {
+     "title": "Finetuned Language Models are Zero-Shot Learners",
+     "year": 2022,
+     "cites": 5515,
+     "pctile_in_year": 0.999,
+     "matched_verb": "are",
+     "named": 0,
+     "venue_record_has_arxiv_id": 1,
+     "llm_median_ts": null
+    },
+    {
+     "title": "Show-o: One Single Transformer to Unify Multimodal Understanding and Generation",
+     "year": 2025,
+     "cites": 807,
+     "pctile_in_year": 0.999,
+     "matched_verb": "show",
+     "named": 1,
+     "venue_record_has_arxiv_id": 1,
+     "llm_median_ts": null
+    },
+    {
+     "title": "Representation Alignment for Generation: Training Diffusion Transformers Is Easier Than You Think",
+     "year": 2025,
+     "cites": 790,
+     "pctile_in_year": 0.998,
+     "matched_verb": "is",
+     "named": 0,
+     "venue_record_has_arxiv_id": 1,
+     "llm_median_ts": null
+    },
+    {
+     "title": "iTransformer: Inverted Transformers Are Effective for Time Series Forecasting",
+     "year": 2024,
+     "cites": 2598,
+     "pctile_in_year": 0.998,
+     "matched_verb": "are",
+     "named": 1,
+     "venue_record_has_arxiv_id": 1,
+     "llm_median_ts": null
+    },
+    {
+     "title": "A Time Series is Worth 64 Words:  Long-term Forecasting with Transformers",
+     "year": 2023,
+     "cites": 5012,
+     "pctile_in_year": 0.998,
+     "matched_verb": "is",
+     "named": 0,
+     "venue_record_has_arxiv_id": 1,
+     "llm_median_ts": 2.0
+    },
+    {
+     "title": "Scaling LLM Test-Time Compute Optimally Can be More Effective than Scaling Parameters for Reasoning",
+     "year": 2025,
+     "cites": 608,
+     "pctile_in_year": 0.996,
+     "matched_verb": "can",
+     "named": 0,
+     "venue_record_has_arxiv_id": 0,
+     "llm_median_ts": null
+    },
+    {
+     "title": "Fine-tuning Aligned Language Models Compromises Safety, Even When Users Do Not Intend To!",
+     "year": 2024,
+     "cites": 1442,
+     "pctile_in_year": 0.993,
+     "matched_verb": "do",
+     "named": 0,
+     "venue_record_has_arxiv_id": 1,
+     "llm_median_ts": null
+    },
+    {
+     "title": "Make-A-Video: Text-to-Video Generation without Text-Video Data",
+     "year": 2023,
+     "cites": 2222,
+     "pctile_in_year": 0.993,
+     "matched_verb": "make",
+     "named": 1,
+     "venue_record_has_arxiv_id": 1,
+     "llm_median_ts": null
+    },
+    {
+     "title": "Large Language Models Cannot Self-Correct Reasoning Yet",
+     "year": 2024,
+     "cites": 1341,
+     "pctile_in_year": 0.992,
+     "matched_verb": "cannot",
+     "named": 0,
+     "venue_record_has_arxiv_id": 1,
+     "llm_median_ts": null
+    },
+    {
+     "title": "Least-to-Most Prompting Enables Complex Reasoning in Large Language Models",
+     "year": 2023,
+     "cites": 1965,
+     "pctile_in_year": 0.991,
+     "matched_verb": "enables",
+     "named": 0,
+     "venue_record_has_arxiv_id": 1,
+     "llm_median_ts": null
+    },
+    {
+     "title": "Navigating the Digital World as Humans Do: Universal Visual Grounding for GUI Agents",
+     "year": 2025,
+     "cites": 446,
+     "pctile_in_year": 0.991,
+     "matched_verb": "do",
+     "named": 0,
+     "venue_record_has_arxiv_id": 1,
+     "llm_median_ts": null
+    },
+    {
+     "title": "DAB-DETR: Dynamic Anchor Boxes are Better Queries for DETR",
+     "year": 2022,
+     "cites": 1471,
+     "pctile_in_year": 0.991,
+     "matched_verb": "are",
+     "named": 1,
+     "venue_record_has_arxiv_id": 1,
+     "llm_median_ts": null
+    },
+    {
+     "title": "Large Language Models are Human-Level Prompt Engineers",
+     "year": 2023,
+     "cites": 1654,
+     "pctile_in_year": 0.99,
+     "matched_verb": "are",
+     "named": 0,
+     "venue_record_has_arxiv_id": 1,
+     "llm_median_ts": null
+    },
+    {
+     "title": "Train Short, Test Long: Attention with Linear Biases Enables Input Length Extrapolation",
+     "year": 2022,
+     "cites": 1459,
+     "pctile_in_year": 0.989,
+     "matched_verb": "enables",
+     "named": 0,
+     "venue_record_has_arxiv_id": 1,
+     "llm_median_ts": null
+    }
+   ],
+   "bottom15": [
+    {
+     "title": "Wish you were here: Hindsight Goal Selection for long-horizon dexterous manipulation",
+     "year": 2022,
+     "cites": 0,
+     "pctile_in_year": 0.008,
+     "matched_verb": "were",
+     "named": 0,
+     "venue_record_has_arxiv_id": 0,
+     "llm_median_ts": null
+    },
+    {
+     "title": "Constraining Representations Yields Models That Know What They Don't Know",
+     "year": 2023,
+     "cites": 0,
+     "pctile_in_year": 0.012,
+     "matched_verb": "yields",
+     "named": 0,
+     "venue_record_has_arxiv_id": 1,
+     "llm_median_ts": null
+    },
+    {
+     "title": "Offline Reinforcement Learning with Differentiable Function Approximation is Provably Efficient",
+     "year": 2023,
+     "cites": 0,
+     "pctile_in_year": 0.012,
+     "matched_verb": "is",
+     "named": 0,
+     "venue_record_has_arxiv_id": 0,
+     "llm_median_ts": null
+    },
+    {
+     "title": "CASR: Generating Complex Sequences with Autoregressive Self-Boost Refinement",
+     "year": 2023,
+     "cites": 0,
+     "pctile_in_year": 0.012,
+     "matched_verb": "boost",
+     "named": 1,
+     "venue_record_has_arxiv_id": 0,
+     "llm_median_ts": null
+    },
+    {
+     "title": "Beyond IID weights: sparse and low-rank deep Neural Networks are also Gaussian Processes",
+     "year": 2024,
+     "cites": 0,
+     "pctile_in_year": 0.02,
+     "matched_verb": "are",
+     "named": 0,
+     "venue_record_has_arxiv_id": 0,
+     "llm_median_ts": null
+    },
+    {
+     "title": "Context is Environment",
+     "year": 2024,
+     "cites": 0,
+     "pctile_in_year": 0.02,
+     "matched_verb": "is",
+     "named": 0,
+     "venue_record_has_arxiv_id": 1,
+     "llm_median_ts": null
+    },
+    {
+     "title": "Lion Secretly Solves a Constrained Optimization: As Lyapunov Predicts",
+     "year": 2024,
+     "cites": 0,
+     "pctile_in_year": 0.02,
+     "matched_verb": "solves",
+     "named": 0,
+     "venue_record_has_arxiv_id": 0,
+     "llm_median_ts": null
+    },
+    {
+     "title": "Maximum Likelihood Estimation is All You Need for Well-Specified Covariate Shift",
+     "year": 2024,
+     "cites": 0,
+     "pctile_in_year": 0.02,
+     "matched_verb": "is",
+     "named": 0,
+     "venue_record_has_arxiv_id": 0,
+     "llm_median_ts": null
+    },
+    {
+     "title": "Resonance in Weight Space: Covariate Shift Can Drive Divergence of SGD with Momentum",
+     "year": 2022,
+     "cites": 1,
+     "pctile_in_year": 0.022,
+     "matched_verb": "can",
+     "named": 0,
+     "venue_record_has_arxiv_id": 1,
+     "llm_median_ts": null
+    },
+    {
+     "title": "Learning What To Do by Simulating the Past",
+     "year": 2021,
+     "cites": 4,
+     "pctile_in_year": 0.035,
+     "matched_verb": "do",
+     "named": 0,
+     "venue_record_has_arxiv_id": 1,
+     "llm_median_ts": null
+    },
+    {
+     "title": "Gradient correlation is a key ingredient to accelerate SGD with momentum",
+     "year": 2025,
+     "cites": 0,
+     "pctile_in_year": 0.042,
+     "matched_verb": "is",
+     "named": 0,
+     "venue_record_has_arxiv_id": 0,
+     "llm_median_ts": null
+    },
+    {
+     "title": "Time After Time: Deep-Q Effect Estimation for Interventions on When and What to do",
+     "year": 2025,
+     "cites": 0,
+     "pctile_in_year": 0.042,
+     "matched_verb": "do",
+     "named": 0,
+     "venue_record_has_arxiv_id": 1,
+     "llm_median_ts": null
+    },
+    {
+     "title": "Sketching for Convex and Nonconvex Regularized Least Squares with Sharp Guarantees",
+     "year": 2025,
+     "cites": 0,
+     "pctile_in_year": 0.042,
+     "matched_verb": "guarantees",
+     "named": 0,
+     "venue_record_has_arxiv_id": 1,
+     "llm_median_ts": null
+    },
+    {
+     "title": "Backtracking Improves Generation Safety",
+     "year": 2025,
+     "cites": 0,
+     "pctile_in_year": 0.042,
+     "matched_verb": "improves",
+     "named": 0,
+     "venue_record_has_arxiv_id": 0,
+     "llm_median_ts": 2.0
+    },
+    {
+     "title": "Multiview Equivariance Improves 3D Correspondence Understanding with Minimal Feature Finetuning",
+     "year": 2025,
+     "cites": 0,
+     "pctile_in_year": 0.042,
+     "matched_verb": "improves",
+     "named": 0,
+     "venue_record_has_arxiv_id": 0,
+     "llm_median_ts": null
+    }
+   ],
+   "matched_verb_counts": {
+    "is": 82,
+    "can": 60,
+    "are": 58,
+    "improves": 29,
+    "improve": 26,
+    "guarantees": 26,
+    "do": 17,
+    "matters": 15,
+    "solve": 11,
+    "enables": 11,
+    "need": 10,
+    "makes": 9,
+    "don't": 8,
+    "make": 8,
+    "helps": 7,
+    "cannot": 6,
+    "works": 5,
+    "beats": 5,
+    "boost": 5,
+    "enable": 5,
+    "beat": 4,
+    "does": 4,
+    "achieve": 4,
+    "help": 4,
+    "matter": 3,
+    "needs": 3,
+    "boosts": 3,
+    "solves": 3,
+    "reveal": 3,
+    "hurt": 2,
+    "guarantee": 2,
+    "reveals": 2,
+    "yields": 2,
+    "show": 2,
+    "hurts": 2,
+    "lead": 1,
+    "suffices": 1,
+    "were": 1,
+    "outperform": 1,
+    "doesn't": 1,
+    "fail": 1,
+    "prove": 1,
+    "suffice": 1,
+    "fails": 1,
+    "will": 1
+   },
+   "share_copula_or_modal": 0.5219298245614035,
+   "assertive_by_year": {
+    "2017": 3,
+    "2018": 5,
+    "2019": 21,
+    "2020": 20,
+    "2021": 34,
+    "2022": 40,
+    "2023": 76,
+    "2024": 90,
+    "2025": 167
+   },
+   "share_by_year": {
+    "2017": 0.02127659574468085,
+    "2018": 0.01968503937007874,
+    "2019": 0.05223880597014925,
+    "2020": 0.03663003663003663,
+    "2021": 0.0517503805175038,
+    "2022": 0.04689331770222743,
+    "2023": 0.06265457543281121,
+    "2024": 0.05229517722254503,
+    "2025": 0.059325044404973354
+   },
+   "rule_precision": {
+    "label": "diagnostic (not pre-registered)",
+    "n_guarantee_only_matches": 28,
+    "rerun_guarantee_only_titles_excluded": {
+     "b": 0.24577396867671666,
+     "se": 0.08049877194514765,
+     "p": 0.003654160982066612,
+     "pct": 0.278610534845914,
+     "lo": 0.09198416430375556,
+     "hi": 0.49713242486563414,
+     "n": 8545,
+     "n_with": 428
+    },
+    "note": "titles whose only rule match is 'guarantee(s)' (mostly the noun phrase 'with ... Guarantees') dropped from the sample"
+   }
+  },
+  "d_r1_vs_primary": {
+   "label": "diagnostic (not pre-registered)",
+   "question": "R1 (content-matched pairs) has the opposite sign to the primary estimate; which content or covariate differences account for the gap?",
+   "R1_caliper_0.85": {
+    "n_pairs": 362,
+    "pct": -0.02972933243063891,
+    "lo": -0.20124988557767465,
+    "hi": 0.18064108716608906
+   },
+   "R1_caliper_0.90": {
+    "n_pairs": 86,
+    "pct": -0.15952029841195192,
+    "lo": -0.4321520648278957,
+    "hi": 0.20555651481785753
+   },
+   "R1_era_2017_21": {
+    "n_pairs": 82,
+    "pct": 0.2336041960085471,
+    "lo": -0.15814599794786255,
+    "hi": 0.7940955404227537
+   },
+   "R1_era_2022_25": {
+    "n_pairs": 372,
+    "pct": -0.12074247922419445,
+    "lo": -0.2736018598625186,
+    "hi": 0.07788169053593674
+   },
+   "R1_arxiv_id_only": {
+    "n_pairs": 345,
+    "pct": -0.011045030011280876,
+    "lo": -0.17374736434179272,
+    "hi": 0.20115757053660888
+   },
+   "reimplementation_check": {
+    "n_pairs": 454,
+    "pct": -0.06528859092271388
+   },
+   "pair_balance": {
+    "mean_cosine": 0.874066948890686,
+    "share_same_topic50": 0.5374449339207048,
+    "mean_diff_log_authors": -0.05654961708887793,
+    "mean_diff_log_abs_words": -0.013595008302273845,
+    "n_distinct_controls": 430
+   },
+   "R1_regression_adjusted": {
+    "pct": -0.04283637758877179,
+    "lo": -0.20000497359755365,
+    "hi": 0.13319451321623177,
+    "n_pairs": 454,
+    "adjusted_for": [
+     "log_authors",
+     "log_abs_words"
+    ]
+   },
+   "R1_same_year_topic50_cell": {
+    "n_pairs": 432,
+    "pct": -0.10221618401905652,
+    "lo": -0.2478936226316154,
+    "hi": 0.0809561867286328
+   },
+   "primary_by_n_abstract_pcs": {
+    "0": {
+     "b": 0.22827734727884835,
+     "se": 0.08278702256716293,
+     "p": 0.008163722618935942,
+     "pct": 0.2564337455938126,
+     "lo": 0.06824250892870798,
+     "hi": 0.4777784481260061,
+     "n": 8574
+    },
+    "5": {
+     "b": 0.23146016514748763,
+     "se": 0.08306968084300681,
+     "p": 0.007561550063739597,
+     "pct": 0.2604391161712625,
+     "lo": 0.07105440735679713,
+     "hi": 0.4833109827681723,
+     "n": 8574
+    },
+    "10": {
+     "b": 0.24714576538433403,
+     "se": 0.08370423221812007,
+     "p": 0.004826669057450772,
+     "pct": 0.28036573217965444,
+     "lo": 0.08663467950272286,
+     "hi": 0.5086361949078904,
+     "n": 8574
+    },
+    "20": {
+     "b": 0.231686182033838,
+     "se": 0.0811169559686343,
+     "p": 0.0062727473564681,
+     "pct": 0.2607240288920638,
+     "lo": 0.07540458437746289,
+     "hi": 0.47797870691237,
+     "n": 8574
+    },
+    "50": {
+     "b": 0.20046450450167405,
+     "se": 0.08064629119034858,
+     "p": 0.016388474249627194,
+     "pct": 0.22197023702773322,
+     "lo": 0.04330939733421202,
+     "hi": 0.4312257361018301,
+     "n": 8574
+    },
+    "100": {
+     "b": 0.18382274095489765,
+     "se": 0.08293767430881208,
+     "p": 0.03133824777757499,
+     "pct": 0.20180277380231648,
+     "lo": 0.021492608487561515,
+     "hi": 0.413940634634097,
+     "n": 8574
+    },
+    "200": {
+     "b": 0.16252764548297866,
+     "se": 0.07932863846965137,
+     "p": 0.045858212822980526,
+     "pct": 0.17648084238022133,
+     "lo": 0.0070683779698765825,
+     "hi": 0.3743924471919784,
+     "n": 8574
+    }
+   },
+   "primary_by_n_abstract_pcs_note": "PCA(200) on the normalised bge abstract embedding (random_state=0), first k components; k=20 is the pre-registered control set up to PCA numerics",
+   "primary_full_384d_embedding": {
+    "b": 0.14908938303085206,
+    "se": 0.08238768786209989,
+    "p": 0.07649251217864772,
+    "pct": 0.1607767383153249,
+    "lo": -0.012314039177467873,
+    "hi": 0.36420146651863394,
+    "n": 8574
+   }
+  }
+ }
+}

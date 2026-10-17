@@ -1,0 +1,1199 @@
+{
+ "feature": "G3_question",
+ "label": "Question title",
+ "question": "G3: among accepted ICLR papers 2017-2025, do papers whose title is (or contains) a direct question receive more or fewer Semantic Scholar citations than accepted papers with similar content?",
+ "n_papers": 8602,
+ "n_with": 223,
+ "primary": {
+  "frozen": {
+   "b": 0.1338752381541512,
+   "se": 0.08297940040700719,
+   "p": 0.1130899678956998,
+   "pct": 0.1432501767443186,
+   "lo": -0.028354629874166926,
+   "hi": 0.34516255293497644,
+   "n": 8574,
+   "n_with": 223,
+   "p_holm": 0.34751900962477134,
+   "label": "Question title",
+   "source": "outputs/cites/primary.json (Holm across the 8 primary tests)"
+  },
+  "reproduced": {
+   "b": 0.1338752381541512,
+   "se": 0.08297940040700719,
+   "p": 0.1130899678956998,
+   "pct": 0.1432501767443186,
+   "lo": -0.028354629874166926,
+   "hi": 0.34516255293497644,
+   "n": 8574,
+   "n_with": 223
+  },
+  "max_abs_diff": 0.0,
+  "reproduction_ok": true,
+  "n_papers_frame": 8602,
+  "n_papers_frozen": 8602
+ },
+ "robustness": {
+  "R1_matched_pairs": {
+   "n_pairs": 221,
+   "pct": -0.03701385116883815,
+   "lo": -0.2605290528789006,
+   "hi": 0.23720172711512255
+  },
+  "R2_ppml_counts": {
+   "b": 0.19346410435424868,
+   "se": 0.3045869644967819,
+   "p": 0.5253183988491452,
+   "pct": 0.21344582834813686,
+   "lo": -0.332039571557987,
+   "hi": 1.204398218274576,
+   "n": 8574
+  },
+  "R3_influential": {
+   "b": 0.052892583928346844,
+   "se": 0.08882182701405299,
+   "p": 0.5542560053607344,
+   "pct": 0.054316388511941316,
+   "lo": -0.11414163229535379,
+   "hi": 0.254808993863312,
+   "n": 8574
+  },
+  "R4_drop_top1pct": {
+   "b": 0.10470376401426322,
+   "se": 0.08030615921553863,
+   "p": 0.19839150808321726,
+   "pct": 0.11038162663399254,
+   "lo": -0.051331928402252314,
+   "hi": 0.29966148717308494,
+   "n": 8481
+  },
+  "R5_era_2017_21": {
+   "b": -0.02700172519502584,
+   "se": 0.19467324131648608,
+   "p": 0.8902776015845515,
+   "pct": -0.026640437712186937,
+   "lo": -0.33539425458372785,
+   "hi": 0.42555017622320745,
+   "n": 1975
+  },
+  "R5_era_2022_25": {
+   "b": 0.14686798242811872,
+   "se": 0.08426229510629689,
+   "p": 0.08760883703563538,
+   "pct": 0.15820105004609952,
+   "lo": -0.01811993941103618,
+   "hi": 0.3661848592008825,
+   "n": 6599
+  },
+  "R6_team_prior_2022_25": {
+   "b": 0.1414522871000369,
+   "se": 0.08278488691941926,
+   "p": 0.09383950027385968,
+   "pct": 0.15194554028724694,
+   "lo": -0.020591137906119772,
+   "hi": 0.354876986665944,
+   "n": 6599
+  },
+  "R7_year_plus_topic100_fe": {
+   "b": 0.13858810509282773,
+   "se": 0.08666207246871,
+   "p": 0.11620998733146726,
+   "pct": 0.1486508791044343,
+   "lo": -0.030785720580180476,
+   "hi": 0.3613076799252215,
+   "n": 8602
+  }
+ },
+ "verdict": "inconclusive",
+ "verdict_rule": "more/fewer citations: Holm p < 0.05 and same sign in R1 and R2; no meaningful difference: 95% CI within +/-10%; else inconclusive",
+ "secondary": {
+  "joint_model_all8": {
+   "b": 0.24053669878239475,
+   "se": 0.09018501023239835,
+   "p": 0.010337816658329668,
+   "pct": 0.2719316113141128,
+   "lo": 0.06585157301438249,
+   "hi": 0.5178567680720445,
+   "n": 8574,
+   "model": "y ~ all 8 primary features + primary controls | year^topic50",
+   "note": "G2_assertive is defined as 'assertive verb AND not a question', so G2 and G3 never co-occur; in the joint model G3 is compared with titles that are neither questions nor assertive (nor carry the other features).",
+   "label": "pre-specified secondary (prereg section 6; no multiplicity claim)"
+  },
+  "heterogeneity_llm_topic": {
+   "label": "pre-specified secondary (prereg section 6; no multiplicity claim)",
+   "llm_topic_papers": {
+    "b": -0.019267360779732526,
+    "se": 0.12490913904657729,
+    "p": 0.8780454046536785,
+    "pct": -0.01908293157143892,
+    "lo": -0.2320950168237803,
+    "hi": 0.2530173865451737,
+    "n": 8574,
+    "n_with": 82
+   },
+   "non_llm_topic_papers": {
+    "b": 0.22743414038498608,
+    "se": 0.10754478606940183,
+    "p": 0.03955860514080256,
+    "pct": 0.2553747585331865,
+    "lo": 0.016785682332426832,
+    "hi": 0.5499488355767501,
+    "n": 8574,
+    "n_with": 141
+   },
+   "difference_llm_minus_non": {
+    "b": -0.24670150116471865,
+    "se": 0.16857822170848746,
+    "p": 0.14973699362644277,
+    "ratio": 0.7813738979224745,
+    "ratio_lo": 0.5615161091552725,
+    "ratio_hi": 1.0873154988786462
+   },
+   "n_llm_topic_papers": 1931,
+   "share_llm_topic": {
+    "question": 0.36771300448430494,
+    "other": 0.22067072443012292
+   },
+   "note": "One model with G3 split by llm_topic plus an llm_topic main effect; 'difference' is the G3 x llm_topic interaction (ratio of the two citation multipliers)."
+  }
+ },
+ "diagnostics": {
+  "label": "diagnostic (not pre-registered)",
+  "a_artefact_arxiv": {
+   "label": "diagnostic (not pre-registered)",
+   "arxiv_share": {
+    "question": {
+     "share": 0.7847533632286996,
+     "ci95_wilson": [
+      0.7262293670536455,
+      0.8336326688339519
+     ],
+     "k": 175,
+     "n": 223
+    },
+    "other": {
+     "share": 0.7679914070891515,
+     "ci95_wilson": [
+      0.7588314599550361,
+      0.7769057296871968
+     ],
+     "k": 6435,
+     "n": 8379
+    }
+   },
+   "arxiv_share_by_era": {
+    "2017-21": {
+     "question": {
+      "share": 0.7692307692307693,
+      "ci95_wilson": [
+       0.6166343954261704,
+       0.8735433757121625
+      ],
+      "k": 30,
+      "n": 39
+     },
+     "other": {
+      "share": 0.7899031106578276,
+      "ci95_wilson": [
+       0.7713142618179467,
+       0.8073583395764863
+      ],
+      "k": 1549,
+      "n": 1961
+     }
+    },
+    "2022-25": {
+     "question": {
+      "share": 0.7880434782608695,
+      "ci95_wilson": [
+       0.7234099803057484,
+       0.8408952641129531
+      ],
+      "k": 145,
+      "n": 184
+     },
+     "other": {
+      "share": 0.7612963540043627,
+      "ci95_wilson": [
+       0.7507125136143391,
+       0.7715675750131972
+      ],
+      "k": 4886,
+      "n": 6418
+     }
+    }
+   },
+   "arxiv_share_diff_adjusted_pp": {
+    "b_pp": 0.9478328148104133,
+    "lo_pp": -4.372060479980657,
+    "hi_pp": 6.267726109601483,
+    "p": 0.7284290144239156,
+    "n": 8574,
+    "model": "linear probability, primary controls and year^topic50 FE, SE clustered by topic50"
+   },
+   "multi_record_share": {
+    "question": {
+     "share": 0.0,
+     "ci95_wilson": [
+      0.0,
+      0.01693516533122672
+     ],
+     "k": 0,
+     "n": 223
+    },
+    "other": {
+     "share": 0.001670843776106934,
+     "ci95_wilson": [
+      0.0009955703491276767,
+      0.0028028552348652257
+     ],
+     "k": 14,
+     "n": 8379
+    }
+   },
+   "zero_citation_share": {
+    "question": {
+     "share": 0.03587443946188341,
+     "ci95_wilson": [
+      0.01828797593287521,
+      0.06918098919521416
+     ],
+     "k": 8,
+     "n": 223
+    },
+    "other": {
+     "share": 0.0412937104666428,
+     "ci95_wilson": [
+      0.03723936925647039,
+      0.045768473811923026
+     ],
+     "k": 346,
+     "n": 8379
+    }
+   },
+   "primary_spec_arxiv_only": {
+    "b": 0.14612675697154978,
+    "se": 0.09069691544377163,
+    "p": 0.11356973176054819,
+    "pct": 0.1573428800320018,
+    "lo": -0.031143915082325724,
+    "hi": 0.3824989725636945,
+    "n": 6575,
+    "n_with": 175
+   },
+   "primary_spec_no_arxiv_only": {
+    "b": 0.09450543066076889,
+    "se": 0.20794718301352638,
+    "p": 0.6514986570735277,
+    "pct": 0.09911513203821065,
+    "lo": -0.2688020394627886,
+    "hi": 0.6521573345032519,
+    "n": 1926,
+    "n_with": 48
+   },
+   "primary_spec_plus_arxiv_control": {
+    "b": 0.12303150227157873,
+    "se": 0.0811328874624661,
+    "p": 0.13583864846702287,
+    "pct": 0.13092004693678905,
+    "lo": -0.0353490540846787,
+    "hi": 0.3258476114901152,
+    "n": 8574
+   },
+   "difference_no_arxiv_minus_arxiv": {
+    "b": -0.051621326310780875,
+    "se": 0.20472708651252786,
+    "p": 0.8019820789091727,
+    "ratio": 0.9496884207796905,
+    "ratio_lo": 0.635790345215123,
+    "ratio_hi": 1.4185621146194933,
+    "model": "G3 x no-arXiv interaction; controls and year^topic50 FE interacted with has_arxiv"
+   },
+   "qc_split_sample": {
+    "n_checked": 30,
+    "n_split": 7,
+    "n_checked_question": 1,
+    "n_split_question": 0,
+    "note": "Random sample of matched records without an arXiv id (qc_split.py; file may still be growing). Sizes the artefact only; far too few question titles for a comparison."
+   }
+  },
+  "b_titles_validity": {
+   "label": "diagnostic (not pre-registered)",
+   "ranking": "within-year citation percentile among all 8,602 papers (age-adjusted); raw S2 count shown",
+   "top15": [
+    {
+     "title": "SWE-bench: Can Language Models Resolve Real-world Github Issues?",
+     "year": 2024,
+     "cites": 4404,
+     "pctile_in_year": 0.999,
+     "named": 1,
+     "meme": 0,
+     "llm_topic": 1,
+     "venue_record_has_arxiv_id": 1,
+     "form": "subtitle | yes/no"
+    },
+    {
+     "title": "How Powerful are Graph Neural Networks?",
+     "year": 2019,
+     "cites": 10670,
+     "pctile_in_year": 0.998,
+     "named": 0,
+     "meme": 0,
+     "llm_topic": 0,
+     "venue_record_has_arxiv_id": 1,
+     "form": "main | wh-"
+    },
+    {
+     "title": "How Attentive are Graph Attention Networks? ",
+     "year": 2022,
+     "cites": 2162,
+     "pctile_in_year": 0.993,
+     "named": 0,
+     "meme": 0,
+     "llm_topic": 0,
+     "venue_record_has_arxiv_id": 1,
+     "form": "main | wh-"
+    },
+    {
+     "title": "Can LLMs Express Their Uncertainty? An Empirical Evaluation of Confidence Elicitation in LLMs",
+     "year": 2024,
+     "cites": 1286,
+     "pctile_in_year": 0.991,
+     "named": 0,
+     "meme": 0,
+     "llm_topic": 1,
+     "venue_record_has_arxiv_id": 1,
+     "form": "main | yes/no"
+    },
+    {
+     "title": "Justice or Prejudice? Quantifying Biases in LLM-as-a-Judge",
+     "year": 2025,
+     "cites": 456,
+     "pctile_in_year": 0.991,
+     "named": 0,
+     "meme": 0,
+     "llm_topic": 1,
+     "venue_record_has_arxiv_id": 1,
+     "form": "main | other opener"
+    },
+    {
+     "title": "MME-RealWorld: Could Your Multimodal LLM Challenge High-Resolution Real-World Scenarios that are Difficult for Humans?",
+     "year": 2025,
+     "cites": 322,
+     "pctile_in_year": 0.986,
+     "named": 1,
+     "meme": 0,
+     "llm_topic": 1,
+     "venue_record_has_arxiv_id": 1,
+     "form": "subtitle | yes/no"
+    },
+    {
+     "title": "How Do Vision Transformers Work?",
+     "year": 2022,
+     "cites": 727,
+     "pctile_in_year": 0.97,
+     "named": 0,
+     "meme": 0,
+     "llm_topic": 0,
+     "venue_record_has_arxiv_id": 1,
+     "form": "main | wh-"
+    },
+    {
+     "title": "When and Why Vision-Language Models Behave like Bags-Of-Words, and What to Do About It?",
+     "year": 2023,
+     "cites": 766,
+     "pctile_in_year": 0.967,
+     "named": 0,
+     "meme": 0,
+     "llm_topic": 1,
+     "venue_record_has_arxiv_id": 1,
+     "form": "main | wh-"
+    },
+    {
+     "title": "Do LLMs Recognize Your Preferences? Evaluating Personalized Preference Following in LLMs",
+     "year": 2025,
+     "cites": 171,
+     "pctile_in_year": 0.962,
+     "named": 0,
+     "meme": 0,
+     "llm_topic": 1,
+     "venue_record_has_arxiv_id": 1,
+     "form": "main | yes/no"
+    },
+    {
+     "title": "How Much Can CLIP Benefit Vision-and-Language Tasks?",
+     "year": 2022,
+     "cites": 526,
+     "pctile_in_year": 0.959,
+     "named": 0,
+     "meme": 0,
+     "llm_topic": 1,
+     "venue_record_has_arxiv_id": 1,
+     "form": "main | wh-"
+    },
+    {
+     "title": "Do I Know This Entity? Knowledge Awareness and Hallucinations in Language Models",
+     "year": 2025,
+     "cites": 142,
+     "pctile_in_year": 0.951,
+     "named": 0,
+     "meme": 0,
+     "llm_topic": 1,
+     "venue_record_has_arxiv_id": 1,
+     "form": "main | yes/no"
+    },
+    {
+     "title": "What do you learn from context? Probing for sentence structure in contextualized word representations",
+     "year": 2019,
+     "cites": 988,
+     "pctile_in_year": 0.948,
+     "named": 0,
+     "meme": 0,
+     "llm_topic": 0,
+     "venue_record_has_arxiv_id": 1,
+     "form": "main | wh-"
+    },
+    {
+     "title": "Round and Round We Go! What makes Rotary Positional Encodings useful?",
+     "year": 2025,
+     "cites": 133,
+     "pctile_in_year": 0.945,
+     "named": 0,
+     "meme": 0,
+     "llm_topic": 1,
+     "venue_record_has_arxiv_id": 1,
+     "form": "main | wh-"
+    },
+    {
+     "title": "Do Deep Generative Models Know What They Don't Know? ",
+     "year": 2019,
+     "cites": 917,
+     "pctile_in_year": 0.943,
+     "named": 0,
+     "meme": 0,
+     "llm_topic": 0,
+     "venue_record_has_arxiv_id": 1,
+     "form": "main | yes/no"
+    },
+    {
+     "title": "Can LLM-Generated Misinformation Be Detected?",
+     "year": 2024,
+     "cites": 304,
+     "pctile_in_year": 0.937,
+     "named": 0,
+     "meme": 0,
+     "llm_topic": 1,
+     "venue_record_has_arxiv_id": 1,
+     "form": "main | yes/no"
+    }
+   ],
+   "bottom15": [
+    {
+     "title": "Should We Be Pre-training? An Argument for End-task Aware Training as an Alternative",
+     "year": 2022,
+     "cites": 0,
+     "pctile_in_year": 0.008,
+     "named": 0,
+     "meme": 0,
+     "llm_topic": 1,
+     "venue_record_has_arxiv_id": 0,
+     "form": "main | yes/no"
+    },
+    {
+     "title": "When should we prefer Decision Transformers for Offline Reinforcement Learning?",
+     "year": 2024,
+     "cites": 0,
+     "pctile_in_year": 0.02,
+     "named": 0,
+     "meme": 0,
+     "llm_topic": 0,
+     "venue_record_has_arxiv_id": 0,
+     "form": "main | wh-"
+    },
+    {
+     "title": "What Can You Learn From Your Muscles? Learning Visual Representation from Human Interactions",
+     "year": 2021,
+     "cites": 3,
+     "pctile_in_year": 0.025,
+     "named": 0,
+     "meme": 0,
+     "llm_topic": 0,
+     "venue_record_has_arxiv_id": 1,
+     "form": "main | wh-"
+    },
+    {
+     "title": "DSBench: How Far Are Data Science Agents from Becoming Data Science Experts?",
+     "year": 2025,
+     "cites": 0,
+     "pctile_in_year": 0.042,
+     "named": 1,
+     "meme": 0,
+     "llm_topic": 1,
+     "venue_record_has_arxiv_id": 0,
+     "form": "subtitle | wh-"
+    },
+    {
+     "title": "Have the VLMs Lost Confidence? A Study of Sycophancy in VLMs",
+     "year": 2025,
+     "cites": 0,
+     "pctile_in_year": 0.042,
+     "named": 0,
+     "meme": 0,
+     "llm_topic": 1,
+     "venue_record_has_arxiv_id": 0,
+     "form": "main | yes/no"
+    },
+    {
+     "title": "Model Equality Testing: Which Model is this API Serving?",
+     "year": 2025,
+     "cites": 0,
+     "pctile_in_year": 0.042,
+     "named": 0,
+     "meme": 0,
+     "llm_topic": 1,
+     "venue_record_has_arxiv_id": 0,
+     "form": "subtitle | wh-"
+    },
+    {
+     "title": "Does Spatial Cognition Emerge in Frontier Models?",
+     "year": 2025,
+     "cites": 0,
+     "pctile_in_year": 0.042,
+     "named": 0,
+     "meme": 0,
+     "llm_topic": 1,
+     "venue_record_has_arxiv_id": 0,
+     "form": "main | yes/no"
+    },
+    {
+     "title": "What's the Move? Hybrid Imitation Learning via Salient Points",
+     "year": 2025,
+     "cites": 0,
+     "pctile_in_year": 0.042,
+     "named": 0,
+     "meme": 0,
+     "llm_topic": 0,
+     "venue_record_has_arxiv_id": 0,
+     "form": "main | wh-"
+    },
+    {
+     "title": "SWE-bench Multimodal: Do AI Systems Generalize to Visual Software Domains?",
+     "year": 2025,
+     "cites": 0,
+     "pctile_in_year": 0.042,
+     "named": 1,
+     "meme": 0,
+     "llm_topic": 1,
+     "venue_record_has_arxiv_id": 0,
+     "form": "subtitle | yes/no"
+    },
+    {
+     "title": "What does automatic differentiation compute for neural networks?",
+     "year": 2024,
+     "cites": 1,
+     "pctile_in_year": 0.049,
+     "named": 0,
+     "meme": 0,
+     "llm_topic": 0,
+     "venue_record_has_arxiv_id": 0,
+     "form": "main | wh-"
+    },
+    {
+     "title": "What's In My Big Data?",
+     "year": 2024,
+     "cites": 1,
+     "pctile_in_year": 0.049,
+     "named": 0,
+     "meme": 0,
+     "llm_topic": 1,
+     "venue_record_has_arxiv_id": 0,
+     "form": "main | wh-"
+    },
+    {
+     "title": "How Did the Model Change? Efficiently Assessing Machine Learning API Shifts ",
+     "year": 2022,
+     "cites": 5,
+     "pctile_in_year": 0.066,
+     "named": 0,
+     "meme": 0,
+     "llm_topic": 0,
+     "venue_record_has_arxiv_id": 0,
+     "form": "main | wh-"
+    },
+    {
+     "title": "Does Progress On Object Recognition Benchmarks Improve Generalization on Crowdsourced, Global Data?",
+     "year": 2024,
+     "cites": 2,
+     "pctile_in_year": 0.07,
+     "named": 0,
+     "meme": 0,
+     "llm_topic": 0,
+     "venue_record_has_arxiv_id": 0,
+     "form": "main | yes/no"
+    },
+    {
+     "title": "When to Make and Break Commitments?",
+     "year": 2023,
+     "cites": 4,
+     "pctile_in_year": 0.084,
+     "named": 0,
+     "meme": 0,
+     "llm_topic": 0,
+     "venue_record_has_arxiv_id": 0,
+     "form": "main | wh-"
+    },
+    {
+     "title": "How Informative is the Approximation Error from Tensor Decomposition for Neural Network Compression?",
+     "year": 2023,
+     "cites": 4,
+     "pctile_in_year": 0.084,
+     "named": 0,
+     "meme": 0,
+     "llm_topic": 0,
+     "venue_record_has_arxiv_id": 1,
+     "form": "main | wh-"
+    }
+   ],
+   "pctile_distribution_question": {
+    "0.1": 0.1141662933642516,
+    "0.25": 0.36426766662919485,
+    "0.5": 0.5927175843694493,
+    "0.75": 0.8111976869414643,
+    "0.9": 0.9243672372624416
+   },
+   "median_pctile_other": 0.4975124378109453,
+   "question_by_year": {
+    "2017": 3,
+    "2018": 3,
+    "2019": 4,
+    "2020": 9,
+    "2021": 20,
+    "2022": 35,
+    "2023": 27,
+    "2024": 36,
+    "2025": 86
+   },
+   "share_by_year": {
+    "2017": 0.02127659574468085,
+    "2018": 0.011811023622047244,
+    "2019": 0.009950248756218905,
+    "2020": 0.016483516483516484,
+    "2021": 0.030441400304414,
+    "2022": 0.041031652989449004,
+    "2023": 0.02225886232481451,
+    "2024": 0.020918070889018012,
+    "2025": 0.030550621669627
+   },
+   "share_of_question_titles_from_2025": 0.38565022421524664,
+   "question_mark_between_letters": {
+    "n": 0,
+    "titles": [],
+    "note": "possible encoding artefacts; each listed title was read by eye"
+   },
+   "multiple_question_marks": 1,
+   "question_forms_descriptive": {
+    "main | yes/no": {
+     "n": 91,
+     "median_pctile_in_year": 0.5538188277087034
+    },
+    "main | wh-": {
+     "n": 78,
+     "median_pctile_in_year": 0.6428276999175597
+    },
+    "main | other opener": {
+     "n": 21,
+     "median_pctile_in_year": 0.5538188277087034
+    },
+    "subtitle | yes/no": {
+     "n": 20,
+     "median_pctile_in_year": 0.7650403236721716
+    },
+    "subtitle | wh-": {
+     "n": 9,
+     "median_pctile_in_year": 0.14689165186500888
+    },
+    "subtitle | other opener": {
+     "n": 4,
+     "median_pctile_in_year": 0.4447176330324339
+    }
+   },
+   "question_forms_note": "Descriptive only (counts and raw within-year percentiles, no controls, no tests); cells are too small for inference.",
+   "v1_validation": {
+    "label": "diagnostic (not pre-registered)",
+    "source": "outputs/validation/v1_detector_metrics.csv and v1_consensus.csv (read only)",
+    "metrics_all_years": {
+     "PS (main + hard)": {
+      "n_items": 1200,
+      "n_det_pos": 18,
+      "n_truth_pos": 20,
+      "n_fp": 0,
+      "n_fn": 2,
+      "precision": 1.0,
+      "precision_lo": 1.0,
+      "precision_hi": 1.0,
+      "recall": 0.9675559220414528,
+      "recall_lo": 0.8960318582256815,
+      "recall_hi": 1.0,
+      "specificity": 1.0,
+      "specificity_lo": 1.0,
+      "specificity_hi": 1.0
+     },
+     "HT (main only)": {
+      "n_items": 1200,
+      "n_det_pos": 18,
+      "n_truth_pos": 20,
+      "n_fp": 0,
+      "n_fn": 2,
+      "precision": 1.0,
+      "precision_lo": 1.0,
+      "precision_hi": 1.0,
+      "recall": 0.970547857599659,
+      "recall_lo": 0.9055632251497496,
+      "recall_hi": 1.0,
+      "specificity": 1.0,
+      "specificity_lo": 1.0,
+      "specificity_hi": 1.0
+     }
+    },
+    "consensus_crosstab_detector_vs_truth": {
+     "det1_true1": 24,
+     "det1_true0": 0,
+     "det0_true1": 2,
+     "det0_true0": 1374
+    },
+    "plain_wilson_on_consensus_items": {
+     "precision": [
+      0.8620194241710247,
+      1.0
+     ],
+     "recall": [
+      0.7585805251948495,
+      0.9786453608166245
+     ],
+     "point_precision": 1.0,
+     "point_recall": 0.9230769230769231,
+     "note": "unweighted Wilson 95% CI over all 1,400 consensus items (main + hard); the stratified estimator's 100-100% precision CI understates uncertainty with so few positive items"
+    },
+    "false_negatives": [
+     {
+      "year": 2021,
+      "title": "What About Taking Policy as Input of Value Function: Policy-extended Value Function Approximator"
+     },
+     {
+      "year": 2024,
+      "title": "Where is the Invisible: Spatial-Temporal Reasoning with Object Permanence"
+     }
+    ],
+    "note": "Codebook: 'y' if the title or any part of it is a direct question; indirect question phrases without '?' ('How Transformers Learn Syntax') are 'n'. Annotator pass A vs B kappa = 1.000 for question."
+   }
+  },
+  "c_power_fragility": {
+   "label": "diagnostic (not pre-registered)",
+   "n_question": 223,
+   "primary_se_b": 0.08297940040700719,
+   "ci95_halfwidth_log": 0.16263962479773408,
+   "mde_80pct_power": {
+    "alpha_0.05_unadjusted": {
+     "alpha": 0.05,
+     "mde_b": 0.23247386158814856,
+     "mde_pct_up": 0.2617174666371862,
+     "mde_pct_down": -0.20742953439071676
+    },
+    "alpha_0.0167_holm_step_of_G3": {
+     "alpha": 0.016666666666666666,
+     "mde_b": 0.2684882337071133,
+     "mde_pct_up": 0.30798558679852706,
+     "mde_pct_down": -0.23546558150718144
+    },
+    "alpha_0.00625_bonferroni_8": {
+     "alpha": 0.00625,
+     "mde_b": 0.296733507729845,
+     "mde_pct_up": 0.3454566978581366,
+     "mde_pct_down": -0.2567579457652387
+    }
+   },
+   "power_for_true_effects": {
+    "+10%": {
+     "alpha_0.05_unadjusted": 0.20951847091419598,
+     "alpha_0.0167_holm_step_of_G3": 0.106694293529807,
+     "alpha_0.00625_bonferroni_8": 0.0564475340504279
+    },
+    "+20%": {
+     "alpha_0.05_unadjusted": 0.5937756088067743,
+     "alpha_0.0167_holm_step_of_G3": 0.42199844704835154,
+     "alpha_0.00625_bonferroni_8": 0.29557266920350894
+    },
+    "+30%": {
+     "alpha_0.05_unadjusted": 0.8852866083242517,
+     "alpha_0.0167_holm_step_of_G3": 0.7787029945317291,
+     "alpha_0.00625_bonferroni_8": 0.6654673470908972
+    }
+   },
+   "equivalence_band": {
+    "band_pct": [
+     -10,
+     10
+    ],
+    "ci_width_log_now": 0.32527924959546817,
+    "band_width_log": 0.20067069546215122,
+    "attainable_at_current_se": false,
+    "prob_ci_inside_band_if_true_effect_0": 0.0,
+    "se_needed_for_ci_to_fit_at_all": 0.051191503944426335,
+    "se_needed_for_80pct_equivalence_power_if_true_0": 0.03079087935197933,
+    "band_centre_log": -0.005025167926750673,
+    "n_question_titles_needed_80pct": {
+     "se_prop_1_over_sqrt_n": 1619.5757437123702,
+     "empirical_slope_-0.39": 2781.7708162946824
+    },
+    "empirical_se_slope_across_binary_features": -0.392830041159588,
+    "note": "Rough: assumes the SE scales with the number of question titles only (1/sqrt(n), or the empirical slope of log SE on log n_with across the six binary primary features)."
+   },
+   "R1_n_pairs": 221,
+   "R5_n_question_by_era": {
+    "2017-21": 39,
+    "2022-25": 184
+   },
+   "drop_k_most_cited_question_titles": {
+    "1": {
+     "b": 0.1203533813274022,
+     "se": 0.08252190713275802,
+     "p": 0.1510993713914166,
+     "pct": 0.1278953583217024,
+     "lo": -0.040544705055643004,
+     "hi": 0.32590642422523564,
+     "n": 8573,
+     "n_with": 222
+    },
+    "3": {
+     "b": 0.09261273569330883,
+     "se": 0.07890873306852018,
+     "p": 0.24620094813370397,
+     "pct": 0.09703680979459839,
+     "lo": -0.06016258469658442,
+     "hi": 0.2805297410465162,
+     "n": 8571,
+     "n_with": 220
+    },
+    "5": {
+     "b": 0.06769696060197627,
+     "se": 0.08113828491762058,
+     "p": 0.4081383831276211,
+     "pct": 0.07004099476242609,
+     "lo": -0.08728725713796504,
+     "hi": 0.25448859942699165,
+     "n": 8569,
+     "n_with": 218
+    },
+    "10": {
+     "b": 0.018449736678853582,
+     "se": 0.08942979647837436,
+     "p": 0.8374081808950395,
+     "pct": 0.018620984609154956,
+     "lo": -0.14515290681480886,
+     "hi": 0.21377111597821674,
+     "n": 8564,
+     "n_with": 213
+    },
+    "20": {
+     "b": -0.059578959098456265,
+     "se": 0.09960294539972106,
+     "p": 0.5524850360544489,
+     "pct": -0.0578388615399108,
+     "lo": -0.22492907065557732,
+     "hi": 0.14527274500570697,
+     "n": 8554,
+     "n_with": 203
+    }
+   },
+   "trim_k_most_and_k_least_cited_question_titles": {
+    "1": {
+     "b": 0.1404134590005603,
+     "se": 0.07825156354863594,
+     "p": 0.07892213892309963,
+     "pct": 0.15074948824472623,
+     "lo": -0.012875991458350167,
+     "hi": 0.34149749498228954,
+     "n": 8572,
+     "n_with": 221
+    },
+    "3": {
+     "b": 0.13827966626986254,
+     "se": 0.07458198216039422,
+     "p": 0.06975429881464446,
+     "pct": 0.14829664521183616,
+     "lo": -0.00786988775859343,
+     "hi": 0.3290446173696191,
+     "n": 8568,
+     "n_with": 217
+    },
+    "5": {
+     "b": 0.1458261982444865,
+     "se": 0.07770966019653047,
+     "p": 0.06654134483192964,
+     "pct": 0.15699508279856866,
+     "lo": -0.006463755217446354,
+     "hi": 0.34734653984670905,
+     "n": 8564,
+     "n_with": 213
+    },
+    "10": {
+     "b": 0.1842595821535531,
+     "se": 0.0788994831877262,
+     "p": 0.023662583416081517,
+     "pct": 0.20232788545342273,
+     "lo": 0.030059528370128152,
+     "hi": 0.4034066035254016,
+     "n": 8554,
+     "n_with": 203
+    },
+    "20": {
+     "b": 0.20491218016965465,
+     "se": 0.08614486218228047,
+     "p": 0.0213157466852667,
+     "pct": 0.227417268653624,
+     "lo": 0.03672660097002867,
+     "hi": 0.45318269057579275,
+     "n": 8534,
+     "n_with": 183
+    }
+   },
+   "fragility_note": "Most-cited = highest within-year citation percentile. Dropping only the top k is biased downward by construction (a fragility check, not an estimate); the symmetric trim drops the k highest and k lowest."
+  },
+  "d_overlap_paper_type": {
+   "label": "diagnostic (not pre-registered)",
+   "crosstabs_question_rows_feature_cols": {
+    "G1_name": {
+     "question": [
+      209,
+      14
+     ],
+     "other": [
+      6288,
+      2091
+     ]
+    },
+    "G2_assertive": {
+     "question": [
+      223,
+      0
+     ],
+     "other": [
+      7923,
+      456
+     ]
+    },
+    "G4_llm_words": {
+     "question": [
+      218,
+      5
+     ],
+     "other": [
+      8111,
+      268
+     ]
+    },
+    "G6a_meme": {
+     "question": [
+      213,
+      10
+     ],
+     "other": [
+      8306,
+      73
+     ]
+    },
+    "G6b_tentative": {
+     "question": [
+      222,
+      1
+     ],
+     "other": [
+      7880,
+      499
+     ]
+    },
+    "do_really": {
+     "question": [
+      216,
+      7
+     ],
+     "other": [
+      8379,
+      0
+     ]
+    }
+   },
+   "plus_G6a_meme_control": {
+    "b": 0.12292888760735543,
+    "se": 0.0835030679506501,
+    "p": 0.1473751450904386,
+    "pct": 0.13080400390986924,
+    "lo": -0.03991852235602522,
+    "hi": 0.3318845587944732,
+    "n": 8574
+   },
+   "plus_G1_name_control": {
+    "b": 0.16799662766546683,
+    "se": 0.08330181163917366,
+    "p": 0.0492218557007198,
+    "pct": 0.18293262139655475,
+    "lo": 0.004736257631394958,
+    "hi": 0.3927332433119908,
+    "n": 8574
+   },
+   "meme_titles_excluded": {
+    "b": 0.11371491873067419,
+    "se": 0.08820142724506476,
+    "p": 0.20335933625439018,
+    "pct": 0.12043266498397198,
+    "lo": -0.05744393749931487,
+    "hi": 0.33187765344427245,
+    "n": 8491,
+    "n_with": 213
+   },
+   "named_titles_excluded": {
+    "b": 0.15163809291976024,
+    "se": 0.09122615256173036,
+    "p": 0.10285342354873239,
+    "pct": 0.16373899482977095,
+    "lo": -0.02679951148117643,
+    "hi": 0.3915821704411433,
+    "n": 6465,
+    "n_with": 209
+   },
+   "assertive_titles_excluded": {
+    "b": 0.16297639883688886,
+    "se": 0.08636071619427238,
+    "p": 0.06507006351436861,
+    "pct": 0.1770089105813768,
+    "lo": -0.006270860472024187,
+    "hi": 0.39409213283813394,
+    "n": 8115,
+    "n_with": 223,
+    "note": "reference group = titles that are neither questions nor assertive (G2)"
+   },
+   "method_abstract_share": {
+    "question": {
+     "share": 0.4484304932735426,
+     "ci95_wilson": [
+      0.3845773573988681,
+      0.5140303053931419
+     ],
+     "k": 100,
+     "n": 223
+    },
+    "other": {
+     "share": 0.6819429526196443,
+     "ci95_wilson": [
+      0.6718894129240065,
+      0.691829734530718
+     ],
+     "k": 5714,
+     "n": 8379
+    },
+    "diff_adjusted_pp": {
+     "b_pp": -16.697808840111026,
+     "lo_pp": -23.712909503301855,
+     "hi_pp": -9.682708176920196,
+     "p": 2.4121235043583766e-05,
+     "n": 8574,
+     "model": "linear probability, primary controls and year^topic50 FE, SE clustered by topic50"
+    }
+   },
+   "plus_method_indicator": {
+    "b": 0.13762557535057351,
+    "se": 0.0835309706942439,
+    "p": 0.10583369805825549,
+    "pct": 0.1475458003907124,
+    "lo": -0.025757591761741083,
+    "hi": 0.3516773165065421,
+    "n": 8574
+   },
+   "method_indicator_coef": {
+    "b": 0.02246005588118484,
+    "se": 0.026270622632833137,
+    "p": 0.39674012486468535,
+    "pct": 0.02271418193175112,
+    "lo": -0.028613031640574826,
+    "hi": 0.07675347929654186,
+    "n": 8574
+   },
+   "method_regex": "\\b(?:we propose|we introduce|we present|this paper proposes)\\b"
+  },
+  "e_r1_vs_primary": {
+   "label": "diagnostic (not pre-registered)",
+   "reimplementation_check": {
+    "n_pairs": 221,
+    "pct": -0.03701385116883815,
+    "matches_core": true
+   },
+   "pair_balance": {
+    "mean_cosine": 0.8767019510269165,
+    "n_distinct_controls": 213,
+    "share_same_topic50": 0.5475113122171946,
+    "mean_diff_log_authors": -0.022166625378300574,
+    "mean_diff_log_abs_words": -0.017688152571853164,
+    "controls_named_share": 0.2398190045248869,
+    "controls_assertive_share": 0.04524886877828054,
+    "treated_named_share": 0.06334841628959276,
+    "base_rate_named_nonquestion": 0.24955245255997136,
+    "base_rate_assertive_nonquestion": 0.05442176870748299,
+    "controls_llm_topic_share": 0.3936651583710407,
+    "treated_llm_topic_share": 0.37104072398190047
+   },
+   "R1_regression_adj_team_abstract": {
+    "pct": -0.034251161434137534,
+    "lo": -0.24587146931861104,
+    "hi": 0.23525234919432703,
+    "n_pairs": 221,
+    "adjusted_for_pair_differences_in": [
+     "log_authors",
+     "log_abs_words"
+    ]
+   },
+   "R1_regression_adj_team_abstract_named_assertive": {
+    "pct": 0.013995082160439987,
+    "lo": -0.21571221104206095,
+    "hi": 0.32401775521171006,
+    "n_pairs": 221,
+    "adjusted_for_pair_differences_in": [
+     "log_authors",
+     "log_abs_words",
+     "G1_name",
+     "G2_assertive"
+    ]
+   },
+   "R1_caliper_0.85": {
+    "n_pairs": 182,
+    "pct": 0.09059592475535716,
+    "lo": -0.17489695926717264,
+    "hi": 0.47035158320961434
+   },
+   "R1_era_2017_21": {
+    "n_pairs": 39,
+    "pct": 0.18411196242616645,
+    "lo": -0.3000484946425245,
+    "hi": 1.018952730765026
+   },
+   "R1_era_2022_25": {
+    "n_pairs": 182,
+    "pct": -0.07873827693615376,
+    "lo": -0.32107845575544147,
+    "hi": 0.23767462303063058
+   },
+   "R1_arxiv_id_only": {
+    "n_pairs": 174,
+    "pct": -0.03084546711881908,
+    "lo": -0.2227822173915336,
+    "hi": 0.20140241452446572
+   },
+   "R1_controls_plain_titles_only": {
+    "n_pairs": 221,
+    "pct": -0.05981987695131474,
+    "lo": -0.26830569704043183,
+    "hi": 0.18590624998277328,
+    "note": "control pool restricted to non-question titles that are neither named (G1) nor assertive (G2); matched-pairs counterpart of the joint model"
+   }
+  }
+ }
+}

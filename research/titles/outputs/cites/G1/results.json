@@ -1,0 +1,762 @@
+{
+ "question": "G1: among accepted ICLR papers 2017-2025, do papers whose titles lead with a coined method name ('NAME: subtitle') receive more or fewer Semantic Scholar citations than papers with similar content?",
+ "feature": "G1_name",
+ "label": "Coined method name ('NAME: subtitle')",
+ "outcome": "y = log(1 + Semantic Scholar citationCount, retrieved 2026-10-17); % difference = exp(b) - 1",
+ "primary": {
+  "frozen": {
+   "b": 0.20263841655064935,
+   "se": 0.038839874333681086,
+   "p": 3.657001823365036e-06,
+   "pct": 0.22462958239364839,
+   "lo": 0.13486336775752106,
+   "hi": 0.32149618771911626,
+   "n": 8574,
+   "n_with": 2105,
+   "p_holm": 2.559901276355525e-05,
+   "label": "Coined method name ('NAME: subtitle')"
+  },
+  "reproduced": {
+   "b": 0.20263841655064935,
+   "se": 0.038839874333681086,
+   "p": 3.657001823365036e-06,
+   "pct": 0.22462958239364839,
+   "lo": 0.13486336775752106,
+   "hi": 0.32149618771911626,
+   "n": 8574,
+   "n_with": 2105
+  },
+  "max_abs_diff": 0.0,
+  "reproduction_ok": true,
+  "n_papers_frame": 8602,
+  "n_papers_frozen": 8602
+ },
+ "robustness": {
+  "R1_matched_pairs": {
+   "n_pairs": 2065,
+   "pct": 0.08376797662521707,
+   "lo": 0.0021859676399258454,
+   "hi": 0.173188773622156
+  },
+  "R2_ppml_counts": {
+   "b": 0.322416945727931,
+   "se": 0.12478418518498509,
+   "p": 0.009771942219896301,
+   "pct": 0.38046023297845544,
+   "lo": 0.08094963101456343,
+   "hi": 0.762959531283893,
+   "n": 8574
+  },
+  "R3_influential": {
+   "b": 0.21803953121815464,
+   "se": 0.03726080459686618,
+   "p": 3.9573180599106195e-07,
+   "pct": 0.24363622910242655,
+   "lo": 0.1560492281037329,
+   "hi": 0.33785917825752243,
+   "n": 8574
+  },
+  "R4_drop_top1pct": {
+   "b": 0.17876440757734596,
+   "se": 0.03707760078393206,
+   "p": 1.4234976822624645e-05,
+   "pct": 0.19573900393245602,
+   "lo": 0.11192451356649968,
+   "hi": 0.2858712512230912,
+   "n": 8481
+  },
+  "R5_era_2017_21": {
+   "b": 0.22773608696899966,
+   "se": 0.10458862695998694,
+   "p": 0.03450162304595206,
+   "pct": 0.25575387188629306,
+   "lo": 0.02300295765884397,
+   "hi": 0.5414596555675792,
+   "n": 1975
+  },
+  "R5_era_2022_25": {
+   "b": 0.19657741853399832,
+   "se": 0.04096665245126322,
+   "p": 1.538465330308547e-05,
+   "pct": 0.21722955335803706,
+   "lo": 0.12331347750629562,
+   "hi": 0.31899760417492407,
+   "n": 6599
+  },
+  "R6_team_prior_2022_25": {
+   "b": 0.1985401554233583,
+   "se": 0.04039944535516072,
+   "p": 1.0368368625002233e-05,
+   "pct": 0.21962100082859526,
+   "lo": 0.12677237740804936,
+   "hi": 0.32012056337752237,
+   "n": 6599
+  },
+  "R7_year_plus_topic100_fe": {
+   "b": 0.21299587431101774,
+   "se": 0.03520882524486117,
+   "p": 1.9633982883959789e-07,
+   "pct": 0.2373795461899093,
+   "lo": 0.15486860642449707,
+   "hi": 0.3257855766549025,
+   "n": 8602
+  }
+ },
+ "verdict": "more citations",
+ "verdict_inputs": {
+  "p_holm": 2.559901276355525e-05,
+  "R1_sign_same": true,
+  "R2_sign_same": true
+ },
+ "secondary_prespecified": {
+  "orthography_vs_no_name": {
+   "ortho_mixed_case": {
+    "b": 0.2598930231214344,
+    "se": 0.047512073284188674,
+    "p": 1.5162260835754893e-06,
+    "pct": 0.29679135255418587,
+    "lo": 0.18148173632464815,
+    "hi": 0.4233548944147414,
+    "n": 8574,
+    "n_with": 1355,
+    "label": "mixed case (e.g. LoRA)",
+    "prespecified": true
+   },
+   "ortho_all_caps": {
+    "b": 0.08116268833749057,
+    "se": 0.06024731241324621,
+    "p": 0.18412634922400128,
+    "pct": 0.08454732541621501,
+    "lo": -0.03624873737861167,
+    "hi": 0.22048390148730168,
+    "n": 8574,
+    "n_with": 608,
+    "label": "ALL CAPS (e.g. CRISP)",
+    "prespecified": true
+   },
+   "ortho_word": {
+    "b": 0.2521539879813427,
+    "se": 0.10763635094242782,
+    "p": 0.02325295440077091,
+    "pct": 0.2867941728662833,
+    "lo": 0.04204667931426953,
+    "hi": 0.5890259776196065,
+    "n": 8574,
+    "n_with": 134,
+    "label": "ordinary word (e.g. Chameleon)",
+    "prespecified": true
+   },
+   "ortho_paren_acronym": {
+    "b": -0.25429479427815055,
+    "se": 0.5375639722188549,
+    "p": 0.6382778678686687,
+    "pct": -0.2245368337564565,
+    "lo": -0.7296181824403796,
+    "hi": 1.2240516304979066,
+    "n": 8574,
+    "n_with": 8,
+    "label": "phrase (ACRONYM)",
+    "prespecified": false
+   },
+   "note": "One model, y ~ ortho_mixed_case + ortho_all_caps + ortho_word + ortho_paren_acronym + primary controls | year^topic50, SE clustered by topic50; the four dummies partition G1_name, so each coefficient compares that class with untitled-name papers. ortho_paren_acronym (n = 8) is a residual class kept only to make the reference group exactly 'no name'; it is not interpreted."
+  },
+  "joint_model_8_features": {
+   "b": 0.20951728932940342,
+   "se": 0.039859017292996166,
+   "p": 3.1923071808215298e-06,
+   "pct": 0.23308269409940774,
+   "lo": 0.14041657854723177,
+   "hi": 0.33327852215582365,
+   "n": 8574,
+   "model": "y ~ all 8 primary features + primary controls | year^topic50"
+  },
+  "llm_topic_heterogeneity": {
+   "llm_topic_papers": {
+    "b": 0.18384829371367292,
+    "se": 0.08203851985353894,
+    "p": 0.02959067219883682,
+    "pct": 0.2018334835710489,
+    "lo": 0.02332056412636918,
+    "hi": 0.41148704801573244,
+    "n": 8574,
+    "n_with": 698
+   },
+   "non_llm_topic_papers": {
+    "b": 0.21289996026524624,
+    "se": 0.04467276141645144,
+    "p": 1.7187627939785344e-05,
+    "pct": 0.23726086980293637,
+    "lo": 0.13353531692302978,
+    "hi": 0.35047795784687086,
+    "n": 8574,
+    "n_with": 1407
+   },
+   "difference_llm_minus_non": {
+    "b": -0.02905166655157361,
+    "se": 0.09513617876497593,
+    "p": 0.7613784003163127,
+    "ratio": 0.971366276024287,
+    "ratio_lo": 0.8061232948222529,
+    "ratio_hi": 1.17048154824175
+   },
+   "n_llm_topic_papers": 1931,
+   "note": "One model with G1 split by llm_topic plus an llm_topic main effect; 'difference' is the G1 x llm_topic interaction (ratio of the two citation multipliers)."
+  }
+ },
+ "diagnostics_not_preregistered": {
+  "label": "diagnostic (not pre-registered)",
+  "a_s2_split_records": {
+   "label": "diagnostic (not pre-registered)",
+   "accepted_2017_25": 8873,
+   "accepted_missing_G1_feature": 0,
+   "match_rate": {
+    "named": {
+     "share": 0.9568181818181818,
+     "lo": 0.9483242278540728,
+     "hi": 0.9653121357822908,
+     "n": 2200
+    },
+    "not_named": {
+     "share": 0.9736250561966132,
+     "lo": 0.9697801375833632,
+     "hi": 0.9774699748098632,
+     "n": 6673
+    }
+   },
+   "match_rate_diff_year_fe_pp": {
+    "b_pp": -1.7309348287837514,
+    "lo_pp": -2.6773216837967566,
+    "hi_pp": -0.7845479737707458,
+    "p": 0.0003391161477006577,
+    "n": 8873
+   },
+   "match_rate_by_year": [
+    {
+     "year": 2017,
+     "not_named": 0.9412,
+     "named": 1.0
+    },
+    {
+     "year": 2018,
+     "not_named": 0.9622,
+     "named": 1.0
+    },
+    {
+     "year": 2019,
+     "not_named": 0.9803,
+     "named": 0.9464
+    },
+    {
+     "year": 2020,
+     "not_named": 0.9828,
+     "named": 0.9565
+    },
+    {
+     "year": 2021,
+     "not_named": 0.9738,
+     "named": 0.9434
+    },
+    {
+     "year": 2022,
+     "not_named": 0.979,
+     "named": 0.9565
+    },
+    {
+     "year": 2023,
+     "not_named": 0.9689,
+     "named": 0.9537
+    },
+    {
+     "year": 2024,
+     "not_named": 0.9729,
+     "named": 0.9548
+    },
+    {
+     "year": 2025,
+     "not_named": 0.9748,
+     "named": 0.959
+    }
+   ],
+   "arxiv_share": {
+    "named": {
+     "share": 0.7748218527315914,
+     "lo": 0.7569777763958335,
+     "hi": 0.7926659290673493,
+     "n": 2105
+    },
+    "not_named": {
+     "share": 0.7663537017084808,
+     "lo": 0.7560642147719994,
+     "hi": 0.7766431886449623,
+     "n": 6497
+    }
+   },
+   "arxiv_share_diff_primary_controls_pp": {
+    "b_pp": 1.0423732905876695,
+    "lo_pp": -1.5567445525800978,
+    "hi_pp": 3.6414911337554368,
+    "se_pp": 1.3260805322284528,
+    "p": 0.4356197103940582,
+    "n": 8574
+   },
+   "multi_record_share": {
+    "named": {
+     "share": 0.0019002375296912114,
+     "lo": 3.977493424398471e-05,
+     "hi": 0.0037607001251384383,
+     "n": 2105
+    },
+    "not_named": {
+     "share": 0.0015391719255040787,
+     "lo": 0.0005859177414406361,
+     "hi": 0.0024924261095675216,
+     "n": 6497
+    }
+   },
+   "arxiv_share_by_year": [
+    {
+     "year": 2017,
+     "not_named": 0.8438,
+     "named": 0.6923
+    },
+    {
+     "year": 2018,
+     "not_named": 0.7686,
+     "named": 0.76
+    },
+    {
+     "year": 2019,
+     "not_named": 0.8023,
+     "named": 0.717
+    },
+    {
+     "year": 2020,
+     "not_named": 0.7991,
+     "named": 0.8409
+    },
+    {
+     "year": 2021,
+     "not_named": 0.781,
+     "named": 0.74
+    },
+    {
+     "year": 2022,
+     "not_named": 0.7568,
+     "named": 0.7857
+    },
+    {
+     "year": 2023,
+     "not_named": 0.7795,
+     "named": 0.7733
+    },
+    {
+     "year": 2024,
+     "not_named": 0.7858,
+     "named": 0.8409
+    },
+    {
+     "year": 2025,
+     "not_named": 0.7251,
+     "named": 0.7438
+    }
+   ],
+   "qc_split_sample": {
+    "n_checked": 24,
+    "n_split": 5,
+    "split_by_G1": {
+     "0": {
+      "n": 21,
+      "split": 5
+     },
+     "1": {
+      "n": 3,
+      "split": 0
+     }
+    },
+    "split_cites_venue_vs_other": [
+     [
+      0.0,
+      20.0
+     ],
+     [
+      0.0,
+      15.0
+     ],
+     [
+      0.0,
+      11.0
+     ],
+     [
+      0.0,
+      18.0
+     ],
+     [
+      12.0,
+      82.0
+     ]
+    ],
+    "note": "Random sample of matched records without an arXiv id (qc_split.py); too small for a G1 comparison, shown only to size the artefact."
+   },
+   "primary_spec_arxiv_only": {
+    "b": 0.1875094060757527,
+    "se": 0.04160971797864741,
+    "p": 4.1045061376809855e-05,
+    "pct": 0.20624159536744235,
+    "lo": 0.1117711328217188,
+    "hi": 0.3087394909253469,
+    "n": 6575,
+    "n_with": 1631
+   },
+   "primary_spec_no_arxiv_only": {
+    "b": 0.1542578143410267,
+    "se": 0.06991537899978276,
+    "p": 0.03207765151896114,
+    "pct": 0.16679166362835463,
+    "lo": 0.017372854191929132,
+    "hi": 0.33815521094667655,
+    "n": 1926,
+    "n_with": 474
+   },
+   "primary_spec_plus_arxiv_control": {
+    "b": 0.19072915753197284,
+    "se": 0.03618897969122009,
+    "p": 3.04181598886899e-06,
+    "pct": 0.21013165264885858,
+    "lo": 0.12726997394014017,
+    "hi": 0.29908420395877644,
+    "n": 8574
+   },
+   "difference_no_arxiv_minus_arxiv": {
+    "b": -0.03325159173472621,
+    "se": 0.08098874039171179,
+    "p": 0.6831773359311919,
+    "ratio": 0.9672951655036645,
+    "ratio_lo": 0.8253155153575233,
+    "ratio_hi": 1.1336996818743164,
+    "model": "G1 x no-arXiv interaction; controls and year^topic50 FE interacted with has_arxiv"
+   },
+   "match_rate_trimming_bounds": {
+    "lower": {
+     "b": 0.15605539717392303,
+     "se": 0.03799455409051841,
+     "p": 0.0001514780652853709,
+     "pct": 0.1688909545518349,
+     "lo": 0.085006601338113,
+     "hi": 0.259260599841574,
+     "n": 8445
+    },
+    "upper": {
+     "b": 0.2848041467182342,
+     "se": 0.039298335929752286,
+     "p": 2.7488624709803844e-09,
+     "pct": 0.3295016153664774,
+     "lo": 0.23094160409135545,
+     "hi": 0.4359532080052193,
+     "n": 8449
+    },
+    "n_trimmed_lower": 127,
+    "n_trimmed_upper": 127,
+    "trim_by_year": {
+     "2017": {
+      "group_trimmed": "named",
+      "share": 0.05882352941176472
+     },
+     "2018": {
+      "group_trimmed": "named",
+      "share": 0.037815126050420145
+     },
+     "2019": {
+      "group_trimmed": "not_named",
+      "share": 0.03458862054850598
+     },
+     "2020": {
+      "group_trimmed": "not_named",
+      "share": 0.026770457565976794
+     },
+     "2021": {
+      "group_trimmed": "not_named",
+      "share": 0.031198130144642757
+     },
+     "2022": {
+      "group_trimmed": "not_named",
+      "share": 0.022952043291658827
+     },
+     "2023": {
+      "group_trimmed": "not_named",
+      "share": 0.0157277952309008
+     },
+     "2024": {
+      "group_trimmed": "not_named",
+      "share": 0.018567140558992418
+     },
+     "2025": {
+      "group_trimmed": "not_named",
+      "share": 0.016142886762832803
+     }
+    },
+    "note": "Bounds treat the excess unmatched named papers as missing at the extremes of the outcome distribution."
+   }
+  },
+  "b_method_paper_confound": {
+   "label": "diagnostic (not pre-registered)",
+   "regex": "\\b(?:we propose|we introduce|we present|this paper proposes)\\b",
+   "share_method_abstract": {
+    "named": {
+     "share": 0.8270783847980998,
+     "lo": 0.810922602271726,
+     "hi": 0.8432341673244736,
+     "n": 2105
+    },
+    "not_named": {
+     "share": 0.6269047252578113,
+     "lo": 0.6151446450443171,
+     "hi": 0.6386648054713054,
+     "n": 6497
+    }
+   },
+   "method_share_diff_primary_controls_pp": {
+    "b_pp": 8.674804410664269,
+    "lo_pp": 6.596859170025825,
+    "hi_pp": 10.752749651302713,
+    "se_pp": 1.06017614318288,
+    "p": 1.0065659417080042e-10,
+    "n": 8574
+   },
+   "primary_spec_plus_method_control": {
+    "b": 0.20212029332712503,
+    "se": 0.038499517291315455,
+    "p": 3.2653213355438027e-06,
+    "pct": 0.22399523771534113,
+    "lo": 0.1350324484144798,
+    "hi": 0.3199308478296028,
+    "n": 8574
+   },
+   "method_indicator_coef": {
+    "b": 0.0059727366635206215,
+    "se": 0.025951559439034013,
+    "p": 0.8189337903034317,
+    "pct": 0.005990609019721482,
+    "lo": -0.0438995706596127,
+    "hi": 0.0584841031125356,
+    "n": 8574
+   },
+   "primary_spec_method_abstracts_only": {
+    "b": 0.24130666497665962,
+    "se": 0.04898929719518692,
+    "p": 9.976710127590493e-06,
+    "pct": 0.2729113327840451,
+    "lo": 0.15637214417906153,
+    "hi": 0.4011953412111544,
+    "n": 5773,
+    "n_with": 1741
+   },
+   "primary_spec_non_method_abstracts_only": {
+    "b": 0.07883842434808974,
+    "se": 0.062019579123347275,
+    "p": 0.2096638968958402,
+    "pct": 0.08202947832710228,
+    "lo": -0.04182030998412445,
+    "hi": 0.22188750624574727,
+    "n": 2720,
+    "n_with": 364
+   },
+   "difference_method_minus_non_method": {
+    "b": 0.158749583255902,
+    "se": 0.08097760397560388,
+    "p": 0.05564589432602429,
+    "ratio": 1.1720444103838632,
+    "ratio_lo": 1.000033480024162,
+    "ratio_hi": 1.3736421103410135
+   }
+  },
+  "c_team_prior": {
+   "label": "diagnostic (not pre-registered) - comparison of two pre-registered checks",
+   "R5_2022_25_no_team_prior": {
+    "b": 0.19657741853399832,
+    "se": 0.04096665245126322,
+    "p": 1.538465330308547e-05,
+    "pct": 0.21722955335803706,
+    "lo": 0.12331347750629562,
+    "hi": 0.31899760417492407,
+    "n": 6599
+   },
+   "R6_2022_25_with_team_prior": {
+    "b": 0.1985401554233583,
+    "se": 0.04039944535516072,
+    "p": 1.0368368625002233e-05,
+    "pct": 0.21962100082859526,
+    "lo": 0.12677237740804936,
+    "hi": 0.32012056337752237,
+    "n": 6599
+   },
+   "change_in_b": 0.0019627368893599673,
+   "share_of_b_removed": -0.009984549110459096,
+   "mean_log1p_prior_accs": {
+    "named": 1.1199525990187171,
+    "not_named": 1.0135522035111753
+   },
+   "team_prior_coef": {
+    "b": 0.13760604715498123,
+    "se": 0.022333208733409847,
+    "p": 1.3188459258017815e-07,
+    "pct": 0.14752339111067858,
+    "lo": 0.09837625566700225,
+    "hi": 0.19886962810071163,
+    "n": 6599
+   },
+   "n_2022_25": 6602
+  },
+  "orthography_followups": {
+   "label": "diagnostic (not pre-registered)",
+   "pairwise_ratio_of_multipliers": {
+    "ortho_all_caps_minus_mixed_case": {
+     "b": -0.1787303347839439,
+     "se": 0.06726499213725297,
+     "p": 0.010609963829892877,
+     "pct": -0.16366860152169505,
+     "lo": -0.266970783707145,
+     "hi": -0.04580855369175696,
+     "n": 8574,
+     "ratio": 0.836331398478305
+    },
+    "ortho_word_minus_mixed_case": {
+     "b": -0.007739035140091712,
+     "se": 0.12048599375200479,
+     "p": 0.9490469658710274,
+     "pct": -0.007709165910315563,
+     "lo": -0.21642741767043183,
+     "hi": 0.25660483996397,
+     "n": 8574,
+     "ratio": 0.9922908340896844
+    },
+    "ortho_word_minus_all_caps": {
+     "b": 0.17099129964385198,
+     "se": 0.12484070128709723,
+     "p": 0.17703253460417456,
+     "pct": 0.1864804261745352,
+     "lo": -0.07104638818791031,
+     "hi": 0.515399459989468,
+     "n": 8574,
+     "ratio": 1.1864804261745352
+    }
+   },
+   "matched_pairs_vs_no_name": {
+    "ortho_mixed_case": {
+     "n_pairs": 1326,
+     "pct": 0.15769528489035256,
+     "lo": 0.05121737894844314,
+     "hi": 0.2802898575448627
+    },
+    "ortho_all_caps": {
+     "n_pairs": 599,
+     "pct": -0.02490107195523472,
+     "lo": -0.15314895898299852,
+     "hi": 0.12741850093450036
+    },
+    "ortho_word": {
+     "n_pairs": 132,
+     "pct": -0.07171550628236978,
+     "lo": -0.31900718481380863,
+     "hi": 0.2625711273496365
+    }
+   }
+  },
+  "content_granularity": {
+   "label": "diagnostic (not pre-registered)",
+   "pairs_reimplementation_check": {
+    "n_pairs": 2065,
+    "pct": 0.08376797662521707,
+    "core_R1_n_pairs": 2065,
+    "core_R1_pct": 0.08376797662521707
+   },
+   "pair_control_differences_mean": {
+    "d_log_authors": 0.08780632079022783,
+    "d_log_abs_words": -0.022275109202914353
+   },
+   "R1_pairs_adjusted_team_size_abs_length": {
+    "pct": 0.056000965855266926,
+    "lo": -0.04716967647887016,
+    "hi": 0.17034272772336645,
+    "p": 0.2988879528909989,
+    "n_pairs": 2065,
+    "coef_d_log_authors": 0.3083623868999827,
+    "note": "intercept of d_y ~ 1 + d_log_authors + d_log_abs_words; SE clustered by control paper (pairs share controls)"
+   },
+   "primary_spec_more_pcs": {
+    "unmasked_20pcs": {
+     "b": 0.20263809075968786,
+     "se": 0.03883985627806225,
+     "p": 3.657077393581787e-06,
+     "pct": 0.22462918342046434,
+     "lo": 0.13486303819103562,
+     "hi": 0.32149571042124325,
+     "n": 8574
+    },
+    "unmasked_50pcs": {
+     "b": 0.18227102018748834,
+     "se": 0.037952030774152455,
+     "p": 1.5167318473174873e-05,
+     "pct": 0.1999393576045838,
+     "lo": 0.11391968167424982,
+     "hi": 0.29260168898745276,
+     "n": 8574
+    },
+    "unmasked_100pcs": {
+     "b": 0.16550271248734552,
+     "se": 0.03809222087457572,
+     "p": 7.001530107575427e-05,
+     "pct": 0.17998616341265516,
+     "lo": 0.09509592215481244,
+     "hi": 0.27145697255959633,
+     "n": 8574
+    },
+    "name_masked_20pcs": {
+     "b": 0.18869944970292732,
+     "se": 0.03794459722243995,
+     "p": 8.485516692635642e-06,
+     "pct": 0.2076779299717515,
+     "lo": 0.12111983576362095,
+     "hi": 0.300918899135743,
+     "n": 8574
+    },
+    "name_masked_50pcs": {
+     "b": 0.16660820749271718,
+     "se": 0.036490667085902574,
+     "p": 3.367424568989641e-05,
+     "pct": 0.18129135353036863,
+     "lo": 0.09975397973593303,
+     "hi": 0.26887402786273906,
+     "n": 8574
+    },
+    "name_masked_100pcs": {
+     "b": 0.16031277618642503,
+     "se": 0.037061282647601765,
+     "p": 7.456200358779697e-05,
+     "pct": 0.17387797465441635,
+     "lo": 0.0916307315324687,
+     "hi": 0.2623220101584036,
+     "n": 8574
+    }
+   },
+   "R1_caliper": {
+    "0.85": {
+     "n_pairs": 1520,
+     "pct": 0.1210339437696002,
+     "lo": 0.018018146019147085,
+     "hi": 0.22556843225101364
+    },
+    "0.90": {
+     "n_pairs": 313,
+     "pct": 0.25211860109047834,
+     "lo": 0.025829198243915608,
+     "hi": 0.520273000830028
+    }
+   }
+  }
+ },
+ "figure": {
+  "pdf": "/home/user/cloud-research/research/titles/outputs/cites/G1/fig.pdf",
+  "png": "/home/user/cloud-research/research/titles/outputs/cites/G1/fig.png",
+  "csv": "/home/user/cloud-research/research/titles/outputs/cites/G1/fig.csv"
+ }
+}

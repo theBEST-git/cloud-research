@@ -1,0 +1,963 @@
+{
+ "question": "G4: among accepted ICLR papers 2017-2025, do papers whose titles use LLM-favoured words (enhancing, leveraging, unveiling, unleashing, harnessing, empowering, elevating, boosting) receive more or fewer Semantic Scholar citations than papers with similar content?",
+ "feature": "G4_llm_words",
+ "label": "LLM-favoured title words (enhancing, leveraging, unveiling, ...)",
+ "outcome": "y = log(1 + Semantic Scholar citationCount, retrieved 2026-10-17); % difference = exp(b) - 1",
+ "primary": {
+  "frozen": {
+   "b": -0.09478465059554506,
+   "se": 0.06980776874529268,
+   "p": 0.18074883918202156,
+   "pct": -0.09043121152413836,
+   "lo": -0.20674288357754989,
+   "hi": 0.042934710375619245,
+   "n": 8574,
+   "n_with": 273,
+   "p_holm": 0.3614976783640431,
+   "label": "LLM-favoured title words (enhancing, leveraging, unveiling, ...)"
+  },
+  "reproduced": {
+   "b": -0.09478465059554506,
+   "se": 0.06980776874529268,
+   "p": 0.18074883918202156,
+   "pct": -0.09043121152413836,
+   "lo": -0.20674288357754989,
+   "hi": 0.042934710375619245,
+   "n": 8574,
+   "n_with": 273
+  },
+  "max_abs_diff": 0.0,
+  "reproduction_ok": true,
+  "n_papers_frame": 8602,
+  "n_papers_frozen": 8602
+ },
+ "robustness": {
+  "R1_matched_pairs": {
+   "n_pairs": 273,
+   "pct": -0.3047178052032792,
+   "lo": -0.43924842579003365,
+   "hi": -0.138903748632067
+  },
+  "R2_ppml_counts": {
+   "b": 0.02075735264722987,
+   "se": 0.19788851764822096,
+   "p": 0.9164597817623097,
+   "pct": 0.020974284871299043,
+   "lo": -0.3072625017415501,
+   "hi": 0.5047380760952556,
+   "n": 8574
+  },
+  "R3_influential": {
+   "b": -0.10481652787720935,
+   "se": 0.06330879613591993,
+   "p": 0.10418641697934627,
+   "pct": -0.09951027780807731,
+   "lo": -0.20459333618650088,
+   "hi": 0.019455552315331692,
+   "n": 8574
+  },
+  "R4_drop_top1pct": {
+   "b": -0.11512751089675433,
+   "se": 0.06935898741314102,
+   "p": 0.1033262754991322,
+   "pct": -0.10874750774344877,
+   "lo": -0.22203296426853503,
+   "hi": 0.021034270695882595,
+   "n": 8481
+  },
+  "R5_era_2017_21": {
+   "b": -0.07090669740710909,
+   "se": 0.22949012833542215,
+   "p": 0.7587061208812829,
+   "pct": -0.06845119600820526,
+   "lo": -0.4058998368150225,
+   "hi": 0.4606681297078732,
+   "n": 1975
+  },
+  "R5_era_2022_25": {
+   "b": -0.09476378558676057,
+   "se": 0.07177211781147536,
+   "p": 0.19285508570565013,
+   "pct": -0.0904122331653856,
+   "lo": -0.20977466221987928,
+   "hi": 0.04697972340313661,
+   "n": 6599
+  },
+  "R6_team_prior_2022_25": {
+   "b": -0.08276248302381435,
+   "se": 0.07144574229634659,
+   "p": 0.252317139724789,
+   "pct": -0.07943022779581377,
+   "lo": -0.19972202100433856,
+   "hi": 0.05894292700594406,
+   "n": 6599
+  },
+  "R7_year_plus_topic100_fe": {
+   "b": -0.12528024830956377,
+   "se": 0.07592848683501151,
+   "p": 0.1053443698941634,
+   "pct": -0.11775038102852342,
+   "lo": -0.23974401687093472,
+   "hi": 0.023818828720978402,
+   "n": 8602
+  }
+ },
+ "verdict": "inconclusive",
+ "verdict_inputs": {
+  "p_holm": 0.3614976783640431,
+  "R1_sign_same": true,
+  "R2_sign_same": false,
+  "ci_within_10pct": false
+ },
+ "secondary_prespecified": {
+  "word_families": {
+   "r24_enhanc": {
+    "b": 0.02009115098738135,
+    "se": 0.11443948130864164,
+    "p": 0.8613620673246247,
+    "pct": 0.02029433662452851,
+    "lo": -0.18470904738631122,
+    "hi": 0.27684543782904747,
+    "n": 8574,
+    "n_with": 131,
+    "n_with_2023plus": 123,
+    "label": "enhanc*",
+    "interpretable": true
+   },
+   "r24_leverag": {
+    "b": -0.4086011910091429,
+    "se": 0.14803503967937026,
+    "p": 0.008104416444755458,
+    "pct": -0.33542078035302714,
+    "lo": -0.5027935112168044,
+    "hi": -0.11170600313873735,
+    "n": 8574,
+    "n_with": 40,
+    "n_with_2023plus": 34,
+    "label": "leverag*",
+    "interpretable": true
+   },
+   "r24_unveil": {
+    "b": -0.7075225986706085,
+    "se": 0.47766419330144805,
+    "p": 0.14495202052223055,
+    "pct": -0.5071362925665742,
+    "lo": -0.8067449418134909,
+    "hi": 0.25696391279231756,
+    "n": 8574,
+    "n_with": 10,
+    "n_with_2023plus": 10,
+    "label": "unveil*",
+    "interpretable": false
+   },
+   "r24_unleash": {
+    "b": 0.07618861327754785,
+    "se": 0.21838239361671072,
+    "p": 0.7286763127635036,
+    "pct": 0.07916610001798352,
+    "lo": -0.29660796192871786,
+    "hi": 0.6556904377555715,
+    "n": 8574,
+    "n_with": 10,
+    "n_with_2023plus": 10,
+    "label": "unleash*",
+    "interpretable": false
+   },
+   "r24_harness": {
+    "b": 0.13449706740246486,
+    "se": 0.2518348213103803,
+    "p": 0.595708903211571,
+    "pct": 0.14396130421937525,
+    "lo": -0.30169491163397355,
+    "hi": 0.8740339822145875,
+    "n": 8574,
+    "n_with": 17,
+    "n_with_2023plus": 15,
+    "label": "harness*",
+    "interpretable": false
+   },
+   "r24_empower": {
+    "b": 0.42643503629067586,
+    "se": 0.34660828833199236,
+    "p": 0.22445557902975377,
+    "pct": 0.5317870131441871,
+    "lo": -0.223467830838471,
+    "hi": 2.021602384059267,
+    "n": 8574,
+    "n_with": 19,
+    "n_with_2023plus": 17,
+    "label": "empower*",
+    "interpretable": false
+   },
+   "r24_elevat": {
+    "b": 0.8597640489312729,
+    "se": 0.24963917390855983,
+    "p": 0.0011833084479317968,
+    "pct": 1.36260316919138,
+    "lo": 0.4484170465533164,
+    "hi": 2.8537890370428505,
+    "n": 8574,
+    "n_with": 2,
+    "n_with_2023plus": 2,
+    "label": "elevat*",
+    "interpretable": false
+   },
+   "r24_boost": {
+    "b": -0.3597110738857535,
+    "se": 0.14691579792591333,
+    "p": 0.017974918773467907,
+    "pct": -0.30212206789585405,
+    "lo": -0.47673436514250056,
+    "hi": -0.06924212928564977,
+    "n": 8574,
+    "n_with": 55,
+    "n_with_2023plus": 41,
+    "label": "boost*",
+    "interpretable": true
+   },
+   "n_titles_two_families": 11,
+   "note": "One model: y ~ 8 family dummies + primary controls | year^topic50, SE clustered by topic50. Families with n < 20 are reported but not interpreted."
+  },
+  "era_pre2023_vs_2023plus": {
+   "pre_2023": {
+    "b": -0.04679393307040046,
+    "se": 0.20545355479246946,
+    "p": 0.8208008706854639,
+    "pct": -0.04571597629066326,
+    "lo": -0.3620420458936463,
+    "hi": 0.4274577063350895,
+    "n": 2825,
+    "n_with": 32
+   },
+   "from_2023": {
+    "b": -0.0950228801420203,
+    "se": 0.07611947184963819,
+    "p": 0.21783904326354842,
+    "pct": -0.09064787187563172,
+    "lo": -0.2166823993319692,
+    "hi": 0.05566540598487846,
+    "n": 5749,
+    "n_with": 241
+   },
+   "difference_2023plus_minus_pre": {
+    "b": -0.048228947071619295,
+    "se": 0.22503890983513938,
+    "p": 0.8311917299869052,
+    "ratio": 0.9529155948662789,
+    "ratio_lo": 0.6130521885649717,
+    "ratio_hi": 1.4811922180147614,
+    "n": 8574,
+    "check_b_post_minus_b_pre": -0.04822894707161984,
+    "model": "pooled, G4 x post2023 with all controls interacted with post2023; year^topic50 FE are nested in era, so the point estimate equals the split-sample difference; SE clustered by topic50"
+   }
+  },
+  "joint_model_8_features": {
+   "b": -0.0822227812844643,
+   "se": 0.07036913440493357,
+   "p": 0.24827901578484846,
+   "pct": -0.0789332605935934,
+   "lo": -0.1975985896874598,
+   "hi": 0.05728121553314125,
+   "n": 8574,
+   "model": "y ~ all 8 primary features + primary controls | year^topic50"
+  },
+  "llm_topic_heterogeneity": {
+   "llm_topic_papers": {
+    "b": -0.014329538920782392,
+    "se": 0.14586381465236634,
+    "p": 0.9221431601418626,
+    "pct": -0.014227359720466404,
+    "lo": -0.25934667868490346,
+    "hi": 0.3120142317032448,
+    "n": 8574,
+    "n_with": 92
+   },
+   "non_llm_topic_papers": {
+    "b": -0.13693939849245448,
+    "se": 0.08204599301654437,
+    "p": 0.1014841657811425,
+    "pct": -0.1279769295564459,
+    "lo": -0.2575127237419318,
+    "hi": 0.02415793468964611,
+    "n": 8574,
+    "n_with": 181
+   },
+   "difference_llm_minus_non": {
+    "b": 0.12260985957167199,
+    "se": 0.17441442660935572,
+    "p": 0.4853948959675065,
+    "ratio": 1.1304433032696264,
+    "ratio_lo": 0.8031270032499452,
+    "ratio_hi": 1.591158131573173,
+    "n": 8574
+   },
+   "n_llm_topic_papers": 1931,
+   "note": "One model with G4 split by llm_topic plus an llm_topic main effect; 'difference' is the G4 x llm_topic interaction (ratio of the two citation multipliers)."
+  }
+ },
+ "diagnostics_not_preregistered": {
+  "label": "diagnostic (not pre-registered)",
+  "a_s2_split_records": {
+   "label": "diagnostic (not pre-registered)",
+   "arxiv_share": {
+    "G4": {
+     "share": 0.706959706959707,
+     "lo": 0.652966919545684,
+     "hi": 0.76095249437373,
+     "n": 273
+    },
+    "not_G4": {
+     "share": 0.7704406291271462,
+     "lo": 0.7614087785950764,
+     "hi": 0.779472479659216,
+     "n": 8329
+    }
+   },
+   "arxiv_share_diff_year_fe_pp": {
+    "b_pp": -5.591237793756471,
+    "lo_pp": -10.192341706273005,
+    "hi_pp": -0.9901338812399345,
+    "p": 0.02115667445735081,
+    "n": 8602
+   },
+   "arxiv_share_diff_primary_controls_pp": {
+    "b_pp": -5.443439992975127,
+    "lo_pp": -9.948556685162478,
+    "hi_pp": -0.9383233007877758,
+    "se_pp": 2.2985289245853835,
+    "p": 0.021862693224847796,
+    "n": 8574
+   },
+   "arxiv_share_by_year": [
+    {
+     "year": 2017,
+     "not_G4": 0.8298,
+     "G4": NaN
+    },
+    {
+     "year": 2018,
+     "not_G4": 0.764,
+     "G4": 1.0
+    },
+    {
+     "year": 2019,
+     "not_G4": 0.792,
+     "G4": 0.6667
+    },
+    {
+     "year": 2020,
+     "not_G4": 0.8044,
+     "G4": 1.0
+    },
+    {
+     "year": 2021,
+     "not_G4": 0.7736,
+     "G4": 0.8333
+    },
+    {
+     "year": 2022,
+     "not_G4": 0.7607,
+     "G4": 0.8889
+    },
+    {
+     "year": 2023,
+     "not_G4": 0.7794,
+     "G4": 0.7143
+    },
+    {
+     "year": 2024,
+     "not_G4": 0.8038,
+     "G4": 0.7375
+    },
+    {
+     "year": 2025,
+     "not_G4": 0.7357,
+     "G4": 0.65
+    }
+   ],
+   "arxiv_share_coef_on_y": {
+    "b": 1.1439079973686919,
+    "se": 0.06950507865939681,
+    "p": 0.0,
+    "pct": 2.139011675560073,
+    "lo": 1.7392332437656495,
+    "hi": 2.597135921786969,
+    "n": 8574
+   },
+   "accepted_2017_25": 8873,
+   "accepted_missing_G4_feature": 0,
+   "match_rate": {
+    "G4": {
+     "share": 0.975,
+     "lo": 0.9567127093313416,
+     "hi": 0.9932872906686584,
+     "n": 280
+    },
+    "not_G4": {
+     "share": 0.969277318747818,
+     "lo": 0.9656286263807944,
+     "hi": 0.9729260111148416,
+     "n": 8593
+    }
+   },
+   "match_rate_diff_year_fe_pp": {
+    "b_pp": 0.6233810672019849,
+    "lo_pp": -1.2646485740313413,
+    "hi_pp": 2.511410708435311,
+    "p": 0.517555566193707,
+    "n": 8873
+   },
+   "qc_split_sample": {
+    "n_checked": 30,
+    "n_split": 7,
+    "split_by_G4": {
+     "0": {
+      "n": 29,
+      "split": 7
+     },
+     "1": {
+      "n": 1,
+      "split": 0
+     }
+    },
+    "note": "Random sample of matched records without an arXiv id (qc_split.py); too small for a G4 comparison."
+   },
+   "primary_spec_arxiv_only": {
+    "b": -0.12264221863200257,
+    "se": 0.0787480746900866,
+    "p": 0.12581163198119727,
+    "pct": -0.11541990777337385,
+    "lo": -0.2419367435377977,
+    "hi": 0.03221193336216244,
+    "n": 6575,
+    "n_with": 193
+   },
+   "primary_spec_no_arxiv_only": {
+    "b": 0.16136795712593843,
+    "se": 0.16232617194896423,
+    "p": 0.3250595656863733,
+    "pct": 0.1751172820503697,
+    "lo": -0.14511757993503904,
+    "hi": 0.6153105902780363,
+    "n": 1926,
+    "n_with": 80
+   },
+   "primary_spec_plus_arxiv_control": {
+    "b": -0.032516705183936845,
+    "se": 0.06274115703840633,
+    "p": 0.6066040972475393,
+    "pct": -0.03199372102670439,
+    "lo": -0.1440038264302761,
+    "hi": 0.09467330002661623,
+    "n": 8574
+   },
+   "difference_no_arxiv_minus_arxiv": {
+    "b": 0.2840101757579408,
+    "se": 0.18621897961416037,
+    "p": 0.13365305300671748,
+    "ratio": 1.328446448633516,
+    "ratio_lo": 0.9222130353187795,
+    "ratio_hi": 1.9136250511542336,
+    "n": 8501,
+    "model": "G4 x no-arXiv interaction; controls and year^topic50 FE interacted with has_arxiv (as in G1)"
+   }
+  },
+  "b_topic_composition": {
+   "label": "diagnostic (not pre-registered)",
+   "llm_topic_share": {
+    "G4": {
+     "share": 0.336996336996337,
+     "lo": 0.2809244331930114,
+     "hi": 0.3930682407996626,
+     "n": 273
+    },
+    "not_G4": {
+     "share": 0.22079481330291753,
+     "lo": 0.21188681775622462,
+     "hi": 0.22970280884961045,
+     "n": 8329
+    }
+   },
+   "llm_share_diff_year_fe_pp": {
+    "b_pp": 4.109212761959894,
+    "lo_pp": -1.5323187219324554,
+    "hi_pp": 9.75074424585224,
+    "p": 0.1597389308410022,
+    "n": 8602
+   },
+   "llm_share_diff_year_x_topic50_fe_pp": {
+    "b_pp": -0.10215533529702663,
+    "lo_pp": -2.7373141359301965,
+    "hi_pp": 2.5330034653361433,
+    "p": 0.9397428575702036,
+    "n": 8574
+   },
+   "G4_per_1000_by_era_llm": [
+    {
+     "era": "2017-22",
+     "llm": 0,
+     "n_G4": 29,
+     "n": 2632,
+     "per_1000": 11.01823708206687
+    },
+    {
+     "era": "2017-22",
+     "llm": 1,
+     "n_G4": 3,
+     "n": 221,
+     "per_1000": 13.574660633484163
+    },
+    {
+     "era": "2023-25",
+     "llm": 0,
+     "n_G4": 152,
+     "n": 4039,
+     "per_1000": 37.633077494429315
+    },
+    {
+     "era": "2023-25",
+     "llm": 1,
+     "n_G4": 89,
+     "n": 1710,
+     "per_1000": 52.046783625730995
+    }
+   ],
+   "G4_by_year": [
+    {
+     "year": 2017,
+     "n_G4": 0,
+     "n": 141
+    },
+    {
+     "year": 2018,
+     "n_G4": 4,
+     "n": 254
+    },
+    {
+     "year": 2019,
+     "n_G4": 3,
+     "n": 402
+    },
+    {
+     "year": 2020,
+     "n_G4": 4,
+     "n": 546
+    },
+    {
+     "year": 2021,
+     "n_G4": 12,
+     "n": 657
+    },
+    {
+     "year": 2022,
+     "n_G4": 9,
+     "n": 853
+    },
+    {
+     "year": 2023,
+     "n_G4": 21,
+     "n": 1213
+    },
+    {
+     "year": 2024,
+     "n_G4": 80,
+     "n": 1721
+    },
+    {
+     "year": 2025,
+     "n_G4": 140,
+     "n": 2815
+    }
+   ],
+   "primary_spec_plus_llm_topic_control": {
+    "b": -0.09613218889137115,
+    "se": 0.07078159324825294,
+    "p": 0.18063623850411137,
+    "pct": -0.0916560648455722,
+    "lo": -0.20932171370970332,
+    "hi": 0.04352012548995288,
+    "n": 8574
+   },
+   "G4_papers_in_cells_where_llm_topic_varies": 218,
+   "fe_cells": {
+    "n_cells": 404,
+    "cells_with_G4": 117,
+    "G4_papers_in_cells_with_variation": 273,
+    "largest_cell_share_of_G4": 0.03296703296703297
+   },
+   "top5_topic50_by_G4": [
+    {
+     "topic50": 43,
+     "n": 209,
+     "n_G4": 15,
+     "llm_share": 0.8133971291866029,
+     "share_of_G4": 0.054945054945054944,
+     "share_of_papers": 0.024296675191815855
+    },
+    {
+     "topic50": 41,
+     "n": 236,
+     "n_G4": 13,
+     "llm_share": 0.0211864406779661,
+     "share_of_G4": 0.047619047619047616,
+     "share_of_papers": 0.027435480120902116
+    },
+    {
+     "topic50": 10,
+     "n": 257,
+     "n_G4": 12,
+     "llm_share": 0.027237354085603113,
+     "share_of_G4": 0.04395604395604396,
+     "share_of_papers": 0.029876772843524763
+    },
+    {
+     "topic50": 30,
+     "n": 350,
+     "n_G4": 12,
+     "llm_share": 0.04,
+     "share_of_G4": 0.04395604395604396,
+     "share_of_papers": 0.040688212043710766
+    },
+    {
+     "topic50": 42,
+     "n": 347,
+     "n_G4": 11,
+     "llm_share": 0.02881844380403458,
+     "share_of_G4": 0.040293040293040296,
+     "share_of_papers": 0.04033945594047896
+    }
+   ],
+   "top5_topic50_share_of_G4": 0.23076923076923078,
+   "top5_topic50_share_of_papers": 0.16263659614043247,
+   "top5_topic50_example_titles": {
+    "43": [
+     "MiniGPT-4: Enhancing Vision-Language Understanding with Advanced Large Language Models",
+     "MMICL: Empowering Vision-language Model with Multi-Modal In-Context Learning",
+     "Sign2GPT: Leveraging Large Language Models for Gloss-Free Sign Language Translation"
+    ],
+    "41": [
+     "Uncertainty in Gradient Boosting via Ensembles",
+     "Are Neural Rankers still Outperformed by Gradient Boosted Decision Trees?",
+     "Leveraging unlabeled data to predict out-of-distribution performance"
+    ],
+    "10": [
+     "Boosting Robustness Certification of Neural Networks",
+     "Certify or Predict: Boosting Certified Robustness with Compositional Architectures",
+     "LowKey: Leveraging Adversarial Attacks to Protect Social Media Users from Facial Recognition"
+    ],
+    "30": [
+     "Bag of Instances Aggregation Boosts Self-supervised Distillation",
+     "Does your graph need a confidence boost?  Convergent boosted smoothing on graphs with tabular node features",
+     "Self-Supervision Enhanced Feature Selection with Correlated Gates"
+    ],
+    "42": [
+     "Boost then Convolve: Gradient Boosting Meets Graph Neural Networks",
+     "Edgeformers: Graph-Empowered Transformers for Representation Learning on Textual-Edge Networks",
+     "Empowering Graph Representation Learning with Test-Time Graph Transformation"
+    ]
+   }
+  },
+  "c_word_sense": {
+   "label": "diagnostic (not pre-registered)",
+   "tech_sense_regex": "gradient[- ]boost|\\bboosted\\b|post-gan boosting|co-boosting|multi-label boosting|optimization,? and boosting|\\bempowerment\\b",
+   "recoded_to_0": [
+    {
+     "year": 2021,
+     "title": "Uncertainty in Gradient Boosting via Ensembles"
+    },
+    {
+     "year": 2021,
+     "title": "Private Post-GAN Boosting"
+    },
+    {
+     "year": 2021,
+     "title": "Individually Fair Gradient Boosting"
+    },
+    {
+     "year": 2021,
+     "title": "Are Neural Rankers still Outperformed by Gradient Boosted Decision Trees?"
+    },
+    {
+     "year": 2021,
+     "title": "Boost then Convolve: Gradient Boosting Meets Graph Neural Networks"
+    },
+    {
+     "year": 2021,
+     "title": "Efficient Empowerment Estimation for Unsupervised Stabilization"
+    },
+    {
+     "year": 2022,
+     "title": "Information Prioritization through Empowerment in Visual Model-based RL"
+    },
+    {
+     "year": 2022,
+     "title": "Does your graph need a confidence boost?  Convergent boosted smoothing on graphs with tabular node features"
+    },
+    {
+     "year": 2023,
+     "title": "Gradient Boosting Performs Gaussian Process Inference"
+    },
+    {
+     "year": 2023,
+     "title": "FairGBM: Gradient Boosting with Fairness Constraints"
+    },
+    {
+     "year": 2024,
+     "title": "Ito Diffusion Approximation of Universal Ito Chains for Sampling, Optimization and Boosting"
+    },
+    {
+     "year": 2025,
+     "title": "MuHBoost: Multi-Label Boosting For Practical Longitudinal Human Behavior Modeling"
+    },
+    {
+     "year": 2025,
+     "title": "Towards Empowerment Gain through Causal Structure Learning in Model-Based Reinforcement Learning"
+    },
+    {
+     "year": 2025,
+     "title": "NRGBoost: Energy-Based Generative Boosted Trees"
+    }
+   ],
+   "n_recoded": 14,
+   "G4_style_sense": {
+    "b": -0.07621035995433963,
+    "se": 0.07238462966557611,
+    "p": 0.29757284437593823,
+    "pct": -0.07337873795053285,
+    "lo": -0.1959422902626875,
+    "hi": 0.06786733450098104,
+    "n": 8574,
+    "n_with": 259
+   },
+   "G4_without_boost_elevat": {
+    "b": -0.03631925292665462,
+    "se": 0.08472580998388134,
+    "p": 0.6700434327448517,
+    "pct": -0.03566762159972947,
+    "lo": -0.1832170124300383,
+    "hi": 0.13853612303778373,
+    "n": 8574,
+    "n_with": 219
+   },
+   "G4_style_sense_2023plus": {
+    "b": -0.08372167400972261,
+    "se": 0.07744215083943934,
+    "p": 0.28495073857977626,
+    "pct": -0.08031280667469132,
+    "lo": -0.2098308872476955,
+    "hi": 0.07043482200971019,
+    "n": 5749,
+    "n_with": 235
+   },
+   "family_model_boost_empower_split_by_sense": {
+    "boost_tech": {
+     "b": -0.3637289599417177,
+     "se": 0.28295147723700204,
+     "p": 0.20466644507661158,
+     "pct": -0.304920436380564,
+     "lo": -0.6008084313269019,
+     "hi": 0.21028508033702997,
+     "n": 8574,
+     "n_with": 12
+    },
+    "boost_style": {
+     "b": -0.35810565630355035,
+     "se": 0.16858338347338092,
+     "p": 0.03872417697606423,
+     "pct": -0.30100078256866325,
+     "lo": -0.4976856137638833,
+     "hi": -0.0273025830879724,
+     "n": 8574,
+     "n_with": 43
+    },
+    "empower_tech": {
+     "b": -0.30509270503515407,
+     "se": 0.46986737625404956,
+     "p": 0.5191659202316838,
+     "pct": -0.26294495748930446,
+     "lo": -0.7065455250045936,
+     "hi": 0.8512245747792628,
+     "n": 8574,
+     "n_with": 3
+    },
+    "empower_style": {
+     "b": 0.5616786382794587,
+     "se": 0.39713818436808296,
+     "p": 0.16359229304673528,
+     "pct": 0.753613714096278,
+     "lo": -0.1948383409924217,
+     "hi": 2.8193088603559535,
+     "n": 8574,
+     "n_with": 16
+    }
+   }
+  },
+  "d_r1_calibration_and_family_pairs": {
+   "label": "diagnostic (not pre-registered)",
+   "G4_llm_words": {
+    "n_pairs": 273,
+    "observed_pct": -0.3047178052032792,
+    "placebo": {
+     "n_rep": 200,
+     "mean_log_diff": -0.22997067085776146,
+     "sd_log_diff": 0.10882868790456197,
+     "pct_at_mean": -0.20544309416589324,
+     "q2.5_q97.5_pct": [
+      -0.34746427661428236,
+      -0.004284116032396645
+     ]
+    },
+    "placebo_p_two_sided": 0.21890547263681592,
+    "placebo_adjusted_pct": -0.12494348775833719,
+    "placebo_adjusted_lo": -0.2934092487562814,
+    "placebo_adjusted_hi": 0.08368797393504002,
+    "note": "adjusted = exp(observed mean log diff - placebo mean) - 1; approximate CI uses the placebo SD of the R1 statistic (its sampling SD for this group size and year mix) as the SE"
+   },
+   "r24_enhanc": {
+    "n_pairs": 131,
+    "observed_pct": -0.30144534464721795,
+    "placebo": {
+     "n_rep": 200,
+     "mean_log_diff": -0.2280868721381621,
+     "sd_log_diff": 0.15993381519842778,
+     "pct_at_mean": -0.20394489817724515,
+     "q2.5_q97.5_pct": [
+      -0.39764597310463157,
+      0.06740064980518978
+     ]
+    },
+    "placebo_p_two_sided": 0.4577114427860697,
+    "placebo_adjusted_pct": -0.12247951962963699,
+    "placebo_adjusted_lo": -0.35911674029397467,
+    "placebo_adjusted_hi": 0.20153270007809665,
+    "note": "adjusted = exp(observed mean log diff - placebo mean) - 1; approximate CI uses the placebo SD of the R1 statistic (its sampling SD for this group size and year mix) as the SE",
+    "core_matched_pairs": {
+     "n_pairs": 131,
+     "pct": -0.30144534464721795,
+     "lo": -0.49367075492080303,
+     "hi": -0.04169328567708941
+    }
+   },
+   "r24_leverag": {
+    "n_pairs": 40,
+    "observed_pct": -0.5031340930829911,
+    "placebo": {
+     "n_rep": 200,
+     "mean_log_diff": -0.2370718645211418,
+     "sd_log_diff": 0.28673562518321727,
+     "pct_at_mean": -0.21106541042616112,
+     "q2.5_q97.5_pct": [
+      -0.5511022394352765,
+      0.30062002124460063
+     ]
+    },
+    "placebo_p_two_sided": 0.13930348258706468,
+    "placebo_adjusted_pct": -0.3702064613678525,
+    "placebo_adjusted_lo": -0.6414790948488018,
+    "placebo_adjusted_hi": 0.10632293850627295,
+    "note": "adjusted = exp(observed mean log diff - placebo mean) - 1; approximate CI uses the placebo SD of the R1 statistic (its sampling SD for this group size and year mix) as the SE",
+    "core_matched_pairs": {
+     "n_pairs": 40,
+     "pct": -0.5031340930829911,
+     "lo": -0.727854564379699,
+     "hi": -0.10634461346401747
+    }
+   },
+   "r24_boost": {
+    "n_pairs": 55,
+    "observed_pct": -0.49138367761632584,
+    "placebo": {
+     "n_rep": 200,
+     "mean_log_diff": -0.22064702691339186,
+     "sd_log_diff": 0.2537365629535092,
+     "pct_at_mean": -0.19800028534976022,
+     "q2.5_q97.5_pct": [
+      -0.4889256009184949,
+      0.35725309914855674
+     ]
+    },
+    "placebo_p_two_sided": 0.05970149253731343,
+    "placebo_adjusted_pct": -0.36581483373034995,
+    "placebo_adjusted_lo": -0.6147950424633545,
+    "placebo_adjusted_hi": 0.044095661926163654,
+    "note": "adjusted = exp(observed mean log diff - placebo mean) - 1; approximate CI uses the placebo SD of the R1 statistic (its sampling SD for this group size and year mix) as the SE",
+    "core_matched_pairs": {
+     "n_pairs": 55,
+     "pct": -0.49138367761632584,
+     "lo": -0.6782007219621569,
+     "hi": -0.1822794154498002
+    }
+   },
+   "reimplementation_check": {
+    "n_pairs": 273,
+    "pct": -0.3047178052032792,
+    "core_R1_n_pairs": 273,
+    "core_R1_pct": -0.3047178052032792
+   },
+   "controls_y_minus_own_cell_nonG4_mean": 0.26779533759962115,
+   "treated_y_minus_own_cell_nonG4_mean": -0.07172999809702496,
+   "share_pairs_same_topic50": 0.6373626373626373,
+   "n_unique_controls": 260,
+   "pair_control_differences_mean": {
+    "log_authors": -0.006972463899914632,
+    "log_abs_words": -0.015134505483661393,
+    "has_arxiv": -0.0695970695970696
+   },
+   "R1_pairs_adjusted": {
+    "pct": -0.23693307209199432,
+    "lo": -0.3764802386545907,
+    "hi": -0.06615447887239834,
+    "p": 0.008684596720831128,
+    "coef_d_has_arxiv": 1.337670478424395,
+    "note": "intercept of d_y ~ 1 + d_log_authors + d_log_abs_words + d_has_arxiv; SE clustered by control"
+   },
+   "R1_caliper": {
+    "0.85": {
+     "n_pairs": 216,
+     "pct": -0.29054952250613275,
+     "lo": -0.4492490324442241,
+     "hi": -0.09512827269169
+    },
+    "0.90": {
+     "n_pairs": 75,
+     "pct": -0.11629343485079591,
+     "lo": -0.4343862833233696,
+     "hi": 0.38162802338539614
+    }
+   }
+  },
+  "e_team_prior": {
+   "label": "diagnostic (not pre-registered) - comparison of two pre-registered checks",
+   "R5_2022_25_no_team_prior": {
+    "b": -0.09476378558676057,
+    "se": 0.07177211781147536,
+    "p": 0.19285508570565013,
+    "pct": -0.0904122331653856,
+    "lo": -0.20977466221987928,
+    "hi": 0.04697972340313661,
+    "n": 6599
+   },
+   "R6_2022_25_with_team_prior": {
+    "b": -0.08276248302381435,
+    "se": 0.07144574229634659,
+    "p": 0.252317139724789,
+    "pct": -0.07943022779581377,
+    "lo": -0.19972202100433856,
+    "hi": 0.05894292700594406,
+    "n": 6599
+   },
+   "change_in_b": 0.012001302562946223,
+   "mean_log1p_prior_accs": {
+    "G4": 1.072470546645391,
+    "not_G4": 1.041820077631644
+   },
+   "n_2022_25": 6602,
+   "n_G4_2022_25": 250
+  }
+ },
+ "figure": {
+  "pdf": "/home/user/cloud-research/research/titles/outputs/cites/G4/fig.pdf",
+  "png": "/home/user/cloud-research/research/titles/outputs/cites/G4/fig.png",
+  "csv": "/home/user/cloud-research/research/titles/outputs/cites/G4/fig.csv"
+ }
+}

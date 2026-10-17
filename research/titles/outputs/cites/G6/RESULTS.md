@@ -307,6 +307,10 @@ S2 sometimes keeps a venue record without an arXiv id separate from the arXiv re
 - **G6a.**
   - The estimate on records with an arXiv id alone (+37.7%) equals the primary, so the split-record artefact does not explain G6a.
   - Adding an arXiv-id indicator lowers G6a to +30%. Having an arXiv preprint goes with more citations, through the artefact or through real visibility, and meme papers have slightly more preprints.
+  - *Audit:* the indicator mostly marks the artefact (see the G5 audit and `split_record_mechanism` in `G5/results.json`).
+    - Among 568 accepted 2023–25 papers known to have a pre-decision arXiv preprint, 15% of venue records still lack an arXiv id.
+    - Those records have median 0 citations, against 30 for records with an id.
+    - The arXiv-id-only estimate (+37.7%) is therefore the cleaner one, and it equals the primary.
 - **G6b.** Tentative-title records have slightly fewer arXiv ids. If anything, that biases G6b downward: the estimate is +7.4% with the indicator.
 
 ### (c) Overlap with other title features, and paper type
@@ -404,7 +408,9 @@ G4 found that the R1 procedure is shifted downward even when there is no associa
   - Recall was not validated. Snowclone variants outside the listed patterns are counted as non-template titles.
 - **Selection into the sample.**
   - Only accepted ICLR papers are included.
-  - On the reviewer side, no title feature's association with acceptance survives the camera-ready audit (0 of 18 auditable features; `outputs/SUMMARY.md`). So selection on title style by reviewers is not evident. That does not rule out unmeasured quality differences among accepted papers.
+  - On the reviewer side, no title feature's association with acceptance survives the camera-ready audit (0 of 18 auditable features; `outputs/SUMMARY.md`).
+  - *Corrected by the audit.* Meme templates and tentative framings are **not** among the 26 features that audit tested (`outputs/snapshot/gate.csv`). So selection at acceptance on these two styles is not directly ruled out.
+  - Unmeasured quality differences among accepted papers are not ruled out either.
 - **Exposure.** The exposure is the camera-ready title as indexed; counts are a single S2 snapshot (2026-10-17).
 - **Multiplicity.**
   - Secondary analyses and diagnostics carry no multiplicity correction.
@@ -412,4 +418,86 @@ G4 found that the R1 procedure is shifted downward even when there is no associa
 
 ## One-sentence advice for authors (observational)
 
-Among accepted ICLR papers with similar content, papers whose titles use a meme template ("X Is All You Need", "When X Meets Y", …) receive about 38% more citations on average (95% CI +3% to +85%), not significant after the pre-registered multiplicity correction (Holm p 0.18), and papers with tentative framings ("Towards", "Rethinking", "On the", …) receive about the same as others (+4%, −8% to +17%), so these data give no citation-based reason to adopt or avoid either style.
+Among accepted ICLR papers with similar content, papers whose titles use a meme template ("X Is All You Need", "When X Meets Y", …) receive about 38% more citations on average (95% CI +3% to +85%; about +25% to +43% under the alternative adjustments tested, the low end with a G2 control or more content PCs). This is not significant after the pre-registered multiplicity correction (Holm p 0.18). Papers with tentative framings ("Towards", "Rethinking", "On the", …) show no clear difference (+4%, −8% to +17%). These data therefore give no reliable citation-based reason to adopt or avoid either style.
+
+*(Revised by the audit. The earlier sentence said tentative framings "receive about the same as others". That reads as a null, which the inconclusive verdict and the CI up to +17% do not support.)*
+
+## Audit (adversarial review, 2026-10-17)
+
+### What was checked
+
+- **Reproduction.** `core.primary(core.load(), F)` reproduces `primary.json` exactly (n 8,574):
+  - G6a: b 0.32105, SE 0.14942, 83 meme titles;
+  - G6b: b 0.03672, SE 0.06014, 500 tentative titles.
+- **Holm p** comes from `primary.json`: G6a 0.183, G6b 0.544.
+  - These values are consistent with `core.holm` over the 8 frozen p-values.
+  - The step description is correct: G6a ranks 4th, so 5 × 0.0366; G6b's p is the largest.
+- **Verdicts.** `core.verdict` on the frozen inputs gives "inconclusive" for both.
+  - G6a fails on Holm p. R1 +18.0% and R2 +39.6% have the same sign.
+  - G6b fails on Holm p, and its R1 has the opposite sign. Its CI is not inside ±10%.
+- **Feature definitions** match `core.MEME` / `core.TENTATIVE` and `features.py` `TEMPLATES`.
+  - Re-applying the regexes to the stored camera-ready titles reproduces both features for all 568 audit-pair papers.
+  - The precision spot-check in (e) and the full meme list in (a) were read: all 83 meme matches are template uses (one borderline pun).
+- **Frozen files.**
+  - The SHA-256 hashes of `core.py`, `CITES_PREREG.md` and `matched_venue.parquet` match `prereg_hashes.json`.
+  - `primary.json` has no git diff.
+- **Numbers.** Every table in this file was compared with `results.json`, and all matched.
+  - Re-running `g6.py` reproduced every pre-existing value. The largest relative difference was 2e-7, in an R7 CI bound.
+- **Labels and scope.**
+  - The pre-specified secondary analyses are each template with n ≥ 20, the joint model and LLM-topic heterogeneity.
+  - Every other block is labelled "diagnostic (not pre-registered)".
+- **Wording.** Observational throughout.
+
+### Errors found and what was changed
+
+1. **Overstated reviewer-side claim (error).**
+   - "So selection on title style by reviewers is not evident" was not supported. Meme templates and tentative framings are not among the 26 title features of the camera-ready acceptance audit (`outputs/snapshot/gate.csv`).
+   - Changed in "Selection into the sample".
+2. **Advice wording.**
+   - "Receive about the same as others" for G6b read as a null, which the "inconclusive" verdict and the CI up to +17% do not support. It now reads "show no clear difference".
+   - The G6a sentence now gives the range of estimates under alternative adjustments.
+   - The old sentence is kept in italics.
+3. **arXiv-indicator interpretation.**
+   - Annotated with the audit's split-record evidence (from the G5 audit): a missing arXiv id mostly marks a split S2 record, so the arXiv-id-only estimate is the cleaner one.
+4. **Code.**
+   - `g6.py` adds diagnostic block (g), `diagnostics_not_preregistered.g_audit`, using the new `src/cites/audit_g5g6.py`.
+   - `g6.py` was re-run. Nothing pre-registered changed.
+
+### Alternative explanations tested — diagnostic (not pre-registered)
+
+Each re-fit uses the primary controls, year × topic50 FE and SEs clustered by topic50.
+
+| Alternative explanation | Test | G6a meme (83) | G6b tentative (500) |
+|---|---|---|---|
+| Superstars (from (a)) | Leave-one-out; drop top 3 (placebo-calibrated); percentile outcome | LOO +32% to +43%; placebo-centred +36.9%; +7.3 points [+1.3, +13.3] | drop top 3 +2.1%; +0.9 points |
+| Superstars / zero-citation records (audit) | Drop top 5% per year; drop zero-citation records | +36.2% [+1.8, +82.3]; +40.3% [+9.7, +79.4] | +4.4%; +0.0% |
+| **S2 split-record artefact** | arXiv-id records only (from (b)) | +37.7% [+6.0, +78.8] | +4.1% [−8.3, +18.1] |
+| Preprint exposure time | arXiv-id records; months from first arXiv posting to the conference as FE bins | +41.7% [+10.7, +81.3]; lead 6.4 vs 6.7 months | +4.2% [−7.6, +17.5] |
+| Promotion / code release | + abstract announces code or a URL (20% vs 22% of meme / other) | +39.5% [+3.9, +87.3] | +3.2% [−8.2, +16.0] |
+| **Paper type** | + method and findings indicators (meme 57% vs 46% findings abstracts; tentative 57% vs 46%) | +37.1% [+2.7, +82.8] | +3.2% [−8.3, +16.1] |
+| **Content leakage** | 50 or 100 bge abstract PCs; 20 MiniLM PCs added; MiniLM PCs instead | **+28.5% [−4.1, +72.2]**, +30.3%, +35.9%, +33.7% | +3.1%, +2.3%, +2.9%, +2.3% |
+| Overlap with G2 (from (c)) | + G2 control; joint 8-feature model | +25.5% [−7.4, +70.1]; +30.7% | joint +7.2% |
+| Camera-ready retitling | WP4 pre-decision v1 titles, 568 accepted 2023–25 papers | Only 7 meme titles; status changed for 2 (1 added, 1 removed). Too few to estimate. | 31 tentative; 5 added, 6 removed; camera-ready −1.1% vs v1 +2.9% (CIs about ±60%) |
+| Team prior success | R6 (pre-registered) | +36.9% | 0.0% |
+| LLM-topic composition | Pre-specified secondary | ratio 1.15 (p 0.62) | ratio 1.25 (p 0.18) |
+| All together | arXiv-id records; lead-time FE; code, method and findings indicators | **+42.5% [+11.6, +81.9]** | +2.5% [−9.4, +16.0] |
+
+**Reading.**
+- **G6a.**
+  - None of the alternatives tested removes the meme-template association. The point estimate stays between +25% and +43%.
+  - The two adjustments that lower it most are the G2 (assertive) control, since half the meme titles are G2, and richer content controls: +28.5% with 50 bge PCs.
+  - Under both of these the CI includes zero.
+  - Camera-ready retitling into or out of a meme template is rare (2 of 568 audited papers), so reverse causation through retitling is unlikely. The test has almost no power.
+- **G6b.**
+  - Every adjustment keeps G6b between 0% and +7%, with CIs including zero.
+  - The verdict stays "inconclusive". A positive association of up to about +17% (the primary's upper CI limit) is not ruled out.
+- **Not testable with these data.** Author fame beyond prior ICLR acceptances, and social-media promotion. Meme titles may go with both.
+
+### Confidence in the advice
+
+- **G6a: low to medium.**
+  - The direction is positive in every check.
+  - The pre-registered test fails multiplicity correction, the sample is small (83, 37% from 2025), and the CI includes zero under the G2 and richer-content adjustments.
+  - "No reliable citation-based reason to adopt" is the defensible reading.
+- **G6b: medium** that any association is small. The data are compatible with roughly −8% to +17%.
+- The revised one-sentence advice stands. It remains an association: it does not show that renaming a given paper "X Is All You Need" would change its citations.

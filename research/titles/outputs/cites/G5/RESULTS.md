@@ -138,8 +138,15 @@ None of these analyses was pre-registered. They involve many tests with no multi
 - *Abstract centrality* is the same measure computed for the abstract instead of the title, so it is a content measure.
   - It is uncorrelated with G5b (−0.02) and leaves G5b unchanged (+8.3%).
   - Title centrality keeps an association after controlling for abstract centrality: +6.5% [+1.8, +11.4].
+- *Both centralities together* (added by the audit; already in `results.json`). With title and abstract centrality both controlled, G5b is **+7.3% [+3.5, +11.2]**.
+  - So the drop to +3.0% with title centrality alone comes mostly from title centrality standing in for the abstract's (content) centrality.
+  - With the topic-keyword share and abstract centrality both controlled, G5b is +5.6% [+2.7, +8.6].
 
-**Reading.** Much of what G5b picks up is a title written in the central vocabulary of its topic. This is a property of the title rather than of the abstract's content, as measured here. These data cannot separate it from unmeasured content.
+**Reading (revised by the audit).** About a third to a half of G5b overlaps with a title written in its topic's keyword vocabulary:
+- the topic-keyword share brings G5b to +4.5%, or +5.6% with abstract centrality also controlled;
+- title centrality, once abstract centrality is held fixed, removes little (+7.3%).
+
+This is a property of the title rather than of the abstract's content, as measured here. These data cannot separate it from unmeasured content.
 
 ### (b) Alternative measure: all-MiniLM-L6-v2 title–abstract cosine (z within year)
 
@@ -159,10 +166,13 @@ None of these analyses was pre-registered. They involve many tests with no multi
   | R7 year + topic100 FE | +4.7% [+1.4, +8.1] |
 
 - With this measure, R1 and R2 do not share the primary's sign. Had MiniLM been the pre-registered measure, the rule would not have returned "more citations".
+  - *Audit correction.* The R1 sign reversal is an artefact of the pairing procedure (null mean −16.7%). Calibrated, the MiniLM R1 is +6.5% [−2.7, +16.5], the same sign as its primary.
+  - R2 (−0.0%) would still fail the sign condition.
 - **Both measures in one model.** bge given MiniLM: +11.7% [+6.9, +16.7]. MiniLM given bge: −4.4% [−8.8, +0.3].
 - **Within groups (MiniLM).** Non-named +4.0% [+0.1, +7.9]; named +4.9% [−3.2, +13.6].
 - **Reading.** The direction is positive in the regression under both models. The size, and the agreement with matched pairs, depend on the embedding model, and the association is carried by the part of bge similarity that MiniLM does not share.
-  - The 20 content PCs in the frozen controls are also bge-based. Whether that interacts with the bge-specific component cannot be settled here.
+  - The 20 content PCs in the frozen controls are also bge-based.
+  - *Audit:* that does not drive the bge estimate. Replacing them with 20 MiniLM abstract PCs gives G5b +8.3% [+5.3, +11.3], and using 100 bge PCs gives +8.9% [+6.0, +11.9] (diagnostic (g)).
 
 ### (c) S2 split-record and matching artefact
 
@@ -188,19 +198,38 @@ Venue records without an arXiv id can miss citations that S2 credits to a separa
 - arXiv records only: −3.6% [−9.9, +3.0]. No-arXiv records: +9.9% [−3.9, +25.8].
 - Joint model plus an arXiv indicator: −6.4% [−12.5, +0.2], p 0.06.
 - These data cannot tell whether arXiv status works here as an S2 record artefact or as a real exposure channel, where papers that are not on arXiv are read less.
+  - *Audit:* mostly an artefact (diagnostic (g)). The WP4 audit has 568 accepted 2023–25 papers in this sample that are known to have a pre-decision arXiv preprint.
+  - Even so, 15% of their venue records lack an arXiv id. Those records have median 0 citations, against 30 for records with an id.
+  - A missing id therefore mostly marks a split S2 record, not a paper absent from arXiv.
+  - Camera-ready retitling raises the chance of a missing id by 14.8 pp [7.2, 22.4]. Longer titles are retitled more often: +10.5 pp per +5 words [3.4, 17.6].
 
 ### (d) Putting R1 on the primary scale
 
 - R1 pairing was reimplemented and reproduces `core` R1 exactly for G5a, G5b and the MiniLM measure.
 - The adjusted slope comes from a pair-difference regression with no intercept and SEs clustered by control paper. It adjusts for the within-pair differences in log team size, log abstract words, G1, and (for G5b) G5a.
 
-| | Feature contrast in pairs | Primary implied at that contrast | R1 | Adjusted slope, per unit | Adjusted slope + arXiv status |
+| | Feature contrast in pairs | Primary implied at that contrast | R1 (raw) | Adjusted slope, per unit (no intercept; biased, see below) | Same + arXiv status (biased) |
 |---|---|---|---|---|---|
 | G5a | 1.15 (≈ 5.8 words) | −6.3% [−12.9, +0.8] | −23.0% | −19.5% [−26.5, −11.9] | −14.9% [−21.6, −7.6] |
 | G5b (bge) | 2.06 SD | +17.1% [+10.5, +24.1] | +4.4% | **+1.1% [−4.2, +6.8]** per SD | +2.0% [−2.9, +7.2] |
 | G5b (MiniLM) | 2.14 SD | +9.0% [+2.0, +16.4] | −11.3% | −5.3% [−10.1, −0.3] per SD | −3.9% [−8.3, +0.7] |
 
-**Reading.** Within content-matched pairs, informativeness shows almost no association once length, G1, team size and abstract length are adjusted for. Length shows a *larger* negative association in pairs than in the regression. The two content-adjustment strategies (20 PCs + year × topic50 FE vs nearest-neighbour pairs) disagree for both features, in opposite directions.
+**Reading (corrected by the audit; the original reading was wrong).**
+- The original reading was that informativeness shows almost no association within content-matched pairs, that length shows a larger negative one, and that the two content-adjustment strategies disagree. Most of that comes from the R1 pairing procedure, not from the data.
+- **Why the slopes are biased.** The two "adjusted slope" columns come from regressions with no intercept. They therefore absorb the procedure's own downward shift. With the feature permuted within year, these slopes average −11.8% per +5 words (G5a) and −6.8% per SD (G5b, bge) — that is, under no association at all.
+- **Net of that null mean** they are:
+  - G5a: −8.7% [−16.6, −0.0];
+  - G5b (bge): **+8.5% [+2.8, +14.6]**;
+  - G5b (MiniLM): +1.5% [−3.6, +6.8].
+
+  The two bge values are close to the primary estimates.
+- **Symmetric matching.** Matching each bottom-tercile paper to its nearest top-tercile paper shifts the null the other way, by about +21%. The average of the two directions has a null mean of about 0. Observed, it is:
+  - G5a: −8.6% at about 1.15 units (the primary implies −6.3%);
+  - G5b: **+22.2%** at about 2.06 SD (the primary implies +17.1%).
+- **With an intercept**, which absorbs any constant shift, the slopes are imprecise: G5a −6.5% [−23.8, +14.6]; G5b −5.0% [−15.6, +6.9].
+  - This is the one pair-based estimate that does not support the G5b primary.
+  - It is identified only from differences in the size of the contrast across top-vs-bottom pairs. The pairs with the largest contrasts have the lowest-G5b controls, which are often catchy meme-style titles (see (e)).
+- See diagnostic (g) in the Audit section below.
 
 ### (e) Shape of the G5b association
 
@@ -230,12 +259,18 @@ Adding the team's prior ICLR acceptances changes neither feature:
 ## Caveats
 
 - **Observational.** Authors choose titles, and the same choice may go with stronger or better-promoted work. The statements below are "papers whose titles do X receive Y% more or fewer citations on average, among accepted papers with similar content", not effects of retitling.
-- **Measure dependence (G5b).** The pre-registered verdict is "more citations" with the bge measure.
-  - With MiniLM the regression estimate halves (+4.1%), and the matched pairs reverse sign.
-  - Within matched pairs, the covariate-adjusted bge slope is near 0.
-  - The size of the association is therefore uncertain. A reasonable reading is "+0% to +8% per SD, depending on how content and similarity are measured".
-- **What G5b captures.** Much of G5b overlaps with titles written in the topic's central vocabulary, and with names and acronyms shared between the title and the abstract. It is not a pure measure of "how much the title tells you".
-- **Length.** The verdict is inconclusive. The estimate ranges from about 0% (with an arXiv-id control) to −11% (joint model) to about −20% (matched pairs), depending on the adjustment. Only titles of 6 or fewer words differ clearly from 10–12-word titles in the pre-specified bins.
+- **Measure dependence (G5b), revised by the audit.** The pre-registered verdict is "more citations" with the bge measure.
+  - With MiniLM the regression estimate halves (+4.1%). Its raw matched pairs reverse sign, but calibrated they do not (+6.5%).
+  - Within matched pairs, the null-corrected covariate-adjusted bge slope is +8.5%. The calibrated R1 (+25.9% at 2.06 SD) and the symmetric pairs (+22.2%) agree with the primary.
+  - The one pair-based estimate that does not support it is the with-intercept slope (−5.0% [−15.6, +6.9]), and it is imprecise.
+  - A reasonable reading is about **+3% to +9% per SD**. The range depends on the similarity model, and on whether the title's topic vocabulary and shared names count as part of informativeness.
+  - The earlier "+0% to +8%" rested on the biased no-intercept pair slope (see (d)).
+- **What G5b captures.** About a third to a half of G5b overlaps with titles written in their topic's keyword vocabulary, and with names and acronyms shared between the title and the abstract. It is not a pure measure of "how much the title tells you".
+- **Length.** The verdict is inconclusive.
+  - The estimate ranges from about 0% (with an arXiv-id control) to −11% (joint model).
+  - The raw matched pairs' −23% is mostly the pairing procedure's own shift. Calibrated, it is about −8%.
+  - The arXiv-id link with length looks mostly like an S2 split-record artefact. Longer titles are retitled at camera-ready more often, and retitled papers more often have their citations split off to a separate arXiv record (audit (g)).
+  - Only titles of 6 or fewer words differ clearly from 10–12-word titles in the pre-specified bins.
 - **Diagnostics are many and uncorrected.** They are labelled "diagnostic (not pre-registered)" and are meant for interpretation only.
 - **Construction of some diagnostic measures.**
   - The topic-keyword and centrality measures use in-sample cluster statistics that include the paper's own abstract.
@@ -245,4 +280,113 @@ Adding the team's prior ICLR acceptances changes neither feature:
 
 ## One-sentence advice for authors (observational)
 
-Among accepted ICLR papers with similar content, papers whose titles state what the paper does in their topic's usual vocabulary (higher title–abstract similarity) receive on average up to about 8% more citations per SD, and less under other similarity and content measures, whereas title length shows no reliable association.
+Among accepted ICLR papers with similar content, papers whose titles are closer in meaning to their abstracts (higher title–abstract similarity) receive on average about 8% more citations per SD (about 3% to 9% across alternative similarity measures and content adjustments), whereas title length shows no reliable association.
+
+*(Revised by the audit. The earlier sentence read "papers whose titles state what the paper does in their topic's usual vocabulary … receive on average up to about 8% more citations per SD, and less under other similarity and content measures". Its lower end rested on a biased matched-pair slope, and the "topic vocabulary" gloss describes only part of the measure.)*
+
+## Audit (adversarial review, 2026-10-17)
+
+### What was checked
+
+- **Reproduction.** `core.primary(core.load(), F)` reproduces `primary.json` exactly for both features (n 8,574):
+  - G5a: b −0.05676, SE 0.03249;
+  - G5b: b 0.07685, SE 0.01434.
+- **Holm p.** The values are taken from `primary.json` (G5a 0.348, G5b 1.79e-05). They are consistent with `core.holm` over the 8 frozen p-values and were not recomputed for reporting.
+- **Verdicts.** `core.verdict` on the frozen inputs gives the reported verdicts.
+  - G5a is "inconclusive": Holm p 0.35, and the CI is not inside ±10%.
+  - G5b is "more citations": Holm p < 0.05, with R1 +4.4% and R2 +1.8% both of the same sign.
+- **Feature definitions** match prereg §3 and `core.load` / `core.EXTRA_CONTROLS`.
+  - G5a = `n_words` / 5. Median 8 and IQR 7–10 were verified.
+  - G5b = bge title–abstract cosine, z-scored within year.
+  - Extra controls: G1 for G5a; G1 and G5a for G5b.
+- **Frozen files.**
+  - SHA-256 of `core.py`, `CITES_PREREG.md` and `matched_venue.parquet` match `prereg_hashes.json`.
+  - `primary.json` has no git diff. None of these files was edited.
+- **Numbers.** Every table in this file was compared with `results.json`, and all matched.
+  - Re-running `g5.py` reproduced every pre-existing value in `results.json`. The largest difference was 5e-9, in R7 standard errors (numerical).
+- **Labels and scope.**
+  - The secondary analyses are exactly those in prereg §6: G5a length bins, the joint 8-feature model, and LLM-topic heterogeneity.
+  - Every other block carries "diagnostic (not pre-registered)".
+- **Wording.** Observational throughout.
+
+### Errors found and what was changed
+
+1. **Matched-pair diagnostics were biased by the R1 procedure (error).**
+   - `g4.py` had shown that R1 is shifted downward when there is no association. G5 interpreted raw R1 and two no-intercept pair-difference slopes without checking this.
+   - **The null.** With the feature permuted within year (200 times; terciles and the core R1 pairing rebuilt), the R1 statistic averages:
+     - −16.6% for G5a (null 95% range −24.4 to −9.1);
+     - −17.1% for G5b (−26.1 to −9.3);
+     - −16.7% for MiniLM.
+   - **The mechanism.** Nearest-neighbour controls are re-used: 1,387 unique controls serve 2,711 G5b pairs. Under the null they sit +0.15 to +0.16 log points above their year × topic50 cell mean, against about +0.01 for the treated papers.
+   - **Calibrated R1:**
+     - G5a −7.6% [−16.3, +2.0], placebo p 0.15;
+     - G5b **+25.9% [+14.2, +38.9]**, placebo p 0.010;
+     - MiniLM +6.5% [−2.7, +16.5].
+   - **A check that needs no calibration.** Matching in the reverse direction (each bottom-tercile paper to its nearest top-tercile paper) is shifted by about +21% under the null. The average of the two directions has a null mean of about 0. Observed, that average is −8.6% for G5a and **+22.2%** for G5b. The primary implies −6.3% and +17.1% at these contrasts.
+   - **The no-intercept pair slopes** have null means of −11.8% (G5a) and −6.8% (G5b). Net of those, they are −8.7% [−16.6, −0.0] and +8.5% [+2.8, +14.6].
+   - **With-intercept slopes** are imprecise: G5a −6.5% [−23.8, +14.6]; G5b −5.0% [−15.6, +6.9].
+   - **Changed:**
+     - the (d) reading was rewritten;
+     - a calibration note was added under the robustness table and the verdict;
+     - the MiniLM paragraph, the caveats and the advice sentence were corrected;
+     - `results.json` `d_R1_scale.audit_note` was added.
+2. **Selective reporting of the centrality control (error in (a)).**
+   - The text said that title centrality cuts G5b to +3.0%. It did not report the model already in `results.json` that also controls for abstract (content) centrality: +7.3% [+3.5, +11.2].
+   - **Changed:** the (a) bullets and reading, and the "what G5b captures" caveat ("about a third to a half" overlaps with topic-keyword vocabulary).
+3. **"Cannot be settled" claims that can be tested.**
+   - The bge-PC concern (diagnostic (b)) is now tested: with MiniLM abstract PCs in place of the bge PCs, G5b is +8.3%.
+   - The arXiv-id reading (diagnostic (c)) is now tested: mostly a split-record artefact (see below).
+   - Both paragraphs were annotated.
+4. **Advice sentence.**
+   - Replaced the "topic's usual vocabulary" gloss and the "and less under other measures" lower end with a range: about +3% to +9% per SD.
+   - The old sentence is kept in italics for the record.
+5. **Code.**
+   - New module `src/cites/audit_g5g6.py`.
+   - `g5.py` adds diagnostic block (g), `diagnostics_not_preregistered.g_audit`, labelled "diagnostic (not pre-registered; added by the adversarial audit)".
+   - `g5.py` was re-run. Nothing pre-registered changed.
+
+### Alternative explanations tested — diagnostic (not pre-registered)
+
+Each re-fit uses the primary controls, year × topic50 FE and SEs clustered by topic50, unless stated otherwise. All values are in `results.json` → `diagnostics_not_preregistered.g_audit`.
+
+| Alternative explanation | Test | G5b informativeness (per SD) | G5a length (per +5 words) |
+|---|---|---|---|
+| R1 procedure artefact | Within-year permutation null; calibrated R1; two-direction (symmetric) pairs | Calibrated R1 +25.9% [+14.2, +38.9]; symmetric +22.2% (null ≈ 0), both at 2.06 SD | Calibrated R1 −7.6% [−16.3, +2.0]; symmetric −8.6% at 1.15 units |
+| **S2 split-record artefact** | arXiv-id records only; + arXiv-id indicator (from (c)); mechanism on WP4 pairs | +6.8% [+3.6, +10.2]; +8.2% | −3.6% [−9.9, +3.0]; **−0.2% [−6.0, +6.0]** |
+| Content leakage / bge-based PCs | 50 or 100 bge abstract PCs; 20 MiniLM PCs instead of bge | +8.5%, +8.9%, **+8.3% [+5.3, +11.3]** | −6.6%, −6.5%, −5.6% |
+| Preprint exposure time | arXiv-id records; months from first arXiv posting to the conference as FE bins | +7.5% [+4.3, +10.8]; lead time unrelated (−0.08 months per SD, p 0.16) | −3.7% [−9.9, +2.8] |
+| Promotion / code release | + abstract announces code or a URL | +7.9% [+4.9, +11.0] | −5.0% [−10.8, +1.2] |
+| Paper type (method vs findings) | + method and findings indicators; within method / non-method abstracts | +8.0%; +8.0% / +6.3% | −5.5%; −5.6% / −5.5% |
+| Superstars / zero-citation records | Within-year percentile outcome; drop top 5% per year; drop zero-citation records | +1.6 points [+1.0, +2.2]; +8.5%; +6.8% | −1.1 points [−2.3, +0.2]; −4.5%; −5.2% |
+| Camera-ready retitling | Feature rebuilt on the pre-decision arXiv v1 title, 540 accepted 2023–25 papers (151 retitled; CR–v1 correlation 0.92 / 0.90) | Camera-ready +7.5% [−7.9, +25.6] vs v1 +3.2% [−10.4, +18.8]; same years, full sample +6.0% | Camera-ready −8.0% vs v1 −5.2% (CIs ±30%) |
+| Team prior success | R6 vs R5, already pre-registered | +7.1% vs +6.8% | −3.6% vs −3.7% |
+| LLM-topic composition | Pre-specified secondary | ratio 0.99 (p 0.67) | ratio 1.12 (p 0.20) |
+| All together | arXiv-id records; lead-time FE; code, method and findings indicators | **+7.5% [+4.3, +10.8]** | −3.6% [−9.7, +2.8] |
+
+**The split-record mechanism (WP4 audit pairs, 568 accepted 2023–25 papers, all with a pre-decision arXiv v1).**
+- 15.0% of their S2 venue records still have no arXiv id.
+- Those records have median 0 citations, against 30 for records with an id. The gap is 2.57 log points [2.25, 2.88] with year FE.
+- Retitled papers have an arXiv id less often: 73.5% vs 89.2%, or −14.8 pp [−22.4, −7.2] with year FE.
+- Longer titles are retitled more often: +10.5 pp per +5 words [+3.4, +17.6].
+- So a missing arXiv id mostly marks a split S2 record, which loses citations, rather than a paper that readers could not find on arXiv. Part of the negative G5a primary is consistent with this measurement artefact.
+
+**Reading.**
+- **G5b.**
+  - The positive association is not explained by any of the alternatives tested. Every adjusted estimate lies between +6.8% and +8.9%.
+  - The matched pairs agree with the primary once the R1 procedure's shift is removed.
+  - The remaining uncertainty is about *what* the measure captures: the MiniLM measure gives +4.1%, the name-masked variant +4.3%, and the topic-keyword control +4.5%. The data do not show that a confounder produces it.
+  - The retitling test is too small to be informative.
+- **G5a.**
+  - Every adjustment keeps it between about 0% and −7%.
+  - The calibrated matched pairs no longer suggest a large negative association.
+  - The arXiv-id control, which plausibly corrects a split-record artefact, brings it to about 0.
+- **Not testable with these data.** Lab reputation beyond prior ICLR acceptances, social-media promotion, and quality signals not reflected in the abstract.
+
+### Confidence in the advice
+
+- **G5b sign: high.**
+  - It survives the pre-registered rule, R3–R7, the calibrated and symmetric matched pairs, and every alternative explanation tested.
+  - One pair-based estimate disagrees: the with-intercept within-pair slope, −5.0% [−15.6, +6.9]. It is imprecise.
+- **G5b size: medium.** About +3% to +9% per SD, depending on the similarity model and on whether shared names and topic keywords count as informativeness.
+- **G5a: high confidence that these data show no reliable length association.** The verdict stays "inconclusive". The small negative primary is partly an S2 split-record artefact.
+- **The revised one-sentence advice stands.** It remains an association. It does not show that rewriting a given title to be closer to its abstract would raise its citations.

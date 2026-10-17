@@ -1,0 +1,967 @@
+{
+ "study": "title -> citations, accepted ICLR 2017-2025 (docs/CITES_PREREG.md)",
+ "n_papers": 8602,
+ "joint_model_8_features": {
+  "label": "pre-specified secondary (prereg section 6; no multiplicity claim)",
+  "model": "y ~ all 8 primary features + log_authors + log_abs_words + 20 abstract PCs | year^topic50, CRV1 topic50",
+  "features": {
+   "G1_name": {
+    "b": 0.20951728932940342,
+    "se": 0.039859017292996166,
+    "p": 3.1923071808215298e-06,
+    "pct": 0.23308269409940774,
+    "lo": 0.14041657854723177,
+    "hi": 0.33327852215582365,
+    "n": 8574,
+    "n_with": 2105
+   },
+   "G2_assertive": {
+    "b": 0.2917004431021294,
+    "se": 0.08127358497042209,
+    "p": 0.000765519769387657,
+    "pct": 0.3387019401691611,
+    "lo": 0.14156966738274557,
+    "hi": 0.5698760538386072,
+    "n": 8574,
+    "n_with": 456
+   },
+   "G3_question": {
+    "b": 0.24053669878239475,
+    "se": 0.09018501023239835,
+    "p": 0.010337816658329668,
+    "pct": 0.2719316113141128,
+    "lo": 0.06585157301438249,
+    "hi": 0.5178567680720445,
+    "n": 8574,
+    "n_with": 223
+   },
+   "G4_llm_words": {
+    "b": -0.0822227812844643,
+    "se": 0.07036913440493357,
+    "p": 0.24827901578484846,
+    "pct": -0.0789332605935934,
+    "lo": -0.1975985896874598,
+    "hi": 0.05728121553314125,
+    "n": 8574,
+    "n_with": 273
+   },
+   "G5a_length5": {
+    "b": -0.12001070390659879,
+    "se": 0.03554993210690589,
+    "p": 0.0014476818013922088,
+    "pct": -0.11308905674554903,
+    "lo": -0.17278328675823174,
+    "hi": -0.049087127142462106,
+    "n": 8574
+   },
+   "G5b_informative": {
+    "b": 0.08369739793523912,
+    "se": 0.014718841137908927,
+    "p": 7.092556715271314e-07,
+    "pct": 0.08729982485085008,
+    "lo": 0.0563805284710841,
+    "hi": 0.11912410088790248,
+    "n": 8574
+   },
+   "G6a_meme": {
+    "b": 0.26805749443501475,
+    "se": 0.1585837642627542,
+    "p": 0.09731949738184542,
+    "pct": 0.3074223073609508,
+    "lo": -0.041865087344533425,
+    "hi": 0.7840421711046597,
+    "n": 8574,
+    "n_with": 83
+   },
+   "G6b_tentative": {
+    "b": 0.06966310804186615,
+    "se": 0.06183889917434815,
+    "p": 0.26543000227253266,
+    "pct": 0.07214692272888201,
+    "lo": -0.050235418780395724,
+    "hi": 0.2102988957968146,
+    "n": 8574,
+    "n_with": 500
+   }
+  },
+  "note": "Each coefficient compares papers with the feature with papers that share all other 7 title features; for G2/G3 this means 'plain' titles (G2 excludes questions by construction, and named titles go with more citations), so the reference group differs from the primary's.",
+  "feature_correlations": {
+   "G1_name": {
+    "G1_name": 1.0,
+    "G2_assertive": -0.068,
+    "G3_question": -0.069,
+    "G4_llm_words": 0.04,
+    "G5a_length5": 0.107,
+    "G5b_informative": 0.14,
+    "G6a_meme": -0.031,
+    "G6b_tentative": -0.065
+   },
+   "G2_assertive": {
+    "G1_name": -0.068,
+    "G2_assertive": 1.0,
+    "G3_question": -0.039,
+    "G4_llm_words": 0.013,
+    "G5a_length5": 0.122,
+    "G5b_informative": -0.057,
+    "G6a_meme": 0.2,
+    "G6b_tentative": -0.023
+   },
+   "G3_question": {
+    "G1_name": -0.069,
+    "G2_assertive": -0.039,
+    "G3_question": 1.0,
+    "G4_llm_words": -0.009,
+    "G5a_length5": 0.111,
+    "G5b_informative": -0.045,
+    "G6a_meme": 0.059,
+    "G6b_tentative": -0.037
+   },
+   "G4_llm_words": {
+    "G1_name": 0.04,
+    "G2_assertive": 0.013,
+    "G3_question": -0.009,
+    "G4_llm_words": 1.0,
+    "G5a_length5": 0.068,
+    "G5b_informative": 0.007,
+    "G6a_meme": 0.009,
+    "G6b_tentative": -0.025
+   },
+   "G5a_length5": {
+    "G1_name": 0.107,
+    "G2_assertive": 0.122,
+    "G3_question": 0.111,
+    "G4_llm_words": 0.068,
+    "G5a_length5": 1.0,
+    "G5b_informative": 0.207,
+    "G6a_meme": 0.073,
+    "G6b_tentative": 0.06
+   },
+   "G5b_informative": {
+    "G1_name": 0.14,
+    "G2_assertive": -0.057,
+    "G3_question": -0.045,
+    "G4_llm_words": 0.007,
+    "G5a_length5": 0.207,
+    "G5b_informative": 1.0,
+    "G6a_meme": -0.032,
+    "G6b_tentative": 0.034
+   },
+   "G6a_meme": {
+    "G1_name": -0.031,
+    "G2_assertive": 0.2,
+    "G3_question": 0.059,
+    "G4_llm_words": 0.009,
+    "G5a_length5": 0.073,
+    "G5b_informative": -0.032,
+    "G6a_meme": 1.0,
+    "G6b_tentative": -0.004
+   },
+   "G6b_tentative": {
+    "G1_name": -0.065,
+    "G2_assertive": -0.023,
+    "G3_question": -0.037,
+    "G4_llm_words": -0.025,
+    "G5a_length5": 0.06,
+    "G5b_informative": 0.034,
+    "G6a_meme": -0.004,
+    "G6b_tentative": 1.0
+   }
+  }
+ },
+ "llm_topic_heterogeneity": {
+  "label": "pre-specified secondary (prereg section 6; no multiplicity claim)",
+  "n_llm_topic_papers": 1931,
+  "features": {
+   "G1_name": {
+    "llm_topic_papers": {
+     "b": 0.18384829371367292,
+     "se": 0.08203851985353894,
+     "p": 0.02959067219883682,
+     "pct": 0.2018334835710489,
+     "lo": 0.02332056412636918,
+     "hi": 0.41148704801573244,
+     "n": 8574,
+     "n_with": 698
+    },
+    "non_llm_topic_papers": {
+     "b": 0.21289996026524624,
+     "se": 0.04467276141645144,
+     "p": 1.7187627939785344e-05,
+     "pct": 0.23726086980293637,
+     "lo": 0.13353531692302978,
+     "hi": 0.35047795784687086,
+     "n": 8574,
+     "n_with": 1407
+    },
+    "interaction": {
+     "b": -0.02905166655157361,
+     "se": 0.09513617876497593,
+     "p": 0.7613784003163127,
+     "ratio": 0.971366276024287,
+     "ratio_lo": 0.8061232948222529,
+     "ratio_hi": 1.17048154824175
+    }
+   },
+   "G2_assertive": {
+    "llm_topic_papers": {
+     "b": 0.3356901278643683,
+     "se": 0.17467184492059865,
+     "p": 0.0604521243829077,
+     "pct": 0.3989054758146853,
+     "lo": -0.0066445151153584625,
+     "hi": 0.9700264004598216,
+     "n": 8574,
+     "n_with": 135
+    },
+    "non_llm_topic_papers": {
+     "b": 0.19168657229651792,
+     "se": 0.08895095728920963,
+     "p": 0.03610539600456386,
+     "pct": 0.21129080536656697,
+     "lo": 0.017493953702331977,
+     "hi": 0.4419991488173729,
+     "n": 8574,
+     "n_with": 321
+    },
+    "interaction": {
+     "b": 0.1440035555678506,
+     "se": 0.19893970027619962,
+     "p": 0.47259641242875494,
+     "ratio": 1.154888214801021,
+     "ratio_lo": 0.7819861442270728,
+     "ratio_hi": 1.7056143494775156
+    }
+   },
+   "G3_question": {
+    "llm_topic_papers": {
+     "b": -0.019267360779732526,
+     "se": 0.12490913904657729,
+     "p": 0.8780454046536785,
+     "pct": -0.01908293157143892,
+     "lo": -0.2320950168237803,
+     "hi": 0.2530173865451737,
+     "n": 8574,
+     "n_with": 82
+    },
+    "non_llm_topic_papers": {
+     "b": 0.22743414038498608,
+     "se": 0.10754478606940183,
+     "p": 0.03955860514080256,
+     "pct": 0.2553747585331865,
+     "lo": 0.016785682332426832,
+     "hi": 0.5499488355767501,
+     "n": 8574,
+     "n_with": 141
+    },
+    "interaction": {
+     "b": -0.24670150116471865,
+     "se": 0.16857822170848746,
+     "p": 0.14973699362644277,
+     "ratio": 0.7813738979224745,
+     "ratio_lo": 0.5615161091552725,
+     "ratio_hi": 1.0873154988786462
+    }
+   },
+   "G4_llm_words": {
+    "llm_topic_papers": {
+     "b": -0.014329538920782392,
+     "se": 0.14586381465236634,
+     "p": 0.9221431601418626,
+     "pct": -0.014227359720466404,
+     "lo": -0.25934667868490346,
+     "hi": 0.3120142317032448,
+     "n": 8574,
+     "n_with": 92
+    },
+    "non_llm_topic_papers": {
+     "b": -0.13693939849245448,
+     "se": 0.08204599301654437,
+     "p": 0.1014841657811425,
+     "pct": -0.1279769295564459,
+     "lo": -0.2575127237419318,
+     "hi": 0.02415793468964611,
+     "n": 8574,
+     "n_with": 181
+    },
+    "interaction": {
+     "b": 0.12260985957167199,
+     "se": 0.17441442660935572,
+     "p": 0.4853948959675065,
+     "ratio": 1.1304433032696264,
+     "ratio_lo": 0.8031270032499452,
+     "ratio_hi": 1.591158131573173
+    }
+   },
+   "G5a_length5": {
+    "llm_topic_papers": {
+     "b": 0.03627745847447977,
+     "se": 0.08041953403297437,
+     "p": 0.6539057270427198,
+     "pct": 0.03694351534688711,
+     "lo": -0.11427151725771578,
+     "hi": 0.21397457005209608,
+     "n": 8574
+    },
+    "non_llm_topic_papers": {
+     "b": -0.07881887232047037,
+     "se": 0.03584136535366498,
+     "p": 0.03262055881688597,
+     "pct": -0.07579269118909249,
+     "lo": -0.13848942536677056,
+     "hi": -0.008533180195564039,
+     "n": 8574
+    },
+    "interaction": {
+     "b": 0.11509633079495003,
+     "se": 0.08869790884599253,
+     "p": 0.2004931575762554,
+     "ratio": 1.121981513737461,
+     "ratio_lo": 0.9429409943807054,
+     "ratio_hi": 1.3350172753867522
+    }
+   },
+   "G5b_informative": {
+    "llm_topic_papers": {
+     "b": 0.06881007321051547,
+     "se": 0.022585382083568934,
+     "p": 0.0037208138697040205,
+     "pct": 0.07123273403230468,
+     "lo": 0.024846376043259344,
+     "hi": 0.11971862055341642,
+     "n": 8574
+    },
+    "non_llm_topic_papers": {
+     "b": 0.08215675758528675,
+     "se": 0.01833937838939087,
+     "p": 4.483500557950215e-05,
+     "pct": 0.08562597659835092,
+     "lo": 0.047295970149334954,
+     "hi": 0.12535882373066687,
+     "n": 8574
+    },
+    "interaction": {
+     "b": -0.013346684374771298,
+     "se": 0.03120260942618425,
+     "p": 0.6707126496060707,
+     "ratio": 0.9867419876860856,
+     "ratio_lo": 0.9282039479446323,
+     "ratio_hi": 1.0489717829995335
+    }
+   },
+   "G6a_meme": {
+    "llm_topic_papers": {
+     "b": 0.4333914508718993,
+     "se": 0.2105317990123524,
+     "p": 0.04487419125641812,
+     "pct": 0.5424799076407671,
+     "lo": 0.020965884493265863,
+     "hi": 1.3303856687203175,
+     "n": 8574,
+     "n_with": 20
+    },
+    "non_llm_topic_papers": {
+     "b": 0.2966796204235147,
+     "se": 0.18036652179432458,
+     "p": 0.10639757549732387,
+     "pct": 0.3453841967743665,
+     "lo": -0.055253614172779186,
+     "hi": 0.9159201496656886,
+     "n": 8574,
+     "n_with": 63
+    },
+    "interaction": {
+     "b": 0.1367118304483845,
+     "se": 0.277327515450599,
+     "p": 0.6242416738216936,
+     "ratio": 1.1464977151797595,
+     "ratio_lo": 0.6657439779545248,
+     "ratio_hi": 1.9744181764152526
+    }
+   },
+   "G6b_tentative": {
+    "llm_topic_papers": {
+     "b": 0.22162492058934433,
+     "se": 0.15956903317419088,
+     "p": 0.1711448644645408,
+     "pct": 0.24810315226409307,
+     "lo": -0.08710132463608056,
+     "hi": 0.7063903374277294,
+     "n": 8574,
+     "n_with": 99
+    },
+    "non_llm_topic_papers": {
+     "b": -0.002072827446707048,
+     "se": 0.06420881664612076,
+     "p": 0.974377827922956,
+     "pct": -0.0020706806234827013,
+     "lo": -0.12007808471109693,
+     "hi": 0.13176284073378186,
+     "n": 8574,
+     "n_with": 401
+    },
+    "interaction": {
+     "b": 0.22369774803605139,
+     "se": 0.16549873404926857,
+     "p": 0.1826916804293861,
+     "ratio": 1.250692937896522,
+     "ratio_lo": 0.9042225450804361,
+     "ratio_hi": 1.7299201766364778
+    }
+   }
+  },
+  "model": "per feature: y ~ F x llm_topic + F + llm_topic + core.controls(F) | year^topic50, CRV1 topic50; group slopes from the same model re-parametrised as F_in_llm + F_in_nonllm + llm_topic",
+  "descriptive_holm_over_8_interactions": {
+   "label": "diagnostic (not pre-registered; added at integration)",
+   "p_holm": {
+    "G3_question": 1.0,
+    "G6b_tentative": 1.0,
+    "G5a_length5": 1.0,
+    "G2_assertive": 1.0,
+    "G4_llm_words": 1.0,
+    "G6a_meme": 1.0,
+    "G5b_informative": 1.0,
+    "G1_name": 1.0
+   },
+   "note": "descriptive only: the prereg makes no multiplicity claim for secondary analyses"
+  }
+ },
+ "r1_placebo_G1_G2": {
+  "label": "diagnostic (not pre-registered; added at integration)",
+  "method": "cites.audit_g3g4 placebo (as in the G3/G4 audits): pseudo-treated = random papers without the feature, same per-year counts, matched with the R1 rule to the remaining papers without it; adjusted = exp(observed mean log diff - placebo mean) - 1, CI from the placebo SD",
+  "G1_name": {
+   "observed_pct": 0.08376797662521707,
+   "null_n_rep": 200,
+   "null_mean_pct": -0.17331065813782798,
+   "null_sd_log": 0.04905364530710856,
+   "null_q2.5_q97.5_pct": [
+    -0.25163818436652274,
+    -0.09348920407815708
+   ],
+   "placebo_p_two_sided": 0.009950248756218905,
+   "adjusted_pct": 0.3109736895651256,
+   "adjusted_lo": 0.19051373927625526,
+   "adjusted_hi": 0.4436221590998286,
+   "n_pairs": 2065,
+   "seed": 0,
+   "reproduces_core_R1": true,
+   "sensitivity_within_year_permutation": {
+    "observed_pct": 0.08376797662521707,
+    "null_n_rep": 200,
+    "null_mean_pct": -0.19986145779153686,
+    "null_sd_log": 0.039087718957335094,
+    "null_q2.5_q97.5_pct": [
+     -0.2558916882572093,
+     -0.140326118418165
+    ],
+    "placebo_p_two_sided": 0.009950248756218905,
+    "adjusted_pct": 0.35447540576399184,
+    "adjusted_lo": 0.2543418400545163,
+    "adjusted_hi": 0.4626025906460993,
+    "seed": 7,
+    "note": "pseudo-treated = random papers (any status), same per-year counts; controls = all other papers"
+   }
+  },
+  "G2_assertive": {
+   "observed_pct": -0.06528859092271388,
+   "null_n_rep": 200,
+   "null_mean_pct": -0.1973555537330145,
+   "null_sd_log": 0.09072461565160495,
+   "null_q2.5_q97.5_pct": [
+    -0.31373549455550886,
+    -0.02464190959456325
+   ],
+   "placebo_p_two_sided": 0.11940298507462686,
+   "adjusted_pct": 0.1645398076626956,
+   "adjusted_lo": -0.025604742263694358,
+   "adjusted_hi": 0.39178937178086626,
+   "n_pairs": 454,
+   "seed": 0,
+   "reproduces_core_R1": true,
+   "sensitivity_within_year_permutation": {
+    "observed_pct": -0.06528859092271388,
+    "null_n_rep": 200,
+    "null_mean_pct": -0.20273186307991398,
+    "null_sd_log": 0.08412446208192854,
+    "null_q2.5_q97.5_pct": [
+     -0.3216452132771246,
+     -0.06744682936483692
+    ],
+    "placebo_p_two_sided": 0.05970149253731343,
+    "adjusted_pct": 0.1723927820421307,
+    "adjusted_lo": -0.00622938472390977,
+    "adjusted_hi": 0.38312082713637174,
+    "seed": 7,
+    "note": "pseudo-treated = random papers (any status), same per-year counts; controls = all other papers"
+   }
+  }
+ },
+ "guide_table": {
+  "G1_name": {
+   "question": "G1",
+   "label": "Coined method name ('NAME: subtitle')",
+   "plain_label": "Leads with a method name (NAME: ...)",
+   "unit": "with vs without",
+   "primary": {
+    "pct": 0.22462958239364839,
+    "lo": 0.13486336775752106,
+    "hi": 0.32149618771911626,
+    "p": 3.657001823365036e-06,
+    "n": 8574,
+    "n_with": 2105
+   },
+   "p_holm": 2.559901276355525e-05,
+   "R1_matched_pairs_prereg": {
+    "pct": 0.08376797662521707,
+    "lo": 0.0021859676399258454,
+    "hi": 0.173188773622156,
+    "n_pairs": 2065
+   },
+   "R2_ppml_prereg": {
+    "pct": 0.38046023297845544,
+    "lo": 0.08094963101456343,
+    "hi": 0.762959531283893,
+    "p": 0.009771942219896301,
+    "n": 8574
+   },
+   "verdict": "more citations",
+   "verdict_recomputed_with_core_verdict": "more citations",
+   "R1_placebo_calibrated": {
+    "pct": 0.3109736895651256,
+    "lo": 0.19051373927625526,
+    "hi": 0.4436221590998286,
+    "null_mean_pct": -0.17331065813782798,
+    "source": "joint_results.json r1_placebo_G1_G2",
+    "label": "diagnostic (not pre-registered; added at integration)"
+   },
+   "joint_model": {
+    "pct": 0.23308269409940774,
+    "lo": 0.14041657854723177,
+    "hi": 0.33327852215582365,
+    "p": 3.1923071808215298e-06,
+    "n": 8574
+   },
+   "llm_topic_interaction_ratio": {
+    "ratio": 0.971366276024287,
+    "ratio_lo": 0.8061232948222529,
+    "ratio_hi": 1.17048154824175,
+    "p": 0.7613784003163127
+   },
+   "audit_confidence": "sign high; size medium"
+  },
+  "G2_assertive": {
+   "question": "G2",
+   "label": "Title states a finding (assertive verb, not a question; rule-based)",
+   "plain_label": "States the finding (assertive verb)",
+   "unit": "with vs without",
+   "primary": {
+    "pct": 0.26072402859165744,
+    "lo": 0.0754045843358424,
+    "hi": 0.47797870626522276,
+    "p": 0.0062727473455230776,
+    "n": 8574,
+    "n_with": 456
+   },
+   "p_holm": 0.037636484073138465,
+   "R1_matched_pairs_prereg": {
+    "pct": -0.06528859092271388,
+    "lo": -0.21807633319563435,
+    "hi": 0.11088665653187602,
+    "n_pairs": 454
+   },
+   "R2_ppml_prereg": {
+    "pct": 0.5435542429688951,
+    "lo": 0.17561640050947536,
+    "hi": 1.0266472124366013,
+    "p": 0.0017805002859718755,
+    "n": 8574
+   },
+   "verdict": "inconclusive",
+   "verdict_recomputed_with_core_verdict": "inconclusive",
+   "R1_placebo_calibrated": {
+    "pct": 0.1645398076626956,
+    "lo": -0.025604742263694358,
+    "hi": 0.39178937178086626,
+    "null_mean_pct": -0.1973555537330145,
+    "source": "joint_results.json r1_placebo_G1_G2",
+    "label": "diagnostic (not pre-registered; added at integration)"
+   },
+   "joint_model": {
+    "pct": 0.3387019401691611,
+    "lo": 0.14156966738274557,
+    "hi": 0.5698760538386072,
+    "p": 0.000765519769387657,
+    "n": 8574
+   },
+   "llm_topic_interaction_ratio": {
+    "ratio": 1.154888214801021,
+    "ratio_lo": 0.7819861442270728,
+    "ratio_hi": 1.7056143494775156,
+    "p": 0.47259641242875494
+   },
+   "audit_confidence": "verdict high; advice medium"
+  },
+  "G3_question": {
+   "question": "G3",
+   "label": "Question title",
+   "plain_label": "Is a question",
+   "unit": "with vs without",
+   "primary": {
+    "pct": 0.1432501767443186,
+    "lo": -0.028354629874166926,
+    "hi": 0.34516255293497644,
+    "p": 0.1130899678956998,
+    "n": 8574,
+    "n_with": 223
+   },
+   "p_holm": 0.34751900962477134,
+   "R1_matched_pairs_prereg": {
+    "pct": -0.03701385116883815,
+    "lo": -0.2605290528789006,
+    "hi": 0.23720172711512255,
+    "n_pairs": 221
+   },
+   "R2_ppml_prereg": {
+    "pct": 0.21344582834813686,
+    "lo": -0.332039571557987,
+    "hi": 1.204398218274576,
+    "p": 0.5253183988491452,
+    "n": 8574
+   },
+   "verdict": "inconclusive",
+   "verdict_recomputed_with_core_verdict": "inconclusive",
+   "R1_placebo_calibrated": {
+    "pct": 0.23001962601933013,
+    "lo": -0.03666444420534665,
+    "hi": 0.5705309238219753,
+    "null_mean_pct": -0.21709692393475022,
+    "source": "G3/results.json diagnostics.f_audit_r1_calibration.placebo",
+    "label": "diagnostic (not pre-registered; from the G audit)"
+   },
+   "joint_model": {
+    "pct": 0.2719316113141128,
+    "lo": 0.06585157301438249,
+    "hi": 0.5178567680720445,
+    "p": 0.010337816658329668,
+    "n": 8574
+   },
+   "llm_topic_interaction_ratio": {
+    "ratio": 0.7813738979224745,
+    "ratio_lo": 0.5615161091552725,
+    "ratio_hi": 1.0873154988786462,
+    "p": 0.14973699362644277
+   },
+   "audit_confidence": "'no advice either way' high; direction low-medium"
+  },
+  "G4_llm_words": {
+   "question": "G4",
+   "label": "LLM-favoured title words (enhancing, leveraging, unveiling, ...)",
+   "plain_label": "Uses LLM-favoured words (enhancing, ...)",
+   "unit": "with vs without",
+   "primary": {
+    "pct": -0.09043121152413836,
+    "lo": -0.20674288357754989,
+    "hi": 0.042934710375619245,
+    "p": 0.18074883918202156,
+    "n": 8574,
+    "n_with": 273
+   },
+   "p_holm": 0.3614976783640431,
+   "R1_matched_pairs_prereg": {
+    "pct": -0.3047178052032792,
+    "lo": -0.43924842579003365,
+    "hi": -0.138903748632067,
+    "n_pairs": 273
+   },
+   "R2_ppml_prereg": {
+    "pct": 0.020974284871299043,
+    "lo": -0.3072625017415501,
+    "hi": 0.5047380760952556,
+    "p": 0.9164597817623097,
+    "n": 8574
+   },
+   "verdict": "inconclusive",
+   "verdict_recomputed_with_core_verdict": "inconclusive",
+   "R1_placebo_calibrated": {
+    "pct": -0.12494348775833719,
+    "lo": -0.2934092487562814,
+    "hi": 0.08368797393504002,
+    "null_mean_pct": -0.20544309416589324,
+    "source": "G4/results.json diagnostics_not_preregistered.d_r1_calibration_and_family_pairs.G4_llm_words",
+    "label": "diagnostic (not pre-registered; from the G audit)"
+   },
+   "joint_model": {
+    "pct": -0.0789332605935934,
+    "lo": -0.1975985896874598,
+    "hi": 0.05728121553314125,
+    "p": 0.24827901578484846,
+    "n": 8574
+   },
+   "llm_topic_interaction_ratio": {
+    "ratio": 1.1304433032696264,
+    "ratio_lo": 0.8031270032499452,
+    "ratio_hi": 1.591158131573173,
+    "p": 0.4853948959675065
+   },
+   "audit_confidence": "'neither establish nor rule out' high; direction medium-low"
+  },
+  "G5a_length5": {
+   "question": "G5",
+   "label": "Title length (per +5 words)",
+   "plain_label": "Longer title (per +5 words)",
+   "unit": "per +5 words",
+   "primary": {
+    "pct": -0.05518250071973474,
+    "lo": -0.11347234484655666,
+    "hi": 0.006939943449035146,
+    "p": 0.08687975240619283,
+    "n": 8574
+   },
+   "p_holm": 0.34751900962477134,
+   "R1_matched_pairs_prereg": {
+    "pct": -0.22989705410384909,
+    "lo": -0.28414108874383615,
+    "hi": -0.1701622173863303,
+    "n_pairs": 2547
+   },
+   "R2_ppml_prereg": {
+    "pct": -0.2529101323213825,
+    "lo": -0.42601971120978754,
+    "hi": -0.02759157189097572,
+    "p": 0.030155005042939775,
+    "n": 8574
+   },
+   "verdict": "inconclusive",
+   "verdict_recomputed_with_core_verdict": "inconclusive",
+   "R1_placebo_calibrated": {
+    "pct": -0.07627301265433573,
+    "lo": -0.16348071575234757,
+    "hi": 0.020026152676338116,
+    "note": "exp(observed mean log diff - null mean) - 1; approximate CI from the null SD",
+    "null_mean_pct": -0.16630892412373177,
+    "contrast_units": 1.1509226541028659,
+    "source": "G5/results.json diagnostics_not_preregistered.g_audit.r1_null.G5a_length5",
+    "label": "diagnostic (not pre-registered; from the G audit)"
+   },
+   "joint_model": {
+    "pct": -0.11308905674554903,
+    "lo": -0.17278328675823174,
+    "hi": -0.049087127142462106,
+    "p": 0.0014476818013922088,
+    "n": 8574
+   },
+   "llm_topic_interaction_ratio": {
+    "ratio": 1.121981513737461,
+    "ratio_lo": 0.9429409943807054,
+    "ratio_hi": 1.3350172753867522,
+    "p": 0.2004931575762554
+   },
+   "audit_confidence": "high that no reliable association is shown",
+   "R1_per_unit_rescaled": {
+    "label": "diagnostic (not pre-registered): R1 compares top with bottom within-year tercile; rescaled to the primary's unit by exp(log(1 + R1) / 1.151) - 1, 1.151 = mean feature contrast in the pairs",
+    "contrast_units": 1.1509226541028659,
+    "raw": {
+     "pct": -0.2030595767384451,
+     "lo": -0.2520644308410025,
+     "hi": -0.1496146338775034
+    },
+    "calibrated": {
+     "pct": -0.0666125431079092,
+     "lo": -0.14366867530729932,
+     "hi": 0.01737740937612431
+    }
+   }
+  },
+  "G5b_informative": {
+   "question": "G5",
+   "label": "Title informativeness (title-abstract similarity, per SD within year)",
+   "plain_label": "Closer in meaning to the abstract (per SD)",
+   "unit": "per +1 SD within year",
+   "primary": {
+    "pct": 0.07987932834589584,
+    "lo": 0.04994449511041843,
+    "hi": 0.11066762978374878,
+    "p": 2.2422261909404995e-06,
+    "n": 8574
+   },
+   "p_holm": 1.7937809527523996e-05,
+   "R1_matched_pairs_prereg": {
+    "pct": 0.04404233017940418,
+    "lo": -0.024858020519793023,
+    "hi": 0.12448272978621788,
+    "n_pairs": 2711
+   },
+   "R2_ppml_prereg": {
+    "pct": 0.01776990240681231,
+    "lo": -0.09523695668933374,
+    "hi": 0.1448915623861231,
+    "p": 0.769273911310052,
+    "n": 8574
+   },
+   "verdict": "more citations",
+   "verdict_recomputed_with_core_verdict": "more citations",
+   "R1_placebo_calibrated": {
+    "pct": 0.25910723871883534,
+    "lo": 0.14156841068689996,
+    "hi": 0.3887481676549187,
+    "note": "exp(observed mean log diff - null mean) - 1; approximate CI from the null SD",
+    "null_mean_pct": -0.1708074593854797,
+    "contrast_units": 2.0567833331679117,
+    "source": "G5/results.json diagnostics_not_preregistered.g_audit.r1_null.G5b_informative",
+    "label": "diagnostic (not pre-registered; from the G audit)"
+   },
+   "joint_model": {
+    "pct": 0.08729982485085008,
+    "lo": 0.0563805284710841,
+    "hi": 0.11912410088790248,
+    "p": 7.092556715271314e-07,
+    "n": 8574
+   },
+   "llm_topic_interaction_ratio": {
+    "ratio": 0.9867419876860856,
+    "ratio_lo": 0.9282039479446323,
+    "ratio_hi": 1.0489717829995335,
+    "p": 0.6707126496060707
+   },
+   "audit_confidence": "sign high; size medium",
+   "R1_per_unit_rescaled": {
+    "label": "diagnostic (not pre-registered): R1 compares top with bottom within-year tercile; rescaled to the primary's unit by exp(log(1 + R1) / 2.057) - 1, 2.057 = mean feature contrast in the pairs",
+    "contrast_units": 2.0567833331679117,
+    "raw": {
+     "pct": 0.021176167208288188,
+     "lo": -0.012164036990006233,
+     "hi": 0.05870032597717323
+    },
+    "calibrated": {
+     "pct": 0.11853635149208896,
+     "lo": 0.06649105988310233,
+     "hi": 0.17312147909272557
+    }
+   }
+  },
+  "G6a_meme": {
+   "question": "G6",
+   "label": "Meme template (All You Need, Is Secretly, Matters, When X Meets Y, ...)",
+   "plain_label": "Meme template (All You Need, ...)",
+   "unit": "with vs without",
+   "primary": {
+    "pct": 0.3785724866050837,
+    "lo": 0.028583230299447093,
+    "hi": 0.8476502871539622,
+    "p": 0.0366336161597125,
+    "n": 8574,
+    "n_with": 83
+   },
+   "p_holm": 0.1831680807985625,
+   "R1_matched_pairs_prereg": {
+    "pct": 0.18047242946132025,
+    "lo": -0.23133344588481075,
+    "hi": 0.8301879046244212,
+    "n_pairs": 83
+   },
+   "R2_ppml_prereg": {
+    "pct": 0.3964987431025615,
+    "lo": -0.25601460617982874,
+    "hi": 1.6212997670199143,
+    "p": 0.298570508909791,
+    "n": 8574
+   },
+   "verdict": "inconclusive",
+   "verdict_recomputed_with_core_verdict": "inconclusive",
+   "R1_placebo_calibrated": {
+    "pct": 0.5128433884927728,
+    "lo": 0.02075624761237682,
+    "hi": 1.242156365400378,
+    "null_mean_pct": -0.2196995152040091,
+    "source": "G6/results.json diagnostics_not_preregistered.f_r1_calibration.G6a_meme",
+    "label": "diagnostic (not pre-registered; from the G audit)"
+   },
+   "joint_model": {
+    "pct": 0.3074223073609508,
+    "lo": -0.041865087344533425,
+    "hi": 0.7840421711046597,
+    "p": 0.09731949738184542,
+    "n": 8574
+   },
+   "llm_topic_interaction_ratio": {
+    "ratio": 1.1464977151797595,
+    "ratio_lo": 0.6657439779545248,
+    "ratio_hi": 1.9744181764152526,
+    "p": 0.6242416738216936
+   },
+   "audit_confidence": "low-medium"
+  },
+  "G6b_tentative": {
+   "question": "G6",
+   "label": "Tentative framing (Towards, Rethinking, Revisiting, Understanding, On the, Demystifying)",
+   "plain_label": "Tentative framing (Towards, Rethinking, ...)",
+   "unit": "with vs without",
+   "primary": {
+    "pct": 0.037400833642996956,
+    "lo": -0.0779482917405735,
+    "hi": 0.16718019174298582,
+    "p": 0.5443132513921654,
+    "n": 8574,
+    "n_with": 500
+   },
+   "p_holm": 0.5443132513921654,
+   "R1_matched_pairs_prereg": {
+    "pct": -0.13114636666434487,
+    "lo": -0.24443544881641233,
+    "hi": 0.00562756189090563,
+    "n_pairs": 497
+   },
+   "R2_ppml_prereg": {
+    "pct": 0.13208084702105505,
+    "lo": -0.27563607210874674,
+    "hi": 0.7692861210288113,
+    "p": 0.5860619507467604,
+    "n": 8574
+   },
+   "verdict": "inconclusive",
+   "verdict_recomputed_with_core_verdict": "inconclusive",
+   "R1_placebo_calibrated": {
+    "pct": 0.11647796611552974,
+    "lo": -0.04606097755543381,
+    "hi": 0.30671145586132686,
+    "null_mean_pct": -0.2217906132455203,
+    "source": "G6/results.json diagnostics_not_preregistered.f_r1_calibration.G6b_tentative",
+    "label": "diagnostic (not pre-registered; from the G audit)"
+   },
+   "joint_model": {
+    "pct": 0.07214692272888201,
+    "lo": -0.050235418780395724,
+    "hi": 0.2102988957968146,
+    "p": 0.26543000227253266,
+    "n": 8574
+   },
+   "llm_topic_interaction_ratio": {
+    "ratio": 1.250692937896522,
+    "ratio_lo": 0.9042225450804361,
+    "ratio_hi": 1.7299201766364778,
+    "p": 0.1826916804293861
+   },
+   "audit_confidence": "medium that any association is small"
+  }
+ },
+ "notes": [
+  "primary estimates and Holm p are read from primary.json (frozen); verdicts are read from each G's results.json and re-derived with core.verdict on the frozen primary and stored R1/R2",
+  "all *_pct / lo / hi values are proportions: 0.2246 = +22.46%"
+ ],
+ "figure": {
+  "paths": {
+   "pdf": "/home/user/cloud-research/research/titles/outputs/cites/fig_title_guide.pdf",
+   "png": "/home/user/cloud-research/research/titles/outputs/cites/fig_title_guide.png",
+   "csv": "/home/user/cloud-research/research/titles/outputs/cites/fig_title_guide.csv"
+  },
+  "rows_top_to_bottom": [
+   "G6a_meme",
+   "G2_assertive",
+   "G1_name",
+   "G3_question",
+   "G5b_informative",
+   "G6b_tentative",
+   "G5a_length5",
+   "G4_llm_words"
+  ]
+ }
+}

@@ -1,6 +1,5 @@
 """Slide figures for the talk. Reads only committed outputs (hindsight check, RQ1 results, frozen-run and post hoc
-estimates), the outcome-free contribution labels, and values transcribed from the earlier keyword analysis
-(data/keyword_gaps_transcribed.csv); it never reads acceptance or review columns.
+estimates, including PH4) and the outcome-free contribution labels; it never reads acceptance or review columns.
 
 Figures are drawn at about 1.55x their size on the slide, so 15 pt text lands near 10 pt. Academic style: white
 background, plain panel labels (a), (b), formal axis titles; captions are set in LaTeX.
@@ -17,6 +16,7 @@ import matplotlib
 
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt  # noqa: E402
+import numpy as np  # noqa: E402
 import pandas as pd  # noqa: E402
 from scipy import stats  # noqa: E402
 
@@ -198,37 +198,54 @@ def newcomer_gap() -> None:
     save(fig, "newcomer_gap")
 
 
-def keyword_trajectories() -> None:
-    """Exploratory: keyword acceptance gap by year for four fashions. Values are transcribed from the keyword x year
-    heatmap of the earlier keyword analysis (Notion report; data/keyword_gaps_transcribed.csv); no outcome is read
-    here. Cells with fewer than 5 keyword papers are omitted; hollow markers have fewer than 50."""
-    d = pd.read_csv(HERE / "data" / "keyword_gaps_transcribed.csv")
-    panels = [("federated learning", "(a) Federated learning", ORANGE),
-              ("graph neural networks", "(b) Graph neural networks", ORANGE),
-              ("diffusion models", "(c) Diffusion models", BLUE),
-              ("large language models", "(d) Large language models", BLUE)]
-    fig, axes = plt.subplots(2, 2, figsize=(7.6, 4.6), sharex=True, sharey=True)
-    for ax, (kw, title, colour) in zip(axes.flat, panels):
-        g = d[d.keyword == kw]
-        ax.axhline(0, color=INK2, lw=1)
-        ax.plot(g.year, g.gap_pp, color=colour, lw=2.4, zorder=2)
-        big = g.n >= 50
-        ax.scatter(g.year[big], g.gap_pp[big], s=46, color=colour, zorder=3, edgecolor=BG, lw=1)
-        ax.scatter(g.year[~big], g.gap_pp[~big], s=46, facecolor=BG, edgecolor=colour, lw=1.8, zorder=3)
-        for row, dx, ha in [(g.iloc[0], -8, "right"), (g.iloc[-1], 8, "left")]:
-            ax.annotate(f"n={int(row.n):,}", (row.year, row.gap_pp), xytext=(dx, 0), textcoords="offset points",
-                        ha=ha, va="center", fontsize=FS - 4, color=INK2)
-        ax.set_title(title, fontsize=FS - 1)
-        ax.grid(axis="x", visible=False)
-    for ax in axes[1]:
-        ax.set_xticks([2020, 2023, 2026])
-        ax.set_xlim(2017.4, 2028.0)
-    for ax in axes[:, 0]:
-        ax.set_ylabel("Gap (pp)")
-    axes[0, 0].set_ylim(-24, 38)
-    axes[0, 0].set_yticks([-20, 0, 20])
-    fig.tight_layout(h_pad=0.8, w_pad=1.0)
-    save(fig, "keyword_trajectories")
+def area_ranking() -> None:
+    """PH4: among keywords with >= 5 years of >= 10 papers, the six highest and six lowest acceptance levels."""
+    r = pd.read_csv(OUTPUT / "posthoc" / "ph4_keywords.csv")
+    r = r[r.years_with_min_cell >= 5].sort_values("level")
+    pick = pd.concat([r.head(6), r.tail(6)])
+    fig, ax = plt.subplots(figsize=(5.6, 4.4))
+    y = np.arange(len(pick))
+    for yi, (_, x) in zip(y, pick.iterrows()):
+        colour = ORANGE if x.level < 0 else BLUE
+        ax.plot([100 * x.level_ci_lo, 100 * x.level_ci_hi], [yi, yi], color=colour, lw=2.4, solid_capstyle="round")
+        ax.plot(100 * x.level, yi, "o", color=colour, ms=8, mec=BG, mew=1.2)
+    labels = [u + ("  ◀" if u == "federated learning" else "") for u in pick.unit]
+    ax.set_yticks(y, labels, fontsize=FS - 2)
+    ax.axvline(0, color=INK2, lw=1)
+    ax.axhline(5.5, color=GRID, lw=1.2, ls="--")
+    ax.set_xlabel("Gap vs. same-year papers (pp, 95% CI)")
+    ax.grid(axis="y", visible=False)
+    save(fig, "area_ranking")
+
+
+def fl_story() -> None:
+    """PH4/PH4b for federated learning: share of all submissions (outcome-free) and the acceptance gap by year."""
+    comp = pd.read_csv(OUTPUT / "posthoc" / "ph4_mechanism_composition.csv")
+    comp = comp[comp.unit == "federated learning"]
+    cells = pd.read_csv(OUTPUT / "posthoc" / "ph4_keywords_cells.csv")
+    c = cells[(cells.unit == "federated learning") & (cells.papers >= 10)]
+    lvl = pd.read_csv(OUTPUT / "posthoc" / "ph4_keywords.csv").set_index("unit").loc["federated learning", "level"]
+    fig, axes = plt.subplots(1, 2, figsize=(8.6, 3.3))
+    ax = axes[0]
+    ax.plot(comp.year, 100 * comp.share_of_all_submissions, color=BLUE, lw=3, marker="o", ms=6, mec=BG, mew=1.5)
+    peak = comp.loc[comp.share_of_all_submissions.idxmax()]
+    ax.annotate(f"peak {100 * peak.share_of_all_submissions:.1f}%", (peak.year, 100 * peak.share_of_all_submissions),
+                xytext=(0, 9), textcoords="offset points", ha="center", fontsize=FS - 2)
+    ax.set_title("(a) Share of all submissions (%)", fontsize=FS - 1)
+    ax.set_ylim(0, 4)
+    ax = axes[1]
+    ax.axhline(0, color=INK2, lw=1)
+    ax.axhline(100 * lvl, color=ORANGE, lw=1.2, ls="--")
+    ax.errorbar(c.year, 100 * c.gap, yerr=196 * c.gap_se, fmt="o", color=ORANGE, ms=7, lw=2, capsize=0, mec=BG)
+    ax.text(2017.9, 100 * lvl - 2.5, f"average {100 * lvl:+.0f} pp".replace("-", "−"), color=ORANGE, fontsize=FS - 2,
+            va="top")
+    ax.set_title("(b) Acceptance gap vs. same-year papers (pp)", fontsize=FS - 1)
+    for a_ in axes:
+        a_.set_xticks([2018, 2020, 2022, 2024, 2026])
+        a_.set_xlim(2017.5, 2026.5)
+        a_.grid(axis="x", visible=False)
+    fig.tight_layout(w_pad=2)
+    save(fig, "fl_story")
 
 
 def team_size() -> None:
@@ -249,6 +266,6 @@ def team_size() -> None:
 
 if __name__ == "__main__":
     FIGS.mkdir(exist_ok=True)
-    for make in (hindsight, emerging, lifecycle, fm_trend, newcomers, newcomer_gap, keyword_trajectories, team_size):
+    for make in (hindsight, emerging, lifecycle, fm_trend, newcomers, newcomer_gap, area_ranking, fl_story, team_size):
         make()
     print("figures written to", FIGS)

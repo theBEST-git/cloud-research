@@ -1,6 +1,6 @@
 # Q&A preparation
 
-Short answers first. Use the "If pushed" line only if they ask a follow-up. Appendix slides are A1–A12.
+Short answers first. Use the "If pushed" line only if they ask a follow-up. Appendix slides are A1–A12 (A12: the earlier keyword grid).
 
 **Three habits that keep answers safe:**
 - Say "goes with" or "is associated with", never "causes".
@@ -219,37 +219,58 @@ prospective version.
 Theory papers (+9 points vs. method papers) and larger teams (+9 points per doubling). These are associations,
 not advice; team size also stands for compute and seniority. (A7, A8)
 
-### Topic trajectories (slide 14, Appendix A12)
+### Areas and federated learning (slides 14–15; post hoc PH4)
 
-**So is federated learning a scam?**
-*Don't use the word "scam" yourself.* Answer: "We can't judge that from acceptance data. What we see is that FL
-papers went from an apparent premium to being accepted about 14 points less often than other papers in the same
-year, consistently from 2023 to 2026. That fits growing scepticism among reviewers. It also fits a change in who
-writes FL papers and how incremental they are. Descriptively, newcomer papers fare among the worst in the FL
-area, which suggests composition is part of the story."
+**Is federated learning a scam?**
+*Don't use the word "scam" yourself.* Answer: "The data show the community cooled on federated learning. Its share
+of submissions fell by two-thirds after 2023, and since then FL papers have been accepted 11 to 15 points less often
+than other papers each year. That is not explained by who writes them: FL authors became *more* experienced. It
+fits growing scepticism about FL's research value, but we can't observe reviewers' reasons."
 
-**Aren't the early cells tiny?**
-Yes, FL had only 11 papers in 2020, so I don't rely on the early premium. The robust part is the later penalty: four
-years in a row, about 100 papers each, all between −11 and −15 points. With about 400 papers pooled, random noise is
-roughly ±5 points, so −14 is well outside it.
+**Is the FL result significant?**
+On its own, yes: about −11 points (keyword) or −14 points (topic), p = 0.005 each. After correcting for testing 68
+keywords, no single area is significant (q ≈ 0.17–0.19), and our test is conservative. Two things make FL more
+credible than a random hit:
+- two independent definitions agree (author keywords and our content-based topic);
+- the gap is negative in every year since 2023, at about 100 papers a year.
 
-**Isn't this regression to the mean, or just dilution as the keyword grows?**
-Both could pull a gap *towards zero*: early extreme values shrink, and a keyword that covers more of the field looks
-more like the field. Neither pushes a gap clearly *below* zero for four years, which is what FL and GNNs show.
+We registered it for replication on the held-out split (H4-FL).
 
-**Did you cherry-pick these four keywords?**
-The four illustrate the pattern; Appendix A12 shows all 23, which were chosen by sample size, not by acceptance.
-Not every topic busts. Reinforcement learning and generative models, for example, stay near zero or positive in
-2026.
+**Is acceptance in FL *declining* over time, or just low?**
+Mostly low. The trend is −3 points per year (p = 0.08), and the early "premium" rests on 11 papers in 2020. The
+clearer "decline" is in submissions: from 3.2% of all submissions in 2023 to 1.1% in 2026.
 
-**Why keywords here and topics elsewhere?**
-Keywords are chosen by the authors, so they don't depend on a topic map and have no hindsight problem. Our
-pre-registered topic-level test (H3a) points the same way on average (−1.7 points per 2.7× more earlier papers) but
-is inconclusive. The keyword view shows that the average hides some strong boom-and-bust cases.
+**How do you know it's not just weaker authors moving in?**
+Three checks:
+- the share of FL papers with an author who already had an accepted ICLR paper *rose* from 4% to about 60%;
+- team size and the share of method papers stayed flat;
+- adjusting for type, foundation-model use and team size barely changes the level (−11.3 → −10.5 points);
+- adding author experience to that adjustment still keeps 76% of the decline.
 
-**Is this pre-registered?**
-No. It is earlier exploratory work, disclosed in the registration. A registered version is a natural next step:
-for example, testing whether a topic's acceptance gap declines as its volume grows, on the held-out split.
+**Then why are FL papers accepted less?**
+Two explanations remain, and we can't separate them without review texts:
+- reviewers became more sceptical (novelty fatigue, or doubts about practical value);
+- the remaining papers are more incremental, as the big ideas were taken early.
+
+Both fit "the field moved on".
+
+**Which areas are favoured?**
+Descriptively:
+- above average: pre-training, imitation learning, language models, generative models, diffusion (+6 to +10 points);
+- by topic: neural rendering and robot learning (about +11 to +14);
+- below average: FL, CNNs, image classification, data augmentation (−10 to −14).
+
+These are associations with the same year's papers, not advice on what to work on.
+
+**Did you go fishing for FL?**
+The question came from an earlier keyword grid, so FL was not a blind discovery. We say this openly. That is why:
+- we ran a *systematic* screen of all 68 keywords and 100 topics, declared before running;
+- we corrected for multiple comparisons;
+- we registered FL for replication on unseen papers.
+
+**Why both keywords and topics?**
+Keywords are chosen by the authors, so they carry no topic-map hindsight. Topics are content-based. Agreement between
+the two is the robustness check.
 
 ## 5. Scope and next steps
 
@@ -309,3 +330,6 @@ All code, the frozen inputs and every output are in the repository. One command 
 | Label agreement | κ = 0.93 |
 | False positives found in simulation | up to 12.6% instead of 5% (one scenario) |
 | Newcomer acceptance gap | −10 pp in the same topic and year; −3 pp within the same authors |
+| Federated learning acceptance gap | −11 pp (keyword) / −14 pp (topic), p = 0.005; −11 to −15 pp each year since 2023 |
+| Federated learning share of submissions | 3.2% (2023 peak) → 1.1% (2026) |
+| Federated learning authors with an earlier accepted ICLR paper | 4% (2021) → about 60% |

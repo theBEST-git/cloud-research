@@ -329,29 +329,48 @@
   \gnote{\footnotesize Other correlates of acceptance (theory papers, team size): Appendix A7--A8.}
 \end{frame}
 
-\begin{frame}{Exploratory: Acceptance Premia Fade as Fashions Mature}
+\begin{frame}{Which Areas Are Accepted More or Less Often? (Post Hoc)}
   \begin{columns}[c]
-    \begin{column}{0.56\textwidth}
+    \begin{column}{0.54\textwidth}
       \begin{figure}
-        \includegraphics[width=\textwidth]{figs/keyword_trajectories.pdf}
-        \caption{Acceptance gap, keyword papers minus all others in the same year (pp). Hollow: $n<50$; $n<5$
-        omitted. Author keywords from an earlier exploratory analysis; full grid in Appendix A12.}
+        \includegraphics[width=\textwidth]{figs/area_ranking.pdf}
+        \caption{Acceptance gap vs.\ papers of the same year, 2018--2026. Six highest and six lowest of the author
+        keywords with ${\geq}5$ years of data.}
       \end{figure}
     \end{column}
-    \begin{column}{0.42\textwidth}
+    \begin{column}{0.44\textwidth}
       \small
       \begin{itemize}
-        \item Young fashions carry a premium (small early cells)
-        \item It fades; for federated learning and GNNs it \alert{reverses} ($-12$ to $-15$\pp, 100--200 papers
-          a year)
-        \item Diffusion and LLMs follow the same path, later
+        \item Screen of 68 author keywords and 100 topics, 32,190 decided papers
+        \item Areas differ by about $\pm$10\pp{}: generative and pre-training work above, federated learning, CNNs and
+          image classification below
+        \item Federated learning is low under \emph{both} definitions: keyword $-11$\pp, topic $-14$\pp{}
+          ($p = 0.005$ each)
       \end{itemize}
-      \begin{block}{Two readings}
-        \footnotesize Reviewers grow sceptical, or later papers in a crowded topic are weaker. These data cannot
-        separate the two.
-      \end{block}
+      \gnote{\scriptsize No single area survives correction for 68 comparisons ($q \geq 0.17$; conservative test).}
     \end{column}
   \end{columns}
+\end{frame}
+
+\begin{frame}{Why Is Federated Learning Falling Out of Favour? (Post Hoc)}
+  \vspace{-0.8em}
+  \begin{figure}
+    \includegraphics[width=0.60\textwidth]{figs/fl_story.pdf}
+    \caption{Federated learning (author keyword); 95\% CI, years with ${\geq}10$ papers.}
+  \end{figure}
+  \vspace{-1.0em}
+  \scriptsize
+  \begin{tabularx}{\textwidth}{@{}l X l@{}}
+    \toprule
+    Candidate explanation & Evidence & Verdict \\
+    \midrule
+    Influx of inexperienced authors & Authors became \emph{more} established (4\% $\to$ 60\%); type and team size
+      stable; adjusting keeps 76\% of the decline & No \\
+    The field moved on (hype cycle) & Share of submissions peaked in 2023 (3.2\%), 1.1\% by 2026 & Yes \\
+    Papers judged more harshly & Gap $-11$ to $-15$\pp{} each year since 2023; decline in every author group (n.s.)
+      & Consistent \\
+    \bottomrule
+  \end{tabularx}
 \end{frame}
 
 % ============================================================================ 6
@@ -368,7 +387,8 @@
         \item Where foundation models spread, new architectures fade (H1d, supported).
         \item Newcomer papers lean towards new methods and away from benchmarks, against the herding prediction
           (H2b/H2c).
-        \item Style follows fashions as topics do, without a reward at review (exploratory).
+        \item Following fashions is not rewarded; areas such as federated learning fall out of favour as the
+          field moves on, not because of who writes the papers (post hoc).
       \end{itemize}
   \end{enumerate}
 \end{frame}
@@ -389,7 +409,7 @@
       \textbf{Future work}
       \small
       \begin{itemize}
-        \item Replication on the held-out ICLR split (four hypotheses registered)
+        \item Replication on the held-out ICLR split (five hypotheses registered, incl.\ federated learning)
         \item Extension to ACL Anthology / ARR
         \item Human validation of contribution labels
         \item Review scores: reviewers vs.\ final decisions
@@ -615,7 +635,7 @@
   \end{description}
 \end{frame}
 
-\begin{frame}{A12. Keyword $\times$ Year Acceptance Gaps (Exploratory)}
+\begin{frame}{A12. Earlier Keyword $\times$ Year Grid (Exploratory, Pre-registration)}
   \centering
   \includegraphics[height=0.80\textheight]{figs/keyword_year_heatmap.png}\\
   {\tiny\gnote{Keyword papers minus all others, same year (pp); hatched: a group below 50 papers; 31,239 submissions.}}

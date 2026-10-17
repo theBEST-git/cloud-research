@@ -869,3 +869,9 @@ Anything added after the freeze is labelled post hoc.
     the real population every decided paper has an author ID, so the `has_key` control in the PH4b adjustment was
     constant. Constant controls are now dropped, nothing else changed, and the run was repeated. Both attempts are in
     `output/posthoc/access_log.jsonl`.
+- **Registered for the confirmation split after PH4 (2026-10-17, before any confirmation data exist): H4-FL.**
+  - Primary: papers listing "federated learning" are accepted less often than other papers of the same year (the
+    PH4 level, one-sided, α = 0.05).
+  - Secondary: the FL gap's trend is negative (one-sided).
+  - Same PH4 code, keyword rule and population definition.
+  - This is a new hypothesis, derived from the discovery results and labelled as such.

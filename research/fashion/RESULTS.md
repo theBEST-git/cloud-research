@@ -403,6 +403,74 @@ asks how much of the gap is about the authors.
 - **Review scores could separate the reviewer stage from the decision stage,** but they are not in this repository
   (see the post-run record).
 
+## Post hoc: which areas are accepted more or less often, and why? (PH4, exploratory)
+
+`posthoc.py ph4`, declared before it was run (with the mechanism probes PH4b, added before the run). Outputs:
+`output/posthoc/ph4_*`; figures `PH4_keywords_map.png`, `PH4_topics_map.png`, `PH4_keyword_trends.png`,
+`PH4_mechanisms.png`.
+
+The question came from the user and their supervisor, after an earlier exploratory keyword × year grid suggested,
+for example, that federated learning was falling out of favour. That grid predates the registration. PH4 is therefore
+a systematic screen, not a test of the keywords already seen.
+
+- **Population:** the RQ3 filter, 2018–2026, 32,190 decided papers.
+- **Units:**
+  - 68 author keywords (research areas, specific topics, properties and application domains, each used by ≥ 200
+    submissions); these carry no topic-map hindsight;
+  - the 100 k100 topics.
+- **Estimands:** for each unit, its papers' acceptance minus that of all other papers of the same year:
+  - level, 2018–2026;
+  - recent level, 2024–2026;
+  - trend, in pp per year.
+
+  Benjamini–Hochberg is applied within each set.
+- **No area survives the multiple-testing correction.** No keyword and no topic is flagged (q < 0.05) on level, recent
+  level or trend.
+  - The declared tests are conservative. In 200 within-year permutations of acceptance they rejected 0.5–1.4% of the
+    time at nominal 5%, and no permutation produced a flag.
+  - A non-flagged area is therefore not evidence of no difference.
+- **Descriptively, areas differ by about ±10 pp.** Among keywords with at least 5 years of data:
+  - highest: pre-training +9.9 pp, imitation learning +8.8, language models +8.0, generative models +6.4;
+  - lowest: convolutional neural networks −14.2, federated learning −11.3, data augmentation −11.0, image
+    classification −10.2, adversarial attack −7.4.
+
+  Diffusion models are +8.6 pp (p = 0.02). Among topics:
+  - highest: neural rendering +13.5, robot learning +11.0, diffusion formulation +10.6;
+  - lowest: clinical ML −14.9, federated learning −13.5, recommender systems −13.5, graph representation learning
+    −9.8.
+
+  All p-values are unadjusted; every q ≥ 0.17.
+- **Federated learning is low under both definitions.**
+
+  | | Papers | Level 2018–26 (95% CI) | 2024–26 | Trend (pp/yr) | Adjusted level |
+  |---|---|---|---|---|---|
+  | Keyword | 475 | −11.3 (−17.9, −4.8); p = 0.005, q = 0.19 | −13.5 (p = 0.007) | −3.0 (−6.4, +0.5); p = 0.08 | −10.5 |
+  | Topic m029 | 485 | −13.5 (−21.1, −5.9); p = 0.005, q = 0.17 | −14.1 (p = 0.012) | −2.7 (−7.0, +1.5); p = 0.16 | −12.1 |
+
+  - The gap has been below average in every year since 2022, roughly −11 to −15 pp a year since 2023. FL papers'
+    own acceptance went from 36% (2022) to 24% (2026).
+  - The early premium (2020: n = 11) is too small to rely on. So "going downhill" describes FL's place in the field
+    better than a steady decline in its acceptance gap.
+  - Adjusting for contribution type, FM and team size barely changes the level (−10.5).
+- **Why? (PH4b, federated learning only, since no trend was flagged.)**
+  1. **Composition / influx.** *Not supported.* FL's authors became more experienced, not less:
+     - papers with an author who had an earlier accepted ICLR paper went from 4% (2021) to about 60% (2023–2025);
+     - keyword newcomers fell from 96% to 40–58%;
+     - team size (4.3–4.9) and the share of method papers (about 85%) are stable;
+     - adjusting acceptance for composition keeps 76% of the raw trend.
+  2. **The field moved on (hype cycle).** *Supported, descriptively.* FL's share of all submissions peaked in 2023
+     at 3.2% and fell to 1.1% by 2026.
+  3. **FL papers judged more harshly** (reviewer scepticism or saturation of ideas; the supervisor's reading).
+     *Consistent with the data, not testable here.*
+     - The declining trend appears in every author group: established −1.6 pp/yr, others −3.2, keyword
+       incumbents −1.8, keyword newcomers −4.3.
+     - None is significant on its own, so the registered reading rule returns "mixed".
+- **Reading.** The data fit a cooling of the field on FL: authors are leaving, and the papers that remain are
+  accepted less often than other papers of the same year. This is not explained by who writes them, their type or
+  their team size. Reviewers' reasons are not observed, so scepticism about FL's research value is a plausible
+  explanation, not a tested one. The level difference is individually clear, but not after correcting for 68
+  keywords. Its replication is registered (below).
+
 ## Limitations
 
 - **Associations only.** Topic choice, team composition and contribution type are chosen jointly.
@@ -447,6 +515,10 @@ are labelled as such.
 - **H2b′:** newcomer papers are more likely to be method papers.
 - **H2c′:** newcomer papers are less likely to be measurement papers.
 - **H3a:** acceptance decreases with topic maturity, the registered direction.
+- **H4-FL (registered 2026-10-17, after PH4, before any confirmation data exist).** Papers listing "federated
+  learning" are accepted less often than other papers of the same year: the PH4 level, one-sided, α = 0.05. Its
+  trend is negative: secondary, one-sided. These use the same PH4 code and population definition on the confirmation
+  split.
 
 ## Reproduction
 

@@ -829,3 +829,29 @@ Anything added after the freeze is labelled post hoc.
     - unit tests of the gap, level, trend and BH computations against direct calculations;
     - an end-to-end run on simulated outcomes (rq3 and accepted drawn at random by year), checking that per-test
       sizes are near 5%.
+  - **PH4b, mechanism probes** (added 2026-10-17 at the user's request, before PH4 was run). These ask *why* an area's
+    gap moves, not only whether it does.
+    - **Units:** the keywords whose trend is flagged, plus "federated learning" (the PH4 trend-panel rule, at most 9).
+    - **Candidate explanations, each with a probe:**
+      1. **Composition / influx.** Less experienced authors and smaller teams move in. Probe: the trend of the gap
+         after adjusting acceptance for contribution class, FM, log2 team size and "established author" (an author
+         with an accepted ICLR paper in an earlier year, any topic; uses earlier outcomes, inside this run). The
+         adjustment is an LPM with year FE on all PH4 papers, and the adjusted gap uses the residuals. We report the
+         share of the raw trend that the adjustment removes.
+      2. **Change in how the area's papers are judged** (reviewer scepticism or saturation of ideas; the supervisor's
+         reading for federated learning). Probe: does the decline also appear among papers by experienced authors?
+         We report the trend of the gap separately for the unit's papers with and without an established author, and
+         with and without a keyword incumbent (an author ID with an earlier discovery submission listing the
+         keyword, any outcome). Each subgroup is compared with all papers outside the unit.
+      3. **Hype cycle.** Probe: the year in which the keyword's share of all discovery submissions peaks, and whether
+         the decline comes before or after it. This is descriptive.
+    - **Composition by year:** for the population, newcomer and established-author shares, mean team size, method
+      share and FM share; the keyword's share of all submissions.
+    - **Reading rules, fixed now:**
+      - If the adjusted trend keeps at least half of the raw trend, and the decline also appears among established or
+        incumbent papers, the pattern points to a change in how the area's papers are judged, not only to who submits
+        them.
+      - If the adjustment removes more than half, and the decline is confined to newcomer or non-established papers,
+        composition is the leading explanation.
+      - Anything in between is reported as mixed.
+      - None of this observes reviewers' beliefs. Those are explanations consistent with the data, not tested causes.

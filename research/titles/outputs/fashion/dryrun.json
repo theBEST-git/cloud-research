@@ -1,0 +1,619 @@
+{
+ "primary": {
+  "H1": {
+   "title": "Readers reward momentum: P(top-10% cited | accepted) rises with ex-ante local momentum",
+   "coef": "mom_p",
+   "estimate": 0.1335573403849276,
+   "se": 0.015165144797064092,
+   "ci95": [
+    0.10383365658268197,
+    0.16328102418717322
+   ],
+   "null": 0.0,
+   "direction": ">",
+   "p_one_sided": 2.177536745231048e-14,
+   "n": 8207,
+   "clusters": 100,
+   "base_rate": 0.10076763738272207,
+   "p_holm": 1.306522047138629e-13,
+   "verdict": "confirmed"
+  },
+  "H2": {
+   "title": "Reviewers do not reward momentum: acceptance effect of momentum < +5 pp (non-inferiority)",
+   "coef": "mom_p",
+   "estimate": -0.013082529229296888,
+   "se": 0.01093917419593046,
+   "ci95": [
+    -0.03452331065332059,
+    0.008358252194726813
+   ],
+   "null": 0.05,
+   "direction": "<",
+   "p_one_sided": 4.612424891851264e-08,
+   "n": 41446,
+   "clusters": 100,
+   "base_rate": 0.30487863726294456,
+   "p_holm": 1.3837274675553793e-07,
+   "verdict": "confirmed"
+  },
+  "H3": {
+   "title": "Reviewers reward established neighbourhoods: acceptance rises with local size",
+   "coef": "size_p",
+   "estimate": 0.0787176530258625,
+   "se": 0.011980113140838343,
+   "ci95": [
+    0.055236631269819356,
+    0.10219867478190565
+   ],
+   "null": 0.0,
+   "direction": ">",
+   "p_one_sided": 1.1769854382489658e-09,
+   "n": 41446,
+   "clusters": 100,
+   "base_rate": 0.30487863726294456,
+   "p_holm": 4.707941752995863e-09,
+   "verdict": "confirmed"
+  },
+  "H4": {
+   "title": "The wave's payoff goes to insiders: momentum raises P(hit) more for insiders than entrants",
+   "coef": "ins:mom_p",
+   "estimate": 0.05458204738941899,
+   "se": 0.009979681240111019,
+   "ci95": [
+    0.0350218721588014,
+    0.07414222262003659
+   ],
+   "null": 0.0,
+   "direction": ">",
+   "p_one_sided": 1.6988529003244992e-07,
+   "n": 16228,
+   "clusters": 100,
+   "base_rate": 0.03869854572344097,
+   "p_holm": 3.3977058006489984e-07,
+   "verdict": "confirmed"
+  },
+  "H5": {
+   "title": "Switching areas costs acceptance: insiders vs entrants",
+   "coef": "ins",
+   "estimate": 0.05036092156486746,
+   "se": 0.007156468636834071,
+   "ci95": [
+    0.03633424303667268,
+    0.06438760009306224
+   ],
+   "null": 0.0,
+   "direction": ">",
+   "p_one_sided": 1.2963316955929803e-10,
+   "n": 28704,
+   "clusters": 100,
+   "base_rate": 0.33653846153846156,
+   "p_holm": 6.481658477964901e-10,
+   "verdict": "confirmed"
+  },
+  "H6": {
+   "title": "Naming pays in rising areas: NAME-title x momentum on P(top-10% | accepted)",
+   "coef": "G1_name:mom_p",
+   "estimate": 0.10338158995119563,
+   "se": 0.028555893905365275,
+   "ci95": [
+    0.04741203789667969,
+    0.15935114200571157
+   ],
+   "null": 0.0,
+   "direction": ">",
+   "p_one_sided": 0.00023294468410274896,
+   "n": 8207,
+   "clusters": 100,
+   "base_rate": 0.10076763738272207,
+   "p_holm": 0.00023294468410274896,
+   "verdict": "confirmed"
+  }
+ },
+ "secondary": {
+  "S1_nnr_acc": {
+   "coef": "nnr_p",
+   "estimate": -0.026613698123579704,
+   "se": 0.00887909798687351,
+   "ci95": [
+    -0.044016730177851786,
+    -0.009210666069307621
+   ],
+   "null": 0.0,
+   "direction": "<",
+   "p_one_sided": 0.001721445598882355,
+   "n": 41446,
+   "clusters": 100,
+   "base_rate": 0.30487863726294456
+  },
+  "S2_nnr_top10": {
+   "coef": "nnr_p",
+   "estimate": 0.027782802407354302,
+   "se": 0.011521620905803909,
+   "ci95": [
+    0.005200425431978642,
+    0.05036517938272996
+   ],
+   "null": 0.0,
+   "direction": ">",
+   "p_one_sided": 0.008868275362858113,
+   "n": 8207,
+   "clusters": 100,
+   "base_rate": 0.10076763738272207
+  },
+  "S3a_nnr_x_mom_acc": {
+   "coef": "nnr_p:mom_p",
+   "estimate": -0.059370936240382095,
+   "se": 0.02683830131053707,
+   "ci95": [
+    -0.11197400680903474,
+    -0.006767865671729441
+   ],
+   "null": 0.0,
+   "direction": "<",
+   "p_one_sided": 0.014626767217206876,
+   "n": 41446,
+   "clusters": 100,
+   "base_rate": 0.30487863726294456
+  },
+  "S3b_nnr_x_mom_top10": {
+   "coef": "nnr_p:mom_p",
+   "estimate": 0.11114778478952257,
+   "se": 0.04199832239876143,
+   "ci95": [
+    0.02883107288795017,
+    0.19346449669109497
+   ],
+   "null": 0.0,
+   "direction": ">",
+   "p_one_sided": 0.004731420944121355,
+   "n": 8207,
+   "clusters": 100,
+   "base_rate": 0.10076763738272207
+  },
+  "S4_size_x_mom_top10": {
+   "coef": "size_p:mom_p",
+   "estimate": 0.1487115786002643,
+   "se": 0.04783595942802801,
+   "ci95": [
+    0.05495309812132938,
+    0.24247005907919922
+   ],
+   "null": 0.0,
+   "direction": ">",
+   "p_one_sided": 0.0012265048824241394,
+   "n": 8207,
+   "clusters": 100,
+   "base_rate": 0.10076763738272207
+  },
+  "S5_name_x_mom_acc": {
+   "coef": "G1_name:mom_p",
+   "estimate": 0.03714535066609749,
+   "se": 0.01775401008137613,
+   "ci95": [
+    0.0023474909066002816,
+    0.0719432104255947
+   ],
+   "null": 0.0,
+   "direction": ">",
+   "p_one_sided": 0.019488349222778215,
+   "n": 41446,
+   "clusters": 100,
+   "base_rate": 0.30487863726294456
+  },
+  "S6_informative_x_size_logcites": {
+   "coef": "G5b_informative:size_p",
+   "estimate": -0.2124319800843111,
+   "se": 0.052629413690867884,
+   "ci95": [
+    -0.3155856309184122,
+    -0.10927832925021005
+   ],
+   "null": 0.0,
+   "direction": "<",
+   "p_one_sided": 5.353602226979398e-05,
+   "n": 8207,
+   "clusters": 100,
+   "base_rate": 3.3340653201928934
+  },
+  "S7_entrant_vs_newcomer_acc": {
+   "coef": "ent",
+   "estimate": 0.052165037498939824,
+   "se": 0.006922091660701458,
+   "ci95": [
+    0.03859773784396497,
+    0.06573233715391469
+   ],
+   "null": 0.0,
+   "direction": ">",
+   "p_one_sided": 1.166622681135619e-11,
+   "n": 35789,
+   "clusters": 100,
+   "base_rate": 0.3070217105814636
+  }
+ },
+ "tables": {
+  "entry_x_momentum": [
+   {
+    "entry": "entrant",
+    "mom3": "lo",
+    "mean": 0.2672955974842767,
+    "size": 3816,
+    "outcome": "acc_rev"
+   },
+   {
+    "entry": "entrant",
+    "mom3": "mid",
+    "mean": 0.3004990806409246,
+    "size": 3807,
+    "outcome": "acc_rev"
+   },
+   {
+    "entry": "entrant",
+    "mom3": "hi",
+    "mean": 0.29730337078651686,
+    "size": 4450,
+    "outcome": "acc_rev"
+   },
+   {
+    "entry": "insider",
+    "mom3": "lo",
+    "mean": 0.36478109259976754,
+    "size": 5162,
+    "outcome": "acc_rev"
+   },
+   {
+    "entry": "insider",
+    "mom3": "mid",
+    "mean": 0.3759209645010047,
+    "size": 5972,
+    "outcome": "acc_rev"
+   },
+   {
+    "entry": "insider",
+    "mom3": "hi",
+    "mean": 0.37202110241950154,
+    "size": 5497,
+    "outcome": "acc_rev"
+   },
+   {
+    "entry": "newcomer",
+    "mom3": "lo",
+    "mean": 0.18887758562224483,
+    "size": 2949,
+    "outcome": "acc_rev"
+   },
+   {
+    "entry": "newcomer",
+    "mom3": "mid",
+    "mean": 0.1910681399631676,
+    "size": 2172,
+    "outcome": "acc_rev"
+   },
+   {
+    "entry": "newcomer",
+    "mom3": "hi",
+    "mean": 0.18126272912423624,
+    "size": 1964,
+    "outcome": "acc_rev"
+   },
+   {
+    "entry": "entrant",
+    "mom3": "lo",
+    "mean": 0.05736434108527132,
+    "size": 645,
+    "outcome": "top10"
+   },
+   {
+    "entry": "entrant",
+    "mom3": "mid",
+    "mean": 0.09166666666666666,
+    "size": 720,
+    "outcome": "top10"
+   },
+   {
+    "entry": "entrant",
+    "mom3": "hi",
+    "mean": 0.1397228637413395,
+    "size": 866,
+    "outcome": "top10"
+   },
+   {
+    "entry": "insider",
+    "mom3": "lo",
+    "mean": 0.04119850187265917,
+    "size": 1068,
+    "outcome": "top10"
+   },
+   {
+    "entry": "insider",
+    "mom3": "mid",
+    "mean": 0.10190555095277548,
+    "size": 1207,
+    "outcome": "top10"
+   },
+   {
+    "entry": "insider",
+    "mom3": "hi",
+    "mean": 0.2010178117048346,
+    "size": 1179,
+    "outcome": "top10"
+   },
+   {
+    "entry": "newcomer",
+    "mom3": "lo",
+    "mean": 0.026246719160104987,
+    "size": 381,
+    "outcome": "top10"
+   },
+   {
+    "entry": "newcomer",
+    "mom3": "mid",
+    "mean": 0.027303754266211604,
+    "size": 293,
+    "outcome": "top10"
+   },
+   {
+    "entry": "newcomer",
+    "mom3": "hi",
+    "mean": 0.07818930041152264,
+    "size": 243,
+    "outcome": "top10"
+   },
+   {
+    "entry": "entrant",
+    "mom3": "lo",
+    "mean": 0.016400709219858155,
+    "size": 2256,
+    "outcome": "hit"
+   },
+   {
+    "entry": "entrant",
+    "mom3": "mid",
+    "mean": 0.02858380251190992,
+    "size": 2309,
+    "outcome": "hit"
+   },
+   {
+    "entry": "entrant",
+    "mom3": "hi",
+    "mean": 0.043968023255813955,
+    "size": 2752,
+    "outcome": "hit"
+   },
+   {
+    "entry": "insider",
+    "mom3": "lo",
+    "mean": 0.01569746699964324,
+    "size": 2803,
+    "outcome": "hit"
+   },
+   {
+    "entry": "insider",
+    "mom3": "mid",
+    "mean": 0.03870358716173694,
+    "size": 3178,
+    "outcome": "hit"
+   },
+   {
+    "entry": "insider",
+    "mom3": "hi",
+    "mean": 0.08088737201365187,
+    "size": 2930,
+    "outcome": "hit"
+   },
+   {
+    "entry": "newcomer",
+    "mom3": "lo",
+    "mean": 0.005271481286241434,
+    "size": 1897,
+    "outcome": "hit"
+   },
+   {
+    "entry": "newcomer",
+    "mom3": "mid",
+    "mean": 0.005427408412483039,
+    "size": 1474,
+    "outcome": "hit"
+   },
+   {
+    "entry": "newcomer",
+    "mom3": "hi",
+    "mean": 0.014570552147239263,
+    "size": 1304,
+    "outcome": "hit"
+   }
+  ],
+  "size_x_momentum": [
+   {
+    "size3": "lo",
+    "mom3": "lo",
+    "mean": 0.2634072069023854,
+    "size": 5911,
+    "outcome": "acc_rev"
+   },
+   {
+    "size3": "lo",
+    "mom3": "mid",
+    "mean": 0.2847222222222222,
+    "size": 3456,
+    "outcome": "acc_rev"
+   },
+   {
+    "size3": "lo",
+    "mom3": "hi",
+    "mean": 0.2826338975191282,
+    "size": 4313,
+    "outcome": "acc_rev"
+   },
+   {
+    "size3": "mid",
+    "mom3": "lo",
+    "mean": 0.29354838709677417,
+    "size": 4650,
+    "outcome": "acc_rev"
+   },
+   {
+    "size3": "mid",
+    "mom3": "mid",
+    "mean": 0.3171928327645051,
+    "size": 4688,
+    "outcome": "acc_rev"
+   },
+   {
+    "size3": "mid",
+    "mom3": "hi",
+    "mean": 0.31091510474090406,
+    "size": 4535,
+    "outcome": "acc_rev"
+   },
+   {
+    "size3": "hi",
+    "mom3": "lo",
+    "mean": 0.3319987680936249,
+    "size": 3247,
+    "outcome": "acc_rev"
+   },
+   {
+    "size3": "hi",
+    "mom3": "mid",
+    "mean": 0.3348664425968512,
+    "size": 5653,
+    "outcome": "acc_rev"
+   },
+   {
+    "size3": "hi",
+    "mom3": "hi",
+    "mean": 0.32906068495894253,
+    "size": 4993,
+    "outcome": "acc_rev"
+   },
+   {
+    "size3": "lo",
+    "mom3": "lo",
+    "mean": 0.05036726128016789,
+    "size": 953,
+    "outcome": "top10"
+   },
+   {
+    "size3": "lo",
+    "mom3": "mid",
+    "mean": 0.05757575757575758,
+    "size": 660,
+    "outcome": "top10"
+   },
+   {
+    "size3": "lo",
+    "mom3": "hi",
+    "mean": 0.11799761620977355,
+    "size": 839,
+    "outcome": "top10"
+   },
+   {
+    "size3": "mid",
+    "mom3": "lo",
+    "mean": 0.05338078291814947,
+    "size": 843,
+    "outcome": "top10"
+   },
+   {
+    "size3": "mid",
+    "mom3": "mid",
+    "mean": 0.08932461873638345,
+    "size": 918,
+    "outcome": "top10"
+   },
+   {
+    "size3": "mid",
+    "mom3": "hi",
+    "mean": 0.1798780487804878,
+    "size": 984,
+    "outcome": "top10"
+   },
+   {
+    "size3": "hi",
+    "mom3": "lo",
+    "mean": 0.04860267314702309,
+    "size": 823,
+    "outcome": "top10"
+   },
+   {
+    "size3": "hi",
+    "mom3": "mid",
+    "mean": 0.10570469798657718,
+    "size": 1192,
+    "outcome": "top10"
+   },
+   {
+    "size3": "hi",
+    "mom3": "hi",
+    "mean": 0.1728643216080402,
+    "size": 995,
+    "outcome": "top10"
+   },
+   {
+    "size3": "lo",
+    "mom3": "lo",
+    "mean": 0.013505908835115363,
+    "size": 3554,
+    "outcome": "hit"
+   },
+   {
+    "size3": "lo",
+    "mom3": "mid",
+    "mean": 0.017040358744394617,
+    "size": 2230,
+    "outcome": "hit"
+   },
+   {
+    "size3": "lo",
+    "mom3": "hi",
+    "mean": 0.03354794984750932,
+    "size": 2951,
+    "outcome": "hit"
+   },
+   {
+    "size3": "mid",
+    "mom3": "lo",
+    "mean": 0.01607142857142857,
+    "size": 2800,
+    "outcome": "hit"
+   },
+   {
+    "size3": "mid",
+    "mom3": "mid",
+    "mean": 0.027976799727055614,
+    "size": 2931,
+    "outcome": "hit"
+   },
+   {
+    "size3": "mid",
+    "mom3": "hi",
+    "mean": 0.055994938310661185,
+    "size": 3161,
+    "outcome": "hit"
+   },
+   {
+    "size3": "hi",
+    "mom3": "lo",
+    "mean": 0.01620745542949757,
+    "size": 2468,
+    "outcome": "hit"
+   },
+   {
+    "size3": "hi",
+    "mom3": "mid",
+    "mean": 0.034653465346534656,
+    "size": 3636,
+    "outcome": "hit"
+   },
+   {
+    "size3": "hi",
+    "mom3": "hi",
+    "mean": 0.06173725771715721,
+    "size": 2786,
+    "outcome": "hit"
+   }
+  ]
+ },
+ "n_rows": 43482
+}

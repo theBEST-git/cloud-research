@@ -1663,3 +1663,26 @@ Anything added after the freeze is labelled post hoc.
         - truncated histories (before 2021, and outside the discovery split), which bias contrasts towards zero;
         - own resubmissions make returning authors insiders mechanically. This is rare here (1.6% of 2023–26 papers have a shared-author nearest earlier paper with centred cosine ≥ 0.80), and only flagged earlier versions (0.4%) are controlled or dropped.
       - H6 rests on few papers whose only insider is the first author (about 460), so its MDE80 is about 6–7 pp. H5's is about 11 pp. A null result there is not evidence that roles do not matter.
+  - **PH5 cleantext: are the pivot and position results produced by post-decision text?** (`posthoc.py ph5 cleantext`, module `ph5_cleantext.py`. Declared 2026-10-17, after the pivot and position runs and before this one. Post hoc and exploratory; a robustness check of results already seen, so it cannot strengthen them, only weaken them.)
+    - **Why.** The abstracts are the OpenReview versions after the decision. A de-anonymised code link or a "code is available" sentence appears in 15–19% of accepted abstracts and in under 1% of rejected ones (`ph5_fmwave/code_links.csv`). Novelty (position) and distance from the authors' earlier work (pivot) are both cosines of SPECTER2 vectors of that text. A lab's GitHub link shared between its accepted papers could pull a paper towards its authors' earlier work, and an unusual URL token could push it away from the field. Either could manufacture or inflate the pivot and position findings.
+    - **Input.** `research/topics/embed_specter2_clean.py` (outcome-free; it reads only titles and abstracts):
+      - It removes every sentence matching a code/data/model availability pattern, then every remaining URL, then collapses whitespace.
+      - It re-embeds only the papers whose text changed, with the same model, revisions, input format, pooling and length limit as `embed_specter2.py`.
+      - It writes `cache/specter2_clean.npy`, in the original row order, with every other row copied unchanged, plus `cache/specter2_clean_changed.csv`.
+      - Other venue markers are negligible in the outcome-free counts: "ICLR" appears in 81 abstracts, "camera-ready / published at / accepted at" in 28, "oral/spotlight" in 14 (all years together). They are left in.
+      - The file is frozen by its sha256 (`CLEAN_SHA256` in the module; value recorded below before the run). `compute()` refuses any other file.
+    - **Analyses** (everything else unchanged: the same code paths, the same frozen `ph5_pivot.REF` reference points and knots, the same seeds and the same 200 calibration nulls):
+      - pivot: the declared family E1–E4 (Holm over the four), via `ph5_pivot.declared`;
+      - position: Family 1, P1a–P7 (calibrated p for P3–P7, Holm over the eight, p_used as declared), via `ph5_position.declared` and `calibrated_p`.
+      - Secondary, robustness, dyadic and bootstrap parts of the two modules are not re-run.
+    - **Key tests and reading** (fixed now): E1 and E4 (pivot), P1b and P7 (position), the four results the PH5 synthesis would present. Each is read as:
+      - **holds**: same sign as the committed run and Holm p < .05 in its family;
+      - **attenuated**: same sign, Holm p ≥ .05, and the clean 95% CI contains the committed estimate or half of it;
+      - **does not hold**: otherwise.
+      - A key result that does not hold is dropped from the shortlist. An attenuated one is shown only with this caveat.
+    - **Also reported:**
+      - how far each feature moved (correlation and mean absolute difference, original vs clean, for all 2019–2026 papers and separately for those whose own text changed; the share of papers whose novelty quintile changed);
+      - the share of decided 2019–2026 papers whose text changed, accepted vs rejected;
+      - the `REF` reference points recomputed on the clean vectors (reported, not used).
+    - **Not addressed.** Other camera-ready edits (rewritten results, added experiments, polished wording) cannot be removed without the submitted versions. This check covers only the visible markers.
+    - **Development.** Tested on `ph5_common.simulated_frame` (switching the vectors and back, an end-to-end run with 3 nulls, the verdict logic); no real outcome was read.

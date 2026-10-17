@@ -5,3 +5,4 @@
 {"at_utc": "2026-10-17T10:06:14+00:00", "git_head": "c9de6eb4169848f14503e40c8a80b98a03981297", "posthoc_sha256": "3057b8dd76700b8f9d2b90de3430e97f7e975316ea03df48863dffb675d297ef", "argv": ["ph4"]}
 {"at_utc": "2026-10-17T15:51:22+00:00", "git_head": "7ddb858273f044a93cfe819bb8355978773ec2e6", "posthoc_sha256": "abaead7d9ad35e3cee5246909b858d74977fe1d2777a7a5f113979a2e32b0912", "argv": ["ph5", "fmwave"]}
 {"at_utc": "2026-10-17T15:51:39+00:00", "git_head": "7027e82a1c154b3da96e6b2138efbaa62f4e999d", "posthoc_sha256": "abaead7d9ad35e3cee5246909b858d74977fe1d2777a7a5f113979a2e32b0912", "argv": ["ph5", "premia"]}
+{"at_utc": "2026-10-17T15:52:24+00:00", "git_head": "cacf1b0c1cd0c8d6c531644fbc2525de6e9ad02f", "posthoc_sha256": "abaead7d9ad35e3cee5246909b858d74977fe1d2777a7a5f113979a2e32b0912", "argv": ["ph5", "kwtiming"]}

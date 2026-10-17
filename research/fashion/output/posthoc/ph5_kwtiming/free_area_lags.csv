@@ -1,0 +1,21 @@
+area,keywords_arrived,median_lag_all,median_lag_uncensored_onset,keywords_arrived_uncensored_onset,area_name,share_of_big_keywords_arrived
+c09,67,1.0,1.0,48,"Generalization theory, compression and architecture design",0.5193798449612403
+c01,97,2.0,2.0,76,LLMs and natural language processing,0.751937984496124
+c04,81,2.0,2.0,60,Reinforcement learning,0.627906976744186
+c03,77,2.0,2.0,57,"Computer vision, 3D vision and imaging",0.5968992248062015
+c08,74,2.0,2.0,53,"LLM efficiency, sequence models and audio",0.5736434108527132
+c14,68,2.0,2.0,49,"GANs, VAEs, diffusion and flow models",0.5271317829457365
+c15,66,2.0,2.0,51,"VLM reasoning, knowledge graphs and interpretability",0.5116279069767442
+c06,88,2.0,2.0,65,"Robust, continual, transfer and label-efficient learning",0.6821705426356589
+c13,65,3.0,2.0,48,"Embodied AI, driving and video understanding",0.5038759689922481
+c10,76,3.0,2.5,58,Vision-language models and few-shot learning,0.5891472868217055
+c05,97,3.0,3.0,73,"Federated learning, privacy and decision making",0.751937984496124
+c07,76,2.0,3.0,53,"Optimization, scientific ML and probabilistic inference",0.5891472868217055
+c12,72,3.0,3.0,55,"Adversarial robustness, backdoors and AI security",0.5581395348837209
+c11,73,3.0,3.0,53,Causal inference and biomedical ML,0.5658914728682171
+c18,59,3.0,3.0,39,Time series and spatiotemporal modeling,0.4573643410852713
+c17,54,3.0,3.0,41,"Diffusion image, video and motion generation",0.4186046511627907
+c19,48,3.0,3.0,31,"Representation geometry, clustering and kernel methods",0.37209302325581395
+c02,86,4.0,4.0,70,"LLM reasoning, agents, code and alignment",0.6666666666666666
+c16,57,4.0,4.0,43,Graph neural networks,0.4418604651162791
+c20,67,4.0,4.0,45,"Neuroscience, brain decoding and spiking networks",0.5193798449612403

@@ -1,0 +1,137 @@
+{
+  "free_summary": {
+    "vocabulary": 759,
+    "keywords_with_onset": 759,
+    "censored_keywords": 28,
+    "big_keywords": 129,
+    "eligible_uses_2019_2026": 53458,
+    "papers_with_eligible_keyword_2019_2026": 29816,
+    "uses_by_state": [
+      {
+        "state": "middle_falling",
+        "uses": 2285,
+        "papers": 2202,
+        "keywords": 223
+      },
+      {
+        "state": "middle_flat",
+        "uses": 4004,
+        "papers": 3778,
+        "keywords": 190
+      },
+      {
+        "state": "middle_rising",
+        "uses": 8116,
+        "papers": 7396,
+        "keywords": 189
+      },
+      {
+        "state": "old_falling",
+        "uses": 5499,
+        "papers": 4970,
+        "keywords": 150
+      },
+      {
+        "state": "old_flat",
+        "uses": 12541,
+        "papers": 10750,
+        "keywords": 147
+      },
+      {
+        "state": "old_rising",
+        "uses": 3164,
+        "papers": 3004,
+        "keywords": 88
+      },
+      {
+        "state": "young_falling",
+        "uses": 2154,
+        "papers": 2063,
+        "keywords": 305
+      },
+      {
+        "state": "young_flat",
+        "uses": 3419,
+        "papers": 3290,
+        "keywords": 308
+      },
+      {
+        "state": "young_rising",
+        "uses": 12276,
+        "papers": 10567,
+        "keywords": 472
+      }
+    ],
+    "model_c_rows_any_outcome": {
+      "rows": 28777,
+      "locally_early": 5278,
+      "mixed_keyword_year_cells": 471
+    },
+    "median_lag_uncensored_onset": 3.0,
+    "note": "outcome-free (any outcome): keywords, topics, author IDs only"
+  },
+  "summary": {
+    "population": "RQ3 decided papers with an eligible trend keyword, 2019-2026 (Model B and profile cells: 2019-20 and 2023-26)",
+    "papers_model_a": 22302,
+    "rows_model_a": 40074,
+    "papers_model_b": 19735,
+    "papers_model_c": 15430,
+    "rows_model_c": 21479,
+    "no_acceptance_share_model_b": 0.3304647160068847,
+    "omnibus": {
+      "F": 3.1107875099259967,
+      "df1": 8,
+      "df2": 99,
+      "p_nominal": 0.003555668458230791,
+      "p_calibrated": 0.01990049751243781,
+      "null_F_median": 1.0833730357022562,
+      "null_F_95pct": 2.2402107170546417,
+      "null_frames": 200,
+      "nominal_size_in_null_frames": 0.09
+    },
+    "mainstream_rate": 0.3778734727056343,
+    "profile_cells": {
+      "tau_between_profile_cells": 0.06649606793143054,
+      "reference_cell_rate": 0.4314912811993303,
+      "note": "descriptive; cells treated as independent in the method of moments; the reference cell has SE 0 and is not shrunk"
+    },
+    "model_d": {
+      "keywords": 79,
+      "tau": 0.02443883107974908,
+      "mu": 0.011938242455615769,
+      "Q": 93.34442031120872,
+      "I2": 0.16438497619944165,
+      "pooled_sd_r": 0.49559367686252337,
+      "share_posterior_positive": 0.8987341772151899,
+      "tau_null_mean": 0.0023009482724042655,
+      "tau_null_p95": 0.018610729593362543,
+      "tau_p_permutation": 0.0392156862745098,
+      "permutations": 50,
+      "survivorship": {
+        "mean_premium_keywords_with_100_papers": 0.0049606257756668656,
+        "mean_premium_all": 0.010154255702109332,
+        "mean_premium_other": 0.01910879005804462,
+        "keywords_with_100_papers": 50,
+        "note": "hindsight: the 100-paper status is known only later; descriptive"
+      }
+    },
+    "off_trend": {
+      "papers_off_trend": 9224,
+      "papers_on_trend": 22325,
+      "rate_off_trend": 0.39646574154379877,
+      "rate_on_trend": 0.40219484882418816,
+      "within_topic_year_difference": {
+        "coef": 0.01999265236233555,
+        "se": 0.010650580544747379,
+        "p": 0.0634429636473747,
+        "ci95_lo": -0.0011404100987887009,
+        "ci95_hi": 0.0411257148234598,
+        "mde80": 0.030135647066764526,
+        "rows": 31534,
+        "papers": 31534,
+        "dof": 99
+      }
+    },
+    "note": "post hoc exploratory (PH5 kwtiming, selection S1); associations within the stated fixed effects, not causal"
+  }
+}

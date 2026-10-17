@@ -873,8 +873,35 @@ def plot_ph4_mechanisms() -> None:
     figures.save(fig, "PH4_mechanisms")
 
 
+def write_outputs(res: dict, out_dir) -> None:
+    """Write a PH5 module's results: DataFrames as CSV, everything else as JSON."""
+    out_dir.mkdir(parents=True, exist_ok=True)
+    summary = {}
+    for name, obj in res.items():
+        if isinstance(obj, pd.DataFrame):
+            obj.to_csv(out_dir / f"{name}.csv", index=False)
+        else:
+            summary[name] = obj
+    (out_dir / "summary.json").write_text(json.dumps(summary, indent=2, default=float) + "\n")
+
+
+def ph5(slug: str, plot_only: bool = False) -> None:
+    """PH5 (final post hoc round): run module ph5_<slug> once on the real outcomes (or redraw its figures)."""
+    import importlib
+    import ph5_common
+    mod = importlib.import_module(f"ph5_{slug}")
+    out_dir = OUT / f"ph5_{slug}"
+    if not plot_only:
+        write_outputs(mod.compute(ph5_common.outcome_frame()), out_dir)
+    mod.plot(out_dir)
+    print((out_dir / "summary.json").read_text())
+
+
 def main() -> None:
     which = sys.argv[1] if len(sys.argv) > 1 else ""
+    if which in ("ph5", "plot5"):                          # ph5 <slug>: gated real run; plot5 <slug>: redraw only
+        ph5(sys.argv[2], plot_only=which == "plot5")
+        return
     if which in ("plot2", "plot3", "plot4"):               # redraw from the saved estimates; reads no outcome
         if which == "plot4":
             plot_ph4()

@@ -330,7 +330,7 @@ def diag_what_g5b_measures(df: pd.DataFrame) -> dict:
     Ea /= np.linalg.norm(Ea, axis=1, keepdims=True)
     Et /= np.linalg.norm(Et, axis=1, keepdims=True)
     cent = pd.DataFrame(Ea).groupby(d.topic50.to_numpy()).mean()
-    Cm = cent.loc[d.topic50.to_numpy()].to_numpy()
+    Cm = np.array(cent.loc[d.topic50.to_numpy()].to_numpy(), dtype=np.float32, copy=True)
     Cm /= np.linalg.norm(Cm, axis=1, keepdims=True)
     d["abs_central"] = (Ea * Cm).sum(1)
     d["title_central"] = (Et * Cm).sum(1)
@@ -411,6 +411,9 @@ def diag_arxiv(df: pd.DataFrame) -> dict:
         blk["primary_spec_arxiv_only"] = core._fit(a1, "y", F, core.controls(F))
         blk["primary_spec_no_arxiv_only"] = core._fit(a0, "y", F, core.controls(F))
         blk["primary_spec_plus_arxiv_control"] = core._fit(d, "y", F, core.controls(F, ["has_arxiv"]))
+        others = [f for f in core.FEATURES if f != F and f not in core.controls(F)]
+        blk["joint_model_plus_arxiv_control"] = core._fit(d, "y", F, core.controls(F, others + ["has_arxiv"]))
+        blk["has_arxiv_coef_on_y"] = core._fit(d, "y", "has_arxiv", core.controls(F, [F]))
         d["no_arxiv"] = 1 - d.has_arxiv
         inter = ratio(fit_interacted(d, F, "no_arxiv", fe="year^topic50^has_arxiv"))
         inter["model"] = "feature x no-arXiv; controls and year^topic50 FE interacted with arXiv status (as in G1/G4)"
@@ -694,6 +697,8 @@ def main():
         print("    arxiv only", fmt(b["primary_spec_arxiv_only"]), b["primary_spec_arxiv_only"]["n"], "| no arxiv",
               fmt(b["primary_spec_no_arxiv_only"]), b["primary_spec_no_arxiv_only"]["n"], "| +ctrl", fmt(b["primary_spec_plus_arxiv_control"]),
               "| diff", {k: round(v, 3) for k, v in b["difference_no_arxiv_minus_arxiv"].items() if isinstance(v, float)})
+        print("    joint+arxiv ctrl", fmt(b["joint_model_plus_arxiv_control"]), f"p {b['joint_model_plus_arxiv_control']['p']:.3g}",
+              "| arxiv coef on y", fmt(b["has_arxiv_coef_on_y"]))
         mr = Ax["match_rate_by_tercile"][F]
         print("    match rate", {k: round(mr[k]["share"], 4) for k in ["bottom", "middle", "top"]},
               {k: round(v, 3) for k, v in mr["match_on_z_year_fe_pp_per_sd"].items()})

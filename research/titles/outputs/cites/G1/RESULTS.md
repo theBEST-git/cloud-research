@@ -83,16 +83,16 @@ S2 sometimes keeps a venue record without an arXiv id separate from the arXiv re
   - In this model the controls and the year × topic50 FE are interacted with arXiv status.
   - A version that shared the FE across arXiv status gave a spurious difference (p 0.003). Having an arXiv id shifts y by about 1 log point, so that version was not used.
 - **Primary spec plus an arXiv-id indicator.** +21.0% (+12.7, +29.9).
-- **Split-record QC sample** (`qc_split_records.jsonl`; the file was still being appended during this run, so n will differ on a re-run).
-  - 24 venue records without an arXiv id were checked, and 5 were split. The venue record had 0 citations against 11–20 on the other record, or 12 against 82.
-  - All 5 split records were on unnamed papers: 5 of 21 unnamed, 0 of 3 named.
+- **Split-record QC sample** (`qc_split_records.jsonl`, final: 30 records, `qc_split.log` ends with DONE; numbers corrected in the audit, see below).
+  - 30 venue records without an arXiv id were checked, and 7 were split. The separate record always had more citations: the venue record had 0 against 11–20 (4 cases), 1 against 16, 12 against 82, and 46 against 599.
+  - Split records occur among both groups: 6 of 24 unnamed papers and 1 of 6 named papers.
   - The sample is too small to compare by G1. It does show that the artefact is real but affects only the roughly 23% of records without an arXiv id, and that share does not differ by G1.
 - **Match rate.** Named titles are matched to an S2 venue record less often.
   - Named 95.7% (n 2,200) vs other 97.4% (n 6,673) of accepted papers 2017–25.
   - With year FE the difference is −1.7 pp (−2.7, −0.8).
   - A Lee-style trimming bound treats the excess unmatched named papers as missing at either extreme of y. Trimming 127 papers, year by year, gives **+16.9% (+8.5, +25.9) to +33.0% (+23.1, +43.6)**.
 
-**Reading.** The split-record artefact and the matching differences cannot explain the association.
+**Reading.** The split-record artefact and the matching differences do not explain the association.
 
 ### (b) Method-paper confound
 
@@ -162,7 +162,7 @@ Content-matched pairs, each class vs no-name (R1 method):
 - **Selection into the sample.** Only accepted ICLR papers are included.
   - On the reviewer side, naming does not predict acceptance: NAME accepted/all ratio 1.02, editing-corrected 90% CI 0.949–1.031, from `outputs/SUMMARY.md`.
   - So differential acceptance of named titles is unlikely to create this association through selection. It does not rule out that named and unnamed accepted papers differ in unmeasured quality.
-  - Titles that go with more citations are not titles that reviewers favour.
+  - Reviewers are neutral to named titles, so the citation association is not a by-product of reviewers favouring them.
 - **Exposure and outcome.**
   - The exposure is the camera-ready title. Citations for 2024–25 papers cover only 1–2 years.
   - Year FE absorb citation age, and R5 shows similar values in 2017–21 (+25.6%) and 2022–25 (+21.7%).
@@ -173,3 +173,68 @@ Content-matched pairs, each class vs no-name (R1 method):
 ## One-sentence advice for authors (observational)
 
 Among accepted ICLR papers with similar content, papers whose titles lead with a coined method name ("NAME: subtitle") receive about 22% more citations on average (95% CI +13% to +32%; about +8% in content-matched pairs); this is an association, not evidence that adding a name would raise a given paper's citations.
+
+## Audit (adversarial review, 2026-10-17)
+
+### What was checked
+
+- **Reproduction.** `core.primary(core.load(), "G1_name")` reproduces `primary.json` exactly: b 0.20264, SE 0.03884, n 8,574, 2,105 named.
+  - Holm p 2.56e-05 is taken from `primary.json`.
+  - That value is consistent with `core.holm` over the 8 frozen p-values. It was not recomputed for reporting.
+- **Verdict.** Holm p < 0.05, R1 is +8.4% (same sign) and R2 is +38.0% (same sign). So "more citations" follows the pre-registered rule.
+- **Feature definition.** `G1_name` is `name_primary` (`name_colon`), exactly as frozen in `core.load`.
+  - The four orthography dummies partition `G1_name` exactly: no unnamed title carries an orthography flag. The secondary's reference group is therefore exactly "no name".
+- **Frozen files.**
+  - SHA-256 of `core.py`, `CITES_PREREG.md` and `matched_venue.parquet` match `prereg_hashes.json`.
+  - `primary.json` is unchanged in git.
+- **Numbers.** Every number in this file was compared with `results.json`. All match, except the split-record QC counts (fix 1).
+- **Background claims.** Checked against `outputs/SUMMARY.md`:
+  - NAME detector precision 97.8% and recall 97.3%;
+  - NAME accepted/all ratio 1.021, editing-corrected 90% CI 0.949–1.031;
+  - 0 of 18 auditable features pass.
+- **Labels and wording.**
+  - Every non-pre-registered block in `results.json` carries "diagnostic (not pre-registered)".
+  - The advice sentence uses observational wording.
+
+### What was changed
+
+1. **Stale QC counts (error).**
+   - The original run wrote `results.json` at 10:40. `qc_split_records.jsonl` was still being appended until 10:44, finishing at 30 records.
+   - The text reported 24 checked, 5 split, "all on unnamed papers". The final file gives **30 checked, 7 split: 6 of 24 unnamed, 1 of 6 named**.
+   - `g1.py` was re-run. The QC block was the only pre-existing value that changed, and every other number reproduced identically.
+2. **Wording.**
+   - "cannot explain" became "do not explain".
+   - "Titles that go with more citations are not titles that reviewers favour" was replaced by a statement of what the reviewer-side evidence shows: neutrality.
+3. **Audit diagnostics added.** These are the alternative explanations below.
+   - Code: new module `src/cites/audit_g1g2.py`, called from `g1.py`.
+   - Results: `results.json` → `diagnostics_not_preregistered.d_audit_alt_explanations`.
+
+### Alternative explanations tested — diagnostic (not pre-registered)
+
+Each re-fit uses the primary controls, year × topic50 FE and SEs clustered by topic50, unless stated otherwise.
+
+| Alternative explanation | Test | Result for G1 |
+|---|---|---|
+| **Preprint exposure time.** Named papers might be on arXiv longer. | arXiv-id records. Months from first arXiv posting (from the id) to the conference, entered as FE bins. | Named papers are posted 6.8 vs 6.6 months before the conference (adjusted +0.08 months, p 0.56). G1 is +20.6% on arXiv-id records and **+19.0% [+10.4, +28.2]** with the lead-time FE. |
+| **Promotion / code release.** | Abstract announces code or a URL. | Named 35.4% vs 17.3%. The indicator itself is +37.4% [+27.7, +48.0]. G1 with it: **+19.5% [+10.7, +29.0]**. Within code abstracts +15.4% [−1.0, +34.5] (745 named); within others +18.4% [+8.9, +28.8]. |
+| **Paper type** (method vs findings paper). | Method and findings abstract indicators (crude regexes). | Named abstracts announce a method more often (82.7% vs 62.7%) and a finding less often (31.4% vs 51.1%). G1 with both indicators: **+23.2% [+14.2, +32.9]**. Within findings abstracts +21.0% [+8.2, +35.4]. |
+| **Superstar outliers.** | Within-year citation percentile as the outcome. Drop the top 5% per year. Drop zero-citation records. | Percentile: **+3.8 points [+2.3, +5.3]**. Top 5% dropped: **+14.8% [+7.6, +22.4]**. Zero-citation records dropped: +20.3%. Named titles are 42% of each year's top 5% and 46% of the top 1%, against 24.5% overall. |
+| **Retitling / reverse causation.** Early attention could lead authors to add a name at camera-ready. | WP4 audit pairs: arXiv v1 titles posted before the decision, for 568 accepted 2023–25 papers in this sample. | Name status changed for only 22 papers (3.9%): 10 added, 12 removed. On the same papers, the camera-ready exposure gives +7.4% [−24.9, +53.6] and the pre-decision v1 exposure gives +6.1% [−23.8, +47.7]. |
+| **All of the above together.** | arXiv-id records; lead-time FE; code, method and findings indicators. | **+17.9% [+9.6, +26.8]** |
+
+**Reading.**
+- None of these explanations removes the association. The estimate stays between about +15% and +23% under every adjustment.
+- **Heavy tail.** Part of the log-scale average comes from named papers being over-represented among the most-cited papers. Dropping the top 5% per year lowers it from +22.5% to +14.8%. The rank-based outcome (+3.8 percentile points) shows that the association is not only in the tail.
+- **Retitling.** Retitling is too rare to drive the association. The name is almost always present in the pre-decision arXiv title.
+- **The audited subsample.** The small G1 estimate in that subsample is imprecise, and it does not differ detectably from the rest of 2023–25: ratio 0.84 [0.64, 1.10], p 0.22. Pre-decision preprints across 2023–25 as a whole show +20.4% [+9.1, +32.9].
+- **Code links.** Code-link abstracts absorb only a little: +22.5% falls to +19.5%. The indicator may partly be a consequence of naming and releasing a method, rather than a confounder.
+- **Not testable with these data.** Lab reputation beyond prior ICLR acceptances, social-media promotion, and quality signals not reflected in the abstract.
+
+### Confidence in the advice
+
+- **Sign: high.** It survives the pre-registered rule, every robustness check and every alternative tested here.
+- **Size: medium.**
+  - The regression estimate is +22.5%.
+  - It is +15% to +18% once outliers or promotion proxies are handled.
+  - Content-matched pairs give +5.6% to +8.4%.
+- The one-sentence advice stands as written, and the size should be quoted as a range (about +5% to +25%). It remains an association: it does not show that adding a name to a given paper would raise its citations.

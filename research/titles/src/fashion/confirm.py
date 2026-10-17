@@ -30,7 +30,7 @@ OUT = C.OUT / "fashion"
 FROZEN = OUT / "frozen"
 GUARD = OUT / "heldout_started.json"
 TAU = 0.80               # neighbour threshold (cosine) for local density
-NN_BOUND = 0.05          # H2 non-inferiority bound: momentum's acceptance effect (bottom -> top percentile) < +5 pp
+NN_BOUND = 0.03          # H2 non-superiority margin: momentum's acceptance effect (bottom -> top percentile) < +3 pp
 ALPHA = 0.05
 YEARS_ACC, YEARS_CIT, YEARS_TEAM_ACC, YEARS_TEAM_CIT = (2019, 2026), (2019, 2025), (2022, 2026), (2022, 2025)
 
@@ -67,9 +67,10 @@ def _rows_of_key(a, f):
 
 
 def heat(Eq, yq, R, block=2000):
-    """loc1, loc2 (neighbours per 1,000 discovery submissions of t-1, t-2), loc_mom, nn_prev for query papers."""
+    """loc1, loc2 (neighbours per 1,000 discovery submissions of t-1, t-2), loc_mom, nn_prev and hub (mean cosine
+    to all t-1 papers) for query papers."""
     n = len(Eq)
-    out = {c: np.full(n, np.nan) for c in ["loc1", "loc2", "loc_mom", "nn_prev"]}
+    out = {c: np.full(n, np.nan) for c in ["loc1", "loc2", "loc_mom", "nn_prev", "hub"]}
     for t in np.unique(yq):
         qi = np.where(yq == t)[0]
         p1, p2 = np.where(R["year"] == t - 1)[0], np.where(R["year"] == t - 2)[0]
@@ -88,6 +89,7 @@ def heat(Eq, yq, R, block=2000):
                 mx[s:s + block] = np.maximum(mx[s:s + block], S2.max(1))
         out["loc1"][qi] = 1000 * c1 / R["N"][t - 1]
         out["nn_prev"][qi] = mx
+        out["hub"][qi] = Eq[qi] @ R["E"][p1].mean(0)  # mean cosine to all t-1 papers (centrality / genericness)
         if len(p2):
             out["loc2"][qi] = 1000 * c2 / R["N"][t - 2]
             out["loc_mom"][qi] = np.log((c1 + 1) / R["N"][t - 1]) - np.log((c2 + 1) / R["N"][t - 2])
@@ -95,8 +97,10 @@ def heat(Eq, yq, R, block=2000):
 
 
 def team(sids, years, Eq, keys_of, R):
-    """entry (newcomer / entrant / insider) and lprior_acc against the discovery panel of earlier submissions."""
-    ent, lp, nprev = [], [], []
+    """entry (newcomer / entrant / insider), team_area_acc (an earlier ACCEPTED team submission within cos TAU),
+    lprior_acc (log1p max over authors of earlier accepted submissions), lsum_prior_acc (log1p sum over authors) and
+    l_team_prev (log1p number of earlier team submissions), against the discovery panel of earlier submissions."""
+    ent, lp, ls, nprev, aacc = [], [], [], [], []
     for i, (s, t) in enumerate(zip(sids, years)):
         rows = [R["rows_of_key"][k] for k in keys_of.get(s, []) if k in R["rows_of_key"]]
         if rows:
@@ -107,12 +111,17 @@ def team(sids, years, Eq, keys_of, R):
         # max over authors of # earlier accepted discovery submissions
         accs = [int((R["acc"][r] & (R["year"][r] < t)).sum()) for r in rows]
         lp.append(np.log1p(max(accs)) if accs else 0.0)
+        ls.append(np.log1p(sum(accs)))
         nprev.append(len(P))
         if not len(P):
             ent.append("newcomer")
+            aacc.append(0)
         else:
-            ent.append("insider" if float((R["E"][P] @ Eq[i]).max()) >= TAU else "entrant")
-    return pd.DataFrame({"entry": ent, "lprior_acc": lp, "team_prev_n": nprev})
+            sims = R["E"][P] @ Eq[i]
+            ent.append("insider" if float(sims.max()) >= TAU else "entrant")
+            aacc.append(int((R["acc"][P] & (sims >= TAU)).any()))
+    return pd.DataFrame({"entry": ent, "lprior_acc": lp, "lsum_prior_acc": ls, "team_prev_n": nprev, "team_area_acc": aacc,
+                         "l_team_prev": np.log1p(nprev)})
 
 
 def calibrate():
@@ -132,6 +141,10 @@ def calibrate():
         cal["years"][int(t)] = {"nn_coef": coef, "top10_min_cites": None if pd.isna(thr) else float(thr)}
         np.save(FROZEN / f"ecdf_{t}_loc1.npy", np.sort(g.loc1.dropna().to_numpy()))
         np.save(FROZEN / f"ecdf_{t}_nnres.npy", np.sort(res.to_numpy()))
+        np.save(FROZEN / f"ecdf_{t}_hub.npy", np.sort(g.hub.dropna().to_numpy()))
+        cy = R["f"][(R["f"].year == t)].cites.dropna()
+        if len(cy):
+            np.save(FROZEN / f"ecdf_{t}_cites.npy", np.sort(cy.to_numpy()))
         if g.loc_mom.notna().any():
             np.save(FROZEN / f"ecdf_{t}_mom.npy", np.sort(g.loc_mom.dropna().to_numpy()))
     (FROZEN / "calibration.json").write_text(json.dumps(cal, indent=1))
@@ -154,7 +167,7 @@ def derive(df):
     """Percentiles and residuals from the frozen calibration (identical for discovery and held-out)."""
     cal = json.loads((FROZEN / "calibration.json").read_text())["years"]
     df = df.copy()
-    for c in ["size_p", "mom_p", "nnr_p", "nn_res"]:
+    for c in ["size_p", "mom_p", "nnr_p", "nn_res", "hub_p"]:
         df[c] = np.nan
     for t, g in df.groupby("year"):
         if str(t) not in cal:
@@ -165,6 +178,9 @@ def derive(df):
         df.loc[g.index, "size_p"] = _ecdf(g.loc1, t, "loc1")
         df.loc[g.index, "mom_p"] = _ecdf(g.loc_mom, t, "mom")
         df.loc[g.index, "nnr_p"] = _ecdf(res, t, "nnres")
+        df.loc[g.index, "hub_p"] = _ecdf(g.hub, t, "hub")
+        if "cites" in df:
+            df.loc[g.index, "cite_pct"] = _ecdf(g.cites, t, "cites")
         thr = cal[str(t)]["top10_min_cites"]
         if thr is not None and "cites" in df:
             df.loc[g.index, "top10"] = np.where(g.cites.notna(), (g.cites >= thr).astype(float), np.nan)
@@ -175,6 +191,11 @@ def derive(df):
     df["hit"] = np.where((df.ACC == 1) & df.top10.isna() & (df.year <= 2025), np.nan, hit)
     df["ins"] = (df.entry == "insider").astype(int)
     df["ent"] = (df.entry == "entrant").astype(int)
+    df["ins_acc"] = ((df.entry == "insider") & (df.team_area_acc == 1)).astype(int)   # continues an accepted line
+    df["ins_noacc"] = ((df.entry == "insider") & (df.team_area_acc != 1)).astype(int)
+    df["wd_rev"] = np.where(df.rev, df.WD.astype(float), np.nan)
+    df["acc_dec"] = np.where((df.ACC + df.REJ) > 0, df.ACC.astype(float), np.nan)
+    df["hub_lo"] = (df.hub_p <= 0.10).astype(float).where(df.hub_p.notna())
     df["y"] = np.log1p(df.cites)
     ter = lambda c: pd.cut(df[c], [-0.001, 1 / 3, 2 / 3, 1.0001], labels=["lo", "mid", "hi"])
     df["size3"], df["mom3"] = ter("size_p"), ter("mom_p")
@@ -196,39 +217,78 @@ def _fit(d, y, rhs, coef, null=0.0, direction=">"):
             "direction": direction, "p_one_sided": p1, "n": int(m._N), "clusters": int(G), "base_rate": float(d[y].mean())}
 
 
-def _sample(df, outcome, years, teams=False, experienced=False):
-    d = df[df[outcome].notna() & df.year.between(*years) & df.mom_p.notna() & df.size_p.notna() & df.nnr_p.notna()]
+def _sample(df, outcome, years, experienced=False):
+    d = df[df[outcome].notna() & df.year.between(*years) & df.mom_p.notna() & df.size_p.notna() & df.nnr_p.notna()
+           & df.hub_p.notna()]
     if experienced:
         d = d[d.entry.isin(["insider", "entrant"])]
     return d
 
 
-BASE = "size_p + mom_p + nnr_p + log_authors"
+# Primary family (post-audit, outputs/fashion/explore/AUDIT.md). hub_p (centrality) is controlled wherever local density
+# enters; interactions with momentum carry year-specific momentum slopes i(year, mom_p) (composition fix).
+BASE = "size_p + hub_p + mom_p + nnr_p + log_authors"
+TEAM = "lprior_acc + lsum_prior_acc + l_team_prev"
 TESTS = {
-    "H1": dict(title="Readers reward momentum: P(top-10% cited | accepted) rises with ex-ante local momentum",
+    "H1": dict(title="Momentum and readers: P(top-10% cited | accepted) rises with ex-ante local momentum",
                y="top10", years=YEARS_CIT, rhs=BASE, coef="mom_p"),
-    "H2": dict(title="Reviewers do not reward momentum: acceptance effect of momentum < +5 pp (non-inferiority)",
+    "H2": dict(title="No reviewer premium for momentum: acceptance effect of momentum < +3 pp (non-superiority)",
                y="acc_rev", years=YEARS_ACC, rhs=BASE, coef="mom_p", null=NN_BOUND, direction="<"),
-    "H3": dict(title="Reviewers reward established neighbourhoods: acceptance rises with local size",
-               y="acc_rev", years=YEARS_ACC, rhs=BASE, coef="size_p"),
+    "H3": dict(title="Off-centre abstracts are accepted less (centrality -> acceptance), comparable teams",
+               y="acc_rev", years=YEARS_TEAM_ACC, rhs="hub_p + mom_p + nnr_p + log_authors + ins + ent + " + TEAM, coef="hub_p"),
     "H4": dict(title="The wave's payoff goes to insiders: momentum raises P(hit) more for insiders than entrants",
-               y="hit", years=YEARS_TEAM_CIT, rhs="ins*mom_p + size_p + nnr_p + log_authors + lprior_acc", coef="ins:mom_p",
-               experienced=True),
-    "H5": dict(title="Switching areas costs acceptance: insiders vs entrants",
-               y="acc_rev", years=YEARS_TEAM_ACC, rhs="ins + " + BASE + " + lprior_acc", coef="ins", experienced=True),
-    "H6": dict(title="Naming pays in rising areas: NAME-title x momentum on P(top-10% | accepted)",
-               y="top10", years=YEARS_CIT, rhs="G1_name*mom_p + size_p + nnr_p + log_authors", coef="G1_name:mom_p"),
+               y="hit", years=YEARS_TEAM_CIT,
+               rhs="ins + ins:mom_p + i(year, mom_p) + l_team_prev + l_team_prev:mom_p + size_p + hub_p + nnr_p + log_authors + lprior_acc",
+               coef="ins:mom_p", experienced=True),
+    "H5": dict(title="Continuing a line: insiders are accepted more than entrants (same team history)",
+               y="acc_rev", years=YEARS_TEAM_ACC, rhs="ins + " + BASE + " + " + TEAM, coef="ins", experienced=True),
 }
 SECONDARY = {
-    "S1_nnr_acc": dict(y="acc_rev", years=YEARS_ACC, rhs=BASE, coef="nnr_p", direction="<"),
-    "S2_nnr_top10": dict(y="top10", years=YEARS_CIT, rhs=BASE, coef="nnr_p"),
-    "S3a_nnr_x_mom_acc": dict(y="acc_rev", years=YEARS_ACC, rhs="nnr_p*mom_p + size_p + log_authors", coef="nnr_p:mom_p", direction="<"),
-    "S3b_nnr_x_mom_top10": dict(y="top10", years=YEARS_CIT, rhs="nnr_p*mom_p + size_p + log_authors", coef="nnr_p:mom_p"),
-    "S4_size_x_mom_top10": dict(y="top10", years=YEARS_CIT, rhs="size_p*mom_p + nnr_p + log_authors", coef="size_p:mom_p"),
-    "S5_name_x_mom_acc": dict(y="acc_rev", years=YEARS_ACC, rhs="G1_name*mom_p + size_p + nnr_p + log_authors", coef="G1_name:mom_p"),
-    "S6_informative_x_size_logcites": dict(y="y", years=YEARS_CIT, rhs="G5b_informative*size_p + mom_p + nnr_p + log_authors + G1_name",
-                                           coef="G5b_informative:size_p", direction="<"),
-    "S7_entrant_vs_newcomer_acc": dict(y="acc_rev", years=YEARS_TEAM_ACC, rhs="ent + ins + " + BASE + " + lprior_acc", coef="ent"),
+    # H1 qualifiers
+    "H1_2019_23": dict(y="top10", years=(2019, 2023), rhs=BASE, coef="mom_p"),
+    "H1_2024_25": dict(y="top10", years=(2024, 2025), rhs=BASE, coef="mom_p"),
+    "H1_cite_pct": dict(y="cite_pct", years=YEARS_CIT, rhs=BASE, coef="mom_p"),
+    # H2 components: decided papers and withdrawal
+    "H2_acc_decided": dict(y="acc_dec", years=YEARS_ACC, rhs=BASE, coef="mom_p", direction="<", null=NN_BOUND),
+    "H2_withdrawal": dict(y="wd_rev", years=YEARS_ACC, rhs=BASE, coef="mom_p"),
+    "H2_margin_5pp": dict(y="acc_rev", years=YEARS_ACC, rhs=BASE, coef="mom_p", direction="<", null=0.05),
+    # H3 variants
+    "H3_bottom_decile": dict(y="acc_rev", years=YEARS_TEAM_ACC, rhs="hub_lo + mom_p + nnr_p + log_authors + ins + ent + " + TEAM,
+                             coef="hub_lo", direction="<"),
+    "H3_2019_26_no_team": dict(y="acc_rev", years=YEARS_ACC, rhs="hub_p + mom_p + nnr_p + log_authors", coef="hub_p"),
+    "H3_readers_top10": dict(y="top10", years=YEARS_CIT, rhs="hub_p + mom_p + nnr_p + log_authors", coef="hub_p"),
+    # H4 decomposition: continuing an ACCEPTED line vs other insiders
+    "H4_ins_acc_x_mom": dict(y="hit", years=YEARS_TEAM_CIT, experienced=True,
+                             rhs="ins_acc + ins_noacc + ins_acc:mom_p + ins_noacc:mom_p + i(year, mom_p) + l_team_prev + l_team_prev:mom_p + size_p + hub_p + nnr_p + log_authors + lprior_acc",
+                             coef="ins_acc:mom_p"),
+    "H4_ins_noacc_x_mom": dict(y="hit", years=YEARS_TEAM_CIT, experienced=True,
+                               rhs="ins_acc + ins_noacc + ins_acc:mom_p + ins_noacc:mom_p + i(year, mom_p) + l_team_prev + l_team_prev:mom_p + size_p + hub_p + nnr_p + log_authors + lprior_acc",
+                               coef="ins_noacc:mom_p"),
+    "H4_top10_given_acc": dict(y="top10", years=YEARS_TEAM_CIT, experienced=True,
+                               rhs="ins + ins:mom_p + i(year, mom_p) + l_team_prev + l_team_prev:mom_p + size_p + hub_p + nnr_p + log_authors + lprior_acc",
+                               coef="ins:mom_p"),
+    # H5 split
+    "H5_ins_noacc_vs_entrant": dict(y="acc_rev", years=YEARS_TEAM_ACC, experienced=True,
+                                    rhs="ins_acc + ins_noacc + " + BASE + " + " + TEAM, coef="ins_noacc"),
+    "H5_ins_acc_vs_entrant": dict(y="acc_rev", years=YEARS_TEAM_ACC, experienced=True,
+                                  rhs="ins_acc + ins_noacc + " + BASE + " + " + TEAM, coef="ins_acc"),
+    # closeness to the nearest predecessor
+    "NNR_acc": dict(y="acc_rev", years=YEARS_ACC, rhs=BASE, coef="nnr_p", direction="<"),
+    "NNR_top10": dict(y="top10", years=YEARS_CIT, rhs=BASE, coef="nnr_p"),
+    "NNR_x_mom_acc": dict(y="acc_rev", years=YEARS_ACC, rhs="nnr_p + nnr_p:mom_p + i(year, mom_p) + size_p + hub_p + log_authors",
+                          coef="nnr_p:mom_p", direction="<"),
+    "NNR_x_mom_top10": dict(y="top10", years=YEARS_CIT, rhs="nnr_p + nnr_p:mom_p + i(year, mom_p) + size_p + hub_p + log_authors",
+                            coef="nnr_p:mom_p"),
+    # titles (demoted H6)
+    "NAME_x_mom_top10": dict(y="top10", years=YEARS_CIT, rhs="G1_name + G1_name:mom_p + i(year, mom_p) + size_p + hub_p + nnr_p + log_authors",
+                             coef="G1_name:mom_p"),
+    "NAME_x_mom_cite_pct": dict(y="cite_pct", years=YEARS_CIT, rhs="G1_name + G1_name:mom_p + i(year, mom_p) + size_p + hub_p + nnr_p + log_authors",
+                                coef="G1_name:mom_p"),
+    "NAME_x_mom_acc": dict(y="acc_rev", years=YEARS_ACC, rhs="G1_name + G1_name:mom_p + i(year, mom_p) + size_p + hub_p + nnr_p + log_authors",
+                           coef="G1_name:mom_p"),
+    "INFORMATIVE_x_size_logcites": dict(y="y", years=YEARS_CIT, rhs="G5b_informative*size_p + hub_p + mom_p + nnr_p + log_authors + G1_name",
+                                        coef="G5b_informative:size_p", direction="<"),
+    "ENTRANT_vs_newcomer_acc": dict(y="acc_rev", years=YEARS_TEAM_ACC, rhs="ent + ins + " + BASE + " + lprior_acc", coef="ent"),
 }
 
 
@@ -263,13 +323,14 @@ def run_all(df):
     adj = holm({k: r["p_one_sided"] for k, r in res.items()})
     for k in res:
         res[k]["p_holm"] = adj[k]
+        res[k]["replicated_unadjusted"] = bool(res[k]["p_one_sided"] < ALPHA)
         res[k]["verdict"] = "confirmed" if adj[k] < ALPHA else (
             "same direction, not significant" if (res[k]["estimate"] - res[k]["null"]) * (1 if res[k]["direction"] == ">" else -1) > 0
             else "not replicated")
     sec = {}
     for k, s in SECONDARY.items():
-        d = _sample(df, s["y"], s["years"])
-        sec[k] = _fit(d, s["y"], s["rhs"], s["coef"], 0.0, s.get("direction", ">"))
+        d = _sample(df, s["y"], s["years"], experienced=s.get("experienced", False))
+        sec[k] = _fit(d, s["y"], s["rhs"], s["coef"], s.get("null", 0.0), s.get("direction", ">"))
     return {"primary": res, "secondary": sec, "tables": tables(df)}
 
 
@@ -346,7 +407,8 @@ def raw_frame(s, a, split):
     df["cites"] = np.where((df.ACC == 1) & (df.year <= 2025), df.citationCount, np.nan)
     df["split"] = split
     keep = ["submission_id", "year", "topic100", "llm_topic", "ACC", "REJ", "WD", "log_authors", "cites", "G1_name",
-            "G5b_informative", "loc1", "loc2", "loc_mom", "nn_prev", "entry", "lprior_acc", "team_prev_n", "split"]
+            "G5b_informative", "loc1", "loc2", "loc_mom", "nn_prev", "hub", "entry", "lprior_acc", "lsum_prior_acc", "team_prev_n",
+            "l_team_prev", "team_area_acc", "split"]
     return derive(df[keep]), counts
 
 
@@ -390,9 +452,11 @@ def main(argv):
         d = pd.read_parquet(OUT / "dryrun_frame.parquet")
         m = h.merge(d, on="submission_id", suffixes=("_h", "_d"))
         rep = {"n": len(m)}
-        for c in ["topic100", "ACC", "G1_name", "entry", "top10", "acc_rev"]:
-            rep[c + "_agree"] = float((m[c + "_h"].astype(str) == m[c + "_d"].astype(str)).mean())
-        for c in ["loc1", "loc_mom", "nn_prev", "size_p", "mom_p", "nnr_p", "lprior_acc", "G5b_informative", "log_authors", "cites"]:
+        for c in ["topic100", "ACC", "G1_name", "entry", "top10", "acc_rev", "hit", "team_area_acc"]:
+            x, z = m[c + "_h"], m[c + "_d"]
+            rep[c + "_agree"] = float(((x == z) | (x.isna() & z.isna())).mean())
+        for c in ["loc1", "loc_mom", "nn_prev", "hub", "size_p", "mom_p", "nnr_p", "hub_p", "lprior_acc", "lsum_prior_acc", "l_team_prev",
+                  "G5b_informative", "log_authors", "cites", "cite_pct"]:
             ok = m[c + "_h"].notna() & m[c + "_d"].notna()
             rep[c + "_corr"] = float(np.corrcoef(m[c + "_h"][ok], m[c + "_d"][ok])[0, 1])
             rep[c + "_maxabs"] = float((m[c + "_h"][ok] - m[c + "_d"][ok]).abs().max())

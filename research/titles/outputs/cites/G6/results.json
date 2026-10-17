@@ -1,0 +1,3468 @@
+{
+ "question": "G6: among accepted ICLR papers 2017-2025, do papers whose titles use catchy templates - meme templates (G6a: All You Need, Is Secretly, Matters, When X Meets Y, ...) or tentative framings (G6b: Towards, Rethinking, Revisiting, Understanding, On the, Demystifying) - receive more or fewer Semantic Scholar citations than accepted papers with similar content?",
+ "features": {
+  "G6a_meme": "Meme template (All You Need, Is Secretly, Matters, When X Meets Y, ...)",
+  "G6b_tentative": "Tentative framing (Towards, Rethinking, Revisiting, Understanding, On the, Demystifying)"
+ },
+ "templates": {
+  "G6a_meme": {
+   "tpl_all_you_need": "X Is All You Need",
+   "tpl_is_secretly": "X Is Secretly Y",
+   "tpl_free_lunch": "Free Lunch",
+   "tpl_less_is_more": "Less Is More",
+   "tpl_lost_in": "Lost In",
+   "tpl_devil_in": "The Devil Is In",
+   "tpl_tale_of": "A Tale Of",
+   "tpl_rule_them_all": "To Rule Them All",
+   "tpl_worth_a_thousand": "Worth A Thousand / N Words",
+   "tpl_matters": "X Matters",
+   "tpl_do_really": "Do X Really ...?",
+   "tpl_when_meets": "When X Meets Y / X Meets Y"
+  },
+  "G6b_tentative": {
+   "tpl_towards": "Towards",
+   "tpl_rethinking": "Rethinking",
+   "tpl_revisiting": "Revisiting",
+   "tpl_understanding": "Understanding",
+   "tpl_on_the": "On the",
+   "tpl_demystifying": "Demystifying"
+  }
+ },
+ "outcome": "y = log(1 + Semantic Scholar citationCount, retrieved 2026-10-17); % difference = exp(b) - 1",
+ "n_papers": 8602,
+ "primary": {
+  "G6a_meme": {
+   "frozen": {
+    "b": 0.32104853378083964,
+    "se": 0.1494215219274121,
+    "p": 0.0366336161597125,
+    "pct": 0.3785724866050837,
+    "lo": 0.028583230299447093,
+    "hi": 0.8476502871539622,
+    "n": 8574,
+    "n_with": 83,
+    "p_holm": 0.1831680807985625,
+    "label": "Meme template (All You Need, Is Secretly, Matters, When X Meets Y, ...)",
+    "source": "outputs/cites/primary.json (Holm across the 8 primary tests)"
+   },
+   "reproduced": {
+    "b": 0.32104853378083964,
+    "se": 0.1494215219274121,
+    "p": 0.0366336161597125,
+    "pct": 0.3785724866050837,
+    "lo": 0.028583230299447093,
+    "hi": 0.8476502871539622,
+    "n": 8574,
+    "n_with": 83
+   },
+   "max_abs_diff": 0.0,
+   "reproduction_ok": true,
+   "holm_rank_1_based": 4,
+   "holm_step_alpha": 0.01,
+   "n_papers_frame": 8602,
+   "n_papers_frozen": 8602
+  },
+  "G6b_tentative": {
+   "frozen": {
+    "b": 0.036718386523616545,
+    "se": 0.06013895959737831,
+    "p": 0.5443132513921654,
+    "pct": 0.037400833642996956,
+    "lo": -0.0779482917405735,
+    "hi": 0.16718019174298582,
+    "n": 8574,
+    "n_with": 500,
+    "p_holm": 0.5443132513921654,
+    "label": "Tentative framing (Towards, Rethinking, Revisiting, Understanding, On the, Demystifying)",
+    "source": "outputs/cites/primary.json (Holm across the 8 primary tests)"
+   },
+   "reproduced": {
+    "b": 0.036718386523616545,
+    "se": 0.06013895959737831,
+    "p": 0.5443132513921654,
+    "pct": 0.037400833642996956,
+    "lo": -0.0779482917405735,
+    "hi": 0.16718019174298582,
+    "n": 8574,
+    "n_with": 500
+   },
+   "max_abs_diff": 0.0,
+   "reproduction_ok": true,
+   "holm_rank_1_based": 8,
+   "holm_step_alpha": 0.05,
+   "n_papers_frame": 8602,
+   "n_papers_frozen": 8602
+  }
+ },
+ "robustness": {
+  "G6a_meme": {
+   "R1_matched_pairs": {
+    "n_pairs": 83,
+    "pct": 0.18047242946132025,
+    "lo": -0.23133344588481075,
+    "hi": 0.8301879046244212
+   },
+   "R2_ppml_counts": {
+    "b": 0.3339682063687198,
+    "se": 0.32127657279214794,
+    "p": 0.298570508909791,
+    "pct": 0.3964987431025615,
+    "lo": -0.25601460617982874,
+    "hi": 1.6212997670199143,
+    "n": 8574
+   },
+   "R3_influential": {
+    "b": 0.21046646939445263,
+    "se": 0.11739618390680431,
+    "p": 0.07918080436467911,
+    "pct": 0.23425366725547736,
+    "lo": -0.019438636151538513,
+    "hi": 0.5535816230354986,
+    "n": 8574
+   },
+   "R4_drop_top1pct": {
+    "b": 0.31742215068339763,
+    "se": 0.1512159568359074,
+    "p": 0.04098012657133454,
+    "pct": 0.3735823082589389,
+    "lo": 0.021261752707544046,
+    "hi": 0.8474483672377886,
+    "n": 8481
+   },
+   "R5_era_2017_21": {
+    "b": 0.3657623250717834,
+    "se": 0.29707639676388203,
+    "p": 0.2243712028198157,
+    "pct": 0.44161256677007277,
+    "lo": -0.1946734346514143,
+    "hi": 1.5806261485610231,
+    "n": 1975
+   },
+   "R5_era_2022_25": {
+    "b": 0.31836090922373594,
+    "se": 0.17031827545765588,
+    "p": 0.067575907285915,
+    "pct": 0.37487237581790267,
+    "lo": -0.015343973696437363,
+    "hi": 0.9197303416537519,
+    "n": 6599
+   },
+   "R6_team_prior_2022_25": {
+    "b": 0.3137919372423018,
+    "se": 0.17381190593643225,
+    "p": 0.07716508909781172,
+    "pct": 0.36860495120144443,
+    "lo": -0.026521362466915055,
+    "hi": 0.9241095184170891,
+    "n": 6599
+   },
+   "R7_year_plus_topic100_fe": {
+    "b": 0.2695857254700282,
+    "se": 0.14838343288964162,
+    "p": 0.07536373877848468,
+    "pct": 0.3094218782208862,
+    "lo": -0.021021700804143006,
+    "hi": 0.7514031277014943,
+    "n": 8602
+   }
+  },
+  "G6b_tentative": {
+   "R1_matched_pairs": {
+    "n_pairs": 497,
+    "pct": -0.13114636666434487,
+    "lo": -0.24443544881641233,
+    "hi": 0.00562756189090563
+   },
+   "R2_ppml_counts": {
+    "b": 0.12405739686063805,
+    "se": 0.22781568720228465,
+    "p": 0.5860619507467604,
+    "pct": 0.13208084702105505,
+    "lo": -0.27563607210874674,
+    "hi": 0.7692861210288113,
+    "n": 8574
+   },
+   "R3_influential": {
+    "b": -0.013465109651067985,
+    "se": 0.06472065304586462,
+    "p": 0.8360525436567354,
+    "pct": -0.013374860587408555,
+    "lo": -0.1309178199151837,
+    "hi": 0.12006572914188118,
+    "n": 8574
+   },
+   "R4_drop_top1pct": {
+    "b": 0.04262217170831048,
+    "se": 0.056884673208756516,
+    "p": 0.4572745911652989,
+    "pct": 0.04354354008305661,
+    "lo": -0.06655364836544153,
+    "hi": 0.1666263606281806,
+    "n": 8481
+   },
+   "R5_era_2017_21": {
+    "b": 0.102635000592278,
+    "se": 0.13752792596611943,
+    "p": 0.45921211374813664,
+    "pct": 0.10808688419839085,
+    "lo": -0.1537324651338534,
+    "hi": 0.45090824395940854,
+    "n": 1975
+   },
+   "R5_era_2022_25": {
+    "b": 0.010674386928243481,
+    "se": 0.06557566054624545,
+    "p": 0.871361354214303,
+    "pct": 0.010731561449621507,
+    "lo": -0.11117410628857527,
+    "hi": 0.14935702991801691,
+    "n": 6599
+   },
+   "R6_team_prior_2022_25": {
+    "b": -0.00043166972025115167,
+    "se": 0.06610661130982634,
+    "p": 0.9948164419297667,
+    "pct": -0.0004315765642821656,
+    "lo": -0.12190512042441992,
+    "hi": 0.13784632659820462,
+    "n": 6599
+   },
+   "R7_year_plus_topic100_fe": {
+    "b": 0.012198812979628229,
+    "se": 0.05530901952029865,
+    "p": 0.826353502027795,
+    "pct": 0.012273521976640778,
+    "lo": -0.0917238941577696,
+    "hi": 0.12817861958925603,
+    "n": 8602
+   }
+  }
+ },
+ "verdict": {
+  "G6a_meme": "inconclusive",
+  "G6b_tentative": "inconclusive"
+ },
+ "verdict_inputs": {
+  "G6a_meme": {
+   "p_holm": 0.1831680807985625,
+   "holm_below_0.05": false,
+   "R1_sign_same": true,
+   "R2_sign_same": true,
+   "ci_within_10pct": false
+  },
+  "G6b_tentative": {
+   "p_holm": 0.5443132513921654,
+   "holm_below_0.05": false,
+   "R1_sign_same": false,
+   "R2_sign_same": true,
+   "ci_within_10pct": false
+  }
+ },
+ "secondary_prespecified": {
+  "label": "pre-specified secondary (prereg section 6; no multiplicity claim)",
+  "each_template_n_ge_20": {
+   "label": "pre-specified secondary (prereg section 6; no multiplicity claim)",
+   "min_n": 20,
+   "note": "(i) 'vs_all_other_titles': y ~ template + primary controls | year^topic50 (the template dummy replaces the family feature in the primary spec). (ii) 'vs_titles_without_family_template': adds a dummy for 'another template of the same family', so the reference group is titles with no template of that family. SE clustered by topic50. Templates with n < 20 get descriptive counts only (not estimated).",
+   "G6a_meme": {
+    "tpl_all_you_need": {
+     "label": "X Is All You Need",
+     "n_with": 18,
+     "estimated": false,
+     "n_with_2022_25": 14,
+     "raw_median_within_year_pctile": 0.689595134383375,
+     "raw_mean_log1p_cites": 3.511898899635875
+    },
+    "tpl_is_secretly": {
+     "label": "X Is Secretly Y",
+     "n_with": 8,
+     "estimated": false,
+     "n_with_2022_25": 7,
+     "raw_median_within_year_pctile": 0.6312832122111114,
+     "raw_mean_log1p_cites": 3.515270803089522
+    },
+    "tpl_free_lunch": {
+     "label": "Free Lunch",
+     "n_with": 2,
+     "estimated": false,
+     "n_with_2022_25": 1,
+     "raw_median_within_year_pctile": 0.8423145502615625,
+     "raw_mean_log1p_cites": 5.129583500566879
+    },
+    "tpl_less_is_more": {
+     "label": "Less Is More",
+     "n_with": 1,
+     "estimated": false,
+     "n_with_2022_25": 1,
+     "raw_median_within_year_pctile": 0.1757699012202208,
+     "raw_mean_log1p_cites": 1.9459101490553132
+    },
+    "tpl_lost_in": {
+     "label": "Lost In",
+     "n_with": 0,
+     "estimated": false,
+     "n_with_2022_25": 0,
+     "raw_median_within_year_pctile": null,
+     "raw_mean_log1p_cites": null
+    },
+    "tpl_devil_in": {
+     "label": "The Devil Is In",
+     "n_with": 4,
+     "estimated": false,
+     "n_with_2022_25": 4,
+     "raw_median_within_year_pctile": 0.5450681245637877,
+     "raw_mean_log1p_cites": 3.3158094360710275
+    },
+    "tpl_tale_of": {
+     "label": "A Tale Of",
+     "n_with": 1,
+     "estimated": false,
+     "n_with_2022_25": 1,
+     "raw_median_within_year_pctile": 0.6160609613130129,
+     "raw_mean_log1p_cites": 4.04305126783455
+    },
+    "tpl_rule_them_all": {
+     "label": "To Rule Them All",
+     "n_with": 1,
+     "estimated": false,
+     "n_with_2022_25": 1,
+     "raw_median_within_year_pctile": 0.6946072684642438,
+     "raw_mean_log1p_cites": 4.30406509320417
+    },
+    "tpl_worth_a_thousand": {
+     "label": "Worth A Thousand / N Words",
+     "n_with": 2,
+     "estimated": false,
+     "n_with_2022_25": 2,
+     "raw_median_within_year_pctile": 0.6859027205276175,
+     "raw_mean_log1p_cites": 5.757761045408747
+    },
+    "tpl_matters": {
+     "label": "X Matters",
+     "n_with": 10,
+     "estimated": false,
+     "n_with_2022_25": 7,
+     "raw_median_within_year_pctile": 0.3171219701332972,
+     "raw_mean_log1p_cites": 2.95316837113069
+    },
+    "tpl_do_really": {
+     "label": "Do X Really ...?",
+     "n_with": 7,
+     "estimated": false,
+     "n_with_2022_25": 6,
+     "raw_median_within_year_pctile": 0.8033747779751332,
+     "raw_mean_log1p_cites": 4.281344175107636
+    },
+    "tpl_when_meets": {
+     "label": "When X Meets Y / X Meets Y",
+     "n_with": 29,
+     "estimated": true,
+     "n_with_2022_25": 25,
+     "raw_median_within_year_pctile": 0.6241563055062167,
+     "raw_mean_log1p_cites": 3.5327040696714165,
+     "vs_all_other_titles": {
+      "b": 0.2610549791581265,
+      "se": 0.16588457265582857,
+      "p": 0.12198882156535817,
+      "pct": 0.2982990428599095,
+      "lo": -0.06206889663818649,
+      "hi": 0.7971260347901403,
+      "n": 8574
+     },
+     "vs_titles_without_family_template": {
+      "b": 0.26210915166253285,
+      "se": 0.1658768463904266,
+      "p": 0.12050849827722421,
+      "pct": 0.29966839565361036,
+      "lo": -0.061065415493317565,
+      "hi": 0.7989942713083731,
+      "n": 8574
+     },
+     "n_other_same_family": 54
+    },
+    "n_titles_two_templates_in_family": 0,
+    "reference_raw_median_within_year_pctile_no_family_template": 0.4988276670574443
+   },
+   "G6b_tentative": {
+    "tpl_towards": {
+     "label": "Towards",
+     "n_with": 217,
+     "estimated": true,
+     "n_with_2022_25": 182,
+     "raw_median_within_year_pctile": 0.4689054726368159,
+     "raw_mean_log1p_cites": 3.377580832399082,
+     "vs_all_other_titles": {
+      "b": -0.008153697191561216,
+      "se": 0.0838805446102691,
+      "p": 0.9229592765624397,
+      "pct": -0.008120545965490167,
+      "lo": -0.15849183680150658,
+      "hi": 0.16912098344521276,
+      "n": 8574
+     },
+     "vs_titles_without_family_template": {
+      "b": -0.005215536861052986,
+      "se": 0.08485351514334988,
+      "p": 0.9512387705837178,
+      "pct": -0.005201959563233105,
+      "lo": -0.15762367816623601,
+      "hi": 0.17479933327485586,
+      "n": 8574
+     },
+     "n_other_same_family": 284
+    },
+    "tpl_rethinking": {
+     "label": "Rethinking",
+     "n_with": 64,
+     "estimated": true,
+     "n_with_2022_25": 57,
+     "raw_median_within_year_pctile": 0.559761862219908,
+     "raw_mean_log1p_cites": 3.3362588720211472,
+     "vs_all_other_titles": {
+      "b": 0.2858050452040648,
+      "se": 0.1258446107888039,
+      "p": 0.02757087252085011,
+      "pct": 0.33083297768832676,
+      "lo": 0.03992605332994059,
+      "hi": 0.7031176484438462,
+      "n": 8574
+     },
+     "vs_titles_without_family_template": {
+      "b": 0.28594068600286815,
+      "se": 0.12429709270395574,
+      "p": 0.025719070348379836,
+      "pct": 0.3310135051796639,
+      "lo": 0.043226572846571054,
+      "hi": 0.6981900165144728,
+      "n": 8574
+     },
+     "n_other_same_family": 437
+    },
+    "tpl_revisiting": {
+     "label": "Revisiting",
+     "n_with": 35,
+     "estimated": true,
+     "n_with_2022_25": 27,
+     "raw_median_within_year_pctile": 0.5427901524032825,
+     "raw_mean_log1p_cites": 3.460833258611899,
+     "vs_all_other_titles": {
+      "b": 0.10942795537153185,
+      "se": 0.15981365329742633,
+      "p": 0.4967454456361837,
+      "pct": 0.11563969219262593,
+      "lo": -0.18438007041520843,
+      "hi": 0.5260195069402891,
+      "n": 8574
+     },
+     "vs_titles_without_family_template": {
+      "b": 0.1122319127685235,
+      "se": 0.1587891035889973,
+      "p": 0.48303940735068984,
+      "pct": 0.11877228814029817,
+      "lo": -0.18044578784568455,
+      "hi": 0.5272344576456185,
+      "n": 8574
+     },
+     "n_other_same_family": 465
+    },
+    "tpl_understanding": {
+     "label": "Understanding",
+     "n_with": 72,
+     "estimated": true,
+     "n_with_2022_25": 53,
+     "raw_median_within_year_pctile": 0.4902441952112191,
+     "raw_mean_log1p_cites": 3.37121029100045,
+     "vs_all_other_titles": {
+      "b": -0.0262027315654062,
+      "se": 0.15550306400838362,
+      "p": 0.8668812170126032,
+      "pct": -0.02586241884792151,
+      "lo": -0.28178674178474106,
+      "hi": 0.3212566269953345,
+      "n": 8574
+     },
+     "vs_titles_without_family_template": {
+      "b": -0.022729693760267962,
+      "se": 0.1564451274819213,
+      "p": 0.8850790197118115,
+      "pct": -0.022473320374217898,
+      "lo": -0.2806175501994187,
+      "hi": 0.32830375504030584,
+      "n": 8574
+     },
+     "n_other_same_family": 428
+    },
+    "tpl_on_the": {
+     "label": "On the",
+     "n_with": 104,
+     "estimated": true,
+     "n_with_2022_25": 75,
+     "raw_median_within_year_pctile": 0.44044160371876817,
+     "raw_mean_log1p_cites": 3.2999456916370393,
+     "vs_all_other_titles": {
+      "b": -0.008265996755535167,
+      "se": 0.15804000638039895,
+      "p": 0.958499760040425,
+      "pct": -0.008231927341535994,
+      "lo": -0.272414971615101,
+      "hi": 0.3518748621423655,
+      "n": 8574
+     },
+     "vs_titles_without_family_template": {
+      "b": -0.004884581984685935,
+      "se": 0.15758441531995945,
+      "p": 0.9753981590077303,
+      "pct": -0.00487267181406259,
+      "lo": -0.2692983455668001,
+      "hi": 0.35524313280860764,
+      "n": 8574
+     },
+     "n_other_same_family": 396
+    },
+    "tpl_demystifying": {
+     "label": "Demystifying",
+     "n_with": 9,
+     "estimated": false,
+     "n_with_2022_25": 7,
+     "raw_median_within_year_pctile": 0.38349796629866356,
+     "raw_mean_log1p_cites": 3.3005527690277288
+    },
+    "n_titles_two_templates_in_family": 1,
+    "reference_raw_median_within_year_pctile_no_family_template": 0.5026174074681538
+   }
+  },
+  "joint_model_8_features": {
+   "label": "pre-specified secondary (prereg section 6; no multiplicity claim)",
+   "model": "y ~ all 8 primary features + primary controls | year^topic50, SE clustered by topic50",
+   "G6a_meme": {
+    "b": 0.26805749443501475,
+    "se": 0.1585837642627542,
+    "p": 0.09731949738184542,
+    "pct": 0.3074223073609508,
+    "lo": -0.041865087344533425,
+    "hi": 0.7840421711046597,
+    "n": 8574
+   },
+   "G6b_tentative": {
+    "b": 0.06966310804186615,
+    "se": 0.06183889917434815,
+    "p": 0.26543000227253266,
+    "pct": 0.07214692272888201,
+    "lo": -0.050235418780395724,
+    "hi": 0.2102988957968146,
+    "n": 8574
+   }
+  },
+  "llm_topic_heterogeneity": {
+   "G6a_meme": {
+    "label": "pre-specified secondary (prereg section 6; no multiplicity claim)",
+    "llm_topic_papers": {
+     "b": 0.4333914508718993,
+     "se": 0.2105317990123524,
+     "p": 0.04487419125641812,
+     "pct": 0.5424799076407671,
+     "lo": 0.020965884493265863,
+     "hi": 1.3303856687203175,
+     "n": 8574,
+     "n_with": 20
+    },
+    "non_llm_topic_papers": {
+     "b": 0.2966796204235147,
+     "se": 0.18036652179432458,
+     "p": 0.10639757549732387,
+     "pct": 0.3453841967743665,
+     "lo": -0.055253614172779186,
+     "hi": 0.9159201496656886,
+     "n": 8574,
+     "n_with": 63
+    },
+    "difference_llm_minus_non": {
+     "b": 0.1367118304483845,
+     "se": 0.277327515450599,
+     "p": 0.6242416738216936,
+     "ratio": 1.1464977151797595,
+     "ratio_lo": 0.6657439779545248,
+     "ratio_hi": 1.9744181764152526
+    },
+    "n_llm_topic_papers": 1931,
+    "share_llm_topic": {
+     "with": 0.24096385542168675,
+     "without": 0.22432210353327856
+    },
+    "note": "One model with the feature split by llm_topic plus an llm_topic main effect; 'difference' is the feature x llm_topic interaction (ratio of the two citation multipliers)."
+   },
+   "G6b_tentative": {
+    "label": "pre-specified secondary (prereg section 6; no multiplicity claim)",
+    "llm_topic_papers": {
+     "b": 0.22162492058934433,
+     "se": 0.15956903317419088,
+     "p": 0.1711448644645408,
+     "pct": 0.24810315226409307,
+     "lo": -0.08710132463608056,
+     "hi": 0.7063903374277294,
+     "n": 8574,
+     "n_with": 99
+    },
+    "non_llm_topic_papers": {
+     "b": -0.002072827446707048,
+     "se": 0.06420881664612076,
+     "p": 0.974377827922956,
+     "pct": -0.0020706806234827013,
+     "lo": -0.12007808471109693,
+     "hi": 0.13176284073378186,
+     "n": 8574,
+     "n_with": 401
+    },
+    "difference_llm_minus_non": {
+     "b": 0.22369774803605139,
+     "se": 0.16549873404926857,
+     "p": 0.1826916804293861,
+     "ratio": 1.250692937896522,
+     "ratio_lo": 0.9042225450804361,
+     "ratio_hi": 1.7299201766364778
+    },
+    "n_llm_topic_papers": 1931,
+    "share_llm_topic": {
+     "with": 0.198,
+     "without": 0.22611700814613675
+    },
+    "note": "One model with the feature split by llm_topic plus an llm_topic main effect; 'difference' is the feature x llm_topic interaction (ratio of the two citation multipliers)."
+   }
+  }
+ },
+ "diagnostics_not_preregistered": {
+  "label": "diagnostic (not pre-registered)",
+  "a_superstars": {
+   "label": "diagnostic (not pre-registered)",
+   "meme_papers_by_citations": [
+    {
+     "year": 2023,
+     "cites": 5012.0,
+     "pctile": 0.9975267930750206,
+     "has_arxiv": 1,
+     "template": "Worth A Thousand / N Words",
+     "G1_name": 0,
+     "G2_assertive": 1,
+     "G3_question": 0,
+     "llm_topic": false,
+     "loo_pct": 0.32374060431143903,
+     "loo_p": 0.06641604194251705,
+     "loo_delta_pp": -5.483188229364466,
+     "title": "A Time Series is Worth 64 Words:  Long-term Forecasting with Transformers"
+    },
+    {
+     "year": 2021,
+     "cites": 980.0,
+     "pctile": 0.9611872146118722,
+     "has_arxiv": 1,
+     "template": "X Is All You Need",
+     "G1_name": 0,
+     "G2_assertive": 1,
+     "G3_question": 0,
+     "llm_topic": false,
+     "loo_pct": 0.3345823353888169,
+     "loo_p": 0.05531812525249036,
+     "loo_delta_pp": -4.3990151216266815,
+     "title": "Image Augmentation Is All You Need: Regularizing Deep Reinforcement Learning from Pixels"
+    },
+    {
+     "year": 2021,
+     "cites": 782.0,
+     "pctile": 0.9573820395738204,
+     "has_arxiv": 1,
+     "template": "X Is All You Need",
+     "G1_name": 0,
+     "G2_assertive": 1,
+     "G3_question": 0,
+     "llm_topic": false,
+     "loo_pct": 0.35513286753620243,
+     "loo_p": 0.05043587701938956,
+     "loo_delta_pp": -2.3439619068881257,
+     "title": "Hopfield Networks is All You Need"
+    },
+    {
+     "year": 2020,
+     "cites": 695.0,
+     "pctile": 0.9120879120879121,
+     "has_arxiv": 1,
+     "template": "X Is Secretly Y",
+     "G1_name": 0,
+     "G2_assertive": 1,
+     "G3_question": 0,
+     "llm_topic": false,
+     "loo_pct": 0.33586244156502376,
+     "loo_p": 0.05497220107940404,
+     "loo_delta_pp": -4.271004504005993,
+     "title": "Your classifier is secretly an energy based model and you should treat it like one"
+    },
+    {
+     "year": 2023,
+     "cites": 602.0,
+     "pctile": 0.957131079967024,
+     "has_arxiv": 1,
+     "template": "When X Meets Y / X Meets Y",
+     "G1_name": 1,
+     "G2_assertive": 0,
+     "G3_question": 0,
+     "llm_topic": false,
+     "loo_pct": 0.34062482974431507,
+     "loo_p": 0.05385220932574786,
+     "loo_delta_pp": -3.794765686076862,
+     "title": "Spikformer: When Spiking Neural Network Meets Transformer "
+    },
+    {
+     "year": 2025,
+     "cites": 423.0,
+     "pctile": 0.9896980461811723,
+     "has_arxiv": 1,
+     "template": "X Is Secretly Y",
+     "G1_name": 0,
+     "G2_assertive": 0,
+     "G3_question": 0,
+     "llm_topic": true,
+     "loo_pct": 0.3305752892322822,
+     "loo_p": 0.0548782117251454,
+     "loo_delta_pp": -4.79971973728015,
+     "title": "Your Absorbing Discrete Diffusion Secretly Models the Conditional Distributions of Clean Data"
+    },
+    {
+     "year": 2021,
+     "cites": 390.0,
+     "pctile": 0.9162861491628614,
+     "has_arxiv": 1,
+     "template": "Free Lunch",
+     "G1_name": 0,
+     "G2_assertive": 0,
+     "G3_question": 0,
+     "llm_topic": false,
+     "loo_pct": 0.356900708067019,
+     "loo_p": 0.04452787507738054,
+     "loo_delta_pp": -2.167177853806468,
+     "title": "Free Lunch for Few-shot Learning:  Distribution Calibration"
+    },
+    {
+     "year": 2020,
+     "cites": 377.0,
+     "pctile": 0.8553113553113553,
+     "has_arxiv": 1,
+     "template": "X Matters",
+     "G1_name": 0,
+     "G2_assertive": 1,
+     "G3_question": 0,
+     "llm_topic": false,
+     "loo_pct": 0.3707912607832329,
+     "loo_p": 0.04267318306582446,
+     "loo_delta_pp": -0.7781225821850812,
+     "title": "Skip Connections Matter: On the Transferability of Adversarial Examples Generated with ResNets"
+    },
+    {
+     "year": 2024,
+     "cites": 313.0,
+     "pctile": 0.9389889599070308,
+     "has_arxiv": 1,
+     "template": "When X Meets Y / X Meets Y",
+     "G1_name": 0,
+     "G2_assertive": 0,
+     "G3_question": 0,
+     "llm_topic": true,
+     "loo_pct": 0.3595561021466951,
+     "loo_p": 0.044319843113171054,
+     "loo_delta_pp": -1.9016384458388602,
+     "title": "When Scaling Meets LLM Finetuning: The Effect of Data, Model and Finetuning Method"
+    },
+    {
+     "year": 2017,
+     "cites": 260.0,
+     "pctile": 0.4716312056737589,
+     "has_arxiv": 0,
+     "template": "Do X Really ...?",
+     "G1_name": 0,
+     "G2_assertive": 0,
+     "G3_question": 1,
+     "llm_topic": false,
+     "loo_pct": 0.39189741894082175,
+     "loo_p": 0.03186830862972423,
+     "loo_delta_pp": 1.332493233573806,
+     "title": "Do Deep Convolutional Nets Really Need to be Deep and Convolutional?"
+    },
+    {
+     "year": 2023,
+     "cites": 258.0,
+     "pctile": 0.9150865622423743,
+     "has_arxiv": 1,
+     "template": "Do X Really ...?",
+     "G1_name": 0,
+     "G2_assertive": 0,
+     "G3_question": 1,
+     "llm_topic": false,
+     "loo_pct": 0.35607377390198414,
+     "loo_p": 0.05199440570072156,
+     "loo_delta_pp": -2.2498712703099555,
+     "title": "Do We Really Need Complicated Model Architectures For Temporal Networks?"
+    },
+    {
+     "year": 2019,
+     "cites": 229.0,
+     "pctile": 0.7288557213930348,
+     "has_arxiv": 1,
+     "template": "When X Meets Y / X Meets Y",
+     "G1_name": 0,
+     "G2_assertive": 0,
+     "G3_question": 0,
+     "llm_topic": false,
+     "loo_pct": 0.38019336805703063,
+     "loo_p": 0.03818921553896315,
+     "loo_delta_pp": 0.16208814519469428,
+     "title": "Defensive Quantization: When Efficiency Meets Robustness"
+    },
+    {
+     "year": 2024,
+     "cites": 211.0,
+     "pctile": 0.9079023823358513,
+     "has_arxiv": 0,
+     "template": "When X Meets Y / X Meets Y",
+     "G1_name": 1,
+     "G2_assertive": 0,
+     "G3_question": 0,
+     "llm_topic": true,
+     "loo_pct": 0.37300326352304336,
+     "loo_p": 0.041079554785639516,
+     "loo_delta_pp": -0.5569223082040331,
+     "title": "Chain-of-Experts: When LLMs Meet Complex Operations Research Problems"
+    },
+    {
+     "year": 2022,
+     "cites": 162.0,
+     "pctile": 0.8382180539273154,
+     "has_arxiv": 1,
+     "template": "When X Meets Y / X Meets Y",
+     "G1_name": 0,
+     "G2_assertive": 0,
+     "G3_question": 1,
+     "llm_topic": false,
+     "loo_pct": 0.3653408832192877,
+     "loo_p": 0.045467354527243264,
+     "loo_delta_pp": -1.3231603385795987,
+     "title": "Robust Learning Meets Generative Models: Can Proxy Distributions Improve Adversarial Robustness?"
+    },
+    {
+     "year": 2025,
+     "cites": 140.0,
+     "pctile": 0.9497335701598579,
+     "has_arxiv": 1,
+     "template": "X Is All You Need",
+     "G1_name": 1,
+     "G2_assertive": 1,
+     "G3_question": 0,
+     "llm_topic": false,
+     "loo_pct": 0.350215527337286,
+     "loo_p": 0.04486683898122412,
+     "loo_delta_pp": -2.835695926779769,
+     "title": "CatVTON: Concatenation Is All You Need for Virtual Try-On with Diffusion Models"
+    },
+    {
+     "year": 2024,
+     "cites": 122.0,
+     "pctile": 0.8492155723416618,
+     "has_arxiv": 1,
+     "template": "When X Meets Y / X Meets Y",
+     "G1_name": 0,
+     "G2_assertive": 0,
+     "G3_question": 0,
+     "llm_topic": false,
+     "loo_pct": 0.3579406276770787,
+     "loo_p": 0.04265099802813954,
+     "loo_delta_pp": -2.063185892800501,
+     "title": "Convolution Meets LoRA: Parameter Efficient Finetuning for Segment Anything Model"
+    },
+    {
+     "year": 2024,
+     "cites": 121.0,
+     "pctile": 0.8471818710052296,
+     "has_arxiv": 1,
+     "template": "When X Meets Y / X Meets Y",
+     "G1_name": 1,
+     "G2_assertive": 0,
+     "G3_question": 0,
+     "llm_topic": false,
+     "loo_pct": 0.3470547474299379,
+     "loo_p": 0.06360172987305468,
+     "loo_delta_pp": -3.1517739175145776,
+     "title": "TabR: Tabular Deep Learning Meets Nearest Neighbors"
+    },
+    {
+     "year": 2025,
+     "cites": 117.0,
+     "pctile": 0.9369449378330373,
+     "has_arxiv": 1,
+     "template": "X Matters",
+     "G1_name": 0,
+     "G2_assertive": 1,
+     "G3_question": 0,
+     "llm_topic": true,
+     "loo_pct": 0.3556100521160612,
+     "loo_p": 0.05306785036261119,
+     "loo_delta_pp": -2.2962434489022465,
+     "title": "Not All Heads Matter: A Head-Level KV Cache Compression Method with Integrated Retrieval and Reasoning"
+    },
+    {
+     "year": 2023,
+     "cites": 106.0,
+     "pctile": 0.832646331409728,
+     "has_arxiv": 1,
+     "template": "X Is All You Need",
+     "G1_name": 1,
+     "G2_assertive": 1,
+     "G3_question": 0,
+     "llm_topic": false,
+     "loo_pct": 0.3630236243220306,
+     "loo_p": 0.04164035363796392,
+     "loo_delta_pp": -1.5548862283053078,
+     "title": "H2RBox: Horizontal Box Annotation is All You Need for Oriented Object Detection"
+    },
+    {
+     "year": 2020,
+     "cites": 101.0,
+     "pctile": 0.5183150183150184,
+     "has_arxiv": 0,
+     "template": "X Is All You Need",
+     "G1_name": 0,
+     "G2_assertive": 1,
+     "G3_question": 0,
+     "llm_topic": false,
+     "loo_pct": 0.3845383629053871,
+     "loo_p": 0.03628503115503823,
+     "loo_delta_pp": 0.596587630030343,
+     "title": "Sign Bits Are All You Need for Black-Box Attacks"
+    },
+    {
+     "year": 2024,
+     "cites": 95.0,
+     "pctile": 0.8146426496223126,
+     "has_arxiv": 1,
+     "template": "When X Meets Y / X Meets Y",
+     "G1_name": 0,
+     "G2_assertive": 0,
+     "G3_question": 0,
+     "llm_topic": true,
+     "loo_pct": 0.38126416591886025,
+     "loo_p": 0.03801662909553749,
+     "loo_delta_pp": 0.26916793137765627,
+     "title": "Mixture-of-Experts Meets Instruction Tuning: A Winning Combination for Large Language Models"
+    },
+    {
+     "year": 2025,
+     "cites": 82.0,
+     "pctile": 0.9119005328596803,
+     "has_arxiv": 1,
+     "template": "When X Meets Y / X Meets Y",
+     "G1_name": 0,
+     "G2_assertive": 1,
+     "G3_question": 0,
+     "llm_topic": true,
+     "loo_pct": 0.36250912869319984,
+     "loo_p": 0.04660138215155518,
+     "loo_delta_pp": -1.6063357911883847,
+     "title": "OptiBench Meets ReSocratic: Measure and Improve LLMs for Optimization Modeling"
+    },
+    {
+     "year": 2023,
+     "cites": 78.0,
+     "pctile": 0.7844187963726298,
+     "has_arxiv": 1,
+     "template": "When X Meets Y / X Meets Y",
+     "G1_name": 0,
+     "G2_assertive": 0,
+     "G3_question": 0,
+     "llm_topic": false,
+     "loo_pct": 0.36804479374893107,
+     "loo_p": 0.04105947303113466,
+     "loo_delta_pp": -1.0527692856152626,
+     "title": "When Source-Free Domain Adaptation Meets Learning with Noisy Labels"
+    },
+    {
+     "year": 2023,
+     "cites": 77.0,
+     "pctile": 0.7823577906018137,
+     "has_arxiv": 1,
+     "template": "X Is All You Need",
+     "G1_name": 0,
+     "G2_assertive": 1,
+     "G3_question": 0,
+     "llm_topic": false,
+     "loo_pct": 0.36106505850571136,
+     "loo_p": 0.04816518826760019,
+     "loo_delta_pp": -1.7507428099372335,
+     "title": "Certified Training: Small Boxes are All You Need"
+    },
+    {
+     "year": 2021,
+     "cites": 75.0,
+     "pctile": 0.5525114155251142,
+     "has_arxiv": 1,
+     "template": "When X Meets Y / X Meets Y",
+     "G1_name": 0,
+     "G2_assertive": 1,
+     "G3_question": 0,
+     "llm_topic": false,
+     "loo_pct": 0.3791586836323808,
+     "loo_p": 0.038649416200960296,
+     "loo_delta_pp": 0.05861970272971195,
+     "title": "Boost then Convolve: Gradient Boosting Meets Graph Neural Networks"
+    },
+    {
+     "year": 2022,
+     "cites": 74.0,
+     "pctile": 0.6998827667057445,
+     "has_arxiv": 1,
+     "template": "X Is All You Need",
+     "G1_name": 1,
+     "G2_assertive": 1,
+     "G3_question": 0,
+     "llm_topic": false,
+     "loo_pct": 0.37846333080814465,
+     "loo_p": 0.038677853300356,
+     "loo_delta_pp": -0.01091557969390422,
+     "title": "SphereFace2: Binary Classification is All You Need for Deep Face Recognition"
+    },
+    {
+     "year": 2022,
+     "cites": 73.0,
+     "pctile": 0.6946072684642438,
+     "has_arxiv": 1,
+     "template": "To Rule Them All",
+     "G1_name": 0,
+     "G2_assertive": 0,
+     "G3_question": 0,
+     "llm_topic": false,
+     "loo_pct": 0.3739871881416641,
+     "loo_p": 0.039659239667444224,
+     "loo_delta_pp": -0.4585298463419596,
+     "title": "No One Representation to Rule Them All: Overlapping Features of Training Methods"
+    },
+    {
+     "year": 2023,
+     "cites": 72.0,
+     "pctile": 0.7683429513602638,
+     "has_arxiv": 1,
+     "template": "Free Lunch",
+     "G1_name": 0,
+     "G2_assertive": 0,
+     "G3_question": 0,
+     "llm_topic": false,
+     "loo_pct": 0.36953421686112975,
+     "loo_p": 0.040858160110685215,
+     "loo_delta_pp": -0.9038269743953942,
+     "title": "Free Lunch for Domain Adversarial Training: Environment Label Smoothing"
+    },
+    {
+     "year": 2025,
+     "cites": 63.0,
+     "pctile": 0.8788632326820603,
+     "has_arxiv": 1,
+     "template": "Do X Really ...?",
+     "G1_name": 0,
+     "G2_assertive": 0,
+     "G3_question": 1,
+     "llm_topic": true,
+     "loo_pct": 0.3667830244565258,
+     "loo_p": 0.04301156670931672,
+     "loo_delta_pp": -1.1789462148557917,
+     "title": "Is Your Model Really A Good Math Reasoner? Evaluating Mathematical Reasoning with Checklist"
+    },
+    {
+     "year": 2023,
+     "cites": 63.0,
+     "pctile": 0.7337180544105524,
+     "has_arxiv": 0,
+     "template": "X Is All You Need",
+     "G1_name": 0,
+     "G2_assertive": 1,
+     "G3_question": 0,
+     "llm_topic": false,
+     "loo_pct": 0.3668411693569751,
+     "loo_p": 0.043111101656079454,
+     "loo_delta_pp": -1.1731317248108608,
+     "title": "Pink Noise Is All You Need: Colored Noise Exploration in Deep Reinforcement Learning"
+    },
+    {
+     "year": 2022,
+     "cites": 56.0,
+     "pctile": 0.6160609613130129,
+     "has_arxiv": 1,
+     "template": "A Tale Of",
+     "G1_name": 0,
+     "G2_assertive": 0,
+     "G3_question": 0,
+     "llm_topic": false,
+     "loo_pct": 0.3729440847540346,
+     "loo_p": 0.0401170058879714,
+     "loo_delta_pp": -0.562840185104907,
+     "title": "A Tale of Two Flows: Cooperative Learning of Langevin Flow and Normalizing Flow Toward Energy-Based Model"
+    },
+    {
+     "year": 2024,
+     "cites": 52.0,
+     "pctile": 0.7187681580476467,
+     "has_arxiv": 1,
+     "template": "When X Meets Y / X Meets Y",
+     "G1_name": 0,
+     "G2_assertive": 0,
+     "G3_question": 0,
+     "llm_topic": true,
+     "loo_pct": 0.37637772482394727,
+     "loo_p": 0.03968033498061363,
+     "loo_delta_pp": -0.21947617811364228,
+     "title": "Zeroth-Order Optimization Meets Human Feedback: Provable Learning via Ranking Oracles"
+    },
+    {
+     "year": 2023,
+     "cites": 49.0,
+     "pctile": 0.6793075020610058,
+     "has_arxiv": 0,
+     "template": "X Is All You Need",
+     "G1_name": 0,
+     "G2_assertive": 1,
+     "G3_question": 0,
+     "llm_topic": false,
+     "loo_pct": 0.3734805712128284,
+     "loo_p": 0.043579930064669314,
+     "loo_delta_pp": -0.5091915392255286,
+     "title": "Loss Landscapes are All You Need: Neural Network Generalization Can Be Explained Without the Implicit Bias of Gradient Descent"
+    },
+    {
+     "year": 2025,
+     "cites": 48.0,
+     "pctile": 0.8373001776198934,
+     "has_arxiv": 1,
+     "template": "X Is All You Need",
+     "G1_name": 0,
+     "G2_assertive": 1,
+     "G3_question": 0,
+     "llm_topic": false,
+     "loo_pct": 0.3453490172986686,
+     "loo_p": 0.04987669625240243,
+     "loo_delta_pp": -3.3223469306415065,
+     "title": "Standard Gaussian Process is All You Need for High-Dimensional Bayesian Optimization"
+    },
+    {
+     "year": 2021,
+     "cites": 47.0,
+     "pctile": 0.3926940639269406,
+     "has_arxiv": 1,
+     "template": "X Matters",
+     "G1_name": 0,
+     "G2_assertive": 1,
+     "G3_question": 0,
+     "llm_topic": false,
+     "loo_pct": 0.38388799006845775,
+     "loo_p": 0.03606779146855321,
+     "loo_delta_pp": 0.531550346337406,
+     "title": "Network Pruning That Matters:  A Case Study on Retraining Variants"
+    },
+    {
+     "year": 2025,
+     "cites": 45.0,
+     "pctile": 0.8243339253996448,
+     "has_arxiv": 1,
+     "template": "Do X Really ...?",
+     "G1_name": 0,
+     "G2_assertive": 0,
+     "G3_question": 1,
+     "llm_topic": true,
+     "loo_pct": 0.3694403568160154,
+     "loo_p": 0.04114637832771506,
+     "loo_delta_pp": -0.91321297890683,
+     "title": "Can LLMs Really Learn to Translate a Low-Resource Language from One Grammar Book?"
+    },
+    {
+     "year": 2025,
+     "cites": 44.0,
+     "pctile": 0.8190053285968029,
+     "has_arxiv": 1,
+     "template": "The Devil Is In",
+     "G1_name": 1,
+     "G2_assertive": 0,
+     "G3_question": 0,
+     "llm_topic": true,
+     "loo_pct": 0.3664062303704254,
+     "loo_p": 0.0453927483434553,
+     "loo_delta_pp": -1.216625623465828,
+     "title": "VL-ICL Bench: The Devil in the Details of Multimodal In-Context Learning"
+    },
+    {
+     "year": 2023,
+     "cites": 44.0,
+     "pctile": 0.6508656224237428,
+     "has_arxiv": 1,
+     "template": "When X Meets Y / X Meets Y",
+     "G1_name": 0,
+     "G2_assertive": 0,
+     "G3_question": 0,
+     "llm_topic": false,
+     "loo_pct": 0.3748313991320271,
+     "loo_p": 0.04016635752002706,
+     "loo_delta_pp": -0.374108747305657,
+     "title": "When Data Geometry Meets Deep Function: Generalizing Offline Reinforcement Learning"
+    },
+    {
+     "year": 2025,
+     "cites": 43.0,
+     "pctile": 0.8145648312611012,
+     "has_arxiv": 1,
+     "template": "X Is Secretly Y",
+     "G1_name": 0,
+     "G2_assertive": 1,
+     "G3_question": 0,
+     "llm_topic": true,
+     "loo_pct": 0.36191049084731697,
+     "loo_p": 0.04789685475106742,
+     "loo_delta_pp": -1.6661995757766723,
+     "title": "Your Mixture-of-Experts LLM Is Secretly an Embedding Model for Free"
+    },
+    {
+     "year": 2025,
+     "cites": 41.0,
+     "pctile": 0.8033747779751332,
+     "has_arxiv": 1,
+     "template": "Do X Really ...?",
+     "G1_name": 0,
+     "G2_assertive": 0,
+     "G3_question": 1,
+     "llm_topic": true,
+     "loo_pct": 0.376050487408897,
+     "loo_p": 0.03999247574549436,
+     "loo_delta_pp": -0.2521999196186675,
+     "title": "Can Knowledge Editing Really Correct Hallucinations?"
+    },
+    {
+     "year": 2024,
+     "cites": 40.0,
+     "pctile": 0.6548518303312028,
+     "has_arxiv": 0,
+     "template": "The Devil Is In",
+     "G1_name": 0,
+     "G2_assertive": 1,
+     "G3_question": 0,
+     "llm_topic": true,
+     "loo_pct": 0.3919244212264026,
+     "loo_p": 0.03353951391990462,
+     "loo_delta_pp": 1.3351934621318895,
+     "title": "The Devil is in the Neurons: Interpreting and Mitigating Social Biases in Language Models"
+    },
+    {
+     "year": 2025,
+     "cites": 39.0,
+     "pctile": 0.7927175843694494,
+     "has_arxiv": 1,
+     "template": "Do X Really ...?",
+     "G1_name": 0,
+     "G2_assertive": 0,
+     "G3_question": 1,
+     "llm_topic": false,
+     "loo_pct": 0.3537183487904578,
+     "loo_p": 0.05187103522694558,
+     "loo_delta_pp": -2.4854137814625865,
+     "title": "Does SGD really happen in tiny subspaces?"
+    },
+    {
+     "year": 2024,
+     "cites": 38.0,
+     "pctile": 0.6406159209761766,
+     "has_arxiv": 1,
+     "template": "When X Meets Y / X Meets Y",
+     "G1_name": 0,
+     "G2_assertive": 0,
+     "G3_question": 0,
+     "llm_topic": false,
+     "loo_pct": 0.3651897570878653,
+     "loo_p": 0.04882428010178197,
+     "loo_delta_pp": -1.3382729517218417,
+     "title": "When Semantic Segmentation Meets Frequency Aliasing"
+    },
+    {
+     "year": 2023,
+     "cites": 38.0,
+     "pctile": 0.6084089035449299,
+     "has_arxiv": 1,
+     "template": "X Is All You Need",
+     "G1_name": 0,
+     "G2_assertive": 1,
+     "G3_question": 0,
+     "llm_topic": false,
+     "loo_pct": 0.3757712704515419,
+     "loo_p": 0.0401589470199728,
+     "loo_delta_pp": -0.28012161535417857,
+     "title": "Copy is All You Need"
+    },
+    {
+     "year": 2023,
+     "cites": 37.0,
+     "pctile": 0.6005770816158286,
+     "has_arxiv": 1,
+     "template": "X Is Secretly Y",
+     "G1_name": 0,
+     "G2_assertive": 1,
+     "G3_question": 0,
+     "llm_topic": false,
+     "loo_pct": 0.37394346938460177,
+     "loo_p": 0.040732097041630055,
+     "loo_delta_pp": -0.46290172204819235,
+     "title": "Your Contrastive Learning Is Secretly Doing Stochastic Neighbor Embedding"
+    },
+    {
+     "year": 2023,
+     "cites": 36.0,
+     "pctile": 0.5919208573784006,
+     "has_arxiv": 1,
+     "template": "X Matters",
+     "G1_name": 0,
+     "G2_assertive": 1,
+     "G3_question": 0,
+     "llm_topic": false,
+     "loo_pct": 0.38623075204566626,
+     "loo_p": 0.03571391578562211,
+     "loo_delta_pp": 0.7658265440582568,
+     "title": "DAG Matters! GFlowNets Enhanced Explainer for Graph Neural Networks"
+    },
+    {
+     "year": 2023,
+     "cites": 35.0,
+     "pctile": 0.5820280296784831,
+     "has_arxiv": 1,
+     "template": "When X Meets Y / X Meets Y",
+     "G1_name": 0,
+     "G2_assertive": 0,
+     "G3_question": 0,
+     "llm_topic": false,
+     "loo_pct": 0.380780808785238,
+     "loo_p": 0.037999119740699916,
+     "loo_delta_pp": 0.22083221801543207,
+     "title": "Transformer Meets Boundary Value Inverse Problems"
+    },
+    {
+     "year": 2023,
+     "cites": 33.0,
+     "pctile": 0.5614179719703215,
+     "has_arxiv": 1,
+     "template": "X Matters",
+     "G1_name": 0,
+     "G2_assertive": 1,
+     "G3_question": 0,
+     "llm_topic": false,
+     "loo_pct": 0.3819042033118265,
+     "loo_p": 0.03696156352484392,
+     "loo_delta_pp": 0.33317167067428155,
+     "title": "Rethinking Graph Lottery Tickets: Graph Sparsity Matters"
+    },
+    {
+     "year": 2025,
+     "cites": 30.0,
+     "pctile": 0.7404973357015986,
+     "has_arxiv": 1,
+     "template": "Do X Really ...?",
+     "G1_name": 0,
+     "G2_assertive": 0,
+     "G3_question": 1,
+     "llm_topic": true,
+     "loo_pct": 0.366010889256966,
+     "loo_p": 0.04262095693207235,
+     "loo_delta_pp": -1.2561597348117681,
+     "title": "Can In-context Learning Really Generalize to Out-of-distribution Tasks?"
+    },
+    {
+     "year": 2025,
+     "cites": 29.0,
+     "pctile": 0.7316163410301953,
+     "has_arxiv": 1,
+     "template": "When X Meets Y / X Meets Y",
+     "G1_name": 1,
+     "G2_assertive": 0,
+     "G3_question": 0,
+     "llm_topic": true,
+     "loo_pct": 0.3784839088370031,
+     "loo_p": 0.038865679904312334,
+     "loo_delta_pp": -0.008857776808057771,
+     "title": "NExT-Mol: 3D Diffusion Meets 1D Language Modeling for 3D Molecule Generation"
+    },
+    {
+     "year": 2023,
+     "cites": 29.0,
+     "pctile": 0.5127782357790602,
+     "has_arxiv": 1,
+     "template": "X Is All You Need",
+     "G1_name": 0,
+     "G2_assertive": 0,
+     "G3_question": 1,
+     "llm_topic": false,
+     "loo_pct": 0.38795261590078356,
+     "loo_p": 0.03502060474434887,
+     "loo_delta_pp": 0.9380129295699868,
+     "title": "Words are all you need? Language as an approximation for human similarity judgments"
+    },
+    {
+     "year": 2025,
+     "cites": 27.0,
+     "pctile": 0.7120781527531084,
+     "has_arxiv": 1,
+     "template": "X Is All You Need",
+     "G1_name": 0,
+     "G2_assertive": 1,
+     "G3_question": 0,
+     "llm_topic": false,
+     "loo_pct": 0.3591776342880424,
+     "loo_p": 0.04394140086096443,
+     "loo_delta_pp": -1.93948523170413,
+     "title": "A Single Goal is All You Need: Skills and Exploration Emerge from Contrastive RL without Rewards, Demonstrations, or Subgoals"
+    },
+    {
+     "year": 2019,
+     "cites": 26.0,
+     "pctile": 0.13557213930348258,
+     "has_arxiv": 1,
+     "template": "When X Meets Y / X Meets Y",
+     "G1_name": 0,
+     "G2_assertive": 1,
+     "G3_question": 0,
+     "llm_topic": false,
+     "loo_pct": 0.40099908256974737,
+     "loo_p": 0.034978285541166,
+     "loo_delta_pp": 2.2426595964663676,
+     "title": "Variance Networks: When Expectation Does Not Meet Your Expectations"
+    },
+    {
+     "year": 2023,
+     "cites": 23.0,
+     "pctile": 0.43528441879637264,
+     "has_arxiv": 1,
+     "template": "The Devil Is In",
+     "G1_name": 0,
+     "G2_assertive": 1,
+     "G3_question": 0,
+     "llm_topic": false,
+     "loo_pct": 0.3817990538173639,
+     "loo_p": 0.036683713387354766,
+     "loo_delta_pp": 0.3226567212280207,
+     "title": "The Devil is in the Wrongly-classified Samples: Towards Unified Open-set Recognition"
+    },
+    {
+     "year": 2025,
+     "cites": 22.0,
+     "pctile": 0.6619893428063943,
+     "has_arxiv": 1,
+     "template": "X Is Secretly Y",
+     "G1_name": 0,
+     "G2_assertive": 1,
+     "G3_question": 0,
+     "llm_topic": true,
+     "loo_pct": 0.3802972919154608,
+     "loo_p": 0.037984453008362395,
+     "loo_delta_pp": 0.17248053103771088,
+     "title": "Your Weak LLM is Secretly a Strong Teacher for Alignment"
+    },
+    {
+     "year": 2018,
+     "cites": 22.0,
+     "pctile": 0.10236220472440945,
+     "has_arxiv": 0,
+     "template": "X Matters",
+     "G1_name": 0,
+     "G2_assertive": 1,
+     "G3_question": 0,
+     "llm_topic": false,
+     "loo_pct": 0.39726099050815167,
+     "loo_p": 0.03400600006752019,
+     "loo_delta_pp": 1.8688503903067977,
+     "title": "Initialization matters: Orthogonal Predictive State Recurrent Neural Networks"
+    },
+    {
+     "year": 2024,
+     "cites": 20.0,
+     "pctile": 0.47414294015107494,
+     "has_arxiv": 1,
+     "template": "When X Meets Y / X Meets Y",
+     "G1_name": 0,
+     "G2_assertive": 0,
+     "G3_question": 0,
+     "llm_topic": false,
+     "loo_pct": 0.38084258610636046,
+     "loo_p": 0.038503580060426756,
+     "loo_delta_pp": 0.22700995012767677,
+     "title": "Transport meets Variational Inference: Controlled Monte Carlo Diffusions"
+    },
+    {
+     "year": 2025,
+     "cites": 19.0,
+     "pctile": 0.6241563055062167,
+     "has_arxiv": 1,
+     "template": "When X Meets Y / X Meets Y",
+     "G1_name": 0,
+     "G2_assertive": 0,
+     "G3_question": 0,
+     "llm_topic": true,
+     "loo_pct": 0.39267811070208225,
+     "loo_p": 0.03354015099440466,
+     "loo_delta_pp": 1.410562409699856,
+     "title": "Decision Information Meets Large Language Models: The Future of Explainable Operations Research"
+    },
+    {
+     "year": 2023,
+     "cites": 19.0,
+     "pctile": 0.3742786479802143,
+     "has_arxiv": 0,
+     "template": "Worth A Thousand / N Words",
+     "G1_name": 0,
+     "G2_assertive": 0,
+     "G3_question": 1,
+     "llm_topic": true,
+     "loo_pct": 0.4092120623914808,
+     "loo_p": 0.027669055952691535,
+     "loo_delta_pp": 3.063957578639709,
+     "title": "Is a Caption Worth a Thousand Images? A Study on Representation Learning"
+    },
+    {
+     "year": 2025,
+     "cites": 15.0,
+     "pctile": 0.5538188277087034,
+     "has_arxiv": 1,
+     "template": "X Is Secretly Y",
+     "G1_name": 0,
+     "G2_assertive": 1,
+     "G3_question": 0,
+     "llm_topic": false,
+     "loo_pct": 0.37620013689218124,
+     "loo_p": 0.039730834787818914,
+     "loo_delta_pp": -0.2372349712902455,
+     "title": "Projection Head is Secretly an Information Bottleneck"
+    },
+    {
+     "year": 2019,
+     "cites": 15.0,
+     "pctile": 0.053482587064676616,
+     "has_arxiv": 1,
+     "template": "X Is All You Need",
+     "G1_name": 0,
+     "G2_assertive": 1,
+     "G3_question": 0,
+     "llm_topic": false,
+     "loo_pct": 0.40765642828958626,
+     "loo_p": 0.028915917421624693,
+     "loo_delta_pp": 2.908394168450257,
+     "title": "CBOW Is Not All You Need: Combining CBOW with the Compositional Matrix Space Model"
+    },
+    {
+     "year": 2024,
+     "cites": 12.0,
+     "pctile": 0.31987216734456714,
+     "has_arxiv": 1,
+     "template": "The Devil Is In",
+     "G1_name": 0,
+     "G2_assertive": 1,
+     "G3_question": 0,
+     "llm_topic": false,
+     "loo_pct": 0.38382239927811135,
+     "loo_p": 0.03795533024412667,
+     "loo_delta_pp": 0.5249912673027657,
+     "title": "The Devil is in the Object Boundary: Towards Annotation-free Instance Segmentation using Foundation Models"
+    },
+    {
+     "year": 2021,
+     "cites": 12.0,
+     "pctile": 0.09665144596651445,
+     "has_arxiv": 1,
+     "template": "When X Meets Y / X Meets Y",
+     "G1_name": 0,
+     "G2_assertive": 0,
+     "G3_question": 0,
+     "llm_topic": false,
+     "loo_pct": 0.40459796022934036,
+     "loo_p": 0.02840956922914195,
+     "loo_delta_pp": 2.6025473624256668,
+     "title": "Deep Learning meets Projective Clustering"
+    },
+    {
+     "year": 2024,
+     "cites": 11.0,
+     "pctile": 0.2937245787332946,
+     "has_arxiv": 1,
+     "template": "When X Meets Y / X Meets Y",
+     "G1_name": 0,
+     "G2_assertive": 1,
+     "G3_question": 0,
+     "llm_topic": false,
+     "loo_pct": 0.3961042391705787,
+     "loo_p": 0.032197671771738934,
+     "loo_delta_pp": 1.7531752565494996,
+     "title": "A Graph is Worth 1-bit Spikes: When Graph Contrastive Learning Meets Spiking Neural Networks"
+    },
+    {
+     "year": 2023,
+     "cites": 11.0,
+     "pctile": 0.24154987633965375,
+     "has_arxiv": 1,
+     "template": "X Matters",
+     "G1_name": 0,
+     "G2_assertive": 1,
+     "G3_question": 0,
+     "llm_topic": false,
+     "loo_pct": 0.3853637008811093,
+     "loo_p": 0.03451230343535494,
+     "loo_delta_pp": 0.6791214276025581,
+     "title": "Calibration Matters: Tackling Maximization Bias in Large-scale Advertising Recommendation Systems"
+    },
+    {
+     "year": 2025,
+     "cites": 9.0,
+     "pctile": 0.4113676731793961,
+     "has_arxiv": 1,
+     "template": "When X Meets Y / X Meets Y",
+     "G1_name": 0,
+     "G2_assertive": 0,
+     "G3_question": 0,
+     "llm_topic": false,
+     "loo_pct": 0.3838748762708555,
+     "loo_p": 0.03705209836230172,
+     "loo_delta_pp": 0.530238966577179,
+     "title": "State Space Model Meets Transformer: A New Paradigm for 3D Object Detection"
+    },
+    {
+     "year": 2025,
+     "cites": 8.0,
+     "pctile": 0.38312611012433395,
+     "has_arxiv": 1,
+     "template": "When X Meets Y / X Meets Y",
+     "G1_name": 0,
+     "G2_assertive": 0,
+     "G3_question": 0,
+     "llm_topic": true,
+     "loo_pct": 0.4018388152298318,
+     "loo_p": 0.030952348509680316,
+     "loo_delta_pp": 2.326632862474809,
+     "title": "When Prompt Engineering Meets Software Engineering: CNL-P as Natural and Robust \"APIs'' for Human-AI Interaction"
+    },
+    {
+     "year": 2025,
+     "cites": 8.0,
+     "pctile": 0.38312611012433395,
+     "has_arxiv": 1,
+     "template": "X Is Secretly Y",
+     "G1_name": 0,
+     "G2_assertive": 0,
+     "G3_question": 0,
+     "llm_topic": false,
+     "loo_pct": 0.38419619532003857,
+     "loo_p": 0.035709987970404145,
+     "loo_delta_pp": 0.5623708714954878,
+     "title": "Foundation Models Secretly Understand Neural Network Weights: Enhancing Hypernetwork Architectures with Foundation Models"
+    },
+    {
+     "year": 2025,
+     "cites": 7.0,
+     "pctile": 0.3495559502664298,
+     "has_arxiv": 0,
+     "template": "When X Meets Y / X Meets Y",
+     "G1_name": 0,
+     "G2_assertive": 0,
+     "G3_question": 0,
+     "llm_topic": false,
+     "loo_pct": 0.38347302686192886,
+     "loo_p": 0.036664526961934785,
+     "loo_delta_pp": 0.4900540256845165,
+     "title": "Beyond Random Masking: When Dropout meets Graph Convolutional Networks"
+    },
+    {
+     "year": 2024,
+     "cites": 6.0,
+     "pctile": 0.1757699012202208,
+     "has_arxiv": 0,
+     "template": "Less Is More",
+     "G1_name": 0,
+     "G2_assertive": 1,
+     "G3_question": 0,
+     "llm_topic": false,
+     "loo_pct": 0.4004642916394219,
+     "loo_p": 0.03203641891963849,
+     "loo_delta_pp": 2.1891805034338185,
+     "title": "More is Better: when Infinite Overparameterization is Optimal and Overfitting is Obligatory"
+    },
+    {
+     "year": 2025,
+     "cites": 5.0,
+     "pctile": 0.2769094138543517,
+     "has_arxiv": 1,
+     "template": "When X Meets Y / X Meets Y",
+     "G1_name": 0,
+     "G2_assertive": 0,
+     "G3_question": 0,
+     "llm_topic": false,
+     "loo_pct": 0.4001775997107493,
+     "loo_p": 0.0322108786501496,
+     "loo_delta_pp": 2.1605113105665597,
+     "title": "Transformer Meets Twicing: Harnessing Unattended Residual Information"
+    },
+    {
+     "year": 2025,
+     "cites": 4.0,
+     "pctile": 0.23090586145648312,
+     "has_arxiv": 1,
+     "template": "When X Meets Y / X Meets Y",
+     "G1_name": 1,
+     "G2_assertive": 0,
+     "G3_question": 0,
+     "llm_topic": false,
+     "loo_pct": 0.3880732488435412,
+     "loo_p": 0.03119083821642743,
+     "loo_delta_pp": 0.9500762238457527,
+     "title": "qNBO: quasi-Newton Meets Bilevel Optimization"
+    },
+    {
+     "year": 2025,
+     "cites": 4.0,
+     "pctile": 0.23090586145648312,
+     "has_arxiv": 1,
+     "template": "When X Meets Y / X Meets Y",
+     "G1_name": 0,
+     "G2_assertive": 0,
+     "G3_question": 0,
+     "llm_topic": false,
+     "loo_pct": 0.39770407627847204,
+     "loo_p": 0.031318192650010124,
+     "loo_delta_pp": 1.913158967338835,
+     "title": "When Graph Neural Networks Meet Dynamic Mode Decomposition"
+    },
+    {
+     "year": 2025,
+     "cites": 4.0,
+     "pctile": 0.23090586145648312,
+     "has_arxiv": 1,
+     "template": "When X Meets Y / X Meets Y",
+     "G1_name": 0,
+     "G2_assertive": 0,
+     "G3_question": 0,
+     "llm_topic": false,
+     "loo_pct": 0.39260099148726524,
+     "loo_p": 0.03175421196872419,
+     "loo_delta_pp": 1.4028504882181547,
+     "title": "When GNNs meet symmetry in ILPs: an orbit-based feature augmentation approach"
+    },
+    {
+     "year": 2025,
+     "cites": 4.0,
+     "pctile": 0.23090586145648312,
+     "has_arxiv": 0,
+     "template": "X Is All You Need",
+     "G1_name": 0,
+     "G2_assertive": 1,
+     "G3_question": 0,
+     "llm_topic": false,
+     "loo_pct": 0.40243391851647514,
+     "loo_p": 0.025547871090931817,
+     "loo_delta_pp": 2.386143191139145,
+     "title": "Random Is All You Need: Random Noise Injection on Feature Statistics for Generalizable Deep Image Denoising"
+    },
+    {
+     "year": 2025,
+     "cites": 2.0,
+     "pctile": 0.14689165186500888,
+     "has_arxiv": 1,
+     "template": "When X Meets Y / X Meets Y",
+     "G1_name": 0,
+     "G2_assertive": 0,
+     "G3_question": 0,
+     "llm_topic": false,
+     "loo_pct": 0.3969495162676451,
+     "loo_p": 0.02531298616023392,
+     "loo_delta_pp": 1.8377029662561384,
+     "title": "Newton Meets Marchenko-Pastur: Massively Parallel Second-Order Optimization with Hessian Sketching and Debiasing"
+    },
+    {
+     "year": 2025,
+     "cites": 2.0,
+     "pctile": 0.14689165186500888,
+     "has_arxiv": 1,
+     "template": "X Matters",
+     "G1_name": 0,
+     "G2_assertive": 1,
+     "G3_question": 0,
+     "llm_topic": true,
+     "loo_pct": 0.42285510102976764,
+     "loo_p": 0.02441219414627005,
+     "loo_delta_pp": 4.428261442468395,
+     "title": "The Journey Matters: Average Parameter Count over Pre-training Unifies Sparse and Dense Scaling Laws"
+    },
+    {
+     "year": 2023,
+     "cites": 2.0,
+     "pctile": 0.046166529266281946,
+     "has_arxiv": 0,
+     "template": "X Matters",
+     "G1_name": 0,
+     "G2_assertive": 1,
+     "G3_question": 0,
+     "llm_topic": false,
+     "loo_pct": 0.4155810261695698,
+     "loo_p": 0.0231395922718296,
+     "loo_delta_pp": 3.700853956448613,
+     "title": "Data Continuity Matters: Improving Sequence Modeling with Lipschitz Regularizer"
+    },
+    {
+     "year": 2025,
+     "cites": 0.0,
+     "pctile": 0.04227353463587922,
+     "has_arxiv": 1,
+     "template": "X Is All You Need",
+     "G1_name": 0,
+     "G2_assertive": 1,
+     "G3_question": 0,
+     "llm_topic": false,
+     "loo_pct": 0.4223179647848161,
+     "loo_p": 0.02581675442109832,
+     "loo_delta_pp": 4.37454781797324,
+     "title": "Support is All You Need for Certified VAE Training"
+    },
+    {
+     "year": 2025,
+     "cites": 0.0,
+     "pctile": 0.04227353463587922,
+     "has_arxiv": 0,
+     "template": "X Is All You Need",
+     "G1_name": 0,
+     "G2_assertive": 1,
+     "G3_question": 0,
+     "llm_topic": false,
+     "loo_pct": 0.4303373708301692,
+     "loo_p": 0.016712903293176984,
+     "loo_delta_pp": 5.176488422508552,
+     "title": "Exposure Bracketing Is All You Need For A High-Quality Image"
+    },
+    {
+     "year": 2025,
+     "cites": 0.0,
+     "pctile": 0.04227353463587922,
+     "has_arxiv": 0,
+     "template": "X Matters",
+     "G1_name": 0,
+     "G2_assertive": 1,
+     "G3_question": 0,
+     "llm_topic": false,
+     "loo_pct": 0.4167836582022728,
+     "loo_p": 0.015736303632039705,
+     "loo_delta_pp": 3.821117159718912,
+     "title": "Autocorrelation Matters: Understanding the Role of Initialization Schemes for State Space Models"
+    },
+    {
+     "year": 2024,
+     "cites": 0.0,
+     "pctile": 0.02033701336432307,
+     "has_arxiv": 0,
+     "template": "X Is Secretly Y",
+     "G1_name": 0,
+     "G2_assertive": 1,
+     "G3_question": 0,
+     "llm_topic": false,
+     "loo_pct": 0.42347831017906934,
+     "loo_p": 0.013293844021560641,
+     "loo_delta_pp": 4.490582357398565,
+     "title": "Lion Secretly Solves a Constrained Optimization: As Lyapunov Predicts"
+    },
+    {
+     "year": 2024,
+     "cites": 0.0,
+     "pctile": 0.02033701336432307,
+     "has_arxiv": 0,
+     "template": "X Is All You Need",
+     "G1_name": 0,
+     "G2_assertive": 1,
+     "G3_question": 0,
+     "llm_topic": false,
+     "loo_pct": 0.42811093222946406,
+     "loo_p": 0.018132791088181888,
+     "loo_delta_pp": 4.953844562438037,
+     "title": "Maximum Likelihood Estimation is All You Need for Well-Specified Covariate Shift"
+    }
+   ],
+   "meme_citation_summary": {
+    "n": 83,
+    "total_cites": 13325.0,
+    "median_cites": 39.0,
+    "top1_share_of_total_cites": 0.37613508442776733,
+    "top3_share_of_total_cites": 0.5083677298311444,
+    "median_within_year_pctile": 0.6406159209761766,
+    "share_above_year_median": 0.6385542168674698,
+    "share_in_top_decile_of_year": 0.1566265060240964,
+    "non_meme_share_above_year_median": 0.499236999647846,
+    "non_meme_share_in_top_decile_of_year": 0.10036389247564267
+   },
+   "leave_one_out": {
+    "min_pct": 0.32374060431143903,
+    "max_pct": 0.4303373708301692,
+    "max_p": 0.06641604194251705,
+    "most_influential_title": "A Time Series is Worth 64 Words:  Long-term Forecasting with Transformers",
+    "most_influential_loo_pct": 0.32374060431143903,
+    "n_loo_with_p_below_0.05": 73
+   },
+   "G6a_meme": {
+    "drop_k_most_cited_by_raw_count": {
+     "1": {
+      "b": 0.28046152012656284,
+      "se": 0.14938449586803731,
+      "p": 0.06641604194251705,
+      "pct": 0.32374060431143903,
+      "lo": -0.012256363148126503,
+      "hi": 0.7740323724966651,
+      "n": 8573,
+      "n_with": 82,
+      "dropped": [
+       "A Time Series is Worth 64 Words:  Long-term Forecasting with Transformers"
+      ]
+     },
+     "3": {
+      "b": 0.22868409284695324,
+      "se": 0.14893042118759783,
+      "p": 0.13109117915615753,
+      "pct": 0.25694489839897217,
+      "lo": -0.0612626324643617,
+      "hi": 0.6830164988092078,
+      "n": 8571,
+      "n_with": 80,
+      "dropped": [
+       "A Time Series is Worth 64 Words:  Long-term Forecasting with Transformers",
+       "Image Augmentation Is All You Need: Regularizing Deep Reinforcement Learning from Pixels",
+       "Hopfield Networks is All You Need"
+      ]
+     },
+     "5": {
+      "b": 0.16377752833490103,
+      "se": 0.14562678826732758,
+      "p": 0.26622127036652943,
+      "pct": 0.17795222494709662,
+      "lo": -0.11454264014596427,
+      "hi": 0.567067492088553,
+      "n": 8569,
+      "n_with": 78,
+      "dropped": [
+       "A Time Series is Worth 64 Words:  Long-term Forecasting with Transformers",
+       "Image Augmentation Is All You Need: Regularizing Deep Reinforcement Learning from Pixels",
+       "Hopfield Networks is All You Need",
+       "Your classifier is secretly an energy based model and you should treat it like one",
+       "Spikformer: When Spiking Neural Network Meets Transformer "
+      ]
+     },
+     "10": {
+      "b": 0.08488988417921017,
+      "se": 0.13809360434635462,
+      "p": 0.5415791781389023,
+      "pct": 0.08859718832536512,
+      "lo": -0.16953839346873734,
+      "hi": 0.4269700478745486,
+      "n": 8564,
+      "n_with": 73,
+      "dropped": [
+       "A Time Series is Worth 64 Words:  Long-term Forecasting with Transformers",
+       "Image Augmentation Is All You Need: Regularizing Deep Reinforcement Learning from Pixels",
+       "Hopfield Networks is All You Need",
+       "Your classifier is secretly an energy based model and you should treat it like one",
+       "Spikformer: When Spiking Neural Network Meets Transformer ",
+       "Your Absorbing Discrete Diffusion Secretly Models the Conditional Distributions of Clean Data",
+       "Free Lunch for Few-shot Learning:  Distribution Calibration",
+       "Skip Connections Matter: On the Transferability of Adversarial Examples Generated with ResNets",
+       "When Scaling Meets LLM Finetuning: The Effect of Data, Model and Finetuning Method",
+       "Do Deep Convolutional Nets Really Need to be Deep and Convolutional?"
+      ]
+     }
+    },
+    "trim_k_most_and_k_least_cited_by_raw_count": {
+     "1": {
+      "b": 0.31569354453964993,
+      "se": 0.14561751028524378,
+      "p": 0.03504680042237873,
+      "pct": 0.3712099764463388,
+      "lo": 0.03074642513400172,
+      "hi": 0.8241312835613588,
+      "n": 8572,
+      "n_with": 81
+     },
+     "3": {
+      "b": 0.32590557896226535,
+      "se": 0.1259061641532169,
+      "p": 0.012653177422585093,
+      "pct": 0.3852845626914869,
+      "lo": 0.08234447359803698,
+      "hi": 0.773015307457495,
+      "n": 8568,
+      "n_with": 77
+     },
+     "5": {
+      "b": 0.3356835200916702,
+      "se": 0.1147343002201588,
+      "p": 0.005194761862379327,
+      "pct": 0.39889623219581494,
+      "lo": 0.11717624474998756,
+      "hi": 0.751657965918872,
+      "n": 8564,
+      "n_with": 73
+     },
+     "10": {
+      "b": 0.390860187165364,
+      "se": 0.09827262213258559,
+      "p": 0.0002294378287088783,
+      "pct": 0.47825182038700076,
+      "lo": 0.21926210986752048,
+      "hi": 0.7922548620123353,
+      "n": 8554,
+      "n_with": 63
+     }
+    },
+    "drop_k_most_cited_by_within_year_pctile": {
+     "1": {
+      "b": 0.28046152012656284,
+      "se": 0.14938449586803731,
+      "p": 0.06641604194251705,
+      "pct": 0.32374060431143903,
+      "lo": -0.012256363148126503,
+      "hi": 0.7740323724966651,
+      "n": 8573,
+      "n_with": 82,
+      "dropped": [
+       "A Time Series is Worth 64 Words:  Long-term Forecasting with Transformers"
+      ]
+     },
+     "3": {
+      "b": 0.20986692404250482,
+      "se": 0.14207948043466276,
+      "p": 0.1460451089028847,
+      "pct": 0.23351389799092126,
+      "lo": -0.0663081848877336,
+      "hi": 0.6296132320211101,
+      "n": 8571,
+      "n_with": 80,
+      "dropped": [
+       "A Time Series is Worth 64 Words:  Long-term Forecasting with Transformers",
+       "Your Absorbing Discrete Diffusion Secretly Models the Conditional Distributions of Clean Data",
+       "Image Augmentation Is All You Need: Regularizing Deep Reinforcement Learning from Pixels"
+      ]
+     },
+     "5": {
+      "b": 0.159816349072,
+      "se": 0.14349613763213592,
+      "p": 0.270827373405645,
+      "pct": 0.17329537442001297,
+      "lo": -0.11435233847023285,
+      "hi": 0.5543676062527818,
+      "n": 8569,
+      "n_with": 78,
+      "dropped": [
+       "A Time Series is Worth 64 Words:  Long-term Forecasting with Transformers",
+       "Your Absorbing Discrete Diffusion Secretly Models the Conditional Distributions of Clean Data",
+       "Image Augmentation Is All You Need: Regularizing Deep Reinforcement Learning from Pixels",
+       "Hopfield Networks is All You Need",
+       "Spikformer: When Spiking Neural Network Meets Transformer "
+      ]
+     },
+     "10": {
+      "b": 0.05498086492474255,
+      "se": 0.13728989171394262,
+      "p": 0.6905490949492394,
+      "pct": 0.0565203978847455,
+      "lo": -0.19273825724506677,
+      "hi": 0.3827427859236543,
+      "n": 8564,
+      "n_with": 73,
+      "dropped": [
+       "A Time Series is Worth 64 Words:  Long-term Forecasting with Transformers",
+       "Your Absorbing Discrete Diffusion Secretly Models the Conditional Distributions of Clean Data",
+       "Image Augmentation Is All You Need: Regularizing Deep Reinforcement Learning from Pixels",
+       "Hopfield Networks is All You Need",
+       "Spikformer: When Spiking Neural Network Meets Transformer ",
+       "CatVTON: Concatenation Is All You Need for Virtual Try-On with Diffusion Models",
+       "When Scaling Meets LLM Finetuning: The Effect of Data, Model and Finetuning Method",
+       "Not All Heads Matter: A Head-Level KV Cache Compression Method with Integrated Retrieval and Reasoning",
+       "Free Lunch for Few-shot Learning:  Distribution Calibration",
+       "Do We Really Need Complicated Model Architectures For Temporal Networks?"
+      ]
+     }
+    },
+    "trim_k_most_and_k_least_cited_by_within_year_pctile": {
+     "1": {
+      "b": 0.31569354453964993,
+      "se": 0.14561751028524378,
+      "p": 0.03504680042237873,
+      "pct": 0.3712099764463388,
+      "lo": 0.03074642513400172,
+      "hi": 0.8241312835613588,
+      "n": 8572,
+      "n_with": 81
+     },
+     "3": {
+      "b": 0.3064758377803875,
+      "se": 0.11778512667371636,
+      "p": 0.012224546909159972,
+      "pct": 0.3586286395970921,
+      "lo": 0.07854939929237714,
+      "hi": 0.7114392549330599,
+      "n": 8568,
+      "n_with": 77
+     },
+     "5": {
+      "b": 0.33151483347053823,
+      "se": 0.11236079211092166,
+      "p": 0.004855322979400167,
+      "pct": 0.3930768102888966,
+      "lo": 0.11771640630635272,
+      "hi": 0.7362749516917924,
+      "n": 8564,
+      "n_with": 73
+     },
+     "10": {
+      "b": 0.3490639572533642,
+      "se": 0.10798638932540176,
+      "p": 0.002197275837231949,
+      "pct": 0.4177398621899646,
+      "lo": 0.14729917205425558,
+      "hi": 0.7519286737072342,
+      "n": 8554,
+      "n_with": 63
+     }
+    },
+    "requested_drop_top3_by_raw_count": {
+     "b": 0.22868409284695324,
+     "se": 0.14893042118759783,
+     "p": 0.13109117915615753,
+     "pct": 0.25694489839897217,
+     "lo": -0.0612626324643617,
+     "hi": 0.6830164988092078,
+     "n": 8571,
+     "n_with": 80,
+     "dropped": [
+      "A Time Series is Worth 64 Words:  Long-term Forecasting with Transformers",
+      "Image Augmentation Is All You Need: Regularizing Deep Reinforcement Learning from Pixels",
+      "Hopfield Networks is All You Need"
+     ]
+    },
+    "placebo_drop_top3": {
+     "n_rep": 200,
+     "k": 3,
+     "mean_b_full": -0.012959526911614647,
+     "sd_b_full": 0.1333037601394217,
+     "mean_shift_b": -0.08567841888202142,
+     "sd_shift_b": 0.023254446621366425,
+     "q2.5_q97.5_shift_b": [
+      -0.13272310941343987,
+      -0.04457499072620117
+     ],
+     "real_shift_b": -0.0923644409338864,
+     "real_shift_pctile_in_placebo": 0.38,
+     "drop_top3_placebo_centred": {
+      "b": 0.31436251172897467,
+      "pct": 0.3693860650895706,
+      "lo": 0.02271298568422675,
+      "hi": 0.8335722939969505
+     },
+     "note": "real_shift_pctile_in_placebo near 0 means the meme group's top 3 are unusually influential relative to the top 3 of a random same-size, same-year-mix group. The placebo-centred estimate adds back the mean mechanical shift; its CI reuses the drop-top-3 SE (approximate)."
+    }
+   },
+   "G6b_tentative": {
+    "drop_k_most_cited_by_raw_count": {
+     "1": {
+      "b": 0.03045885312561886,
+      "se": 0.060935414240845504,
+      "p": 0.6194147540150419,
+      "pct": 0.03092746973296201,
+      "lo": -0.08513115134786287,
+      "hi": 0.16170907930227574,
+      "n": 8573,
+      "n_with": 499,
+      "dropped": [
+       "Towards Deep Learning Models Resistant to Adversarial Attacks"
+      ]
+     },
+     "3": {
+      "b": 0.02127071115433044,
+      "se": 0.0626919384271416,
+      "p": 0.735841610984457,
+      "pct": 0.021498545261220636,
+      "lo": -0.09661412220089238,
+      "hi": 0.1550537855572185,
+      "n": 8571,
+      "n_with": 497,
+      "dropped": [
+       "Towards Deep Learning Models Resistant to Adversarial Attacks",
+       "Understanding deep learning requires rethinking generalization",
+       "On the Convergence of FedAvg on Non-IID Data"
+      ]
+     },
+     "5": {
+      "b": 0.010335240541590036,
+      "se": 0.0636278877608021,
+      "p": 0.8716332396904867,
+      "pct": 0.010388833613417914,
+      "lo": -0.10807695225666802,
+      "hi": 0.14458932042808104,
+      "n": 8569,
+      "n_with": 495,
+      "dropped": [
+       "Towards Deep Learning Models Resistant to Adversarial Attacks",
+       "Understanding deep learning requires rethinking generalization",
+       "On the Convergence of FedAvg on Non-IID Data",
+       "Rethinking Attention with Performers",
+       "On the Variance of the Adaptive Learning Rate and Beyond"
+      ]
+     },
+     "10": {
+      "b": -0.011796834669670339,
+      "se": 0.061308720491922486,
+      "p": 0.8482109076510067,
+      "pct": -0.01172752482885664,
+      "lo": -0.12362563920914171,
+      "hi": 0.11445807736721081,
+      "n": 8564,
+      "n_with": 490,
+      "dropped": [
+       "Towards Deep Learning Models Resistant to Adversarial Attacks",
+       "Understanding deep learning requires rethinking generalization",
+       "On the Convergence of FedAvg on Non-IID Data",
+       "Rethinking Attention with Performers",
+       "On the Variance of the Adaptive Learning Rate and Beyond",
+       "Towards Principled Methods for Training Generative Adversarial Networks",
+       "Demystifying MMD GANs",
+       "DropEdge: Towards Deep Graph Convolutional Networks on Node Classification",
+       "Rethinking the Value of Network Pruning",
+       "Towards Understanding Sycophancy in Language Models"
+      ]
+     }
+    },
+    "trim_k_most_and_k_least_cited_by_raw_count": {
+     "1": {
+      "b": 0.03781194333846868,
+      "se": 0.06017068008735124,
+      "p": 0.5326528178607615,
+      "pct": 0.038535910916987826,
+      "lo": -0.07699681117113033,
+      "hi": 0.1685299155170621,
+      "n": 8572,
+      "n_with": 498
+     },
+     "3": {
+      "b": 0.042445483637461756,
+      "se": 0.058667244991256376,
+      "p": 0.4728154096148649,
+      "pct": 0.04335917467617634,
+      "lo": -0.06997360967639776,
+      "hi": 0.1705026639106173,
+      "n": 8568,
+      "n_with": 494
+     },
+     "5": {
+      "b": 0.04563937445392686,
+      "se": 0.058829309497723706,
+      "p": 0.4415995490118698,
+      "pct": 0.04669687725394711,
+      "lo": -0.06729477585086463,
+      "hi": 0.1746201527418345,
+      "n": 8564,
+      "n_with": 490
+     },
+     "10": {
+      "b": 0.04664596675605752,
+      "se": 0.056592375043729055,
+      "p": 0.4137947707323586,
+      "pct": 0.0477510047225469,
+      "lo": -0.06225299920994787,
+      "hi": 0.1706592150891706,
+      "n": 8554,
+      "n_with": 480
+     }
+    },
+    "drop_k_most_cited_by_within_year_pctile": {
+     "1": {
+      "b": 0.029678745727563696,
+      "se": 0.059768625074929554,
+      "p": 0.6217193688791898,
+      "pct": 0.030123549199912558,
+      "lo": -0.08375158844446118,
+      "hi": 0.15815155937315617,
+      "n": 8573,
+      "n_with": 499,
+      "dropped": [
+       "GSM-Symbolic: Understanding the Limitations of Mathematical Reasoning in Large Language Models"
+      ]
+     },
+     "3": {
+      "b": 0.02011980911070687,
+      "se": 0.060426809730294344,
+      "p": 0.7405837059066429,
+      "pct": 0.020323576764437634,
+      "lo": -0.09363822089685925,
+      "hi": 0.14861441126910768,
+      "n": 8571,
+      "n_with": 497,
+      "dropped": [
+       "GSM-Symbolic: Understanding the Limitations of Mathematical Reasoning in Large Language Models",
+       "Towards Deep Learning Models Resistant to Adversarial Attacks",
+       "On the Convergence of FedAvg on Non-IID Data"
+      ]
+     },
+     "5": {
+      "b": 0.00898112986488552,
+      "se": 0.06032822765850619,
+      "p": 0.882266351561185,
+      "pct": 0.009021581220648445,
+      "lo": -0.10350467111935324,
+      "hi": 0.13567189763301468,
+      "n": 8569,
+      "n_with": 495,
+      "dropped": [
+       "GSM-Symbolic: Understanding the Limitations of Mathematical Reasoning in Large Language Models",
+       "Towards Deep Learning Models Resistant to Adversarial Attacks",
+       "On the Convergence of FedAvg on Non-IID Data",
+       "Towards Understanding Sycophancy in Language Models",
+       "Rethinking Attention with Performers"
+      ]
+     },
+     "10": {
+      "b": -0.018714337118161107,
+      "se": 0.05749011622113158,
+      "p": 0.7461715217920908,
+      "pct": -0.018540311195434422,
+      "lo": -0.12312862743686748,
+      "hi": 0.0985227148340988,
+      "n": 8564,
+      "n_with": 490,
+      "dropped": [
+       "GSM-Symbolic: Understanding the Limitations of Mathematical Reasoning in Large Language Models",
+       "Towards Deep Learning Models Resistant to Adversarial Attacks",
+       "On the Convergence of FedAvg on Non-IID Data",
+       "Towards Understanding Sycophancy in Language Models",
+       "Rethinking Attention with Performers",
+       "On the Variance of the Adaptive Learning Rate and Beyond",
+       "mPLUG-Owl3: Towards Long Image-Sequence Understanding in Multi-Modal Large Language Models",
+       "Towards a Unified View of Parameter-Efficient Transfer Learning",
+       "DropEdge: Towards Deep Graph Convolutional Networks on Node Classification",
+       "SALMONN: Towards Generic Hearing Abilities for Large Language Models"
+      ]
+     }
+    },
+    "trim_k_most_and_k_least_cited_by_within_year_pctile": {
+     "1": {
+      "b": 0.03795136756981318,
+      "se": 0.058118272708634004,
+      "p": 0.5168070920458008,
+      "pct": 0.038680718082670484,
+      "lo": -0.07314713429777953,
+      "hi": 0.1640009693440896,
+      "n": 8572,
+      "n_with": 498
+     },
+     "3": {
+      "b": 0.04255313124955571,
+      "se": 0.05754539096001107,
+      "p": 0.46314925012697183,
+      "pct": 0.04347149584533083,
+      "lo": -0.06782604529349023,
+      "hi": 0.16805748234459728,
+      "n": 8568,
+      "n_with": 494
+     },
+     "5": {
+      "b": 0.043860418284917824,
+      "se": 0.057023077612323524,
+      "p": 0.4454845387547981,
+      "pct": 0.044836504638368746,
+      "lo": -0.06565059351889246,
+      "hi": 0.16838873536224308,
+      "n": 8564,
+      "n_with": 490
+     },
+     "10": {
+      "b": 0.04543249316134345,
+      "se": 0.05192458030656908,
+      "p": 0.38585852115488284,
+      "pct": 0.04648035764873781,
+      "lo": -0.054781994307405046,
+      "hi": 0.1585910682501186,
+      "n": 8554,
+      "n_with": 480
+     }
+    }
+   },
+   "G6a_meme_within_year_pctile_outcome": {
+    "b_pctile_points": 7.278455776526064,
+    "lo": 1.27380835727865,
+    "hi": 13.283103195773478,
+    "p": 0.02146629104714881,
+    "n": 8574,
+    "model": "100 x within-year citation percentile ~ feature + primary controls | year^topic50"
+   },
+   "G6b_tentative_within_year_pctile_outcome": {
+    "b_pctile_points": 0.8930407912191722,
+    "lo": -1.4004562388281145,
+    "hi": 3.186537821266459,
+    "p": 0.449012646387863,
+    "n": 8574,
+    "model": "100 x within-year citation percentile ~ feature + primary controls | year^topic50"
+   },
+   "tentative_top10_by_citations": [
+    {
+     "year": 2018,
+     "cites": 15844.0,
+     "pctile": 0.9960629921259843,
+     "title": "Towards Deep Learning Models Resistant to Adversarial Attacks"
+    },
+    {
+     "year": 2017,
+     "cites": 5334.0,
+     "pctile": 0.9645390070921985,
+     "title": "Understanding deep learning requires rethinking generalization"
+    },
+    {
+     "year": 2020,
+     "cites": 3181.0,
+     "pctile": 0.9945054945054945,
+     "title": "On the Convergence of FedAvg on Non-IID Data"
+    },
+    {
+     "year": 2021,
+     "cites": 2542.0,
+     "pctile": 0.9908675799086758,
+     "title": "Rethinking Attention with Performers"
+    },
+    {
+     "year": 2020,
+     "cites": 2322.0,
+     "pctile": 0.989010989010989,
+     "title": "On the Variance of the Adaptive Learning Rate and Beyond"
+    },
+    {
+     "year": 2017,
+     "cites": 2305.0,
+     "pctile": 0.8936170212765957,
+     "title": "Towards Principled Methods for Training Generative Adversarial Networks"
+    },
+    {
+     "year": 2018,
+     "cites": 2263.0,
+     "pctile": 0.9645669291338582,
+     "title": "Demystifying MMD GANs"
+    },
+    {
+     "year": 2020,
+     "cites": 1723.0,
+     "pctile": 0.9816849816849816,
+     "title": "DropEdge: Towards Deep Graph Convolutional Networks on Node Classification"
+    },
+    {
+     "year": 2019,
+     "cites": 1714.0,
+     "pctile": 0.9626865671641791,
+     "title": "Rethinking the Value of Network Pruning"
+    },
+    {
+     "year": 2024,
+     "cites": 1500.0,
+     "pctile": 0.9941894247530505,
+     "title": "Towards Understanding Sycophancy in Language Models"
+    }
+   ],
+   "tentative_citation_summary": {
+    "n": 500,
+    "top3_share_of_total_cites": 0.3154003521856225,
+    "median_within_year_pctile": 0.48124267291910905
+   }
+  },
+  "b_arxiv_share_split_records": {
+   "G6a_meme": {
+    "label": "diagnostic (not pre-registered)",
+    "arxiv_share": {
+     "with": {
+      "share": 0.8072289156626506,
+      "ci95_wilson": [
+       0.7095641358590259,
+       0.8777120082930856
+      ],
+      "k": 67,
+      "n": 83
+     },
+     "without": {
+      "share": 0.7680478929451814,
+      "ci95_wilson": [
+       0.7589652437258937,
+       0.7768889014455947
+      ],
+      "k": 6543,
+      "n": 8519
+     }
+    },
+    "arxiv_share_by_era": {
+     "2017-21": {
+      "with": {
+       "share": 0.7857142857142857,
+       "ci95_wilson": [
+        0.5241027622679172,
+        0.9242875166308363
+       ],
+       "k": 11,
+       "n": 14
+      },
+      "without": {
+       "share": 0.7895266868076536,
+       "ci95_wilson": [
+        0.7710476377180159,
+        0.8068878120182846
+       ],
+       "k": 1568,
+       "n": 1986
+      }
+     },
+     "2022-25": {
+      "with": {
+       "share": 0.8115942028985508,
+       "ci95_wilson": [
+        0.7038684285696075,
+        0.886453585224708
+       ],
+       "k": 56,
+       "n": 69
+      },
+      "without": {
+       "share": 0.7615184448186132,
+       "ci95_wilson": [
+        0.7510326746338044,
+        0.7716968343694427
+       ],
+       "k": 4975,
+       "n": 6533
+      }
+     }
+    },
+    "arxiv_share_diff_adjusted_pp": {
+     "b_pp": 5.081023116204154,
+     "lo_pp": -3.1744722975372306,
+     "hi_pp": 13.336518529945538,
+     "p": 0.23348466896144515,
+     "n": 8574,
+     "model": "linear probability, primary controls and year^topic50 FE, SE clustered by topic50"
+    },
+    "multi_record_share": {
+     "with": {
+      "share": 0.0,
+      "ci95_wilson": [
+       3.469446951953614e-18,
+       0.04423686343872062
+      ],
+      "k": 0,
+      "n": 83
+     },
+     "without": {
+      "share": 0.0016433853738701725,
+      "ci95_wilson": [
+       0.0009792052292807371,
+       0.002756825720772353
+      ],
+      "k": 14,
+      "n": 8519
+     }
+    },
+    "zero_citation_share": {
+     "with": {
+      "share": 0.060240963855421686,
+      "ci95_wilson": [
+       0.026003017602439858,
+       0.13338603096414572
+      ],
+      "k": 5,
+      "n": 83
+     },
+     "without": {
+      "share": 0.04096724967719216,
+      "ci95_wilson": [
+       0.03696084617274832,
+       0.04538746357408542
+      ],
+      "k": 349,
+      "n": 8519
+     }
+    },
+    "primary_spec_arxiv_only": {
+     "b": 0.31962710369739145,
+     "se": 0.13353768857355836,
+     "p": 0.020561126735096025,
+     "pct": 0.37661433421846224,
+     "lo": 0.05960186031744796,
+     "hi": 0.7884708362138908,
+     "n": 6575,
+     "n_with": 67
+    },
+    "primary_spec_no_arxiv_only": {
+     "b": 0.13913582113365078,
+     "se": 0.40129358785355057,
+     "p": 0.7302875851632318,
+     "pct": 0.1492801859412176,
+     "lo": -0.4765949346009507,
+     "hi": 1.5235616410973285,
+     "n": 1926,
+     "n_with": 16
+    },
+    "primary_spec_plus_arxiv_control": {
+     "b": 0.2629482903671379,
+     "se": 0.1223397604360124,
+     "p": 0.03657360507356078,
+     "pct": 0.30075945541877136,
+     "lo": 0.0234326905008595,
+     "hi": 0.6532354072384574,
+     "n": 8574
+    },
+    "difference_no_arxiv_minus_arxiv": {
+     "b": -0.18049128256374045,
+     "se": 0.4130521164656976,
+     "p": 0.6640530046933806,
+     "ratio": 0.8348599585036954,
+     "ratio_lo": 0.3715494068365597,
+     "ratio_hi": 1.8759043548127383,
+     "model": "feature x no-arXiv interaction; controls and year^topic50 FE interacted with has_arxiv (as in g1/g3)"
+    },
+    "qc_split_sample": {
+     "n_checked": 30,
+     "n_split": 7,
+     "n_checked_with": 1,
+     "n_split_with": 0,
+     "note": "Random sample of matched records without an arXiv id (qc_split.py); sizes the artefact only, far too few template titles for a comparison."
+    }
+   },
+   "G6b_tentative": {
+    "label": "diagnostic (not pre-registered)",
+    "arxiv_share": {
+     "with": {
+      "share": 0.732,
+      "ci95_wilson": [
+       0.6915155074925284,
+       0.7689466695091324
+      ],
+      "k": 366,
+      "n": 500
+     },
+     "without": {
+      "share": 0.7706739076771167,
+      "ci95_wilson": [
+       0.7613926636357097,
+       0.7796985908492039
+      ],
+      "k": 6244,
+      "n": 8102
+     }
+    },
+    "arxiv_share_by_era": {
+     "2017-21": {
+      "with": {
+       "share": 0.8,
+       "ci95_wilson": [
+        0.7111690380734977,
+        0.8666340774409013
+       ],
+       "k": 80,
+       "n": 100
+      },
+      "without": {
+       "share": 0.7889473684210526,
+       "ci95_wilson": [
+        0.7700251568760103,
+        0.8067034953395943
+       ],
+       "k": 1499,
+       "n": 1900
+      }
+     },
+     "2022-25": {
+      "with": {
+       "share": 0.715,
+       "ci95_wilson": [
+        0.6688796049741064,
+        0.757029959568031
+       ],
+       "k": 286,
+       "n": 400
+      },
+      "without": {
+       "share": 0.7650757820058046,
+       "ci95_wilson": [
+        0.7543623739835128,
+        0.7754610104870159
+       ],
+       "k": 4745,
+       "n": 6202
+      }
+     }
+    },
+    "arxiv_share_diff_adjusted_pp": {
+     "b_pp": -3.045889018763054,
+     "lo_pp": -7.076883532133263,
+     "hi_pp": 0.9851054946071546,
+     "p": 0.14500608571673412,
+     "n": 8574,
+     "model": "linear probability, primary controls and year^topic50 FE, SE clustered by topic50"
+    },
+    "multi_record_share": {
+     "with": {
+      "share": 0.002,
+      "ci95_wilson": [
+       0.000353127309584542,
+       0.011240992747195207
+      ],
+      "k": 1,
+      "n": 500
+     },
+     "without": {
+      "share": 0.0016045420883732413,
+      "ci95_wilson": [
+       0.000937966003165726,
+       0.0027435271066922314
+      ],
+      "k": 13,
+      "n": 8102
+     }
+    },
+    "zero_citation_share": {
+     "with": {
+      "share": 0.034,
+      "ci95_wilson": [
+       0.02133433944461342,
+       0.053771805026188516
+      ],
+      "k": 17,
+      "n": 500
+     },
+     "without": {
+      "share": 0.04159466798321402,
+      "ci95_wilson": [
+       0.037459886168906914,
+       0.04616395370479601
+      ],
+      "k": 337,
+      "n": 8102
+     }
+    },
+    "primary_spec_arxiv_only": {
+     "b": 0.03992676235587994,
+     "se": 0.06454040685151319,
+     "p": 0.5390241585804074,
+     "pct": 0.040734550454569085,
+     "lo": -0.08293088158982664,
+     "hi": 0.18107608550550736,
+     "n": 6575,
+     "n_with": 366
+    },
+    "primary_spec_no_arxiv_only": {
+     "b": 0.23347959889577583,
+     "se": 0.13197436464433154,
+     "p": 0.0830960262729421,
+     "pct": 0.2629870612974088,
+     "lo": -0.024875531183064847,
+     "hi": 0.6358284178223483,
+     "n": 1926,
+     "n_with": 134
+    },
+    "primary_spec_plus_arxiv_control": {
+     "b": 0.07159043320289801,
+     "se": 0.05567064410866873,
+     "p": 0.20449949965188874,
+     "pct": 0.0742152910382623,
+     "lo": -0.03682872684065519,
+     "hi": 0.1980615739455447,
+     "n": 8574
+    },
+    "difference_no_arxiv_minus_arxiv": {
+     "b": 0.1935528365398958,
+     "se": 0.14749277391963314,
+     "p": 0.19553755453417931,
+     "ratio": 1.2135535048257644,
+     "ratio_lo": 0.9088883675312656,
+     "ratio_hi": 1.6203443257559742,
+     "model": "feature x no-arXiv interaction; controls and year^topic50 FE interacted with has_arxiv (as in g1/g3)"
+    },
+    "qc_split_sample": {
+     "n_checked": 30,
+     "n_split": 7,
+     "n_checked_with": 2,
+     "n_split_with": 0,
+     "note": "Random sample of matched records without an arXiv id (qc_split.py); sizes the artefact only, far too few template titles for a comparison."
+    }
+   }
+  },
+  "c_overlap_and_paper_type": {
+   "label": "diagnostic (not pre-registered)",
+   "method_regex": "\\b(?:we propose|we introduce|we present|this paper proposes)\\b",
+   "G6a_meme": {
+    "overlap_counts_with": {
+     "G1_name": 9,
+     "G2_assertive": 42,
+     "G3_question": 10,
+     "G4_llm_words": 4,
+     "G6b_tentative": 4
+    },
+    "share_with": {
+     "G1_name": 0.10843373493975904,
+     "G2_assertive": 0.5060240963855421,
+     "G3_question": 0.12048192771084337,
+     "G4_llm_words": 0.04819277108433735,
+     "G6b_tentative": 0.04819277108433735
+    },
+    "share_without": {
+     "G1_name": 0.24603826740227727,
+     "G2_assertive": 0.048597253198732246,
+     "G3_question": 0.025002934616739053,
+     "G4_llm_words": 0.03157647611221975,
+     "G6b_tentative": 0.05822279610282897
+    },
+    "method_abstract_share": {
+     "with": {
+      "share": 0.5783132530120482,
+      "ci95_wilson": [
+       0.4709262842089882,
+       0.6787715564572362
+      ],
+      "k": 48,
+      "n": 83
+     },
+     "without": {
+      "share": 0.6768400046953867,
+      "ci95_wilson": [
+       0.6668307433435999,
+       0.6866898477231166
+      ],
+      "k": 5766,
+      "n": 8519
+     },
+     "diff_adjusted_pp": {
+      "b_pp": -7.3389783190865305,
+      "lo_pp": -18.307692784185182,
+      "hi_pp": 3.6297361460121205,
+      "p": 0.1958338268243256,
+      "n": 8574,
+      "model": "linear probability, primary controls and year^topic50 FE, SE clustered by topic50"
+     }
+    },
+    "plus_method_indicator": {
+     "b": 0.322568851430256,
+     "se": 0.1494895569199116,
+     "p": 0.03587227157049955,
+     "pct": 0.3806699486877807,
+     "lo": 0.03001083321142506,
+     "hi": 0.8507082117438591,
+     "n": 8574
+    },
+    "plus_G2_control": {
+     "b": 0.2273284501295806,
+     "se": 0.15494117268751742,
+     "p": 0.14871335066443425,
+     "pct": 0.2552420846656185,
+     "lo": -0.07351391136832008,
+     "hi": 0.7006544517497586,
+     "n": 8574
+    },
+    "plus_G1_G2_G3_controls": {
+     "b": 0.22734417404627869,
+     "se": 0.1546179006867772,
+     "p": 0.14785652078771516,
+     "pct": 0.2552618221427685,
+     "lo": -0.07291211427221489,
+     "hi": 0.6996039603000928,
+     "n": 8574
+    },
+    "within_non_assertive_titles": {
+     "b": 0.5051983141339117,
+     "se": 0.15816483186931696,
+     "p": 0.002452918914935376,
+     "pct": 0.6573141566947731,
+     "lo": 0.21554829143237586,
+     "hi": 1.2596306813481402,
+     "n": 8115,
+     "n_with": 41
+    },
+    "within_assertive_titles": {
+     "b": 0.20763975788035288,
+     "se": 0.3554069314107892,
+     "p": 0.562189990531595,
+     "pct": 0.23076971458730533,
+     "lo": -0.38673481073854576,
+     "hi": 1.4700474066847984,
+     "n": 381,
+     "n_with": 42
+    },
+    "G2_coef_with_G6a_control": {
+     "b": 0.21190947132145507,
+     "se": 0.08204709595194788,
+     "p": 0.012838133209913671,
+     "pct": 0.23603598330921738,
+     "lo": 0.052425145368989234,
+     "hi": 0.4516803962333391,
+     "n": 8574
+    },
+    "G2_within_non_meme_titles": {
+     "b": 0.24302485403269133,
+     "se": 0.08653539559079118,
+     "p": 0.007130491374664594,
+     "pct": 0.2751003151095499,
+     "lo": 0.0761775728730818,
+     "hi": 0.5107923214306014,
+     "n": 8491,
+     "n_with": 414
+    },
+    "note": "The G2 ASSERT regex matches 'is', 'are', 'matters', 'need(s)' etc., so 'X Is All You Need', 'X Matters' and 'X Is Secretly Y' titles are mostly also G2."
+   },
+   "G6b_tentative": {
+    "overlap_counts_with": {
+     "G1_name": 66,
+     "G2_assertive": 16,
+     "G3_question": 1,
+     "G4_llm_words": 7,
+     "G6a_meme": 4
+    },
+    "share_with": {
+     "G1_name": 0.132,
+     "G2_assertive": 0.032,
+     "G3_question": 0.002,
+     "G4_llm_words": 0.014,
+     "G6a_meme": 0.008
+    },
+    "share_without": {
+     "G1_name": 0.25166625524561836,
+     "G2_assertive": 0.0543075783757097,
+     "G3_question": 0.02740064181683535,
+     "G4_llm_words": 0.03283139965440632,
+     "G6a_meme": 0.009750678844729696
+    },
+    "method_abstract_share": {
+     "with": {
+      "share": 0.56,
+      "ci95_wilson": [
+       0.5161960663856535,
+       0.6028889793906382
+      ],
+      "k": 280,
+      "n": 500
+     },
+     "without": {
+      "share": 0.6830412243890397,
+      "ci95_wilson": [
+       0.6728247475784563,
+       0.6930842038128464
+      ],
+      "k": 5534,
+      "n": 8102
+     },
+     "diff_adjusted_pp": {
+      "b_pp": -6.00857402327337,
+      "lo_pp": -9.494620529764017,
+      "hi_pp": -2.522527516782722,
+      "p": 0.0014373461219943096,
+      "n": 8574,
+      "model": "linear probability, primary controls and year^topic50 FE, SE clustered by topic50"
+     }
+    },
+    "plus_method_indicator": {
+     "b": 0.03792937064638506,
+     "se": 0.0599705180747517,
+     "p": 0.530022196480584,
+     "pct": 0.03865787055373726,
+     "lo": -0.07652619510981384,
+     "hi": 0.16820874219762993,
+     "n": 8574
+    },
+    "plus_G1_control": {
+     "b": 0.05124367490342519,
+     "se": 0.06014815676028049,
+     "p": 0.3983825163486554,
+     "pct": 0.05257934920726415,
+     "lo": -0.06447434737644597,
+     "hi": 0.18427889526125552,
+     "n": 8574
+    },
+    "within_non_named_titles": {
+     "b": 0.06494325664818901,
+     "se": 0.061555378898113716,
+     "p": 0.296582443503989,
+     "pct": 0.06709847192222473,
+     "lo": -0.0541821594141807,
+     "hi": 0.20393071468546342,
+     "n": 6465,
+     "n_with": 434
+    },
+    "within_named_titles": {
+     "b": -0.021336139768747316,
+     "se": 0.1560295223086333,
+     "p": 0.8917932609783841,
+     "pct": -0.021110134552093762,
+     "lo": -0.2790272978384867,
+     "hi": 0.32907302288118667,
+     "n": 2032,
+     "n_with": 66
+    }
+   }
+  },
+  "d_power": {
+   "G6a_meme": {
+    "label": "diagnostic (not pre-registered)",
+    "se_b": 0.1494215219274121,
+    "n_with": 83,
+    "ci95_width_log": 0.5857323659554554,
+    "band_width_log": 0.20067069546215122,
+    "band_attainable_at_current_se": false,
+    "se_needed_for_ci_to_fit_band": 0.051191503944426335,
+    "mde_80pct_power": {
+     "alpha_0.05": {
+      "alpha": 0.05,
+      "mde_b": 0.4186171270997805,
+      "mde_pct_up": 0.5198583308096616,
+      "mde_pct_down": -0.34204393940632727
+     },
+     "alpha_holm_step": {
+      "alpha": 0.01,
+      "mde_b": 0.5106406603683935,
+      "mde_pct_up": 0.6663584228451291,
+      "mde_pct_down": -0.39988901169737134
+     },
+     "alpha_0.00625_bonferroni_8": {
+      "alpha": 0.00625,
+      "mde_b": 0.5343298712014891,
+      "mde_pct_up": 0.706304415313602,
+      "mde_pct_down": -0.41393810446407964
+     }
+    },
+    "power_for_true_effects": {
+     "+10%": {
+      "alpha_0.05": 0.09775776373628421,
+      "alpha_holm_step": 0.026968756732774747,
+      "alpha_0.00625_bonferroni_8": 0.01839140130696373
+     },
+     "+20%": {
+      "alpha_0.05": 0.23045236253313867,
+      "alpha_holm_step": 0.08767934010658722,
+      "alpha_0.00625_bonferroni_8": 0.06502766455370046
+     },
+     "+38%": {
+      "alpha_0.05": 0.5775468114042884,
+      "alpha_holm_step": 0.33713678773767375,
+      "alpha_0.00625_bonferroni_8": 0.2813515740190857
+     }
+    }
+   },
+   "G6b_tentative": {
+    "label": "diagnostic (not pre-registered)",
+    "se_b": 0.06013895959737831,
+    "n_with": 500,
+    "ci95_width_log": 0.23574472162172297,
+    "band_width_log": 0.20067069546215122,
+    "band_attainable_at_current_se": false,
+    "se_needed_for_ci_to_fit_band": 0.051191503944426335,
+    "mde_80pct_power": {
+     "alpha_0.05": {
+      "alpha": 0.05,
+      "mde_b": 0.16848442024070812,
+      "mde_pct_up": 0.18350978790360672,
+      "mde_pct_down": -0.15505557265281622
+     },
+     "alpha_holm_step": {
+      "alpha": 0.05,
+      "mde_b": 0.16848442024070812,
+      "mde_pct_up": 0.18350978790360672,
+      "mde_pct_down": -0.15505557265281622
+     },
+     "alpha_0.00625_bonferroni_8": {
+      "alpha": 0.00625,
+      "mde_b": 0.21505631933978828,
+      "mde_pct_up": 0.2399317271359036,
+      "mde_pct_down": -0.19350398242499833
+     }
+    },
+    "power_for_true_effects": {
+     "+10%": {
+      "alpha_0.05": 0.35397781257492006,
+      "alpha_holm_step": 0.35397781257492006,
+      "alpha_0.00625_bonferroni_8": 0.1251752935233171
+     },
+     "+20%": {
+      "alpha_0.05": 0.858074538506798,
+      "alpha_holm_step": 0.858074538506798,
+      "alpha_0.00625_bonferroni_8": 0.616882216082545
+     },
+     "+38%": {
+      "alpha_0.05": 0.9996577216266135,
+      "alpha_holm_step": 0.9996577216266135,
+      "alpha_0.00625_bonferroni_8": 0.9956200613867471
+     }
+    }
+   }
+  },
+  "e_measure_spot_check": {
+   "label": "diagnostic (not pre-registered)",
+   "tentative_after_name_prefix": 116,
+   "tentative_by_year": {
+    "2017": 8,
+    "2018": 14,
+    "2019": 17,
+    "2020": 28,
+    "2021": 33,
+    "2022": 51,
+    "2023": 71,
+    "2024": 119,
+    "2025": 159
+   },
+   "meme_by_year": {
+    "2017": 1,
+    "2018": 1,
+    "2019": 3,
+    "2020": 3,
+    "2021": 6,
+    "2022": 4,
+    "2023": 20,
+    "2024": 14,
+    "2025": 31
+   },
+   "tentative_top10_by_pctile": [
+    {
+     "year": 2025,
+     "cites": 709.0,
+     "pctile": 0.9968028419182948,
+     "template": "Understanding",
+     "title": "GSM-Symbolic: Understanding the Limitations of Mathematical Reasoning in Large Language Models"
+    },
+    {
+     "year": 2018,
+     "cites": 15844.0,
+     "pctile": 0.9960629921259843,
+     "template": "Towards",
+     "title": "Towards Deep Learning Models Resistant to Adversarial Attacks"
+    },
+    {
+     "year": 2020,
+     "cites": 3181.0,
+     "pctile": 0.9945054945054945,
+     "template": "On the",
+     "title": "On the Convergence of FedAvg on Non-IID Data"
+    },
+    {
+     "year": 2024,
+     "cites": 1500.0,
+     "pctile": 0.9941894247530505,
+     "template": "Towards",
+     "title": "Towards Understanding Sycophancy in Language Models"
+    },
+    {
+     "year": 2021,
+     "cites": 2542.0,
+     "pctile": 0.9908675799086758,
+     "template": "Rethinking",
+     "title": "Rethinking Attention with Performers"
+    },
+    {
+     "year": 2020,
+     "cites": 2322.0,
+     "pctile": 0.989010989010989,
+     "template": "On the",
+     "title": "On the Variance of the Adaptive Learning Rate and Beyond"
+    },
+    {
+     "year": 2025,
+     "cites": 336.0,
+     "pctile": 0.9866785079928952,
+     "template": "Towards",
+     "title": "mPLUG-Owl3: Towards Long Image-Sequence Understanding in Multi-Modal Large Language Models"
+    },
+    {
+     "year": 2022,
+     "cites": 1276.0,
+     "pctile": 0.984759671746776,
+     "template": "Towards",
+     "title": "Towards a Unified View of Parameter-Efficient Transfer Learning"
+    },
+    {
+     "year": 2020,
+     "cites": 1723.0,
+     "pctile": 0.9816849816849816,
+     "template": "Towards",
+     "title": "DropEdge: Towards Deep Graph Convolutional Networks on Node Classification"
+    },
+    {
+     "year": 2024,
+     "cites": 749.0,
+     "pctile": 0.9814061592097618,
+     "template": "Towards",
+     "title": "SALMONN: Towards Generic Hearing Abilities for Large Language Models"
+    }
+   ],
+   "tentative_bottom10_by_pctile": [
+    {
+     "year": 2020,
+     "cites": 1.0,
+     "pctile": 0.00641025641025641,
+     "template": "Towards",
+     "title": "Towards a Deep Network Architecture for Structured Smoothness"
+    },
+    {
+     "year": 2022,
+     "cites": 0.0,
+     "pctile": 0.008206330597889801,
+     "template": "On the",
+     "title": "On the Convergence of the Monte Carlo Exploring Starts Algorithm for Reinforcement Learning"
+    },
+    {
+     "year": 2023,
+     "cites": 0.0,
+     "pctile": 0.011953833470733718,
+     "template": "Understanding",
+     "title": "Understanding and Adopting Rational Behavior by Bellman Score Estimation"
+    },
+    {
+     "year": 2023,
+     "cites": 0.0,
+     "pctile": 0.011953833470733718,
+     "template": "On the",
+     "title": "On the Feasibility of Cross-Task Transfer with Model-Based Reinforcement Learning"
+    },
+    {
+     "year": 2023,
+     "cites": 0.0,
+     "pctile": 0.011953833470733718,
+     "template": "Understanding",
+     "title": "Understanding weight-magnitude hyperparameters in training binary networks"
+    },
+    {
+     "year": 2023,
+     "cites": 0.0,
+     "pctile": 0.011953833470733718,
+     "template": "Understanding",
+     "title": "Understanding Edge-of-Stability Training Dynamics with a Minimalist Example"
+    },
+    {
+     "year": 2018,
+     "cites": 5.0,
+     "pctile": 0.015748031496062992,
+     "template": "Understanding",
+     "title": "Understanding image motion with group representations "
+    },
+    {
+     "year": 2024,
+     "cites": 0.0,
+     "pctile": 0.02033701336432307,
+     "template": "Understanding",
+     "title": "Understanding the Robustness of Randomized Feature Defense Against Query-Based Adversarial Attacks"
+    },
+    {
+     "year": 2024,
+     "cites": 0.0,
+     "pctile": 0.02033701336432307,
+     "template": "On the",
+     "title": "On the Vulnerability of Adversarially Trained Models Against Two-faced Attacks"
+    },
+    {
+     "year": 2024,
+     "cites": 0.0,
+     "pctile": 0.02033701336432307,
+     "template": "On the",
+     "title": "On the Expressivity of Objective-Specification Formalisms in Reinforcement Learning"
+    }
+   ],
+   "tentative_random20_seed0": [
+    {
+     "year": 2021,
+     "cites": 215.0,
+     "pctile": 0.832572298325723,
+     "template": "Understanding",
+     "title": "Understanding the failure modes of out-of-distribution generalization"
+    },
+    {
+     "year": 2024,
+     "cites": 102.0,
+     "pctile": 0.8268448576409064,
+     "template": "On the",
+     "title": "On the Humanity of Conversational AI: Evaluating the Psychological Portrayal of LLMs"
+    },
+    {
+     "year": 2024,
+     "cites": 78.0,
+     "pctile": 0.7887855897733875,
+     "template": "Towards",
+     "title": "Tuning LayerNorm in Attention: Towards Efficient Multi-Modal LLM Finetuning"
+    },
+    {
+     "year": 2025,
+     "cites": 89.0,
+     "pctile": 0.9206039076376554,
+     "template": "On the",
+     "title": "On the Role of Attention Heads in Large Language Model Safety"
+    },
+    {
+     "year": 2025,
+     "cites": 42.0,
+     "pctile": 0.8097690941385435,
+     "template": "On the",
+     "title": "On the Benefits of Memory for Modeling Time-Dependent PDEs"
+    },
+    {
+     "year": 2018,
+     "cites": 61.0,
+     "pctile": 0.21653543307086615,
+     "template": "Towards",
+     "title": "Towards Synthesizing Complex Programs From Input-Output Examples"
+    },
+    {
+     "year": 2024,
+     "cites": 166.0,
+     "pctile": 0.8834979662986636,
+     "template": "Towards",
+     "title": "Towards Lossless Dataset Distillation via Difficulty-Aligned Trajectory Matching"
+    },
+    {
+     "year": 2025,
+     "cites": 8.0,
+     "pctile": 0.38312611012433395,
+     "template": "Towards",
+     "title": "$F^3Set$: Towards Analyzing Fast, Frequent, and Fine-grained Events from Videos"
+    },
+    {
+     "year": 2023,
+     "cites": 7.0,
+     "pctile": 0.15663643858202803,
+     "template": "Rethinking",
+     "title": "Rethinking Self-Supervised Visual Representation Learning in Pre-training for 3D Human Pose and Shape Estimation"
+    },
+    {
+     "year": 2023,
+     "cites": 40.0,
+     "pctile": 0.6232481450948063,
+     "template": "Rethinking",
+     "title": "Rethinking the Effect of Data Augmentation in Adversarial Contrastive Learning"
+    },
+    {
+     "year": 2024,
+     "cites": 48.0,
+     "pctile": 0.7024985473561882,
+     "template": "Revisiting",
+     "title": "Revisiting Link Prediction: a data perspective"
+    },
+    {
+     "year": 2024,
+     "cites": 184.0,
+     "pctile": 0.8933759442184777,
+     "template": "Towards",
+     "title": "ChatEval: Towards Better LLM-based Evaluators through Multi-Agent Debate"
+    },
+    {
+     "year": 2025,
+     "cites": 4.0,
+     "pctile": 0.23090586145648312,
+     "template": "Towards",
+     "title": "Towards counterfactual fairness through auxiliary variables"
+    },
+    {
+     "year": 2024,
+     "cites": 135.0,
+     "pctile": 0.862870424171993,
+     "template": "Towards",
+     "title": "The All-Seeing Project: Towards Panoptic Visual Recognition and Understanding of the Open World"
+    },
+    {
+     "year": 2023,
+     "cites": 170.0,
+     "pctile": 0.877164056059357,
+     "template": "Understanding",
+     "title": "Understanding Zero-shot Adversarial Robustness for Large-Scale Models"
+    },
+    {
+     "year": 2024,
+     "cites": 8.0,
+     "pctile": 0.2251597908192911,
+     "template": "Towards",
+     "title": "Towards LLM4QPE: Unsupervised Pretraining of Quantum Property Estimation and A Benchmark"
+    },
+    {
+     "year": 2025,
+     "cites": 12.0,
+     "pctile": 0.4865008880994671,
+     "template": "On the",
+     "title": "On the Optimization Landscape of Low Rank Adaptation Methods for Large Language Models"
+    },
+    {
+     "year": 2025,
+     "cites": 46.0,
+     "pctile": 0.8291296625222024,
+     "template": "Rethinking",
+     "title": "Rethinking Light Decoder-based Solvers for Vehicle Routing Problems"
+    },
+    {
+     "year": 2023,
+     "cites": 12.0,
+     "pctile": 0.26504534212695796,
+     "template": "Understanding",
+     "title": "Understanding Neural Coding on Latent Manifolds by Sharing Features and Dividing Ensembles"
+    },
+    {
+     "year": 2019,
+     "cites": 19.0,
+     "pctile": 0.08208955223880597,
+     "template": "Understanding",
+     "title": "From Hard to Soft: Understanding Deep Network Nonlinearities via Vector Quantization and Statistical Inference"
+    }
+   ],
+   "regexes": "src/features.py TEMPLATES; tentative openers match at title start or right after a 'NAME:' prefix, except 'On the' (title start only)."
+  },
+  "f_r1_calibration": {
+   "label": "diagnostic (not pre-registered)",
+   "G6a_meme": {
+    "n_pairs": 83,
+    "observed_pct": 0.18047242946132025,
+    "reimplementation_matches_core_R1": true,
+    "placebo": {
+     "n_rep": 200,
+     "mean_log_diff": -0.24807619656525218,
+     "sd_log_diff": 0.20023836860079375,
+     "pct_at_mean": -0.2196995152040091,
+     "q2.5_q97.5_pct": [
+      -0.4919331140119264,
+      0.11267924308036736
+     ]
+    },
+    "placebo_p_two_sided": 0.04975124378109453,
+    "placebo_adjusted": {
+     "pct": 0.5128433884927728,
+     "lo": 0.02075624761237682,
+     "hi": 1.242156365400378
+    },
+    "treated_y_minus_own_cell_mean_without": 0.35558679836659696,
+    "controls_y_minus_own_cell_mean_without": 0.09437893983767146,
+    "share_pairs_same_topic50": 0.5180722891566265,
+    "n_unique_controls": 81,
+    "note": "adjusted = exp(observed mean log diff - placebo mean) - 1; approximate CI uses the placebo SD of the R1 statistic as the SE"
+   },
+   "G6b_tentative": {
+    "n_pairs": 497,
+    "observed_pct": -0.13114636666434487,
+    "reimplementation_matches_core_R1": true,
+    "placebo": {
+     "n_rep": 200,
+     "mean_log_diff": -0.2507596563681167,
+     "sd_log_diff": 0.08007281484776695,
+     "pct_at_mean": -0.2217906132455203,
+     "q2.5_q97.5_pct": [
+      -0.33629485060776254,
+      -0.11071094845776275
+     ]
+    },
+    "placebo_p_two_sided": 0.15920398009950248,
+    "placebo_adjusted": {
+     "pct": 0.11647796611552974,
+     "lo": -0.04606097755543381,
+     "hi": 0.30671145586132686
+    },
+    "treated_y_minus_own_cell_mean_without": 0.032880024281462826,
+    "controls_y_minus_own_cell_mean_without": 0.15458248972953018,
+    "share_pairs_same_topic50": 0.5835010060362174,
+    "n_unique_controls": 464,
+    "note": "adjusted = exp(observed mean log diff - placebo mean) - 1; approximate CI uses the placebo SD of the R1 statistic as the SE"
+   }
+  }
+ },
+ "figure": {
+  "png": "/home/user/cloud-research/research/titles/outputs/cites/G6/fig.png",
+  "csv": "/home/user/cloud-research/research/titles/outputs/cites/G6/fig.csv"
+ }
+}

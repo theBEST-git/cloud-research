@@ -14,7 +14,10 @@ core (cites/core.py); nothing here changes them.
        (a) artefact check: share of S2 venue records carrying an arXiv id by G2 status; primary re-run on
            papers whose record has an arXiv id (split-record undercount, outputs/cites/qc_split_records.jsonl);
        (b) confounding by other title features: + G1_name control, named titles excluded, + G6a_meme control;
-       (c) the 15 most- and 15 least-cited assertive titles and the verbs the rule matches.
+       (c) the 15 most- and 15 least-cited assertive titles and the verbs the rule matches;
+       (d) why R1 and the primary differ (calipers, eras, pair adjustment, same-cell pairs, PC dose-response);
+       (e) audit (2026-10-17): alternative explanations from cites/audit_g1g2.py (preprint timing, code links,
+           paper type, heavy tail / zero citations, retitling between arXiv v1 and camera-ready titles).
 
 Writes outputs/cites/G2/results.json and outputs/cites/G2/fig.png.
 Run: cd research/titles/src && OMP_NUM_THREADS=2 /home/user/venv/bin/python -m cites.g2
@@ -32,7 +35,7 @@ import matplotlib.pyplot as plt  # noqa: E402
 import numpy as np  # noqa: E402
 import pandas as pd  # noqa: E402
 
-from cites import core  # noqa: E402
+from cites import audit_g1g2, core  # noqa: E402
 
 warnings.filterwarnings("ignore")
 
@@ -409,12 +412,28 @@ def main():
     diag["d_r1_vs_primary"] = r1_vs_primary(df)
     chk = diag["d_r1_vs_primary"]["reimplementation_check"]
     assert chk["n_pairs"] == rob["R1_matched_pairs"]["n_pairs"] and abs(chk["pct"] - rob["R1_matched_pairs"]["pct"]) < 1e-9, chk
+    # (e) audit: alternative explanations
+    diag["e_audit_alt_explanations"] = audit_g1g2.alt_explanations(df, F)
+    for line in audit_g1g2.summary_lines(diag["e_audit_alt_explanations"]):
+        print("audit", line)
 
     res = {"feature": F, "label": core.FEATURES[F], "n_papers": int(len(df)), "n_with": int(df[F].sum()),
            "primary": {**pj, "source": "outputs/cites/primary.json (Holm across the 8 primary tests)"},
            "reproduction_check": repro, "robustness": rob, "verdict": ver,
            "verdict_rule": "more/fewer citations: Holm p < 0.05 and same sign in R1 and R2; no meaningful difference: 95% CI within +/-10%; else inconclusive",
-           "secondary": sec, "diagnostics": diag}
+           "secondary": sec, "diagnostics": diag,
+           "audit": {
+               "date": "2026-10-17", "label": "adversarial audit of G2 (see RESULTS.md, section Audit)",
+               "checked": ["core.primary reproduces primary.json exactly", "verdict 'inconclusive' follows the pre-registered rule",
+                           "G2 definition as frozen in core.load (no question title flagged)",
+                           "pilot keys unique across rounds; codebook mapping verified against pilot files",
+                           "every RESULTS.md number matches results.json", "frozen-file hashes match prereg_hashes.json"],
+               "fixes": ["figure group headers now say 'not pre-registered'; drop-top-5% row added",
+                         "advice sentence: primary described as content-adjusted, verdict stated as inconclusive, "
+                         "R1 reported as 'no detectable difference' with its CI instead of 'not more than'",
+                         "RESULTS.md wording: 'no difference' -> 'no detectable difference'; 'not caused by' -> 'not explained by'",
+                         "added diagnostics.e_audit_alt_explanations (cites/audit_g1g2.py)"],
+               "confidence_in_advice": "verdict high; corrected advice medium"}}
     json.dump(_clean(res), open(OUT / "results.json", "w"), indent=1, ensure_ascii=False)
     figure(res)
     print("wrote", OUT / "results.json", OUT / "fig.png")
@@ -436,21 +455,22 @@ def figure(res):
             ("R5 2022–25", rob["R5_era_2022_25"], "rob"),
             ("R6 + team prior acceptances, 2022–25", rob["R6_team_prior_2022_25"], "rob"),
             ("R7 year + topic100 FE", rob["R7_year_plus_topic100_fe"], "rob")]),
-        ("Diagnostic: richer content controls", [
+        ("Diagnostic (not pre-registered): richer content controls", [
             ("Primary with 0 abstract PCs", pcs["0"], "diag"),
             ("Primary with 50 PCs", pcs["50"], "diag"),
             ("Primary with 200 PCs", pcs["200"], "diag"),
             ("Primary with full 384-d embedding", dr["primary_full_384d_embedding"], "diag"),
             ("Matched pairs within year × topic50", dr["R1_same_year_topic50_cell"], "diag")]),
-        ("Secondary (joint model) and other diagnostics", [
+        ("Secondary (pre-specified) and diagnostics (not pre-registered)", [
             ("Joint model, all 8 features (secondary)", sec["joint_model_all8"], "diag"),
+            ("Drop top 5% most-cited per year (audit)", dg["e_audit_alt_explanations"]["tail"]["drop_top5pct_per_year"], "diag"),
             ("Records with an arXiv id only", dg["a_artefact_arxiv"]["rerun_arxiv_id_only"], "diag"),
             ("+ named-title (G1) control", dg["b_overlap_other_features"]["plus_G1_name_control"], "diag"),
             ("Meme-template titles excluded", dg["b_overlap_other_features"]["meme_titles_excluded"], "diag")]),
     ]
     BLUE, INK, INK2, MUTED, GRID = "#2a78d6", "#0b0b0b", "#52514e", "#8a8984", "#e6e5e1"
     plt.rcParams.update({"font.family": "DejaVu Sans", "font.size": 9})
-    fig, ax = plt.subplots(figsize=(8.2, 7.4), facecolor="white")
+    fig, ax = plt.subplots(figsize=(8.2, 7.7), facecolor="white")
     ax.set_facecolor("white")
     allrows = [r for _, g in groups for r in g]
     xmax = max(r[1]["hi"] for r in allrows) * 100

@@ -266,15 +266,15 @@ The R1 pairs are close in content: mean cosine 0.87, and 54% share topic50. They
 
 ## Interpretation
 
-**Average difference.** Among accepted ICLR papers, papers whose titles state a finding receive on average about 26% more citations than other papers with similar team size, abstract length, topic and year (pre-registered regression, Holm p = 0.038).
+**Average difference.** Among accepted ICLR papers, papers whose titles state a finding receive on average about 26% more citations than other papers with similar team size, abstract length, abstract content (20 embedding PCs), topic and year (pre-registered regression, Holm p = 0.038).
 - PPML, influential citations, dropping outliers and an alternative topic definition all keep the sign.
-- The diagnostics show that this is not caused by:
+- The diagnostics indicate that this is not explained by:
   - split S2 records
   - overlap with named titles
   - meme templates
   - noun-phrase matches of "guarantees"
 
-**Against close content matches.** When each assertive paper is compared with its closest content match, there is no difference (−6.5% [−21.8, +11.1]). The regression estimate also shrinks as content is controlled more finely.
+**Against close content matches.** When each assertive paper is compared with its closest content match, there is no detectable difference (−6.5% [−21.8, +11.1]; the CI allows anything from about −22% to +11%). The regression estimate also shrinks as content is controlled more finely.
 
 **Verdict.** The pre-registered rule therefore returns **inconclusive**. The data do not show that a finding-stating title goes with more citations once content is closely matched. They also do not rule out a moderate positive association.
 
@@ -298,4 +298,69 @@ The R1 pairs are close in content: mean cosine 0.87, and 54% share topic50. They
 
 ## Advice for authors (observational)
 
-Among accepted ICLR papers, papers whose titles state a finding receive about 26% more citations on average than other papers, but not more than papers with closely matched content. These data therefore do not show that stating the finding in the title goes with more citations once content is accounted for.
+Inconclusive. Among accepted ICLR papers with similar content (the pre-registered regression), papers whose titles state a finding receive about 26% more citations on average (95% CI +8% to +48%). Against closely content-matched papers, however, there is no detectable difference (−7%, 95% CI −22% to +11%), and the association roughly halves once the 5% most-cited papers per year are set aside (diagnostic, see Audit). These data therefore neither show nor rule out a citation advantage for titles that state the finding. They do not support advising authors to make that change for citations. (Corrected in the audit; see below.)
+
+## Audit (adversarial review, 2026-10-17)
+
+### What was checked
+
+- **Reproduction.** `core.primary(core.load(), "G2_assertive")` reproduces `primary.json` exactly: b 0.23169, SE 0.08112, n 8,574, 456 assertive.
+  - Holm p 0.0376 is taken from `primary.json`. It is consistent with `core.holm` over the 8 frozen p-values.
+- **Verdict.**
+  - Holm p < 0.05 and R2 has the same sign, but R1 has the opposite sign (−6.5%). So "more citations" fails.
+  - The 95% CI [+7.5, +47.8] is not within ±10%, so "no meaningful difference" also fails.
+  - **"Inconclusive" follows the pre-registered rule.**
+- **Feature definition.** `G2_assertive` is a `core.ASSERT` match on a non-question title, as frozen in `core.load`. No question title is flagged.
+- **Validity analysis (pre-specified secondary).**
+  - The pilot keys hold 500 unique submissions, with none duplicated across rounds.
+  - The codebook mapping was verified against the pilot files: r1 v0, r2 v1.1, r3 v1.2, gold_b1 v1.3 (including the ChatGPT gold labels, per `chatgpt_gold_b1/PROMPT.md`), and the `v14` files v1.4.
+  - The item-level κ was recomputed by hand: 0.815.
+  - `claims_main/labels/` is empty; `chatgpt_main/` holds prompts and batches only. The caveat that no main-study title-strength labels exist is correct.
+- **Numbers.** Every number in this file was compared with `results.json`, and all match.
+- **Frozen files.** The hashes match `prereg_hashes.json`, and `primary.json` is unchanged.
+
+### What was changed
+
+1. **Figure labels (labelling error).** Two figure group headers read "Diagnostic: …" and "Secondary (joint model) and other diagnostics" without saying "not pre-registered".
+   - They now read "Diagnostic (not pre-registered): richer content controls" and "Secondary (pre-specified) and diagnostics (not pre-registered)".
+   - A row "Drop top 5% most-cited per year (audit)" was added.
+2. **Advice sentence (overstated / misdescribed).**
+   - The old sentence described the +26% as "among accepted ICLR papers … on average", which drops the fact that the primary already adjusts for content (20 PCs and topic × year FE).
+   - It also said assertive titles get "not more than papers with closely matched content". R1's CI (−22% to +11%) does not support that claim.
+   - The new sentence states the pre-registered verdict, "inconclusive", and gives both estimates with their CIs.
+3. **Wording.**
+   - "there is no difference" became "no detectable difference".
+   - "not caused by" became "not explained by".
+   - The primary's covariates now list the abstract-embedding PCs.
+4. **Audit diagnostics added** (below).
+   - Code: `src/cites/audit_g1g2.py`, called from `g2.py`.
+   - Results: `results.json` → `diagnostics.e_audit_alt_explanations`.
+   - `g2.py` was re-run. Every pre-existing value reproduced, up to ~1e-9 in R7's iteratively demeaned two-way FE SE.
+
+### Alternative explanations tested — diagnostic (not pre-registered)
+
+Each re-fit uses the primary controls, year × topic50 FE and SEs clustered by topic50.
+
+| Alternative explanation | Test | Result for G2 |
+|---|---|---|
+| **Preprint exposure time** | arXiv-id records. Months from first arXiv posting to the conference, entered as FE bins. | Assertive papers are posted 7.1 vs 6.6 months before the conference (adjusted +0.33, p 0.14). G2 is +32.4% on arXiv-id records and **+30.1% [+10.8, +52.8]** with the lead-time FE. |
+| **Promotion / code release** | Abstract announces code or a URL. | Assertive 19.7% vs 21.8%. G2 with the indicator: **+27.1% [+8.1, +49.4]**. Within code abstracts −1.0% [−29.1, +38.3] (90 assertive); within others +34.4% [+11.5, +61.9]. |
+| **Paper type** (findings vs method paper) | Method and findings abstract indicators. | Assertive abstracts announce a finding more often (56.1% vs 45.8%) and a method less often (58.6% vs 68.1%). G2 with both indicators: **+25.6% [+7.2, +47.1]**. Within findings abstracts +29.7% [+6.7, +57.6]; within method abstracts +24.1% [−0.9, +55.5]. |
+| **Superstar outliers** | Within-year citation percentile as the outcome. Drop the top 5% per year. Drop zero-citation records. | Percentile: **+4.2 points [+1.1, +7.2]**, p 0.010. Top 5% dropped: **+11.3% [−2.7, +27.3]**, p 0.13. Zero-citation records dropped: +29.5%. Assertive titles are 9.7% of each year's top 5% (42 papers) and 15.2% of the top 1% (14 papers), against 5.3% overall. |
+| **Retitling / reverse causation** | WP4 audit pairs: 568 accepted 2023–25 papers with a pre-decision arXiv v1 title. | Status changed for 14 papers: 6 assertive only at camera-ready, 8 only at v1. On the same papers, the camera-ready exposure gives +37.3% [−26.2, +155.6] and the v1 exposure +1.2% [−44.1, +83.1]. With 36–38 assertive papers this cannot be read either way. |
+| **All of the above together** | arXiv-id records; lead-time FE; code, method and findings indicators. | **+30.4% [+10.9, +53.3]** |
+
+**Reading.**
+- **Not explained by timing, code, paper type or zero-citation records.** Preprint timing, promotion via code links, being a findings paper rather than a method paper, and zero-citation (split-record) noise do not explain the regression association.
+- **The heavy tail matters.**
+  - Assertive titles are over-represented among the biggest hits, for example "Self-Consistency Improves…" and "Finetuned Language Models are Zero-Shot Learners".
+  - Without each year's top 5% most-cited papers, the estimate drops from +26% to +11% and its CI includes zero.
+  - The rank-based outcome still shows a modest shift: +4 percentile points.
+- **Combined with the other evidence.** This tail result sits alongside R1's opposite sign and the shrinkage under richer content controls. Together they strengthen the pre-registered "inconclusive": the regression association rests partly on a few very highly cited assertive papers and on coarse content control.
+- **Retitling** is rare (14 of 568). The v1-title estimate is too imprecise to say whether claims are added after early attention.
+
+### Confidence in the advice
+
+- **High** that "inconclusive" is the correct pre-registered verdict.
+- **Medium** in the corrected advice: the data neither show nor rule out a citation advantage for stating the finding in the title, so they do not support recommending the change for citations.
+- The rule-based measure is precise but misses claim titles (reweighted sensitivity about 0.5). The comparison group therefore contains some claim titles, which would bias the contrast toward zero if the misclassification is unrelated to citations.

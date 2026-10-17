@@ -17,46 +17,58 @@ from analyses import _core as C
 
 OUT = C.OUT / "fashion"
 LEVELS = ["lo", "mid", "hi"]
-LEVERS = {"size_p": "established area", "mom_p": "rising area", "nnr_p": "close to a predecessor",
+LEVERS = {"hub_p": "mainstream abstract", "mom_p": "rising area", "nnr_p": "close to a predecessor",
           "ins": "insider team", "ent": "entrant team", "G1_name": "NAME: subtitle",
           "G2_assertive": "title states finding", "G6b_tentative": "Towards / Rethinking",
           "G4_llm_words": "LLM-favoured words"}
-OFFSET = {"size_p": (5, -9), "mom_p": (5, 3), "nnr_p": (5, 3), "ins": (-8, 6), "ent": (-30, -11), "G1_name": (-62, 4),
+OFFSET = {"hub_p": (6, 6), "mom_p": (5, 3), "nnr_p": (5, 3), "ins": (-20, -14), "ent": (-55, 6), "G1_name": (-62, 4),
           "G2_assertive": (5, 4), "G6b_tentative": (5, 3), "G4_llm_words": (5, -9)}
 
 
-def heat(ax, d, outcome, title, fmt="{:.0%}"):
-    t = d[d[outcome].notna()].groupby(["size3", "mom3"], observed=True)[outcome].mean().unstack().reindex(index=LEVELS[::-1], columns=LEVELS)
-    im = ax.imshow(t.to_numpy(), cmap="Blues", vmin=0, vmax=t.to_numpy().max() * 1.15)
-    for i in range(3):
-        for j in range(3):
-            v = t.iloc[i, j]
-            ax.text(j, i, fmt.format(v), ha="center", va="center", fontsize=8, color="white" if v > t.to_numpy().max() * 0.7 else C.TEXT)
-    ax.set_xticks(range(3), ["falling", "flat", "rising"])
-    ax.set_yticks(range(3), ["large", "medium", "small"])
-    ax.set_xlabel("momentum (t−2 → t−1)")
-    ax.set_ylabel("size (t−1)")
-    ax.set_title(title, loc="left")
-    ax.grid(False)
+def _rate(d, by, o):
+    g = d[d[o].notna() & d[by].notna()].groupby(by, observed=True)[o].agg(["mean", "size"])
+    g["se"] = np.sqrt(g["mean"] * (1 - g["mean"]) / g["size"])
+    return g
 
 
 def fig_map(d, tag):
     fig, axs = C.new_fig("double", 2.5, ncols=3)
-    heat(axs[0], d, "acc_rev", "a  Reviewers: P(accept)")
-    heat(axs[1], d, "top10", "b  Readers: P(top-10% | accepted)")
+    # a: momentum -> reviewers vs readers (relative to the falling tercile)
+    ax = axs[0]
+    for k, (o, lab) in enumerate([("acc_rev", "P(accept), reviewed"), ("top10", "P(top-10% | accepted)")]):
+        g = _rate(d[d.year.between(2019, 2025 if o == "top10" else 2026)], "mom3", o).reindex(LEVELS)
+        ax.errorbar(np.arange(3) + (k - 0.5) * 0.08, g["mean"], yerr=1.96 * g["se"], marker="o", color=C.color(k), label=lab, capsize=0, lw=1.5)
+    ax.set_xticks(range(3), ["falling", "flat", "rising"])
+    ax.set_xlabel("momentum (t−2 → t−1)")
+    ax.yaxis.set_major_formatter(lambda v, _: f"{v:.0%}")
+    ax.set_ylim(0, 0.4)
+    ax.set_title("a  Momentum: reviewers vs readers", loc="left")
+    ax.legend(loc="center left")
+    # b: centrality decile -> acceptance
+    ax = axs[1]
+    e = d[d.year.between(2019, 2026)].copy()
+    e["hub10"] = np.ceil(e.hub_p * 10).clip(1, 10)
+    g = _rate(e, "hub10", "acc_rev")
+    ax.errorbar(g.index, g["mean"], yerr=1.96 * g["se"], marker="o", color=C.color(0), lw=1.5)
+    ax.set_xticks(range(1, 11))
+    ax.set_xlabel("centrality decile (1 = most off-centre)")
+    ax.yaxis.set_major_formatter(lambda v, _: f"{v:.0%}")
+    ax.set_title("b  Centrality and acceptance", loc="left")
+    # c: entry x momentum -> hit
     ax = axs[2]
-    e = d[d.year.between(2022, 2025) & d.hit.notna() & d.entry.notna() & d.mom3.notna()]
-    g = e.groupby(["entry", "mom3"], observed=True).hit.agg(["mean", "size"]).reset_index()
-    for k, ent in enumerate(["newcomer", "entrant", "insider"]):
-        gg = g[g.entry == ent].set_index("mom3").reindex(LEVELS)
-        se = np.sqrt(gg["mean"] * (1 - gg["mean"]) / gg["size"])
-        x = np.arange(3) + (k - 1) * 0.26
-        ax.bar(x, gg["mean"], 0.25, yerr=1.96 * se, color=C.color(k), label=ent, error_kw=dict(lw=0.6, ecolor=C.TEXT2))
+    e = d[d.year.between(2022, 2025) & d.hit.notna() & d.entry.notna() & d.mom3.notna()].copy()
+    e["grp"] = np.select([e.entry == "newcomer", e.entry == "entrant", e.ins_acc == 1], ["newcomer", "entrant", "insider, accepted line"],
+                         "insider, other")
+    order = ["newcomer", "entrant", "insider, other", "insider, accepted line"]
+    for k, gname in enumerate(order):
+        gg = _rate(e[e.grp == gname], "mom3", "hit").reindex(LEVELS)
+        x = np.arange(3) + (k - 1.5) * 0.2
+        ax.bar(x, gg["mean"], 0.19, yerr=1.96 * gg["se"], color=C.color(k), label=gname, error_kw=dict(lw=0.6, ecolor=C.TEXT2))
     ax.set_xticks(range(3), ["falling", "flat", "rising"])
     ax.set_xlabel("momentum (t−2 → t−1)")
     ax.yaxis.set_major_formatter(lambda v, _: f"{v:.0%}")
     ax.set_title("c  P(accepted & top-10%), 2022–25", loc="left")
-    ax.legend(title="team", loc="upper left")
+    ax.legend(title="team", loc="upper left", fontsize=6.5, title_fontsize=7)
     fig.tight_layout()
     fig.savefig(OUT / f"fig_fashion_map{tag}.png")
     fig.savefig(OUT / f"fig_fashion_map{tag}.pdf")
@@ -67,7 +79,7 @@ def fig_quadrant(d, tag):
     for c in ["G2_assertive", "G6b_tentative", "G4_llm_words"]:
         if c not in g:
             return
-    rhs = " + ".join(LEVERS) + " + log_authors + lprior_acc"
+    rhs = " + ".join(LEVERS) + " + size_p + log_authors + lprior_acc + lsum_prior_acc + l_team_prev"
     est = {}
     for o in ["acc_rev", "top10"]:
         dd = g[g[o].notna() & g.mom_p.notna() & g.nnr_p.notna() & g.entry.notna()]

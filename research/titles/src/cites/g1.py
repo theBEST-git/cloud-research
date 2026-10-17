@@ -17,7 +17,9 @@ What this module does
            records with / without an arXiv id; primary spec with an arXiv-id indicator as control;
        (b) method-paper confound: abstract says 'we propose|we introduce|we present|this paper proposes';
        (c) team prior: R6 compared with the same-sample R5 (2022-25) estimate without the control;
-       plus orthography pairwise contrasts and orthography-specific content-matched pairs.
+       plus orthography pairwise contrasts and orthography-specific content-matched pairs;
+       (d) audit (2026-10-17): alternative explanations from cites/audit_g1g2.py (preprint timing, code links,
+           paper type, heavy tail / zero citations, retitling between arXiv v1 and camera-ready titles).
 
 Run:  cd research/titles/src && OMP_NUM_THREADS=2 /home/user/venv/bin/python -m cites.g1
 Writes outputs/cites/G1/{results.json, fig.png, fig.pdf, fig.csv}.
@@ -33,7 +35,7 @@ import pandas as pd
 import pyfixest as pf
 
 from analyses import _core as C
-from cites import core
+from cites import audit_g1g2, core
 
 warnings.filterwarnings("ignore")
 
@@ -432,8 +434,19 @@ def main():
             "c_team_prior": diag_team_prior(df, rob),
             "orthography_followups": diag_orthography(df),
             "content_granularity": diag_content_granularity(df, rob),
+            "d_audit_alt_explanations": audit_g1g2.alt_explanations(df, F),
         },
     }
+    res["audit"] = {
+        "date": "2026-10-17", "label": "adversarial audit of G1 (see RESULTS.md, section Audit)",
+        "checked": ["core.primary reproduces primary.json exactly", "verdict follows the pre-registered rule (Holm p, R1 and R2 signs)",
+                    "orthography dummies partition G1_name exactly", "frozen-file hashes match prereg_hashes.json",
+                    "every RESULTS.md number matches results.json", "background claims match outputs/SUMMARY.md"],
+        "fixes": ["re-run after qc_split_records.jsonl finished (30 records): QC was 24 checked / 5 split / all unnamed, "
+                  "now 30 / 7 / 6 of 24 unnamed and 1 of 6 named; no other number changed",
+                  "RESULTS.md wording: 'cannot explain' -> 'do not explain'; reviewer-side sentence restated as neutrality",
+                  "added diagnostics_not_preregistered.d_audit_alt_explanations (cites/audit_g1g2.py)"],
+        "confidence_in_advice": "sign high; size medium (+5% to +25% depending on content matching and the top tail)"}
     res["figure"] = {k: str(v) for k, v in figure(prim, rob).items()}
     json.dump(res, open(DST / "results.json", "w"), indent=1, default=float)
 
@@ -480,6 +493,8 @@ def main():
         print(f"  {k:22s} {fmt(r)}  p {r['p']:.2e}")
     for k, r in G["R1_caliper"].items():
         print(f"  caliper {k} {fmt(r)} n_pairs {r['n_pairs']}")
+    for line in audit_g1g2.summary_lines(res["diagnostics_not_preregistered"]["d_audit_alt_explanations"]):
+        print("audit", line)
 
 
 if __name__ == "__main__":

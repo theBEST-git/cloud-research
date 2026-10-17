@@ -1693,6 +1693,323 @@
     "hi": 0.36420146651863394,
     "n": 8574
    }
+  },
+  "e_audit_alt_explanations": {
+   "label": "diagnostic (not pre-registered; added by the adversarial audit)",
+   "feature": "G2_assertive",
+   "doc": "timing     Preprint exposure time. The arXiv id gives the month of first arXiv posting. lead_months = months between\n             that month and May of the ICLR year. Earlier preprints have had longer to collect citations. Records with\n             an arXiv id only; lead_months enters as FE bins.\n  code       Promotion / reuse. The abstract announces code or a URL (github, http(s)://, 'code ... available /\n             released / public', open-source).\n  paper_type Method vs findings paper. The abstract announces a method ('we propose / introduce / present', 'this paper\n             proposes') or a finding ('we show / find / demonstrate / study / investigate / analyse / observe / reveal /\n             identify / prove / argue', 'empirical study / analysis / investigation'). Both regexes are crude and\n             unvalidated.\n  tail       Superstar outliers and zero-citation records. Outcome = within-year citation percentile (0-100, effect in\n             percentile points); drop the top 5% most-cited per year (R4 drops the top 1%); drop zero-citation records\n             (mostly split S2 records); share of the feature among the top 5% / 1% per year.\n  retitling  Reverse causation through retitling (early attention -> authors add a name / a claim at camera-ready).\n             The WP4 camera-ready audit (outputs/snapshot/audit_pairs.csv, read only) gives the arXiv v1 title, posted\n             before the decision, for accepted 2023-25 papers. Compare feature status on the v1 and camera-ready titles\n             and re-estimate with the v1 status as the exposure on the same papers.\n  combined   Records with an arXiv id; lead-month FE bins added to year^topic50; code + method + findings indicators.",
+   "timing": {
+    "label": "diagnostic (not pre-registered; added by the adversarial audit)",
+    "mean_lead_months": {
+     "with_feature": 7.109510086455331,
+     "without_feature": 6.629889829155357
+    },
+    "share_posted_7plus_months_before_conference": {
+     "with_feature": 0.6080691642651297,
+     "without_feature": 0.5657033370589174
+    },
+    "lead_months_diff_primary_controls": {
+     "b": 0.32622920671966976,
+     "se": 0.21902490623639567,
+     "p": 0.14277469789744313,
+     "pct": 0.3857329517795418,
+     "lo": -0.09792680025688738,
+     "hi": 1.1287139604574015,
+     "n": 6575
+    },
+    "arxiv_only_primary_spec": {
+     "b": 0.28044019940128867,
+     "se": 0.08524124310938083,
+     "p": 0.0018608333633041152,
+     "pct": 0.32371238150254666,
+     "lo": 0.12004331974963356,
+     "hi": 0.5644166953603376,
+     "n": 6575,
+     "n_with": 347
+    },
+    "arxiv_only_plus_lead_bin_fe": {
+     "b": 0.26302089006374446,
+     "se": 0.081960147809554,
+     "p": 0.0023497300094559304,
+     "pct": 0.3008538935886427,
+     "lo": 0.10780325000210778,
+     "hi": 0.5275463873765596,
+     "n": 6575,
+     "n_with": 347
+    },
+    "lead_bins_months": [
+     -1000,
+     -1,
+     3,
+     6,
+     9,
+     12,
+     18,
+     1000
+    ]
+   },
+   "code": {
+    "label": "diagnostic (not pre-registered; added by the adversarial audit)",
+    "regex": "github\\.com|https?://|\\bcode\\b[^.]{0,40}\\b(?:available|released|public)|open[- ]source",
+    "share": {
+     "with_feature": 0.19736842105263158,
+     "without_feature": 0.2181438742941321
+    },
+    "plus_code_control": {
+     "b": 0.23971048309762572,
+     "se": 0.0823681275253177,
+     "p": 0.0054190948617609536,
+     "pct": 0.2708811554781916,
+     "lo": 0.08141346911794956,
+     "hi": 0.49354428946309037,
+     "n": 8574
+    },
+    "code_indicator_coef": {
+     "b": 0.3333642300602994,
+     "se": 0.03796350949252022,
+     "p": 1.252309367316684e-11,
+     "pct": 0.395655545608276,
+     "lo": 0.29557647618564364,
+     "hi": 0.5034653976752397,
+     "n": 8574
+    },
+    "within_code_abstracts": {
+     "b": -0.00956616516084982,
+     "se": 0.17035079111493262,
+     "p": 0.955450889325336,
+     "pct": -0.009520554957021643,
+     "lo": -0.2906836894391248,
+     "hi": 0.3830917412245951,
+     "n": 1810,
+     "n_with": 90
+    },
+    "within_other_abstracts": {
+     "b": 0.29530905265314644,
+     "se": 0.09501588388991608,
+     "p": 0.0031327437365944455,
+     "pct": 0.3435415196009264,
+     "lo": 0.11524924743253595,
+     "hi": 0.6185653736572112,
+     "n": 6700,
+     "n_with": 366
+    }
+   },
+   "paper_type": {
+    "label": "diagnostic (not pre-registered; added by the adversarial audit)",
+    "method_regex": "\\b(?:we propose|we introduce|we present|this paper proposes)\\b",
+    "finding_regex": "\\bwe (?:show|find|demonstrate|study|investigate|analy[sz]e|observe|reveal|identify|prove|argue)\\b|\\bempirical (?:study|analysis|investigation)\\b",
+    "share_method": {
+     "with_feature": 0.5855263157894737,
+     "without_feature": 0.680947704394795
+    },
+    "share_finding": {
+     "with_feature": 0.5614035087719298,
+     "without_feature": 0.45752516572550944
+    },
+    "plus_method_and_finding_controls": {
+     "b": 0.2278449878892883,
+     "se": 0.080653934578372,
+     "p": 0.006821385444560679,
+     "pct": 0.2558906320851182,
+     "lo": 0.07225432299992574,
+     "hi": 0.47097684376439375,
+     "n": 8574
+    },
+    "within_method_abstracts": {
+     "b": 0.21629627666320336,
+     "se": 0.11475745668606377,
+     "p": 0.06539314058287826,
+     "pct": 0.241470143149493,
+     "lo": -0.008591221159556017,
+     "hi": 0.5546040636580536,
+     "n": 5773,
+     "n_with": 267
+    },
+    "within_non_method_abstracts": {
+     "b": 0.2670840675051491,
+     "se": 0.1303865626122691,
+     "p": 0.04589761354504773,
+     "pct": 0.30615024650785005,
+     "lo": 0.011593089755099317,
+     "hi": 0.6864769873680501,
+     "n": 2720,
+     "n_with": 189
+    },
+    "within_finding_abstracts": {
+     "b": 0.25980776170160796,
+     "se": 0.09966567231213014,
+     "p": 0.01207543263323596,
+     "pct": 0.29668079099563327,
+     "lo": 0.06658616072596435,
+     "hi": 0.5764137353822787,
+     "n": 3930,
+     "n_with": 256
+    },
+    "within_non_finding_abstracts": {
+     "b": 0.21414665741980057,
+     "se": 0.1411515530925286,
+     "p": 0.13565706291146573,
+     "pct": 0.23880432131715712,
+     "lo": -0.060596694482607294,
+     "hi": 0.6336286422462976,
+     "n": 4573,
+     "n_with": 200
+    }
+   },
+   "tail": {
+    "label": "diagnostic (not pre-registered; added by the adversarial audit)",
+    "cite_percentile_outcome_pp": {
+     "b_pp": 4.185625747286535,
+     "lo_pp": 1.1319952896093701,
+     "hi_pp": 7.2392562049636995,
+     "p": 0.00982911379546958,
+     "n": 8574
+    },
+    "drop_top5pct_per_year": {
+     "b": 0.10691594889462158,
+     "se": 0.06859386824197221,
+     "p": 0.12550797486722298,
+     "pct": 0.11284071505612414,
+     "lo": -0.027152589523714243,
+     "hi": 0.2729791370676762,
+     "n": 8142,
+     "n_with": 414
+    },
+    "drop_zero_citation_records": {
+     "b": 0.25859526848945946,
+     "se": 0.07426896831380693,
+     "p": 0.0010571143160056362,
+     "pct": 0.2951095271041273,
+     "lo": 0.119663384516834,
+     "hi": 0.49804727955775885,
+     "n": 8221,
+     "n_with": 430
+    },
+    "share_feature_in_top5pct_per_year": {
+     "share": 0.09699769053117784,
+     "n_feature_in_top": 42,
+     "n_top": 433,
+     "share_overall": 0.0530109276912346
+    },
+    "share_feature_in_top1pct_per_year": {
+     "share": 0.15217391304347827,
+     "n_feature_in_top": 14,
+     "n_top": 92,
+     "share_overall": 0.0530109276912346
+    }
+   },
+   "retitling": {
+    "label": "diagnostic (not pre-registered; added by the adversarial audit)",
+    "source": "outputs/snapshot/audit_pairs.csv (accepted, arXiv v1 posted before the decision)",
+    "n_papers": 568,
+    "years": [
+     2023,
+     2024,
+     2025
+    ],
+    "max_v1_lag_days_after_deadline": 108.0,
+    "camera_ready_rule_reproduces_feature": 1.0,
+    "n_with_camera_ready": 36,
+    "n_with_v1": 38,
+    "added_at_camera_ready": 6,
+    "removed_at_camera_ready": 8,
+    "crosstab_v1_rows_camera_ready_cols": {
+     "0": {
+      "0": 524,
+      "1": 6
+     },
+     "1": {
+      "0": 8,
+      "1": 30
+     }
+    },
+    "camera_ready_exposure_same_papers": {
+     "b": 0.3170972043561055,
+     "se": 0.3171041400102274,
+     "p": 0.32255252067258033,
+     "pct": 0.37313604024313984,
+     "lo": -0.2624540665502674,
+     "hi": 1.5564544518543073,
+     "n": 540
+    },
+    "v1_exposure_same_papers": {
+     "b": 0.012147803330944958,
+     "se": 0.3025216748936194,
+     "p": 0.9681432129572896,
+     "pct": 0.01222188757685072,
+     "lo": -0.44054639642109117,
+     "hi": 0.8314175530109491,
+     "n": 540
+    },
+    "stable_status_papers_only": {
+     "b": 0.21990833821704855,
+     "se": 0.32586725695625274,
+     "p": 0.5031552034414601,
+     "pct": 0.24596251820709614,
+     "lo": -0.3421586495173712,
+     "hi": 1.3598738444125247,
+     "n": 527,
+     "n_with": 30
+    },
+    "full_sample_same_years_primary_spec": {
+     "b": 0.1675432456095744,
+     "se": 0.09740152091447425,
+     "p": 0.09171957749344628,
+     "pct": 0.1823964225333401,
+     "lo": -0.023092916530598306,
+     "hi": 0.4311097991577113,
+     "n": 5749,
+     "n_with": 333
+    },
+    "note": "small, selected subsample (accepted papers with an arXiv v1 found by the WP4 audit); SEs are wide",
+    "audited_minus_rest_same_years": {
+     "ratio": 1.1337654356623668,
+     "ratio_lo": 0.6669492395348802,
+     "ratio_hi": 1.9273191824899756,
+     "p": 0.6448700053227394,
+     "n": 5749
+    },
+    "full_sample_same_years_arxiv_posted_before_decision": {
+     "b": 0.2874089585464383,
+     "se": 0.11420479028682944,
+     "p": 0.015172287035563059,
+     "pct": 0.33296923118248656,
+     "lo": 0.06563148764545867,
+     "hi": 0.6673746899175546,
+     "n": 3305,
+     "n_with": 201
+    }
+   },
+   "combined_arxiv_only_lead_fe_code_method_finding": {
+    "b": 0.26547594312515144,
+    "se": 0.08268970930190252,
+    "p": 0.0023404747232660394,
+    "pct": 0.30405148244162694,
+    "lo": 0.10893945527118754,
+    "hi": 0.5334924379999995,
+    "n": 6575,
+    "n_with": 347,
+    "label": "diagnostic (not pre-registered; added by the adversarial audit)"
+   }
   }
+ },
+ "audit": {
+  "date": "2026-10-17",
+  "label": "adversarial audit of G2 (see RESULTS.md, section Audit)",
+  "checked": [
+   "core.primary reproduces primary.json exactly",
+   "verdict 'inconclusive' follows the pre-registered rule",
+   "G2 definition as frozen in core.load (no question title flagged)",
+   "pilot keys unique across rounds; codebook mapping verified against pilot files",
+   "every RESULTS.md number matches results.json",
+   "frozen-file hashes match prereg_hashes.json"
+  ],
+  "fixes": [
+   "figure group headers now say 'not pre-registered'; drop-top-5% row added",
+   "advice sentence: primary described as content-adjusted, verdict stated as inconclusive, R1 reported as 'no detectable difference' with its CI instead of 'not more than'",
+   "RESULTS.md wording: 'no difference' -> 'no detectable difference'; 'not caused by' -> 'not explained by'",
+   "added diagnostics.e_audit_alt_explanations (cites/audit_g1g2.py)"
+  ],
+  "confidence_in_advice": "verdict high; corrected advice medium"
  }
 }

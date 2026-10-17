@@ -1,0 +1,110 @@
+{
+  "population_papers": 32190,
+  "years": [
+    2018,
+    2026
+  ],
+  "recent": [
+    2024,
+    2026
+  ],
+  "note": "post hoc exploratory (PREREGISTRATION.md, 2026-10-17); associations, not causal effects",
+  "keywords": {
+    "units": 68,
+    "units_with_trend": 57,
+    "flagged_counts": {
+      "level": 0,
+      "recent": 0,
+      "trend": 0
+    },
+    "flagged": {
+      "level": [],
+      "recent": [],
+      "trend": []
+    },
+    "calibration_within_year_permutations": {
+      "level": {
+        "per_test_rejection_at_05": 0.0075,
+        "share_of_permutations_with_any_bh_flag": 0.0
+      },
+      "recent": {
+        "per_test_rejection_at_05": 0.0058,
+        "share_of_permutations_with_any_bh_flag": 0.0
+      },
+      "trend": {
+        "per_test_rejection_at_05": 0.0144,
+        "share_of_permutations_with_any_bh_flag": 0.0
+      }
+    }
+  },
+  "topics": {
+    "units": 100,
+    "units_with_trend": 90,
+    "flagged_counts": {
+      "level": 0,
+      "recent": 0,
+      "trend": 0
+    },
+    "flagged": {
+      "level": [],
+      "recent": [],
+      "trend": []
+    },
+    "calibration_within_year_permutations": {
+      "level": {
+        "per_test_rejection_at_05": 0.0073,
+        "share_of_permutations_with_any_bh_flag": 0.0
+      },
+      "recent": {
+        "per_test_rejection_at_05": 0.0052,
+        "share_of_permutations_with_any_bh_flag": 0.0
+      },
+      "trend": {
+        "per_test_rejection_at_05": 0.0117,
+        "share_of_permutations_with_any_bh_flag": 0.0
+      }
+    }
+  },
+  "federated_learning": {
+    "keyword": [
+      {
+        "unit": "federated learning",
+        "papers": 475,
+        "level": -0.1134,
+        "level_q": 0.1851,
+        "recent": -0.1353,
+        "recent_q": 0.367,
+        "trend": -0.0297,
+        "trend_q": 0.6808,
+        "adjusted_level": -0.1051
+      }
+    ],
+    "topic": [
+      {
+        "unit": "m029 Federated learning",
+        "papers": 485,
+        "level": -0.135,
+        "level_q": 0.1657,
+        "recent": -0.1406,
+        "recent_q": 0.2995,
+        "trend": -0.0274,
+        "trend_q": 0.8618,
+        "adjusted_level": -0.1214
+      }
+    ]
+  },
+  "mechanisms": [
+    {
+      "unit": "federated learning",
+      "trend": -0.0297,
+      "adjusted_trend": -0.0225,
+      "share_of_trend_kept_after_adjustment": 0.7564,
+      "established_trend": -0.0164,
+      "not_established_trend": -0.0319,
+      "keyword_incumbent_trend": -0.0178,
+      "keyword_newcomer_trend": -0.0435,
+      "peak_share_year": 2023,
+      "reading": "mixed"
+    }
+  ]
+}

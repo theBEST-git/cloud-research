@@ -1,4 +1,4 @@
-# Talk: "Following the Fashion?"
+# Talk: "Does Following Trends Pay Off?"
 
 A talk of 15 minutes or less on the research-fashion study, with backup slides.
 

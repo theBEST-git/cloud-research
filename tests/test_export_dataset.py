@@ -145,6 +145,15 @@ class ExportTests(unittest.TestCase):
             with self.assertRaises(sqlite3.OperationalError):
                 c.execute("INSERT INTO t VALUES(1)")
             c.close()
+            # The held-out split: only confirmation rows, keywords absent from the discovery-only keyword export.
+            held = root / "export_confirmation"
+            ex.build(SimpleNamespace(clean=clean, upstream=source, patch=patch, keywords=kw, output=held,
+                                     split="confirmation"))
+            records = list(ex.rows(held / "submissions.csv.gz"))
+            self.assertEqual([r["submission_id"] for r in records], ["closed"])
+            self.assertEqual(records[0]["keyword_assignment_status"], "not_in_frozen_keyword_export")
+            self.assertIn("confirmation", ex.read_json(held / "manifest.json")["scope"])
+            self.assertEqual(ex.read_json(held / "validation.json")["status"], "passed")
 
 
 if __name__ == "__main__":

@@ -232,7 +232,13 @@ def tree_bytes(folder):
     return total
 
 
+SPLITS = {"discovery": ("discovery_allowed=1", "discovery submissions, ICLR 2017–2026; no confirmation candidates"),
+          "confirmation": ("confirmation_allowed=1", "confirmation (held-out) submissions, ICLR 2017–2026; no discovery submissions")}
+
+
 def build(args):
+    split = getattr(args, "split", "discovery") or "discovery"
+    where, scope = SPLITS[split]
     clean, upstream, patch, kw_path = map(Path, (args.clean, args.upstream, args.patch, args.keywords))
     out = Path(args.output).resolve()
     if out.exists():
@@ -261,7 +267,7 @@ def build(args):
         with csv_writer(out / "submissions.csv.gz", SUBMISSION_FIELDS + EXTRA_FIELDS) as write_s, \
              csv_writer(out / "submission_authors.csv.gz", AUTHOR_FIELDS) as write_a, \
              csv_writer(out / "metadata_provenance.csv.gz", PROVENANCE_FIELDS) as write_p:
-            query = "SELECT " + ",".join(SUBMISSION_FIELDS) + " FROM submissions WHERE discovery_allowed=1 AND year BETWEEN 2017 AND 2026 ORDER BY year,submission_id"
+            query = "SELECT " + ",".join(SUBMISSION_FIELDS) + f" FROM submissions WHERE {where} AND year BETWEEN 2017 AND 2026 ORDER BY year,submission_id"
             for raw in c.execute(query):
                 row = dict(raw)
                 correction = p.execute("SELECT decision,decision_evidence,outcome_eligible FROM outcome_patch WHERE submission_id=?", (row["submission_id"],)).fetchone() if row["year"] == 2019 else None
@@ -306,7 +312,7 @@ def build(args):
                 if counts["submissions"] % 5000 == 0:
                     check_storage(out)
                     print(canonical({"exported_submissions": counts["submissions"]}), flush=True)
-    if keywords:
+    if keywords and split == "discovery":       # the frozen keyword export covers discovery only
         raise RuntimeError("Frozen keyword export contains out-of-scope submissions")
     after = {"clean": receipt(clean), "upstream": receipt(upstream), "patch": receipt(patch), "keywords": keyword_receipt(kw_path)}
     if before != after:
@@ -314,7 +320,7 @@ def build(args):
     paths = sorted(out.glob("*.csv.gz"))
     files = [{"path": p.name, "bytes": p.stat().st_size, "sha256": sha(p)} for p in paths]
     write_json(out / "manifest.json", {
-        "version": VERSION, "scope": "discovery submissions, ICLR 2017–2026; no confirmation candidates",
+        "version": VERSION, "scope": scope,
         "sources": before, "files": files, "counts": dict(sorted(counts.items())),
         "source_preservation_checks_passed": True, "network_requests": 0,
         "storage": {"existing_phase1b_and_keyword_author_workspace_bytes":baseline,
@@ -330,6 +336,10 @@ def build(args):
 def validate(out):
     out = Path(out)
     manifest = read_json(out / "manifest.json")
+    split = next((k for k, (_, scope) in SPLITS.items() if scope == manifest["scope"]), None)
+    if split is None:
+        raise RuntimeError("Unknown export scope")
+    allowed = ("1", "0") if split == "discovery" else ("0", "1")
     for entry in manifest["files"]:
         p = out / entry["path"]
         if p.stat().st_size != entry["bytes"] or sha(p) != entry["sha256"]:
@@ -340,8 +350,8 @@ def validate(out):
         sid = r["submission_id"]
         if sid in submissions:
             raise RuntimeError("Duplicate submission")
-        if r["discovery_allowed"] != "1" or r["confirmation_allowed"] != "0" or not 2017 <= int(r["year"]) <= 2026:
-            raise RuntimeError("Discovery isolation failure")
+        if (r["discovery_allowed"], r["confirmation_allowed"]) != allowed or not 2017 <= int(r["year"]) <= 2026:
+            raise RuntimeError("Discovery isolation failure" if split == "discovery" else "Confirmation isolation failure")
         if r["outcome_eligible"] == "1" and r["decision"] not in ("accepted", "rejected"):
             raise RuntimeError("Eligible outcome is not binary")
         if r["normalized_keywords_json"] is not None:
@@ -403,6 +413,7 @@ def main():
     b = sub.add_parser("build")
     for arg in ("clean", "upstream", "patch", "keywords", "output"):
         b.add_argument("--" + arg, required=True)
+    b.add_argument("--split", choices=sorted(SPLITS), default="discovery")
     v = sub.add_parser("validate")
     v.add_argument("--output", required=True)
     args = parser.parse_args()

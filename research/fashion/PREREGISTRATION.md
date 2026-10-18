@@ -687,8 +687,9 @@ Anything added after the freeze is labelled post hoc.
   - It exited normally. Its outputs were committed unchanged in 604f41c, before any interpretation, with the printed
     result lines in `stdout.txt`.
   - There was no rerun and no deviation after the run. The results are reported in `RESULTS.md`.
-- **Figures.** After the run, `figures.py` was edited for presentation only (F1 titles; F7 legend). These are the
-  only code changes since the freeze. They read the frozen outputs and change no number.
+- **Figures.** After the run, `figures.py` was edited for presentation only (F1 titles; F7 legend). These were the
+  only code changes before the post hoc analyses (amended 2026-10-18: later changes to FREEZE.json-listed files are
+  listed in the 2026-10-18 confirmation entry). They read the frozen outputs and change no number.
 - **Registered for the confirmation split** (post hoc, from the discovery results, before any confirmation data
   exist).
   - Besides H1d, as registered, three hypotheses are tested one-sided at α = 0.05 with the same frozen code, variants
@@ -1697,3 +1698,280 @@ Anything added after the freeze is labelled post hoc.
       - the `REF` reference points recomputed on the clean vectors (reported, not used).
     - **Not addressed.** Other camera-ready edits (rewritten results, added experiments, polished wording) cannot be removed without the submitted versions. This check covers only the visible markers.
     - **Development.** Tested on `ph5_common.simulated_frame` (switching the vectors and back, an end-to-end run with 3 nulls, the verdict logic); no real outcome was read.
+
+## 2026-10-18: confirmation registration (written before any confirmation outcome is read)
+
+All items below were written and committed before the single confirmation run. `FREEZE_CONFIRMATION.json` records
+the hashes of the code, inputs and this file. The decisions marked [C] clarify points the earlier registration left
+open or could not anticipate.
+
+### A. Status, data and code
+
+- **Status.** The confirmation split is the released former holdout: `data_confirmation/`, released 2026-10-18, and
+  `data_confirmation_csv/`, its CSV conversion with author lists.
+  - Its source policy does not certify an untouched, independent holdout (`data_confirmation/policy.json`:
+    `independent_confirmation_available: false`; `holdout_retired: true`).
+  - Every confirmation result is therefore a pre-registered out-of-sample replication on released former-holdout papers,
+    not an independent confirmation.
+  - This study never analysed these papers before this entry.
+  - The registrations were all committed before the first data commit (f10075f): H1d at registration, H2b′, H2c′ and H3a
+    in the post-run record, H4-FL on 2026-10-17, and the PH5 tests below.
+  - The earlier keyword grid that first suggested the federated-learning pattern (31,239 submissions) has unknown
+    provenance. Whether it overlapped the released papers cannot be checked, so H4-FL's out-of-sample status is not
+    verified.
+- **[C] Code changes to FREEZE.json-listed files.** FREEZE.json (sha256 15bc822e…548fd6) no longer verifies. It is
+  left unchanged, and the discovery frozen run is not repeated.
+  - Before this work, these files changed:
+    - `figures.py` (post-run presentation edits);
+    - `outcomes.py` and `tests/test_guard.py` (the logged post hoc mode);
+    - `tests/test_protocol.py` (audit round C);
+    - this file.
+  - For the confirmation and pooled runs, these files changed:
+    - `common.py` and `research/topics/common.py`: the `ICLR_CORPUS` switch;
+    - `outcomes.py`: split-aware reads, entry dispatch, the gates, and the review-status contingency below;
+    - `resubmissions.py`: the frozen centring mean and τ under the switch;
+    - `figures.py` and `rq1_rise.py`: pooled gates;
+    - `tests/test_sealed_loader.py` and `tests/test_outcome_lint.py`.
+  - With `ICLR_CORPUS` unset, every discovery code path is unchanged:
+    - `research/topics/tests/test_pooled.py` compares the loader with a verbatim copy of the frozen one;
+    - the full fashion suite passes: 337 tests, 4 skipped;
+    - the pooled branches are no-ops.
+  - `FREEZE_CONFIRMATION.json` is the hash record for the confirmation run.
+- **[C] Entry points and gates.** Confirmation outcomes are served only by `outcomes.load("real")` to
+  `run_confirmation.py`, from the confirmation table only.
+  - The run requires:
+    - `ICLR_CORPUS=pooled`;
+    - every FREEZE_CONFIRMATION.json hash;
+    - a clean tree;
+    - `ph5_confirm.py`. The real run always includes the PH5 tests.
+  - Attempts are logged in `output_pooled/confirmation_run/attempts.jsonl`.
+  - No confirmation attempt, including a rerun, may start once any pooled read exists:
+    - `output_pooled/frozen_run/attempts.jsonl`;
+    - `output_pooled/posthoc/access_log.jsonl`;
+    - `output_pooled/rq1_results.csv`;
+    - `output_pooled/figures/`.
+  - Everything pooled that reads or crosses confirmation outcomes or labels requires a finished confirmation attempt that
+    ran PH5. That covers `run_pooled.py`, pooled `posthoc.py`, pooled RQ1 and pooled figures.
+  - Pooled post hoc also requires the pooled main run.
+  - The permuted null is refused under pooled.
+  - Only `pooled_topics.py` and `keyword_map.py` may run as topic-layer scripts under the switch.
+  - The outcome lint covers both sealed tables and the topic layer's code.
+- **[C] Withdrawals with an unknown review status (contingency, in code before the freeze).**
+  - Rule: in the confirmation table only, a withdrawn paper with a missing review_count is coded as withdrawn with
+    unknown review status. Such a paper:
+    - is not in S9's after-review set;
+    - is missing in withdrawn_after_review and withdrawn_before_review;
+    - is outside e3.
+  - The run reports the count (`withdrawn_review_status_unknown`).
+  - RQ3, every registered test's population and the counted variants are unaffected; only H3a's supplementary S9 and E3
+    can change.
+  - In the discovery table such a paper is still an error. No sealed column was read to decide this.
+- **Pooled order and corpus.**
+  - Pooled papers with text: 54,579. Discovery: 43,480. Confirmation: 11,099 of 11,113.
+  - Order: sorted by (year, submission_id). The discovery subset keeps its order exactly (asserted).
+  - Author keys link across the splits; the user authorised the use of the author lists for this analysis.
+
+### B. Topics, keywords, labels and vectors of the confirmation papers
+
+- **[C] Alternative-map centroids. This supersedes the centroid sentence of "Confirmation".**
+  - Confirmation papers get their k100, fine and coarse topics from `topic_model.npz` (`assign_topics`, as registered).
+  - For the other maps (k50, k75, k150, k200, seed_refit, balanced, early, middle_era, late):
+    - each topic's centroid is the exact frozen KMeans centre, re-derived by re-running the map's deterministic fit on
+      the same discovery projection (same seeds, n_init, era subset and year weights);
+    - a new paper goes to the nearest normalised centre;
+    - gate: the re-derived centres reproduce every saved discovery label exactly (`np.array_equal`). All 9 gates passed,
+      so no fallback was used.
+  - Why the registered wording is not used:
+    - It is "the normalised mean of its discovery papers' projected embeddings", and that is not the rule that produced
+      the saved labels.
+    - It reassigns only 82.55% (early), 89.78% (middle_era), 93.25% (balanced) and 95.94% (late) of discovery papers
+      to their own topics.
+    - It would change 18.3%, 11.8%, 7.9% and 5.0% of confirmation papers' labels on those maps.
+    - For the prospective early map, it would leak 2021–2026 papers into the map.
+  - Exact centres and fit-population member means disagree on 0.86–1.26% of confirmation papers.
+  - The early map is defined by the 4,472 discovery papers of 2017–2020. Confirmation papers of those years are placed
+    out of sample.
+  - Centre hashes: `research/topics/output_pooled/pooled_topics_report.json`.
+- **[C] stable_papers for confirmation papers.**
+  - A confirmation paper's mid_stability is the share of the three evaluation refits (REFIT_SEEDS) whose label, under
+    that refit's exact re-derived centres, equals the k100 topic's best-Jaccard match. The match is frozen from
+    discovery.
+  - stable = mid_stability ≥ 2/3.
+  - Gates (both passed):
+    - refit 1 equals mid_seed_refit;
+    - the recomputed discovery mid_stability equals the saved values exactly.
+  - Mean mid_stability: 0.7688 (discovery), 0.7706 (confirmation). Stable share: 0.792 in both.
+- **[C] Keywords of confirmation papers (D14 implementation).** The export has raw author keywords only, so D14's "same
+  keyword list" is applied through a lookup table T.
+  - T is learned from discovery papers only, from raw `keywords` against the curated lists
+    (`research/topics/keyword_map.py`). Rules:
+    - lower-case the form and collapse whitespace;
+    - count identity votes;
+    - count single-residual pairs;
+    - make two further passes;
+    - take the majority target; ties go to identity, otherwise to the alphabetically first target.
+  - Applying T:
+    - unseen forms keep their normalised raw form;
+    - nothing is split on ';';
+    - discovery lists are never re-normalised.
+  - Table: `output_pooled/keyword_map.csv.gz`, sha256 7a965ebd…ca65. It has 45,778 forms, 5,738 of them non-identity.
+  - Cross-validated recall / precision over three 80/20 discovery splits:
+
+    | Keyword set | Recall | Precision |
+    |---|---|---|
+    | 759-keyword vocabulary | 98.64% | 99.96% |
+    | 68 PH4 keywords | 98.98% | 99.98% |
+    | 'federated learning' | 97.21% | 100% |
+
+  - 'federated learning' members among confirmation papers before filtering: 179 (670 in discovery). The same table
+    gives the A1 keyword states and the buzzword flags.
+- **[C] Labels.** The confirmation labels use Haiku and prompt v1, unchanged (system prompt sha256 aaa1478f…), with
+  the frozen batch protocol.
+  - The gate's second leg (second pass) passes on the 555-paper second pass:
+
+    | Measure | Agreement | κ |
+    |---|---|---|
+    | Main class | 96.9% | 0.931 |
+    | Method | 98.0% | 0.949 |
+    | Measurement | 99.1% | 0.923 |
+    | Foundation model | 98.2% | 0.960 |
+
+  - The pilot leg does not apply, because the pilot papers are discovery papers.
+  - D11's reliability next to H2b′ and H2c′ is computed on the confirmation second pass. The pooled block is reported
+    alongside, labelled.
+  - S8 keeps the discovery reference rates.
+- **[C] Vectors.** `specter2_released.npy` was made with the frozen SPECTER2 set-up.
+  - Provenance check: 64 discovery and 32 released papers re-embedded with minimum cosine 0.99999994
+    (`cache/specter2_released_meta.json`, hashed by FREEZE_CONFIRMATION).
+  - No URL-stripped (cleantext) vectors exist for confirmation papers. E1, E4, P1b and P7 therefore use the released
+    (post-decision) abstracts, with no cleantext check. This is a stated limitation; the discovery cleantext checks all
+    held.
+
+### C. The registered RQ tests on confirmation papers
+
+- **[C] One-sided p and Holm families.** Every registered confirmation test is one-sided at α = 0.05 in the predicted
+  direction.
+  - Rule: p1 = p/2 if the estimate has the predicted sign, else 1 − p/2. Here p is the two-sided p of the discovery
+    method:
+    - CR1 t(G−1) for H1d and H3a;
+    - the symmetric wild-cluster bootstrap p for H2b′ and H2c′ (FREEZE remedy). The exact one-sided bootstrap share is
+      a sensitivity only;
+    - PH4's t(m−1) for H4-FL;
+    - for PH5, each test's declared p (section D).
+  - Holm is applied to p1 within these families:
+
+    | Family | Members |
+    |---|---|
+    | RQ1 | {H1d} |
+    | RQ2 | {H2b′, H2c′} |
+    | RQ3 | {H3a} |
+    | H4-FL | {H4-FL} |
+    | PH5 primary | {E1, P1b} |
+
+  - Supported means all of:
+    - the predicted sign;
+    - Holm p1 < 0.05;
+    - at least 75% of counted variants with the predicted sign;
+    - both hindsight variants (`analysis.decide`, unchanged).
+  - H4-FL has no variants: supported means the predicted sign and p1 < 0.05.
+  - H2a and H3b come out of the unchanged code and are reported as not registered.
+  - Two-sided p are reported alongside.
+  - `run_confirmation.REGISTERED` holds this text; FREEZE_CONFIRMATION pins it.
+- **[C] Reporting-only rules (no verdict depends on them).**
+  - The fragile flag uses the two-sided S-variant p < 0.05, as frozen.
+  - S11's p is made one-sided the same way, with Holm in its family.
+  - Stress sensitivity: the CR1 t divided by the discovery dry-run inflation, one-sided.
+  - A1's null-frame p is one-sided: (1 + #{t_null ≥ t}) / (N + 1).
+- **[C] H1d.** The CI uses t(G−1) quantiles. H1d and H4-FL registered no SESOI, so they get no TOST or equivalence
+  label; their MDE80 is reported.
+- **[C] H4-FL.**
+  - Code: PH4 unchanged (`posthoc.ph4_set`).
+  - Population: confirmation papers with text in the RQ3 population, 2018–2026.
+  - Member: 'federated learning' in the normalised list.
+  - Comparison: all other confirmation papers of the same year.
+  - Primary test, the level: the paper-weighted mean yearly gap, SE × max(1, √φ), t(m−1), where m is the number of
+    years with ≥ 10 FL papers. If m < 2, the inflation is 1 and t(1) is used.
+  - Secondary test, the trend: the WLS trend, one-sided, only if m ≥ 4; otherwise "not estimable".
+  - FL papers before the population filter: 2019: 1, 2020: 1, 2021: 16, 2022: 18, 2023: 25, 2024: 44, 2025: 26,
+    2026: 48.
+- **[C] What the confirmation run does not run.** "Run the same code" covers the registered tests only.
+  - E1–E10 run only in the pooled re-run. Their "supported" labels there are descriptive.
+  - Discovery numbers are quoted only from `output/frozen_run`. Pooling changes discovery features:
+    - hot status changes for 8.1% of discovery papers;
+    - incumbency rises by 3.5 pp;
+    - probable earlier versions rise from 170 to 224.
+- **[C] Power and reading rules.** Confirmation MDE80 at each test's Holm-first-step level comes from
+  `run_confirmation.py --simulate 1 --mde-reps 100`. The labels were simulated from variance components of discovery
+  rows only; acceptance used dry-run v3 'hi'. Results (`output_pooled/confirmation_dryrun/mde.json`):
+
+  | Test | MDE80 | Note |
+  |---|---|---|
+  | H1d | 0.120 per unit of prior FM adoption | |
+  | H2b′ | 0.028 | SESOI 0.02: powered at 3×SESOI |
+  | H2c′ | 0.024 | SESOI 0.01: powered at 3×SESOI |
+  | H3a | 0.048 per log unit | SESOI 0.01: not powered at 3×SESOI |
+  | H4-FL | 0.145 | |
+
+  - A non-supported H1d, H3a or H4-FL whose estimate is below its MDE80 is uninformative, not evidence of no
+    association.
+  - Under 200 simulated nulls, the one-sided rejection rates were 4.5% (H1d), 2.0% (H2b′), 2.5% (H2c′), 5.0% (H3a) and
+    4.0% (H4-FL). The nominal levels are 2.5% for H2b′ and H2c′ and 5% for the others.
+
+### D. The PH5 confirmation tests
+
+- **Declaration.** The full declaration is the module docstring of `research/fashion/ph5_confirm.py` and its
+  `REGISTERED`, pinned by FREEZE_CONFIRMATION as `registered_ph5`. In summary:
+  - The tests run once inside `run_confirmation.py`.
+  - Features are built on discovery ∪ confirmation papers with the frozen PH5 code (D14), then restricted to
+    confirmation papers:
+    - pooled author histories, with the same history-start rules;
+    - the frozen centring mean (D15);
+    - the frozen ph5_pivot.REF knots and contrast points;
+    - novelty against all earlier pooled papers, with percentiles within pooled k100 topic × year cells;
+    - pooled twins;
+    - the pooled keyword_year with the frozen vocabulary.
+  - Fixed effects are estimated among confirmation rows.
+  - No discovery paper is in any population.
+- **Primary family** (Holm over the two one-sided p, α = 0.05):
+
+  | Test | Predicted | Contrast | Population | p |
+  |---|---|---|---|---|
+  | E1 | < 0 | far-jump contrast, F_max p10 − p50 | confirmation RQ3 decided papers 2023–2026 with ≥ 1 experienced author | the larger of the CR1 p and a calibrated p from 200 simulated nulls on the same papers |
+  | P1b | < 0 | novelty Q1 − Q3 | confirmation RQ3 decided papers 2019–2026 | CR1 by topic |
+
+  - E1's p rule follows a pre-run calibration: 400 null frames on the confirmation papers
+    (`output_pooled/ph5_confirm/calibration.json`, sha256 a6a55c89…).
+    - SD of the null estimates / mean SE = 1.054.
+    - One-sided size at 0.025 was 5.0% with the CR1 p, so the conservative max rule is used, as for P7.
+    - Power: 0.89 at the discovery effect (−5.4 pp), with the CR1 p. The registered rule has slightly less.
+  - P1b's size is nominal.
+    - Power at the discovery effect (−3.3 pp) is 0.47; MDE80 at the Holm first step is 5.4 pp.
+    - A non-supported P1b with |estimate| < 5.4 pp is uninformative, not evidence against the discovery result.
+- **Secondary** (each one-sided at α = 0.05, unadjusted, no family claim):
+
+  | Test | Predicted | Definition | p |
+  |---|---|---|---|
+  | E4 | > 0 | within-author slope per +0.1 cos | CR1 with the author FE in the small-sample factor; two-way reported |
+  | P7 | > 0 | within-author novelty slope, 2023–2026 | the largest of CR1, two-way and calibrated |
+  | teams H1 | > 0 | one topic insider vs none, model T1 | CR1 |
+  | kwtiming A1 | > 0 | Emerging − Mainstream | two-way (keyword, topic) |
+  | premia b | 0 < b < 1 | slope of confirmation 2024–26 premia on the committed discovery 2018–22 raw premia, early map | intersection-union of two one-sided tests |
+  | premia EB | D0 > 0 | D0 = mean(y²) − mean((y − eb1)²): EB-shrunk discovery premia predict better than zero | one-sided paired t |
+
+  - A1 also requires the one-sided null-frame p < 0.05.
+  - Premia details:
+    - the discovery predictions are fixed (`output/posthoc/ph5_premia/windows.csv`, hash pinned);
+    - the units are early-map window units with ≥ 15 decided confirmation papers in 2024–2026;
+    - D0 cannot pass through shrinkage alone. The originally drafted mse(raw) − mse(EB) would have, so it is reported
+      as descriptive only.
+  - Not registered, reported and labelled: E2, E3, P1a, P2–P6, teams H2, and premia on k100, keywords and areas.
+  - If the pivot or position part fails, the run stops. Any other part that fails is reported as "not estimable".
+
+### E. Pooled re-run (exploratory)
+
+- When: only after the confirmation run has finished. It is not part of any confirmatory claim.
+- What it re-runs on all 54,579 papers, with `ICLR_CORPUS=pooled` and outputs under `output_pooled/`:
+  - RQ2, RQ3 and E1–E10 (`run_pooled.py`);
+  - RQ1;
+  - PH1–PH5 (`posthoc.py`).
+- Pooled numbers are labelled exploratory. The discovery results stay the registered record.

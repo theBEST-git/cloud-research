@@ -68,6 +68,29 @@ class Switch(unittest.TestCase):
             self.assertEqual((m.DATA, m.OUTPUT, m.CACHE), (ROOT / "data", FROZEN, CACHE))
             self.assertEqual((m.MIN_ABSTRACT_WORDS, m.CONTENT_COLUMNS), (30, CONTENT_COLUMNS))
 
+    def test_only_the_pooled_builders_run_pooled(self):
+        """D2: under pooled every other topic-layer script is refused as __main__ (no refit, no overwrite of the frozen
+        copies, no pooled chunks in CACHE); in a subprocess so the guard sees a real __main__."""
+        m = topic_layer("pooled")
+        for name in ["assign_topics.py", "evaluate_topics.py", "k_sensitivity.py", "hindsight_check.py", "build_topics.py",
+                     "embed_specter2.py", "embed_specter2_released.py", "derive_features.py",
+                     "annotation/contribution_types/llm_labeling/merge_released.py"]:
+            with self.assertRaises(SystemExit) as e:
+                m.check_pooled_entry(str(TOPICS / name))
+            self.assertIn("cannot run under ICLR_CORPUS=pooled", str(e.exception))
+        for main in [TOPICS / "pooled_topics.py", TOPICS / "keyword_map.py", TOPICS / "tests" / "test_pooled.py",
+                     ROOT / "research" / "fashion" / "run_confirmation.py", ""]:
+            m.check_pooled_entry(str(main) if main else "")
+        topic_layer(None).check_pooled_entry(str(TOPICS / "assign_topics.py"))      # discovery: unchanged
+        import subprocess
+        import sys
+        env = {**{k: v for k, v in os.environ.items() if k != "ICLR_CORPUS"}, "ICLR_CORPUS": "pooled"}
+        code = (f"import sys; sys.modules['__main__'].__file__ = {str(TOPICS / 'k_sensitivity.py')!r}; "   # a stand-in
+                f"sys.path.insert(0, {str(TOPICS)!r}); import common")          # __main__: nothing could run if broken
+        r = subprocess.run([sys.executable, "-c", code], cwd=ROOT, env=env, capture_output=True, text=True, timeout=300)
+        self.assertNotEqual(r.returncode, 0)
+        self.assertIn("cannot run under ICLR_CORPUS=pooled", r.stderr)
+
     def test_pooled_paths(self):
         m = topic_layer("pooled")
         self.assertEqual((m.CORPUS, m.OUTPUT, m.DISCOVERY_OUTPUT, m.DATA, m.CACHE),

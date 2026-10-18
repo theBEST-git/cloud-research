@@ -11,6 +11,8 @@ F7  acceptance rate by contribution class and year (E10; needs output/frozen_run
 
     python research/fashion/figures.py
 Writes output/figures/F*.pdf and .png. Figures whose inputs are missing are skipped and listed.
+Under ICLR_CORPUS=pooled (output_pooled/figures) main() refuses until the confirmation run has finished with PH5: F2
+plots the confirmation papers' labels by year (rq1_rise.require_confirmation_finished). Unset, nothing changes.
 """
 from __future__ import annotations
 
@@ -254,6 +256,8 @@ def f7_acceptance() -> None:
 
 
 def main() -> None:
+    from rq1_rise import require_confirmation_finished
+    require_confirmation_finished()                            # pooled only (F2 shows confirmation labels by year)
     done, skipped = [], []
     for name, fn in [("F1", f1_forest), ("F2", f2_trends), ("F3", f3_hot_topics), ("F4", f4_dose), ("F5", f5_validation),
                      ("F6", f6_power), ("F7", f7_acceptance)]:

@@ -198,9 +198,36 @@ class Premia(unittest.TestCase):
         tt = stats.ttest_1samp(d, 0.0, alternative="greater")
         self.assertAlmostEqual(r["D_p_one_sided"], tt.pvalue, places=10)
         self.assertLessEqual(r["D_boot_ci95"][0], r["D_boot_ci95"][1])
+        d0 = yc ** 2 - (yc - eb) ** 2                                   # the registered EB test: against the prediction 0
+        self.assertAlmostEqual(r["D0"], d0.mean(), places=12)
+        self.assertAlmostEqual(r["mse_zero"] - r["mse_eb"], r["D0"], places=12)
+        self.assertAlmostEqual(r["D0_p_one_sided"], stats.ttest_1samp(d0, 0.0, alternative="greater").pvalue, places=10)
+        self.assertLessEqual(r["D0_boot_ci95"][0], r["D0_boot_ci95"][1])
         self.assertEqual(len(r["retention"]), 4)
         few = m.premia_stats(x[:3], vx[:3], eb[:3], y[:3], vy[:3], np.random.default_rng(0), boot=9)
         self.assertIn("not estimable", few["note"])
+
+    def test_eb_test_cannot_pass_without_persistence(self):
+        """Confirmation premia unrelated to the discovery premia: the descriptive D (raw vs EB) favours shrinkage almost
+        always, the registered D0 (EB vs 0) almost never passes (E[D0] = -E[eb^2] < 0); with persistence D0 passes."""
+        rng = np.random.default_rng(11)
+        U, reps, d_pass, d0_pass, d0_signal = 82, 200, 0, 0, 0
+        for _ in range(reps):
+            true = rng.normal(0, 0.04, U)
+            vx, vy = rng.uniform(0.0005, 0.002, U), rng.uniform(0.0005, 0.002, U)
+            x = true + rng.normal(0, np.sqrt(vx))
+            eb = x * 0.04 ** 2 / (0.04 ** 2 + vx)
+            for y, persist in [(rng.normal(0, 0.04, U) + rng.normal(0, np.sqrt(vy)), False),
+                               (true + rng.normal(0, np.sqrt(vy)), True)]:
+                r = m.premia_stats(x, vx, eb, y, vy, np.random.default_rng(0), boot=9)
+                if persist:
+                    d0_signal += r["D0_p_one_sided"] < 0.05
+                else:
+                    d_pass += r["D_p_one_sided"] < 0.05
+                    d0_pass += r["D0_p_one_sided"] < 0.05
+        self.assertGreater(d_pass / reps, 0.5)                          # why D is descriptive only
+        self.assertLess(d0_pass / reps, 0.025)
+        self.assertGreater(d0_signal / reps, 0.5)
 
     def test_discovery_premia_file_is_pinned(self):
         with tempfile.TemporaryDirectory() as tmp:
@@ -247,6 +274,17 @@ class EndToEnd(unittest.TestCase):
                 self.assertAlmostEqual(r.p, m.one_sided(r.p_two_sided, r.coef, r.predicted_sign))
         p7 = t.set_index("test").loc["P7"]
         self.assertAlmostEqual(p7.p_two_sided, max(p7.p_cr1, p7.p_twoway, p7.p_calibrated))
+        e1 = t.set_index("test").loc["E1"]                              # E1: max(CR1, calibrated from 5 nulls here)
+        self.assertTrue(np.isfinite(e1.p_calibrated) and 1 / 6 <= e1.p_calibrated <= 1)
+        self.assertAlmostEqual(e1.p_two_sided, max(e1.p_cr1, e1.p_calibrated))
+        piv = self.res["pivot"].set_index("test")
+        self.assertEqual(int(piv.loc["E1", "null_frames"]), 5)
+        self.assertAlmostEqual(piv.loc["E1", "p_used"], e1.p_two_sided)
+        eb = t.set_index("test").loc["premia_eb"]                        # the registered EB test is D0 (vs 0)
+        prem = self.res["premia"].set_index("unit_type").loc[m.REGISTERED_UNIT]
+        self.assertAlmostEqual(eb.coef, prem.D0)
+        self.assertAlmostEqual(eb.p, prem.D0_p_one_sided)
+        self.assertAlmostEqual(eb.D_raw_minus_eb_descriptive, prem.D)
 
     def test_populations_are_the_confirmation_papers(self):
         conf = set(self.frames["k100"].submission_id)

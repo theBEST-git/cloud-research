@@ -1,6 +1,8 @@
 """PH5 confirmation (POOLED_SPEC D6; PREREGISTRATION.md "Confirmation", D14, D15 and the PH5 declarations of
-2026-10-17): the registered PH5 tests, run once on the released confirmation papers inside run_confirmation.py (hook
-ph5_part -> compute(frames, out); with --simulate on simulated outcomes). Status: a pre-registered out-of-sample
+2026-10-17): the PH5 confirmation tests declared below (and as REGISTERED), run once on the released confirmation papers
+inside run_confirmation.py (hook ph5_part -> compute(frames, out); with --simulate on simulated outcomes). They are
+confirmatory only once PREREGISTRATION.md registers them before FREEZE_CONFIRMATION.json, which pins REGISTERED
+(registered_ph5; run_confirmation.check_registration compares it). Status: a pre-registered out-of-sample
 replication on the released former-holdout papers, not an untouched independent holdout. Every test is an association
 within the stated fixed effects, as in discovery.
 
@@ -18,7 +20,8 @@ with the frozen, unchanged module code; only then are the populations restricted
             submissions of both splits, any outcome); twins and sibling twins from pooled same-year pairs (shared author
             keys or normalised names over both author tables).
   teams     author types (novice / crossover / insider) from every earlier-year pooled submission of the author ID, any
-            outcome; T1 does not use `proven`.
+            outcome; T1 (H1, and the unregistered H2) does not use `proven`, which ph5_teams.population computes from
+            the confirmation acceptances only (discovery outcomes are not readable from run_confirmation.py).
   kwtiming  the keyword frame on the pooled corpus (confirmation keywords: keyword_map.normalize of the raw author
             keywords; the frozen 759-keyword vocabulary); onsets, age bins and momentum terciles from the pooled
             output_pooled/keyword_year.csv.gz (asserted by ph5_kwtiming.keyword_states).
@@ -36,8 +39,11 @@ PRIMARY family (Holm over the two one-sided p, alpha 0.05; supported = predicted
   E1   ph5_pivot P1 far-jump contrast, predicted < 0: the population curve at the frozen F_max p10 minus at p50.
        Population: confirmation RQ3 decided papers 2023-2026 with >= 1 experienced author. LPM accepted ~ RCS(F_max)
        + RCS(F_max) x (hot - the sample's hot share) + class (ref. method) + FM + log2 team + n_exp dummies (2, 3, 4+)
-       + log(1 + n_prior_team) + has_earlier_version | k100 topic x year FE; CR1 by topic, t(G - 1)
-       (ph5_pivot.declared).
+       + log(1 + n_prior_team) + has_earlier_version | k100 topic x year FE (ph5_pivot.declared). p_used = the larger
+       of the CR1 p (by topic, t(G - 1)) and the calibrated p from NULLS = 200 simulated nulls on the same papers
+       (accepted ~ Bernoulli(the paper's topic x year acceptance rate), P7's rule, seed E1_NULL_SEED): the pre-run
+       calibration found the CR1 SE ~5% too small (SD / mean SE 1.054; one-sided size 5.0% at 0.025 over 400 null
+       frames), and the max can only be more conservative. (compute(nulls=0) drops the calibrated p and says so.)
   P1b  ph5_position Q0 novelty Q1 minus Q3, predicted < 0. Population: confirmation RQ3 decided papers 2019-2026. LPM
        accepted ~ q1 + q2 + q4 + q5 (ref. Q3) + any_twin + class + FM + log2 team + newcomer + sibling_twin | k100
        topic x year FE; CR1 by topic, t(G - 1) (ph5_position.declared; p_used = the CR1 p, as declared).
@@ -74,16 +80,18 @@ SECONDARY (each one-sided at alpha 0.05, reported; no family, no family claim; s
        b      WLS slope of the confirmation premium on the raw discovery premium, weights 1 / (v_W2 + tau_W2^2)
               (tau_W2^2 = DerSimonian-Laird across these units), HC3 SE, t(m - 2) (ph5_premia.wls_hc3); predicted
               0 < b < 1, tested as an intersection-union test: p = max(one-sided p of b > 0, one-sided p of b < 1).
-       EB     D = mean_u (y_u - w1_u)^2 - mean_u (y_u - eb1_u)^2 (unweighted over units; y = the confirmation premium
-              centred at its 1/v-weighted mean), predicted > 0 (EB-shrunk premia predict better): one-sided paired t
-              (Diebold-Mariano), t(U - 1). Reported alongside: both mean squared errors, the 1 / (v_W2 + tau_W2^2)-
-              weighted D, a 999-draw unit-bootstrap percentile CI of D (centring redone per draw) and, descriptive,
+       EB     D0 = mean_u y_u^2 - mean_u (y_u - eb1_u)^2 (unweighted over units; y = the confirmation premium centred
+              at its 1/v-weighted mean): the EB-shrunk discovery premium against the no-information prediction 0,
+              predicted > 0 (shrunk past premia carry out-of-sample signal): one-sided paired t (Diebold-Mariano),
+              t(U - 1). Without persistence E[D0] = -E[eb1^2] < 0 (the test cannot pass by shrinkage alone); D0 > 0
+              needs, roughly, a slope of y on eb1 above 1/2. Reported alongside: the three mean squared errors (zero,
+              raw, EB), the 1 / (v_W2 + tau_W2^2)-weighted D0, a 999-draw unit-bootstrap percentile CI of D0 (centring
+              redone per draw), and, descriptive only, D = mse(raw) - mse(EB) with its paired t (it favours shrinkage
+              even when premia do not persist, so it says 'shrink past premia', nothing about persistence) and
               ph5_premia.winners on the same units (signal correlation rho_w, retention of the discovery top / bottom
-              decile, quintile for areas). Reading: shrinking towards the mean also wins when premia do not persist
-              at all (the best prediction is then 0), so a supported EB test means 'shrink past premia', not 'premia
-              persist'; persistence is read from b > 0.
+              decile, quintile for areas).
 Not registered for confirmation (reported, labelled so): E2, E3 and P1a, P2-P6 (they come out of the same declared
-calls) and teams H2.
+calls), teams H2 (T1, no `proven`) and the raw-vs-EB premia difference D.
 
 OUTPUTS (run_confirmation.write_results -> posthoc.write_outputs): <run dir>/ph5/tests.csv (the registered rows,
 verdicts, Holm p of the primary pair, calibrated MDE80 and power when present), pivot.csv, position.csv, teams.csv,
@@ -99,7 +107,8 @@ E1: delta x ((B(F_max) - B(p50)) . c) / (c . c), B = the frozen RCS basis, c = B
 < 0.2]. Null frames give the one-sided size of each test and the family's any-Holm rate; planted frames at multiples of
 the discovery estimates (E1 -5.4 pp, P1b -3.3 pp) give the power at the discovery effect and MDE80 (detected =
 predicted sign and one-sided p < 0.05 / 2, Holm's first step; also at 0.05), with the bias and coverage against the
-target (the same model fitted to the true probabilities on the same sample).
+target (the same model fitted to the true probabilities on the same sample). It measures the CR1 p of both tests; E1's
+registered max(CR1, calibrated) rule can only lower its size and power.
 
     python research/fashion/ph5_confirm.py calibrate [--nulls N] [--reps N] [--seed S]     (pooled; simulated outcomes)
 """
@@ -150,9 +159,10 @@ ESTIMAND = {"E1": "far jump: P(accept) at F_max p10 minus p50 (frozen REF)",
             "A1": "Emerging (young x rising) minus Mainstream (old x flat) (Model A)",
             "premia_b": "slope b of the 2024-2026 confirmation premium on the raw 2018-2022 discovery premium (early "
                         "map); predicted 0 < b < 1",
-            "premia_eb": "mean squared error of the raw minus the EB-shrunk discovery premium as predictions of the "
-                         "confirmation premium (early map); predicted > 0"}
+            "premia_eb": "D0: mean squared error of the zero prediction minus that of the EB-shrunk discovery premium "
+                         "as predictions of the centred confirmation premium (early map); predicted > 0"}
 NULLS, N_REF, BOOT = ph5_position.NULLS, ph5_kwtiming.N_REF, ph5_premia.BOOT          # 200, 200, 999
+E1_NULL_SEED = 20261018                                       # E1's calibrated p (P7 uses ph5_position.SEED)
 REGISTERED_UNIT = "early"
 DISCOVERY_WINDOWS = DISCOVERY_OUTPUT / "posthoc" / "ph5_premia" / "windows.csv"
 DISCOVERY_WINDOWS_SHA256 = "7d79df7ac3ebb62c82f2cf6703e19e479bd6fe28ce1a8df135f144399b548347"
@@ -172,7 +182,9 @@ REGISTERED = {
     "one_sided_rule": ONE_SIDED,
     "primary": {"tests": list(PRIMARY), "correction": "Holm over the two one-sided p", "alpha": ALPHA,
                 "E1": {"sign": -1, "population": "confirmation RQ3 decided papers 2023-2026 with >= 1 experienced author",
-                       "p": "CR1 by topic, t(G - 1)", "code": "ph5_pivot.declared"},
+                       "p": "max(CR1 by topic t(G - 1), calibrated p from 200 simulated nulls on the same papers: "
+                            "Bernoulli of the topic x year acceptance rate, seed 20261018)",
+                       "code": "ph5_pivot.declared"},
                 "P1b": {"sign": -1, "population": "confirmation RQ3 decided papers 2019-2026",
                         "p": "CR1 by topic, t(G - 1)", "code": "ph5_position.declared"}},
     "secondary": {"family": "none (each one-sided at 0.05, reported)",
@@ -185,10 +197,12 @@ REGISTERED = {
                                "units": "early map; discovery window units with >= 15 decided confirmation papers "
                                         "2024-2026", "discovery": "output/posthoc/ph5_premia/windows.csv (sha256 "
                                         + DISCOVERY_WINDOWS_SHA256 + ")"},
-                  "premia_eb": {"sign": 1, "p": "one-sided paired t(U - 1) of the squared-error differences",
-                                "reading": "EB also wins without persistence: support means 'shrink past premia'; "
-                                           "persistence is read from b > 0"}},
-    "not_registered": ["E2", "E3", "P1a", "P2", "P3", "P4", "P5", "P6", "teams H2", "premia k100 / keywords / areas"],
+                  "premia_eb": {"sign": 1, "statistic": "D0 = mean(y^2) - mean((y - eb1)^2), y centred",
+                                "p": "one-sided paired t(U - 1) of the squared-error differences",
+                                "reading": "the EB-shrunk discovery premium beats the no-information prediction 0; "
+                                           "without persistence E[D0] < 0"}},
+    "not_registered": ["E2", "E3", "P1a", "P2", "P3", "P4", "P5", "P6", "teams H2", "premia k100 / keywords / areas",
+                       "premia D = mse(raw) - mse(EB) (descriptive)"],
 }
 
 
@@ -266,16 +280,40 @@ def attach(prepared: pd.DataFrame, k: pd.DataFrame) -> pd.DataFrame:
 
 
 # ---------------------------------------------------------------------------------------------------- the PH5 tests
-def pivot_part(k: pd.DataFrame) -> tuple[pd.DataFrame, dict]:
-    """ph5_pivot's declared E1-E4 on the confirmation papers (E1 and E4 registered; E2, E3 not)."""
+def e1_null_t(d: pd.DataFrame, rng: np.random.Generator, draws: int = NULLS) -> np.ndarray:
+    """E1's t under `draws` simulated nulls on the same papers (d: ph5_pivot.declared's design): accepted ~
+    Bernoulli(the paper's topic x year acceptance rate), so nothing but the cell predicts acceptance (P7's null,
+    ph5_position.calibrated_p). NaN where E1 is not identified."""
+    rate = d.groupby("cell").accepted.transform("mean").to_numpy(float)
+    Y = rng.random((len(d), draws)) < rate[:, None]
+    t = np.full(draws, np.nan)
+    for s in range(draws):
+        e = ph5_pivot.p1(d.assign(accepted=Y[:, s].astype(float)))[0]["E1"]
+        t[s] = e["coef"] / e["se"] if np.isfinite(e["se"]) and e["se"] > 0 else np.nan
+    return t
+
+
+def pivot_part(k: pd.DataFrame, nulls: int = NULLS) -> tuple[pd.DataFrame, dict]:
+    """ph5_pivot's declared E1-E4 on the confirmation papers (E1 and E4 registered; E2, E3 not), and E1's calibrated p
+    from `nulls` simulated nulls: p_calibrated = (1 + #{|t_null| >= |t|}) / (nulls + 1), p_used = max(CR1 p,
+    p_calibrated) (= the CR1 p when nulls = 0)."""
     kp = attach(ph5_pivot.prepare(free(k)), k)
     _, ar = ph5_pivot.features()
     pop = ph5_pivot.population(kp)
     rows, _, d = ph5_pivot.declared(pop, ar)
     rows = rows.drop(columns="p_holm").assign(confirmation_test=lambda r: r.test.where(r.test.isin(["E1", "E4"]),
                                                                                          NOT_REGISTERED))
+    rows["p_used"] = rows.p
+    i = rows.index[rows.test == "E1"][0]
+    if nulls:
+        tn = e1_null_t(d, np.random.default_rng(E1_NULL_SEED), nulls)
+        ok, obs = np.isfinite(tn), abs(rows.at[i, "coef"] / rows.at[i, "se"]) if rows.at[i, "se"] > 0 else np.nan
+        pc = float((1 + (np.abs(tn[ok]) >= obs).sum()) / (ok.sum() + 1)) if np.isfinite(obs) else np.nan
+        rows.loc[i, ["p_calibrated", "null_t_sd", "null_frames"]] = [pc, float(np.std(tn[ok])), int(ok.sum())]
+        rows.at[i, "p_used"] = max(rows.at[i, "p"], pc) if np.isfinite(pc) else np.nan
     return rows, {"papers": int(len(d)), "hot_share": float(d.hot.mean()), "acceptance_rate": float(d.accepted.mean()),
-                  "n_exp": {str(c): int(v) for c, v in d.n_exp.clip(upper=4).value_counts().sort_index().items()}}
+                  "n_exp": {str(c): int(v) for c, v in d.n_exp.clip(upper=4).value_counts().sort_index().items()},
+                  "e1_calibration_nulls": nulls}
 
 
 def position_part(k: pd.DataFrame, nulls: int = NULLS) -> tuple[pd.DataFrame, dict]:
@@ -294,7 +332,8 @@ def position_part(k: pd.DataFrame, nulls: int = NULLS) -> tuple[pd.DataFrame, di
 
 
 def teams_part(k: pd.DataFrame) -> tuple[pd.DataFrame, dict]:
-    """ph5_teams T1 on the confirmation papers: H1 (registered) and H2 (not)."""
+    """ph5_teams T1 on the confirmation papers: H1 (registered) and H2 (not). Neither uses `proven` (T2's term), which
+    ph5_teams.population computes from confirmation acceptances only."""
     d = ph5_teams.population(k)
     fam = ph5_teams.family_table(ph5_teams.fit_models(d, only=["T1"]), adjust=False).rename(columns={"estimate": "coef"})
     fam["confirmation_test"] = fam.test.where(fam.test == "H1", NOT_REGISTERED)
@@ -347,8 +386,9 @@ def premia_stats(x: np.ndarray, vx: np.ndarray, eb: np.ndarray, y: np.ndarray, v
     """Out-of-sample premia statistics for aligned units: discovery raw (x, variance vx) and EB (eb) premia, confirmation
     premia y (variance vy). b: WLS slope of y on x, weights 1 / (vy + tau_y^2), HC3 SE, t(U - 2), with the one-sided p
     of b > 0 and of b < 1 and their intersection-union p; D: mean squared error of x minus that of eb as predictions of
-    y centred at its 1/v-weighted mean, paired one-sided t(U - 1), weighted D and a unit-bootstrap CI; descriptive
-    ph5_premia.winners on the same units."""
+    y centred at its 1/v-weighted mean, paired one-sided t(U - 1), weighted D and a unit-bootstrap CI (descriptive);
+    D0: mean squared error of the prediction 0 minus that of eb (the registered EB test), with the same statistics;
+    descriptive ph5_premia.winners on the same units."""
     U = len(x)
     if U < ph5_premia.MIN_UNITS:
         return {"units": U, "note": f"not estimable: {U} units (needs {ph5_premia.MIN_UNITS})"}
@@ -359,20 +399,30 @@ def premia_stats(x: np.ndarray, vx: np.ndarray, eb: np.ndarray, y: np.ndarray, v
     p_pos, p_lt1 = float(stats.t.sf(b / se, dof)), float(stats.t.cdf((b - 1) / se, dof))
     centre = lambda yy, vv: yy - (yy / vv).sum() / (1 / vv).sum()  # noqa: E731
     yc = centre(y, vy)
-    d = (yc - x) ** 2 - (yc - eb) ** 2
-    D, sd = float(d.mean()), float(d.std(ddof=1))
-    seD, qD = sd / np.sqrt(U), stats.t.ppf(0.975, U - 1)
-    tD = D / seD if sd > 0 else np.nan
+    qD = stats.t.ppf(0.975, U - 1)
+
+    def paired(d: np.ndarray, name: str) -> dict:
+        m, sd = float(d.mean()), float(d.std(ddof=1))
+        se = sd / np.sqrt(U)
+        t = m / se if sd > 0 else np.nan
+        return {name: m, f"{name}_se": se, f"{name}_ci95_lo": m - qD * se, f"{name}_ci95_hi": m + qD * se,
+                f"{name}_p_one_sided": float(stats.t.sf(t, U - 1)) if np.isfinite(t) else np.nan,
+                f"{name}_p_two_sided": float(2 * stats.t.sf(abs(t), U - 1)) if np.isfinite(t) else np.nan,
+                f"{name}_weighted": float((omega * d).sum() / omega.sum())}
+
+    d, d0 = (yc - x) ** 2 - (yc - eb) ** 2, yc ** 2 - (yc - eb) ** 2
     idx = rng.integers(0, U, (boot, U))
-    Db = np.array([((centre(y[i], vy[i]) - x[i]) ** 2 - (centre(y[i], vy[i]) - eb[i]) ** 2).mean() for i in idx])
+    Db, D0b = np.empty(boot), np.empty(boot)
+    for j, i in enumerate(idx):
+        c = centre(y[i], vy[i])
+        Db[j], D0b[j] = ((c - x[i]) ** 2 - (c - eb[i]) ** 2).mean(), (c ** 2 - (c - eb[i]) ** 2).mean()
     shrink, retention, _ = ph5_premia.winners(x, vx, y, vy, tail, rng, boot)
     return {"units": U, "tau_w2_pp": np.sqrt(ty) * 100, "b": b, "b_se": se, "b_dof": dof, "b_p_two_sided": p2,
             "b_ci95_lo": b - q * se, "b_ci95_hi": b + q * se, "p_b_gt_0": p_pos, "p_b_lt_1": p_lt1,
-            "p_iut": max(p_pos, p_lt1), "D": D, "D_se": seD, "D_ci95_lo": D - qD * seD, "D_ci95_hi": D + qD * seD,
-            "D_p_one_sided": float(stats.t.sf(tD, U - 1)) if np.isfinite(tD) else np.nan,
-            "D_p_two_sided": float(2 * stats.t.sf(abs(tD), U - 1)) if np.isfinite(tD) else np.nan,
-            "mse_raw": float(((yc - x) ** 2).mean()), "mse_eb": float(((yc - eb) ** 2).mean()),
-            "D_weighted": float((omega * d).sum() / omega.sum()), "D_boot_ci95": list(ph5_premia.pct(Db)), "boot": boot,
+            "p_iut": max(p_pos, p_lt1), **paired(d0, "D0"), "D0_boot_ci95": list(ph5_premia.pct(D0b)),
+            **paired(d, "D"), "D_boot_ci95": list(ph5_premia.pct(Db)), "boot": boot,
+            "mse_zero": float((yc ** 2).mean()), "mse_raw": float(((yc - x) ** 2).mean()),
+            "mse_eb": float(((yc - eb) ** 2).mean()),
             "rho_w": shrink["rho_w"], "rho_w_ci95": [shrink["rho_w_ci95_lo"], shrink["rho_w_ci95_hi"]],
             "retention": retention}
 
@@ -437,7 +487,9 @@ def registered(piv: pd.DataFrame, pos: pd.DataFrame, tea: pd.DataFrame, kw: pd.D
     get = lambda t, name: t[t.test == name].iloc[0]  # noqa: E731
     e1, e4, p1b, p7, h1, a1 = (get(piv, "E1"), get(piv, "E4"), get(pos, "P1b"), get(pos, "P7"), get(tea, "H1"),
                                get(kw, "A1"))
-    rows = [verdict_row("E1", e1, e1.p, "CR1 by topic, t(G - 1)"),
+    rows = [verdict_row("E1", e1, e1.p_used, "max(CR1 by topic t(G - 1), calibrated)" if nulls else
+                        "CR1 by topic, t(G - 1); no calibrated p (nulls = 0)",
+                        {"p_cr1": e1.p, "p_calibrated": e1.get("p_calibrated", np.nan)}),
             verdict_row("P1b", p1b, p1b.p_used, "CR1 by topic, t(G - 1) (p_used)"),
             verdict_row("E4", e4, e4.p, "CR1 by topic with the author FE in the small-sample factor, t(G - 1)",
                         {"p_twoway_one_sided": one_sided(e4.p_twoway, e4.coef, SIGN["E4"]), "papers": e4.papers}),
@@ -455,11 +507,14 @@ def registered(piv: pd.DataFrame, pos: pd.DataFrame, tea: pd.DataFrame, kw: pd.D
                                                 "n": e.units, "clusters": np.nan}, e.b_p_two_sided,
                                    "intersection-union: max(one-sided p of b > 0, one-sided p of b < 1), HC3, t(m - 2)",
                                    {"p_b_gt_0": e.p_b_gt_0, "p_b_lt_1": e.p_b_lt_1}), "p": e.p_iut})
-        rows.append({**verdict_row("premia_eb", {"coef": e.D, "se": e.D_se, "ci95_lo": e.D_ci95_lo, "ci95_hi": e.D_ci95_hi,
-                                                 "n": e.units, "clusters": np.nan}, e.D_p_two_sided,
-                                   "paired t(U - 1) of the squared-error differences (Diebold-Mariano)",
-                                   {"mse_raw": e.mse_raw, "mse_eb": e.mse_eb, "D_weighted": e.D_weighted}),
-                     "p": e.D_p_one_sided})
+        rows.append({**verdict_row("premia_eb", {"coef": e.D0, "se": e.D0_se, "ci95_lo": e.D0_ci95_lo,
+                                                 "ci95_hi": e.D0_ci95_hi, "n": e.units, "clusters": np.nan},
+                                   e.D0_p_two_sided, "D0 vs the zero prediction: paired t(U - 1) of the squared-error "
+                                   "differences (Diebold-Mariano)",
+                                   {"mse_zero": e.mse_zero, "mse_raw": e.mse_raw, "mse_eb": e.mse_eb,
+                                    "D0_weighted": e.D0_weighted, "D_raw_minus_eb_descriptive": e.D,
+                                    "D_p_one_sided_descriptive": e.D_p_one_sided}),
+                     "p": e.D0_p_one_sided})
     else:
         rows += [verdict_row(t, {"note": e.get("note", "not estimable")}, np.nan, "") for t in ("premia_b", "premia_eb")]
     return decide(rows)
@@ -505,7 +560,7 @@ def compute(frames: dict[str, pd.DataFrame], out: pd.DataFrame, nulls: int = NUL
         info[name] = res[1]
         return res[0]
 
-    piv = timed("pivot", lambda: pivot_part(k))
+    piv = timed("pivot", lambda: pivot_part(k, nulls))
     pos = timed("position", lambda: position_part(k, nulls))
     tea = timed("teams", lambda: teams_part(k), soft=True)
     kw = timed("kwtiming", lambda: kwtiming_part(k, mask, n_ref), soft=True)

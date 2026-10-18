@@ -1,7 +1,8 @@
 """Write FREEZE_CONFIRMATION.json (POOLED_SPEC D6; PREREGISTRATION.md "Confirmation" and the confirmation registrations):
-the frozen discovery settings (FREEZE.json, copied verbatim), the confirmation registration (run_confirmation.REGISTERED)
-and the sha256 of every file the confirmation run reads or executes. Commit it, then run run_confirmation.py once:
-outcomes.require_frozen refuses that run unless every hash below still matches and the git tree is clean.
+the frozen discovery settings (FREEZE.json, copied verbatim), the confirmation registration (run_confirmation.REGISTERED,
+and ph5_confirm.REGISTERED as registered_ph5) and the sha256 of every file the confirmation run reads or executes.
+Commit it, then run run_confirmation.py once: outcomes.require_frozen refuses that run unless every hash below still
+matches and the git tree is clean.
 
 Hashed (paths relative to the repository root):
 - code: every .py / .js under research/fashion (output directories and caches excluded) and
@@ -14,9 +15,11 @@ Hashed (paths relative to the repository root):
   included, except output_pooled/confirmation_run/ (the run's own outputs);
 - the label references of rq2_following.label_reliability, and the discovery files the pooled build reuses or the
   registration rests on (output/h2d_validation.json, resubmission_tau.json, specter2_centring_mean.npy,
-  output/frozen_run/summary.json).
-Refuses if a confirmation attempt exists, if a required file is missing, if a pooled copy of the three discovery
-constants differs from its FREEZE.json hash, or if the pooled author table differs from its manifest
+  output/frozen_run/summary.json, and the discovery window premia output/posthoc/ph5_premia/windows.csv that the PH5
+  premia tests use as fixed predictions).
+Refuses if a confirmation attempt exists, if the PH5 module (ph5_confirm.py) is missing, if a required file is
+missing, if a pooled copy of the three discovery constants differs from its FREEZE.json hash, or if the pooled author
+table differs from its manifest
 (output_pooled/pooled_inputs.json). The confirmation dry-run's MDE80 (output_pooled/confirmation_dryrun/mde.json), if
 present, is recorded as confirmation_mde80 (run_confirmation reports it with the verdicts).
 
@@ -25,6 +28,7 @@ present, is recorded as confirmation_mde80 (run_confirmation reports it with the
 from __future__ import annotations
 
 import argparse
+import importlib
 import json
 from pathlib import Path
 
@@ -42,7 +46,8 @@ TOPIC_CODE = ["common.py", "assign_topics.py", "released.py", "keyword_map.py", 
 AUTHOR_TABLES = [ROOT / "data" / "submission_authors.csv.gz", ROOT / "data_confirmation_csv" / "submission_authors.csv.gz"]
 REFERENCES = [TOPICS_DIR / "annotation" / "contribution_types" / "pilot_gold_facets.csv",
               TOPICS_DIR / "annotation" / "contribution_types" / "training" / "training_labels.csv"]
-DISCOVERY_RECORDS = [DISCOVERY_OUTPUT / c for c in COPIES] + [DISCOVERY_OUTPUT / "frozen_run" / "summary.json"]
+DISCOVERY_RECORDS = ([DISCOVERY_OUTPUT / c for c in COPIES] + [DISCOVERY_OUTPUT / "frozen_run" / "summary.json"]
+                     + [DISCOVERY_OUTPUT / "posthoc" / "ph5_premia" / "windows.csv"])
 
 
 def under(root: Path, skip: set[str] = frozenset()) -> list[Path]:
@@ -97,6 +102,8 @@ def main() -> None:
         raise SystemExit(f"{outcomes.CONFIRMATION_ATTEMPTS} exists: the confirmation run has been attempted, refusing to freeze")
     if TARGET == outcomes.FREEZE_DISCOVERY:
         raise SystemExit("refusing to overwrite FREEZE.json")
+    if not ph5_available():
+        raise SystemExit("ph5_confirm.py is missing: the confirmation run needs the PH5 module, refusing to freeze")
     discovery = json.loads(outcomes.FREEZE_DISCOVERY.read_text())
     paths = files()
     missing = [str(f) for f in paths if not f.exists()]
@@ -110,8 +117,9 @@ def main() -> None:
         "discovery_freeze_sha256": outcomes.sha256(outcomes.FREEZE_DISCOVERY),
         **{k: v for k, v in discovery.items() if k not in ("sha256", "created_utc")},
         "registered": REGISTERED,
+        "registered_ph5": importlib.import_module("ph5_confirm").REGISTERED,
         "confirmation_mde80": confirmation_mde(),
-        "ph5_hook_present": ph5_available(),
+        "ph5_hook_present": True,
         "note": "mde80, dryrun_criteria and stress_t_inflation above are discovery-design quantities (FREEZE.json)",
         "sha256": {rel(f): outcomes.sha256(f) for f in paths},
     }

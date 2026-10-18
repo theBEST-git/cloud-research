@@ -18,6 +18,10 @@ predicted in both hindsight variants (balanced, early_prospective), because the 
 map is dominated by recent years.
 
     python research/fashion/rq1_rise.py [--labels <paper_contributions.csv.gz>] [--out <dir>]
+
+Under ICLR_CORPUS=pooled the labels include the confirmation papers', and H1d (model ~ fm_adoption) is a registered
+confirmation test: main() then refuses until the confirmation run has finished with PH5 (outcomes.confirmation_finished;
+pooled RQ1 is exploratory, run through run_pooled.py rq1). With the switch unset nothing changes.
 """
 from __future__ import annotations
 
@@ -28,7 +32,7 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
-from common import OUTPUT, TOPICS, topic_maps
+from common import CORPUS, OUTPUT, TOPICS, topic_maps
 from ols import fe_ols
 
 YEARS = (2018, 2026)
@@ -83,7 +87,18 @@ def fit(df: pd.DataFrame, outcome: str, regressor: str) -> pd.Series:
     return res.loc[regressor]
 
 
+def require_confirmation_finished() -> None:
+    """Pooled RQ1 crosses the confirmation papers' real labels with their regressors (H1d is a confirmation test):
+    only after the confirmation run has finished with PH5. A no-op with ICLR_CORPUS unset."""
+    if CORPUS == "pooled":
+        from outcomes import CONFIRMATION_ATTEMPTS, confirmation_finished
+        if not confirmation_finished():
+            raise SystemExit("pooled RQ1 (H1d is a confirmation test) is only allowed after the confirmation run has "
+                             f"finished with PH5 ({CONFIRMATION_ATTEMPTS})")
+
+
 def main() -> None:
+    require_confirmation_finished()                        # before any argument, label or map is read
     p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     p.add_argument("--labels", type=Path, default=TOPICS / "paper_contributions.csv.gz")
     p.add_argument("--out", type=Path, default=OUTPUT)

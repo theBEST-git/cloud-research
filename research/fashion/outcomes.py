@@ -27,9 +27,10 @@ confirmation outcome. The split of a real read is fixed by the entry script (ENT
 - run_frozen.py       -> discovery     ICLR_CORPUS unset; FREEZE.json, every hash, clean tree (unchanged)
 - run_confirmation.py -> confirmation  ICLR_CORPUS=pooled; FREEZE_CONFIRMATION.json, every hash, clean tree
 - run_pooled.py       -> pooled        ICLR_CORPUS=pooled; exploratory, only after a finished confirmation attempt
-                                       (output_pooled/confirmation_run/attempts.jsonl); FREEZE_CONFIRMATION.json settings
-                                       without a hash match (its sha256 is recorded by the run); clean tree
-Under ICLR_CORPUS=pooled, "posthoc" also needs a finished confirmation attempt, reads the pooled table and logs (with
+                                       that ran PH5 (confirmation_finished: output_pooled/confirmation_run/attempts.jsonl);
+                                       FREEZE_CONFIRMATION.json settings without a hash match (its sha256 is recorded by
+                                       the run); clean tree
+Under ICLR_CORPUS=pooled, "posthoc" also needs that finished confirmation attempt, reads the pooled table and logs (with
 the corpus) to output_pooled/posthoc/access_log.jsonl; ATTEMPTS then resolves to output_pooled/frozen_run, so the
 pooled main run (run_pooled.py) must have finished as well. "permuted" reads the discovery table only and is refused
 under ICLR_CORPUS=pooled (a pooled shuffle would expose confirmation outcomes and change every discovery null).
@@ -105,6 +106,15 @@ def finished(log: Path) -> bool:
     return any(x.get("status") == "finished" for x in lines)
 
 
+def confirmation_finished(log: Path | None = None) -> bool:
+    """Whether the confirmation run has finished WITH its PH5 part (a 'finished' line with with_ph5 true): the gate of
+    everything pooled that reads or crosses confirmation outcomes or labels (run_pooled.py, pooled post hoc, pooled
+    RQ1 and figures). A run without PH5 opens nothing, so PH5 can never be confirmed after pooled results were seen."""
+    log = CONFIRMATION_ATTEMPTS if log is None else log
+    lines = [json.loads(x) for x in log.read_text().splitlines()] if log.exists() else []
+    return any(x.get("status") == "finished" and x.get("with_ph5") is True for x in lines)
+
+
 def verify(freeze_file: Path) -> dict:
     """The frozen settings, after every sha256 they list matches (paths relative to the repository root)."""
     if not freeze_file.exists():
@@ -136,8 +146,8 @@ def require_frozen() -> dict:
     if CORPUS != corpus:
         raise PermissionError(f"{split} outcomes need ICLR_CORPUS={corpus} (unset for discovery); this process has {CORPUS}")
     if split == "pooled":
-        if not finished(CONFIRMATION_ATTEMPTS):
-            raise PermissionError("the pooled run is only allowed after the confirmation run has finished")
+        if not confirmation_finished():
+            raise PermissionError("the pooled run is only allowed after the confirmation run has finished (with PH5)")
         if not FREEZE_CONFIRMATION.exists():
             raise PermissionError("FREEZE_CONFIRMATION.json is missing")
         freeze = json.loads(FREEZE_CONFIRMATION.read_text())    # settings only: exploratory (D6); the run records its sha
@@ -162,8 +172,9 @@ def require_posthoc() -> None:
     if sys.gettrace() is not None or sys.flags.inspect or sys.flags.interactive:
         raise PermissionError("post hoc analyses cannot run under a debugger or an interactive session")
     pooled = CORPUS == "pooled"
-    if pooled and not finished(CONFIRMATION_ATTEMPTS):
-        raise PermissionError("pooled post hoc analyses are only allowed after the confirmation run has finished")
+    if pooled and not confirmation_finished():
+        raise PermissionError("pooled post hoc analyses are only allowed after the confirmation run has finished "
+                              "(with PH5)")
     if not finished(ATTEMPTS):
         raise PermissionError("post hoc analyses are only allowed after the single frozen run has finished"
                               + (" (pooled: run_pooled.py)" if pooled else ""))
@@ -176,18 +187,25 @@ def require_posthoc() -> None:
                             **({"corpus": CORPUS} if pooled else {})}) + "\n")
 
 
-def _derive(s: pd.DataFrame) -> pd.DataFrame:
+UNKNOWN_REVIEW: dict[str, int] = {}   # per split read: withdrawn confirmation papers whose review status is unknown
+
+
+def _derive(s: pd.DataFrame, lenient: np.ndarray | None = None) -> pd.DataFrame:
+    """Derived outcome columns. lenient (confirmation rows only; registered 2026-10-18 before the confirmation run): a
+    withdrawal with a missing review_count there is coded as review status unknown, i.e. outside S9's after-review set,
+    missing in both withdrawal outcomes and outside e3. Anywhere else (all discovery rows) it is an error."""
     ordinary = s.administrative_status == "ordinary_submission"
     withdrawn = s.administrative_status == "withdrawn"
-    if s.review_count[withdrawn].isna().any():                # would code a withdrawal as neither before nor after review
-        raise ValueError("withdrawn papers with a missing review_count")
+    unknown = (withdrawn & s.review_count.isna()).to_numpy()
+    if (unknown & ~(np.zeros(len(s), bool) if lenient is None else lenient)).any():
+        raise ValueError("withdrawn papers with a missing review_count")  # would be neither before nor after review
     out = pd.DataFrame({"submission_id": s.submission_id.values, "year": s.year.values})
     out["rq3"] = (ordinary & (s.outcome_eligible == 1) & s.decision.isin(["accepted", "rejected"])).values
     out["accepted"] = np.where(out.rq3, (s.decision == "accepted").astype(float).values, np.nan)
     after = (withdrawn & (s.review_count >= 1)).values
     out["s9"] = out.rq3 | after
     out["s9_accepted"] = np.where(out.rq3, out.accepted, np.where(after, 0.0, np.nan))
-    out["e3"] = (ordinary | withdrawn).values
+    out["e3"] = (ordinary | withdrawn).values & ~unknown
     out["withdrawn_after_review"] = np.where(out.e3, after.astype(float), np.nan)
     out["withdrawn_before_review"] = np.where(out.e3, (withdrawn & (s.review_count == 0)).astype(float).values, np.nan)
     return out
@@ -214,7 +232,10 @@ def _read(ids: pd.Series, split: str = "discovery") -> pd.DataFrame:
     outside = ~pd.Index(ids.values).isin(t.index)
     if outside.any():
         raise PermissionError(f"{int(outside.sum())} requested papers are not in the {split} split: refused")
-    return _derive(t.loc[ids.values].reset_index())
+    rows = t.loc[ids.values].reset_index()
+    lenient = None if split == "discovery" else rows.submission_id.isin(_table("confirmation").index).to_numpy()
+    UNKNOWN_REVIEW[split] = int(((rows.administrative_status == "withdrawn") & rows.review_count.isna()).sum())
+    return _derive(rows, lenient)
 
 
 BLOCK = ["rq3", "accepted", "s9", "s9_accepted", "e3", "withdrawn_after_review", "withdrawn_before_review"]

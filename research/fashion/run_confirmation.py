@@ -1,7 +1,7 @@
 """The single confirmatory run on the released confirmation papers (PREREGISTRATION.md "Confirmation", D14, the post-run
 registrations of 2026-10-15 and 2026-10-17; POOLED_SPEC D6). Run once, after FREEZE_CONFIRMATION.json is committed:
 
-    python research/fashion/run_confirmation.py [--rerun-reason R] [--without-ph5]
+    python research/fashion/run_confirmation.py [--rerun-reason R]
     python research/fashion/run_confirmation.py --simulate SEED [--mde-reps N]     (before the freeze: plumbing and MDE)
 
 The script switches itself to the pooled corpus (ICLR_CORPUS=pooled, common.py) and refuses any other setting.
@@ -29,12 +29,20 @@ variants). A wrong-sign estimate has p1 >= 0.5, so 'significant in the opposite 
 each verdict: the two-sided p, TOST at the discovery SESOI (none for H1d and H4-FL), the fragile flag, the S11 qualifier
 (S11 p made one-sided the same way, Holm in the family), and for H2b'/H2c' the stress sensitivity (t / dry-run v3
 inflation, one-sided) and the exact one-sided share of bootstrap t* beyond t (same draws; sensitivity only).
-PH5: ph5_part() is the hook for the PH5 confirmation module (ph5_confirm.compute); the real run refuses to start without
-it unless --without-ph5.
+Label reliability (D11) next to H2b'/H2c': the second-pass agreement and kappa of the confirmation papers' own 5%
+second pass (method and measurement indicators, main class); rq2's block (pooled second pass, S8 discovery reference
+rates) is reported alongside, labelled.
+PH5: ph5_part() is the hook for the PH5 confirmation module (ph5_confirm.compute; its registration ph5_confirm.REGISTERED
+is pinned in FREEZE_CONFIRMATION.json as registered_ph5). --without-ph5 is for --simulate only: the real run refuses it
+(and refuses to start without ph5_confirm.py), logs with_ph5, and only a finished attempt WITH PH5 opens the pooled
+gates (outcomes.confirmation_finished), so the registered PH5 tests run in the attempt that unlocks pooled results.
 
 Real run: refuses before anything is verified if output_pooled/confirmation_run/attempts.jsonl holds an attempt and no
---rerun-reason is given; then outcomes.require_frozen (entry, corpus, every FREEZE_CONFIRMATION.json hash, clean tree);
-the attempt is logged before any real data is touched, and a failure records its traceback. Writes
+--rerun-reason is given, and refuses any attempt (a rerun included) once a pooled read of confirmation outcomes may have
+happened or pooled labels were crossed (POOLED_READS: output_pooled/frozen_run/attempts.jsonl,
+output_pooled/posthoc/access_log.jsonl, output_pooled/rq1_results.csv or output_pooled/figures exists); then
+outcomes.require_frozen (entry, corpus, every FREEZE_CONFIRMATION.json hash, clean tree); the attempt is logged before
+any real data is touched, and a failure records its traceback. Writes
 output_pooled/confirmation_run/{h1d,rq2_rows,rq3_rows,h4fl,h4fl_cells}.csv, summary.json, run_info.json, stdout.txt
 (and ph5/); commit them immediately.
 --simulate SEED: no guard and no real outcome. The RQ1/RQ2 outcome-side labels are simulated (variance components
@@ -86,6 +94,10 @@ from variants import holm  # noqa: E402
 
 OUT = POOLED_OUTPUT / "confirmation_run"
 DRY = POOLED_OUTPUT / "confirmation_dryrun"
+POOLED_READS = (POOLED_OUTPUT / "frozen_run" / "attempts.jsonl",      # run_pooled.py (pooled RQ2/RQ3/E1-E10)
+                POOLED_OUTPUT / "posthoc" / "access_log.jsonl",       # pooled post hoc (PH1-PH5)
+                POOLED_OUTPUT / "rq1_results.csv",                    # pooled RQ1 (H1d's labels x regressor)
+                POOLED_OUTPUT / "figures")                            # pooled figures (F2: labels by year)
 FL = posthoc.FL_KEYWORD
 _RQ2 = {s.hid: s for s in rq2.SPECS}
 H1D = Spec("H1d", "model", "fm_adoption", -1, np.nan, "topic+year", rq1_rise.YEARS,
@@ -130,6 +142,16 @@ REGISTERED = {
                       "stress: CR1 t / dry-run v3 inflation, one-sided (H2b', H2c')",
                       "exact one-sided share of wild bootstrap t* beyond t, same draws (H2b', H2c')"],
     "not_registered": ["H2a", "H3b"],
+    "reporting": {"h1d_ci": "t(G-1) quantiles, as RQ2/RQ3 (the discovery rq1_rise summary printed coef +- 1.96 SE); the "
+                            "p is fe_ols's t(G-1) p in both",
+                  "label_reliability": "second-pass agreement and kappa (method, measurement, main class) of the "
+                                       "confirmation papers' own second pass; rq2's pooled block and S8 discovery "
+                                       "reference rates alongside",
+                  "underpowered_at_3x_sesoi": "None (not applicable) for hypotheses without a SESOI (H1d, H4-FL)",
+                  "pooled_gates": "pooled runs, pooled post hoc, pooled RQ1 and pooled figures need a finished "
+                                  "confirmation attempt with PH5 (outcomes.confirmation_finished); no confirmation "
+                                  "attempt once output_pooled/frozen_run or output_pooled/posthoc has read outcomes "
+                                  "or pooled RQ1 / figures exist"},
 }
 RQ3_DGP_HI = DGP(base=0.32, sd_topic=0.05, sd_year=0.03, sd_cell=0.04, sd_trend=0.016)   # = dryrun.RQ3_DGP["hi"]
 MULTS = (0.5, 1.0, 1.5, 2.0, 3.0, 4.0, 6.0)                                                # = dryrun.MULTS
@@ -384,11 +406,39 @@ def rq_part(frames: dict[str, pd.DataFrame], settings: dict, load: Callable[[pd.
            "rq1": {"verdicts": v1, "rows": rows1},
            "rq2": {"verdicts": v2, "rows": res2["rows"], "s11": s11_one_sided(res2["rows"], SPECS2),
                    "stress": stressed_one_sided(v2, SPECS2, inflation), "bootstrap_exact": exact,
-                   "label_reliability": res2["label_reliability"]},
+                   "label_reliability": {
+                       "confirmation_second_pass": label_reliability(frames["k100"].submission_id),
+                       "pooled_second_pass_and_s8_reference": res2["label_reliability"],
+                       "note": "the confirmation block describes the labels H2b'/H2c' use; rq2.label_reliability pools "
+                               "the discovery and confirmation second pass (S8 rates: discovery random-stratum "
+                               "reference papers, which S8 uses)"}},
            "rq3": {"verdicts": v3, "rows": res3["rows"], "s11": s11_one_sided(res3["rows"], SPECS3),
                    "stress": stressed_one_sided(v3, SPECS3, inflation), "counts": res3["counts"]},
            "h4fl": h4fl(frames["k100"], out)}
     return res, out
+
+
+def label_reliability(ids: pd.Series, labels: pd.DataFrame | None = None) -> dict:
+    """D11 for the confirmation labels: second-pass agreement and kappa (rq2.label_reliability's definition) of the
+    method and measurement indicators, and the main-class kappa of the label-quality gate (registered: >= 0.80), on the
+    second pass of the papers in ids only. Labels are read, never an outcome."""
+    lab = pd.read_csv(common.TOPICS / "paper_contributions.csv.gz") if labels is None else labels
+    sp = lab[lab.submission_id.isin(set(ids)) & lab.second_pass_primary_type.notna()]
+    first, second = sp.primary_type.map(common.class_of), sp.second_pass_primary_type.map(common.class_of)
+    out = {"second_pass_papers": int(len(sp))}
+    if not len(sp):
+        return {**out, "note": "no second-pass paper"}
+    po = float((first == second).mean())
+    pe = float(sum(first.eq(c).mean() * second.eq(c).mean() for c in set(first) | set(second)))
+    out["main_class"] = {"agreement": round(po, 4), "kappa": round((po - pe) / (1 - pe), 4) if pe < 1 else None,
+                         "gate_kappa_ge_0_80": bool(pe < 1 and (po - pe) / (1 - pe) >= 0.80)}
+    for name, pos in [("method", {"method"}), ("measurement", {"dataset_benchmark", "evaluation"})]:
+        a, b = first.isin(pos), second.isin(pos)
+        po = float((a == b).mean())
+        pe = float(a.mean() * b.mean() + (1 - a.mean()) * (1 - b.mean()))
+        out[name] = {"second_pass_agreement": round(po, 4),
+                     "second_pass_kappa": round((po - pe) / (1 - pe), 4) if pe < 1 else None}
+    return out
 
 
 # ---------------------------------------------------------------- PH5 hook (component C)
@@ -414,17 +464,20 @@ def summarise(res: dict, settings: dict, mode: str, frames: dict[str, pd.DataFra
     dry-run if FREEZE_CONFIRMATION.json carries it), E9 for every hypothesis that is not supported, H4-FL and PH5."""
     mde = (settings.get("confirmation_mde80") or {}).get("mde80", {})
     sesoi = {s.hid: s.sesoi for s in [H1D] + SPECS2 + SPECS3}
-    powered = {h: bool(m is not None and np.isfinite(sesoi.get(h, np.nan)) and m <= 3 * sesoi[h]) for h, m in mde.items()} or None
+    no_sesoi = {h for h in [*mde, *sesoi, "H4-FL"] if not np.isfinite(sesoi.get(h, np.nan))}    # H1d, H4-FL
+    powered = {h: bool(m is not None and m <= 3 * sesoi[h]) for h, m in mde.items() if h not in no_sesoi} or None
     v1 = {h: {**v, "ci_tost_method": run_frozen.CI_METHOD, "qualifier": "", "s11_agrees": None, "mde80": mde.get(h),
-              "underpowered_at_3x_sesoi": None if powered is None else not powered.get(h, False)}
+              "underpowered_at_3x_sesoi": None}                  # RQ1 registered no SESOI: not applicable
           for h, v in res["rq1"]["verdicts"].items()}
     v2 = run_frozen.labelled(res["rq2"]["verdicts"], res["rq2"]["s11"], mde, powered)
     v3 = run_frozen.labelled(res["rq3"]["verdicts"], res["rq3"]["s11"], mde, powered)
-    notes = {h: "" if h in mde else "confirmation MDE80 not computed (run_confirmation.py --simulate --mde-reps)"
+    notes = {h: ("" if h in mde else "confirmation MDE80 not computed (run_confirmation.py --simulate --mde-reps)")
+             + ("; no SESOI registered: underpowered_at_3x_sesoi not applicable" if h in no_sesoi else "")
              for h in [*v1, *v2, *v3]}
     e9 = run_frozen.equivalence_table({**v1, **v2, **v3}, mde, powered or {}, notes)
-    for r in e9 if powered is None else []:
-        r["underpowered_at_3x_sesoi"] = None                     # unknown without a confirmation MDE, not "underpowered"
+    for r in e9:
+        if powered is None or r["hypothesis"] in no_sesoi:       # unknown without a confirmation MDE, or no SESOI:
+            r["underpowered_at_3x_sesoi"] = None                 # not "underpowered"
     ph5 = res.get("ph5")
     return {
         "mode": mode, "status": STATUS, "registered": REGISTERED, "families": FAMILIES,
@@ -434,12 +487,15 @@ def summarise(res: dict, settings: dict, mode: str, frames: dict[str, pd.DataFra
                 "label_reliability": res["rq2"]["label_reliability"], NOT_REGISTERED: ["H2a"]},
         "rq3": {"family": FAMILIES["rq3"], "verdicts": v3, "s11_twoway_one_sided": res["rq3"]["s11"],
                 "stress_sensitivity": res["rq3"]["stress"], "counts": res["rq3"]["counts"], NOT_REGISTERED: ["H3b"]},
-        "h4fl": {"family": FAMILIES["h4fl"], "primary": res["h4fl"]["primary"], "secondary": res["h4fl"]["secondary"],
+        "h4fl": {"family": FAMILIES["h4fl"], "primary": {**res["h4fl"]["primary"], "mde80": mde.get("H4-FL"),
+                                                         "underpowered_at_3x_sesoi": None},
+                 "secondary": res["h4fl"]["secondary"],
                  "calibration_within_year_permutations": res["h4fl"]["calibration"]},
         "e9_equivalence": e9,
         "ph5": "not run (no ph5_confirm.py or --without-ph5)" if ph5 is None else
                {k: v for k, v in ph5.items() if not isinstance(v, pd.DataFrame)},
         "remedies": res["remedies"], "h2d_gate_passed": res["gate"], "tau": settings.get("tau"),
+        "withdrawn_review_status_unknown": res.get("withdrawn_review_status_unknown"),
         "papers": {"confirmation_frame": int(len(frames["k100"])),
                    "by_year": frames["k100"].groupby("year").size().to_dict()},
     }
@@ -478,10 +534,20 @@ def write_results(res: dict, summary: dict, out_dir: Path) -> None:
     print("\n".join(lines))
 
 
+def check_registration(freeze: dict) -> None:
+    """The frozen registration is this file's REGISTERED, the freeze was made with the PH5 module, and its PH5
+    registration is ph5_confirm.REGISTERED."""
+    need(freeze.get("registered") == json.loads(json.dumps(REGISTERED)), "the registration differs from the frozen one")
+    need(freeze.get("ph5_hook_present") is True and ph5_available(), "the freeze was made without the PH5 module")
+    need(freeze.get("registered_ph5") == json.loads(json.dumps(importlib.import_module("ph5_confirm").REGISTERED)),
+         "the PH5 registration differs from the frozen one")
+
+
 def check_settings(freeze: dict) -> None:
     """The frozen settings the run relies on: the pooled copies of the H2d gate and τ equal the frozen values, the
-    discovery FREEZE.json is the one recorded (and its settings were copied verbatim), the registration is this file's,
-    and the pooled variables were built after τ was applied."""
+    discovery FREEZE.json is the one recorded (and its settings were copied verbatim), the registration is this file's
+    and the PH5 registration ph5_confirm's (the freeze was made with the PH5 module), and the pooled variables were
+    built after τ was applied."""
     gate = json.loads((common.OUTPUT / "h2d_validation.json").read_text())["gate"] == "pass"
     need(gate == freeze["h2d_gate_passed"], "the H2d gate differs from the frozen value")
     need(json.loads((common.OUTPUT / "resubmission_tau.json").read_text())["tau"] == freeze["tau"], "tau differs from the frozen value")
@@ -489,24 +555,27 @@ def check_settings(freeze: dict) -> None:
     discovery = json.loads(outcomes.FREEZE_DISCOVERY.read_text())
     need(all(freeze.get(k) == v for k, v in discovery.items() if k not in ("sha256", "created_utc")),
          "FREEZE_CONFIRMATION.json does not carry the discovery settings verbatim")
-    need(freeze.get("registered") == json.loads(json.dumps(REGISTERED)), "the registration differs from the frozen one")
+    check_registration(freeze)
     missing = set(run_frozen.remedies_of(freeze)) - set(freeze.get("stress_t_inflation", {}))
     need(not missing, f"no stress_t_inflation for remedied {sorted(missing)}")
     need(json.loads((common.OUTPUT / "checks" / "variables.json").read_text())["s4_available"],
          "paper_variables.csv.gz was built before tau was applied")
 
 
-def run(freeze: dict, started: str, with_ph5: bool = True) -> None:
+def run(freeze: dict, started: str) -> None:
+    """The real run (always with the registered PH5 tests)."""
     check_settings(freeze)
     _, frames, _ = pooled_frames()
     need(bool(frames["k100"].has_earlier_version.notna().all()), "earlier_versions.csv.gz has no probable_earlier_version")
     res, out = rq_part(frames, freeze, lambda ids: outcomes.load("real", ids), describe=True)
-    res["ph5"] = ph5_part(frames, out) if with_ph5 else None
+    res["withdrawn_review_status_unknown"] = outcomes.UNKNOWN_REVIEW.get("confirmation")   # registered contingency
+    res["ph5"] = ph5_part(frames, out)
+    need(res["ph5"] is not None, "the PH5 part did not run")
     finished = run_frozen.now()
     write_results(res, summarise(res, freeze, "real", frames), OUT)
     head = subprocess.run(["git", "rev-parse", "HEAD"], cwd=ROOT, capture_output=True, text=True, check=True).stdout.strip()
     info = {"started_utc": started, "finished_utc": finished, "git_head": head, "corpus": common.CORPUS,
-            "freeze_sha256": outcomes.sha256(outcomes.FREEZE_CONFIRMATION), "with_ph5": with_ph5,
+            "freeze_sha256": outcomes.sha256(outcomes.FREEZE_CONFIRMATION), "with_ph5": True,
             "python": sys.version.split()[0], "numpy": np.__version__, "pandas": pd.__version__,
             "scipy": scipy.__version__, "matplotlib": matplotlib.__version__, "platform": platform.platform()}
     (OUT / "run_info.json").write_text(json.dumps(info, indent=2) + "\n")
@@ -638,7 +707,8 @@ def main() -> None:
     p.add_argument("--rerun-reason", help="required if output_pooled/confirmation_run/ already holds an attempt")
     p.add_argument("--simulate", type=int, metavar="SEED", help="simulated outcomes, no guard; writes confirmation_dryrun/")
     p.add_argument("--mde-reps", type=int, default=0, help="with --simulate: replications per planted effect (MDE80)")
-    p.add_argument("--without-ph5", action="store_true", help="run without the PH5 hook (ph5_confirm.py)")
+    p.add_argument("--without-ph5", action="store_true",
+                   help="with --simulate: run without the PH5 hook (the real run refuses it)")
     a = p.parse_args()
     check_corpus()
     if a.simulate is not None:
@@ -649,17 +719,23 @@ def main() -> None:
     previous = run_frozen.started_attempts(log)
     if previous and not a.rerun_reason:                        # refuse before anything is verified or loaded
         raise SystemExit(f"{len(previous)} earlier attempt(s) recorded in {log}; a rerun needs --rerun-reason")
-    if not a.without_ph5 and not ph5_available():
-        raise SystemExit("ph5_confirm.py (the PH5 hook) is missing: add it, or run with --without-ph5")
+    seen = [str(f.relative_to(ROOT)) for f in POOLED_READS if f.exists()]
+    if seen:                                                   # no confirmation (re)run after pooled outcomes were read
+        raise SystemExit(f"pooled confirmation outcomes may have been read ({', '.join(seen)}): no confirmation attempt, "
+                         "rerun included, is allowed any more")
+    if a.without_ph5:
+        raise SystemExit("--without-ph5 is for --simulate only: the real run always runs the registered PH5 tests")
+    if not ph5_available():
+        raise SystemExit("ph5_confirm.py (the PH5 hook) is missing: the real run needs it")
     try:
         freeze = outcomes.require_frozen()
         OUT.mkdir(parents=True, exist_ok=True)
         attempt = {"attempt": len(previous) + 1, "started_utc": started, "rerun_reason": a.rerun_reason,
-                   "freeze_sha256": outcomes.sha256(outcomes.FREEZE_CONFIRMATION), "with_ph5": not a.without_ph5}
+                   "freeze_sha256": outcomes.sha256(outcomes.FREEZE_CONFIRMATION), "with_ph5": True}
         with log.open("a") as f:
             f.write(json.dumps({**attempt, "status": "started"}) + "\n")
         try:
-            run(freeze, started, not a.without_ph5)
+            run(freeze, started)
         except BaseException:
             with log.open("a") as f:
                 f.write(json.dumps({**attempt, "status": "failed", "at_utc": run_frozen.now(),

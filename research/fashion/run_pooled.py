@@ -1,6 +1,7 @@
 """Pooled re-run (exploratory; POOLED_SPEC D6): the frozen analyses on all discovery + confirmation papers, under
 ICLR_CORPUS=pooled (the script switches itself and refuses any other setting), only after the confirmation run has
-finished (output_pooled/confirmation_run/attempts.jsonl). Everything is written under research/fashion/output_pooled/.
+finished with its PH5 part (outcomes.confirmation_finished: output_pooled/confirmation_run/attempts.jsonl). Everything is
+written under research/fashion/output_pooled/.
 
     python research/fashion/run_pooled.py [--rerun-reason R]   RQ2, RQ3 and E1-E10: run_frozen.main() unchanged. Its
                                                                outcomes.require_frozen dispatches this entry to the
@@ -14,7 +15,9 @@ Then the post hoc analyses, one command at a time, committing each output before
 tree; it also needs this run and the confirmation run to have finished):
     ICLR_CORPUS=pooled python research/fashion/posthoc.py ph1|ph2|ph3|ph4|ph5 <slug>
 Every pooled number is exploratory: the pooled sample contains the confirmation papers, so nothing pooled confirms
-anything. FREEZE.json's MDE80, dry-run criteria and stress inflation are discovery-design quantities (labels only).
+anything, and the 'supported' / 'not supported' labels in output_pooled/frozen_run are descriptive (the discovery record
+is output/frozen_run only; pooling also changes discovery features). FREEZE.json's MDE80, dry-run criteria and stress
+inflation are discovery-design quantities (labels only).
 """
 from __future__ import annotations
 
@@ -43,8 +46,8 @@ def check_corpus() -> None:
 
 def main() -> None:
     check_corpus()
-    if not outcomes.finished(outcomes.CONFIRMATION_ATTEMPTS):
-        raise SystemExit("the pooled run is only allowed after the confirmation run has finished "
+    if not outcomes.confirmation_finished():
+        raise SystemExit("the pooled run is only allowed after the confirmation run has finished with PH5 "
                          f"({outcomes.CONFIRMATION_ATTEMPTS})")
     if sys.argv[1:2] == ["rq1"]:
         if len(sys.argv) > 2:

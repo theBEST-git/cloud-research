@@ -253,9 +253,10 @@ class Runner(unittest.TestCase):
 
     def test_attempts_are_logged_and_a_rerun_needs_a_reason(self):
         calls = []
-        def boom(freeze, started, with_ph5):
+        def boom(freeze, started):
             raise RuntimeError("boom")
         with tempfile.TemporaryDirectory() as tmp, mock.patch.object(rc, "OUT", Path(tmp)), \
+                mock.patch.object(rc, "POOLED_READS", (Path(tmp) / "none1", Path(tmp) / "none2")), \
                 mock.patch.object(rc, "check_corpus", lambda: None), mock.patch.object(rc, "run", boom), \
                 mock.patch.object(outcomes, "require_frozen", lambda: calls.append("verify") or {}), \
                 mock.patch.object(outcomes, "release", lambda: calls.append("release")), \
@@ -266,18 +267,66 @@ class Runner(unittest.TestCase):
                 rc.main()
             self.assertIn("ph5_confirm", str(e.exception))
             self.assertEqual(calls, [])                                      # refused before any verification
+            for argv in (["--without-ph5"], ["--without-ph5", "--rerun-reason", "test"]):
+                with mock.patch.object(sys, "argv", ["run_confirmation.py", *argv]), self.assertRaises(SystemExit) as e:
+                    rc.main()                                                # PH5 always runs in the real run
+                self.assertIn("--simulate only", str(e.exception))
+            self.assertEqual(calls, [])
             log.write_text(json.dumps({"attempt": 1, "status": "started"}) + "\n")
-            with mock.patch.object(sys, "argv", ["run_confirmation.py", "--without-ph5"]), self.assertRaises(SystemExit):
+            with mock.patch.object(sys, "argv", ["run_confirmation.py"]), self.assertRaises(SystemExit):
                 rc.main()
             self.assertEqual(calls, [])
-            with mock.patch.object(sys, "argv", ["run_confirmation.py", "--without-ph5", "--rerun-reason", "test"]), \
+            with mock.patch.object(sys, "argv", ["run_confirmation.py", "--rerun-reason", "test"]), \
                     self.assertRaises(RuntimeError):
                 rc.main()
             self.assertEqual(calls, ["verify", "release"])                   # released although the run failed
             lines = [json.loads(x) for x in log.read_text().splitlines()]
             self.assertEqual([x["status"] for x in lines], ["started", "started", "failed"])
-            self.assertEqual((lines[1]["attempt"], lines[1]["rerun_reason"], lines[1]["with_ph5"]), (2, "test", False))
+            self.assertEqual((lines[1]["attempt"], lines[1]["rerun_reason"], lines[1]["with_ph5"]), (2, "test", True))
             self.assertIn("boom", lines[2]["traceback"])
+
+    def test_no_attempt_after_a_pooled_read(self):
+        """Once the pooled main run or pooled post hoc has (possibly) read confirmation outcomes, no confirmation
+        attempt, rerun included, may start (PH5 or anything else could otherwise be confirmed after pooled results)."""
+        calls = []
+        self.assertEqual(rc.POOLED_READS, (common.POOLED_OUTPUT / "frozen_run" / "attempts.jsonl",
+                                           common.POOLED_OUTPUT / "posthoc" / "access_log.jsonl",
+                                           common.POOLED_OUTPUT / "rq1_results.csv", common.POOLED_OUTPUT / "figures"))
+        with tempfile.TemporaryDirectory() as tmp:
+            reads = (Path(tmp) / "frozen_attempts.jsonl", Path(tmp) / "access_log.jsonl", Path(tmp) / "rq1_results.csv",
+                     Path(tmp) / "figures")
+            with mock.patch.object(rc, "OUT", Path(tmp)), mock.patch.object(rc, "POOLED_READS", reads), \
+                    mock.patch.object(rc, "check_corpus", lambda: None), mock.patch.object(rc, "ROOT", Path(tmp)), \
+                    mock.patch.object(rc, "run", lambda *a: calls.append("run")), \
+                    mock.patch.object(outcomes, "require_frozen", lambda: calls.append("verify") or {}), \
+                    mock.patch.object(outcomes, "release", lambda: None), mock.patch.object(outcomes, "sha256", lambda p: "x"):
+                for f in reads:
+                    f.write_text("{}\n")
+                    for argv in ([], ["--rerun-reason", "after pooled"]):
+                        with mock.patch.object(sys, "argv", ["run_confirmation.py", *argv]), \
+                                self.assertRaises(SystemExit) as e:
+                            rc.main()
+                        self.assertIn("no confirmation attempt", str(e.exception))
+                    f.unlink()
+                self.assertEqual(calls, [])
+                with mock.patch.object(sys, "argv", ["run_confirmation.py"]):
+                    rc.main()
+                self.assertEqual(calls, ["verify", "run"])
+
+    def test_the_freeze_pins_the_ph5_registration(self):
+        import ph5_confirm
+        frozen = {"registered": json.loads(json.dumps(rc.REGISTERED)), "ph5_hook_present": True,
+                  "registered_ph5": json.loads(json.dumps(ph5_confirm.REGISTERED))}
+        rc.check_registration(frozen)
+        for change, msg in [({"registered_ph5": {**frozen["registered_ph5"], "one_sided_rule": "x"}}, "PH5 registration"),
+                            ({"registered_ph5": None}, "PH5 registration"),
+                            ({"ph5_hook_present": False}, "without the PH5 module"),
+                            ({"registered": {**frozen["registered"], "status": "x"}}, "registration differs")]:
+            with self.assertRaises(SystemExit) as e:
+                rc.check_registration({**frozen, **change})
+            self.assertIn(msg, str(e.exception))
+        with mock.patch.object(rc, "ph5_available", lambda: False), self.assertRaises(SystemExit):
+            rc.check_registration(frozen)
 
     def test_ph5_hook(self):
         self.assertEqual(rc.ph5_available(), (HERE / "ph5_confirm.py").exists())
@@ -315,9 +364,12 @@ class SimulatedEndToEnd(unittest.TestCase):
         settings = json.loads(outcomes.FREEZE_DISCOVERY.read_text())
         cls.tmp = tempfile.TemporaryDirectory()
         cls.out = Path(cls.tmp.name) / "dry"
-        with mock.patch.object(rc, "GRID", {h: g[::3] for h, g in rc.GRID.items()}), contextlib.redirect_stdout(io.StringIO()):
+        cls.settings, kept, write = settings, {}, rc.write_results
+        with mock.patch.object(rc, "GRID", {h: g[::3] for h, g in rc.GRID.items()}), contextlib.redirect_stdout(io.StringIO()), \
+                mock.patch.object(rc, "write_results", lambda res, *a: (kept.setdefault("res", res), write(res, *a))):
             cls.summary = rc.simulate_run(cls.frames, pooled["k100"][~mask].reset_index(drop=True), settings, 3, cls.out,
                                           mde_reps=2, with_ph5=False)
+        cls.res = kept["res"]
 
     @classmethod
     def tearDownClass(cls):
@@ -349,6 +401,39 @@ class SimulatedEndToEnd(unittest.TestCase):
         boot = s["rq2"]["bootstrap_exact_one_sided"]
         for h in ("H2b'", "H2c'"):                     # the sensitivity uses exactly the registered draws
             self.assertAlmostEqual(boot[h]["p_two_sided_same_draws"], s["rq2"]["verdicts"][h]["p_two_sided"])
+
+    def test_no_sesoi_means_no_underpowered_flag(self):
+        """With a confirmation MDE80: H1d and H4-FL (no SESOI) are never 'underpowered at 3 x SESOI' (None), in the
+        verdicts and in E9; a hypothesis with a SESOI is flagged against 3 x its SESOI; H4-FL carries its MDE80."""
+        for m, flag in [(0.05, True), (0.001, False)]:
+            st = {**self.settings, "confirmation_mde80": {"mde80": {h: m for h in rc.SIGN}}}
+            s = rc.summarise(self.res, st, "test", self.frames)
+            self.assertIsNone(s["rq1"]["verdicts"]["H1d"]["underpowered_at_3x_sesoi"])
+            self.assertEqual(s["rq3"]["verdicts"]["H3a"]["underpowered_at_3x_sesoi"], flag)       # SESOI 0.01
+            self.assertEqual((s["h4fl"]["primary"]["mde80"], s["h4fl"]["primary"]["underpowered_at_3x_sesoi"]), (m, None))
+            for r in s["e9_equivalence"]:
+                if r["hypothesis"] == "H1d":
+                    self.assertIsNone(r["underpowered_at_3x_sesoi"])
+                    self.assertIn("no SESOI", r["mde80_note"])
+                elif r["hypothesis"] == "H3a":
+                    self.assertEqual(r["underpowered_at_3x_sesoi"], flag)
+        s = rc.summarise(self.res, self.settings, "test", self.frames)                       # no confirmation MDE
+        self.assertTrue(all(r["underpowered_at_3x_sesoi"] is None for r in s["e9_equivalence"]))
+
+    def test_label_reliability_is_the_confirmation_second_pass(self):
+        rel = self.summary["rq2"]["label_reliability"]
+        lab = pd.read_csv(common.TOPICS / "paper_contributions.csv.gz")
+        ids = set(self.frames["k100"].submission_id)
+        sp = lab[lab.submission_id.isin(ids) & lab.second_pass_primary_type.notna()]
+        conf = rel["confirmation_second_pass"]
+        self.assertEqual(conf["second_pass_papers"], len(sp))
+        self.assertLess(len(sp), rel["pooled_second_pass_and_s8_reference"]["second_pass_papers"])
+        first, second = sp.primary_type.map(common.class_of), sp.second_pass_primary_type.map(common.class_of)
+        self.assertAlmostEqual(conf["main_class"]["agreement"], round(float((first == second).mean()), 4))
+        a, b = first.eq("method"), second.eq("method")
+        pe = a.mean() * b.mean() + (1 - a.mean()) * (1 - b.mean())
+        self.assertAlmostEqual(conf["method"]["second_pass_kappa"], round(((a == b).mean() - pe) / (1 - pe), 4))
+        self.assertIn("false_positive_rate", rel["pooled_second_pass_and_s8_reference"]["method"])
 
     def test_rows_are_labelled_and_h1d_has_every_variant(self):
         rows = pd.read_csv(self.out / "rq2_rows.csv")
@@ -440,13 +525,15 @@ class RunPooled(unittest.TestCase):
                 mock.patch.object(run_pooled.rq1_rise, "main", lambda: calls.append("rq1")):
             log = Path(tmp) / "attempts.jsonl"
             with mock.patch.object(outcomes, "CONFIRMATION_ATTEMPTS", log):
-                for statuses in [None, ["started"], ["started", "failed"]]:
-                    if statuses is not None:
-                        log.write_text("".join(json.dumps({"status": s}) + "\n" for s in statuses))
+                for statuses, ph5 in [(None, True), (["started"], True), (["started", "failed"], True),
+                                      (["started", "finished"], False), (["started", "finished"], None)]:
+                    if statuses is not None:                         # a run without PH5 opens nothing
+                        log.write_text("".join(json.dumps({"status": s, **({} if ph5 is None else {"with_ph5": ph5})})
+                                               + "\n" for s in statuses))
                     with mock.patch.object(sys, "argv", ["run_pooled.py"]), self.assertRaises(SystemExit):
                         run_pooled.main()
                 self.assertEqual(calls, [])
-                log.write_text("".join(json.dumps({"status": s}) + "\n" for s in ["started", "finished"]))
+                log.write_text("".join(json.dumps({"status": s, "with_ph5": True}) + "\n" for s in ["started", "finished"]))
                 with mock.patch.object(sys, "argv", ["run_pooled.py"]):
                     run_pooled.main()
                 with mock.patch.object(sys, "argv", ["run_pooled.py", "rq1"]):
@@ -454,6 +541,36 @@ class RunPooled(unittest.TestCase):
                 with mock.patch.object(sys, "argv", ["run_pooled.py", "rq1", "--out", "x"]), self.assertRaises(SystemExit):
                     run_pooled.main()
         self.assertEqual(calls, ["rq2/rq3", "rq1"])
+
+    def test_pooled_rq1_and_figures_need_the_confirmation_run(self):
+        """H1d is a confirmation test: rq1_rise.main (and figures.main, whose F2 shows the labels by year) refuse under
+        ICLR_CORPUS=pooled until the confirmation run has finished with PH5, before reading anything; unset, no check.
+        In subprocesses with the attempts log pointed at a temporary file, so nothing pooled can ever run here."""
+        import rq1_rise
+        rq1_rise.require_confirmation_finished()                             # discovery: a no-op
+        with tempfile.TemporaryDirectory() as tmp:
+            log = Path(tmp) / "attempts.jsonl"
+            with mock.patch.object(rq1_rise, "CORPUS", "pooled"), mock.patch.object(outcomes, "CONFIRMATION_ATTEMPTS", log), \
+                    mock.patch.object(rq1_rise.pd, "read_csv", side_effect=AssertionError("read before the gate")):
+                for content in [None, {"status": "finished", "with_ph5": False}, {"status": "started", "with_ph5": True}]:
+                    if content is not None:
+                        log.write_text(json.dumps(content) + "\n")
+                    with mock.patch.object(sys, "argv", ["rq1_rise.py"]), self.assertRaises(SystemExit) as e:
+                        rq1_rise.main()
+                    self.assertIn("confirmation run", str(e.exception))
+                log.write_text(json.dumps({"status": "finished", "with_ph5": True}) + "\n")
+                rq1_rise.require_confirmation_finished()
+            env = {**os.environ, "ICLR_CORPUS": "pooled"}
+            stop = "lambda *a, **k: sys.exit('past the gate')"                  # even a broken gate computes nothing
+            for mod, stubs in [("rq1_rise", ["pd.read_csv", "topic_maps"]),
+                               ("figures", ["f1_forest", "f2_trends", "f3_hot_topics", "f4_dose", "f5_validation",
+                                            "f6_power", "f7_acceptance"])]:
+                code = (f"import sys; from pathlib import Path; import outcomes; outcomes.CONFIRMATION_ATTEMPTS = "
+                        f"Path({str(log.with_name('none.jsonl'))!r}); import {mod}; "
+                        + "".join(f"{mod}.{f} = {stop}; " for f in stubs) + f"sys.argv = ['{mod}.py']; {mod}.main()")
+                r = subprocess.run([PY, "-c", code], cwd=HERE, env=env, capture_output=True, text=True, timeout=300)
+                self.assertNotEqual(r.returncode, 0, mod)
+                self.assertIn("only allowed after the confirmation run has finished with PH5", r.stderr, mod)
 
 
 class PooledInputs(unittest.TestCase):

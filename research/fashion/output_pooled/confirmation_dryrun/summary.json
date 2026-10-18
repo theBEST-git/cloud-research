@@ -65,7 +65,13 @@
     "not_registered": [
       "H2a",
       "H3b"
-    ]
+    ],
+    "reporting": {
+      "h1d_ci": "t(G-1) quantiles, as RQ2/RQ3 (the discovery rq1_rise summary printed coef +- 1.96 SE); the p is fe_ols's t(G-1) p in both",
+      "label_reliability": "second-pass agreement and kappa (method, measurement, main class) of the confirmation papers' own second pass; rq2's pooled block and S8 discovery reference rates alongside",
+      "underpowered_at_3x_sesoi": "None (not applicable) for hypotheses without a SESOI (H1d, H4-FL)",
+      "pooled_gates": "pooled runs, pooled post hoc, pooled RQ1 and pooled figures need a finished confirmation attempt with PH5 (outcomes.confirmation_finished); no confirmation attempt once output_pooled/frozen_run or output_pooled/posthoc has read outcomes or pooled RQ1 / figures exist"
+    }
   },
   "families": {
     "rq1": [
@@ -295,21 +301,40 @@
       }
     },
     "label_reliability": {
-      "second_pass_papers": 2729,
-      "method": {
-        "second_pass_agreement": 0.9758,
-        "second_pass_kappa": 0.9364,
-        "reference_n": 1940,
-        "false_positive_rate": 0.0835,
-        "false_negative_rate": 0.0111
+      "confirmation_second_pass": {
+        "second_pass_papers": 555,
+        "main_class": {
+          "agreement": 0.9694,
+          "kappa": 0.9313,
+          "gate_kappa_ge_0_80": true
+        },
+        "method": {
+          "second_pass_agreement": 0.9802,
+          "second_pass_kappa": 0.9494
+        },
+        "measurement": {
+          "second_pass_agreement": 0.991,
+          "second_pass_kappa": 0.9227
+        }
       },
-      "measurement": {
-        "second_pass_agreement": 0.9923,
-        "second_pass_kappa": 0.9447,
-        "reference_n": 1940,
-        "false_positive_rate": 0.0045,
-        "false_negative_rate": 0.0701
-      }
+      "pooled_second_pass_and_s8_reference": {
+        "second_pass_papers": 2729,
+        "method": {
+          "second_pass_agreement": 0.9758,
+          "second_pass_kappa": 0.9364,
+          "reference_n": 1940,
+          "false_positive_rate": 0.0835,
+          "false_negative_rate": 0.0111
+        },
+        "measurement": {
+          "second_pass_agreement": 0.9923,
+          "second_pass_kappa": 0.9447,
+          "reference_n": 1940,
+          "false_positive_rate": 0.0045,
+          "false_negative_rate": 0.0701
+        }
+      },
+      "note": "the confirmation block describes the labels H2b'/H2c' use; rq2.label_reliability pools the discovery and confirmation second pass (S8 rates: discovery random-stratum reference papers, which S8 uses)"
     },
     "not registered for confirmation": [
       "H2a"
@@ -425,7 +450,9 @@
       "adjusted_level": 0.02390453005159411,
       "adjusted_level_p": 0.5774392430677517,
       "verdict": "not supported",
-      "note": ""
+      "note": "",
+      "mde80": null,
+      "underpowered_at_3x_sesoi": null
     },
     "secondary": {
       "estimand": "trend of the yearly gap (pp per year, WLS)",
@@ -466,7 +493,7 @@
       "sesoi": null,
       "tost_p": null,
       "mde80": null,
-      "mde80_note": "confirmation MDE80 not computed (run_confirmation.py --simulate --mde-reps)",
+      "mde80_note": "confirmation MDE80 not computed (run_confirmation.py --simulate --mde-reps); no SESOI registered: underpowered_at_3x_sesoi not applicable",
       "underpowered_at_3x_sesoi": null,
       "p_method": "CR1, t(G-1)",
       "ci_tost_method": "CR1, t(G-1)",
@@ -545,7 +572,7 @@
           "E1": {
             "sign": -1,
             "population": "confirmation RQ3 decided papers 2023-2026 with >= 1 experienced author",
-            "p": "CR1 by topic, t(G - 1)",
+            "p": "max(CR1 by topic t(G - 1), calibrated p from 200 simulated nulls on the same papers: Bernoulli of the topic x year acceptance rate, seed 20261018)",
             "code": "ph5_pivot.declared"
           },
           "P1b": {
@@ -582,8 +609,9 @@
           },
           "premia_eb": {
             "sign": 1,
+            "statistic": "D0 = mean(y^2) - mean((y - eb1)^2), y centred",
             "p": "one-sided paired t(U - 1) of the squared-error differences",
-            "reading": "EB also wins without persistence: support means 'shrink past premia'; persistence is read from b > 0"
+            "reading": "the EB-shrunk discovery premium beats the no-information prediction 0; without persistence E[D0] < 0"
           }
         },
         "not_registered": [
@@ -596,7 +624,8 @@
           "P5",
           "P6",
           "teams H2",
-          "premia k100 / keywords / areas"
+          "premia k100 / keywords / areas",
+          "premia D = mse(raw) - mse(EB) (descriptive)"
         ]
       },
       "confirmation_papers": 11099,
@@ -606,9 +635,9 @@
         "E1": {
           "family": "primary",
           "coef": -0.006964832305505219,
-          "p": 0.3086845492623559,
-          "p_two_sided": 0.6173690985247118,
-          "p_holm": 0.6173690985247118,
+          "p": 0.34577114427860695,
+          "p_two_sided": 0.6915422885572139,
+          "p_holm": 0.6915422885572139,
           "verdict": "not supported"
         },
         "P1b": {
@@ -656,10 +685,10 @@
         },
         "premia_eb": {
           "family": "secondary",
-          "coef": 0.005347297218156991,
-          "p": 2.151662873144441e-05,
-          "p_two_sided": 4.303325746288882e-05,
-          "verdict": "supported"
+          "coef": -0.0012998624041563988,
+          "p": 0.9902123174792271,
+          "p_two_sided": 0.019575365041545865,
+          "verdict": "not supported"
         }
       },
       "populations": {
@@ -672,7 +701,8 @@
             "2": 1200,
             "3": 1050,
             "4": 1945
-          }
+          },
+          "e1_calibration_nulls": 200
         },
         "position": {
           "papers": 7986,
@@ -733,20 +763,32 @@
           "p_b_gt_0": 0.7952747858817563,
           "p_b_lt_1": 1.36872631904651e-15,
           "p_iut": 0.7952747858817563,
+          "D0": -0.0012998624041563988,
+          "D0_se": 0.0005450308432336841,
+          "D0_ci95_lo": -0.0023853854060364625,
+          "D0_ci95_hi": -0.0002143394022763353,
+          "D0_p_one_sided": 0.9902123174792271,
+          "D0_p_two_sided": 0.019575365041545865,
+          "D0_weighted": -0.0013727151540125805,
+          "D0_boot_ci95": [
+            -0.0022729397156918203,
+            -0.0002728032025410133
+          ],
           "D": 0.005347297218156991,
           "D_se": 0.0012315336051478747,
           "D_ci95_lo": 0.002894485468927022,
           "D_ci95_hi": 0.00780010896738696,
           "D_p_one_sided": 2.151662873144441e-05,
           "D_p_two_sided": 4.303325746288882e-05,
-          "mse_raw": 0.014980534427034769,
-          "mse_eb": 0.009633237208877776,
           "D_weighted": 0.005008609427318765,
           "D_boot_ci95": [
             0.0031181764837170272,
             0.007762228190647154
           ],
           "boot": 999,
+          "mse_zero": 0.008333374804721377,
+          "mse_raw": 0.014980534427034769,
+          "mse_eb": 0.009633237208877776,
           "rho_w": -0.1404048087879136,
           "rho_w_ci95": [
             -0.7971875940877573,
@@ -768,20 +810,32 @@
           "p_b_gt_0": 0.9324877668992235,
           "p_b_lt_1": 1.0397096951306368e-12,
           "p_iut": 0.9324877668992235,
+          "D0": -0.0019739946023717213,
+          "D0_se": 0.00070080746111997,
+          "D0_ci95_lo": -0.003375818240501341,
+          "D0_ci95_hi": -0.0005721709642421016,
+          "D0_p_one_sided": 0.9967212981160619,
+          "D0_p_two_sided": 0.0065574037678761835,
+          "D0_weighted": -0.002147785510635491,
+          "D0_boot_ci95": [
+            -0.0033321087199922137,
+            -0.0006172053710237658
+          ],
           "D": 0.0061373783366452045,
           "D_se": 0.0015437866754941555,
           "D_ci95_lo": 0.0030493452119996095,
           "D_ci95_hi": 0.0092254114612908,
           "D_p_one_sided": 9.563577518681051e-05,
           "D_p_two_sided": 0.00019127155037362102,
-          "mse_raw": 0.015074017316615881,
-          "mse_eb": 0.008936638979970678,
           "D_weighted": 0.0065597307317536695,
           "D_boot_ci95": [
             0.0033457095735959556,
             0.009234288028657832
           ],
           "boot": 999,
+          "mse_zero": 0.006962644377598954,
+          "mse_raw": 0.015074017316615881,
+          "mse_eb": 0.008936638979970678,
           "rho_w": -0.4578821797655443,
           "rho_w_ci95": [
             -1.0,
@@ -803,20 +857,32 @@
           "p_b_gt_0": 0.845915034708064,
           "p_b_lt_1": 1.2256586936631603e-05,
           "p_iut": 0.845915034708064,
+          "D0": -0.0003012431450670073,
+          "D0_se": 0.0001485158412776821,
+          "D0_ci95_lo": -0.0006021648233042742,
+          "D0_ci95_hi": -3.214668297404043e-07,
+          "D0_p_one_sided": 0.9751159316109568,
+          "D0_p_two_sided": 0.04976813677808646,
+          "D0_weighted": -0.0001304299854086155,
+          "D0_boot_ci95": [
+            -0.0005941945187528739,
+            -2.3348919631246694e-05
+          ],
           "D": 0.003787825538806223,
           "D_se": 0.0010744691456823932,
           "D_ci95_lo": 0.001610744254067232,
           "D_ci95_hi": 0.005964906823545214,
           "D_p_one_sided": 0.0005732433067871407,
           "D_p_two_sided": 0.0011464866135742814,
-          "mse_raw": 0.009607125432058841,
-          "mse_eb": 0.005819299893252617,
           "D_weighted": 0.0024514567521779075,
           "D_boot_ci95": [
             0.0018137626470380358,
             0.006078129233136668
           ],
           "boot": 999,
+          "mse_zero": 0.00551805674818561,
+          "mse_raw": 0.009607125432058841,
+          "mse_eb": 0.005819299893252617,
           "rho_w": null,
           "rho_w_ci95": [
             -1.0,
@@ -838,20 +904,32 @@
           "p_b_gt_0": 0.6769173880656286,
           "p_b_lt_1": 1.636118987845301e-05,
           "p_iut": 0.6769173880656286,
+          "D0": -0.0004968893556204874,
+          "D0_se": 0.00031951518179312063,
+          "D0_ci95_lo": -0.0011656423168621326,
+          "D0_ci95_hi": 0.0001718636056211578,
+          "D0_p_one_sided": 0.931793207164636,
+          "D0_p_two_sided": 0.13641358567072806,
+          "D0_weighted": -0.0005926593629730707,
+          "D0_boot_ci95": [
+            -0.001121976815376332,
+            4.7197389311848e-05
+          ],
           "D": 0.0016878945174511148,
           "D_se": 0.000588382357970747,
           "D_ci95_lo": 0.0004563960890288611,
           "D_ci95_hi": 0.0029193929458733686,
           "D_p_one_sided": 0.004915615974265911,
           "D_p_two_sided": 0.009831231948531822,
-          "mse_raw": 0.004253431807600591,
-          "mse_eb": 0.0025655372901494766,
           "D_weighted": 0.0018585532227647571,
           "D_boot_ci95": [
             0.0006403340530434031,
             0.002865063664321585
           ],
           "boot": 999,
+          "mse_zero": 0.0020686479345289888,
+          "mse_raw": 0.004253431807600591,
+          "mse_eb": 0.0025655372901494766,
           "rho_w": -0.16332035122497102,
           "rho_w_ci95": [
             -1.0,
@@ -895,22 +973,22 @@
         "family_any_holm_null": 0.07
       },
       "seconds": {
-        "frame": 3.4,
-        "pivot": 16.9,
-        "position": 89.2,
-        "teams": 9.9,
-        "kwtiming": 20.5,
-        "premia": 8.2
+        "frame": 3.2,
+        "pivot": 19.3,
+        "position": 86.7,
+        "teams": 9.3,
+        "kwtiming": 18.3,
+        "premia": 8.1
       },
       "lines": [
-        "PH5 primary   E1        coef -0.0070 CI95 [-0.0345, +0.0206] p1 0.309 (two-sided 0.617) p_holm 0.617 -> not supported",
+        "PH5 primary   E1        coef -0.0070 CI95 [-0.0345, +0.0206] p1 0.346 (two-sided 0.692) p_holm 0.692 -> not supported",
         "PH5 primary   P1b       coef +0.0156 CI95 [-0.0208, +0.0519] p1 0.801 (two-sided 0.398) p_holm 0.801 -> not supported",
         "PH5 secondary E4        coef +0.0005 CI95 [-0.0064, +0.0074] p1 0.44 (two-sided 0.881) -> not supported",
         "PH5 secondary P7        coef +0.0007 CI95 [-0.0083, +0.0096] p1 0.463 (two-sided 0.925) -> not supported",
         "PH5 secondary H1        coef +0.0203 CI95 [-0.0176, +0.0583] p1 0.145 (two-sided 0.291) -> not supported",
         "PH5 secondary A1        coef +0.0073 CI95 [-0.0282, +0.0429] p1 0.342 (two-sided 0.683) -> not supported",
         "PH5 secondary premia_b  coef -0.0913 CI95 [-0.3105, +0.1279] p1 0.795 (two-sided 0.409) -> not supported",
-        "PH5 secondary premia_eb coef +0.0053 CI95 [+0.0029, +0.0078] p1 2.15e-05 (two-sided 4.3e-05) -> supported"
+        "PH5 secondary premia_eb coef -0.0013 CI95 [-0.0024, -0.0002] p1 0.99 (two-sided 0.0196) -> not supported"
       ],
       "note": "associations within the stated fixed effects, not causal effects"
     }
@@ -935,5 +1013,133 @@
       "2025": 2284,
       "2026": 3942
     }
+  },
+  "mde": {
+    "mde80": {
+      "H1d": 0.12,
+      "H2b'": 0.028333333333333335,
+      "H2c'": 0.02384615384615385,
+      "H3a": 0.04782608695652175,
+      "H4-FL": 0.14545454545454545
+    },
+    "by_test": {
+      "H1d": {
+        "grid": [
+          0.02,
+          0.04,
+          0.06,
+          0.08,
+          0.12,
+          0.16,
+          0.24
+        ],
+        "power": [
+          0.12,
+          0.28,
+          0.41,
+          0.51,
+          0.8,
+          0.96,
+          0.99
+        ],
+        "mde80": 0.12,
+        "reps": 100,
+        "alpha": 0.05
+      },
+      "H2b'": {
+        "grid": [
+          0.01,
+          0.02,
+          0.03,
+          0.04,
+          0.06,
+          0.08,
+          0.12
+        ],
+        "power": [
+          0.12,
+          0.5,
+          0.86,
+          0.99,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "mde80": 0.028333333333333335,
+        "reps": 100,
+        "alpha": 0.025
+      },
+      "H2c'": {
+        "grid": [
+          0.005,
+          0.01,
+          0.015,
+          0.02,
+          0.03,
+          0.04,
+          0.06
+        ],
+        "power": [
+          0.07,
+          0.26,
+          0.52,
+          0.7,
+          0.96,
+          1.0,
+          1.0
+        ],
+        "mde80": 0.02384615384615385,
+        "reps": 100,
+        "alpha": 0.025
+      },
+      "H3a": {
+        "grid": [
+          0.005,
+          0.01,
+          0.015,
+          0.02,
+          0.03,
+          0.04,
+          0.06
+        ],
+        "power": [
+          0.1,
+          0.17,
+          0.23,
+          0.35,
+          0.44,
+          0.71,
+          0.94
+        ],
+        "mde80": 0.04782608695652175,
+        "reps": 100,
+        "alpha": 0.05
+      },
+      "H4-FL": {
+        "grid": [
+          0.02,
+          0.04,
+          0.06,
+          0.08,
+          0.12,
+          0.16,
+          0.24
+        ],
+        "power": [
+          0.15,
+          0.19,
+          0.33,
+          0.36,
+          0.66,
+          0.88,
+          0.99
+        ],
+        "mde80": 0.14545454545454545,
+        "reps": 100,
+        "alpha": 0.05
+      }
+    },
+    "dgp": "RQ2/RQ1 labels: dgp.calibrate on the discovery rows; acceptance: dry-run v3 RQ3 'hi' setting",
+    "detection": "predicted sign and one-sided p1 < 0.05 / family size in the main specification"
   }
 }

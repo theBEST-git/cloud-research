@@ -64,6 +64,21 @@ class SealedLoader(unittest.TestCase):
         with self.assertRaises(ValueError):
             outcomes._derive(t)
 
+    def test_unknown_review_status_only_where_lenient(self):
+        t = self.table.reset_index()
+        t["review_count"] = t.review_count.astype(float)
+        gone = (t.administrative_status == "withdrawn").to_numpy() & (np.arange(len(t)) % 7 == 0)
+        t.loc[gone, "review_count"] = np.nan
+        with self.assertRaises(ValueError):
+            outcomes._derive(t, lenient=np.zeros(len(t), bool))
+        d = outcomes._derive(t, lenient=gone)
+        self.assertFalse(d.e3[gone].any())
+        self.assertTrue(d.withdrawn_after_review[gone].isna().all() and d.withdrawn_before_review[gone].isna().all())
+        self.assertFalse(d.s9[gone].any())
+        base = outcomes._derive(self.table.reset_index())
+        keep = ~gone
+        pd.testing.assert_frame_equal(d[keep].reset_index(drop=True), base[keep].reset_index(drop=True))
+
     def test_permuted_mode_breaks_every_paper_link(self):
         ids = pd.Series(self.table.index)
         real = outcomes._derive(self.table.reset_index())
@@ -118,8 +133,8 @@ def as_main(name: str, directory: Path = HERE):
     return mock.patch.object(sys.modules["__main__"], "__file__", str(directory / name), create=True)
 
 
-def lines(path: Path, statuses: list[str]) -> None:
-    path.write_text("".join(json.dumps({"attempt": 1, "status": s}) + "\n" for s in statuses))
+def lines(path: Path, statuses: list[str], **extra) -> None:
+    path.write_text("".join(json.dumps({"attempt": 1, "status": s, **extra}) + "\n" for s in statuses))
 
 
 class SplitAwareReads(unittest.TestCase):
@@ -240,13 +255,15 @@ class SplitAwareReads(unittest.TestCase):
                 mock.patch.object(outcomes, "CONFIRMATION_ATTEMPTS", log), \
                 mock.patch.object(outcomes, "FREEZE_CONFIRMATION", self.frozen(False)), \
                 mock.patch.object(outcomes, "clean_tree", lambda *a: None):
-            for statuses in [None, [], ["started"], ["started", "failed"]]:
-                if statuses is not None:
-                    lines(log, statuses)
+            for statuses, extra in [(None, {}), ([], {}), (["started"], {"with_ph5": True}),
+                                    (["started", "failed"], {"with_ph5": True}), (["started", "finished"], {}),
+                                    (["started", "finished"], {"with_ph5": False})]:
+                if statuses is not None:                                      # finished without PH5 opens nothing
+                    lines(log, statuses, **extra)
                 with self.assertRaises(PermissionError) as e:
                     outcomes.load("real", ids)
                 self.assertIn("confirmation run has finished", str(e.exception))
-            lines(log, ["started", "finished"])
+            lines(log, ["started", "finished"], with_ph5=True)
             try:                                      # exploratory: the settings are loaded without a hash match
                 self.assertEqual(list(outcomes.load("real", ids).submission_id), list(ids))
             finally:
@@ -265,13 +282,14 @@ class SplitAwareReads(unittest.TestCase):
                 mock.patch.object(outcomes, "CONFIRMATION_ATTEMPTS", conf_log), \
                 mock.patch.object(outcomes, "ATTEMPTS", main_log), mock.patch.object(outcomes, "POSTHOC_LOG", access), \
                 mock.patch.object(outcomes, "clean_tree", lambda *a: None):
-            for statuses in [[], ["started"], ["started", "failed"]]:
-                lines(conf_log, statuses)
+            for statuses, extra in [([], {}), (["started"], {"with_ph5": True}), (["started", "failed"], {"with_ph5": True}),
+                                    (["started", "finished"], {"with_ph5": False})]:
+                lines(conf_log, statuses, **extra)
                 with self.assertRaises(PermissionError) as e:
                     outcomes.load("posthoc", ids)
                 self.assertIn("confirmation run has finished", str(e.exception))
             self.assertFalse(access.exists())
-            lines(conf_log, ["started", "finished"])
+            lines(conf_log, ["started", "finished"], with_ph5=True)
             lines(main_log, ["started"])
             with self.assertRaises(PermissionError) as e:              # the pooled main run must have finished too
                 outcomes.load("posthoc", ids)

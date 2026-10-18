@@ -1,0 +1,587 @@
+{
+  "rq2": {
+    "family": [
+      "H2a",
+      "H2b",
+      "H2c"
+    ],
+    "verdicts": {
+      "H2a": {
+        "outcome": "incumbent",
+        "regressor": "hot",
+        "predicted_sign": -1,
+        "sesoi": 0.02,
+        "coef": -0.008513811221106124,
+        "se": 0.011452243907597184,
+        "ci95": [
+          -0.031237547716262727,
+          0.01420992527405048
+        ],
+        "ci90": [
+          -0.027529015721829954,
+          0.010501393279617703
+        ],
+        "p": 0.4589889252523556,
+        "p_holm": 0.4589889252523556,
+        "n": 53107,
+        "clusters": 100,
+        "p_method": "CR1, t(G-1)",
+        "p_cr1": 0.4589889252523556,
+        "robustness_same_sign": 0.8,
+        "robustness_variants": 10,
+        "variants_wrong_sign": [
+          "balanced",
+          "k150"
+        ],
+        "hindsight_variants_same_sign": false,
+        "tost_p": 0.159161691584905,
+        "verdict": "inconclusive",
+        "fragile": false,
+        "fragile_by": [],
+        "ci_tost_method": "CR1, t(G-1)",
+        "s11_p_holm": 0.44516216901871203,
+        "s11_agrees": null,
+        "qualifier": "",
+        "mde80": 0.03619,
+        "underpowered_at_3x_sesoi": false
+      },
+      "H2b": {
+        "outcome": "method",
+        "regressor": "newcomer",
+        "predicted_sign": -1,
+        "sesoi": 0.02,
+        "coef": 0.03457438238290131,
+        "se": 0.005431400862985557,
+        "ci95": [
+          0.02379730471970427,
+          0.045351460046098344
+        ],
+        "ci90": [
+          0.025556132425217037,
+          0.04359263234058558
+        ],
+        "p": 0.0,
+        "p_holm": 0.0,
+        "n": 53098,
+        "clusters": 100,
+        "p_method": "wild cluster restricted bootstrap (Rademacher by topic, 9999 draws)",
+        "p_cr1": 6.106166224895168e-09,
+        "robustness_same_sign": 0.0,
+        "robustness_variants": 10,
+        "variants_wrong_sign": [
+          "balanced",
+          "certain_labels",
+          "coherent_topics",
+          "early",
+          "early_prospective",
+          "id_consistent_years",
+          "k150",
+          "k75",
+          "stable_papers",
+          "without_2026"
+        ],
+        "hindsight_variants_same_sign": false,
+        "tost_p": 0.9957280928794353,
+        "verdict": "significant in the opposite direction",
+        "fragile": false,
+        "fragile_by": [
+          "S1_log_team",
+          "S5_fine",
+          "S11_twoway_topic_early",
+          "S3_window_2023_2026",
+          "S4_without_own_versions",
+          "S8_misclassification"
+        ],
+        "ci_tost_method": "CR1, t(G-1)",
+        "s11_p_holm": 3.0795061389592597e-07,
+        "s11_agrees": true,
+        "qualifier": "",
+        "mde80": 0.01716,
+        "underpowered_at_3x_sesoi": false
+      },
+      "H2c": {
+        "outcome": "measurement",
+        "regressor": "newcomer",
+        "predicted_sign": 1,
+        "sesoi": 0.01,
+        "coef": -0.016519276335352044,
+        "se": 0.003575137289362489,
+        "ci95": [
+          -0.02361312434915381,
+          -0.009425428321550279
+        ],
+        "ci90": [
+          -0.022455402672156077,
+          -0.010583149998548012
+        ],
+        "p": 0.0,
+        "p_holm": 0.0,
+        "n": 53098,
+        "clusters": 100,
+        "p_method": "wild cluster restricted bootstrap (Rademacher by topic, 9999 draws)",
+        "p_cr1": 1.1543640024738117e-05,
+        "robustness_same_sign": 0.0,
+        "robustness_variants": 10,
+        "variants_wrong_sign": [
+          "balanced",
+          "certain_labels",
+          "coherent_topics",
+          "early",
+          "early_prospective",
+          "id_consistent_years",
+          "k150",
+          "k75",
+          "stable_papers",
+          "without_2026"
+        ],
+        "hindsight_variants_same_sign": false,
+        "tost_p": 0.9643777667506271,
+        "verdict": "significant in the opposite direction",
+        "fragile": false,
+        "fragile_by": [
+          "S5_fine",
+          "S11_twoway_topic_early",
+          "S3_window_2023_2026",
+          "S4_without_own_versions",
+          "S8_misclassification"
+        ],
+        "ci_tost_method": "CR1, t(G-1)",
+        "s11_p_holm": 0.0002578330234703397,
+        "s11_agrees": true,
+        "qualifier": "",
+        "mde80": 0.01086,
+        "underpowered_at_3x_sesoi": false
+      }
+    },
+    "s11_twoway": {
+      "H2a": {
+        "coef": -0.008513811221106124,
+        "se": 0.011106392508639295,
+        "p": 0.44516216901871203,
+        "ci95": [
+          -0.03055130350772061,
+          0.01352368106550836
+        ],
+        "ci90": [
+          -0.02695476711770417,
+          0.00992714467549192
+        ],
+        "clusters": 100,
+        "clusters2": 100.0
+      },
+      "H2b": {
+        "coef": 0.03457438238290131,
+        "se": 0.006020722787579604,
+        "p": 1.0265020463197533e-07,
+        "ci95": [
+          0.022627962166983227,
+          0.04652080259881939
+        ],
+        "ci90": [
+          0.024577627513574174,
+          0.04457113725222844
+        ],
+        "clusters": 100,
+        "clusters2": 100.0
+      },
+      "H2c": {
+        "coef": -0.016519276335352044,
+        "se": 0.004144971038119358,
+        "p": 0.00012891651173516986,
+        "ci95": [
+          -0.024743798133023225,
+          -0.008294754537680863
+        ],
+        "ci90": [
+          -0.02340154958899199,
+          -0.009637003081712097
+        ],
+        "clusters": 100,
+        "clusters2": 100.0
+      }
+    },
+    "stress_sensitivity": {
+      "H2b": {
+        "t_inflation": 1.3078,
+        "p_stress": 4.277891895330112e-06,
+        "p_holm_stress": 1.2833675685990334e-05,
+        "note": "sensitivity, not part of the verdict: CR1 t divided by its dry-run v3 inflation under the cross-map null"
+      },
+      "H2c": {
+        "t_inflation": 1.2198,
+        "p_stress": 0.00026077437260344633,
+        "p_holm_stress": 0.0005215487452068927,
+        "note": "sensitivity, not part of the verdict: CR1 t divided by its dry-run v3 inflation under the cross-map null"
+      }
+    },
+    "label_reliability": {
+      "second_pass_papers": 2729,
+      "method": {
+        "second_pass_agreement": 0.9758,
+        "second_pass_kappa": 0.9364,
+        "reference_n": 1940,
+        "false_positive_rate": 0.0835,
+        "false_negative_rate": 0.0111
+      },
+      "measurement": {
+        "second_pass_agreement": 0.9923,
+        "second_pass_kappa": 0.9447,
+        "reference_n": 1940,
+        "false_positive_rate": 0.0045,
+        "false_negative_rate": 0.0701
+      }
+    }
+  },
+  "rq3": {
+    "family": [
+      "H3a",
+      "H3b"
+    ],
+    "verdicts": {
+      "H3a": {
+        "outcome": "accepted",
+        "regressor": "maturity",
+        "predicted_sign": -1,
+        "sesoi": 0.01,
+        "coef": -0.017230108726947982,
+        "se": 0.008644234498839769,
+        "ci95": [
+          -0.034382145353033966,
+          -7.807210086199431e-05
+        ],
+        "ci90": [
+          -0.0315829192393585,
+          -0.0028772982145374663
+        ],
+        "p": 0.04898610681052733,
+        "p_holm": 0.09797221362105465,
+        "n": 40375,
+        "clusters": 100,
+        "p_method": "CR1, t(G-1)",
+        "p_cr1": 0.04898610681052733,
+        "robustness_same_sign": 1.0,
+        "robustness_variants": 11,
+        "variants_wrong_sign": [],
+        "hindsight_variants_same_sign": true,
+        "tost_p": 0.7975301852986172,
+        "verdict": "inconclusive",
+        "fragile": false,
+        "fragile_by": [],
+        "ci_tost_method": "CR1, t(G-1)",
+        "s11_p_holm": 0.06302187547347696,
+        "s11_agrees": null,
+        "qualifier": "",
+        "mde80": 0.04146,
+        "underpowered_at_3x_sesoi": true
+      },
+      "H3b": {
+        "outcome": "accepted",
+        "regressor": "maturity_x_method",
+        "predicted_sign": -1,
+        "sesoi": 0.01,
+        "coef": -0.0002902077758078158,
+        "se": 0.00527742698246279,
+        "ci95": [
+          -0.01076176785517004,
+          0.010181352303554407
+        ],
+        "ci90": [
+          -0.009052800864014466,
+          0.008472385312398833
+        ],
+        "p": 0.9562569416262108,
+        "p_holm": 0.9562569416262108,
+        "n": 40375,
+        "clusters": 100,
+        "p_method": "CR1, t(G-1)",
+        "p_cr1": 0.9562569416262108,
+        "robustness_same_sign": 0.6363636363636364,
+        "robustness_variants": 11,
+        "variants_wrong_sign": [
+          "balanced",
+          "early",
+          "k150",
+          "no_earlier_version"
+        ],
+        "hindsight_variants_same_sign": false,
+        "tost_p": 0.034391607540141825,
+        "verdict": "equivalent to null",
+        "fragile": false,
+        "fragile_by": [],
+        "ci_tost_method": "CR1, t(G-1)",
+        "s11_p_holm": 0.9583458178232509,
+        "s11_agrees": true,
+        "qualifier": "",
+        "mde80": 0.0236,
+        "underpowered_at_3x_sesoi": false
+      }
+    },
+    "s11_twoway": {
+      "H3a": {
+        "coef": -0.017230108726947982,
+        "se": 0.007898168316080954,
+        "p": 0.03151093773673848,
+        "ci95": [
+          -0.03290178818619856,
+          -0.001558429267697406
+        ],
+        "ci90": [
+          -0.030344157547702404,
+          -0.0041160599061935595
+        ],
+        "clusters": 100,
+        "clusters2": 100.0
+      },
+      "H3b": {
+        "coef": -0.0002902077758078158,
+        "se": 0.005542342846388265,
+        "p": 0.9583458178232509,
+        "ci95": [
+          -0.011287418403115127,
+          0.010707002851499494
+        ],
+        "ci90": [
+          -0.009492664821564925,
+          0.008912249269949293
+        ],
+        "clusters": 100,
+        "clusters2": 100.0
+      }
+    },
+    "stress_sensitivity": {},
+    "counts": {
+      "rq3_papers_2018_2026": 40375,
+      "s9_extra_withdrawn_after_review": 12094
+    }
+  },
+  "h2d_gate": {
+    "gate": "fail",
+    "rule": "p_flag >= 0.5 and p_flag >= 2.0 * p_nonflag; peripheral = at least 2 of 3 judges",
+    "p_flag": 0.42,
+    "p_flag_ci95": [
+      0.328,
+      0.5179
+    ],
+    "p_nonflag": 0.15,
+    "p_nonflag_ci95": [
+      0.0931,
+      0.2328
+    ],
+    "ratio": 2.8,
+    "n_flagged": 100,
+    "n_nonflagged": 100,
+    "fleiss_kappa": 0.7694,
+    "per_judge": {
+      "sonnet_a": {
+        "p_flag": 0.44,
+        "p_nonflag": 0.14
+      },
+      "sonnet_b": {
+        "p_flag": 0.43,
+        "p_nonflag": 0.18
+      },
+      "haiku_a": {
+        "p_flag": 0.34,
+        "p_nonflag": 0.16
+      }
+    },
+    "unanimous_share": 0.86,
+    "pairwise_agreement": {
+      "sonnet_a~sonnet_b": 0.935,
+      "sonnet_a~haiku_a": 0.9,
+      "sonnet_b~haiku_a": 0.885
+    },
+    "confidence_shares": {
+      "high": 0.4583,
+      "medium": 0.45,
+      "low": 0.0917
+    },
+    "p_flag_by_year": {
+      "2019": 1.0,
+      "2020": 0.0,
+      "2021": 0.333,
+      "2022": 0.5,
+      "2023": 0.1,
+      "2024": 0.9,
+      "2025": 0.4,
+      "2026": 0.391
+    },
+    "audit_violations": 0,
+    "h2d_in_family": false,
+    "h3c_in_family": false
+  },
+  "tau": 0.9,
+  "e9_equivalence": [
+    {
+      "hypothesis": "H2a",
+      "verdict": "inconclusive",
+      "coef": -0.008513811221106124,
+      "ci90": [
+        -0.027529015721829954,
+        0.010501393279617703
+      ],
+      "sesoi": 0.02,
+      "tost_p": 0.159161691584905,
+      "mde80": 0.03619,
+      "mde80_note": "",
+      "underpowered_at_3x_sesoi": false,
+      "p_method": "CR1, t(G-1)",
+      "ci_tost_method": "CR1, t(G-1)",
+      "qualifier": "",
+      "s11_agrees": null
+    },
+    {
+      "hypothesis": "H2b",
+      "verdict": "significant in the opposite direction",
+      "coef": 0.03457438238290131,
+      "ci90": [
+        0.025556132425217037,
+        0.04359263234058558
+      ],
+      "sesoi": 0.02,
+      "tost_p": 0.9957280928794353,
+      "mde80": 0.01716,
+      "mde80_note": "",
+      "underpowered_at_3x_sesoi": false,
+      "p_method": "wild cluster restricted bootstrap (Rademacher by topic, 9999 draws)",
+      "ci_tost_method": "CR1, t(G-1)",
+      "qualifier": "",
+      "s11_agrees": true
+    },
+    {
+      "hypothesis": "H2c",
+      "verdict": "significant in the opposite direction",
+      "coef": -0.016519276335352044,
+      "ci90": [
+        -0.022455402672156077,
+        -0.010583149998548012
+      ],
+      "sesoi": 0.01,
+      "tost_p": 0.9643777667506271,
+      "mde80": 0.01086,
+      "mde80_note": "",
+      "underpowered_at_3x_sesoi": false,
+      "p_method": "wild cluster restricted bootstrap (Rademacher by topic, 9999 draws)",
+      "ci_tost_method": "CR1, t(G-1)",
+      "qualifier": "",
+      "s11_agrees": true
+    },
+    {
+      "hypothesis": "H3a",
+      "verdict": "inconclusive",
+      "coef": -0.017230108726947982,
+      "ci90": [
+        -0.0315829192393585,
+        -0.0028772982145374663
+      ],
+      "sesoi": 0.01,
+      "tost_p": 0.7975301852986172,
+      "mde80": 0.04146,
+      "mde80_note": "",
+      "underpowered_at_3x_sesoi": true,
+      "p_method": "CR1, t(G-1)",
+      "ci_tost_method": "CR1, t(G-1)",
+      "qualifier": "",
+      "s11_agrees": null
+    },
+    {
+      "hypothesis": "H3b",
+      "verdict": "equivalent to null",
+      "coef": -0.0002902077758078158,
+      "ci90": [
+        -0.009052800864014466,
+        0.008472385312398833
+      ],
+      "sesoi": 0.01,
+      "tost_p": 0.034391607540141825,
+      "mde80": 0.0236,
+      "mde80_note": "",
+      "underpowered_at_3x_sesoi": false,
+      "p_method": "CR1, t(G-1)",
+      "ci_tost_method": "CR1, t(G-1)",
+      "qualifier": "",
+      "s11_agrees": true
+    }
+  ],
+  "dryrun_criterion_c_detected_80pct_at_3x_sesoi": {
+    "H2a": true,
+    "H2b": true,
+    "H2c": true,
+    "H3a": false,
+    "H3b": true
+  },
+  "dropped_hypotheses": [
+    "H2d",
+    "H3c"
+  ],
+  "remedies": [
+    "H2b",
+    "H2c"
+  ],
+  "remedy_validation_dryrun_v3": {
+    "size_bootstrap": {
+      "rq2_null_early": {
+        "H2a": 0.05,
+        "H2b": 0.124,
+        "H2c": 0.096
+      },
+      "rq2_null_k100": {
+        "H2a": 0.058,
+        "H2b": 0.044,
+        "H2c": 0.05
+      },
+      "rq3_null_early_hi": {
+        "H3a": 0.064,
+        "H3b": 0.058
+      },
+      "rq3_null_k100_hi": {
+        "H3a": 0.048,
+        "H3b": 0.038
+      },
+      "rq3_null_k100_lo": {
+        "H3a": 0.054,
+        "H3b": 0.04
+      },
+      "rq3_permuted": {
+        "H3a": 0.046,
+        "H3b": 0.054
+      }
+    },
+    "size_twoway": {
+      "rq2_null_early": {
+        "H2a": 0.07,
+        "H2b": 0.076,
+        "H2c": 0.07
+      },
+      "rq2_null_k100": {
+        "H2a": 0.066,
+        "H2b": 0.048,
+        "H2c": 0.054
+      },
+      "rq3_null_early_hi": {
+        "H3a": 0.062,
+        "H3b": 0.06
+      },
+      "rq3_null_k100_hi": {
+        "H3a": 0.062,
+        "H3b": 0.044
+      },
+      "rq3_null_k100_lo": {
+        "H3a": 0.05,
+        "H3b": 0.046
+      },
+      "rq3_permuted": {
+        "H3a": 0.066,
+        "H3b": 0.056
+      }
+    }
+  },
+  "exploratory_caveat": [
+    "accepted ~ buzzword + lists_hot + classes + fm | topic + year",
+    "accepted ~ lists_hot + buzzword + classes + fm | topic + year",
+    "buzzword ~ newcomer | topic x year, among papers listing a hot keyword",
+    "lists_hot ~ newcomer | topic x year",
+    "withdrawn_after_review ~ buzzword + classes + fm | topic + year",
+    "withdrawn_before_review ~ buzzword + classes + fm | topic + year"
+  ]
+}

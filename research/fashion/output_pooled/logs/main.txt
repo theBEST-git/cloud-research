@@ -1,0 +1,5 @@
+H2a incumbent    ~ hot                coef -0.0085 CI95 [-0.0312, +0.0142] p 0.459 p_holm 0.459 robust 80% hindsight FAIL -> inconclusive
+H2b method       ~ newcomer           coef +0.0346 CI95 [+0.0238, +0.0454] p_boot < 1/9999 p_holm 0 robust 0% hindsight FAIL -> significant in the opposite direction [stress p_holm 1.28e-05]
+H2c measurement  ~ newcomer           coef -0.0165 CI95 [-0.0236, -0.0094] p_boot < 1/9999 p_holm 0 robust 0% hindsight FAIL -> significant in the opposite direction [stress p_holm 0.000522]
+H3a accepted     ~ maturity           coef -0.0172 CI95 [-0.0344, -0.0001] p 0.049 p_holm 0.098 robust 100% hindsight ok -> inconclusive
+H3b accepted     ~ maturity_x_method  coef -0.0003 CI95 [-0.0108, +0.0102] p 0.956 p_holm 0.956 robust 64% hindsight FAIL -> equivalent to null

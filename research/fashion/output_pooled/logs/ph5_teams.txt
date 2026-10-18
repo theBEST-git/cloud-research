@@ -1,0 +1,138 @@
+{
+  "summary": {
+    "population": {
+      "papers": 30844,
+      "topics": 100,
+      "hot_share": 0.28371806510180264,
+      "papers_by_n_ins": {
+        "0": 19499,
+        "1": 4828,
+        "2": 2910,
+        "3": 3607
+      },
+      "papers_by_n_exp": {
+        "0": 4549,
+        "1": 5452,
+        "2": 5897,
+        "3": 5213,
+        "4": 9733
+      },
+      "papers_by_proven_familiar": {
+        "neither": 7740,
+        "unproven insider": 932,
+        "proven outsider": 11759,
+        "proven insider": 10413
+      },
+      "papers_by_role_t3": {
+        "first only": 690,
+        "last only": 5046,
+        "both": 2579
+      },
+      "alphabetical_share_t3": 0.049957132493569874,
+      "years": [
+        2023,
+        2026
+      ],
+      "acceptance_rate": 0.41032291531578263
+    },
+    "replication_population": {
+      "papers": 3599,
+      "topics": 98,
+      "hot_share": 0.1719922200611281,
+      "papers_by_n_ins": {
+        "0": 2867,
+        "1": 357,
+        "2": 220,
+        "3": 155
+      },
+      "papers_by_n_exp": {
+        "0": 1368,
+        "1": 866,
+        "2": 663,
+        "3": 378,
+        "4": 324
+      },
+      "papers_by_proven_familiar": {
+        "neither": 1830,
+        "unproven insider": 114,
+        "proven outsider": 1037,
+        "proven insider": 618
+      },
+      "papers_by_role_t3": {
+        "first only": 80,
+        "last only": 328,
+        "both": 142
+      },
+      "alphabetical_share_t3": 0.07280022929206076,
+      "years": [
+        2019,
+        2020
+      ]
+    },
+    "family": [
+      {
+        "test": "H1",
+        "label": "one insider vs none",
+        "estimate": 0.028990846949066687,
+        "se": 0.009846099703067062,
+        "p": 0.004032510249489579,
+        "p_holm": 0.024195061496937474,
+        "mde80": 0.025528164029568194,
+        "perm_p": 0.004975124378109453
+      },
+      {
+        "test": "H2",
+        "label": "concavity: (1 vs 0) - (2+ vs 1)",
+        "estimate": 0.015004502897884402,
+        "se": 0.01803075558952354,
+        "p": 0.40732057480229134,
+        "p_holm": 0.8146411496045827,
+        "mde80": 0.0462126976102941,
+        "perm_p": 0.39800995024875624
+      },
+      {
+        "test": "H3",
+        "label": "(1 vs 0) in hot minus other topics",
+        "estimate": -0.007727446436488904,
+        "se": 0.01915127759178274,
+        "p": 0.6874542187631858,
+        "p_holm": 0.8146411496045827,
+        "mde80": 0.04898030719565072,
+        "perm_p": 0.7014925373134329
+      },
+      {
+        "test": "H4",
+        "label": "proven outsider - unproven insider",
+        "estimate": 0.04181957915624707,
+        "se": 0.018871843128080715,
+        "p": 0.028983262641516756,
+        "p_holm": 0.14491631320758377,
+        "mde80": 0.04504486815753421,
+        "perm_p": 0.014925373134328358
+      },
+      {
+        "test": "H5",
+        "label": "H4 in hot minus other topics",
+        "estimate": -0.09952730144930949,
+        "se": 0.053133928829690896,
+        "p": 0.06399917522378352,
+        "p_holm": 0.2559967008951341,
+        "mde80": 0.12406536436320129,
+        "perm_p": 0.04477611940298507
+      },
+      {
+        "test": "H6",
+        "label": "last-author insider - first-author insider",
+        "estimate": -0.03700165718901756,
+        "se": 0.020656342611907474,
+        "p": 0.07630122232846002,
+        "p_holm": 0.2559967008951341,
+        "mde80": 0.055391917803990026,
+        "perm_p": 0.06467661691542288
+      }
+    ],
+    "permutations": 200,
+    "note": "post hoc exploratory (PH5 teams, selection S7); associations, not causal effects"
+  }
+}
+

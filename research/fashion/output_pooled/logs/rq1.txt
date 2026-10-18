@@ -1,0 +1,5 @@
+H1a method          ~ maturity     coef -0.0059 CI [-0.02048, 0.00878] p_holm 1 robust 89% hindsight ok -> not supported
+H1b measurement     ~ maturity     coef +0.0081 CI [-0.00308, 0.01929] p_holm 0.635 robust 89% hindsight ok -> not supported
+H1c empirical       ~ maturity     coef -0.0024 CI [-0.01148, 0.00663] p_holm 1 robust 11% hindsight FAIL -> not supported
+H1d model           ~ fm_adoption  coef -0.0891 CI [-0.13074, -0.04747] p_holm 0.000298 robust 100% hindsight ok -> supported
+H1e studies_models  ~ fm_adoption  coef -0.0056 CI [-0.03712, 0.02586] p_holm 1 robust 56% hindsight ok -> not supported

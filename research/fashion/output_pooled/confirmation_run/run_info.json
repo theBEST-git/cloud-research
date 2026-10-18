@@ -1,0 +1,14 @@
+{
+  "started_utc": "2026-10-18T16:39:50+00:00",
+  "finished_utc": "2026-10-18T16:42:21+00:00",
+  "git_head": "28fa1b90e99b5e593d35a734221a4fb90a881ec7",
+  "corpus": "pooled",
+  "freeze_sha256": "5766b1c239568a23175dfd81434e8f122900a463d13141f7d6c2207ee40930a9",
+  "with_ph5": true,
+  "python": "3.13.16",
+  "numpy": "2.5.3",
+  "pandas": "3.0.5",
+  "scipy": "1.18.1",
+  "matplotlib": "3.9.2",
+  "platform": "Linux-6.18.44-fc-v139-x86_64-with-glibc2.39"
+}

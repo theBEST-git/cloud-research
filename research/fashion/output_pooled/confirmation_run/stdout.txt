@@ -1,0 +1,6 @@
+[real] pre-registered out-of-sample replication on the released former-holdout papers (not an untouched independent holdout)
+H1d   model       ~ fm_adoption coef -0.1102 CI95 [-0.1811, -0.0393] p1 0.00133 (two-sided 0.00265) p_holm 0.00133 robust 100% hindsight ok -> supported
+H2b'  method      ~ newcomer    coef +0.0360 CI95 [+0.0148, +0.0571] p1 0.0007 (two-sided 0.0014) p_holm 0.001 robust 100% hindsight ok -> supported
+H2c'  measurement ~ newcomer    coef -0.0210 CI95 [-0.0335, -0.0085] p1 0.0005 (two-sided 0.001) p_holm 0.001 robust 100% hindsight ok -> supported
+H3a   accepted    ~ maturity    coef -0.0151 CI95 [-0.0520, +0.0219] p1 0.21 (two-sided 0.42) p_holm 0.21 robust 82% hindsight FAIL -> inconclusive
+H4-FL level -0.0488 CI95 [-0.1545, +0.0568] p1 0.144 (two-sided 0.288) FL papers 134 years>=10 6 -> not supported; trend: +0.0316 p1 0.878 -> not supported

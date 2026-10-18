@@ -1,0 +1,2 @@
+test,label,coef,se,p,ci95_lo,ci95_hi,mde80,rows,papers,dof,null_frames,p_null_frames,p_null_frames_one_sided,size_in_null_frames,mde80_simulated,confirmation_test,p_twoway,mde80_se
+A1,Emerging (young x rising) minus Mainstream (old x flat),0.032538816653137514,0.01730312138675688,0.06297700635746453,-0.0017943301178229704,0.066871963424098,0.04895890482907555,10294,5741,99,200,0.07960199004975124,0.01990049751243781,0.065,0.046500176718397714,A1,,

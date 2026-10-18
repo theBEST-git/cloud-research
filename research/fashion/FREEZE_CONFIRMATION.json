@@ -1,0 +1,539 @@
+{
+  "created_utc": "2026-10-18T16:39:33Z",
+  "discovery_created_utc": "2026-10-15T19:02:52Z",
+  "discovery_freeze_sha256": "15bc822e4092db45a9fb2ab37b0dc8e215c922440f45b6a7b3ccd4d634548fd6",
+  "dryrun_problems": [
+    "H2b: size 0.126 in rq2_null_early;",
+    "H2c: size 0.1 in rq2_null_early;"
+  ],
+  "remedies": [
+    "bootstrap:H2b",
+    "bootstrap:H2c"
+  ],
+  "h2d_gate_passed": false,
+  "tau": 0.9,
+  "families": {
+    "rq2": [
+      "H2a",
+      "H2b",
+      "H2c"
+    ],
+    "rq3": [
+      "H3a",
+      "H3b"
+    ]
+  },
+  "sesoi": {
+    "H2a": 0.02,
+    "H2b": 0.02,
+    "H2c": 0.01,
+    "H2d": 0.01,
+    "H3a": 0.01,
+    "H3b": 0.01,
+    "H3c": 0.02
+  },
+  "counted_variants": {
+    "rq2": [
+      "k75",
+      "k150",
+      "balanced",
+      "early",
+      "early_prospective",
+      "stable_papers",
+      "coherent_topics",
+      "certain_labels",
+      "without_2026",
+      "id_consistent_years"
+    ],
+    "rq3": [
+      "k75",
+      "k150",
+      "balanced",
+      "early",
+      "early_prospective",
+      "stable_papers",
+      "coherent_topics",
+      "certain_labels",
+      "without_2026",
+      "logit",
+      "no_earlier_version"
+    ]
+  },
+  "hindsight_variants": [
+    "balanced",
+    "early_prospective"
+  ],
+  "robust_share": 0.75,
+  "mde80": {
+    "H2a": 0.03619,
+    "H2b": 0.01716,
+    "H2c": 0.01086,
+    "H3a": 0.04146,
+    "H3b": 0.0236
+  },
+  "mde80_rq3_lo_variance": {
+    "H3a": 0.02805,
+    "H3b": 0.02136
+  },
+  "mde80_cr1_for_remedied": {
+    "H2b": 0.01704,
+    "H2c": 0.01095
+  },
+  "dryrun_criteria": {
+    "a_size_within_2_8pct": false,
+    "a_size_range": [
+      0.038,
+      0.126
+    ],
+    "a_size_violations": {
+      "rq2_null_early": {
+        "H2b": 0.126,
+        "H2c": 0.1
+      }
+    },
+    "b_false_support_at_most_5pct": true,
+    "c_detected_80pct_at_3x_sesoi": {
+      "H2a": true,
+      "H2b": true,
+      "H2c": true,
+      "H3a": false,
+      "H3b": true
+    }
+  },
+  "remedy_validation": {
+    "size_bootstrap": {
+      "rq2_null_early": {
+        "H2a": 0.05,
+        "H2b": 0.124,
+        "H2c": 0.096
+      },
+      "rq2_null_k100": {
+        "H2a": 0.058,
+        "H2b": 0.044,
+        "H2c": 0.05
+      },
+      "rq3_null_early_hi": {
+        "H3a": 0.064,
+        "H3b": 0.058
+      },
+      "rq3_null_k100_hi": {
+        "H3a": 0.048,
+        "H3b": 0.038
+      },
+      "rq3_null_k100_lo": {
+        "H3a": 0.054,
+        "H3b": 0.04
+      },
+      "rq3_permuted": {
+        "H3a": 0.046,
+        "H3b": 0.054
+      }
+    },
+    "size_twoway": {
+      "rq2_null_early": {
+        "H2a": 0.07,
+        "H2b": 0.076,
+        "H2c": 0.07
+      },
+      "rq2_null_k100": {
+        "H2a": 0.066,
+        "H2b": 0.048,
+        "H2c": 0.054
+      },
+      "rq3_null_early_hi": {
+        "H3a": 0.062,
+        "H3b": 0.06
+      },
+      "rq3_null_k100_hi": {
+        "H3a": 0.062,
+        "H3b": 0.044
+      },
+      "rq3_null_k100_lo": {
+        "H3a": 0.05,
+        "H3b": 0.046
+      },
+      "rq3_permuted": {
+        "H3a": 0.066,
+        "H3b": 0.056
+      }
+    }
+  },
+  "stress_t_inflation": {
+    "H2b": 1.3078,
+    "H2c": 1.2198
+  },
+  "stress_scenario": "rq2_null_early",
+  "mde80_note": {
+    "H2a": "",
+    "H2b": "",
+    "H2c": "",
+    "H3a": "",
+    "H3b": ""
+  },
+  "mde80_lo_note": {
+    "H3a": "",
+    "H3b": ""
+  },
+  "dryrun_dgp": {
+    "rq2_calibrated": {
+      "incumbent": {
+        "base": 0.27048,
+        "sd_topic": 0.0849,
+        "sd_year": 0.11713,
+        "sd_trend": 0.02088,
+        "sd_cell": 0.04844
+      },
+      "method": {
+        "base": 0.75048,
+        "sd_topic": 0.14145,
+        "sd_year": 0.02414,
+        "sd_trend": 0.01104,
+        "sd_cell": 0.02756
+      },
+      "measurement": {
+        "base": 0.07712,
+        "sd_topic": 0.07969,
+        "sd_year": 0.01609,
+        "sd_trend": 0.01143,
+        "sd_cell": 0.01212
+      },
+      "buzzword": {
+        "base": 0.04888,
+        "sd_topic": 0.03192,
+        "sd_year": 0.01192,
+        "sd_trend": 0.0,
+        "sd_cell": 0.01972
+      },
+      "lists_hot": {
+        "base": 0.27943,
+        "sd_topic": 0.12865,
+        "sd_year": 0.04909,
+        "sd_trend": 0.02105,
+        "sd_cell": 0.11547
+      }
+    },
+    "rq3": {
+      "lo": {
+        "base": 0.32,
+        "sd_topic": 0.05,
+        "sd_year": 0.03,
+        "sd_trend": 0.004,
+        "sd_cell": 0.02
+      },
+      "hi": {
+        "base": 0.32,
+        "sd_topic": 0.05,
+        "sd_year": 0.03,
+        "sd_trend": 0.016,
+        "sd_cell": 0.04
+      }
+    },
+    "reps": 500,
+    "power_reps": 200,
+    "full_reps": 100,
+    "code_digest": "8524f3cbf95bc6f6e225d1dfb1df91e450e2e7d094f21789ec23ff4a78bf6981"
+  },
+  "registered": {
+    "status": "pre-registered out-of-sample replication on the released former-holdout papers (not an untouched independent holdout)",
+    "population": "confirmation papers with text; features built on discovery + confirmation with the frozen code, frames filtered to the confirmation papers after construction (D14)",
+    "hypotheses": {
+      "H1d": {
+        "model": "model ~ fm_adoption | topic + year FE (rq1_rise.fit), 2018-2026",
+        "sign": -1,
+        "p": "CR1 by topic, t(G-1)",
+        "variants": "variants.SHARED"
+      },
+      "H2b'": {
+        "model": "method ~ newcomer | topic x year FE (rq2 H2b), 2019-2026",
+        "sign": 1,
+        "p": "wild cluster restricted bootstrap (FREEZE remedy bootstrap:H2b)",
+        "variants": "variants.RQ2",
+        "note": "new hypothesis, reverses discovery's H2b"
+      },
+      "H2c'": {
+        "model": "measurement ~ newcomer | topic x year FE (rq2 H2c), 2019-2026",
+        "sign": -1,
+        "p": "wild cluster restricted bootstrap (FREEZE remedy bootstrap:H2c)",
+        "variants": "variants.RQ2",
+        "note": "new hypothesis, reverses discovery's H2c"
+      },
+      "H3a": {
+        "model": "accepted ~ maturity + class + fm | topic + year FE (rq3 H3a), 2018-2026, RQ3 population",
+        "sign": -1,
+        "p": "CR1 by topic, t(G-1)",
+        "variants": "variants.RQ3"
+      },
+      "H4-FL": {
+        "model": "PH4 level: paper-weighted mean yearly gap in acceptance, papers listing 'federated learning' minus all other papers of the year (posthoc.ph4_set), 2018-2026, RQ3 population",
+        "sign": -1,
+        "p": "t(m-1), m = years with >= 10 FL papers",
+        "variants": "none",
+        "secondary": "PH4 trend (pp per year), one-sided, only if m >= 4; otherwise not estimable"
+      }
+    },
+    "families": {
+      "rq1": [
+        "H1d"
+      ],
+      "rq2": [
+        "H2b'",
+        "H2c'"
+      ],
+      "rq3": [
+        "H3a"
+      ],
+      "h4fl": [
+        "H4-FL"
+      ]
+    },
+    "one_sided_rule": "one-sided: p / 2 if the estimate has the predicted sign, else 1 - p / 2 (p: the two-sided p of the discovery method); Holm on p1 within each family; alpha 0.05",
+    "decision_rule": "supported = predicted sign, Holm p1 < 0.05, >= 75% of counted variants with the predicted sign and both hindsight variants (analysis.decide); H4-FL: predicted sign and p1 < 0.05",
+    "fl_rule": "member = 'federated learning' in the paper's pooled normalised keyword list (posthoc.ph4_members; confirmation papers: keyword_map.normalize of the raw author keywords)",
+    "sensitivities": [
+      "S11 two-way clustering, p made one-sided, Holm in the family (qualifier only)",
+      "stress: CR1 t / dry-run v3 inflation, one-sided (H2b', H2c')",
+      "exact one-sided share of wild bootstrap t* beyond t, same draws (H2b', H2c')"
+    ],
+    "not_registered": [
+      "H2a",
+      "H3b"
+    ],
+    "reporting": {
+      "h1d_ci": "t(G-1) quantiles, as RQ2/RQ3 (the discovery rq1_rise summary printed coef +- 1.96 SE); the p is fe_ols's t(G-1) p in both",
+      "label_reliability": "second-pass agreement and kappa (method, measurement, main class) of the confirmation papers' own second pass; rq2's pooled block and S8 discovery reference rates alongside",
+      "underpowered_at_3x_sesoi": "None (not applicable) for hypotheses without a SESOI (H1d, H4-FL)",
+      "pooled_gates": "pooled runs, pooled post hoc, pooled RQ1 and pooled figures need a finished confirmation attempt with PH5 (outcomes.confirmation_finished); no confirmation attempt once output_pooled/frozen_run or output_pooled/posthoc has read outcomes or pooled RQ1 / figures exist"
+    }
+  },
+  "registered_ph5": {
+    "status": "pre-registered out-of-sample replication on the released former-holdout papers (not an untouched independent holdout)",
+    "features": "built on discovery + confirmation papers with the frozen PH5 code (pooled histories, novelty against all earlier pooled papers, pooled cell percentiles, pooled twins, pooled keyword_year; frozen centring mean, ph5_pivot.REF and keyword vocabulary); populations restricted to confirmation papers (D14)",
+    "one_sided_rule": "one-sided: p / 2 if the estimate has the predicted sign, else 1 - p / 2 (p: the test's declared two-sided p)",
+    "primary": {
+      "tests": [
+        "E1",
+        "P1b"
+      ],
+      "correction": "Holm over the two one-sided p",
+      "alpha": 0.05,
+      "E1": {
+        "sign": -1,
+        "population": "confirmation RQ3 decided papers 2023-2026 with >= 1 experienced author",
+        "p": "max(CR1 by topic t(G - 1), calibrated p from 200 simulated nulls on the same papers: Bernoulli of the topic x year acceptance rate, seed 20261018)",
+        "code": "ph5_pivot.declared"
+      },
+      "P1b": {
+        "sign": -1,
+        "population": "confirmation RQ3 decided papers 2019-2026",
+        "p": "CR1 by topic, t(G - 1)",
+        "code": "ph5_position.declared"
+      }
+    },
+    "secondary": {
+      "family": "none (each one-sided at 0.05, reported)",
+      "E4": {
+        "sign": 1,
+        "p": "CR1 (author FE in the small-sample factor); two-way reported"
+      },
+      "P7": {
+        "sign": 1,
+        "p": "max(CR1, two-way, calibrated p from 200 nulls)"
+      },
+      "H1": {
+        "sign": 1,
+        "p": "CR1 by topic, t(G - 1)"
+      },
+      "A1": {
+        "sign": 1,
+        "p": "two-way (keyword, topic), t(min G - 1)",
+        "reading": "also one-sided p over 200 null frames < 0.05"
+      },
+      "premia_b": {
+        "prediction": "0 < b < 1",
+        "p": "intersection-union of two one-sided t(m - 2) HC3 tests",
+        "units": "early map; discovery window units with >= 15 decided confirmation papers 2024-2026",
+        "discovery": "output/posthoc/ph5_premia/windows.csv (sha256 7d79df7ac3ebb62c82f2cf6703e19e479bd6fe28ce1a8df135f144399b548347)"
+      },
+      "premia_eb": {
+        "sign": 1,
+        "statistic": "D0 = mean(y^2) - mean((y - eb1)^2), y centred",
+        "p": "one-sided paired t(U - 1) of the squared-error differences",
+        "reading": "the EB-shrunk discovery premium beats the no-information prediction 0; without persistence E[D0] < 0"
+      }
+    },
+    "not_registered": [
+      "E2",
+      "E3",
+      "P1a",
+      "P2",
+      "P3",
+      "P4",
+      "P5",
+      "P6",
+      "teams H2",
+      "premia k100 / keywords / areas",
+      "premia D = mse(raw) - mse(EB) (descriptive)"
+    ]
+  },
+  "confirmation_mde80": {
+    "mde80": {
+      "H1d": 0.12,
+      "H2b'": 0.028333333333333335,
+      "H2c'": 0.02384615384615385,
+      "H3a": 0.04782608695652175,
+      "H4-FL": 0.14545454545454545
+    },
+    "source": "research/fashion/output_pooled/confirmation_dryrun/mde.json",
+    "sha256": "fd5f797dfc6336f41a5e0b1b81ac066b742cbfd8e87584ad12a9831daf5684c1",
+    "reps": {
+      "H1d": 100,
+      "H2b'": 100,
+      "H2c'": 100,
+      "H3a": 100,
+      "H4-FL": 100
+    }
+  },
+  "ph5_hook_present": true,
+  "note": "mde80, dryrun_criteria and stress_t_inflation above are discovery-design quantities (FREEZE.json)",
+  "sha256": {
+    "data/submission_authors.csv.gz": "ed082e276459973770c46bb41362290e346908f7faa5f0f811e419782858f7a5",
+    "data/submissions.csv.gz": "203beba9e59024a58240de517c4c6f3d06060a84fe00f4282fe954e2df87b84c",
+    "data_confirmation_csv/submission_authors.csv.gz": "6e8bab7808443343e821feb4986e14d9252781a2e141a7f69cfaf5496ba1737b",
+    "data_confirmation_csv/submissions.csv.gz": "866fbab69984b74e233762745065719faecf7755d13efb6f7bd4cd7cc830d196",
+    "research/fashion/FREEZE.json": "15bc822e4092db45a9fb2ab37b0dc8e215c922440f45b6a7b3ccd4d634548fd6",
+    "research/fashion/PREREGISTRATION.md": "361821fc73596c1973c023e4e907afe619f6f3ca450b2c0719b826866d3d1dd4",
+    "research/fashion/analysis.py": "1799f29ca440eb4819a12e53c84137cc70523d1460a9feec567d2be5bbb9fee8",
+    "research/fashion/annotation/collect.py": "1139466af4aab8191146552c73da0dc372de40af40561bae5d25015dca76779e",
+    "research/fashion/annotation/judge_batches.js": "462bb7d70be8c91dedb2e0787391f84a76258e9a14fb46f4042b2d447f01f8dc",
+    "research/fashion/annotation/keyword_centrality/sample.py": "ae88784391cdc9b76773a18a5e9ded3cfd9487de0c83cada41e1c43dd8991b44",
+    "research/fashion/annotation/keyword_centrality/score.py": "924a68b92059e198afe0b627801bf572a24a1d93ad4f611e1544c332dff4784d",
+    "research/fashion/annotation/resubmission_pairs/sample.py": "cfbc6e9f78f8e66d991742ee5ee8f376c0a2bd76f85e0fd12333f0075a93d41f",
+    "research/fashion/annotation/resubmission_pairs/score.py": "ebfffd1f9767cfc9c1eae0749dee0e860bba9980a6723da4969ed3715a84bc2a",
+    "research/fashion/annotation/stats.py": "1048ac95824f4ee34872b815c74f18afa5e4489fcf6287c2be07c7709b6a78a4",
+    "research/fashion/build_pooled.py": "3a8d575cdece1406e33e26b91ab868ccb85663a19161ba0357ffc2683b8e4ea8",
+    "research/fashion/build_pooled_inputs.py": "2f1f62c4229d0e1b4ce5f373d14153cc342ab793a0dee77f38d407501b097ccc",
+    "research/fashion/buzzwords.py": "abbd454ff5982f4d52819fed30ce4b3d13c630b73a8a14d3644c9ec571f85cdc",
+    "research/fashion/common.py": "9573a90704943a6316aee1f04150896339ad595a56a00672f0ca52a14eb30d5f",
+    "research/fashion/dgp.py": "a68d9b13af3d8193d958a164b922ff8688ca295289595efe38a7e9347e4350c9",
+    "research/fashion/dryrun.py": "f61203e6c6afbf397522aa898a758b0e1d8436c2397956d13e15ab2a7465940d",
+    "research/fashion/dryrun_diagnostics.py": "d83632c16e94d9c0464fe7ca52d50246bf069b5b2b8308a1128dd94400f47a4f",
+    "research/fashion/exploratory.py": "0182a7618ce70e3412485132146ec3c6785fbb0864dd0f1e97873cc11780f81d",
+    "research/fashion/figures.py": "109feb3398a48eb0f963af9577d268f31c657f14b29422e9825d9a2651bb19a2",
+    "research/fashion/freeze.py": "eb86d5aea7d64b8d3022427c1c11e157f7c58c711987b128d88c69f7981bbc68",
+    "research/fashion/freeze_confirmation.py": "26d4b49e2720489af99b64593caf5336fb8fd3158d4a604eba6ac7021f4fe67a",
+    "research/fashion/logit.py": "a86d76090acb6edd247573ba2240474c6d1bcb637f24e8329019b23f65c8e474",
+    "research/fashion/ols.py": "618dbe3fea7deed5ed44f831862edf3e1ee1ceb09d675585dffc8357ec63f845",
+    "research/fashion/outcomes.py": "82b5791483f9aa5d4d061197a309e344003b4707e4bb8c42b84170aed9321b0b",
+    "research/fashion/output/frozen_run/summary.json": "2574d869bdff3ad9d0cf6b90c6bcc3ddb664796fd99e1a435d9ac68ee1458302",
+    "research/fashion/output/h2d_validation.json": "38b45bac5667120bd6b355a44c7eb5647b4f1fdb7cdf82f5c8c74dee711b0e4e",
+    "research/fashion/output/posthoc/ph5_premia/windows.csv": "7d79df7ac3ebb62c82f2cf6703e19e479bd6fe28ce1a8df135f144399b548347",
+    "research/fashion/output/resubmission_tau.json": "747528b71caefc8046dd0c455cde82f3637dfd1238379cef9cc14f84ab634906",
+    "research/fashion/output/specter2_centring_mean.npy": "f179097ee81cd0a3b548ac0cd956f8713769a3f1fdc8baba77278f703e03e8dd",
+    "research/fashion/output_pooled/build_report.json": "5ce7d674b4da0217cba310090f625e69afd47da19fd3f91f3d659d2753fd78f9",
+    "research/fashion/output_pooled/checks/build_stdout.txt": "e05b2eaf03ffbf79f15e357eef1ba92af846412bed3262400c4b9fb8d27fa180",
+    "research/fashion/output_pooled/checks/buzzword_examples.md": "1aceb49f84374297109d4eac13d149279a0419e383b832d5dece0e45ce837c89",
+    "research/fashion/output_pooled/checks/buzzwords.json": "c63018bcd83491039545b4151dc5efc4965b52428f12ba1a27f357289d9329d9",
+    "research/fashion/output_pooled/checks/resubmissions.json": "dd50108e5efe60530f30c33d15f276fbe6aedcc482cdbf168f3e0f2cd368ed2c",
+    "research/fashion/output_pooled/checks/variables.json": "a7612b7559f6203856abff4aac7324c5021f05262e91ffe4dac405897e11048f",
+    "research/fashion/output_pooled/confirmation_dryrun/h1d.csv": "cec2754f3926ac494d918c660f189702f7fbdf8c502a60709993dac6b33dad7b",
+    "research/fashion/output_pooled/confirmation_dryrun/h4fl.csv": "1caa2b17a776bfee95831c8d4bab6f71f82f1f080399dbfd8413b222294bfae8",
+    "research/fashion/output_pooled/confirmation_dryrun/h4fl_cells.csv": "75f5fe3382db62453d4e9754a789030ba191dc0f30fe9c3fae430bf166126236",
+    "research/fashion/output_pooled/confirmation_dryrun/mde.json": "fd5f797dfc6336f41a5e0b1b81ac066b742cbfd8e87584ad12a9831daf5684c1",
+    "research/fashion/output_pooled/confirmation_dryrun/ph5/kwtiming.csv": "825f7142fb59b3955cd99abd167e878636375a2c70e0604ebb5c344b3c77e31a",
+    "research/fashion/output_pooled/confirmation_dryrun/ph5/pivot.csv": "03b89017f5349a3148ac9e33e82452a990162defd6c7f5099f34e7bf4bde85a7",
+    "research/fashion/output_pooled/confirmation_dryrun/ph5/position.csv": "98638297b6c5063104ec152a70ad6b37198de66641ef2fe47195c30f105a8c92",
+    "research/fashion/output_pooled/confirmation_dryrun/ph5/premia.csv": "7823bacd3a394f7b829343800e5a64dbddcd62f0ea86185f9565095363f7a684",
+    "research/fashion/output_pooled/confirmation_dryrun/ph5/premia_retention.csv": "e305623c82b932ae4abe1f37530f20092e726a4bc4ad09a3d79069aeda254e29",
+    "research/fashion/output_pooled/confirmation_dryrun/ph5/premia_units.csv": "3e0a5dccf51a2c4ba51dda07161a43236cec231f99e67b45ac6029ba84e97ac2",
+    "research/fashion/output_pooled/confirmation_dryrun/ph5/summary.json": "1d9fb00c497c5662faaec3351fef687d7869f6bae80f8ed0c4391d931acd87b9",
+    "research/fashion/output_pooled/confirmation_dryrun/ph5/teams.csv": "853fb172fa0af5d5ec8f16cee8f9462e0f81481da825e48bdb6d2ea93ff0797d",
+    "research/fashion/output_pooled/confirmation_dryrun/ph5/tests.csv": "ef738347e56c441240b84aefb611076eaef8364f465533cfea4b35084a378ec9",
+    "research/fashion/output_pooled/confirmation_dryrun/rq2_rows.csv": "7d9d9ba7bef296e0c1d2f03bf3b5e2529c80b91786b9ef91cf21a28819a631fc",
+    "research/fashion/output_pooled/confirmation_dryrun/rq3_rows.csv": "0dd177d0628de3ef21ebfae78bce8e39e5209d31af5fecd15dafc3b32c44c019",
+    "research/fashion/output_pooled/confirmation_dryrun/stdout.txt": "41ec06d97ef73065dfb9c8da1c364e1e2587015305072c9610deb1db8d2642ff",
+    "research/fashion/output_pooled/confirmation_dryrun/summary.json": "2e39ab6cc213abdfc71687a44257f3ed50b859b840779ea8f7d70d144670902e",
+    "research/fashion/output_pooled/earlier_versions.csv.gz": "f16ead2b499fee0e140cddd6c46bb8762e25c9328b84498e48e01a7ecb964deb",
+    "research/fashion/output_pooled/h2d_validation.json": "38b45bac5667120bd6b355a44c7eb5647b4f1fdb7cdf82f5c8c74dee711b0e4e",
+    "research/fashion/output_pooled/inputs/submission_authors.csv.gz": "5fc9fa2875746c4f15753d0596a01170552d150e756c8ed2cc7d6a2fd68e1101",
+    "research/fashion/output_pooled/keyword_uses.csv.gz": "456f2ab6852cae0d3651fdd517085f99922b0efff86cffc9e3c3c00474262f3a",
+    "research/fashion/output_pooled/keyword_year.csv.gz": "3894f81893f1391c89e19eef3867e202ecb779bc7fdffe34ecb636d294bf7173",
+    "research/fashion/output_pooled/paper_buzzword.csv.gz": "04f9f4df48d435cb30d1815e35982c4f46a803831ac7ab15f3229b2a91e9a59f",
+    "research/fashion/output_pooled/paper_variables.csv.gz": "e552aada8c21790f773623b677635d4f2a1ad595c33609ca4b405693bcdea1a3",
+    "research/fashion/output_pooled/ph5_confirm/calibration.json": "a6a55c89f68bc10c32834d0fba254c91850d0223202fbe8ba258876ac791fe51",
+    "research/fashion/output_pooled/pooled_inputs.json": "9e579f85271d14055ea3672bf261d29c928bc619f0aa0ff27380040a3a8240f4",
+    "research/fashion/output_pooled/resubmission_tau.json": "747528b71caefc8046dd0c455cde82f3637dfd1238379cef9cc14f84ab634906",
+    "research/fashion/output_pooled/specter2_centring_mean.npy": "f179097ee81cd0a3b548ac0cd956f8713769a3f1fdc8baba77278f703e03e8dd",
+    "research/fashion/output_pooled/topic_year_maturity.csv.gz": "08b8fef96574e964e568eff2c48e110175a50db93ef76be322fa22f554fe3bef",
+    "research/fashion/panel.py": "27459ad819159f747b4a879fb8acf42bbf4e4670955bb9de77fe9cd65e956804",
+    "research/fashion/ph5_cleantext.py": "c2846566b5328f45edbaeb5de25045638d89fb277eca8aba53933b8988682e48",
+    "research/fashion/ph5_common.py": "977326fe32c5c867d3817b182baaface00eb6e288e039eb30ec99f98b1024c94",
+    "research/fashion/ph5_confirm.py": "a4a69f9a2526723ba3b0004733435cf336a7526d2108ddb803e0f2296f71e44e",
+    "research/fashion/ph5_fmwave.py": "5339487a27d5b23b8e5a458d2ddc18eec14f15a7eb40549e8e12193bffae2afa",
+    "research/fashion/ph5_forecast.py": "9c3642cb9c1b1fad30076eace699b2e284ad1a8647f638d8c7a057491cd57907",
+    "research/fashion/ph5_kwtiming.py": "d97de786deaa4fd383b029dd787206af376b220cc906b28ef16d44f94b905c0c",
+    "research/fashion/ph5_pivot.py": "d22c4bbdf00cc60d60e9e49232b720d047b489c23fd5fad865dbfc126bfd2c00",
+    "research/fashion/ph5_position.py": "91ae013214ffbf2a87b1c97dc94f1cda097f94627db0131307a46c27ec6a9468",
+    "research/fashion/ph5_premia.py": "b59c44106265c7eedeefa3ad10fef0184cf59ddf4774a49f446f497a76b07726",
+    "research/fashion/ph5_teams.py": "288c2d86e4950e2a9c40b059cd4a9ef13b7fdcd83b7a6153458f3c3b050f3466",
+    "research/fashion/posthoc.py": "ffc82a697e1bde9ad7ce4a893e22c3277cf490e608ff9cf9fb956f6ed0d6b4bb",
+    "research/fashion/presentation/make_figures.py": "6e2807361cb33da4995c3b4d2d5c848eddcb506706bbb0dfebf947b6fd5c9980",
+    "research/fashion/resubmissions.py": "d2b325bf87d0ba1f1cb1ac6f555fc96411b072c67475d74f4ff5c9f5abfe738b",
+    "research/fashion/rq1_rise.py": "c3674b6cd9177b40cd3a8c9ed92ae8f7e2cf0aadc19e38f130be566f9b2ce7ed",
+    "research/fashion/rq2_following.py": "be1db6719d9d285312df18e471507da42fc22c5a7774ba9117b8efd37b8ee215",
+    "research/fashion/rq3_reward.py": "2c2a3dcfb1950dc3560414032ab51a6ec8d40a506496a8fa4e6d6d91985e1616",
+    "research/fashion/run_confirmation.py": "66c028b2a245b31a86758e189ab4767f55cd28d8cfa3aa36ac3b03803c94741e",
+    "research/fashion/run_frozen.py": "d0e57015cddecd65b59154409356e4c82400ccb063c9695ad7c95276e64ba2f9",
+    "research/fashion/run_pooled.py": "d0956bc946c75d4cfd7b856b214746f2cd1abe38c6a2cdcad7e222815586765a",
+    "research/fashion/tests/test_build_pooled.py": "2f8df05f21710eb9723dc95443755a2d0fa5169b9713e94c8da4980f00234992",
+    "research/fashion/tests/test_confirmation_run.py": "83b9d6dcbd82d62a1556094f93a24bc7d49e982d5d706b80201866da522a331c",
+    "research/fashion/tests/test_decision_rule.py": "4e984ad590a44fa71a23ece7e7eb35e82ef7995c06df424563936ab5d03aaaa0",
+    "research/fashion/tests/test_estimators.py": "b5b2275494aaf1e3f0e363db13ffc8d35419a49cb73521aa1777b13e69bc53e0",
+    "research/fashion/tests/test_guard.py": "87d459d05fe554e8bc6749088b05c970960771db29f3ac27ba9abf5ea99c2dec",
+    "research/fashion/tests/test_outcome_lint.py": "aad59731c728a69f33126171a927a4d65cf9d335842a07f00d65b9dc1a6afd74",
+    "research/fashion/tests/test_ph5_cleantext.py": "0b49901c1aa4d247b56c90b1f40af2f31b22234c55928c9a7d9675ab9dbb5d4a",
+    "research/fashion/tests/test_ph5_confirm.py": "6fb89c49855a0b6b9ff544c4fd9a03e1d8b3020f4c7c9cddbeffcf2ce0fd7a99",
+    "research/fashion/tests/test_ph5_fmwave.py": "76c2728cf379d2ba925b63c6baade7f91458176eb02afd54f10116ede6a3f909",
+    "research/fashion/tests/test_ph5_forecast.py": "aa37186a6ffc1e5d50485df281de94843677ea7f0665439a62dee744e24a05ec",
+    "research/fashion/tests/test_ph5_kwtiming.py": "16adbb8cb2bdbd4644357b127e8aaed4b7fc0ef1acc91a8a15601e43c950d327",
+    "research/fashion/tests/test_ph5_pivot.py": "39dd542987608d9e237df6efc3c07351987c91a7fb7c0c470302aa77fde241e6",
+    "research/fashion/tests/test_ph5_position.py": "57cbbd9eab7f30de288c79a82815feaf56c311f143a5004c82f12a450646e98e",
+    "research/fashion/tests/test_ph5_premia.py": "1c8309550e75f48b374eebadb378a472924aebe94316842f5528018c3bfe2b06",
+    "research/fashion/tests/test_ph5_teams.py": "2cd1a5339da115270c7793fad9ac1a50a65a33587e9378d621a722660217461c",
+    "research/fashion/tests/test_posthoc_estimators.py": "5e33b77d71cfab6593088f1743021b5e123dee644e5ab8fd3cd1b62c4981a418",
+    "research/fashion/tests/test_prospectivity.py": "eecb5460e907d8a8a0e0ea4b681cc53a51bce25573809ba0593f7ca35667bf70",
+    "research/fashion/tests/test_protocol.py": "f710693706881b380444701e3d736f2907edbcc892c5002af5c22f2db87df686",
+    "research/fashion/tests/test_registered_spec.py": "770486e7af36299ccabdd848a6ece1842c264f2afac58f9bb0876a20376d8153",
+    "research/fashion/tests/test_remedy_wiring.py": "fd5ee9fea668444029ea1fd8c95170257b5f9a81de7b9d25e7e9e31a5fb39ad6",
+    "research/fashion/tests/test_sealed_loader.py": "c45afd38324225605bfb3ff49c8d4c81306d8a57bb0dbb712b138bd5821400e7",
+    "research/fashion/tests/test_variants.py": "5b2aa430cdf6e06eb731e305bf35ced90f2a1133b65d71b0aea174ab4415aac0",
+    "research/fashion/topic_maturity.py": "1d1f378e5a030f8ddde427e1572cf3dca427c7116f7a159c5e2d97d1d95e269e",
+    "research/fashion/variables.py": "da0277a7eb8a97ea269e46ab32e730840b1859d6b885673e1e131fdcaa7df596",
+    "research/fashion/variants.py": "ba79fd5a73bcbce4c2f21025384dfe0ff06468adda3cfe6c096f0776b1b00b5b",
+    "research/topics/annotation/contribution_types/pilot_gold_facets.csv": "c5bbe459d316ae365076340874bc4747dff2cc6720994acb80c7dabfe396e0d8",
+    "research/topics/annotation/contribution_types/training/training_labels.csv": "20ab47bb662ca48fb6e246cf7532966393eb500072ecc318456b18cd5e772ff1",
+    "research/topics/assign_topics.py": "a31506b91408c0314ab4ee354ed61d591190c940341d0e8e5faf012e756de7ea",
+    "research/topics/cache/specter2.npy": "186e7bef7bf39c7190b3c0457a5d140f59df01abf7d0121079d29c9bce9b8986",
+    "research/topics/cache/specter2_ids.csv": "0e814bf48656ff0d964766f696b17a9de94257693baef2d10e71df1a03bb74ac",
+    "research/topics/cache/specter2_released.npy": "7986061888f2448e02b0084b16e565ae0695a36f43f49e144cf356777b285d94",
+    "research/topics/cache/specter2_released_ids.csv": "6b615c40cd532fdacf4f19d500cf09f20b2435235abaaafe764c67355f008597",
+    "research/topics/cache/specter2_released_meta.json": "62193126bb3b323a06640a31d5157c89e7a1348dfb9915fc77cf3e80b0955905",
+    "research/topics/common.py": "ce2f5f3f2bdd266e64440a5d795dc750694534081bfe3897264a00917ddbb425",
+    "research/topics/keyword_map.py": "7eab853f074dc8ce6fe55f048a3286080f006e9ed95c83e8d8c46cbf235a2b88",
+    "research/topics/output_pooled/hindsight_assignments.csv.gz": "8e95abf3854973a615603c22e9fd36426cc4f298a94ae1518e2285533c3a0967",
+    "research/topics/output_pooled/hindsight_check.json": "202bf9179646292f7f82f774d4ce46f667d1ab09ccb52032dd0efdafbde31295",
+    "research/topics/output_pooled/k_sensitivity_assignments.csv.gz": "2b6ced68aca779b186e299646faf28945b16d9b9e3ee110b5f4a1f2d1e9dcfca",
+    "research/topics/output_pooled/keyword_map.csv.gz": "7a965ebdc84a8127b797d8f465b76efc645cf3b950bcecd9dad27c82bcd0ca65",
+    "research/topics/output_pooled/keyword_map_report.json": "235e706f3f39ace08ae88b2ffd6e8521306bf8e3da828836a01a3567f3de94e7",
+    "research/topics/output_pooled/keyword_types.csv": "59e6046a7d741fcd1931cc2a4ed2a6079b7ddfe8ef0389ccb16794e88de76d43",
+    "research/topics/output_pooled/map_centroids.npz": "88f3fd56d338b4eb5c2f77b8d84086dfa494d4a729501351a07f4c47e729b509",
+    "research/topics/output_pooled/paper_contributions.csv.gz": "ebc37fea9f5850bb709b627efb04028ed9c4c5e6ebec7018fac4461dc41b783a",
+    "research/topics/output_pooled/paper_topic_stability.csv.gz": "5ef2aacfdfd7ce365e8fd49cb1c192edf8f1bce4673247ba02d34bfdc7e55429",
+    "research/topics/output_pooled/pooled_topics_report.json": "a2e09290f02b657c7e86761d83c913c1a9531b7b02819df2458ffa05a2967f86",
+    "research/topics/output_pooled/split.csv.gz": "8d754c784ac01dfbadb26102d4b47797a8e8045b1a403d2a241a3fcff9fdec3a",
+    "research/topics/output_pooled/topic_assignments.csv.gz": "41e2781e02d9966f7ee020aaa5eab437fe95f63e03b62c7c42d71670d721f3fe",
+    "research/topics/output_pooled/topic_catalog.csv": "119239e931d16b153bc27d7403a98d99425e51e61af01a45feae266170cab323",
+    "research/topics/output_pooled/topic_model.npz": "60f991de0bb14dde7951851564cfc0d0af2e32dbe701a44b63241f64301d4fe7",
+    "research/topics/pooled_topics.py": "84dd43dab04ba794a25001a4a106cc0b02f888a5c20d9d40359c0a3394d7e879",
+    "research/topics/released.py": "5abd5e14c0087816299e69e53973e47876945101e0a2fe37edf3a4303f9e418f"
+  }
+}

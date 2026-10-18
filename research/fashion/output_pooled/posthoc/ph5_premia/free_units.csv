@@ -1,0 +1,7 @@
+unit_type,units,units_ge50_both_windows,units_ge15_subs_2018,units_ge15_subs_2019,units_ge15_subs_2020,units_ge15_subs_2021,units_ge15_subs_2022,units_ge15_subs_2023,units_ge15_subs_2024,units_ge15_subs_2025,units_ge15_subs_2026
+early,100,91,18,48,87,83,79,91,96,99,99
+k100,100,70,18,31,54,65,74,90,100,100,100
+keywords,68,45,17,27,37,43,50,56,66,68,67
+areas,20,20,19,19,20,20,20,20,20,20,20
+seed_refit,100,70,20,36,55,64,74,90,99,100,100
+primary_area,27,0,0,0,0,0,0,0,20,21,21

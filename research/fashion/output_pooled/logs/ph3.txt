@@ -1,0 +1,17 @@
+{
+ "papers": 39559,
+ "author_rows": 201127,
+ "authors": 94177,
+ "authors_with_both_newcomer_and_incumbent_papers": 19951,
+ "note": "post hoc exploratory (PREREGISTRATION.md, 2026-10-16); associations, not causal effects"
+}
+  model                                                    label  coef  ci95_lo  ci95_hi   se  se_twoway            p     rows  papers
+     M0  newcomer | topic x year, all author rows (no author FE) -6.76    -8.21    -5.31 0.73       0.73 4.408348e-15 201127.0 39559.0
+     M1                         newcomer | topic x year + author -3.10    -4.48    -1.71 0.70       0.72 2.332248e-05 140438.0 36195.0
+M1-base       newcomer | topic x year, same sample, no author FE -5.42    -6.94    -3.90 0.76       0.77 2.066701e-10 140438.0 36195.0
+     M2                       author_new | topic x year + author -1.80    -2.98    -0.63 0.59       0.62 2.952812e-03 140438.0 36195.0
+M2-base     author_new | topic x year, same sample, no author FE -3.03    -4.37    -1.70 0.67       0.67 1.784026e-05 140438.0 36195.0
+     M3                   newcomer | topic x year + first author -2.91    -4.92    -0.89 1.01       1.22 5.090747e-03  15510.0 15510.0
+M3-base newcomer | topic x year, same sample, no first author FE -5.01    -6.83    -3.20 0.91       0.91 3.113064e-07  15510.0 15510.0
+     M4                    newcomer | topic x year + last author -2.67    -4.39    -0.96 0.86       0.90 2.506406e-03  28869.0 28869.0
+M4-base  newcomer | topic x year, same sample, no last author FE -4.48    -6.14    -2.82 0.84       0.83 5.816894e-07  28869.0 28869.0

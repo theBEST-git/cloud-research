@@ -1,0 +1,125 @@
+{
+ "population_papers": 40375,
+ "years": [
+  2018,
+  2026
+ ],
+ "recent": [
+  2024,
+  2026
+ ],
+ "note": "post hoc exploratory (PREREGISTRATION.md, 2026-10-17); associations, not causal effects",
+ "federated_learning": {
+  "keyword": [
+   {
+    "unit": "federated learning",
+    "papers": 609,
+    "level": -0.0988,
+    "level_q": 0.1422,
+    "recent": -0.1127,
+    "recent_q": 0.2369,
+    "trend": -0.0191,
+    "trend_q": 0.6967,
+    "adjusted_level": -0.0893
+   }
+  ],
+  "topic": [
+   {
+    "unit": "m029 Federated learning",
+    "papers": 629,
+    "level": -0.1281,
+    "level_q": 0.0366,
+    "recent": -0.1228,
+    "recent_q": 0.084,
+    "trend": -0.0118,
+    "trend_q": 0.7822,
+    "adjusted_level": -0.1124
+   }
+  ]
+ },
+ "mechanisms": [
+  {
+   "unit": "federated learning",
+   "trend": -0.0191,
+   "adjusted_trend": -0.0144,
+   "share_of_trend_kept_after_adjustment": 0.7514,
+   "established_trend": -0.0128,
+   "not_established_trend": -0.0164,
+   "keyword_incumbent_trend": -0.0025,
+   "keyword_newcomer_trend": -0.0317,
+   "peak_share_year": 2023,
+   "reading": "mixed"
+  }
+ ]
+}
+keywords {"units": 68, "units_with_trend": 58, "flagged_counts": {"level": 0, "recent": 0, "trend": 0}, "calibration_within_year_permutations": {"level": {"per_test_rejection_at_05": 0.0096, "share_of_permutations_with_any_bh_flag": 0.0}, "recent": {"per_test_rejection_at_05": 0.0054, "share_of_permutations_with_any_bh_flag": 0.0}, "trend": {"per_test_rejection_at_05": 0.013, "share_of_permutations_with_any_bh_flag": 0.0}}}
+topics {"units": 100, "units_with_trend": 94, "flagged_counts": {"level": 4, "recent": 0, "trend": 0}, "calibration_within_year_permutations": {"level": {"per_test_rejection_at_05": 0.0092, "share_of_permutations_with_any_bh_flag": 0.0}, "recent": {"per_test_rejection_at_05": 0.0068, "share_of_permutations_with_any_bh_flag": 0.0}, "trend": {"per_test_rejection_at_05": 0.0133, "share_of_permutations_with_any_bh_flag": 0.005}}}
+                              unit  papers  level  level_q  recent  recent_q  trend  trend_q  adjusted_level
+               in-context learning     330    0.1 0.996017    -1.4  0.969297   -8.9 0.747261            -1.6
+                vision transformer     165    2.4 0.981014    -4.5  0.873019   -8.2 0.696723             3.8
+              contrastive learning     429   -0.6 0.981014    -5.8  0.541265   -4.9 0.406095            -0.0
+             large language models    4172    0.2 0.981014    -0.1  0.993956   -3.9 0.760843            -3.8
+                  diffusion models    1265    8.4 0.240173     7.9  0.236928   -3.8 0.696723             7.8
+                 few-shot learning     226   -2.6 0.956296   -15.5  0.355399   -3.6 0.696723            -1.8
+          self-supervised learning     606    1.6 0.968048    -1.9  0.873019   -3.4 0.680404             1.6
+               adversarial example     198    0.9 0.981014   -11.1  0.659752   -3.3 0.762881             1.4
+               multimodal learning     211    9.4 0.398011     9.0  0.371829   -3.2 0.826539             7.7
+             graph neural networks    1186   -4.2 0.425431    -8.4  0.236928   -2.9 0.406095            -2.7
+                     meta-learning     458    0.3 0.981014    -7.7  0.422152   -2.7 0.406095             0.9
+                    classification     208   -6.3 0.413759    -9.0  0.371829   -2.6 0.696723            -3.2
+                      optimization     564   -2.6 0.614094    -6.8  0.283441   -2.3 0.406095            -1.5
+                       transformer     994    0.1 0.981014    -1.5  0.796390   -2.1 0.683217             0.7
+                federated learning     609   -9.9 0.142224   -11.3  0.236928   -1.9 0.696723            -8.9
+       deep reinforcement learning     332    2.2 0.744073    -3.4  0.728580   -1.9 0.696723             3.6
+                         attention     260   -0.6 0.981014    -6.3  0.415741   -1.9 0.696723             0.4
+                adversarial attack     303   -9.0 0.205329   -11.6  0.236928   -1.8 0.696723            -7.7
+           variational autoencoder     209   -5.6 0.425431   -13.6  0.236928   -1.8 0.696723            -3.9
+    offline reinforcement learning     314    4.6 0.425431     2.8  0.733640   -1.8 0.826539             5.8
+                 transfer learning     404   -4.7 0.413759    -8.0  0.283441   -1.5 0.696723            -4.7
+                 domain adaptation     214   -2.1 0.952283    -5.8  0.642038   -1.5 0.807748            -1.4
+          semi-supervised learning     222   -7.0 0.359358   -13.2  0.236928   -1.3 0.826539            -6.4
+                         reasoning     472    7.3 0.359358     5.7  0.371829   -1.2 0.966653             4.5
+              image classification     178   -9.9 0.240173   -12.7  0.236928   -1.2 0.826539            -6.7
+             unsupervised learning     369   -0.8 0.975492    -3.6  0.701878   -1.1 0.762881             0.1
+   generative adversarial networks     435   -2.5 0.696957   -12.1  0.409464   -1.1 0.826539            -2.2
+                   computer vision     406   -2.7 0.614094    -5.3  0.409709   -0.9 0.826539            -1.6
+            adversarial robustness     300    1.5 0.968048     0.2  0.993956   -0.8 0.966653             2.0
+                        robustness     527   -3.0 0.614094    -2.6  0.782155   -0.7 0.959512            -2.3
+       natural language processing     518    0.8 0.968048    -1.6  0.852512   -0.6 0.827192             0.1
+                    generalization     557    3.9 0.413759     2.8  0.659752   -0.4 0.959512             3.6
+multi-agent reinforcement learning     251   -3.5 0.614094    -2.6  0.804472   -0.4 0.966653            -2.5
+                 data augmentation     230   -9.2 0.431523   -15.1  0.371829   -0.3 0.985147            -8.2
+           representation learning    1126    1.7 0.714286    -0.5  0.982254   -0.3 0.966653             2.8
+        uncertainty quantification     221    0.3 0.981014     0.2  0.993956   -0.1 0.985147             3.8
+                continual learning     457   -4.9 0.413759    -7.2  0.326082   -0.1 0.985147            -2.9
+            knowledge distillation     288   -1.1 0.968048    -2.1  0.830324   -0.1 0.985147            -0.9
+                 generative models     927    5.7 0.196717     5.1  0.236928    0.0 0.985147             6.1
+                 optimal transport     270    2.3 0.822007     0.1  0.993956    0.0 0.985147             4.4
+                imitation learning     250    8.7 0.240173     9.6  0.286800    0.2 0.972949             9.1
+            reinforcement learning    2672    1.3 0.614094     1.8  0.565697    0.2 0.966653             1.3
+                  interpretability     706   -0.2 0.981014     0.0  0.993956    0.4 0.959512             1.8
+             variational inference     236    5.3 0.614094     7.4  0.659752    0.4 0.966653             7.6
+                       time series     275   -4.9 0.425431    -4.0  0.596009    0.4 0.966653            -3.7
+                          fairness     260   -5.8 0.413759    -4.5  0.563744    0.4 0.966653            -2.9
+     convolutional neural networks     204  -12.8 0.142224   -21.0  0.236928    0.5 0.966653           -10.6
+                   language models     545    6.0 0.310669     7.1  0.236928    0.5 0.966653             3.6
+                       fine-tuning     268    0.7 0.981014     0.1  0.993956    1.3 0.959512             0.2
+                      pre-training     268    9.1 0.240173    11.5  0.236928    1.3 0.826539             7.1
+               multi-task learning     244   -3.2 0.831462    -3.7  0.830324    1.4 0.827192            -3.6
+                      quantization     243   -0.4 0.981014     0.0  0.993956    1.4 0.826539            -1.2
+                         diffusion     250   -0.4 0.981014    -0.4  0.993956    1.5 0.966653            -0.7
+                        multimodal     194    3.3 0.729868     3.3  0.728580    1.7 0.966653             1.0
+              adversarial training     212   -3.5 0.620460     1.5  0.939504    1.9 0.760843            -2.2
+                    explainability     200   -6.3 0.425431    -6.5  0.465834    2.0 0.807748            -4.3
+                 model compression     189   -0.4 0.981014    -0.1  0.993956    2.0 0.762881            -1.0
+              differential privacy     229   -0.0 0.999371     2.8  0.796390    3.3 0.762881             1.2
+             vision-language model     461    5.4 0.425431     5.4  0.422152    NaN      NaN             2.7
+  multimodal large language models     346    7.2 0.425431     7.2  0.415741    NaN      NaN             1.1
+                         alignment     295    3.9 0.622371     3.9  0.656343    NaN      NaN             1.1
+                 foundation models     271    1.7 0.968048     1.5  0.916601    NaN      NaN            -2.5
+                mixture-of-experts     224    1.7 0.968048     1.5  0.916601    NaN      NaN            -0.6
+                             agent     210    9.8 0.413759     9.4  0.371829    NaN      NaN             4.9
+                     flow matching     226   12.2 0.425431    12.2  0.422152    NaN      NaN            13.5
+    retrieval-augmented generation     158   -4.1 0.968048    -4.1  0.873019    NaN      NaN            -6.6
+           time series forecasting     189  -11.1 0.425431   -11.3  0.422152    NaN      NaN            -9.0
+                            safety     202    2.0 0.981014     3.4  0.870951    NaN      NaN            -0.2

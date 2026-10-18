@@ -1,0 +1,131 @@
+{
+  "population_papers": 40375,
+  "years": [
+    2018,
+    2026
+  ],
+  "recent": [
+    2024,
+    2026
+  ],
+  "note": "post hoc exploratory (PREREGISTRATION.md, 2026-10-17); associations, not causal effects",
+  "keywords": {
+    "units": 68,
+    "units_with_trend": 58,
+    "flagged_counts": {
+      "level": 0,
+      "recent": 0,
+      "trend": 0
+    },
+    "flagged": {
+      "level": [],
+      "recent": [],
+      "trend": []
+    },
+    "calibration_within_year_permutations": {
+      "level": {
+        "per_test_rejection_at_05": 0.0096,
+        "share_of_permutations_with_any_bh_flag": 0.0
+      },
+      "recent": {
+        "per_test_rejection_at_05": 0.0054,
+        "share_of_permutations_with_any_bh_flag": 0.0
+      },
+      "trend": {
+        "per_test_rejection_at_05": 0.013,
+        "share_of_permutations_with_any_bh_flag": 0.0
+      }
+    }
+  },
+  "topics": {
+    "units": 100,
+    "units_with_trend": 94,
+    "flagged_counts": {
+      "level": 4,
+      "recent": 0,
+      "trend": 0
+    },
+    "flagged": {
+      "level": [
+        {
+          "unit": "m070 Clinical ML and single-cell biology",
+          "level": -0.1617,
+          "level_q": 0.0366
+        },
+        {
+          "unit": "m029 Federated learning",
+          "level": -0.1281,
+          "level_q": 0.0366
+        },
+        {
+          "unit": "m086 Graph representation learning",
+          "level": -0.0968,
+          "level_q": 0.0366
+        },
+        {
+          "unit": "m074 Robot learning and manipulation",
+          "level": 0.1208,
+          "level_q": 0.0366
+        }
+      ],
+      "recent": [],
+      "trend": []
+    },
+    "calibration_within_year_permutations": {
+      "level": {
+        "per_test_rejection_at_05": 0.0092,
+        "share_of_permutations_with_any_bh_flag": 0.0
+      },
+      "recent": {
+        "per_test_rejection_at_05": 0.0068,
+        "share_of_permutations_with_any_bh_flag": 0.0
+      },
+      "trend": {
+        "per_test_rejection_at_05": 0.0133,
+        "share_of_permutations_with_any_bh_flag": 0.005
+      }
+    }
+  },
+  "federated_learning": {
+    "keyword": [
+      {
+        "unit": "federated learning",
+        "papers": 609,
+        "level": -0.0988,
+        "level_q": 0.1422,
+        "recent": -0.1127,
+        "recent_q": 0.2369,
+        "trend": -0.0191,
+        "trend_q": 0.6967,
+        "adjusted_level": -0.0893
+      }
+    ],
+    "topic": [
+      {
+        "unit": "m029 Federated learning",
+        "papers": 629,
+        "level": -0.1281,
+        "level_q": 0.0366,
+        "recent": -0.1228,
+        "recent_q": 0.084,
+        "trend": -0.0118,
+        "trend_q": 0.7822,
+        "adjusted_level": -0.1124
+      }
+    ]
+  },
+  "mechanisms": [
+    {
+      "unit": "federated learning",
+      "trend": -0.0191,
+      "adjusted_trend": -0.0144,
+      "share_of_trend_kept_after_adjustment": 0.7514,
+      "established_trend": -0.0128,
+      "not_established_trend": -0.0164,
+      "keyword_incumbent_trend": -0.0025,
+      "keyword_newcomer_trend": -0.0317,
+      "peak_share_year": 2023,
+      "reading": "mixed"
+    }
+  ]
+}

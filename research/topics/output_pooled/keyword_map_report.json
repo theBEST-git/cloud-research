@@ -1,0 +1,365 @@
+{
+  "rule": "Discovery papers carry curated normalised keywords (normalized_keywords_json, joined in from the external keyword\nexport). The confirmation export has raw author keywords only. A lookup table T from raw form to normalised keyword\nis learned from the discovery split alone (raw `keywords` against normalized_keywords_json; content columns only):\nA1. f(s) = \" \".join(s.strip().lower().split()); nothing else (no NFKC, no casefold).\nA2. Per discovery paper: FR = its distinct non-empty f(raw) forms, N = its normalised list.\nA3. Identity evidence: every x in FR that is also in N votes x -> x.\nA4. Single residual: if exactly one form of FR is outside N and exactly one keyword of N is outside FR, that pair votes.\nA5. Two further passes over the papers whose residual forms A4 left unpaired: a residual form whose current majority\n    target is in N votes for it; if exactly one form and one keyword are then left, that pair votes.\nA6. T(x) = the target with most votes; a tie goes to x itself if x is tied, otherwise to the alphabetically first.\nA7. normalize(raw): parse the JSON list; y = f(x) per element (empty ones dropped); y = T.get(y, y), so an unseen form\n    stays f(raw) and no concept assignment is invented; no splitting on ';'; deduplicate and sort.\nA8. Discovery lists are never re-normalised: T does not reproduce every curated (partly context-dependent) list.",
+  "table": {
+    "path": "research/topics/output_pooled/keyword_map.csv.gz",
+    "sha256": "7a965ebdc84a8127b797d8f465b76efc645cf3b950bcecd9dad27c82bcd0ca65",
+    "raw_forms": 45778,
+    "non_identity_forms": 5738,
+    "context_dependent_forms": 14,
+    "tie_resolved_forms": [
+      "ale",
+      "cfg",
+      "ptq"
+    ],
+    "largest_context_dependent": {
+      "rl": {
+        "reinforcement learning": 90,
+        "rl": 2
+      },
+      "xai": {
+        "explainable artificial intelligence": 68,
+        "xai": 13
+      },
+      "marl": {
+        "multi-agent reinforcement learning": 13,
+        "marl": 2
+      },
+      "gcn": {
+        "graph convolutional network": 7,
+        "gcn": 5
+      },
+      "ssl": {
+        "ssl": 9,
+        "self-supervised learning": 3
+      },
+      "tts": {
+        "text-to-speech": 9,
+        "tts": 1
+      },
+      "ssm": {
+        "state space model": 6,
+        "ssm": 2
+      },
+      "material generation": {
+        "materials generation": 5,
+        "material generation": 1
+      },
+      "cca": {
+        "canonical correlation analysis": 4,
+        "cca": 1
+      },
+      "snn": {
+        "spiking neural network": 4,
+        "snn": 1
+      },
+      "bpe": {
+        "byte-pair encoding": 2,
+        "bpe": 1
+      },
+      "ale": {
+        "ale": 1,
+        "arcade learning environment": 1
+      },
+      "cfg": {
+        "cfg": 1,
+        "classifier-free guidance": 1
+      },
+      "ptq": {
+        "ptq": 1,
+        "post-training quantization": 1
+      }
+    },
+    "identity_votes": 129040,
+    "single_residual_votes": 13205,
+    "papers_with_unpaired_residuals": 4872,
+    "pass_majority_votes": 8370,
+    "pass_pair_votes": 1565,
+    "papers_unresolved_after_passes": 375
+  },
+  "inputs": {
+    "discovery_submissions_sha256": "203beba9e59024a58240de517c4c6f3d06060a84fe00f4282fe954e2df87b84c",
+    "confirmation_submissions_sha256": "866fbab69984b74e233762745065719faecf7755d13efb6f7bd4cd7cc830d196",
+    "keyword_types_sha256": "59e6046a7d741fcd1931cc2a4ed2a6079b7ddfe8ef0389ccb16794e88de76d43",
+    "discovery_papers": 43516,
+    "confirmation_papers": 11113
+  },
+  "vocabularies": {
+    "V759": 759,
+    "PH4_68": 68,
+    "federated_learning": 1,
+    "all": "every keyword"
+  },
+  "in_sample": {
+    "paper_exact": 0.9882,
+    "V759": {
+      "recall": 0.9976,
+      "precision": 0.9996,
+      "true_uses": 65726
+    },
+    "PH4_68": {
+      "recall": 0.9982,
+      "precision": 0.9999,
+      "true_uses": 33356
+    },
+    "federated_learning": {
+      "recall": 0.997,
+      "precision": 1.0,
+      "true_uses": 670
+    },
+    "all": {
+      "recall": 0.9946,
+      "precision": 0.9937,
+      "true_uses": 152655
+    }
+  },
+  "cross_validated": {
+    "reps": 3,
+    "test_share": 0.2,
+    "seed": 0,
+    "seen_raw_use_share": 0.7535,
+    "lookup_identity": {
+      "paper_exact": 0.8889,
+      "V759": {
+        "recall": 0.9864,
+        "precision": 0.9996,
+        "true_uses": 39467
+      },
+      "PH4_68": {
+        "recall": 0.9898,
+        "precision": 0.9998,
+        "true_uses": 20061
+      },
+      "federated_learning": {
+        "recall": 0.9721,
+        "precision": 1.0,
+        "true_uses": 398
+      },
+      "all": {
+        "recall": 0.966,
+        "precision": 0.9651,
+        "true_uses": 91818
+      }
+    },
+    "identity_only": {
+      "paper_exact": 0.5877,
+      "V759": {
+        "recall": 0.7842,
+        "precision": 1.0,
+        "true_uses": 39467
+      },
+      "PH4_68": {
+        "recall": 0.7678,
+        "precision": 1.0,
+        "true_uses": 20061
+      },
+      "federated_learning": {
+        "recall": 0.9671,
+        "precision": 1.0,
+        "true_uses": 398
+      },
+      "all": {
+        "recall": 0.8462,
+        "precision": 0.8439,
+        "true_uses": 91818
+      }
+    },
+    "by_rep": [
+      {
+        "seen_raw_use_share": 0.7558,
+        "lookup_identity": {
+          "paper_exact": 0.8895,
+          "V759": {
+            "recall": 0.9881,
+            "precision": 0.9998,
+            "true_uses": 13083
+          },
+          "PH4_68": {
+            "recall": 0.9907,
+            "precision": 0.9998,
+            "true_uses": 6651
+          },
+          "federated_learning": {
+            "recall": 0.9789,
+            "precision": 1.0,
+            "true_uses": 142
+          },
+          "all": {
+            "recall": 0.9662,
+            "precision": 0.9653,
+            "true_uses": 30476
+          }
+        },
+        "identity_only": {
+          "paper_exact": 0.5855,
+          "V759": {
+            "recall": 0.7843,
+            "precision": 1.0,
+            "true_uses": 13083
+          },
+          "PH4_68": {
+            "recall": 0.763,
+            "precision": 1.0,
+            "true_uses": 6651
+          },
+          "federated_learning": {
+            "recall": 0.9718,
+            "precision": 1.0,
+            "true_uses": 142
+          },
+          "all": {
+            "recall": 0.8461,
+            "precision": 0.8437,
+            "true_uses": 30476
+          }
+        }
+      },
+      {
+        "seen_raw_use_share": 0.7515,
+        "lookup_identity": {
+          "paper_exact": 0.8896,
+          "V759": {
+            "recall": 0.9852,
+            "precision": 0.9995,
+            "true_uses": 13282
+          },
+          "PH4_68": {
+            "recall": 0.9884,
+            "precision": 0.9997,
+            "true_uses": 6784
+          },
+          "federated_learning": {
+            "recall": 0.9767,
+            "precision": 1.0,
+            "true_uses": 129
+          },
+          "all": {
+            "recall": 0.9662,
+            "precision": 0.9653,
+            "true_uses": 30692
+          }
+        },
+        "identity_only": {
+          "paper_exact": 0.5908,
+          "V759": {
+            "recall": 0.7866,
+            "precision": 1.0,
+            "true_uses": 13282
+          },
+          "PH4_68": {
+            "recall": 0.772,
+            "precision": 1.0,
+            "true_uses": 6784
+          },
+          "federated_learning": {
+            "recall": 0.969,
+            "precision": 1.0,
+            "true_uses": 129
+          },
+          "all": {
+            "recall": 0.8475,
+            "precision": 0.8451,
+            "true_uses": 30692
+          }
+        }
+      },
+      {
+        "seen_raw_use_share": 0.7531,
+        "lookup_identity": {
+          "paper_exact": 0.8877,
+          "V759": {
+            "recall": 0.986,
+            "precision": 0.9996,
+            "true_uses": 13102
+          },
+          "PH4_68": {
+            "recall": 0.9903,
+            "precision": 0.9998,
+            "true_uses": 6626
+          },
+          "federated_learning": {
+            "recall": 0.9606,
+            "precision": 1.0,
+            "true_uses": 127
+          },
+          "all": {
+            "recall": 0.9655,
+            "precision": 0.9647,
+            "true_uses": 30650
+          }
+        },
+        "identity_only": {
+          "paper_exact": 0.5867,
+          "V759": {
+            "recall": 0.7816,
+            "precision": 1.0,
+            "true_uses": 13102
+          },
+          "PH4_68": {
+            "recall": 0.7685,
+            "precision": 1.0,
+            "true_uses": 6626
+          },
+          "federated_learning": {
+            "recall": 0.9606,
+            "precision": 1.0,
+            "true_uses": 127
+          },
+          "all": {
+            "recall": 0.8449,
+            "precision": 0.8429,
+            "true_uses": 30650
+          }
+        }
+      }
+    ]
+  },
+  "confirmation": {
+    "raw_uses": 38953,
+    "seen_raw_use_share": 0.7693,
+    "distinct_unseen_forms": 8689,
+    "papers_changed_by_table": 3922,
+    "papers_with_semicolon_element": 489,
+    "coverage_table": {
+      "V759": {
+        "papers": 8517,
+        "share": 0.7664
+      },
+      "PH4_68": {
+        "papers": 6037,
+        "share": 0.5432
+      },
+      "federated_learning": {
+        "papers": 179,
+        "share": 0.0161
+      }
+    },
+    "coverage_identity_only": {
+      "V759": {
+        "papers": 7595,
+        "share": 0.6834
+      },
+      "PH4_68": {
+        "papers": 4923,
+        "share": 0.443
+      },
+      "federated_learning": {
+        "papers": 177,
+        "share": 0.0159
+      }
+    }
+  },
+  "discovery_coverage_curated": {
+    "V759": {
+      "papers": 33412,
+      "share": 0.7678
+    },
+    "PH4_68": {
+      "papers": 23586,
+      "share": 0.542
+    },
+    "federated_learning": {
+      "papers": 670,
+      "share": 0.0154
+    }
+  }
+}

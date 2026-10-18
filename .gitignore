@@ -6,3 +6,6 @@ __pycache__/
 .env.*
 *.partial
 *.tmp
+
+# Pooled author table (built by research/fashion/build_pooled_inputs.py; sha256 in output_pooled/pooled_inputs.json)
+research/fashion/output_pooled/inputs/

@@ -54,6 +54,11 @@ within-year permutations of acceptance (per-test rejection at 0.05; share of per
     python research/fashion/posthoc.py ph1|ph2|ph3|ph4   (only after the frozen run; code committed: outcomes.py)
     python research/fashion/posthoc.py plot2|plot3|plot4 (redraw from the saved estimates; reads no outcome)
 Writes output/posthoc/ph{1,2,3,4}_*.csv and *.json and output/figures/PH{1,2,3,4}_*.png/pdf.
+
+Pooled corpus (exploratory; POOLED_SPEC D6): with ICLR_CORPUS=pooled the same commands read the pooled frame and the
+pooled outcomes and write to output_pooled/posthoc and output_pooled/figures (common.OUTPUT); outcomes.require_posthoc
+then also requires the confirmation run (and the pooled main run, run_pooled.py) to have finished.
+    ICLR_CORPUS=pooled python research/fashion/posthoc.py ph1|ph2|ph3|ph4|ph5 <slug>
 """
 from __future__ import annotations
 
@@ -68,7 +73,7 @@ import figures
 import outcomes
 import panel
 from analysis import estimate
-from common import OUTPUT, TOPICS, topic_layer
+from common import CORPUS, OUTPUT, POOLED_OUTPUT, TOPICS, topic_layer
 from dgp import simulate
 from ols import demean, fe_ols
 from panel import CLASS_CONTROLS
@@ -897,7 +902,14 @@ def ph5(slug: str, plot_only: bool = False) -> None:
     print((out_dir / "summary.json").read_text())
 
 
+def check_corpus() -> None:
+    """Under ICLR_CORPUS=pooled every post hoc output goes to output_pooled, never into the discovery results."""
+    if CORPUS == "pooled" and not all(POOLED_OUTPUT in p.parents for p in (OUT, figures.FIG)):
+        raise SystemExit("ICLR_CORPUS=pooled must be set before the first fashion import")
+
+
 def main() -> None:
+    check_corpus()
     which = sys.argv[1] if len(sys.argv) > 1 else ""
     if which in ("ph5", "plot5"):                          # ph5 <slug>: gated real run; plot5 <slug>: redraw only
         ph5(sys.argv[2], plot_only=which == "plot5")

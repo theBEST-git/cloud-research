@@ -1,0 +1,56 @@
+{
+  "gate": "fail",
+  "rule": "p_flag >= 0.5 and p_flag >= 2.0 * p_nonflag; peripheral = at least 2 of 3 judges",
+  "p_flag": 0.42,
+  "p_flag_ci95": [
+    0.328,
+    0.5179
+  ],
+  "p_nonflag": 0.15,
+  "p_nonflag_ci95": [
+    0.0931,
+    0.2328
+  ],
+  "ratio": 2.8,
+  "n_flagged": 100,
+  "n_nonflagged": 100,
+  "fleiss_kappa": 0.7694,
+  "per_judge": {
+    "sonnet_a": {
+      "p_flag": 0.44,
+      "p_nonflag": 0.14
+    },
+    "sonnet_b": {
+      "p_flag": 0.43,
+      "p_nonflag": 0.18
+    },
+    "haiku_a": {
+      "p_flag": 0.34,
+      "p_nonflag": 0.16
+    }
+  },
+  "unanimous_share": 0.86,
+  "pairwise_agreement": {
+    "sonnet_a~sonnet_b": 0.935,
+    "sonnet_a~haiku_a": 0.9,
+    "sonnet_b~haiku_a": 0.885
+  },
+  "confidence_shares": {
+    "high": 0.4583,
+    "medium": 0.45,
+    "low": 0.0917
+  },
+  "p_flag_by_year": {
+    "2019": 1.0,
+    "2020": 0.0,
+    "2021": 0.333,
+    "2022": 0.5,
+    "2023": 0.1,
+    "2024": 0.9,
+    "2025": 0.4,
+    "2026": 0.391
+  },
+  "audit_violations": 0,
+  "h2d_in_family": false,
+  "h3c_in_family": false
+}

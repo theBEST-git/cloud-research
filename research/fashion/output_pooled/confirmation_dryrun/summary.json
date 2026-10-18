@@ -1,0 +1,939 @@
+{
+  "mode": "SIMULATED outcomes, seed 1 (plumbing only)",
+  "status": "pre-registered out-of-sample replication on the released former-holdout papers (not an untouched independent holdout)",
+  "registered": {
+    "status": "pre-registered out-of-sample replication on the released former-holdout papers (not an untouched independent holdout)",
+    "population": "confirmation papers with text; features built on discovery + confirmation with the frozen code, frames filtered to the confirmation papers after construction (D14)",
+    "hypotheses": {
+      "H1d": {
+        "model": "model ~ fm_adoption | topic + year FE (rq1_rise.fit), 2018-2026",
+        "sign": -1,
+        "p": "CR1 by topic, t(G-1)",
+        "variants": "variants.SHARED"
+      },
+      "H2b'": {
+        "model": "method ~ newcomer | topic x year FE (rq2 H2b), 2019-2026",
+        "sign": 1,
+        "p": "wild cluster restricted bootstrap (FREEZE remedy bootstrap:H2b)",
+        "variants": "variants.RQ2",
+        "note": "new hypothesis, reverses discovery's H2b"
+      },
+      "H2c'": {
+        "model": "measurement ~ newcomer | topic x year FE (rq2 H2c), 2019-2026",
+        "sign": -1,
+        "p": "wild cluster restricted bootstrap (FREEZE remedy bootstrap:H2c)",
+        "variants": "variants.RQ2",
+        "note": "new hypothesis, reverses discovery's H2c"
+      },
+      "H3a": {
+        "model": "accepted ~ maturity + class + fm | topic + year FE (rq3 H3a), 2018-2026, RQ3 population",
+        "sign": -1,
+        "p": "CR1 by topic, t(G-1)",
+        "variants": "variants.RQ3"
+      },
+      "H4-FL": {
+        "model": "PH4 level: paper-weighted mean yearly gap in acceptance, papers listing 'federated learning' minus all other papers of the year (posthoc.ph4_set), 2018-2026, RQ3 population",
+        "sign": -1,
+        "p": "t(m-1), m = years with >= 10 FL papers",
+        "variants": "none",
+        "secondary": "PH4 trend (pp per year), one-sided, only if m >= 4; otherwise not estimable"
+      }
+    },
+    "families": {
+      "rq1": [
+        "H1d"
+      ],
+      "rq2": [
+        "H2b'",
+        "H2c'"
+      ],
+      "rq3": [
+        "H3a"
+      ],
+      "h4fl": [
+        "H4-FL"
+      ]
+    },
+    "one_sided_rule": "one-sided: p / 2 if the estimate has the predicted sign, else 1 - p / 2 (p: the two-sided p of the discovery method); Holm on p1 within each family; alpha 0.05",
+    "decision_rule": "supported = predicted sign, Holm p1 < 0.05, >= 75% of counted variants with the predicted sign and both hindsight variants (analysis.decide); H4-FL: predicted sign and p1 < 0.05",
+    "fl_rule": "member = 'federated learning' in the paper's pooled normalised keyword list (posthoc.ph4_members; confirmation papers: keyword_map.normalize of the raw author keywords)",
+    "sensitivities": [
+      "S11 two-way clustering, p made one-sided, Holm in the family (qualifier only)",
+      "stress: CR1 t / dry-run v3 inflation, one-sided (H2b', H2c')",
+      "exact one-sided share of wild bootstrap t* beyond t, same draws (H2b', H2c')"
+    ],
+    "not_registered": [
+      "H2a",
+      "H3b"
+    ]
+  },
+  "families": {
+    "rq1": [
+      "H1d"
+    ],
+    "rq2": [
+      "H2b'",
+      "H2c'"
+    ],
+    "rq3": [
+      "H3a"
+    ],
+    "h4fl": [
+      "H4-FL"
+    ]
+  },
+  "rq1": {
+    "family": [
+      "H1d"
+    ],
+    "verdicts": {
+      "H1d": {
+        "outcome": "model",
+        "regressor": "fm_adoption",
+        "predicted_sign": -1,
+        "sesoi": null,
+        "coef": -0.051869383532246356,
+        "se": 0.03662496410335555,
+        "ci95": [
+          -0.12454125815736847,
+          0.020802491092875762
+        ],
+        "ci90": [
+          -0.11268115001889767,
+          0.00894238295440495
+        ],
+        "p": 0.07992340704337571,
+        "p_holm": 0.07992340704337571,
+        "n": 10978,
+        "clusters": 100,
+        "p_method": "CR1, t(G-1)",
+        "p_cr1": 0.15984681408675142,
+        "robustness_same_sign": 1.0,
+        "robustness_variants": 9,
+        "variants_wrong_sign": [],
+        "hindsight_variants_same_sign": true,
+        "tost_p": null,
+        "verdict": "inconclusive",
+        "fragile": false,
+        "fragile_by": [],
+        "p_two_sided": 0.15984681408675142,
+        "sidedness": "one-sided: p / 2 if the estimate has the predicted sign, else 1 - p / 2 (p: the two-sided p of the discovery method)",
+        "discovery_counterpart": "H1d",
+        "note": "the RQ1 model (rq1_rise.fit); RQ1 registered no SESOI, so no TOST or equivalence label",
+        "ci_tost_method": "CR1, t(G-1)",
+        "qualifier": "",
+        "s11_agrees": null,
+        "mde80": null,
+        "underpowered_at_3x_sesoi": null
+      }
+    }
+  },
+  "rq2": {
+    "family": [
+      "H2b'",
+      "H2c'"
+    ],
+    "verdicts": {
+      "H2b'": {
+        "outcome": "method",
+        "regressor": "newcomer",
+        "predicted_sign": 1,
+        "sesoi": 0.02,
+        "coef": 0.016320415493375894,
+        "se": 0.008787020817606355,
+        "ci95": [
+          -0.0011149401668613772,
+          0.03375577115361317
+        ],
+        "ci90": [
+          0.0017305238400851155,
+          0.03091030714666667
+        ],
+        "p": 0.032653265326532656,
+        "p_holm": 0.06530653065306531,
+        "n": 10718,
+        "clusters": 100,
+        "p_method": "wild cluster restricted bootstrap (Rademacher by topic, 9999 draws)",
+        "p_cr1": 0.06623650523064054,
+        "robustness_same_sign": 1.0,
+        "robustness_variants": 10,
+        "variants_wrong_sign": [],
+        "hindsight_variants_same_sign": true,
+        "tost_p": 0.338152159688896,
+        "verdict": "inconclusive",
+        "fragile": false,
+        "fragile_by": [],
+        "p_two_sided": 0.06530653065306531,
+        "sidedness": "one-sided: p / 2 if the estimate has the predicted sign, else 1 - p / 2 (p: the two-sided p of the discovery method)",
+        "discovery_counterpart": "H2b",
+        "note": "new hypothesis: reverses the discovery prediction of H2b",
+        "ci_tost_method": "CR1, t(G-1)",
+        "s11_p_holm": 0.08584324159481271,
+        "s11_agrees": null,
+        "qualifier": "",
+        "mde80": null,
+        "underpowered_at_3x_sesoi": null
+      },
+      "H2c'": {
+        "outcome": "measurement",
+        "regressor": "newcomer",
+        "predicted_sign": -1,
+        "sesoi": 0.01,
+        "coef": 0.0156276425968196,
+        "se": 0.005510351979330386,
+        "ci95": [
+          0.0046939087902244814,
+          0.026561376403414723
+        ],
+        "ci90": [
+          0.0064783029037987095,
+          0.024776982289840495
+        ],
+        "p": 0.9975497549754976,
+        "p_holm": 0.9975497549754976,
+        "n": 10718,
+        "clusters": 100,
+        "p_method": "wild cluster restricted bootstrap (Rademacher by topic, 9999 draws)",
+        "p_cr1": 0.005539125175054281,
+        "robustness_same_sign": 0.0,
+        "robustness_variants": 10,
+        "variants_wrong_sign": [
+          "balanced",
+          "certain_labels",
+          "coherent_topics",
+          "early",
+          "early_prospective",
+          "id_consistent_years",
+          "k150",
+          "k75",
+          "stable_papers",
+          "without_2026"
+        ],
+        "hindsight_variants_same_sign": false,
+        "tost_p": 0.8451958007249057,
+        "verdict": "inconclusive",
+        "fragile": false,
+        "fragile_by": [
+          "S1_log_team",
+          "S5_fine",
+          "S11_twoway_topic_early",
+          "S4_without_own_versions",
+          "S8_misclassification"
+        ],
+        "p_two_sided": 0.0049004900490049,
+        "sidedness": "one-sided: p / 2 if the estimate has the predicted sign, else 1 - p / 2 (p: the two-sided p of the discovery method)",
+        "discovery_counterpart": "H2c",
+        "note": "new hypothesis: reverses the discovery prediction of H2c",
+        "ci_tost_method": "CR1, t(G-1)",
+        "s11_p_holm": 0.9970888572102705,
+        "s11_agrees": null,
+        "qualifier": "",
+        "mde80": null,
+        "underpowered_at_3x_sesoi": null
+      }
+    },
+    "s11_twoway_one_sided": {
+      "H2b'": {
+        "coef": 0.016320415493375894,
+        "se": 0.009406288270673876,
+        "p": 0.04292162079740636,
+        "ci95": [
+          -0.0023437011448037004,
+          0.03498453213155549
+        ],
+        "ci90": [
+          0.0007022976378026364,
+          0.03193853334894915
+        ],
+        "clusters": 100,
+        "clusters2": 100.0,
+        "p_two_sided": 0.08584324159481271
+      },
+      "H2c'": {
+        "coef": 0.0156276425968196,
+        "se": 0.005544122730799151,
+        "p": 0.9970888572102705,
+        "ci95": [
+          0.004626900292692346,
+          0.026628384900946857
+        ],
+        "ci90": [
+          0.0064222302467279255,
+          0.02483305494691128
+        ],
+        "clusters": 100,
+        "clusters2": 100.0,
+        "p_two_sided": 0.0058222855794590675
+      }
+    },
+    "stress_sensitivity": {
+      "H2b'": {
+        "t_inflation": 1.3078,
+        "p_stress": 0.07934615175903374,
+        "p_holm_stress": 0.15869230351806748,
+        "note": "sensitivity, not part of the verdict: CR1 t divided by its dry-run v3 inflation under the cross-map null; one-sided"
+      },
+      "H2c'": {
+        "t_inflation": 1.2198,
+        "p_stress": 0.9889434859903531,
+        "p_holm_stress": 0.9889434859903531,
+        "note": "sensitivity, not part of the verdict: CR1 t divided by its dry-run v3 inflation under the cross-map null; one-sided"
+      }
+    },
+    "bootstrap_exact_one_sided": {
+      "H2b'": {
+        "p_exact_one_sided": 0.032403240324032405,
+        "p_two_sided_same_draws": 0.06530653065306531,
+        "t": 1.8573320619287763,
+        "draws": 9999
+      },
+      "H2c'": {
+        "p_exact_one_sided": 0.996999699969997,
+        "p_two_sided_same_draws": 0.0049004900490049,
+        "t": 2.836051608942531,
+        "draws": 9999
+      }
+    },
+    "label_reliability": {
+      "second_pass_papers": 2729,
+      "method": {
+        "second_pass_agreement": 0.9758,
+        "second_pass_kappa": 0.9364,
+        "reference_n": 1940,
+        "false_positive_rate": 0.0835,
+        "false_negative_rate": 0.0111
+      },
+      "measurement": {
+        "second_pass_agreement": 0.9923,
+        "second_pass_kappa": 0.9447,
+        "reference_n": 1940,
+        "false_positive_rate": 0.0045,
+        "false_negative_rate": 0.0701
+      }
+    },
+    "not registered for confirmation": [
+      "H2a"
+    ]
+  },
+  "rq3": {
+    "family": [
+      "H3a"
+    ],
+    "verdicts": {
+      "H3a": {
+        "outcome": "accepted",
+        "regressor": "maturity",
+        "predicted_sign": -1,
+        "sesoi": 0.01,
+        "coef": 0.02573683750270351,
+        "se": 0.014796605096192952,
+        "ci95": [
+          -0.003622837155092519,
+          0.05509651216049954
+        ],
+        "ci90": [
+          0.0011686852619087994,
+          0.050304989743498216
+        ],
+        "p": 0.9574614801413962,
+        "p_holm": 0.9574614801413962,
+        "n": 8150,
+        "clusters": 100,
+        "p_method": "CR1, t(G-1)",
+        "p_cr1": 0.08507703971720755,
+        "robustness_same_sign": 0.0,
+        "robustness_variants": 11,
+        "variants_wrong_sign": [
+          "balanced",
+          "certain_labels",
+          "coherent_topics",
+          "early",
+          "early_prospective",
+          "k150",
+          "k75",
+          "logit",
+          "no_earlier_version",
+          "stable_papers",
+          "without_2026"
+        ],
+        "hindsight_variants_same_sign": false,
+        "tost_p": 0.854938639873241,
+        "verdict": "inconclusive",
+        "fragile": false,
+        "fragile_by": [],
+        "p_two_sided": 0.08507703971720755,
+        "sidedness": "one-sided: p / 2 if the estimate has the predicted sign, else 1 - p / 2 (p: the two-sided p of the discovery method)",
+        "discovery_counterpart": "H3a",
+        "note": "",
+        "ci_tost_method": "CR1, t(G-1)",
+        "s11_p_holm": 0.9449524615419757,
+        "s11_agrees": null,
+        "qualifier": "",
+        "mde80": null,
+        "underpowered_at_3x_sesoi": null
+      }
+    },
+    "s11_twoway_one_sided": {
+      "H3a": {
+        "coef": 0.02573683750270351,
+        "se": 0.015963487240010878,
+        "p": 0.9449524615419757,
+        "ci95": [
+          -0.005938184485359543,
+          0.05741185949076656
+        ],
+        "ci90": [
+          -0.0007687955298006297,
+          0.05224247053520765
+        ],
+        "clusters": 100,
+        "clusters2": 100.0,
+        "p_two_sided": 0.11009507691604864
+      }
+    },
+    "stress_sensitivity": {},
+    "counts": {
+      "rq3_papers_2018_2026": 8150,
+      "s9_extra_withdrawn_after_review": 465
+    },
+    "not registered for confirmation": [
+      "H3b"
+    ]
+  },
+  "h4fl": {
+    "family": [
+      "H4-FL"
+    ],
+    "primary": {
+      "estimand": "level: paper-weighted mean yearly gap (FL minus all other papers of the year)",
+      "predicted_sign": -1,
+      "coef": 0.028456265347512735,
+      "se": 0.042353816839511116,
+      "ci95": [
+        -0.080417686890002,
+        0.13733021758502748
+      ],
+      "p_two_sided": 0.5314551811342859,
+      "p": 0.734272409432857,
+      "p_holm": 0.734272409432857,
+      "p_method": "t(m-1), SE x max(1, sqrt(phi))",
+      "sidedness": "one-sided: p / 2 if the estimate has the predicted sign, else 1 - p / 2 (p: the two-sided p of the discovery method)",
+      "population_papers": 8150,
+      "fl_papers": 126,
+      "years_with_min_cell": 6,
+      "phi": 1.0193579608730317,
+      "adjusted_level": 0.02390453005159411,
+      "adjusted_level_p": 0.5774392430677517,
+      "verdict": "not supported",
+      "note": ""
+    },
+    "secondary": {
+      "estimand": "trend of the yearly gap (pp per year, WLS)",
+      "coef": -0.012677871034112246,
+      "se": 0.02787100360355074,
+      "ci95": [
+        -0.09006018256614076,
+        0.06470444049791627
+      ],
+      "p_two_sided": 0.672791861225171,
+      "p": 0.3363959306125855,
+      "verdict": "not supported"
+    },
+    "calibration_within_year_permutations": {
+      "level": {
+        "per_test_rejection_at_05": 0.005,
+        "share_of_permutations_with_any_bh_flag": 0.005
+      },
+      "recent": {
+        "per_test_rejection_at_05": 0.005,
+        "share_of_permutations_with_any_bh_flag": 0.005
+      },
+      "trend": {
+        "per_test_rejection_at_05": 0.005,
+        "share_of_permutations_with_any_bh_flag": 0.005
+      }
+    }
+  },
+  "e9_equivalence": [
+    {
+      "hypothesis": "H1d",
+      "verdict": "inconclusive",
+      "coef": -0.051869383532246356,
+      "ci90": [
+        -0.11268115001889767,
+        0.00894238295440495
+      ],
+      "sesoi": null,
+      "tost_p": null,
+      "mde80": null,
+      "mde80_note": "confirmation MDE80 not computed (run_confirmation.py --simulate --mde-reps)",
+      "underpowered_at_3x_sesoi": null,
+      "p_method": "CR1, t(G-1)",
+      "ci_tost_method": "CR1, t(G-1)",
+      "qualifier": "",
+      "s11_agrees": null
+    },
+    {
+      "hypothesis": "H2b'",
+      "verdict": "inconclusive",
+      "coef": 0.016320415493375894,
+      "ci90": [
+        0.0017305238400851155,
+        0.03091030714666667
+      ],
+      "sesoi": 0.02,
+      "tost_p": 0.338152159688896,
+      "mde80": null,
+      "mde80_note": "confirmation MDE80 not computed (run_confirmation.py --simulate --mde-reps)",
+      "underpowered_at_3x_sesoi": null,
+      "p_method": "wild cluster restricted bootstrap (Rademacher by topic, 9999 draws)",
+      "ci_tost_method": "CR1, t(G-1)",
+      "qualifier": "",
+      "s11_agrees": null
+    },
+    {
+      "hypothesis": "H2c'",
+      "verdict": "inconclusive",
+      "coef": 0.0156276425968196,
+      "ci90": [
+        0.0064783029037987095,
+        0.024776982289840495
+      ],
+      "sesoi": 0.01,
+      "tost_p": 0.8451958007249057,
+      "mde80": null,
+      "mde80_note": "confirmation MDE80 not computed (run_confirmation.py --simulate --mde-reps)",
+      "underpowered_at_3x_sesoi": null,
+      "p_method": "wild cluster restricted bootstrap (Rademacher by topic, 9999 draws)",
+      "ci_tost_method": "CR1, t(G-1)",
+      "qualifier": "",
+      "s11_agrees": null
+    },
+    {
+      "hypothesis": "H3a",
+      "verdict": "inconclusive",
+      "coef": 0.02573683750270351,
+      "ci90": [
+        0.0011686852619087994,
+        0.050304989743498216
+      ],
+      "sesoi": 0.01,
+      "tost_p": 0.854938639873241,
+      "mde80": null,
+      "mde80_note": "confirmation MDE80 not computed (run_confirmation.py --simulate --mde-reps)",
+      "underpowered_at_3x_sesoi": null,
+      "p_method": "CR1, t(G-1)",
+      "ci_tost_method": "CR1, t(G-1)",
+      "qualifier": "",
+      "s11_agrees": null
+    }
+  ],
+  "ph5": {
+    "summary": {
+      "status": "pre-registered out-of-sample replication on the released former-holdout papers (not an untouched independent holdout)",
+      "registered": {
+        "status": "pre-registered out-of-sample replication on the released former-holdout papers (not an untouched independent holdout)",
+        "features": "built on discovery + confirmation papers with the frozen PH5 code (pooled histories, novelty against all earlier pooled papers, pooled cell percentiles, pooled twins, pooled keyword_year; frozen centring mean, ph5_pivot.REF and keyword vocabulary); populations restricted to confirmation papers (D14)",
+        "one_sided_rule": "one-sided: p / 2 if the estimate has the predicted sign, else 1 - p / 2 (p: the test's declared two-sided p)",
+        "primary": {
+          "tests": [
+            "E1",
+            "P1b"
+          ],
+          "correction": "Holm over the two one-sided p",
+          "alpha": 0.05,
+          "E1": {
+            "sign": -1,
+            "population": "confirmation RQ3 decided papers 2023-2026 with >= 1 experienced author",
+            "p": "CR1 by topic, t(G - 1)",
+            "code": "ph5_pivot.declared"
+          },
+          "P1b": {
+            "sign": -1,
+            "population": "confirmation RQ3 decided papers 2019-2026",
+            "p": "CR1 by topic, t(G - 1)",
+            "code": "ph5_position.declared"
+          }
+        },
+        "secondary": {
+          "family": "none (each one-sided at 0.05, reported)",
+          "E4": {
+            "sign": 1,
+            "p": "CR1 (author FE in the small-sample factor); two-way reported"
+          },
+          "P7": {
+            "sign": 1,
+            "p": "max(CR1, two-way, calibrated p from 200 nulls)"
+          },
+          "H1": {
+            "sign": 1,
+            "p": "CR1 by topic, t(G - 1)"
+          },
+          "A1": {
+            "sign": 1,
+            "p": "two-way (keyword, topic), t(min G - 1)",
+            "reading": "also one-sided p over 200 null frames < 0.05"
+          },
+          "premia_b": {
+            "prediction": "0 < b < 1",
+            "p": "intersection-union of two one-sided t(m - 2) HC3 tests",
+            "units": "early map; discovery window units with >= 15 decided confirmation papers 2024-2026",
+            "discovery": "output/posthoc/ph5_premia/windows.csv (sha256 7d79df7ac3ebb62c82f2cf6703e19e479bd6fe28ce1a8df135f144399b548347)"
+          },
+          "premia_eb": {
+            "sign": 1,
+            "p": "one-sided paired t(U - 1) of the squared-error differences",
+            "reading": "EB also wins without persistence: support means 'shrink past premia'; persistence is read from b > 0"
+          }
+        },
+        "not_registered": [
+          "E2",
+          "E3",
+          "P1a",
+          "P2",
+          "P3",
+          "P4",
+          "P5",
+          "P6",
+          "teams H2",
+          "premia k100 / keywords / areas"
+        ]
+      },
+      "confirmation_papers": 11099,
+      "pooled_papers": 54579,
+      "decided_confirmation_papers": 8228,
+      "verdicts": {
+        "E1": {
+          "family": "primary",
+          "coef": -0.006964832305505219,
+          "p": 0.3086845492623559,
+          "p_two_sided": 0.6173690985247118,
+          "p_holm": 0.6173690985247118,
+          "verdict": "not supported"
+        },
+        "P1b": {
+          "family": "primary",
+          "coef": 0.015563989785849261,
+          "p": 0.8011398386277304,
+          "p_two_sided": 0.39772032274453906,
+          "p_holm": 0.8011398386277304,
+          "verdict": "not supported"
+        },
+        "E4": {
+          "family": "secondary",
+          "coef": 0.0005216635754236963,
+          "p": 0.44034645990136817,
+          "p_two_sided": 0.8806929198027363,
+          "verdict": "not supported"
+        },
+        "P7": {
+          "family": "secondary",
+          "coef": 0.0006812896262794737,
+          "p": 0.4626865671641791,
+          "p_two_sided": 0.9253731343283582,
+          "verdict": "not supported"
+        },
+        "H1": {
+          "family": "secondary",
+          "coef": 0.020318392924585236,
+          "p": 0.1453355027018162,
+          "p_two_sided": 0.2906710054036324,
+          "verdict": "not supported"
+        },
+        "A1": {
+          "family": "secondary",
+          "coef": 0.0073362327996981235,
+          "p": 0.3416777934415876,
+          "p_two_sided": 0.6833555868831752,
+          "verdict": "not supported"
+        },
+        "premia_b": {
+          "family": "secondary",
+          "coef": -0.09128032062474671,
+          "p": 0.7952747858817563,
+          "p_two_sided": 0.4094504282364874,
+          "verdict": "not supported"
+        },
+        "premia_eb": {
+          "family": "secondary",
+          "coef": 0.005347297218156991,
+          "p": 2.151662873144441e-05,
+          "p_two_sided": 4.303325746288882e-05,
+          "verdict": "supported"
+        }
+      },
+      "populations": {
+        "pivot": {
+          "papers": 5363,
+          "hot_share": 0.31530859593511096,
+          "acceptance_rate": 0.306917769904904,
+          "n_exp": {
+            "1": 1168,
+            "2": 1200,
+            "3": 1050,
+            "4": 1945
+          }
+        },
+        "position": {
+          "papers": 7986,
+          "papers_by_year": {
+            "2019": 218,
+            "2020": 373,
+            "2021": 437,
+            "2022": 535,
+            "2023": 745,
+            "2024": 1072,
+            "2025": 1674,
+            "2026": 2932
+          },
+          "acceptance_rate": 0.31354871024292513,
+          "any_twin_share": 0.4157275231655397,
+          "calibration_nulls": 200
+        },
+        "teams": {
+          "papers": 6423,
+          "acceptance_rate": 0.30888992682547095,
+          "papers_by_n_ins": {
+            "0": 4147,
+            "1": 983,
+            "2": 588,
+            "3": 705
+          }
+        },
+        "kwtiming": {
+          "use_rows": 10236,
+          "papers": 5727,
+          "uses_by_state": {
+            "middle_falling": 434,
+            "middle_flat": 684,
+            "middle_rising": 1650,
+            "old_falling": 1164,
+            "old_flat": 2327,
+            "old_rising": 809,
+            "young_falling": 319,
+            "young_flat": 651,
+            "young_rising": 2198
+          },
+          "null_frames": 200
+        }
+      },
+      "premia": [
+        {
+          "unit_type": "early",
+          "registered": true,
+          "discovery_units": 82,
+          "units": 77,
+          "tau_w2_pp": 4.49111557561432,
+          "b": -0.09128032062474671,
+          "b_se": 0.11004175356943945,
+          "b_dof": 75,
+          "b_p_two_sided": 0.4094504282364874,
+          "b_ci95_lo": -0.3104947349406109,
+          "b_ci95_hi": 0.12793409369111747,
+          "p_b_gt_0": 0.7952747858817563,
+          "p_b_lt_1": 1.36872631904651e-15,
+          "p_iut": 0.7952747858817563,
+          "D": 0.005347297218156991,
+          "D_se": 0.0012315336051478747,
+          "D_ci95_lo": 0.002894485468927022,
+          "D_ci95_hi": 0.00780010896738696,
+          "D_p_one_sided": 2.151662873144441e-05,
+          "D_p_two_sided": 4.303325746288882e-05,
+          "mse_raw": 0.014980534427034769,
+          "mse_eb": 0.009633237208877776,
+          "D_weighted": 0.005008609427318765,
+          "D_boot_ci95": [
+            0.0031181764837170272,
+            0.007762228190647154
+          ],
+          "boot": 999,
+          "rho_w": -0.1404048087879136,
+          "rho_w_ci95": [
+            -0.7971875940877573,
+            0.2979522022509102
+          ]
+        },
+        {
+          "unit_type": "k100",
+          "registered": false,
+          "discovery_units": 62,
+          "units": 61,
+          "tau_w2_pp": 4.840098959496716,
+          "b": -0.20676608628537957,
+          "b_se": 0.13644813967832967,
+          "b_dof": 59,
+          "b_p_two_sided": 0.13502446620155303,
+          "b_ci95_lo": -0.4797981831304595,
+          "b_ci95_hi": 0.06626601055970038,
+          "p_b_gt_0": 0.9324877668992235,
+          "p_b_lt_1": 1.0397096951306368e-12,
+          "p_iut": 0.9324877668992235,
+          "D": 0.0061373783366452045,
+          "D_se": 0.0015437866754941555,
+          "D_ci95_lo": 0.0030493452119996095,
+          "D_ci95_hi": 0.0092254114612908,
+          "D_p_one_sided": 9.563577518681051e-05,
+          "D_p_two_sided": 0.00019127155037362102,
+          "mse_raw": 0.015074017316615881,
+          "mse_eb": 0.008936638979970678,
+          "D_weighted": 0.0065597307317536695,
+          "D_boot_ci95": [
+            0.0033457095735959556,
+            0.009234288028657832
+          ],
+          "boot": 999,
+          "rho_w": -0.4578821797655443,
+          "rho_w_ci95": [
+            -1.0,
+            0.154842329422808
+          ]
+        },
+        {
+          "unit_type": "keywords",
+          "registered": false,
+          "discovery_units": 41,
+          "units": 38,
+          "tau_w2_pp": 2.719703326803868,
+          "b": -0.27161456728290095,
+          "b_se": 0.2627590210472395,
+          "b_dof": 36,
+          "b_p_two_sided": 0.3081699305838721,
+          "b_ci95_lo": -0.8045145615723033,
+          "b_ci95_hi": 0.2612854270065014,
+          "p_b_gt_0": 0.845915034708064,
+          "p_b_lt_1": 1.2256586936631603e-05,
+          "p_iut": 0.845915034708064,
+          "D": 0.003787825538806223,
+          "D_se": 0.0010744691456823932,
+          "D_ci95_lo": 0.001610744254067232,
+          "D_ci95_hi": 0.005964906823545214,
+          "D_p_one_sided": 0.0005732433067871407,
+          "D_p_two_sided": 0.0011464866135742814,
+          "mse_raw": 0.009607125432058841,
+          "mse_eb": 0.005819299893252617,
+          "D_weighted": 0.0024514567521779075,
+          "D_boot_ci95": [
+            0.0018137626470380358,
+            0.006078129233136668
+          ],
+          "boot": 999,
+          "rho_w": null,
+          "rho_w_ci95": [
+            -1.0,
+            -0.8171194579696127
+          ]
+        },
+        {
+          "unit_type": "areas",
+          "registered": false,
+          "discovery_units": 20,
+          "units": 20,
+          "tau_w2_pp": 3.213873977456891,
+          "b": -0.09299735634785858,
+          "b_se": 0.19917559662409337,
+          "b_dof": 18,
+          "b_p_two_sided": 0.6461652238687428,
+          "b_ci95_lo": -0.5114497571735749,
+          "b_ci95_hi": 0.32545504447785767,
+          "p_b_gt_0": 0.6769173880656286,
+          "p_b_lt_1": 1.636118987845301e-05,
+          "p_iut": 0.6769173880656286,
+          "D": 0.0016878945174511148,
+          "D_se": 0.000588382357970747,
+          "D_ci95_lo": 0.0004563960890288611,
+          "D_ci95_hi": 0.0029193929458733686,
+          "D_p_one_sided": 0.004915615974265911,
+          "D_p_two_sided": 0.009831231948531822,
+          "mse_raw": 0.004253431807600591,
+          "mse_eb": 0.0025655372901494766,
+          "D_weighted": 0.0018585532227647571,
+          "D_boot_ci95": [
+            0.0006403340530434031,
+            0.002865063664321585
+          ],
+          "boot": 999,
+          "rho_w": -0.16332035122497102,
+          "rho_w_ci95": [
+            -1.0,
+            0.6598446340824543
+          ]
+        }
+      ],
+      "calibration": {
+        "source": "research/fashion/output_pooled/ph5_confirm/calibration.json",
+        "sha256": "a6a55c89f68bc10c32834d0fba254c91850d0223202fbe8ba258876ac791fe51",
+        "mde80": {
+          "E1": {
+            "alpha_holm_first_step": 0.048989690721649506,
+            "alpha_05": 0.04489156626506026,
+            "unit": "probability (target scale)"
+          },
+          "P1b": {
+            "alpha_holm_first_step": 0.05403750000000001,
+            "alpha_05": 0.04714285714285715,
+            "unit": "probability (target scale)"
+          }
+        },
+        "power_at_discovery_effect": {
+          "E1": 0.89,
+          "P1b": 0.47
+        },
+        "null_size": {
+          "E1": {
+            "one_sided_05": 0.07,
+            "one_sided_holm": 0.05,
+            "two_sided_05": 0.07,
+            "sd_coef_over_mean_se": 1.0541293760968482
+          },
+          "P1b": {
+            "one_sided_05": 0.045,
+            "one_sided_holm": 0.025,
+            "two_sided_05": 0.045,
+            "sd_coef_over_mean_se": 0.9476872086543502
+          }
+        },
+        "family_any_holm_null": 0.07
+      },
+      "seconds": {
+        "frame": 3.4,
+        "pivot": 16.9,
+        "position": 89.2,
+        "teams": 9.9,
+        "kwtiming": 20.5,
+        "premia": 8.2
+      },
+      "lines": [
+        "PH5 primary   E1        coef -0.0070 CI95 [-0.0345, +0.0206] p1 0.309 (two-sided 0.617) p_holm 0.617 -> not supported",
+        "PH5 primary   P1b       coef +0.0156 CI95 [-0.0208, +0.0519] p1 0.801 (two-sided 0.398) p_holm 0.801 -> not supported",
+        "PH5 secondary E4        coef +0.0005 CI95 [-0.0064, +0.0074] p1 0.44 (two-sided 0.881) -> not supported",
+        "PH5 secondary P7        coef +0.0007 CI95 [-0.0083, +0.0096] p1 0.463 (two-sided 0.925) -> not supported",
+        "PH5 secondary H1        coef +0.0203 CI95 [-0.0176, +0.0583] p1 0.145 (two-sided 0.291) -> not supported",
+        "PH5 secondary A1        coef +0.0073 CI95 [-0.0282, +0.0429] p1 0.342 (two-sided 0.683) -> not supported",
+        "PH5 secondary premia_b  coef -0.0913 CI95 [-0.3105, +0.1279] p1 0.795 (two-sided 0.409) -> not supported",
+        "PH5 secondary premia_eb coef +0.0053 CI95 [+0.0029, +0.0078] p1 2.15e-05 (two-sided 4.3e-05) -> supported"
+      ],
+      "note": "associations within the stated fixed effects, not causal effects"
+    }
+  },
+  "remedies": [
+    "H2b",
+    "H2c"
+  ],
+  "h2d_gate_passed": false,
+  "tau": 0.9,
+  "papers": {
+    "confirmation_frame": 11099,
+    "by_year": {
+      "2017": 105,
+      "2018": 212,
+      "2019": 309,
+      "2020": 500,
+      "2021": 603,
+      "2022": 704,
+      "2023": 995,
+      "2024": 1445,
+      "2025": 2284,
+      "2026": 3942
+    }
+  }
+}

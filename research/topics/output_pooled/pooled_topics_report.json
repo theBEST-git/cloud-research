@@ -1,0 +1,377 @@
+{
+  "corpus": {
+    "embedded_papers": 54579,
+    "discovery": 43480,
+    "confirmation": 11099,
+    "papers_by_year": {
+      "confirmation": {
+        "2017": 105,
+        "2018": 212,
+        "2019": 309,
+        "2020": 500,
+        "2021": 603,
+        "2022": 704,
+        "2023": 995,
+        "2024": 1445,
+        "2025": 2284,
+        "2026": 3942
+      },
+      "discovery": {
+        "2017": 384,
+        "2018": 770,
+        "2019": 1248,
+        "2020": 2070,
+        "2021": 2360,
+        "2022": 2649,
+        "2023": 3872,
+        "2024": 5765,
+        "2025": 8951,
+        "2026": 15411
+      }
+    },
+    "discovery_subset_of_P_is_discovery_order": true
+  },
+  "k100": {
+    "discovery_reproduced_exactly": true,
+    "levels": {
+      "coarse": {
+        "tv_confirmation_vs_discovery": 0.0199,
+        "tv_sampling_noise_mean": 0.0179,
+        "tv_sampling_noise_p95": 0.0228,
+        "topics_used_discovery": 20,
+        "topics_used_confirmation": 20
+      },
+      "mid": {
+        "tv_confirmation_vs_discovery": 0.0428,
+        "tv_sampling_noise_mean": 0.0415,
+        "tv_sampling_noise_p95": 0.0469,
+        "topics_used_discovery": 100,
+        "topics_used_confirmation": 100
+      },
+      "fine": {
+        "tv_confirmation_vs_discovery": 0.0608,
+        "tv_sampling_noise_mean": 0.0587,
+        "tv_sampling_noise_p95": 0.0636,
+        "topics_used_discovery": 198,
+        "topics_used_confirmation": 198
+      }
+    },
+    "mean_mid_similarity": {
+      "discovery": 0.6499,
+      "confirmation": 0.6495
+    },
+    "share_mid_margin_below_0.01": {
+      "discovery": 0.0624,
+      "confirmation": 0.0769
+    },
+    "confirmation_mid_differs_npz_vs_all_member_means": 0.0087
+  },
+  "maps": {
+    "mid_k50": {
+      "k": 50,
+      "seeds": [
+        0,
+        1,
+        2
+      ],
+      "fit_years": "all discovery",
+      "year_balanced_weights": false,
+      "fit_papers": 43480,
+      "gate_discovery_labels_reproduced": true,
+      "convention": "exact re-derived centres",
+      "member_mean_discovery_agreement": 0.9947,
+      "confirmation_label_differs_exact_vs_member_mean": 0.0086,
+      "tv_confirmation_vs_discovery": 0.0302,
+      "tv_sampling_noise_mean": 0.0292,
+      "tv_sampling_noise_p95": 0.0343,
+      "topics_used_discovery": 50,
+      "topics_used_confirmation": 50,
+      "seconds": 169.2
+    },
+    "mid_k75": {
+      "k": 75,
+      "seeds": [
+        0,
+        1,
+        2
+      ],
+      "fit_years": "all discovery",
+      "year_balanced_weights": false,
+      "fit_papers": 43480,
+      "gate_discovery_labels_reproduced": true,
+      "convention": "exact re-derived centres",
+      "member_mean_discovery_agreement": 0.9944,
+      "confirmation_label_differs_exact_vs_member_mean": 0.0086,
+      "tv_confirmation_vs_discovery": 0.0367,
+      "tv_sampling_noise_mean": 0.0358,
+      "tv_sampling_noise_p95": 0.041,
+      "topics_used_discovery": 75,
+      "topics_used_confirmation": 75,
+      "seconds": 70.5
+    },
+    "mid_k150": {
+      "k": 150,
+      "seeds": [
+        0,
+        1,
+        2
+      ],
+      "fit_years": "all discovery",
+      "year_balanced_weights": false,
+      "fit_papers": 43480,
+      "gate_discovery_labels_reproduced": true,
+      "convention": "exact re-derived centres",
+      "member_mean_discovery_agreement": 0.9954,
+      "confirmation_label_differs_exact_vs_member_mean": 0.0087,
+      "tv_confirmation_vs_discovery": 0.0499,
+      "tv_sampling_noise_mean": 0.0509,
+      "tv_sampling_noise_p95": 0.0564,
+      "topics_used_discovery": 150,
+      "topics_used_confirmation": 150,
+      "seconds": 113.3
+    },
+    "mid_k200": {
+      "k": 200,
+      "seeds": [
+        0,
+        1,
+        2
+      ],
+      "fit_years": "all discovery",
+      "year_balanced_weights": false,
+      "fit_papers": 43480,
+      "gate_discovery_labels_reproduced": true,
+      "convention": "exact re-derived centres",
+      "member_mean_discovery_agreement": 0.9949,
+      "confirmation_label_differs_exact_vs_member_mean": 0.0092,
+      "tv_confirmation_vs_discovery": 0.0641,
+      "tv_sampling_noise_mean": 0.0589,
+      "tv_sampling_noise_p95": 0.0643,
+      "topics_used_discovery": 200,
+      "topics_used_confirmation": 200,
+      "seconds": 133.8
+    },
+    "mid_seed_refit": {
+      "k": 100,
+      "seeds": [
+        10,
+        11,
+        12
+      ],
+      "fit_years": "all discovery",
+      "year_balanced_weights": false,
+      "fit_papers": 43480,
+      "gate_discovery_labels_reproduced": true,
+      "convention": "exact re-derived centres",
+      "member_mean_discovery_agreement": 0.995,
+      "confirmation_label_differs_exact_vs_member_mean": 0.0096,
+      "tv_confirmation_vs_discovery": 0.0446,
+      "tv_sampling_noise_mean": 0.0412,
+      "tv_sampling_noise_p95": 0.0467,
+      "topics_used_discovery": 100,
+      "topics_used_confirmation": 100,
+      "seconds": 86.8
+    },
+    "mid_balanced": {
+      "k": 100,
+      "seeds": [
+        0,
+        1,
+        2
+      ],
+      "fit_years": "all discovery",
+      "year_balanced_weights": true,
+      "fit_papers": 43480,
+      "gate_discovery_labels_reproduced": true,
+      "convention": "exact re-derived centres",
+      "member_mean_discovery_agreement": 0.9934,
+      "confirmation_label_differs_exact_vs_member_mean": 0.0096,
+      "tv_confirmation_vs_discovery": 0.0453,
+      "tv_sampling_noise_mean": 0.0406,
+      "tv_sampling_noise_p95": 0.0454,
+      "topics_used_discovery": 100,
+      "topics_used_confirmation": 100,
+      "seconds": 67.5
+    },
+    "mid_early": {
+      "k": 100,
+      "seeds": [
+        0,
+        1,
+        2
+      ],
+      "fit_years": [
+        2017,
+        2020
+      ],
+      "year_balanced_weights": false,
+      "fit_papers": 4472,
+      "gate_discovery_labels_reproduced": true,
+      "convention": "exact re-derived centres",
+      "member_mean_discovery_agreement": 0.9882,
+      "confirmation_label_differs_exact_vs_member_mean": 0.0126,
+      "tv_confirmation_vs_discovery": 0.0429,
+      "tv_sampling_noise_mean": 0.0402,
+      "tv_sampling_noise_p95": 0.0453,
+      "topics_used_discovery": 100,
+      "topics_used_confirmation": 100,
+      "seconds": 11.9
+    },
+    "mid_middle": {
+      "k": 100,
+      "seeds": [
+        0,
+        1,
+        2
+      ],
+      "fit_years": [
+        2021,
+        2023
+      ],
+      "year_balanced_weights": false,
+      "fit_papers": 8881,
+      "gate_discovery_labels_reproduced": true,
+      "convention": "exact re-derived centres",
+      "member_mean_discovery_agreement": 0.9896,
+      "confirmation_label_differs_exact_vs_member_mean": 0.0123,
+      "tv_confirmation_vs_discovery": 0.0433,
+      "tv_sampling_noise_mean": 0.0398,
+      "tv_sampling_noise_p95": 0.045,
+      "topics_used_discovery": 100,
+      "topics_used_confirmation": 100,
+      "seconds": 16.5
+    },
+    "mid_late": {
+      "k": 100,
+      "seeds": [
+        0,
+        1,
+        2
+      ],
+      "fit_years": [
+        2024,
+        2026
+      ],
+      "year_balanced_weights": false,
+      "fit_papers": 30127,
+      "gate_discovery_labels_reproduced": true,
+      "convention": "exact re-derived centres",
+      "member_mean_discovery_agreement": 0.9929,
+      "confirmation_label_differs_exact_vs_member_mean": 0.0111,
+      "tv_confirmation_vs_discovery": 0.0444,
+      "tv_sampling_noise_mean": 0.041,
+      "tv_sampling_noise_p95": 0.0461,
+      "topics_used_discovery": 100,
+      "topics_used_confirmation": 100,
+      "seconds": 54.3
+    }
+  },
+  "stability": {
+    "refit_seeds": [
+      [
+        10,
+        11,
+        12
+      ],
+      [
+        20,
+        21,
+        22
+      ],
+      [
+        30,
+        31,
+        32
+      ]
+    ],
+    "refit_1_equals_mid_seed_refit": true,
+    "gate_discovery_mid_stability_reproduced": true,
+    "convention": "exact refit centres",
+    "mean_mid_stability": {
+      "discovery": 0.7688,
+      "confirmation": 0.7706
+    },
+    "stable_share": {
+      "discovery": 0.7921,
+      "confirmation": 0.7921
+    }
+  },
+  "checks": {
+    "discovery_rows_byte_identical": {
+      "topic_assignments": true,
+      "k_sensitivity_assignments": true,
+      "hindsight_assignments": true,
+      "paper_topic_stability": true,
+      "paper_contributions": true,
+      "paper_contributions (released rows)": true
+    },
+    "copies_byte_identical": {
+      "topic_catalog.csv": true,
+      "keyword_types.csv": true,
+      "topic_model.npz": true,
+      "hindsight_check.json": true
+    },
+    "protected_files_unchanged": true,
+    "protected_files": 43,
+    "label_columns_missing": {
+      "primary_type": 0,
+      "primary_class": 0,
+      "foundation_model": 0,
+      "uncertain": 0
+    },
+    "frozen_artefacts_match_FREEZE_json": true,
+    "topics_common_py_matches_FREEZE_json": false
+  },
+  "files": {
+    "hindsight_assignments.csv.gz": "8e95abf3854973a615603c22e9fd36426cc4f298a94ae1518e2285533c3a0967",
+    "hindsight_check.json": "202bf9179646292f7f82f774d4ce46f667d1ab09ccb52032dd0efdafbde31295",
+    "k_sensitivity_assignments.csv.gz": "2b6ced68aca779b186e299646faf28945b16d9b9e3ee110b5f4a1f2d1e9dcfca",
+    "keyword_map.csv.gz": "7a965ebdc84a8127b797d8f465b76efc645cf3b950bcecd9dad27c82bcd0ca65",
+    "keyword_map_report.json": "235e706f3f39ace08ae88b2ffd6e8521306bf8e3da828836a01a3567f3de94e7",
+    "keyword_types.csv": "59e6046a7d741fcd1931cc2a4ed2a6079b7ddfe8ef0389ccb16794e88de76d43",
+    "map_centroids.npz": "88f3fd56d338b4eb5c2f77b8d84086dfa494d4a729501351a07f4c47e729b509",
+    "paper_contributions.csv.gz": "ebc37fea9f5850bb709b627efb04028ed9c4c5e6ebec7018fac4461dc41b783a",
+    "paper_topic_stability.csv.gz": "5ef2aacfdfd7ce365e8fd49cb1c192edf8f1bce4673247ba02d34bfdc7e55429",
+    "split.csv.gz": "8d754c784ac01dfbadb26102d4b47797a8e8045b1a403d2a241a3fcff9fdec3a",
+    "topic_assignments.csv.gz": "41e2781e02d9966f7ee020aaa5eab437fe95f63e03b62c7c42d71670d721f3fe",
+    "topic_catalog.csv": "119239e931d16b153bc27d7403a98d99425e51e61af01a45feae266170cab323",
+    "topic_model.npz": "60f991de0bb14dde7951851564cfc0d0af2e32dbe701a44b63241f64301d4fe7"
+  },
+  "map_centroid_sha256": {
+    "mid_k50": "e94e6141501ad1d164d55756b0dbc70d1a6ffd10ec519e950cedf66d65c073be",
+    "mid_k75": "880f1283aeb136f362d34cacfc3f827701c2af6baf8a4940aaa88ad5153ef2ec",
+    "mid_k150": "e9a2a3d0e94089e6e29103c26d15a5abb658fa2c60d59f33547387d2481b1ee3",
+    "mid_k200": "6c3456cae4533149b0ee8108737fcd650704f89dd17cea72bb54d08cc0669453",
+    "mid_seed_refit": "94d1f3ca5746b11c229dbaf0e1985561aa8c0b779e20cab90d317a8da1ecb252",
+    "mid_balanced": "eb996522214b027c85976a6baef18e735bc503b0f27dc345b66c454b98309677",
+    "mid_early": "3ac478d2c2dc3891e43163d81dc9bd71a9b54fc0d2390fa2521b0b440d46e880",
+    "mid_middle": "9baf85b409b01f95a5b73fcc531f7a1f14d75602af7e40122ee73754da95300c",
+    "mid_late": "b551db9ca928fc8234e0311021fd288519f623372c92947831d4bc3fb7aaf64b",
+    "refit_20_21_22": "a31c31ce9360c7e3b5a90e9738e0003cde1227972413a058c04188589621408b",
+    "refit_30_31_32": "c1484073d6ac081f6fd84f9743f976ed69f1c60003094f578a8a303f3b58e190"
+  },
+  "environment": {
+    "numpy": "2.5.3",
+    "pandas": "3.0.5",
+    "sklearn": "1.9.1",
+    "reused_centroids": false,
+    "seconds": 916,
+    "threadpools": [
+      {
+        "user_api": "openmp",
+        "internal_api": "openmp",
+        "num_threads": 4
+      },
+      {
+        "user_api": "blas",
+        "internal_api": "openblas",
+        "num_threads": 4
+      },
+      {
+        "user_api": "blas",
+        "internal_api": "openblas",
+        "num_threads": 4
+      }
+    ]
+  }
+}

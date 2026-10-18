@@ -1,0 +1,885 @@
+{
+  "what": "pooled fashion features (POOLED_SPEC D5; PREREGISTRATION.md D2, D3, D14, D15), built with the unchanged builders under ICLR_CORPUS=pooled; outcome-free",
+  "passed": true,
+  "failed_gates": [],
+  "built": {
+    "utc": "2026-10-18T14:23:21Z",
+    "steps": [
+      {
+        "command": "ICLR_CORPUS=pooled python research/fashion/build_pooled_inputs.py",
+        "seconds": 10.5
+      },
+      {
+        "command": "ICLR_CORPUS=pooled python research/fashion/topic_maturity.py",
+        "seconds": 1.3
+      },
+      {
+        "command": "ICLR_CORPUS=pooled python research/fashion/resubmissions.py --tau 0.9",
+        "seconds": 20.8
+      },
+      {
+        "command": "ICLR_CORPUS=pooled python research/fashion/buzzwords.py",
+        "seconds": 26.1
+      },
+      {
+        "command": "ICLR_CORPUS=pooled python research/fashion/variables.py",
+        "seconds": 20.7
+      }
+    ],
+    "git_head": "52c0ed8bf582fe8f64973ae58c30cc7adefc7f55",
+    "python": "3.13.16",
+    "numpy": "2.5.3",
+    "pandas": "3.0.5",
+    "stdout": "research/fashion/output_pooled/checks/build_stdout.txt"
+  },
+  "corpus": {
+    "papers": 54579,
+    "by_split": {
+      "discovery": 43480,
+      "confirmation": 11099
+    },
+    "pooled_files_in_P_order": {
+      "earlier_versions": true,
+      "paper_buzzword": true,
+      "topic_assignments": true,
+      "paper_variables:k100": true,
+      "paper_variables:k75": true,
+      "paper_variables:k150": true,
+      "paper_variables:balanced": true,
+      "paper_variables:early": true,
+      "paper_variables:middle_era": true,
+      "paper_variables:late": true,
+      "paper_variables:fine": true
+    },
+    "topic_year_rows": {
+      "k100": 1000,
+      "k75": 750,
+      "k150": 1500,
+      "balanced": 1000,
+      "early": 1000,
+      "middle_era": 1000,
+      "late": 1000,
+      "fine": 1980
+    },
+    "years": [
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025,
+      2026
+    ]
+  },
+  "inputs": {
+    "frozen_copies_sha256": {
+      "topic_catalog.csv": "119239e931d16b153bc27d7403a98d99425e51e61af01a45feae266170cab323",
+      "keyword_types.csv": "59e6046a7d741fcd1931cc2a4ed2a6079b7ddfe8ef0389ccb16794e88de76d43",
+      "topic_model.npz": "60f991de0bb14dde7951851564cfc0d0af2e32dbe701a44b63241f64301d4fe7",
+      "hindsight_check.json": "202bf9179646292f7f82f774d4ce46f667d1ab09ccb52032dd0efdafbde31295",
+      "h2d_validation.json": "38b45bac5667120bd6b355a44c7eb5647b4f1fdb7cdf82f5c8c74dee711b0e4e",
+      "resubmission_tau.json": "747528b71caefc8046dd0c455cde82f3637dfd1238379cef9cc14f84ab634906",
+      "specter2_centring_mean.npy": "f179097ee81cd0a3b548ac0cd956f8713769a3f1fdc8baba77278f703e03e8dd"
+    },
+    "pooled_author_table": {
+      "sha256": "5fc9fa2875746c4f15753d0596a01170552d150e756c8ed2cc7d6a2fd68e1101",
+      "rows": 276181,
+      "by_split": {
+        "discovery": {
+          "rows": 219719,
+          "papers": 43513
+        },
+        "confirmation": {
+          "rows": 56462,
+          "papers": 11113
+        }
+      }
+    },
+    "vocabulary": 759,
+    "tau": 0.9,
+    "pooled_topic_layer_sha256": {
+      "hindsight_assignments.csv.gz": "8e95abf3854973a615603c22e9fd36426cc4f298a94ae1518e2285533c3a0967",
+      "k_sensitivity_assignments.csv.gz": "2b6ced68aca779b186e299646faf28945b16d9b9e3ee110b5f4a1f2d1e9dcfca",
+      "keyword_map.csv.gz": "7a965ebdc84a8127b797d8f465b76efc645cf3b950bcecd9dad27c82bcd0ca65",
+      "paper_contributions.csv.gz": "ebc37fea9f5850bb709b627efb04028ed9c4c5e6ebec7018fac4461dc41b783a",
+      "paper_topic_stability.csv.gz": "5ef2aacfdfd7ce365e8fd49cb1c192edf8f1bce4673247ba02d34bfdc7e55429",
+      "split.csv.gz": "8d754c784ac01dfbadb26102d4b47797a8e8045b1a403d2a241a3fcff9fdec3a",
+      "topic_assignments.csv.gz": "41e2781e02d9966f7ee020aaa5eab437fe95f63e03b62c7c42d71670d721f3fe"
+    }
+  },
+  "outputs": {
+    "research/fashion/output_pooled/topic_year_maturity.csv.gz": {
+      "sha256": "08b8fef96574e964e568eff2c48e110175a50db93ef76be322fa22f554fe3bef",
+      "rows": 7250
+    },
+    "research/fashion/output_pooled/earlier_versions.csv.gz": {
+      "sha256": "f16ead2b499fee0e140cddd6c46bb8762e25c9328b84498e48e01a7ecb964deb",
+      "rows": 54579
+    },
+    "research/fashion/output_pooled/keyword_year.csv.gz": {
+      "sha256": "3894f81893f1391c89e19eef3867e202ecb779bc7fdffe34ecb636d294bf7173",
+      "rows": 6072
+    },
+    "research/fashion/output_pooled/keyword_uses.csv.gz": {
+      "sha256": "456f2ab6852cae0d3651fdd517085f99922b0efff86cffc9e3c3c00474262f3a",
+      "rows": 68912
+    },
+    "research/fashion/output_pooled/paper_buzzword.csv.gz": {
+      "sha256": "04f9f4df48d435cb30d1815e35982c4f46a803831ac7ab15f3229b2a91e9a59f",
+      "rows": 54579
+    },
+    "research/fashion/output_pooled/paper_variables.csv.gz": {
+      "sha256": "e552aada8c21790f773623b677635d4f2a1ad595c33609ca4b405693bcdea1a3",
+      "rows": 436632
+    },
+    "research/fashion/output_pooled/checks/resubmissions.json": {
+      "sha256": "dd50108e5efe60530f30c33d15f276fbe6aedcc482cdbf168f3e0f2cd368ed2c"
+    },
+    "research/fashion/output_pooled/checks/buzzwords.json": {
+      "sha256": "c63018bcd83491039545b4151dc5efc4965b52428f12ba1a27f357289d9329d9"
+    },
+    "research/fashion/output_pooled/checks/buzzword_examples.md": {
+      "sha256": "1aceb49f84374297109d4eac13d149279a0419e383b832d5dece0e45ce837c89"
+    },
+    "research/fashion/output_pooled/checks/variables.json": {
+      "sha256": "a7612b7559f6203856abff4aac7324c5021f05262e91ffe4dac405897e11048f"
+    }
+  },
+  "frames": {
+    "k100": {
+      "rows": 54579,
+      "confirmation_rows": 11099,
+      "discovery_rows": 43480,
+      "violations": {
+        "topic": 0,
+        "topic_early": 0,
+        "primary_class": 0,
+        "primary_type": 0,
+        "maturity": 0,
+        "prior_growth": 0,
+        "hot": 0,
+        "incumbent": 0,
+        "buzzword": 0,
+        "has_earlier_version": 0
+      },
+      "fm_adoption_missing": {
+        "discovery": 468,
+        "confirmation": 121
+      }
+    },
+    "k75": {
+      "rows": 54579,
+      "confirmation_rows": 11099,
+      "discovery_rows": 43480,
+      "violations": {
+        "topic": 0,
+        "topic_early": 0,
+        "primary_class": 0,
+        "primary_type": 0,
+        "maturity": 0,
+        "prior_growth": 0,
+        "hot": 0,
+        "incumbent": 0,
+        "buzzword": 0,
+        "has_earlier_version": 0
+      },
+      "fm_adoption_missing": {
+        "discovery": 442,
+        "confirmation": 119
+      }
+    },
+    "k150": {
+      "rows": 54579,
+      "confirmation_rows": 11099,
+      "discovery_rows": 43480,
+      "violations": {
+        "topic": 0,
+        "topic_early": 0,
+        "primary_class": 0,
+        "primary_type": 0,
+        "maturity": 0,
+        "prior_growth": 0,
+        "hot": 0,
+        "incumbent": 0,
+        "buzzword": 0,
+        "has_earlier_version": 0
+      },
+      "fm_adoption_missing": {
+        "discovery": 509,
+        "confirmation": 133
+      }
+    },
+    "balanced": {
+      "rows": 54579,
+      "confirmation_rows": 11099,
+      "discovery_rows": 43480,
+      "violations": {
+        "topic": 0,
+        "topic_early": 0,
+        "primary_class": 0,
+        "primary_type": 0,
+        "maturity": 0,
+        "prior_growth": 0,
+        "hot": 0,
+        "incumbent": 0,
+        "buzzword": 0,
+        "has_earlier_version": 0
+      },
+      "fm_adoption_missing": {
+        "discovery": 436,
+        "confirmation": 120
+      }
+    },
+    "early": {
+      "rows": 54579,
+      "confirmation_rows": 11099,
+      "discovery_rows": 43480,
+      "violations": {
+        "topic": 0,
+        "topic_early": 0,
+        "primary_class": 0,
+        "primary_type": 0,
+        "maturity": 0,
+        "prior_growth": 0,
+        "hot": 0,
+        "incumbent": 0,
+        "buzzword": 0,
+        "has_earlier_version": 0
+      },
+      "fm_adoption_missing": {
+        "discovery": 399,
+        "confirmation": 106
+      }
+    },
+    "middle_era": {
+      "rows": 54579,
+      "confirmation_rows": 11099,
+      "discovery_rows": 43480,
+      "violations": {
+        "topic": 0,
+        "topic_early": 0,
+        "primary_class": 0,
+        "primary_type": 0,
+        "maturity": 0,
+        "prior_growth": 0,
+        "hot": 0,
+        "incumbent": 0,
+        "buzzword": 0,
+        "has_earlier_version": 0
+      },
+      "fm_adoption_missing": {
+        "discovery": 400,
+        "confirmation": 111
+      }
+    },
+    "late": {
+      "rows": 54579,
+      "confirmation_rows": 11099,
+      "discovery_rows": 43480,
+      "violations": {
+        "topic": 0,
+        "topic_early": 0,
+        "primary_class": 0,
+        "primary_type": 0,
+        "maturity": 0,
+        "prior_growth": 0,
+        "hot": 0,
+        "incumbent": 0,
+        "buzzword": 0,
+        "has_earlier_version": 0
+      },
+      "fm_adoption_missing": {
+        "discovery": 464,
+        "confirmation": 126
+      }
+    },
+    "fine": {
+      "rows": 54579,
+      "confirmation_rows": 11099,
+      "discovery_rows": 43480,
+      "violations": {
+        "topic": 0,
+        "topic_early": 0,
+        "primary_class": 0,
+        "primary_type": 0,
+        "maturity": 0,
+        "prior_growth": 0,
+        "hot": 0,
+        "incumbent": 0,
+        "buzzword": 0,
+        "has_earlier_version": 0
+      },
+      "fm_adoption_missing": {
+        "discovery": 689,
+        "confirmation": 169
+      }
+    }
+  },
+  "authors": {
+    "papers_with_author_key_share": {
+      "discovery": 0.9999,
+      "confirmation": 1.0
+    },
+    "mean_team_size_keyed": {
+      "discovery": 5.048,
+      "confirmation": 5.08
+    },
+    "distinct_author_keys": {
+      "discovery": 103666,
+      "confirmation": 39211
+    },
+    "distinct_author_keys_in_both_splits": 22885
+  },
+  "comparisons": {
+    "predicted": {
+      "source": "integration map probe (pipeline_map.json, fashion variables), k100, pooled against discovery history, before this build",
+      "hot_topic_years_changed": "69 of 800",
+      "discovery_papers_with_hot_changed_share": 0.081,
+      "discovery_newcomer_to_incumbent": 1515,
+      "discovery_incumbent_rate": "0.265 -> 0.300",
+      "confirmation_incumbent_rate": 0.309,
+      "discovery_probable_earlier_versions": "170 -> 224",
+      "discovery_earlier_versions_pointing_to_confirmation": 54,
+      "confirmation_probable_earlier_versions": 58,
+      "confirmation_earlier_versions_pointing_to_discovery": 39,
+      "maturity_level_shift": "about log 1.25"
+    },
+    "by_map": {
+      "k100": {
+        "topics": 100,
+        "hot": {
+          "topic_years": 800,
+          "changed": 69,
+          "on_to_off": 35,
+          "off_to_on": 34,
+          "discovery_papers_changed": 3438,
+          "discovery_papers_changed_share": 0.0812,
+          "paper_share_in_hot_topics": {
+            "discovery_build": 0.2614,
+            "pooled_build_discovery_rows": 0.2663,
+            "pooled_build_confirmation_rows": 0.2735
+          }
+        },
+        "incumbent": {
+          "discovery_rate_discovery_build": 0.2648,
+          "discovery_rate_pooled_build": 0.2997,
+          "discovery_rate_2019_on_discovery_build": 0.2705,
+          "discovery_rate_2019_on_pooled_build": 0.3059,
+          "confirmation_rate": 0.3086,
+          "confirmation_rate_2019_on": 0.3153,
+          "discovery_newcomer_to_incumbent": {
+            "incumbent": 1515,
+            "incumbent_w2": 1506,
+            "incumbent_s4": 1504
+          },
+          "discovery_incumbent_to_newcomer": {
+            "incumbent": 0,
+            "incumbent_w2": 0,
+            "incumbent_s4": 0
+          }
+        },
+        "maturity": {
+          "discovery_topic_years_with_prior_papers": 861,
+          "mean_delta_log_cum_prior": 0.2165,
+          "prior_papers_ratio_geometric_mean": 1.2417,
+          "topic_years_papers_up": 850
+        }
+      },
+      "k75": {
+        "topics": 75,
+        "hot": {
+          "topic_years": 600,
+          "changed": 37,
+          "on_to_off": 20,
+          "off_to_on": 17,
+          "discovery_papers_changed": 1567,
+          "discovery_papers_changed_share": 0.037,
+          "paper_share_in_hot_topics": {
+            "discovery_build": 0.2465,
+            "pooled_build_discovery_rows": 0.2479,
+            "pooled_build_confirmation_rows": 0.252
+          }
+        },
+        "incumbent": {
+          "discovery_rate_discovery_build": 0.2874,
+          "discovery_rate_pooled_build": 0.3211,
+          "discovery_rate_2019_on_discovery_build": 0.2935,
+          "discovery_rate_2019_on_pooled_build": 0.3278,
+          "confirmation_rate": 0.328,
+          "confirmation_rate_2019_on": 0.3353,
+          "discovery_newcomer_to_incumbent": {
+            "incumbent": 1467,
+            "incumbent_w2": 1473,
+            "incumbent_s4": 1457
+          },
+          "discovery_incumbent_to_newcomer": {
+            "incumbent": 0,
+            "incumbent_w2": 0,
+            "incumbent_s4": 0
+          }
+        },
+        "maturity": {
+          "discovery_topic_years_with_prior_papers": 655,
+          "mean_delta_log_cum_prior": 0.2167,
+          "prior_papers_ratio_geometric_mean": 1.2419,
+          "topic_years_papers_up": 650
+        }
+      },
+      "k150": {
+        "topics": 150,
+        "hot": {
+          "topic_years": 1200,
+          "changed": 88,
+          "on_to_off": 48,
+          "off_to_on": 40,
+          "discovery_papers_changed": 1805,
+          "discovery_papers_changed_share": 0.0426,
+          "paper_share_in_hot_topics": {
+            "discovery_build": 0.269,
+            "pooled_build_discovery_rows": 0.2687,
+            "pooled_build_confirmation_rows": 0.2784
+          }
+        },
+        "incumbent": {
+          "discovery_rate_discovery_build": 0.2252,
+          "discovery_rate_pooled_build": 0.2573,
+          "discovery_rate_2019_on_discovery_build": 0.23,
+          "discovery_rate_2019_on_pooled_build": 0.2627,
+          "confirmation_rate": 0.2638,
+          "confirmation_rate_2019_on": 0.2697,
+          "discovery_newcomer_to_incumbent": {
+            "incumbent": 1397,
+            "incumbent_w2": 1368,
+            "incumbent_s4": 1378
+          },
+          "discovery_incumbent_to_newcomer": {
+            "incumbent": 0,
+            "incumbent_w2": 0,
+            "incumbent_s4": 0
+          }
+        },
+        "maturity": {
+          "discovery_topic_years_with_prior_papers": 1248,
+          "mean_delta_log_cum_prior": 0.2109,
+          "prior_papers_ratio_geometric_mean": 1.2348,
+          "topic_years_papers_up": 1201
+        }
+      },
+      "balanced": {
+        "topics": 100,
+        "hot": {
+          "topic_years": 800,
+          "changed": 69,
+          "on_to_off": 36,
+          "off_to_on": 33,
+          "discovery_papers_changed": 3128,
+          "discovery_papers_changed_share": 0.0739,
+          "paper_share_in_hot_topics": {
+            "discovery_build": 0.3515,
+            "pooled_build_discovery_rows": 0.353,
+            "pooled_build_confirmation_rows": 0.3638
+          }
+        },
+        "incumbent": {
+          "discovery_rate_discovery_build": 0.2808,
+          "discovery_rate_pooled_build": 0.3136,
+          "discovery_rate_2019_on_discovery_build": 0.2871,
+          "discovery_rate_2019_on_pooled_build": 0.3204,
+          "confirmation_rate": 0.3255,
+          "confirmation_rate_2019_on": 0.3338,
+          "discovery_newcomer_to_incumbent": {
+            "incumbent": 1424,
+            "incumbent_w2": 1394,
+            "incumbent_s4": 1409
+          },
+          "discovery_incumbent_to_newcomer": {
+            "incumbent": 0,
+            "incumbent_w2": 0,
+            "incumbent_s4": 0
+          }
+        },
+        "maturity": {
+          "discovery_topic_years_with_prior_papers": 877,
+          "mean_delta_log_cum_prior": 0.2199,
+          "prior_papers_ratio_geometric_mean": 1.246,
+          "topic_years_papers_up": 901
+        }
+      },
+      "early": {
+        "topics": 100,
+        "hot": {
+          "topic_years": 800,
+          "changed": 66,
+          "on_to_off": 33,
+          "off_to_on": 33,
+          "discovery_papers_changed": 3519,
+          "discovery_papers_changed_share": 0.0831,
+          "paper_share_in_hot_topics": {
+            "discovery_build": 0.2934,
+            "pooled_build_discovery_rows": 0.3024,
+            "pooled_build_confirmation_rows": 0.305
+          }
+        },
+        "incumbent": {
+          "discovery_rate_discovery_build": 0.2673,
+          "discovery_rate_pooled_build": 0.2998,
+          "discovery_rate_2019_on_discovery_build": 0.2732,
+          "discovery_rate_2019_on_pooled_build": 0.3064,
+          "confirmation_rate": 0.3098,
+          "confirmation_rate_2019_on": 0.3178,
+          "discovery_newcomer_to_incumbent": {
+            "incumbent": 1413,
+            "incumbent_w2": 1410,
+            "incumbent_s4": 1395
+          },
+          "discovery_incumbent_to_newcomer": {
+            "incumbent": 0,
+            "incumbent_w2": 0,
+            "incumbent_s4": 0
+          }
+        },
+        "maturity": {
+          "discovery_topic_years_with_prior_papers": 894,
+          "mean_delta_log_cum_prior": 0.219,
+          "prior_papers_ratio_geometric_mean": 1.2448,
+          "topic_years_papers_up": 925
+        }
+      },
+      "middle_era": {
+        "topics": 100,
+        "hot": {
+          "topic_years": 800,
+          "changed": 62,
+          "on_to_off": 33,
+          "off_to_on": 29,
+          "discovery_papers_changed": 3008,
+          "discovery_papers_changed_share": 0.0711,
+          "paper_share_in_hot_topics": {
+            "discovery_build": 0.3548,
+            "pooled_build_discovery_rows": 0.3601,
+            "pooled_build_confirmation_rows": 0.3669
+          }
+        },
+        "incumbent": {
+          "discovery_rate_discovery_build": 0.2812,
+          "discovery_rate_pooled_build": 0.3152,
+          "discovery_rate_2019_on_discovery_build": 0.2873,
+          "discovery_rate_2019_on_pooled_build": 0.322,
+          "confirmation_rate": 0.3253,
+          "confirmation_rate_2019_on": 0.3331,
+          "discovery_newcomer_to_incumbent": {
+            "incumbent": 1479,
+            "incumbent_w2": 1472,
+            "incumbent_s4": 1463
+          },
+          "discovery_incumbent_to_newcomer": {
+            "incumbent": 0,
+            "incumbent_w2": 0,
+            "incumbent_s4": 0
+          }
+        },
+        "maturity": {
+          "discovery_topic_years_with_prior_papers": 879,
+          "mean_delta_log_cum_prior": 0.2186,
+          "prior_papers_ratio_geometric_mean": 1.2443,
+          "topic_years_papers_up": 896
+        }
+      },
+      "late": {
+        "topics": 100,
+        "hot": {
+          "topic_years": 800,
+          "changed": 51,
+          "on_to_off": 25,
+          "off_to_on": 26,
+          "discovery_papers_changed": 1632,
+          "discovery_papers_changed_share": 0.0386,
+          "paper_share_in_hot_topics": {
+            "discovery_build": 0.1907,
+            "pooled_build_discovery_rows": 0.1893,
+            "pooled_build_confirmation_rows": 0.1994
+          }
+        },
+        "incumbent": {
+          "discovery_rate_discovery_build": 0.2633,
+          "discovery_rate_pooled_build": 0.2964,
+          "discovery_rate_2019_on_discovery_build": 0.2688,
+          "discovery_rate_2019_on_pooled_build": 0.3024,
+          "confirmation_rate": 0.3015,
+          "confirmation_rate_2019_on": 0.3088,
+          "discovery_newcomer_to_incumbent": {
+            "incumbent": 1437,
+            "incumbent_w2": 1434,
+            "incumbent_s4": 1426
+          },
+          "discovery_incumbent_to_newcomer": {
+            "incumbent": 0,
+            "incumbent_w2": 0,
+            "incumbent_s4": 0
+          }
+        },
+        "maturity": {
+          "discovery_topic_years_with_prior_papers": 859,
+          "mean_delta_log_cum_prior": 0.2161,
+          "prior_papers_ratio_geometric_mean": 1.2413,
+          "topic_years_papers_up": 831
+        }
+      },
+      "fine": {
+        "topics": 198,
+        "hot": {
+          "topic_years": 1584,
+          "changed": 122,
+          "on_to_off": 80,
+          "off_to_on": 42,
+          "discovery_papers_changed": 2151,
+          "discovery_papers_changed_share": 0.0508,
+          "paper_share_in_hot_topics": {
+            "discovery_build": 0.2529,
+            "pooled_build_discovery_rows": 0.2433,
+            "pooled_build_confirmation_rows": 0.2506
+          }
+        },
+        "incumbent": {
+          "discovery_rate_discovery_build": 0.1892,
+          "discovery_rate_pooled_build": 0.2184,
+          "discovery_rate_2019_on_discovery_build": 0.1933,
+          "discovery_rate_2019_on_pooled_build": 0.2231,
+          "confirmation_rate": 0.2256,
+          "confirmation_rate_2019_on": 0.2308,
+          "discovery_newcomer_to_incumbent": {
+            "incumbent": 1270,
+            "incumbent_w2": 1224,
+            "incumbent_s4": 1257
+          },
+          "discovery_incumbent_to_newcomer": {
+            "incumbent": 0,
+            "incumbent_w2": 0,
+            "incumbent_s4": 0
+          }
+        },
+        "maturity": {
+          "discovery_topic_years_with_prior_papers": 1605,
+          "mean_delta_log_cum_prior": 0.2075,
+          "prior_papers_ratio_geometric_mean": 1.2306,
+          "topic_years_papers_up": 1487
+        }
+      }
+    },
+    "earlier_versions": {
+      "tau": 0.9,
+      "discovery_flagged_discovery_build": 170,
+      "discovery_flagged_pooled_build": 224,
+      "discovery_flagged_pointing_to_confirmation": 54,
+      "discovery_flagged_target_changed": 0,
+      "discovery_nearest_neighbour_now_confirmation": 8916,
+      "discovery_exact_title_matches": {
+        "discovery_build": 8,
+        "pooled_build": 10
+      },
+      "confirmation_flagged": 58,
+      "confirmation_flagged_pointing_to_discovery": 39,
+      "confirmation_exact_title_matches": 2,
+      "confirmation_papers_with_earlier_year": 10994
+    },
+    "buzzwords": {
+      "keywords_in_vocabulary_used": {
+        "discovery_build": 759,
+        "pooled_build": 759
+      },
+      "eligible_keywords_by_year": {
+        "discovery_build": {
+          "2019": 28,
+          "2020": 80,
+          "2021": 147,
+          "2022": 244,
+          "2023": 328,
+          "2024": 431,
+          "2025": 584,
+          "2026": 710
+        },
+        "pooled_build": {
+          "2019": 35,
+          "2020": 98,
+          "2021": 192,
+          "2022": 286,
+          "2023": 363,
+          "2024": 481,
+          "2025": 619,
+          "2026": 721
+        }
+      },
+      "hot_keywords_by_year": {
+        "discovery_build": {
+          "2019": 6,
+          "2020": 18,
+          "2021": 30,
+          "2022": 49,
+          "2023": 67,
+          "2024": 87,
+          "2025": 121,
+          "2026": 144
+        },
+        "pooled_build": {
+          "2019": 7,
+          "2020": 21,
+          "2021": 40,
+          "2022": 62,
+          "2023": 78,
+          "2024": 100,
+          "2025": 125,
+          "2026": 149
+        }
+      },
+      "discovery_paper_flips_2019_2026": {
+        "lists_hot": {
+          "off_to_on": 3014,
+          "on_to_off": 1108
+        },
+        "buzzword": {
+          "off_to_on": 779,
+          "on_to_off": 370
+        }
+      },
+      "share_2019_2026": {
+        "lists_hot": {
+          "discovery_build": 0.2794,
+          "pooled_build_discovery_rows": 0.3245,
+          "pooled_build_confirmation_rows": 0.327
+        },
+        "buzzword": {
+          "discovery_build": 0.0489,
+          "pooled_build_discovery_rows": 0.0585,
+          "pooled_build_confirmation_rows": 0.0557
+        }
+      },
+      "share_with_an_eligible_keyword_2019_2026": {
+        "discovery_build": 0.7044,
+        "pooled_build_confirmation_rows": 0.7193
+      }
+    }
+  },
+  "untouched": {
+    "guarded_files": 468,
+    "changed": [],
+    "git_status_lines": 5,
+    "check_only": false,
+    "freeze_listed_files_differing_from_FREEZE_json": [
+      "research/fashion/PREREGISTRATION.md",
+      "research/fashion/common.py",
+      "research/fashion/figures.py",
+      "research/fashion/outcomes.py",
+      "research/fashion/resubmissions.py",
+      "research/fashion/tests/test_guard.py",
+      "research/fashion/tests/test_protocol.py",
+      "research/fashion/tests/test_sealed_loader.py",
+      "research/topics/common.py"
+    ]
+  },
+  "gates": {
+    "untouched": {
+      "guarded_files_unchanged": true,
+      "git_status_unchanged": true,
+      "discovery_outputs_clean_in_git": true
+    },
+    "frozen_inputs": {
+      "byte_identical_topic_catalog.csv": true,
+      "byte_identical_keyword_types.csv": true,
+      "byte_identical_topic_model.npz": true,
+      "byte_identical_hindsight_check.json": true,
+      "byte_identical_h2d_validation.json": true,
+      "byte_identical_resubmission_tau.json": true,
+      "byte_identical_specter2_centring_mean.npy": true,
+      "pooled_author_table_matches_manifest": true,
+      "vocabulary_759": true,
+      "frozen_tau_used": true
+    },
+    "shape": {
+      "papers_by_split": true,
+      "maps": true,
+      "every_file_in_P_order": true,
+      "topic_year_rows_complete": true
+    },
+    "labels": {
+      "in_P_order": true,
+      "no_missing_label": true
+    },
+    "frames": {
+      "mask_equals_topic_layer_split_file": true,
+      "frames_in_pooled_order": true,
+      "k100_rows": true,
+      "k100_no_missing": true,
+      "k75_rows": true,
+      "k75_no_missing": true,
+      "k150_rows": true,
+      "k150_no_missing": true,
+      "balanced_rows": true,
+      "balanced_no_missing": true,
+      "early_rows": true,
+      "early_no_missing": true,
+      "middle_era_rows": true,
+      "middle_era_no_missing": true,
+      "late_rows": true,
+      "late_no_missing": true,
+      "fine_rows": true,
+      "fine_no_missing": true
+    },
+    "maps": {
+      "k100:discovery_rows_in_discovery_order": true,
+      "k100:discovery_topics_unchanged": true,
+      "k100:discovery_team_size_and_has_author_key_unchanged": true,
+      "k100:no_discovery_paper_loses_incumbent_or_incumbent_w2": true,
+      "k100:discovery_topic_years_keep_papers_and_prior_papers": true,
+      "k75:discovery_rows_in_discovery_order": true,
+      "k75:discovery_topics_unchanged": true,
+      "k75:discovery_team_size_and_has_author_key_unchanged": true,
+      "k75:no_discovery_paper_loses_incumbent_or_incumbent_w2": true,
+      "k75:discovery_topic_years_keep_papers_and_prior_papers": true,
+      "k150:discovery_rows_in_discovery_order": true,
+      "k150:discovery_topics_unchanged": true,
+      "k150:discovery_team_size_and_has_author_key_unchanged": true,
+      "k150:no_discovery_paper_loses_incumbent_or_incumbent_w2": true,
+      "k150:discovery_topic_years_keep_papers_and_prior_papers": true,
+      "balanced:discovery_rows_in_discovery_order": true,
+      "balanced:discovery_topics_unchanged": true,
+      "balanced:discovery_team_size_and_has_author_key_unchanged": true,
+      "balanced:no_discovery_paper_loses_incumbent_or_incumbent_w2": true,
+      "balanced:discovery_topic_years_keep_papers_and_prior_papers": true,
+      "early:discovery_rows_in_discovery_order": true,
+      "early:discovery_topics_unchanged": true,
+      "early:discovery_team_size_and_has_author_key_unchanged": true,
+      "early:no_discovery_paper_loses_incumbent_or_incumbent_w2": true,
+      "early:discovery_topic_years_keep_papers_and_prior_papers": true,
+      "middle_era:discovery_rows_in_discovery_order": true,
+      "middle_era:discovery_topics_unchanged": true,
+      "middle_era:discovery_team_size_and_has_author_key_unchanged": true,
+      "middle_era:no_discovery_paper_loses_incumbent_or_incumbent_w2": true,
+      "middle_era:discovery_topic_years_keep_papers_and_prior_papers": true,
+      "late:discovery_rows_in_discovery_order": true,
+      "late:discovery_topics_unchanged": true,
+      "late:discovery_team_size_and_has_author_key_unchanged": true,
+      "late:no_discovery_paper_loses_incumbent_or_incumbent_w2": true,
+      "late:discovery_topic_years_keep_papers_and_prior_papers": true,
+      "fine:discovery_rows_in_discovery_order": true,
+      "fine:discovery_topics_unchanged": true,
+      "fine:discovery_team_size_and_has_author_key_unchanged": true,
+      "fine:no_discovery_paper_loses_incumbent_or_incumbent_w2": true,
+      "fine:discovery_topic_years_keep_papers_and_prior_papers": true
+    },
+    "earlier_versions": {
+      "discovery_rows_in_discovery_order": true,
+      "discovery_rows_with_a_discovery_neighbour_keep_it_and_its_cosine": true,
+      "discovery_rows_with_a_confirmation_neighbour_gain_cosine": true,
+      "discovery_rows_have_a_neighbour_iff_before": true,
+      "discovery_exact_title_matches_kept": true,
+      "no_discovery_paper_loses_its_probable_earlier_version": true
+    },
+    "buzzwords": {
+      "discovery_rows_in_discovery_order": true,
+      "keywords_from_the_frozen_vocabulary": true
+    }
+  }
+}

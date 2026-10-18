@@ -6,18 +6,25 @@ author keys, and any earlier paper with the same normalised title. With --tau (c
 
 Writes output/earlier_versions.csv.gz and output/checks/resubmissions.json (cosine percentiles for the τ bins).
 
+Pooled corpus (ICLR_CORPUS=pooled, D14/D15): the centring mean is the frozen discovery constant
+output/specter2_centring_mean.npy, loaded and never recomputed or written (its byte-identical copy in output_pooled/
+comes from build_pooled_inputs.py and is checked here); τ is the frozen output/resubmission_tau.json value (--tau may
+only repeat it). Nearest neighbours and exact titles then range over all earlier-year pooled papers.
+
     python research/fashion/resubmissions.py [--tau 0.95]
+    ICLR_CORPUS=pooled python research/fashion/resubmissions.py [--tau 0.9]
 """
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import re
 
 import numpy as np
 import pandas as pd
 
-from common import OUTPUT, topic_layer, write_csv_gz
+from common import CORPUS, DISCOVERY_OUTPUT, OUTPUT, topic_layer, write_csv_gz
 from variables import load_authors
 
 BLOCK = 2000
@@ -50,17 +57,33 @@ def probable_earlier(exact: pd.Series, nn: pd.Series, cos: pd.Series, tau: float
     return [e if pd.notna(e) else (n if pd.notna(n) and c >= tau else None) for e, n, c in zip(exact, nn, cos)]
 
 
+def frozen_constants(tau: float | None) -> tuple[np.ndarray, float]:
+    """Pooled corpus (D14, D15): the frozen discovery centring mean and τ, read from the discovery outputs, never
+    recomputed or written. The pooled copy of the mean (build_pooled_inputs.py) must be byte-identical to it."""
+    source, copy = DISCOVERY_OUTPUT / "specter2_centring_mean.npy", OUTPUT / "specter2_centring_mean.npy"
+    digest = lambda f: hashlib.sha256(f.read_bytes()).hexdigest()
+    if not copy.exists() or digest(copy) != digest(source):
+        raise SystemExit(f"{copy} is missing or differs from the frozen discovery mean: run build_pooled_inputs.py")
+    frozen = json.loads((DISCOVERY_OUTPUT / "resubmission_tau.json").read_text())["tau"]
+    if tau is not None and tau != frozen:
+        raise SystemExit(f"the pooled corpus uses the frozen tau {frozen}, not {tau}")
+    return np.load(source), frozen
+
+
 def main() -> None:
     p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     p.add_argument("--tau", type=float)
     a = p.parse_args()
+    if CORPUS == "pooled":
+        mean, a.tau = frozen_constants(a.tau)
     tl = topic_layer()
     corpus = tl.embedded_corpus()
     emb, ids = tl.load_embeddings()
     assert ids.equals(corpus.submission_id)
     x = emb.astype(np.float32)
-    mean = x.mean(axis=0)                                          # centring removes SPECTER2's anisotropy (D15); the
-    np.save(OUTPUT / "specter2_centring_mean.npy", mean)           # discovery mean is a fixed constant, reused for D14
+    if CORPUS != "pooled":
+        mean = x.mean(axis=0)                                      # centring removes SPECTER2's anisotropy (D15); the
+        np.save(OUTPUT / "specter2_centring_mean.npy", mean)       # discovery mean is a fixed constant, reused for D14
     x -= mean
     x /= np.linalg.norm(x, axis=1, keepdims=True)
     years = corpus.year.to_numpy()

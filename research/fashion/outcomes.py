@@ -18,6 +18,21 @@ Modes:
   unless called from posthoc.py, output/frozen_run/attempts.jsonl records a finished attempt, no debugger is attached
   and the git tree is clean (so the code that reads outcomes is committed before it runs); every access is appended
   to output/posthoc/access_log.jsonl with the commit and the script's sha256.
+
+Splits (D14 and the confirmation registrations). SOURCES holds the discovery table (data/) and the confirmation table
+(data_confirmation_csv/, the released former holdout); "pooled" is their union (ids must be unique). Reads are
+split-aware: _read(ids, split) refuses any id outside the split, so a discovery entry point can never read a
+confirmation outcome. The split of a real read is fixed by the entry script (ENTRY), and the corpus switch
+(common.CORPUS, ICLR_CORPUS) must match it:
+- run_frozen.py       -> discovery     ICLR_CORPUS unset; FREEZE.json, every hash, clean tree (unchanged)
+- run_confirmation.py -> confirmation  ICLR_CORPUS=pooled; FREEZE_CONFIRMATION.json, every hash, clean tree
+- run_pooled.py       -> pooled        ICLR_CORPUS=pooled; exploratory, only after a finished confirmation attempt
+                                       (output_pooled/confirmation_run/attempts.jsonl); FREEZE_CONFIRMATION.json settings
+                                       without a hash match (its sha256 is recorded by the run); clean tree
+Under ICLR_CORPUS=pooled, "posthoc" also needs a finished confirmation attempt, reads the pooled table and logs (with
+the corpus) to output_pooled/posthoc/access_log.jsonl; ATTEMPTS then resolves to output_pooled/frozen_run, so the
+pooled main run (run_pooled.py) must have finished as well. "permuted" reads the discovery table only and is refused
+under ICLR_CORPUS=pooled (a pooled shuffle would expose confirmation outcomes and change every discovery null).
 """
 from __future__ import annotations
 
@@ -31,13 +46,20 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
-from common import DATA, OUTPUT, ROOT
+from common import CORPUS, OUTPUT, POOLED_OUTPUT, ROOT
 from dgp import DGP, simulate
 
 HERE = Path(__file__).resolve().parent
-FREEZE = HERE / "FREEZE.json"
+FREEZE_DISCOVERY = HERE / "FREEZE.json"
+FREEZE_CONFIRMATION = HERE / "FREEZE_CONFIRMATION.json"
+FREEZE = FREEZE_DISCOVERY if CORPUS == "discovery" else FREEZE_CONFIRMATION     # the freeze a run of this corpus records
 COLUMNS = ["submission_id", "year", "administrative_status", "decision", "outcome_eligible", "review_count"]
-SOURCE = DATA / "submissions.csv.gz"                    # the only table with outcomes (hashed via sealed_files())
+SOURCES = {"discovery": ROOT / "data" / "submissions.csv.gz",                    # the only tables with outcomes
+           "confirmation": ROOT / "data_confirmation_csv" / "submissions.csv.gz"}
+SOURCE = SOURCES["discovery"]                           # hashed via sealed_files() (FREEZE.json, dryrun.digest)
+SPLITS = ("discovery", "confirmation", "pooled")
+ENTRY = {"run_frozen.py": "discovery", "run_confirmation.py": "confirmation", "run_pooled.py": "pooled"}
+CONFIRMATION_ATTEMPTS = POOLED_OUTPUT / "confirmation_run" / "attempts.jsonl"     # fixed, whatever the corpus
 
 
 def sha256(path: Path) -> str:
@@ -52,8 +74,13 @@ _VERIFIED: dict | None = None                           # hashes and clean tree,
 
 
 def sealed_files() -> list[Path]:
-    """The files that hold sealed columns (for hashing in freeze.py)."""
+    """The files that hold sealed columns (for hashing in freeze.py and dryrun.digest: the discovery table)."""
     return [SOURCE]
+
+
+def sealed_files_all() -> list[Path]:
+    """Both sealed tables, discovery and confirmation (for hashing in freeze_confirmation.py)."""
+    return [SOURCES["discovery"], SOURCES["confirmation"]]
 
 
 def release() -> None:
@@ -62,26 +89,61 @@ def release() -> None:
     _VERIFIED = None
 
 
-def require_frozen() -> dict:
-    """Guard for every real-data run (RQ2 and RQ3): entry point (checked on every call), frozen hashes and clean tree
-    (checked once per frozen run, so the run can record its attempt before it loads real data; released at its end)."""
-    global _VERIFIED
+def entry() -> str:
+    """The split the running entry script may read (ENTRY: the script must be that file in research/fashion)."""
     main = getattr(sys.modules.get("__main__"), "__file__", "") or ""
-    if Path(main).resolve() != HERE / "run_frozen.py":
-        raise PermissionError("real outcomes are only available to research/fashion/run_frozen.py")
+    path = Path(main).resolve()
+    if path.parent != HERE or path.name not in ENTRY:
+        raise PermissionError("real outcomes are only available to research/fashion/run_frozen.py (discovery), "
+                              "run_confirmation.py (confirmation) and run_pooled.py (pooled)")
+    return ENTRY[path.name]
+
+
+def finished(log: Path) -> bool:
+    """Whether an attempts log records a finished attempt."""
+    lines = [json.loads(x) for x in log.read_text().splitlines()] if log.exists() else []
+    return any(x.get("status") == "finished" for x in lines)
+
+
+def verify(freeze_file: Path) -> dict:
+    """The frozen settings, after every sha256 they list matches (paths relative to the repository root)."""
+    if not freeze_file.exists():
+        raise PermissionError(f"{freeze_file.name} is missing: the analysis is not frozen")
+    freeze = json.loads(freeze_file.read_text())
+    bad = [p for p, h in freeze["sha256"].items() if not (ROOT / p).exists() or sha256(ROOT / p) != h]
+    if bad:
+        raise PermissionError(f"files changed since the freeze: {bad}")
+    return freeze
+
+
+def clean_tree(note: str = "") -> None:
+    dirty = subprocess.run(["git", "status", "--porcelain"], cwd=ROOT, capture_output=True, text=True, check=True).stdout
+    if dirty.strip():
+        raise PermissionError(f"git tree is not clean{note}:\n{dirty}")
+
+
+def require_frozen() -> dict:
+    """Guard for every real-data run: entry point (checked on every call; it fixes the split), then once per run the
+    corpus switch, the freeze (hashes, or for the pooled run a finished confirmation attempt) and a clean tree (so the
+    run can record its attempt before it loads real data; released at its end). The discovery path is unchanged."""
+    global _VERIFIED
+    split = entry()
     if sys.gettrace() is not None or sys.flags.inspect or sys.flags.interactive:
         raise PermissionError("the frozen run cannot run under a debugger or an interactive session")
     if _VERIFIED is not None:
         return _VERIFIED
-    if not FREEZE.exists():
-        raise PermissionError("FREEZE.json is missing: the analysis is not frozen")
-    freeze = json.loads(FREEZE.read_text())
-    bad = [p for p, h in freeze["sha256"].items() if not (ROOT / p).exists() or sha256(ROOT / p) != h]
-    if bad:
-        raise PermissionError(f"files changed since the freeze: {bad}")
-    dirty = subprocess.run(["git", "status", "--porcelain"], cwd=ROOT, capture_output=True, text=True, check=True).stdout
-    if dirty.strip():
-        raise PermissionError(f"git tree is not clean:\n{dirty}")
+    corpus = "discovery" if split == "discovery" else "pooled"
+    if CORPUS != corpus:
+        raise PermissionError(f"{split} outcomes need ICLR_CORPUS={corpus} (unset for discovery); this process has {CORPUS}")
+    if split == "pooled":
+        if not finished(CONFIRMATION_ATTEMPTS):
+            raise PermissionError("the pooled run is only allowed after the confirmation run has finished")
+        if not FREEZE_CONFIRMATION.exists():
+            raise PermissionError("FREEZE_CONFIRMATION.json is missing")
+        freeze = json.loads(FREEZE_CONFIRMATION.read_text())    # settings only: exploratory (D6); the run records its sha
+    else:
+        freeze = verify(FREEZE_DISCOVERY if split == "discovery" else FREEZE_CONFIRMATION)
+    clean_tree()
     _VERIFIED = freeze
     return freeze
 
@@ -92,23 +154,26 @@ POSTHOC_LOG = OUTPUT / "posthoc" / "access_log.jsonl"
 
 
 def require_posthoc() -> None:
-    """Guard for post hoc analyses: only after the confirmatory run has finished, only from committed code, logged."""
+    """Guard for post hoc analyses: only after the confirmatory run has finished, only from committed code, logged.
+    Under ICLR_CORPUS=pooled also only after the confirmation run has finished (and ATTEMPTS is the pooled main run's)."""
     main = getattr(sys.modules.get("__main__"), "__file__", "") or ""
     if Path(main).resolve() != POSTHOC:
         raise PermissionError("post hoc outcomes are only available to research/fashion/posthoc.py")
     if sys.gettrace() is not None or sys.flags.inspect or sys.flags.interactive:
         raise PermissionError("post hoc analyses cannot run under a debugger or an interactive session")
-    lines = [json.loads(x) for x in ATTEMPTS.read_text().splitlines()] if ATTEMPTS.exists() else []
-    if not any(x.get("status") == "finished" for x in lines):
-        raise PermissionError("post hoc analyses are only allowed after the single frozen run has finished")
-    dirty = subprocess.run(["git", "status", "--porcelain"], cwd=ROOT, capture_output=True, text=True, check=True).stdout
-    if dirty.strip():
-        raise PermissionError(f"git tree is not clean (post hoc code must be committed before it reads outcomes):\n{dirty}")
+    pooled = CORPUS == "pooled"
+    if pooled and not finished(CONFIRMATION_ATTEMPTS):
+        raise PermissionError("pooled post hoc analyses are only allowed after the confirmation run has finished")
+    if not finished(ATTEMPTS):
+        raise PermissionError("post hoc analyses are only allowed after the single frozen run has finished"
+                              + (" (pooled: run_pooled.py)" if pooled else ""))
+    clean_tree(" (post hoc code must be committed before it reads outcomes)")
     head = subprocess.run(["git", "rev-parse", "HEAD"], cwd=ROOT, capture_output=True, text=True, check=True).stdout.strip()
     POSTHOC_LOG.parent.mkdir(parents=True, exist_ok=True)
     with POSTHOC_LOG.open("a") as f:
         f.write(json.dumps({"at_utc": pd.Timestamp.now(tz="UTC").isoformat(timespec="seconds"), "git_head": head,
-                            "posthoc_sha256": sha256(POSTHOC), "argv": sys.argv[1:]}) + "\n")
+                            "posthoc_sha256": sha256(POSTHOC), "argv": sys.argv[1:],
+                            **({"corpus": CORPUS} if pooled else {})}) + "\n")
 
 
 def _derive(s: pd.DataFrame) -> pd.DataFrame:
@@ -128,14 +193,28 @@ def _derive(s: pd.DataFrame) -> pd.DataFrame:
     return out
 
 
-@lru_cache(maxsize=1)
-def _table() -> pd.DataFrame:
-    s = pd.read_csv(SOURCE, keep_default_na=False, na_values=[r"\N"], usecols=COLUMNS, low_memory=False)
-    return s.set_index("submission_id")
+@lru_cache(maxsize=None)
+def _table(split: str = "discovery") -> pd.DataFrame:
+    """The sealed columns of one split, indexed by submission_id; "pooled" = discovery then confirmation rows."""
+    if split not in SPLITS:
+        raise ValueError(f"unknown split {split!r}")
+    if split == "pooled":
+        s = pd.concat([_table("discovery"), _table("confirmation")])
+    else:
+        s = pd.read_csv(SOURCES[split], keep_default_na=False, na_values=[r"\N"], usecols=COLUMNS,
+                        low_memory=False).set_index("submission_id")
+    if not s.index.is_unique:
+        raise ValueError(f"submission ids are not unique in the {split} table")
+    return s
 
 
-def _read(ids: pd.Series) -> pd.DataFrame:
-    return _derive(_table().loc[ids.values].reset_index())
+def _read(ids: pd.Series, split: str = "discovery") -> pd.DataFrame:
+    """Derived outcomes of the requested papers; refuses (before deriving anything) if any of them is outside the split."""
+    t = _table(split)
+    outside = ~pd.Index(ids.values).isin(t.index)
+    if outside.any():
+        raise PermissionError(f"{int(outside.sum())} requested papers are not in the {split} split: refused")
+    return _derive(t.loc[ids.values].reset_index())
 
 
 BLOCK = ["rq3", "accepted", "s9", "s9_accepted", "e3", "withdrawn_after_review", "withdrawn_before_review"]
@@ -157,12 +236,14 @@ def load(mode: str, ids: pd.Series, seed: int | None = None, frame: pd.DataFrame
          dgp: DGP | None = None) -> pd.DataFrame:
     if mode == "real":
         require_frozen()
-        return _read(ids)
+        return _read(ids, entry())
     if mode == "posthoc":
         require_posthoc()
-        return _read(ids)
+        return _read(ids, "pooled" if CORPUS == "pooled" else "discovery")
     rng = np.random.default_rng(seed)
     if mode == "permuted":
+        if CORPUS != "discovery":
+            raise PermissionError("the permuted null reads the discovery table only: refused under ICLR_CORPUS=pooled")
         full = _shuffle_within_year(_derive(_table().reset_index()), rng)      # never depends on the requested ids
         return full.set_index("submission_id").loc[ids.values].reset_index()
     if mode == "simulated":

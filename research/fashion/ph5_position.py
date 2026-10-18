@@ -74,7 +74,7 @@ from scipy.special import expit, logit
 import panel
 import ph5_common
 import posthoc
-from common import DATA, OUTPUT, ROOT, topic_layer
+from common import DATA, OUTPUT, topic_layer
 from logit import fe_logit
 from ols import demean
 from panel import CLASS_CONTROLS
@@ -98,10 +98,12 @@ NOTE = "post hoc exploratory (PH5 position, selection S4); associations within t
 
 @lru_cache(maxsize=1)
 def embeddings() -> np.ndarray:
-    """Centred, L2-normalised SPECTER2 vectors in panel.frame('k100') row order (float32)."""
-    ids = pd.read_csv(ROOT / "research" / "topics" / "cache" / "specter2_ids.csv").submission_id
-    assert (ids.to_numpy() == panel.frame("k100").submission_id.to_numpy()).all()
-    X = np.load(ROOT / "research" / "topics" / "cache" / "specter2.npy").astype(np.float32)
+    """Centred, L2-normalised SPECTER2 vectors in panel.frame('k100') row order (float32). The raw vectors come from
+    the topic layer (topic_layer().load_embeddings(): cache/specter2.npy for discovery; pooled embedded order under
+    ICLR_CORPUS=pooled), so they follow the corpus switch; the centring mean is OUTPUT's frozen discovery constant."""
+    X, ids = topic_layer().load_embeddings()
+    assert (np.asarray(ids) == panel.frame("k100").submission_id.to_numpy()).all()
+    X = X.astype(np.float32)
     X -= np.load(OUTPUT / "specter2_centring_mean.npy").astype(np.float32)
     return X / np.linalg.norm(X, axis=1, keepdims=True)
 

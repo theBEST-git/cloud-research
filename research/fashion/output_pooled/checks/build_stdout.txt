@@ -1,0 +1,190 @@
+$ ICLR_CORPUS=pooled python research/fashion/build_pooled_inputs.py
+{
+ "authors": {
+  "path": "research/fashion/output_pooled/inputs/submission_authors.csv.gz",
+  "sha256": "5fc9fa2875746c4f15753d0596a01170552d150e756c8ed2cc7d6a2fd68e1101",
+  "rows": 276181,
+  "by_split": {
+   "discovery": {
+    "rows": 219719,
+    "papers": 43513
+   },
+   "confirmation": {
+    "rows": 56462,
+    "papers": 11113
+   }
+  }
+ },
+ "copies": {
+  "h2d_validation.json": "38b45bac5667",
+  "resubmission_tau.json": "747528b71cae",
+  "specter2_centring_mean.npy": "f179097ee81c"
+ }
+}
+
+$ ICLR_CORPUS=pooled python research/fashion/topic_maturity.py
+            topics  rows
+map                     
+balanced       100  1000
+early          100  1000
+k100           100  1000
+k150           150  1500
+k75             75   750
+late           100  1000
+middle_era     100  1000
+
+$ ICLR_CORPUS=pooled python research/fashion/resubmissions.py --tau 0.9
+{
+ "papers_with_earlier_year": 54090,
+ "nn_cos_percentiles": {
+  "50": 0.6843,
+  "75": 0.7384,
+  "85": 0.765,
+  "90": 0.7822,
+  "95": 0.808,
+  "98": 0.8399,
+  "99": 0.8664,
+  "99.5": 0.9017
+ },
+ "pairs_per_tau_bin": {
+  "[0.8,0.85)": 2573,
+  "[0.85,0.9)": 544,
+  "[0.9,0.95)": 165,
+  "[0.95,1.01)": 113
+ },
+ "exact_title_matches": 12,
+ "tau": 0.9,
+ "shared_author_share_per_tau_bin_2021_on": {
+  "[0.8,0.85)": 0.1599,
+  "[0.85,0.9)": 0.5618,
+  "[0.9,0.95)": 0.953,
+  "[0.95,1.01)": 1.0
+ },
+ "flagged": 282,
+ "flagged_by_year": {
+  "2019": 1,
+  "2020": 12,
+  "2021": 14,
+  "2022": 18,
+  "2023": 28,
+  "2024": 33,
+  "2025": 63,
+  "2026": 113
+ },
+ "flagged_share_with_shared_author_key": 0.9291
+}
+
+$ ICLR_CORPUS=pooled python research/fashion/buzzwords.py
+{
+ "vocabulary": 759,
+ "eligible_keywords_by_year": {
+  "2019": 35,
+  "2020": 98,
+  "2021": 192,
+  "2022": 286,
+  "2023": 363,
+  "2024": 481,
+  "2025": 619,
+  "2026": 721
+ },
+ "hot_keywords_by_year": {
+  "2019": 7,
+  "2020": 21,
+  "2021": 40,
+  "2022": 62,
+  "2023": 78,
+  "2024": 100,
+  "2025": 125,
+  "2026": 149
+ },
+ "atypical_rate_hot_uses": 0.1506,
+ "atypical_rate_other_eligible_uses": 0.1531,
+ "atypical_rate_by_year": {
+  "2019": 0.1478,
+  "2020": 0.1292,
+  "2021": 0.1453,
+  "2022": 0.1446,
+  "2023": 0.1419,
+  "2024": 0.1612,
+  "2025": 0.1491,
+  "2026": 0.1572
+ },
+ "paper_share_listing_hot_keyword_by_year": {
+  "2019": 0.2216,
+  "2020": 0.1584,
+  "2021": 0.2508,
+  "2022": 0.2043,
+  "2023": 0.2365,
+  "2024": 0.2759,
+  "2025": 0.3973,
+  "2026": 0.3862
+ },
+ "buzzword_rate_by_year": {
+  "2019": 0.0398,
+  "2020": 0.0179,
+  "2021": 0.0422,
+  "2022": 0.0256,
+  "2023": 0.0458,
+  "2024": 0.0516,
+  "2025": 0.0678,
+  "2026": 0.0725
+ },
+ "flagged_uses": 3295,
+ "flag_concentration_top10_keywords": {
+  "large language models": 820,
+  "multimodal large language models": 142,
+  "diffusion models": 129,
+  "foundation models": 79,
+  "reasoning": 66,
+  "video generation": 54,
+  "vision-language model": 47,
+  "agent": 46,
+  "flow matching": 44,
+  "mechanistic interpretability": 44
+ },
+ "share_of_flags_on_top_keyword": 0.2489
+}
+
+$ ICLR_CORPUS=pooled python research/fashion/variables.py
+{
+ "k100": {
+  "incumbent_2019": 0.167,
+  "incumbent_2023": 0.3004,
+  "incumbent_2026": 0.3686
+ },
+ "k75": {
+  "incumbent_2019": 0.1734,
+  "incumbent_2023": 0.317,
+  "incumbent_2026": 0.3951
+ },
+ "k150": {
+  "incumbent_2019": 0.1252,
+  "incumbent_2023": 0.2488,
+  "incumbent_2026": 0.3184
+ },
+ "balanced": {
+  "incumbent_2019": 0.131,
+  "incumbent_2023": 0.284,
+  "incumbent_2026": 0.4063
+ },
+ "early": {
+  "incumbent_2019": 0.1278,
+  "incumbent_2023": 0.2936,
+  "incumbent_2026": 0.3751
+ },
+ "middle_era": {
+  "incumbent_2019": 0.1297,
+  "incumbent_2023": 0.2774,
+  "incumbent_2026": 0.4093
+ },
+ "late": {
+  "incumbent_2019": 0.1702,
+  "incumbent_2023": 0.3063,
+  "incumbent_2026": 0.3523
+ },
+ "fine": {
+  "incumbent_2019": 0.1047,
+  "incumbent_2023": 0.2166,
+  "incumbent_2026": 0.2683
+ }
+}

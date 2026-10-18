@@ -1,0 +1,52 @@
+{
+  "authors": {
+    "path": "research/fashion/output_pooled/inputs/submission_authors.csv.gz",
+    "sha256": "5fc9fa2875746c4f15753d0596a01170552d150e756c8ed2cc7d6a2fd68e1101",
+    "rows": 276181,
+    "order": [
+      "year",
+      "submission_id",
+      "source_list_position"
+    ],
+    "by_split": {
+      "discovery": {
+        "rows": 219719,
+        "papers": 43513
+      },
+      "confirmation": {
+        "rows": 56462,
+        "papers": 11113
+      }
+    },
+    "sources": {
+      "data/submission_authors.csv.gz": "ed082e276459973770c46bb41362290e346908f7faa5f0f811e419782858f7a5",
+      "data_confirmation_csv/submission_authors.csv.gz": "6e8bab7808443343e821feb4986e14d9252781a2e141a7f69cfaf5496ba1737b"
+    },
+    "git_ignored": true
+  },
+  "copies": {
+    "h2d_validation.json": {
+      "source": "research/fashion/output/h2d_validation.json",
+      "sha256": "38b45bac5667120bd6b355a44c7eb5647b4f1fdb7cdf82f5c8c74dee711b0e4e",
+      "freeze_sha256": "38b45bac5667120bd6b355a44c7eb5647b4f1fdb7cdf82f5c8c74dee711b0e4e"
+    },
+    "resubmission_tau.json": {
+      "source": "research/fashion/output/resubmission_tau.json",
+      "sha256": "747528b71caefc8046dd0c455cde82f3637dfd1238379cef9cc14f84ab634906",
+      "freeze_sha256": "747528b71caefc8046dd0c455cde82f3637dfd1238379cef9cc14f84ab634906"
+    },
+    "specter2_centring_mean.npy": {
+      "source": "research/fashion/output/specter2_centring_mean.npy",
+      "sha256": "f179097ee81cd0a3b548ac0cd956f8713769a3f1fdc8baba77278f703e03e8dd",
+      "freeze_sha256": "f179097ee81cd0a3b548ac0cd956f8713769a3f1fdc8baba77278f703e03e8dd"
+    }
+  },
+  "gates": [
+    "same header, disjoint papers",
+    "pooled rows equal each source row for row (as text)",
+    "discovery author keys unchanged through variables.load_authors' reader",
+    "copies byte-identical to their sources and to FREEZE.json"
+  ],
+  "numpy": "2.5.3",
+  "pandas": "3.0.5"
+}

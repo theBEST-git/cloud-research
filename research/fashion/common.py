@@ -1,18 +1,40 @@
-"""Shared paths, label classes and topic maps for the research-fashion analyses."""
+"""Shared paths, label classes and topic maps for the research-fashion analyses.
+
+Corpus switch (PREREGISTRATION.md D14; ICLR_CORPUS, read once at import, so set it per process before the first fashion
+import):
+- unset or "discovery": every path as before (data/, research/topics/output/, research/fashion/output/).
+- "pooled" (discovery + released confirmation papers): TOPICS = research/topics/output_pooled (a sibling of output/, so
+  rq2_following.REFERENCE still resolves), OUTPUT = research/fashion/output_pooled and DATA = output_pooled/inputs (the
+  git-ignored pooled author table of build_pooled_inputs.py). Every derived path (variables.CHECKS, posthoc.OUT,
+  figures.FIG, run_frozen.OUT, ...) follows, so no pooled build or run can write into the discovery outputs.
+  The topic layer (topic_layer()) reads the same variable and must agree (checked when pooled).
+"""
 from __future__ import annotations
 
 import gzip
 import importlib.util
 import io
+import os
 from pathlib import Path
 
 import pandas as pd
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[1]
-DATA = ROOT / "data"
-TOPICS = ROOT / "research" / "topics" / "output"
-OUTPUT = HERE / "output"
+DISCOVERY_OUTPUT = HERE / "output"                     # the committed discovery results (never written when pooled)
+POOLED_OUTPUT = HERE / "output_pooled"
+CORPUS = os.environ.get("ICLR_CORPUS") or "discovery"
+if CORPUS not in ("discovery", "pooled"):
+    raise ValueError(f"ICLR_CORPUS must be unset, 'discovery' or 'pooled', not {CORPUS!r}")
+if CORPUS == "pooled":
+    DATA = POOLED_OUTPUT / "inputs"
+    TOPICS = ROOT / "research" / "topics" / "output_pooled"
+    OUTPUT = POOLED_OUTPUT
+    assert OUTPUT != DISCOVERY_OUTPUT and DISCOVERY_OUTPUT not in OUTPUT.parents, "pooled outputs must not be discovery outputs"
+else:
+    DATA = ROOT / "data"
+    TOPICS = ROOT / "research" / "topics" / "output"
+    OUTPUT = HERE / "output"
 
 TYPES = ["method", "model", "theory", "empirical", "system", "dataset_benchmark", "evaluation", "problem",
          "application", "recipe", "perspective", "survey_position"]
@@ -60,4 +82,6 @@ def topic_layer():
     spec = importlib.util.spec_from_file_location("topics_common", ROOT / "research" / "topics" / "common.py")
     mod = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(mod)
+    if CORPUS == "pooled" and Path(mod.OUTPUT).resolve() != TOPICS:
+        raise RuntimeError(f"the topic layer writes to {mod.OUTPUT}, not {TOPICS}: ICLR_CORPUS changed after import?")
     return mod

@@ -1,0 +1,13 @@
+{
+  "effective_date": "2026-10-18",
+  "authorization": "Explicit project user request; includes GitHub publication of former-holdout research records",
+  "population_index": "access_ledger.csv where released_from_confirmation=1",
+  "submissions": 11113,
+  "status": "released_for_exploration_and_publication",
+  "holdout_retired": true,
+  "old_exposure_ledgers_preserved": true,
+  "export_is_independent_human_annotation": false,
+  "new_substantive_findings_produced": false,
+  "old_discovery_analyses_recomputed": false,
+  "pending_family_restrictions_lifted": false
+}

@@ -1,0 +1,25 @@
+{
+  "source_release": "corpus_access_20261018_v1",
+  "source_commit": "491195397b7003d40a2e29304cf10395eee77949",
+  "source_manifest_sha256": "e8bbfc8ddf7d45a0688ff7c88d61723a60a6b81b72cfc66ffc1223e5335cf28f",
+  "source_files_copied_and_sha256_verified": 103,
+  "source_bytes_unchanged": true,
+  "destination_repository": "theBEST-git/cloud-research",
+  "destination_branch": "claude/clever-edison-oe9pzv",
+  "public_upload_explicitly_authorized_by_user": true,
+  "date": "2026-10-18",
+  "submissions": 11113,
+  "compressed_data_bytes": 274534758,
+  "shards": 69,
+  "outcome_columns_present": [
+    "decision",
+    "decision_evidence",
+    "outcome_eligible"
+  ],
+  "outcome_values_decoded_for_transfer": false,
+  "new_annotations_or_model_calls": false,
+  "independent_confirmation_available": false,
+  "archive_tag": "released-former-confirmation-20261018-v1",
+  "archive_file": "released_confirmation_2017_2026_20261018_v1.zip",
+  "archive_sha256": "a8c79acc5a1f34166189a2596382cc98a173db8d22c07cde0e8ff1ea6ac223b7"
+}

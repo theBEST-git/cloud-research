@@ -1,0 +1,9 @@
+{
+  "exploratory_submissions": 54629,
+  "independent_confirmation_available": false,
+  "original_discovery": 43516,
+  "released_former_confirmation": 11113,
+  "released_records_read_for_substantive_analysis": false,
+  "restricted": 1309,
+  "validation_scope": "This access-index check reads identity, year, split and access flags only. A separate authorized publication export reads research content and retires the holdout."
+}

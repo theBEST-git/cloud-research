@@ -1,0 +1,17 @@
+{
+  "checked_utc_date": "2026-10-18",
+  "official_sources": [
+    "https://docs.github.com/en/repositories/working-with-files/managing-large-files/about-large-files-on-github",
+    "https://docs.github.com/en/get-started/using-git/troubleshooting-the-2-gb-push-limit"
+  ],
+  "standard_git_file_warning_bytes": 52428800,
+  "standard_git_file_block_bytes": 104857600,
+  "push_limit_bytes": 2147483648,
+  "repository_guidance": "Ideally below 1 GB; strongly recommended below 5 GB",
+  "export_compressed_file_ceiling_bytes": 50331648,
+  "shard_target_uncompressed_bytes": 33554432,
+  "destination": "theBEST-git/sci-research-project",
+  "visibility_checked": "PRIVATE",
+  "branch": "codex/keywords-topic",
+  "remote_sha_before": "f6887a8d64b472b12a0724a7311210aa7a36d8b5"
+}

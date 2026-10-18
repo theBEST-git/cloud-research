@@ -1,0 +1,27 @@
+{
+  "allowlist": [
+    "README.md",
+    "research/keywords_topic/CORPUS_ACCESS.md",
+    "research/keywords_topic/ACTIVE_CORPUS_ACCESS.json",
+    "research/keywords_topic/corpus_access.py",
+    "research/keywords_topic/corpus_access_20261018_v1/"
+  ],
+  "below_100_MiB": true,
+  "below_50_MiB": true,
+  "compressed_data_below_push_limit": true,
+  "compressed_data_bytes": 274534758,
+  "destination_branch": "codex/keywords-topic",
+  "destination_visibility": "PRIVATE",
+  "largest_file_bytes": 9099552,
+  "local_document_links_verified": 14,
+  "new_data_shards": 69,
+  "old_analyses_rerun": false,
+  "protected_worktree_files_verified": 8,
+  "secrets_or_manuscript_files_in_allowlist": false,
+  "source_database_full_rehash": false,
+  "source_values_and_linkage_replayed": true,
+  "status": "validated_ready_for_commit",
+  "temporary_export_files_remaining": 0,
+  "tests_passed": 40,
+  "unrelated_uncommitted_edits_preserved": true
+}

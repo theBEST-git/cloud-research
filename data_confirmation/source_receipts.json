@@ -1,0 +1,57 @@
+{
+  "database": {
+    "bytes": 11763654656,
+    "fresh_full_database_hash": false,
+    "mtime_ns": 1789317482859845000,
+    "path": "C:\\Users\\andyt\\Desktop\\Unimelb\\Science Research Project (SCIE30001_2026_SM2)\\sci_research\\data\\phase1b\\eda_ready_20260913T143255Z\\eda.sqlite",
+    "recorded_sha256": "b0747cf5ae8f7ae7b901c29e21a714a0b8dd47c9043353db94efce5831cd335b"
+  },
+  "files": [
+    {
+      "bytes": 25878,
+      "path": "C:\\Users\\andyt\\Desktop\\Unimelb\\Science Research Project (SCIE30001_2026_SM2)\\sci_research\\data\\phase1b\\eda_ready_20260913T143255Z\\artifact_manifest.json",
+      "sha256": "45e5396c2d978673964c82eb8d50b5cc8d9b6209734101f5efcd351fd7932d5b"
+    },
+    {
+      "bytes": 192,
+      "path": "C:\\Users\\andyt\\Desktop\\Unimelb\\Science Research Project (SCIE30001_2026_SM2)\\sci_research\\data\\phase1b\\eda_ready_20260913T143255Z\\release_seal.json",
+      "sha256": "cefdccb2403431c4b667082dedfbbba66adba04a2352d1ffd5e56628d33c07c5"
+    },
+    {
+      "bytes": 4807,
+      "path": "C:\\Users\\andyt\\Desktop\\Unimelb\\Science Research Project (SCIE30001_2026_SM2)\\sci_research\\data\\phase1b\\outcome_repair_20260923T104907Z\\artifact_manifest.json",
+      "sha256": "bf71c29329dba34fba93e5ca92bf0f66ab30effdef9a41c1daf1113ebf3358da"
+    },
+    {
+      "bytes": 211,
+      "path": "C:\\Users\\andyt\\Desktop\\Unimelb\\Science Research Project (SCIE30001_2026_SM2)\\sci_research\\data\\phase1b\\outcome_repair_20260923T104907Z\\release_seal.json",
+      "sha256": "3f945fe7c5dd5eddd6e7c85723b44cec2f55934d965d54d662668256d48bf127"
+    },
+    {
+      "bytes": 617,
+      "path": "C:\\Users\\andyt\\Desktop\\Unimelb\\Science Research Project (SCIE30001_2026_SM2)\\sci_research\\data\\phase1b\\outcome_repair_20260923T104907Z\\config.json",
+      "sha256": "4dffb2411511a46a0162a4c6e93db1a8493b637214246bdbe28267c7b9f86e85"
+    },
+    {
+      "bytes": 2452,
+      "path": "C:\\Users\\andyt\\Desktop\\Unimelb\\Science Research Project (SCIE30001_2026_SM2)\\sci_research\\data\\phase1b\\outcome_repair_20260923T104907Z\\validation.json",
+      "sha256": "a85970c140522cf1e917568746c9ea523c3881fb33e533c130b71ad1185f8049"
+    },
+    {
+      "bytes": 1630208,
+      "path": "C:\\Users\\andyt\\Desktop\\Unimelb\\Science Research Project (SCIE30001_2026_SM2)\\sci_research\\data\\phase1b\\outcome_repair_20260923T104907Z\\outcomes.sqlite",
+      "sha256": "402e8b20c110b4066c8180adbfa8145a02e0ba57fcc31c743f64adf57a56e001"
+    },
+    {
+      "bytes": 697,
+      "path": "C:\\Users\\andyt\\Desktop\\Unimelb\\Science Research Project (SCIE30001_2026_SM2)\\sci_research\\data\\phase1b\\eda_ready_20260913T143255Z\\splits.csv",
+      "sha256": "57a2eb7596bdeab4514aacc5fffc2107b571935bef044c02253d30b69c61c048"
+    },
+    {
+      "bytes": 7470501,
+      "path": "C:\\Users\\andyt\\Desktop\\Unimelb\\Science Research Project (SCIE30001_2026_SM2)\\sci_research\\data\\phase1b\\harmonized_20260910T125430Z\\split_overlay.csv",
+      "sha256": "8c8ed67e625144bfb7ce745838159feeb806e324ed581bab7fd5310e4a390bf2"
+    }
+  ],
+  "scope": "Consumed seal/correction/split files freshly hashed; clean database seal/size/mtime/WAL verified, not a new full raw-corpus checksum audit."
+}

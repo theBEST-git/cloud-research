@@ -1,0 +1,48 @@
+{
+  "columns": [
+    "allowed_values",
+    "dimension",
+    "discovery_allowed",
+    "eligible",
+    "is_primary",
+    "nid",
+    "oid",
+    "parse_status",
+    "raw_json",
+    "scale_evidence",
+    "scale_status",
+    "score_id",
+    "submission_id",
+    "value",
+    "year"
+  ],
+  "files": [
+    {
+      "bytes": 4867743,
+      "path": "scores-0001.jsonl.gz",
+      "rows": 73674,
+      "sha256": "414a9a038a40d1880f86efc3052496e81fc6d036c80804f362674dba681bffaa",
+      "uncompressed_bytes": 33554033,
+      "uncompressed_sha256": "250f895e14967d2e8199e3f7992c5255a7ca970bce231002df09fcd50e58bae3"
+    },
+    {
+      "bytes": 4833260,
+      "path": "scores-0002.jsonl.gz",
+      "rows": 73594,
+      "sha256": "eb491b5dc8010fd1abcd5c4dd7f0291aedfe28bf68fc2d28b02b798c0d421f8d",
+      "uncompressed_bytes": 33554293,
+      "uncompressed_sha256": "e2c4433c40b374238f986f4e2b5e8239151c2302a2e9139dcd1457031d1834af"
+    },
+    {
+      "bytes": 3006562,
+      "path": "scores-0003.jsonl.gz",
+      "rows": 45665,
+      "sha256": "c9618580d9631dc4b7f05da0931f166d62b42e4df9c241d34a2e390752193d27",
+      "uncompressed_bytes": 20783517,
+      "uncompressed_sha256": "7d4319ce4b35001da1b55cb564434cdc3c26fa7fb28ffea590d5e9d57284058b"
+    }
+  ],
+  "rows": 192933,
+  "stream_sha256": "a57628d9d6b27b0534f2c8eb2cf0e7a0043d1e0090d67a64fc63afcc0c7f5fb5",
+  "table": "scores"
+}

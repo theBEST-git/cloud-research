@@ -1,0 +1,53 @@
+{
+  "scope": "Checked before final publication; these files were not edited by the access release. Initial Git state is in initial_git_status.txt.",
+  "files": [
+    {
+      "path": "research/keywords_topic/CURRENT_STATUS.md",
+      "bytes": 15105,
+      "sha256": "e0ddec40643c596d1a056f8334e7f2f1b62dbdedc0e4b7bebaa7ab0e6820c0b2",
+      "scope": "Pre-existing navigation edits; preserved and not staged by this task"
+    },
+    {
+      "path": "research/keywords_topic/FINDINGS_SUMMARY.md",
+      "bytes": 17954,
+      "sha256": "1a571743f84299ce402e8a2edcddc63b81cc43c57be4ec2f7d71b08bf2e43388",
+      "scope": "Pre-existing navigation edits; preserved and not staged by this task"
+    },
+    {
+      "path": "research/keywords_topic/README.md",
+      "bytes": 5683,
+      "sha256": "51e6a3416a7960e1dcf8fa726d981154cc75e1922d4d1eda14773923f631b527",
+      "scope": "Pre-existing navigation edits; preserved and not staged by this task"
+    },
+    {
+      "path": "research/keywords_topic/REPRODUCIBILITY.md",
+      "bytes": 6947,
+      "sha256": "3193ee14d46b59d4169a7512ca9dafeea2962857ebd656a67f231ca77c5322c0",
+      "scope": "Pre-existing navigation edits; preserved and not staged by this task"
+    },
+    {
+      "path": "research/keywords_topic/primary_area_20261013_v1/release_seal.json",
+      "bytes": 188,
+      "sha256": "1c223753b8db24077f3b30ece564672731d95fd9ec9cf0839b210edcdba5bcf4",
+      "scope": "Historical release seal/manifest only; not a full artifact re-audit"
+    },
+    {
+      "path": "research/keywords_topic/primary_area_20261013_v1/release_manifest.json",
+      "bytes": 40054,
+      "sha256": "22675e3beb5447d766908eb32dcd0c3a025797fea9d03d40c569fc98668ded04",
+      "scope": "Historical release seal/manifest only; not a full artifact re-audit"
+    },
+    {
+      "path": "research/keywords_topic/research_fashion_complete_20261010_v1/release_seal.json",
+      "bytes": 391,
+      "sha256": "437230616ac6659305c9e33c362c10a06ba2f5d2799a2ce50fc5dc05c6bff5c6",
+      "scope": "Historical release seal/manifest only; not a full artifact re-audit"
+    },
+    {
+      "path": "research/keywords_topic/research_fashion_complete_20261010_v1/release_manifest.json",
+      "bytes": 334985,
+      "sha256": "27e9b0afd74d33d65b685353486c08cff08c9d75199ed061cb37bdd78bbb3634",
+      "scope": "Historical release seal/manifest only; not a full artifact re-audit"
+    }
+  ]
+}

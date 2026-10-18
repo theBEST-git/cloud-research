@@ -8,6 +8,10 @@ Contains **43,516 discovery submissions** and **219,719 declared author-list
 positions**, covering **2017–2026**. Compressed data total approximately **49 MiB**.
 These positions are not a count of distinct or verified people.
 
+## Released former-confirmation data
+
+The separate [data_confirmation/](data_confirmation/HANDOFF_FOR_CLAUDE.md) package now supplies **11,113 released former-confirmation submissions**, with selected review/discussion records, scores and provenance. It supplements the original discovery export below. Read the [handoff](data_confirmation/HANDOFF_FOR_CLAUDE.md) and run `python -B data_confirmation/verify_delivery.py` to check receipt without decoding outcome values. A [public ZIP](https://github.com/theBEST-git/cloud-research/releases/download/released-former-confirmation-20261018-v1/released_confirmation_2017_2026_20261018_v1.zip) is also available. Original split labels are preserved; the source policy does **not** certify this as an untouched independent holdout. Existing analyses, labels and preregistration are unchanged.
+
 ## Start here
 
 1. Read [DATA_DICTIONARY.md](DATA_DICTIONARY.md).
@@ -20,7 +24,7 @@ These positions are not a count of distinct or verified people.
 | `submission_authors.csv.gz` | One original author-list position | Declared names, public native profile IDs, exact declared-ID keys, list alignment and missingness |
 | `metadata_provenance.csv.gz` | One discovery submission | Selected official metadata observation, source pointers, capture/event times and original source license |
 
-These are existing corpus data, not new annotations or research findings. Review
+The original `data/` tables contain existing corpus data, not new annotations or research findings. Within that original export, review
 bodies, manuscripts, external author histories, impact metrics, experimental
 predictions, earlier experiments and confirmation candidates are absent. Existing
 keyword cleaning assignments and the documented 2019 outcome correction are retained.

@@ -1,0 +1,19 @@
+{
+  "all_export_values_replayed_against_source": true,
+  "compressed_bytes": 274534758,
+  "fresh_full_source_database_hash": false,
+  "max_file_bytes": 9099552,
+  "no_discovery_or_pending_records": true,
+  "population": 11113,
+  "sources_preserved": true,
+  "status": "passed",
+  "tables": {
+    "edges": 174402,
+    "issues": 61533,
+    "notes": 174402,
+    "score_changes": 67607,
+    "scores": 192933,
+    "selection_ledger": 174402,
+    "submissions": 11113
+  }
+}

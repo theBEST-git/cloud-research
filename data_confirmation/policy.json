@@ -1,0 +1,22 @@
+{
+  "version": "corpus-access-20261018-v1",
+  "effective_date": "2026-10-18",
+  "authorization": "Explicit user request in the project chat to release the reserved data and push the change to GitHub.",
+  "default_analysis_scope": "original discovery plus released former confirmation",
+  "release_former_confirmation": true,
+  "independent_confirmation_available": false,
+  "preserve_original_split_labels": true,
+  "preserve_sealed_inputs": true,
+  "exclude_unresolved_families": true,
+  "allowed_confirmation_reasons": [
+    "inherited_confirmation",
+    "new_family_fixed_hash"
+  ],
+  "expected_original_discovery": 43516,
+  "expected_released_confirmation": 11113,
+  "expected_exploratory_submissions": 54629,
+  "expected_restricted_submissions": 1309,
+  "new_acquisition": false,
+  "new_model_calls": false,
+  "database_publication": "Publish compressed JSONL shards for the 11,113 released former-confirmation submissions and their selected existing research observations, scores, graphs and provenance. The full source database, manuscripts, unselected prose histories and credentials remain outside Git."
+}

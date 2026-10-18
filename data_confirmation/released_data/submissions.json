@@ -1,0 +1,41 @@
+{
+  "columns": [
+    "abstract",
+    "administrative_status",
+    "analysis_allowed",
+    "cohort",
+    "confirmation_allowed",
+    "decision",
+    "decision_evidence",
+    "disagreement_eligible",
+    "discovery_allowed",
+    "distinct_reviewers",
+    "family_id",
+    "forum_ids",
+    "keywords",
+    "metadata_oid",
+    "outcome_eligible",
+    "primary_area",
+    "released_from_confirmation",
+    "review_count",
+    "similarity_eligible",
+    "split",
+    "split_issue",
+    "submission_id",
+    "title",
+    "year"
+  ],
+  "files": [
+    {
+      "bytes": 7351879,
+      "path": "submissions-0001.jsonl.gz",
+      "rows": 11113,
+      "sha256": "837a05fef987c1223f9b5eccd01d43710fb23b5d218c79899aa21fb7751ef9a9",
+      "uncompressed_bytes": 25838874,
+      "uncompressed_sha256": "63e1925f06101a8c7ca7c6346df6d1977660f1d1dc415c359eff5cea3a1b2411"
+    }
+  ],
+  "rows": 11113,
+  "stream_sha256": "63e1925f06101a8c7ca7c6346df6d1977660f1d1dc415c359eff5cea3a1b2411",
+  "table": "submissions"
+}

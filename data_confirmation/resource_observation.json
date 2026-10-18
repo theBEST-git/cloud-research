@@ -1,0 +1,21 @@
+{
+  "scope": "Sampled process usage during export source replay; not a continuous system-wide profile",
+  "processes": [
+    {
+      "pid": 8196,
+      "working_bytes": 4440064,
+      "sampled_peak_working_bytes": 4464640,
+      "cpu_seconds": 0.0
+    },
+    {
+      "pid": 28160,
+      "working_bytes": 40148992,
+      "sampled_peak_working_bytes": 41611264,
+      "cpu_seconds": 49.0625
+    }
+  ],
+  "free_disk_bytes": 110835335168,
+  "export_process_finished": true,
+  "validation_running": true,
+  "models_loaded": false
+}

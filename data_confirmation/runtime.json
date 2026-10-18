@@ -1,0 +1,11 @@
+{
+  "python": "3.12.4 (tags/v3.12.4:8e8a4ba, Jun  6 2024, 19:30:16) [MSC v.1940 64 bit (AMD64)]",
+  "sqlite": "3.45.3",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "dependencies": "Python standard library only; no new packages",
+  "workers": 1,
+  "sqlite_cache_kib": 32768,
+  "streamed_export": true,
+  "models_loaded": false,
+  "network_during_build": "blocked by audit hook; Git transport is a separate authorized publishing operation"
+}

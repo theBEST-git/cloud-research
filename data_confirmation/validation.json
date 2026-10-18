@@ -1,0 +1,10 @@
+{
+  "access_index_check_read_substantive_content": false,
+  "active_count": 54629,
+  "metadata_membership_replayed": 55938,
+  "new_untouched_holdout_claim": false,
+  "original_split_labels_unchanged": true,
+  "scope": "Access index only; authorized research-content export has its own validation record",
+  "source_files_preserved": true,
+  "status": "passed"
+}

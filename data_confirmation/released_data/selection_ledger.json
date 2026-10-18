@@ -1,0 +1,41 @@
+{
+  "columns": [
+    "chosen_oid",
+    "nid",
+    "oid",
+    "reason",
+    "source_location",
+    "status",
+    "submission_id",
+    "year"
+  ],
+  "files": [
+    {
+      "bytes": 4293471,
+      "path": "selection_ledger-0001.jsonl.gz",
+      "rows": 63740,
+      "sha256": "877112ede1c3918337b90d2836979ecca9da35003fd5da36f95e09042180ef32",
+      "uncompressed_bytes": 33554359,
+      "uncompressed_sha256": "cc871424c68717ff6cc3a12dfe05ae9f54f1555e5f08b82ba76e3921cc14c420"
+    },
+    {
+      "bytes": 4287455,
+      "path": "selection_ledger-0002.jsonl.gz",
+      "rows": 63678,
+      "sha256": "a1e785d1beef52643b4aa11f6e8ab21fa6764cb79ed768dda086ab2fb98bce99",
+      "uncompressed_bytes": 33553971,
+      "uncompressed_sha256": "7940171a8407c3cce8fd45c11ac6129e2d99059c6f10ff0bc8648b899fc3fdcc"
+    },
+    {
+      "bytes": 3161367,
+      "path": "selection_ledger-0003.jsonl.gz",
+      "rows": 46984,
+      "sha256": "5d8f8c746705791079b378c9c767080692a291b78563ed8ac0c194be5a4e68de",
+      "uncompressed_bytes": 24591884,
+      "uncompressed_sha256": "825ff9b0c99ececbbbe20f31c08a41d7579472d99c0af4c553447f6ce8706a1c"
+    }
+  ],
+  "rows": 174402,
+  "stream_sha256": "739e6deda3400f6d1e9f0d044ccd29206891b5d3e4309ef46405042f1aa7be43",
+  "table": "selection_ledger"
+}

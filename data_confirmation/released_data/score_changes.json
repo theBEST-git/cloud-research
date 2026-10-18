@@ -1,0 +1,46 @@
+{
+  "columns": [
+    "after_raw",
+    "after_score_id",
+    "after_value",
+    "before_raw",
+    "before_score_id",
+    "before_value",
+    "delta",
+    "dimension",
+    "discovery_allowed",
+    "nid",
+    "official_oid",
+    "pair_eligible",
+    "pair_id",
+    "provenance",
+    "reason",
+    "scale_status",
+    "source_oid",
+    "submission_id",
+    "tracing_score",
+    "upstream_status",
+    "year"
+  ],
+  "files": [
+    {
+      "bytes": 9099552,
+      "path": "score_changes-0001.jsonl.gz",
+      "rows": 37676,
+      "sha256": "ea554a133c98c094253f4ed643585c5fe75ba702768812617837997581957cad",
+      "uncompressed_bytes": 33554126,
+      "uncompressed_sha256": "7d36b84ec07c35c8186b4a92301a2ecd31816a126a96a09d4b9a5c76658d0edf"
+    },
+    {
+      "bytes": 7228151,
+      "path": "score_changes-0002.jsonl.gz",
+      "rows": 29931,
+      "sha256": "f9fd402f7c8130ae67345cf80b5b67cc86c0aa8b28051e1f76e6f584d11ef63d",
+      "uncompressed_bytes": 26653358,
+      "uncompressed_sha256": "c5a5f130a948c54d727ecf430ea2ff94a00377f4a28d33d14a1d8a199950c192"
+    }
+  ],
+  "rows": 67607,
+  "stream_sha256": "c023d4942cac325fd0224701dd11a7b2ce1da8e8231d6b261a5dcc687791056a",
+  "table": "score_changes"
+}

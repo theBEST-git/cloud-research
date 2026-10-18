@@ -1,0 +1,37 @@
+{
+  "columns": [
+    "discovery_allowed",
+    "graph_issue",
+    "nid",
+    "oid",
+    "parent_nid",
+    "pid",
+    "root_review_nid",
+    "sid",
+    "submission_id",
+    "timing_eligible",
+    "topology_eligible",
+    "year"
+  ],
+  "files": [
+    {
+      "bytes": 5785177,
+      "path": "edges-0001.jsonl.gz",
+      "rows": 92563,
+      "sha256": "37099168a80a79c12bcd2c741d2dfb16dbde14a2305a19d7e28b5e203cc1f0c5",
+      "uncompressed_bytes": 33554129,
+      "uncompressed_sha256": "b4a85adea09016383e7cb2d145f151ec3d6c1aa5ea5b361048d8dedf1390c7a0"
+    },
+    {
+      "bytes": 5113247,
+      "path": "edges-0002.jsonl.gz",
+      "rows": 81839,
+      "sha256": "509cffafa8efc5a7a3787073041702cc16bc84ad73e847e90103965377b0a4c8",
+      "uncompressed_bytes": 29686869,
+      "uncompressed_sha256": "2adee0600e909653b03d2488d2b0b961765e85ac667af2cb7582144b3f0b0db6"
+    }
+  ],
+  "rows": 174402,
+  "stream_sha256": "13fe6a5ef3176582761e6fb0236b83c5b401045230cb07f410ffc32c460d60bb",
+  "table": "edges"
+}

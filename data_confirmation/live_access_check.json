@@ -1,0 +1,59 @@
+{
+  "status": "passed",
+  "active_loader": true,
+  "annual": [
+    {
+      "year": 2017,
+      "accessible": 490,
+      "released": 105
+    },
+    {
+      "year": 2018,
+      "accessible": 988,
+      "released": 214
+    },
+    {
+      "year": 2019,
+      "accessible": 1567,
+      "released": 312
+    },
+    {
+      "year": 2020,
+      "accessible": 2571,
+      "released": 500
+    },
+    {
+      "year": 2021,
+      "accessible": 2969,
+      "released": 605
+    },
+    {
+      "year": 2022,
+      "accessible": 3353,
+      "released": 704
+    },
+    {
+      "year": 2023,
+      "accessible": 4867,
+      "released": 995
+    },
+    {
+      "year": 2024,
+      "accessible": 7213,
+      "released": 1447
+    },
+    {
+      "year": 2025,
+      "accessible": 11246,
+      "released": 2286
+    },
+    {
+      "year": 2026,
+      "accessible": 19365,
+      "released": 3945
+    }
+  ],
+  "pending_rows_visible_in_analysis_submissions": 0,
+  "query_only_blocks_writes": true,
+  "old_source_flags_preserved": true
+}

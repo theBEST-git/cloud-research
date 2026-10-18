@@ -1,0 +1,23 @@
+{
+  "columns": [
+    "details",
+    "issue_id",
+    "kind",
+    "oid",
+    "submission_id",
+    "year"
+  ],
+  "files": [
+    {
+      "bytes": 6761678,
+      "path": "issues-0001.jsonl.gz",
+      "rows": 61533,
+      "sha256": "ce37c1b6423a204eaa422eb4cb0128eafbd5a52380710400b56754a3beecbcb9",
+      "uncompressed_bytes": 20795625,
+      "uncompressed_sha256": "cb48be3983058bc79f0efb8077af936e21b003f9180763eb27d410752a9783dc"
+    }
+  ],
+  "rows": 61533,
+  "stream_sha256": "cb48be3983058bc79f0efb8077af936e21b003f9180763eb27d410752a9783dc",
+  "table": "issues"
+}

@@ -1,5 +1,66 @@
 # Research fashions at ICLR 2017–2026: results
 
+> **Update 2026-10-18: held-out replication and pooled re-run.** The registered tests ran once on 11,099 released
+> former-holdout ICLR papers. This study never analysed them before the registration. The run is a pre-registered
+> out-of-sample replication, not a certified untouched independent holdout. It is a split-sample replication within
+> the same ICLR years. Tests are one-sided, with Holm within the registered families. All results are associations.
+> The PH5 findings are post hoc in discovery; their held-out tests were registered before the run. Held-out estimates
+> are in pp with 95% CIs, with two-sided p in parentheses; see "Held-out replication (registered, 2026-10-18)" below.
+> The discovery sections that follow are unchanged and remain the registered record.
+>
+> **Replicated on held-out papers (registered primary and RQ tests, supported):**
+> - H1d (fewer new-architecture papers in topics with more prior foundation-model adoption): −11.0 pp for 0 → 100% FM
+>   [−18.1, −3.9]; one-sided p 0.0013 (two-sided 0.0027).
+> - H2b′ (newcomer papers are more often method papers): +3.60 pp [+1.48, +5.71]; one-sided p 0.0007, Holm 0.001
+>   (two-sided 0.0014).
+> - H2c′ (newcomer papers are less often measurement papers): −2.10 pp [−3.35, −0.85]; one-sided p 0.0005, Holm 0.001
+>   (two-sided 0.0010).
+> - PH5 E1, primary (a far jump from the team's own earlier work goes with lower acceptance): −6.09 pp [−9.32, −2.86];
+>   one-sided p 0.0025, Holm 0.005 (two-sided 0.0050).
+>
+> **Secondary PH5 tests supported (one-sided at 0.05, unadjusted; 6 secondary tests, so one false positive would not
+> be surprising):**
+> - E4 (within-author slope): +1.06 pp per +0.1 cosine [+0.23, +1.89]; one-sided p 0.006 (two-sided 0.012).
+> - teams H1 (one topic insider vs none): +3.88 pp [+0.28, +7.47]; one-sided p 0.017 (two-sided 0.035).
+> - kwtiming A1 (Emerging minus Mainstream keywords): +3.25 pp [−0.18, +6.69]; one-sided p 0.031 (two-sided 0.063;
+>   the 95% CI includes 0) and null-frame p 0.020.
+> - premia b (discovery-period topic acceptance edges carry over in part): slope 0.60 [0.32, 0.88], inside (0, 1);
+>   intersection-union p 0.003.
+> - premia EB D0 (new test, no discovery counterpart): the EB-shrunk discovery premia predict better than zero, D0 > 0;
+>   one-sided p 0.005 (two-sided 0.010).
+>
+> Several supported tests (H1d, H2c′, teams H1, A1) were underpowered at the discovery effect, so their held-out
+> estimates are likely inflated: they confirm the direction, not the size.
+>
+> **Did not replicate:**
+> - PH5 P1b, primary (least-novel fifth vs the middle fifth): −0.13 pp [−3.50, +3.25]; one-sided p 0.47, Holm 0.47
+>   (two-sided 0.94).
+>   - The estimate is below the 5.4 pp MDE80, so by the registered reading rule the test is uninformative, not
+>     evidence against discovery.
+>   - Discovery's post hoc "two tails" of lower acceptance (`presentation/shortlist.md`, finding 1) are the
+>     least-novel fifth of abstracts (P1b) and far jumps from the team's own record (E1). Only the own-record tail has
+>     replicated; the field-novelty tail remains discovery-only.
+> - PH5 P7, secondary (within-author novelty slope): +0.34 pp per 10 percentile points [−0.47, +1.16]; one-sided p 0.22
+>   (two-sided 0.43). It was not Holm-significant in discovery either. It has no registered MDE80; a derived one
+>   (post hoc, ≈ 1.0–1.1 pp) suggests low power.
+>
+> **Not confirmed or inconclusive:**
+> - H3a (lower acceptance in mature topics): −1.51 pp per log unit [−5.20, +2.19]; one-sided p 0.21 (two-sided 0.42).
+>   - Inconclusive again: the hindsight requirement fails.
+>   - The estimate is below the 4.8 pp MDE80, so the test is uninformative.
+> - H4-FL (federated-learning acceptance gap):
+>   - level −4.9 pp [−15.4, +5.7], one-sided p 0.14 (two-sided 0.29), not supported. The estimate is below its MDE80
+>     (14.5 pp), so by the registered rule the level test is uninformative; the MDE80 also exceeds the discovery gap
+>     (−11.3 pp).
+>   - trend (secondary) +3.2 pp per year [−3.3, +9.6], one-sided p 0.88 (two-sided 0.24), not supported: it has the
+>     opposite sign to the prediction, and no MDE was computed for it.
+>
+> **Pooled re-run (exploratory; all 54,579 papers).** It contains the held-out papers, and about 80% of each pooled
+> sample is discovery papers, so agreement with discovery is expected and confirms nothing. Pooling also changes
+> discovery features. The headline estimates keep their sign: H1d −8.9 pp, H2b +3.46, H2c −1.65, PH5 E1 −5.53 and
+> P1b −2.97, the last driven by the discovery papers. Sizes are not uniformly stable: the FL trend roughly halves
+> (keyword −3.0 → −1.9 pp per year, topic −2.7 → −1.2). H3a gives −1.72 pp (Holm 0.098) and stays inconclusive.
+
 All confirmatory tests follow `PREREGISTRATION.md`: hypotheses and decision rule as registered, plus a dated pre-run log
 of every clarification, replacement and deviation, written before any confirmatory RQ2/RQ3 estimate existed. One
 exploratory estimate (E7) was seen earlier by accident; see Reviews. RQ2 and RQ3 were run
@@ -53,6 +114,13 @@ smallest effect of interest (E9).
 ## Data
 
 - **Corpus:** the discovery split, 43,480 ICLR submissions (2017–2026) with a usable abstract.
+- **Added 2026-10-18:**
+  - Held-out corpus: the 11,099 released former-holdout papers with an abstract (of 11,113), used for the registered
+    replication.
+  - Pooled corpus: all 54,579 papers, used for the exploratory re-run.
+  - Both use the frozen topic maps, a keyword lookup learned on discovery only, and the frozen labelling protocol.
+  - Details are under "Held-out replication" and "Pooled re-run" below. Every number in the other sections is
+    discovery-only.
 - **Topics:**
   - 100 content-based middle-level topics (k100) form the main map;
   - k75, k150, a year-balanced map and an early (2017–2020) map serve as robustness and hindsight variants;
@@ -502,6 +570,26 @@ a systematic screen, not a test of the keywords already seen.
   - Counting withdrawals after review as rejections (S9, 9,631 more papers) gives −2.12 pp.
 - **One venue.** All results are for ICLR. The confirmation split is a held-out part of the same ICLR corpus, so it
   tests whether the discovery results replicate on unseen ICLR papers, not whether they generalise to other venues.
+- **Held-out replication and pooled re-run (2026-10-18).**
+  - The released papers are not certified as an untouched, independent holdout.
+  - It is a split-sample replication within the same ICLR years. It guards against analyst overfitting to the
+    discovery papers, not against year- or reviewer-specific patterns:
+    - the two splits share conference-years, topic-year cells, reviewer pools and authors, and their features are
+      built jointly;
+    - some probable resubmission pairs span the splits (39 held-out earlier versions point to discovery papers, 54
+      discovery ones to held-out papers);
+    - held-out newcomer status sees both splits' histories, so H2b′/H2c′ use a better-informed newcomer measure than
+      discovery's H2b/H2c.
+  - H4-FL's out-of-sample status cannot be verified, because the provenance of the earlier keyword grid is unknown.
+  - Several held-out tests are underpowered. By the registered reading rule, H3a (MDE80 4.8 pp), H4-FL (14.5 pp,
+    larger than the discovery gap) and P1b (5.4 pp; power 0.47 at the discovery effect) are uninformative. P7 has no
+    registered MDE80; a derived one (post hoc, ≈ 1.0–1.1 pp) suggests low power.
+  - Several supported held-out tests were also underpowered at the discovery effect: H1d (MDE80 12.0 vs −8.0 pp), H2c′
+    (2.4 vs −1.70), teams H1 (derived ≈ 4.5 vs +3.42) and A1 (derived ≈ 4.3 vs +2.67). Supported held-out estimates
+    are therefore likely inflated and confirm direction, not size.
+  - The held-out text measures use post-decision abstracts, with no link-removal (cleantext) check.
+  - The PH5 secondary tests are unadjusted.
+  - The pooled re-run contains the held-out papers and changes discovery features, so it confirms nothing.
 
 ## Registered for the confirmation split
 
@@ -520,6 +608,349 @@ are labelled as such.
   trend is negative: secondary, one-sided. These use the same PH4 code and population definition on the confirmation
   split.
 
+## Held-out replication (registered, 2026-10-18)
+
+The registration is the 2026-10-18 entry of `PREREGISTRATION.md`, committed before the run, and
+`FREEZE_CONFIRMATION.json` hashes the code and inputs. `run_confirmation.py` then ran once (attempt 1, 2026-10-18,
+16:39–16:42 UTC), with the PH5 tests included. Its outputs are in `output_pooled/confirmation_run/`:
+- `summary.json`, `stdout.txt`;
+- `h1d.csv`, `rq2_rows.csv`, `rq3_rows.csv`;
+- `h4fl.csv`, `h4fl_cells.csv`;
+- `ph5/*.csv`.
+
+### Design
+
+- **Data status.**
+  - The papers are the 11,099 released former-holdout papers with an abstract, out of 11,113: 105 in 2017, rising to
+    3,942 in 2026. They were this study's confirmation split, and the study never analysed them before the
+    registration.
+  - Their source policy does not certify an untouched, independent holdout. Every result here is therefore a
+    pre-registered out-of-sample replication on released former-holdout papers, not an independent confirmation.
+  - It is a split-sample replication within the same ICLR years (2017–2026). It guards against analyst overfitting to
+    the discovery papers, but not against year- or reviewer-specific patterns: the two splits share conference-years,
+    topic-year cells, reviewer pools and authors.
+  - The earlier keyword grid that first suggested the federated-learning (FL) pattern has unknown provenance, so
+    H4-FL's out-of-sample status is not verified.
+- **Features (D14).**
+  - All features were built on discovery ∪ held-out papers (54,579) with the unchanged builders, then restricted to
+    the held-out papers. `output_pooled/build_report.json` passed every gate.
+  - Author histories, maturity, hot status, incumbency and probable earlier versions therefore see both splits.
+    Held-out incumbency is 30.9%.
+  - The newcomer definition therefore differs from discovery's registered one. Discovery H2b/H2c used discovery-only
+    histories (incumbency 26.5%); under pooled histories 1,515 discovery papers would switch from newcomer to
+    incumbent. H2b′/H2c′ use the better-informed pooled measure.
+  - Some probable resubmission pairs span the splits: 39 held-out earlier versions point to discovery papers, and 54
+    discovery earlier versions point to held-out papers (`build_report.json`).
+  - The SPECTER2 centring mean and τ = 0.90 stay frozen.
+  - Fixed effects are estimated among held-out rows. No discovery paper is in any test population.
+- **Topic maps.**
+  - k100, fine and coarse topics come from the frozen `topic_model.npz`.
+  - For each of the nine alternative maps (k50, k75, k150, k200, seed refit, year-balanced, early, middle-era, late),
+    the exact KMeans centres were re-derived from the frozen fits, and each held-out paper goes to the nearest one.
+  - Gate: the re-derived centres must reproduce every saved discovery label exactly. All 9 passed, as did both
+    stable-paper gates (the stable share is 0.792 in both splits). Report:
+    `research/topics/output_pooled/pooled_topics_report.json`.
+  - On every map, the held-out topic distribution differs from discovery by no more than sampling noise: the total
+    variation distance is below the 95th percentile of the noise.
+- **Keyword map.**
+  - Held-out papers have raw author keywords only.
+  - A lookup table learned on discovery papers alone maps them to the curated lists: 45,778 forms, 5,738 of them
+    non-identity.
+  - Cross-validated recall / precision (`research/topics/output_pooled/keyword_map_report.json`):
+    - 759-keyword vocabulary: 98.6% / 99.96%;
+    - the 68 PH4 keywords: 99.0% / 99.98%;
+    - 'federated learning': 97.2% / 100%.
+- **Labels.**
+  - Haiku with prompt v1, unchanged, under the frozen batch protocol.
+  - A blind second pass on 555 held-out papers gives:
+
+    | Measure | Agreement | κ |
+    |---|---|---|
+    | Main class | 96.9% | 0.931 |
+    | Method | 98.0% | 0.949 |
+    | Measurement | 99.1% | 0.923 |
+    | Foundation model | 98.2% | 0.960 |
+
+    Source: `research/topics/output/contribution_labels_quality_released.json`.
+  - The released abstracts are post-decision text. No link-removed (cleantext) vectors exist for these papers, so
+    E1, E4, P1b and P7 have no cleantext check here.
+- **One-sided rule and families.**
+  - Every registered test is one-sided at α = 0.05: p1 = p/2 if the estimate has the predicted sign, otherwise
+    1 − p/2.
+  - Here p is the two-sided p of the discovery method:
+
+    | p method | Tests |
+    |---|---|
+    | CR1, t(G − 1) | H1d, H3a, P1b, E4, teams H1 |
+    | wild cluster restricted bootstrap | H2b′, H2c′ |
+    | t(m − 1) | H4-FL |
+    | max(CR1, calibrated) | PH5 E1 |
+    | max(CR1, two-way, calibrated) | P7 |
+    | two-way (keyword, topic) | A1 |
+    | intersection-union test | premia b |
+    | paired t | premia D0 |
+
+  - Exception: premia b. Its prediction is 0 < b < 1, so its p1 is the intersection-union p, the larger of the
+    one-sided p for b > 0 and for b < 1 (here 0.003, from b < 1). It is not half of a two-sided p: the two-sided p
+    for b = 0 is 6.5 × 10⁻⁵. Premia D0 follows the rule (0.010 / 2 = 0.005).
+
+  - Holm families: {H1d}, {H2b′, H2c′}, {H3a}, {H4-FL} and the PH5 primary pair {E1, P1b}.
+  - The six PH5 secondary tests are each one-sided at 0.05, unadjusted, with no family claim. A1 also needs a
+    one-sided null-frame p below 0.05.
+- **Decision rule.**
+  - The rule is unchanged (`analysis.decide`): the predicted sign, Holm p1 < 0.05, at least 75% of counted variants
+    with the predicted sign, and both hindsight variants.
+  - H4-FL and PH5 have no variants, so they need only the predicted sign and (Holm) p1 < 0.05.
+  - H2b′ and H2c′ reverse the discovery predictions, so they are new hypotheses.
+- **MDE80 and reading rules (computed and registered before the run).**
+  - MDE80 is computed at each test's Holm first step from simulated outcomes (`confirmation_dryrun/mde.json`,
+    `ph5_confirm/calibration.json`):
+
+    | Test | MDE80 |
+    |---|---|
+    | H1d | 12.0 pp (0 → 100% FM) |
+    | H2b′ | 2.8 pp |
+    | H2c′ | 2.4 pp |
+    | H3a | 4.8 pp per log unit |
+    | H4-FL | 14.5 pp |
+    | PH5 E1 | 4.9 pp |
+    | P1b | 5.4 pp |
+
+  - Power at the discovery effect is 0.89 for E1 with the CR1 p (slightly less under the registered max rule) and
+    0.47 for P1b.
+  - Reading rule: a non-supported H1d, H3a, H4-FL or P1b whose estimate is below its MDE80 is uninformative. It is
+    not evidence of no association. The rule does not cover the PH5 secondary tests, which have no registered MDE80.
+
+### Results for every registered test
+
+Estimates are in pp unless stated. Discovery estimates are quoted from the registered discovery outputs
+(`output/rq1_summary.json`, `output/frozen_run/`, `output/posthoc/ph4_*`, `output/posthoc/ph5_*`):
+- discovery p are two-sided, Holm within the discovery family;
+- the PH4 and PH5 discovery estimates are post hoc (declared before they were run), but their held-out tests were
+  registered before the held-out run;
+- the held-out H1d CI uses t(G − 1) quantiles, where discovery printed ±1.96 SE.
+
+The A1 95% CI includes 0 although its one-sided p1 is below 0.05: a one-sided 5% test corresponds to a 90% interval.
+
+| Test | Prediction | Discovery (95% CI) | Held-out [95% CI] | One-sided p (Holm) | Two-sided p | Verdict | MDE80 (registered unless marked) |
+|---|---|---|---|---|---|---|---|
+| **H1d** | new architecture ~ prior FM adoption (−), 0 → 100% FM | −8.0 (−12.1, −3.8); Holm 0.001 | **−11.0 [−18.1, −3.9]**; n 10,978 | 0.0013 (0.0013) | 0.0027 | **supported**: 9/9 variants, hindsight passes | 12.0 |
+| **H2b′** | method ~ newcomer (+) | +3.71 (+2.61, +4.80); Holm < 0.001, opposite to H2b | **+3.60 [+1.48, +5.71]**; n 10,718 | 0.0007 (0.0010) | 0.0014 | **supported**: 10/10, hindsight passes, S11 agrees | 2.8 |
+| **H2c′** | measurement ~ newcomer (−) | −1.70 (−2.46, −0.93); Holm < 0.001, opposite to H2c | **−2.10 [−3.35, −0.85]**; n 10,718 | 0.0005 (0.0010) | 0.0010 | **supported**: 10/10, hindsight passes, S11 agrees | 2.4 |
+| H3a | accepted ~ maturity (−), per log unit | −1.68 (−3.68, +0.32); Holm 0.20 | −1.51 [−5.20, +2.19]; n 8,185 | 0.21 (0.21) | 0.42 | inconclusive: 9/11 variants, hindsight fails; uninformative | 4.8 |
+| H4-FL level | FL keyword papers vs all others of the year (−) | −11.3 (−17.9, −4.8); p 0.005, q 0.19 | −4.9 [−15.4, +5.7]; 134 FL papers, 6 years with ≥ 10 | 0.14 (0.14) | 0.29 | not supported; uninformative | 14.5 |
+| H4-FL trend (secondary) | yearly gap trend (−), pp per year | −3.0 (−6.4, +0.5); p 0.08 | +3.2 [−3.3, +9.6] | 0.88 | 0.24 | not supported (opposite sign) | not computed |
+| **PH5 E1** (primary) | far jump: P(accept) at F_max p10 minus p50 (−) | −5.44 (−7.10, −3.78); Holm 1.3 × 10⁻⁸ | **−6.09 [−9.32, −2.86]**; 5,344 papers | 0.0025 (0.0050) | 0.0050 | **supported** | 4.9 |
+| PH5 P1b (primary) | novelty: least-novel fifth minus middle fifth (−) | −3.27 (−4.93, −1.60); Holm 0.0014 | −0.13 [−3.50, +3.25]; 8,010 papers | 0.47 (0.47) | 0.94 | not supported; uninformative | 5.4 |
+| **PH5 E4** (secondary) | within-author slope per +0.1 cosine (+) | +0.55 (+0.21, +0.90); Holm 0.006 | **+1.06 [+0.23, +1.89]**; 4,311 papers | 0.006 (two-way 0.004) | 0.012 | **supported** | not computed |
+| PH5 P7 (secondary) | within-author slope per 10 novelty percentile points, 2023–26 (+) | +0.39 (+0.09, +0.69); Holm 0.105 | +0.34 [−0.47, +1.16]; 4,810 papers | 0.22 | 0.43 | not supported (no registered MDE80; the derived value suggests low power) | none registered; derived ≈ 1.0–1.1 (post hoc: 2.49 × CR1 / two-way SE) |
+| **Teams H1** (secondary) | one topic insider vs none (+) | +3.42 (+1.18, +5.66); Holm 0.019 | **+3.88 [+0.28, +7.47]**; 6,243 papers | 0.017 | 0.035 | **supported** | none registered; derived ≈ 4.5 (post hoc: 2.49 × SE) |
+| **Kwtiming A1** (secondary) | Emerging (young, rising) minus Mainstream (old, flat) keywords (+) | +2.67 (+0.76, +4.58); Holm 0.020 | **+3.25 [−0.18, +6.69]**; 5,741 papers | 0.031; null-frame 0.020 | 0.063 | **supported** | none registered; derived ≈ 4.3 (post hoc: 2.49 × SE) |
+| **Premia b** (secondary) | slope of the held-out 2024–26 premia on the discovery 2018–22 premia, early map (0 < b < 1) | 0.38 (0.18, 0.58); Holm 0.001 (within discovery) | **0.60 [0.32, 0.88]**; 75 units | 0.003 (intersection-union) | not halved; for b = 0: 6.5 × 10⁻⁵ | **supported** | not computed |
+| **Premia EB D0** (secondary) | EB-shrunk discovery premia predict better than 0 (> 0) | none: a new test, with no discovery counterpart | **1.71 [0.42, 3.01] × 10⁻³**; MSE 8.76 → 7.04 × 10⁻³ | 0.005 | 0.010 | **supported** | not computed |
+
+MDE80 bases. The registered values (H1d to H4-FL from `confirmation_dryrun/mde.json`; E1 and P1b from
+`ph5_confirm/calibration.json`) are one-sided and simulated at each test's Holm first step. The three derived values
+are post hoc, analytic and one-sided at 0.05: (z0.95 + z0.80) × SE ≈ 2.49 × SE, using P7's CR1 SE (1.0) and its
+larger two-way SE (1.1). The teams and kwtiming module files print two-sided values instead, about 2.80–2.83 × SE
+(0.975 and 0.80 quantiles): teams H1 5.1 and A1 4.9 analytic, and A1 4.7 from the null-frame SD. None of the derived
+values carries a registered reading rule.
+
+- **H2b′ and H2c′.**
+  - Base rates: method 75.0%, measurement 7.9%, newcomer 68.3%.
+  - S11 (two-way clustering), Holm p1: 0.0010 (H2b′) and 0.0009 (H2c′), so S11 agrees.
+  - Stress sensitivity, Holm p1: 0.0075 for both.
+  - Exact one-sided bootstrap share: 0.0006 (H2b′) and 0.0004 (H2c′).
+  - No S-variant is significant against the prediction, so neither is fragile.
+  - With log team size controlled (S1), H2c′ shrinks to −0.98 pp (two-sided p 0.10), while H2b′ stays at +3.64 pp.
+    The discovery pattern was the same: −0.54 pp and +3.92 pp.
+- **H1d.**
+  - All 9 counted variants are negative, from −5.4 to −15.2 pp.
+  - The weakest is the prospective early-map variant (−5.4 pp, two-sided p 0.24; one-sided 0.12).
+- **H3a.**
+  - 9 of 11 counted variants are negative. Two have the wrong sign:
+    - the early map on 2021–26 papers, +1.44 pp, which is a hindsight variant;
+    - without 2026, +0.95 pp.
+  - Equivalence is not established: TOST p 0.61, 90% CI −4.60 to +1.58.
+  - S9 (2,463 more papers): −1.97 pp (two-sided p 0.19; one-sided 0.097).
+  - Acceptance is 39.4%.
+  - No withdrawn paper had an unknown review status, so the contingency rule was not used.
+- **H4-FL by year.**
+  - Yearly gaps:
+
+    | Year | Gap (pp) | FL papers |
+    |---|---|---|
+    | 2021 | −20.0 | 14 |
+    | 2022 | −16.9 | 13 |
+    | 2023 | +6.4 | 19 |
+    | 2024 | −3.6 | 34 |
+    | 2025 | −11.3 | 16 |
+    | 2026 | −0.2 | 36 |
+
+  - The discovery pattern, a gap of about −11 to −15 pp in every year since 2023, does not appear.
+
+**Not registered: reported and labelled, not interpreted.** These rows come out of the same calls. Their p are
+two-sided and unadjusted.
+
+| Row | Discovery | Held-out [95% CI] | p |
+|---|---|---|---|
+| H2a incumbent ~ hot topic (−) | −0.73 (−2.68, +1.22) | −2.55 [−5.59, +0.49] | 0.099 |
+| H3b accepted ~ maturity × method (−) | −0.36 (−1.51, +0.79) | +1.34 [−1.26, +3.93] | 0.31 |
+| H4-FL recent level, 2024–26 | −13.5 (p 0.007) | −3.6 [−17.2, +9.9] | 0.52 |
+| H4-FL level adjusted for class, FM and team size | −10.5 | −3.4 | 0.42 |
+| PH5 E2, near: F_max p90 minus p50 | +1.75 (−0.17, +3.66) | +2.34 [−1.01, +5.70] | 0.17 |
+| PH5 E3, far jump in hot minus other topics | −0.35 (−3.13, +2.42) | −3.09 [−9.63, +3.45] | 0.35 |
+| P1a, most-novel fifth minus middle fifth | +0.44 (−1.41, +2.28) | +2.54 [−1.40, +6.48] | 0.20 |
+| P2, any concurrent same-year twin | +0.68 (−0.84, +2.20) | +3.69 [+0.90, +6.48] | 0.010 |
+| P3, twin association, high minus low novelty | +0.18 (−3.46, +3.83) | +4.84 [−2.27, +11.95] | 0.19 |
+| P4, twin association, hot minus other topics | −1.49 (−4.51, +1.52) | +1.47 [−3.65, +6.59] | 0.63 |
+| P5, (Q5 − Q3) for newcomer minus incumbent papers | +1.32 (−2.63, +5.28) | −9.75 [−17.38, −2.12] | 0.030 |
+| P6, (Q5 − Q3) for mature minus young topics | +4.69 (+0.21, +9.18) | +10.74 [+1.95, +19.53] | 0.030 |
+| Teams H2, concavity | +2.95 (−1.41, +7.30) | +4.47 [−2.24, +11.18] | 0.19 |
+| Premia b, k100 topics | 0.35 (0.17, 0.54) | 0.51 [0.23, 0.79]; 62 units | intersection-union 0.0004 |
+| Premia b, PH4 keywords | 0.53 (0.10, 0.95) | 0.16 [−0.34, 0.66]; 35 units | intersection-union 0.26 |
+| Premia b, areas | 0.20 (−0.49, 0.89) | 0.71 [0.09, 1.33]; 20 units | intersection-union 0.17 |
+| Premia D = MSE(raw) − MSE(EB), early map (descriptive) | none | 0.37 [−1.31, +2.06] × 10⁻³ | one-sided 0.33 |
+
+### Interpretation
+
+- **Findings supported in discovery and again on the held-out split.** This is a split-sample replication within the
+  same ICLR years. All are associations within topic and year.
+  - Where more of a topic's papers built on foundation models the year before, fewer of its papers propose new
+    architectures (H1d): −8.0 pp in discovery, −11.0 pp held-out.
+  - Newcomer papers are more often method papers and less often measurement papers (H2b′/H2c′): +3.7 / −1.7 pp in
+    discovery, +3.6 / −2.1 pp held-out. The measurement gap again shrinks with team size controlled. The held-out
+    newcomer measure sees both splits' histories, so it is better informed than discovery's.
+  - Among papers with an experienced author, papers far from every experienced co-author's earlier ICLR work are
+    accepted less often (PH5 E1): −5.4 pp in discovery, −6.1 pp held-out.
+  - Four secondary associations also hold. Each is one-sided at 0.05 and unadjusted, so with six secondary tests one
+    false positive at this level would not be surprising:
+    - the within-author counterpart E4;
+    - one topic insider vs none (teams H1);
+    - Emerging vs Mainstream keywords (A1);
+    - partial persistence of topic acceptance edges (premia b, 0 < b < 1, and EB D0 > 0).
+  - Of these, A1 has a 95% CI that includes 0 (two-sided p 0.063). D0 is a new test with no discovery counterpart.
+    The held-out premia slope (0.60) is a different comparison from the within-discovery 0.38.
+  - The replication supports the direction, not the size. H1d, H2c′, teams H1 and A1 were underpowered at the
+    discovery effect. Their MDE80s (12.0, 2.4 and the derived ≈ 4.5 and ≈ 4.3) exceed the discovery estimates
+    (−8.0, −1.70, +3.42, +2.67).
+    - Among underpowered tests, the significant ones tend to overstate the effect.
+    - Held-out estimates larger than discovery's (H1d −11.0 vs −8.0, H2c′ −2.10 vs −1.70, E4 +1.06 vs +0.55; E4 has
+      no MDE80) therefore do not show that the effect is as large or larger, and the sizes should not be compared as
+      if they had replicated.
+- **P1b did not replicate: only the own-record tail (E1) is supported out of sample; the field-novelty tail remains
+  discovery-only.**
+  - The "two tails" reading is a discovery post hoc summary. It is not reported in the discovery sections of this
+    file; see `presentation/shortlist.md`, finding 1 (outputs `output/posthoc/ph5_position/` and
+    `output/posthoc/ph5_pivot/`). Within topic and year, lower acceptance goes with two tails:
+    - the least-novel fifth of abstracts, those most similar to earlier ICLR work (P1b, −3.3 pp);
+    - far jumps from the team's own record (E1, −5.4 pp).
+  - The held-out least-novel-fifth contrast is −0.13 pp (CI −3.50 to +3.25).
+  - The test had power 0.47 at the discovery effect and an MDE80 of 5.4 pp, so by the registered rule it is
+    uninformative: it is not evidence that the discovery association (−3.3 pp) is absent. The CI includes both 0 and
+    −3.3 pp.
+  - The field-novelty tail remains a discovery-only post hoc association and should not be presented as replicated.
+    The pooled P1b (−3.0 pp) is driven by the discovery papers and does not change this.
+  - P7, the within-author novelty slope, is not supported either.
+    - It has no registered MDE80, and the registered reading rule does not cover it.
+    - A derived MDE80 (post hoc, one-sided: ≈ 1.0–1.1 pp per 10 percentile points) exceeds both estimates (+0.39
+      and +0.34), which suggests low power.
+- **FL is not confirmed, and the held-out level test was underpowered.**
+  - The held-out FL level is −4.9 pp (one-sided p 0.14). This is below its MDE80 (14.5 pp), so by the registered
+    rule the level test is uninformative, not evidence of no gap. With 134 FL papers, the MDE80 also exceeds the
+    discovery gap (−11.3 pp), so the test could easily miss a gap of the discovery size.
+  - The secondary trend has the opposite sign to the prediction (+3.2 pp per year, one-sided p 0.88) and no MDE. In
+    the pooled re-run the trend roughly halves, from −3.0 to −1.9 pp per year for the keyword.
+  - The "falling out of favour" reading of PH4 therefore remains a discovery-only post hoc description.
+- **H3a is inconclusive again.**
+  - Discovery and held-out are both negative (−1.7 and −1.5 pp per log unit), and neither is significant.
+  - The hindsight requirement fails on held-out papers.
+  - The estimate is well below the MDE80 (4.8 pp), so the test is uninformative about effects of this size.
+- **Unregistered rows.** The 17 rows are two-sided, unadjusted and not interpreted as findings. One quoting rule
+  follows from them: discovery readings that rest on unregistered PH5 contrasts should not be quoted without the
+  held-out and pooled rows. This applies in either direction:
+  - P2, a concurrent same-year twin. Discovery found +0.7 pp, read as "no detectable acceptance gap"
+    (`presentation/shortlist.md`, finding 3). Held-out: +3.7 pp (p 0.010). Pooled: +1.9 pp (p 0.009, Holm 0.063).
+  - E2, near vs median closeness to the own record. Discovery found +1.75 pp (Holm 0.15), read as "more closeness
+    shows no reliable further gain". Held-out: +2.3 pp (p 0.17). Pooled: +2.1 pp (Holm 0.036).
+  - P5, the (Q5 − Q3) contrast for newcomer minus incumbent papers, changes sign: discovery +1.3 pp, held-out −9.8 pp
+    (p 0.030), pooled +0.4 pp.
+  - P6, the (Q5 − Q3) contrast for mature minus young topics, grows from +4.7 to +10.7 pp (p 0.030); pooled +3.9 pp.
+
+## Pooled re-run (exploratory)
+
+The pooled re-run ran after the held-out run had finished:
+- `run_pooled.py` for RQ2, RQ3 and E1–E10;
+- `run_pooled.py rq1` for RQ1;
+- `ICLR_CORPUS=pooled posthoc.py` for PH1–PH4 and the six PH5 modules.
+
+Outputs: `output_pooled/frozen_run/`, `output_pooled/rq1_results.csv`, `rq1_summary.json` and
+`output_pooled/posthoc/`. Logs: `output_pooled/logs/`.
+
+Caveats:
+- **It confirms nothing.** It contains the 11,099 held-out papers, and about 80% of each pooled sample is discovery
+  papers, so agreement with discovery is expected and is not replication. The verdict labels in its outputs are
+  descriptive. The discovery outputs remain the registered record.
+- **Pooling changes discovery features.** It is not "discovery plus held-out" on fixed features:
+  - hot status changes for 8.1% of discovery papers (69 of 800 k100 topic-years);
+  - discovery incumbency rises by 3.5 pp, from 26.5% to 30.0%;
+  - probable earlier versions rise from 170 to 224;
+  - maturity rises by about 0.22 log units.
+- **Calibration.** The same caveats apply as in discovery: CR1 p-values are approximate under topic structure that
+  cuts across the k100 map.
+
+| | Discovery (registered record) | Pooled (exploratory) |
+|---|---|---|
+| H1a method ~ maturity, pp per log unit | −0.14 (−1.8, +1.5) | −0.59 (−2.0, +0.9); not supported |
+| H1b measurement ~ maturity | +0.50 (−0.8, +1.8) | +0.81 (−0.3, +1.9); not supported |
+| H1c empirical ~ maturity | −0.31 (−1.3, +0.7) | −0.24 (−1.1, +0.7); not supported |
+| **H1d** new architecture ~ prior FM adoption, 0 → 100% | −8.0 (−12.1, −3.8); Holm 0.001 | −8.9 (−13.1, −4.7); Holm 3 × 10⁻⁴; supported |
+| H1e empirical or evaluation ~ prior FM adoption | −0.6 (−3.6, +2.4) | −0.6 (−3.7, +2.6); not supported |
+| H2a incumbent ~ hot | −0.73 (−2.68, +1.22) | −0.85 (−3.12, +1.42); inconclusive |
+| **H2b** method ~ newcomer | +3.71 (+2.61, +4.80) | +3.46 (+2.38, +4.54); bootstrap p < 1/9,999; opposite to prediction |
+| **H2c** measurement ~ newcomer | −1.70 (−2.46, −0.93) | −1.65 (−2.36, −0.94); bootstrap p < 1/9,999; opposite to prediction |
+| H3a accepted ~ maturity, pp per log unit | −1.68 (−3.68, +0.32); Holm 0.20 | −1.72 (−3.44, −0.01); p 0.049, Holm 0.098; inconclusive |
+| H3b accepted ~ maturity × method | −0.36 (−1.51, +0.79) | −0.03 (−1.08, +1.02); TOST p 0.034, "equivalent to null" |
+| E1 acceptance of FM papers, topic × year | +4.62 (+2.79, +6.44) | +5.61 (+3.93, +7.29) |
+| E2 acceptance of newcomer papers, topic × year | −10.2 (−11.8, −8.7) | −10.2 (−11.6, −8.9) |
+| E8 new architecture × prior FM adoption, acceptance | +8.3 (+1.3, +15.4); p 0.02 | +9.4 (+2.3, +16.4); p 0.010 |
+| PH2 acceptance per doubling of team size | +8.8 (+8.0, +9.7) | +8.8 (+8.0, +9.6) |
+| PH3 newcomer gap with author FE | −3.1 (−4.5, −1.6) | −3.1 (−4.5, −1.7) |
+| PH4 FL keyword, level | −11.3 (−17.9, −4.8); q 0.19 | −9.9 (−15.3, −4.5); q 0.14 |
+| PH4 FL topic m029, level | −13.5 (−21.1, −5.9); q 0.17 | −12.8 (−17.4, −8.2); q 0.037, BH-flagged |
+| PH4 FL keyword, trend, pp per year | −3.0 (−6.4, +0.5); p 0.08 | −1.9 (−5.1, +1.3); p 0.18 |
+| PH4 FL topic m029, trend, pp per year | −2.7 (−7.0, +1.5); p 0.15 | −1.2 (−4.1, +1.7); p 0.34 |
+| PH4 keyword extremes (≥ 5 years) | lowest CNNs −14.2, highest pre-training +9.9; none flagged | CNNs −12.8, pre-training +9.1; none flagged |
+| PH4 topic extremes (≥ 5 years) | lowest clinical ML −14.9, highest neural rendering +13.5; none flagged | clinical ML −16.2 (q 0.037), neural rendering +16.6 (q 0.058); 4 topics flagged |
+| PH5 E1 far jump, p10 minus p50 | −5.44 (−7.10, −3.78); Holm 1.3 × 10⁻⁸ | −5.53 (−7.09, −3.96); Holm 1.2 × 10⁻⁹ |
+| PH5 E2 near, p90 minus p50 | +1.75 (−0.17, +3.66); Holm 0.148 | +2.10 (+0.37, +3.84); Holm 0.036 |
+| PH5 P1b least-novel fifth minus middle | −3.27 (−4.93, −1.60); Holm 0.0014 | −2.97 (−4.42, −1.52); Holm 0.0008 |
+| PH5 P2 any concurrent same-year twin | +0.68 (−0.84, +2.20); Holm 1.0 | +1.86 (+0.47, +3.24); p 0.009, Holm 0.063 |
+| PH5 E4 within-author, per +0.1 cosine | +0.55 (+0.21, +0.90); Holm 0.006 | +0.78 (+0.50, +1.06); Holm 1 × 10⁻⁶ |
+| PH5 P7 within-author, per 10 novelty percentile points | +0.39 (+0.09, +0.69); Holm 0.105 | +0.43 (+0.16, +0.70); Holm 0.063 |
+| PH5 teams H1, one topic insider vs none | +3.42 (+1.18, +5.66); Holm 0.019 | +2.90 (+0.95, +4.85); Holm 0.024 |
+| PH5 kwtiming A1, Emerging minus Mainstream | +2.67 (+0.76, +4.58); Holm 0.020 | +3.10 (+1.39, +4.81); Holm 0.0015 |
+| PH5 premia b, early map, 2024–26 on 2018–22 | 0.38 (0.18, 0.58) | 0.45 (0.27, 0.64) |
+
+- **RQ1–RQ3.**
+  - Every hypothesis keeps its discovery sign and its descriptive verdict, except H3b: its estimate moves to zero and
+    TOST now labels it "equivalent to null". The label is descriptive.
+  - H3a's p falls to 0.049 (Holm 0.098), so it is still inconclusive.
+- **PH4.**
+  - Four k100 topics pass Benjamini–Hochberg in the pooled run: clinical ML −16.2 pp, FL −12.8 pp, graph
+    representation learning −9.7 pp and robot learning +12.1 pp. No keyword passes.
+  - These flags are exploratory. In particular, the registered held-out FL test was not supported.
+  - The FL trend roughly halves (keyword −3.0 → −1.9 pp per year, p 0.18; topic −2.7 → −1.2, p 0.34). Its registered
+    held-out test had the opposite sign (+3.2 pp per year).
+- **PH5.**
+  - Every headline estimate keeps its sign; this is expected, since about 80% of each pooled sample is discovery
+    papers.
+  - The pooled P1b is driven by the discovery papers: the held-out estimate is about zero.
+  - Two unregistered rows that bear on discovery null readings move:
+    - E2, near closeness, becomes Holm-significant (+2.1 pp, Holm 0.036; discovery 0.148);
+    - P2, a concurrent twin, is +1.9 pp (p 0.009, Holm 0.063).
+    These rows are exploratory too; see the quoting rule under "Unregistered rows" above.
+
 ## Reproduction
 
 ```text
@@ -529,4 +960,20 @@ python research/fashion/dryrun_diagnostics.py               # -> output/checks/d
 python research/fashion/freeze.py --created <UTC> --remedy bootstrap:H2b --remedy bootstrap:H2c
 python research/fashion/run_frozen.py                       # refuses unless FREEZE.json matches a clean tree
 python research/fashion/figures.py                          # -> output/figures/F1-F7
+```
+
+Held-out replication and pooled re-run (2026-10-18; outputs under `output_pooled/`):
+
+```text
+python research/topics/keyword_map.py                       # keyword lookup learned on discovery only
+ICLR_CORPUS=pooled python research/topics/pooled_topics.py  # frozen-map assignment of released papers + gates
+ICLR_CORPUS=pooled python research/fashion/build_pooled.py  # pooled features, outcome-free -> build_report.json
+python research/fashion/run_confirmation.py --simulate 1 --mde-reps 100   # simulated outcomes: plumbing, MDE80
+python research/fashion/ph5_confirm.py calibrate            # PH5 E1/P1b calibration on simulated outcomes
+python research/fashion/freeze_confirmation.py --created <UTC>             # commit, then:
+python research/fashion/run_confirmation.py                 # once; refuses unless FREEZE_CONFIRMATION.json matches
+python research/fashion/run_pooled.py                       # exploratory, only after the held-out run: RQ2, RQ3, E1-E10
+python research/fashion/run_pooled.py rq1
+ICLR_CORPUS=pooled python research/fashion/posthoc.py ph1   # also ph2, ph3, ph4; then ph5 <slug> for
+                                                            # pivot, position, teams, kwtiming, premia, fmwave
 ```

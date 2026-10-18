@@ -1,0 +1,238 @@
+{
+  "run_info": {
+    "model": "haiku (Claude Code subagent alias)",
+    "provider": "Claude Code workflows in this session",
+    "how_run": "label_batches.js, unchanged: one fresh subagent per batch reads the prompt v1 system prompt and its papers (two files) and returns labels through a structured-output schema; papers shuffled into batches of 100 (prepare_released.py, seed 20261018)",
+    "batch_size": 100,
+    "parallel_agents": "6 workflows x 2 concurrent agents (first pass) + 1 x 2 (second pass)",
+    "prompt_version": "contribution-codebook-v1 + foundation-model-rule-v1",
+    "system_prompt_sha256": "aaa1478fb32e1559edc1e158133a562666d64b29cdf4335bd5361509c1a42410",
+    "stage": "released former-confirmation papers",
+    "date_utc": "2026-10-18",
+    "papers_labelled": 11099,
+    "second_pass_papers": 555,
+    "notes": "Second pass: 6 separate batches of fresh agents for the 5% sample in double_label_ids.txt; they never saw first-pass labels."
+  },
+  "papers": 11099,
+  "second_pass_papers": 555,
+  "second_pass_vs_first": {
+    "main_class": {
+      "n": 555,
+      "agreement": 0.9694,
+      "kappa": 0.9313
+    },
+    "fine_type": {
+      "n": 555,
+      "agreement": 0.9333,
+      "kappa": 0.8854
+    },
+    "secondary_type": {
+      "n": 555,
+      "agreement": 0.8468,
+      "kappa": 0.7639
+    },
+    "foundation_model": {
+      "n": 555,
+      "agreement": 0.982,
+      "kappa": 0.9598
+    }
+  },
+  "class_shares": {
+    "method": 0.7521,
+    "empirical": 0.0676,
+    "theory": 0.0676,
+    "dataset_benchmark": 0.054,
+    "other": 0.0362,
+    "evaluation": 0.0225
+  },
+  "class_shares_by_year": {
+    "2017": {
+      "dataset_benchmark": 0.0095,
+      "empirical": 0.0667,
+      "evaluation": 0.0,
+      "method": 0.8571,
+      "other": 0.0571,
+      "theory": 0.0095
+    },
+    "2018": {
+      "dataset_benchmark": 0.0,
+      "empirical": 0.066,
+      "evaluation": 0.0,
+      "method": 0.7972,
+      "other": 0.0425,
+      "theory": 0.0943
+    },
+    "2019": {
+      "dataset_benchmark": 0.0227,
+      "empirical": 0.0712,
+      "evaluation": 0.0162,
+      "method": 0.7929,
+      "other": 0.0227,
+      "theory": 0.0744
+    },
+    "2020": {
+      "dataset_benchmark": 0.008,
+      "empirical": 0.076,
+      "evaluation": 0.014,
+      "method": 0.792,
+      "other": 0.034,
+      "theory": 0.076
+    },
+    "2021": {
+      "dataset_benchmark": 0.01,
+      "empirical": 0.0779,
+      "evaluation": 0.0166,
+      "method": 0.7761,
+      "other": 0.0398,
+      "theory": 0.0796
+    },
+    "2022": {
+      "dataset_benchmark": 0.0114,
+      "empirical": 0.0739,
+      "evaluation": 0.0199,
+      "method": 0.7585,
+      "other": 0.0384,
+      "theory": 0.098
+    },
+    "2023": {
+      "dataset_benchmark": 0.0191,
+      "empirical": 0.0714,
+      "evaluation": 0.0181,
+      "method": 0.7879,
+      "other": 0.0231,
+      "theory": 0.0804
+    },
+    "2024": {
+      "dataset_benchmark": 0.0291,
+      "empirical": 0.0609,
+      "evaluation": 0.0235,
+      "method": 0.7758,
+      "other": 0.0394,
+      "theory": 0.0713
+    },
+    "2025": {
+      "dataset_benchmark": 0.0665,
+      "empirical": 0.0683,
+      "evaluation": 0.0241,
+      "method": 0.7391,
+      "other": 0.0333,
+      "theory": 0.0687
+    },
+    "2026": {
+      "dataset_benchmark": 0.0913,
+      "empirical": 0.0647,
+      "evaluation": 0.0271,
+      "method": 0.7237,
+      "other": 0.0396,
+      "theory": 0.0535
+    }
+  },
+  "discovery_class_shares_by_year": {
+    "2017": {
+      "dataset_benchmark": 0.013,
+      "empirical": 0.0859,
+      "evaluation": 0.013,
+      "method": 0.7682,
+      "other": 0.0677,
+      "theory": 0.0521
+    },
+    "2018": {
+      "dataset_benchmark": 0.0078,
+      "empirical": 0.0766,
+      "evaluation": 0.0117,
+      "method": 0.7909,
+      "other": 0.0364,
+      "theory": 0.0766
+    },
+    "2019": {
+      "dataset_benchmark": 0.008,
+      "empirical": 0.0713,
+      "evaluation": 0.016,
+      "method": 0.8021,
+      "other": 0.0232,
+      "theory": 0.0793
+    },
+    "2020": {
+      "dataset_benchmark": 0.0126,
+      "empirical": 0.0705,
+      "evaluation": 0.0184,
+      "method": 0.7845,
+      "other": 0.0232,
+      "theory": 0.0908
+    },
+    "2021": {
+      "dataset_benchmark": 0.0169,
+      "empirical": 0.0771,
+      "evaluation": 0.0169,
+      "method": 0.7636,
+      "other": 0.0297,
+      "theory": 0.0958
+    },
+    "2022": {
+      "dataset_benchmark": 0.0091,
+      "empirical": 0.0687,
+      "evaluation": 0.0196,
+      "method": 0.778,
+      "other": 0.0313,
+      "theory": 0.0932
+    },
+    "2023": {
+      "dataset_benchmark": 0.0165,
+      "empirical": 0.0664,
+      "evaluation": 0.0207,
+      "method": 0.7818,
+      "other": 0.0289,
+      "theory": 0.0857
+    },
+    "2024": {
+      "dataset_benchmark": 0.0342,
+      "empirical": 0.0664,
+      "evaluation": 0.0227,
+      "method": 0.7622,
+      "other": 0.0354,
+      "theory": 0.0791
+    },
+    "2025": {
+      "dataset_benchmark": 0.0684,
+      "empirical": 0.0732,
+      "evaluation": 0.0254,
+      "method": 0.7303,
+      "other": 0.0372,
+      "theory": 0.0656
+    },
+    "2026": {
+      "dataset_benchmark": 0.0833,
+      "empirical": 0.0663,
+      "evaluation": 0.0273,
+      "method": 0.7344,
+      "other": 0.0382,
+      "theory": 0.0505
+    }
+  },
+  "foundation_model_yes_by_year": {
+    "2017": 0.0,
+    "2018": 0.0094,
+    "2019": 0.0,
+    "2020": 0.032,
+    "2021": 0.0464,
+    "2022": 0.0639,
+    "2023": 0.1116,
+    "2024": 0.2692,
+    "2025": 0.4352,
+    "2026": 0.5566
+  },
+  "discovery_foundation_model_yes_by_year": {
+    "2017": 0.0026,
+    "2018": 0.0,
+    "2019": 0.0048,
+    "2020": 0.0329,
+    "2021": 0.0415,
+    "2022": 0.0544,
+    "2023": 0.1061,
+    "2024": 0.2675,
+    "2025": 0.4233,
+    "2026": 0.5435
+  },
+  "uncertain_share": 0.389,
+  "discovery_uncertain_share": 0.3882
+}

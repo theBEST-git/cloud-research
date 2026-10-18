@@ -4,3 +4,4 @@
 {"at_utc": "2026-10-18T16:47:44+00:00", "git_head": "01b567ef34675a4b7f3d8c43c160feb0b24a4a74", "posthoc_sha256": "ffc82a697e1bde9ad7ce4a893e22c3277cf490e608ff9cf9fb956f6ed0d6b4bb", "argv": ["ph4"], "corpus": "pooled"}
 {"at_utc": "2026-10-18T16:48:32+00:00", "git_head": "2dba4abf3313c2795a7812d30e1f589ac88c4594", "posthoc_sha256": "ffc82a697e1bde9ad7ce4a893e22c3277cf490e608ff9cf9fb956f6ed0d6b4bb", "argv": ["ph5", "fmwave"], "corpus": "pooled"}
 {"at_utc": "2026-10-18T16:48:55+00:00", "git_head": "90b6d4259c6d61e0b071a4260ca80f2242a6e863", "posthoc_sha256": "ffc82a697e1bde9ad7ce4a893e22c3277cf490e608ff9cf9fb956f6ed0d6b4bb", "argv": ["ph5", "premia"], "corpus": "pooled"}
+{"at_utc": "2026-10-18T16:49:56+00:00", "git_head": "c8587ebc63a2f9448780325acbdd652e7801d5c7", "posthoc_sha256": "ffc82a697e1bde9ad7ce4a893e22c3277cf490e608ff9cf9fb956f6ed0d6b4bb", "argv": ["ph5", "kwtiming"], "corpus": "pooled"}

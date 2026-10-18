@@ -1,0 +1,138 @@
+{
+  "free_summary": {
+    "vocabulary": 759,
+    "keywords_with_onset": 759,
+    "censored_keywords": 35,
+    "big_keywords": 173,
+    "eligible_uses_2019_2026": 68912,
+    "papers_with_eligible_keyword_2019_2026": 38049,
+    "uses_by_state": [
+      {
+        "state": "middle_falling",
+        "uses": 2908,
+        "papers": 2755,
+        "keywords": 265
+      },
+      {
+        "state": "middle_flat",
+        "uses": 4674,
+        "papers": 4410,
+        "keywords": 208
+      },
+      {
+        "state": "middle_rising",
+        "uses": 10771,
+        "papers": 9759,
+        "keywords": 198
+      },
+      {
+        "state": "old_falling",
+        "uses": 8283,
+        "papers": 7380,
+        "keywords": 189
+      },
+      {
+        "state": "old_flat",
+        "uses": 15439,
+        "papers": 13287,
+        "keywords": 163
+      },
+      {
+        "state": "old_rising",
+        "uses": 5430,
+        "papers": 5060,
+        "keywords": 118
+      },
+      {
+        "state": "young_falling",
+        "uses": 2448,
+        "papers": 2343,
+        "keywords": 308
+      },
+      {
+        "state": "young_flat",
+        "uses": 4237,
+        "papers": 4062,
+        "keywords": 318
+      },
+      {
+        "state": "young_rising",
+        "uses": 14722,
+        "papers": 12554,
+        "keywords": 499
+      }
+    ],
+    "model_c_rows_any_outcome": {
+      "rows": 39643,
+      "locally_early": 6717,
+      "mixed_keyword_year_cells": 604
+    },
+    "median_lag_uncensored_onset": 2.0,
+    "note": "outcome-free (any outcome): keywords, topics, author IDs only"
+  },
+  "summary": {
+    "population": "RQ3 decided papers with an eligible trend keyword, 2019-2026 (Model B and profile cells: 2019-20 and 2023-26)",
+    "papers_model_a": 28483,
+    "rows_model_a": 51754,
+    "papers_model_b": 25093,
+    "papers_model_c": 20688,
+    "rows_model_c": 29614,
+    "no_acceptance_share_model_b": 0.2969733174034249,
+    "omnibus": {
+      "F": 5.425051991482973,
+      "df1": 8,
+      "df2": 99,
+      "p_nominal": 1.1327781303849929e-05,
+      "p_calibrated": 0.004975124378109453,
+      "null_F_median": 1.1098485531822029,
+      "null_F_95pct": 2.2034353572252448,
+      "null_frames": 200,
+      "nominal_size_in_null_frames": 0.065
+    },
+    "mainstream_rate": 0.3766980333992082,
+    "profile_cells": {
+      "tau_between_profile_cells": 0.0679368029001833,
+      "reference_cell_rate": 0.4300803679808431,
+      "note": "descriptive; cells treated as independent in the method of moments; the reference cell has SE 0 and is not shrunk"
+    },
+    "model_d": {
+      "keywords": 118,
+      "tau": 0.030874456816734994,
+      "mu": 0.02585073522551973,
+      "Q": 151.19020005317336,
+      "I2": 0.22614031889070005,
+      "pooled_sd_r": 0.49598664483204796,
+      "share_posterior_positive": 0.9576271186440678,
+      "tau_null_mean": 0.001352766463901956,
+      "tau_null_p95": 0.015360010657529254,
+      "tau_p_permutation": 0.0196078431372549,
+      "permutations": 50,
+      "survivorship": {
+        "mean_premium_keywords_with_100_papers": 0.02386067983298117,
+        "mean_premium_all": 0.030499175504799542,
+        "mean_premium_other": 0.04207794702541298,
+        "keywords_with_100_papers": 75,
+        "note": "hindsight: the 100-paper status is known only later; descriptive"
+      }
+    },
+    "off_trend": {
+      "papers_off_trend": 11052,
+      "papers_on_trend": 28507,
+      "rate_off_trend": 0.3927795874049946,
+      "rate_on_trend": 0.40144525905917844,
+      "within_topic_year_difference": {
+        "coef": 0.022202636239482623,
+        "se": 0.009088101635547121,
+        "p": 0.01633527791548177,
+        "ci95_lo": 0.004169870916489779,
+        "ci95_hi": 0.040235401562475466,
+        "mde80": 0.025714638018563482,
+        "rows": 39546,
+        "papers": 39546,
+        "dof": 99
+      }
+    },
+    "note": "post hoc exploratory (PH5 kwtiming, selection S1); associations within the stated fixed effects, not causal"
+  }
+}
+

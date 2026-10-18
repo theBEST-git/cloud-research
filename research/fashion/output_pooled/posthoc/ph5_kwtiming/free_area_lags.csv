@@ -1,0 +1,21 @@
+area,keywords_arrived,median_lag_all,median_lag_uncensored_onset,keywords_arrived_uncensored_onset,area_name,share_of_big_keywords_arrived
+c09,86,1.0,1.0,63,"Generalization theory, compression and architecture design",0.49710982658959535
+c01,122,2.0,2.0,97,LLMs and natural language processing,0.7052023121387283
+c04,105,2.0,2.0,82,Reinforcement learning,0.6069364161849711
+c03,112,2.0,2.0,86,"Computer vision, 3D vision and imaging",0.6473988439306358
+c07,100,2.0,2.0,73,"Optimization, scientific ML and probabilistic inference",0.5780346820809249
+c06,106,1.0,2.0,79,"Robust, continual, transfer and label-efficient learning",0.6127167630057804
+c08,101,2.0,2.0,76,"LLM efficiency, sequence models and audio",0.5838150289017341
+c05,118,3.0,2.0,89,"Federated learning, privacy and decision making",0.6820809248554913
+c15,89,2.0,2.0,67,"VLM reasoning, knowledge graphs and interpretability",0.5144508670520231
+c10,101,2.0,2.0,81,Vision-language models and few-shot learning,0.5838150289017341
+c12,90,2.0,2.0,68,"Adversarial robustness, backdoors and AI security",0.5202312138728323
+c13,83,3.0,2.0,63,"Embodied AI, driving and video understanding",0.4797687861271676
+c14,89,1.0,2.0,66,"GANs, VAEs, diffusion and flow models",0.5144508670520231
+c02,114,4.0,3.0,92,"LLM reasoning, agents, code and alignment",0.6589595375722543
+c11,96,3.0,3.0,74,Causal inference and biomedical ML,0.5549132947976878
+c16,73,3.0,3.0,57,Graph neural networks,0.42196531791907516
+c17,73,3.0,3.0,58,"Diffusion image, video and motion generation",0.42196531791907516
+c18,78,3.0,3.0,56,Time series and spatiotemporal modeling,0.4508670520231214
+c19,67,3.0,3.5,46,"Representation geometry, clustering and kernel methods",0.3872832369942196
+c20,84,4.0,4.0,59,"Neuroscience, brain decoding and spiking networks",0.48554913294797686

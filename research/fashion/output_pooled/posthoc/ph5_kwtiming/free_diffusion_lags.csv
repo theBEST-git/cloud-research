@@ -1,0 +1,1888 @@
+keyword,area,arrival,onset,censored,lag
+3d gaussian splatting,c03,2025,2025,False,0
+3d gaussian splatting,c12,2026,2025,False,1
+3d reconstruction,c03,2020,2022,False,-2
+active learning,c01,2024,2019,False,5
+active learning,c02,2025,2019,False,6
+active learning,c03,2023,2019,False,4
+active learning,c04,2022,2019,False,3
+active learning,c05,2023,2019,False,4
+active learning,c06,2018,2019,False,-1
+active learning,c07,2024,2019,False,5
+active learning,c10,2025,2019,False,6
+active learning,c11,2023,2019,False,4
+active learning,c13,2025,2019,False,6
+active learning,c16,2024,2019,False,5
+active learning,c19,2026,2019,False,7
+adversarial attack,c01,2020,2019,False,1
+adversarial attack,c02,2026,2019,False,7
+adversarial attack,c03,2024,2019,False,5
+adversarial attack,c04,2022,2019,False,3
+adversarial attack,c05,2022,2019,False,3
+adversarial attack,c06,2022,2019,False,3
+adversarial attack,c07,2025,2019,False,6
+adversarial attack,c08,2023,2019,False,4
+adversarial attack,c10,2025,2019,False,6
+adversarial attack,c12,2018,2019,False,-1
+adversarial attack,c14,2022,2019,False,3
+adversarial attack,c16,2019,2019,False,0
+adversarial attack,c18,2026,2019,False,7
+adversarial attack,c20,2026,2019,False,7
+adversarial example,c01,2020,2018,True,2
+adversarial example,c03,2023,2018,True,5
+adversarial example,c04,2020,2018,True,2
+adversarial example,c05,2024,2018,True,6
+adversarial example,c06,2020,2018,True,2
+adversarial example,c12,2018,2018,True,0
+adversarial example,c14,2021,2018,True,3
+adversarial learning,c01,2020,2018,True,2
+adversarial learning,c02,2026,2018,True,8
+adversarial learning,c03,2020,2018,True,2
+adversarial learning,c04,2020,2018,True,2
+adversarial learning,c05,2020,2018,True,2
+adversarial learning,c06,2019,2018,True,1
+adversarial learning,c12,2019,2018,True,1
+adversarial learning,c13,2022,2018,True,4
+adversarial learning,c14,2018,2018,True,0
+adversarial training,c01,2019,2019,False,0
+adversarial training,c02,2024,2019,False,5
+adversarial training,c03,2021,2019,False,2
+adversarial training,c04,2025,2019,False,6
+adversarial training,c05,2019,2019,False,0
+adversarial training,c06,2021,2019,False,2
+adversarial training,c07,2022,2019,False,3
+adversarial training,c08,2024,2019,False,5
+adversarial training,c10,2026,2019,False,7
+adversarial training,c12,2018,2019,False,-1
+adversarial training,c14,2019,2019,False,0
+adversarial training,c16,2026,2019,False,7
+agent,c01,2024,2024,False,0
+agent,c02,2024,2024,False,0
+agent,c04,2026,2024,False,2
+agent,c05,2026,2024,False,2
+agent,c08,2026,2024,False,2
+agent,c10,2026,2024,False,2
+agent,c11,2026,2024,False,2
+agent,c13,2020,2024,False,-4
+agent,c15,2026,2024,False,2
+alignment,c01,2024,2022,False,2
+alignment,c02,2023,2022,False,1
+alignment,c03,2026,2022,False,4
+alignment,c04,2024,2022,False,2
+alignment,c05,2025,2022,False,3
+alignment,c06,2025,2022,False,3
+alignment,c08,2024,2022,False,2
+alignment,c09,2022,2022,False,0
+alignment,c10,2024,2022,False,2
+alignment,c11,2025,2022,False,3
+alignment,c12,2025,2022,False,3
+alignment,c13,2026,2022,False,4
+alignment,c14,2026,2022,False,4
+alignment,c15,2025,2022,False,3
+alignment,c17,2025,2022,False,3
+alignment,c18,2026,2022,False,4
+anomaly detection,c01,2026,2019,False,7
+anomaly detection,c03,2022,2019,False,3
+anomaly detection,c05,2025,2019,False,6
+anomaly detection,c06,2019,2019,False,0
+anomaly detection,c12,2026,2019,False,7
+anomaly detection,c13,2024,2019,False,5
+anomaly detection,c14,2021,2019,False,2
+anomaly detection,c16,2025,2019,False,6
+anomaly detection,c18,2020,2019,False,1
+anomaly detection,c19,2026,2019,False,7
+artificial intelligence safety,c01,2024,2023,False,1
+artificial intelligence safety,c02,2024,2023,False,1
+artificial intelligence safety,c04,2022,2023,False,-1
+artificial intelligence safety,c05,2025,2023,False,2
+artificial intelligence safety,c06,2026,2023,False,3
+artificial intelligence safety,c12,2023,2023,False,0
+attention,c01,2019,2018,True,1
+attention,c02,2024,2018,True,6
+attention,c03,2020,2018,True,2
+attention,c04,2020,2018,True,2
+attention,c05,2021,2018,True,3
+attention,c06,2022,2018,True,4
+attention,c07,2024,2018,True,6
+attention,c08,2018,2018,True,0
+attention,c09,2024,2018,True,6
+attention,c10,2023,2018,True,5
+attention,c11,2020,2018,True,2
+attention,c13,2023,2018,True,5
+attention,c15,2018,2018,True,0
+attention,c16,2019,2018,True,1
+attention,c17,2025,2018,True,7
+attention,c18,2021,2018,True,3
+attention,c19,2024,2018,True,6
+attention,c20,2021,2018,True,3
+attention mechanism,c01,2025,2020,False,5
+attention mechanism,c02,2024,2020,False,4
+attention mechanism,c03,2023,2020,False,3
+attention mechanism,c04,2022,2020,False,2
+attention mechanism,c05,2026,2020,False,6
+attention mechanism,c08,2023,2020,False,3
+attention mechanism,c09,2021,2020,False,1
+attention mechanism,c10,2022,2020,False,2
+attention mechanism,c11,2023,2020,False,3
+attention mechanism,c13,2022,2020,False,2
+attention mechanism,c15,2020,2020,False,0
+attention mechanism,c16,2021,2020,False,1
+attention mechanism,c18,2025,2020,False,5
+attention mechanism,c19,2022,2020,False,2
+attention mechanism,c20,2023,2020,False,3
+autoencoder,c01,2020,2018,True,2
+autoencoder,c02,2026,2018,True,8
+autoencoder,c03,2019,2018,True,1
+autoencoder,c05,2022,2018,True,4
+autoencoder,c06,2019,2018,True,1
+autoencoder,c07,2023,2018,True,5
+autoencoder,c08,2023,2018,True,5
+autoencoder,c09,2019,2018,True,1
+autoencoder,c11,2022,2018,True,4
+autoencoder,c12,2020,2018,True,2
+autoencoder,c13,2026,2018,True,8
+autoencoder,c14,2019,2018,True,1
+autoencoder,c15,2023,2018,True,5
+autoencoder,c17,2026,2018,True,8
+autoencoder,c18,2020,2018,True,2
+autoencoder,c19,2018,2018,True,0
+autoencoder,c20,2022,2018,True,4
+automated machine learning,c01,2023,2020,False,3
+automated machine learning,c02,2023,2020,False,3
+automated machine learning,c04,2025,2020,False,5
+automated machine learning,c05,2022,2020,False,2
+automated machine learning,c06,2021,2020,False,1
+automated machine learning,c07,2026,2020,False,6
+automated machine learning,c08,2024,2020,False,4
+automated machine learning,c09,2019,2020,False,-1
+automated machine learning,c15,2026,2020,False,6
+automated machine learning,c16,2023,2020,False,3
+automated machine learning,c18,2026,2020,False,6
+backdoor attack,c01,2024,2021,False,3
+backdoor attack,c04,2026,2021,False,5
+backdoor attack,c05,2023,2021,False,2
+backdoor attack,c12,2020,2021,False,-1
+bayesian inference,c01,2024,2020,False,4
+bayesian inference,c02,2024,2020,False,4
+bayesian inference,c03,2021,2020,False,1
+bayesian inference,c04,2023,2020,False,3
+bayesian inference,c05,2022,2020,False,2
+bayesian inference,c06,2022,2020,False,2
+bayesian inference,c07,2019,2020,False,-1
+bayesian inference,c10,2026,2020,False,6
+bayesian inference,c11,2024,2020,False,4
+bayesian inference,c13,2026,2020,False,6
+bayesian inference,c14,2023,2020,False,3
+bayesian inference,c18,2024,2020,False,4
+bayesian inference,c19,2025,2020,False,5
+bayesian inference,c20,2026,2020,False,6
+bayesian optimization,c01,2026,2020,False,6
+bayesian optimization,c02,2025,2020,False,5
+bayesian optimization,c04,2021,2020,False,1
+bayesian optimization,c05,2023,2020,False,3
+bayesian optimization,c06,2021,2020,False,1
+bayesian optimization,c07,2020,2020,False,0
+bayesian optimization,c08,2026,2020,False,6
+bayesian optimization,c09,2020,2020,False,0
+bayesian optimization,c11,2023,2020,False,3
+bayesian optimization,c12,2022,2020,False,2
+bayesian optimization,c20,2026,2020,False,6
+bilevel optimization,c04,2026,2022,False,4
+bilevel optimization,c05,2023,2022,False,1
+bilevel optimization,c06,2024,2022,False,2
+bilevel optimization,c07,2022,2022,False,0
+bilevel optimization,c08,2025,2022,False,3
+bilevel optimization,c09,2024,2022,False,2
+bilevel optimization,c12,2024,2022,False,2
+bilevel optimization,c16,2026,2022,False,4
+causal discovery,c11,2021,2022,False,-1
+causal discovery,c15,2024,2022,False,2
+causal discovery,c18,2024,2022,False,2
+causal inference,c01,2025,2020,False,5
+causal inference,c02,2026,2020,False,6
+causal inference,c04,2019,2020,False,-1
+causal inference,c05,2022,2020,False,2
+causal inference,c06,2023,2020,False,3
+causal inference,c11,2020,2020,False,0
+causal inference,c12,2026,2020,False,6
+causal inference,c15,2022,2020,False,2
+causal inference,c16,2025,2020,False,5
+causal inference,c18,2022,2020,False,2
+causality,c01,2025,2020,False,5
+causality,c02,2025,2020,False,5
+causality,c04,2021,2020,False,1
+causality,c05,2024,2020,False,4
+causality,c06,2024,2020,False,4
+causality,c07,2025,2020,False,5
+causality,c10,2026,2020,False,6
+causality,c11,2021,2020,False,1
+causality,c12,2022,2020,False,2
+causality,c13,2022,2020,False,2
+causality,c14,2019,2020,False,-1
+causality,c15,2022,2020,False,2
+causality,c17,2026,2020,False,6
+causality,c18,2024,2020,False,4
+chain-of-thought,c01,2024,2024,False,0
+chain-of-thought,c02,2023,2024,False,-1
+chain-of-thought,c08,2026,2024,False,2
+chain-of-thought,c10,2026,2024,False,2
+chain-of-thought,c13,2026,2024,False,2
+chain-of-thought,c15,2025,2024,False,1
+chain-of-thought,c17,2026,2024,False,2
+classification,c01,2022,2019,False,3
+classification,c02,2026,2019,False,7
+classification,c03,2019,2019,False,0
+classification,c05,2020,2019,False,1
+classification,c06,2018,2019,False,-1
+classification,c07,2020,2019,False,1
+classification,c08,2023,2019,False,4
+classification,c09,2019,2019,False,0
+classification,c10,2020,2019,False,1
+classification,c11,2022,2019,False,3
+classification,c12,2023,2019,False,4
+classification,c14,2018,2019,False,-1
+classification,c15,2024,2019,False,5
+classification,c16,2023,2019,False,4
+classification,c18,2023,2019,False,4
+classification,c19,2020,2019,False,1
+classification,c20,2026,2019,False,7
+clip,c03,2023,2023,False,0
+clip,c05,2025,2023,False,2
+clip,c06,2024,2023,False,1
+clip,c10,2023,2023,False,0
+clip,c12,2025,2023,False,2
+clip,c14,2026,2023,False,3
+clip,c15,2026,2023,False,3
+clip,c17,2023,2023,False,0
+clip,c20,2026,2023,False,3
+clustering,c01,2026,2019,False,7
+clustering,c03,2023,2019,False,4
+clustering,c04,2026,2019,False,7
+clustering,c05,2022,2019,False,3
+clustering,c06,2018,2019,False,-1
+clustering,c07,2023,2019,False,4
+clustering,c08,2025,2019,False,6
+clustering,c10,2024,2019,False,5
+clustering,c11,2022,2019,False,3
+clustering,c14,2019,2019,False,0
+clustering,c15,2026,2019,False,7
+clustering,c16,2022,2019,False,3
+clustering,c18,2021,2019,False,2
+clustering,c19,2018,2019,False,-1
+clustering,c20,2024,2019,False,5
+cnn,c03,2019,2018,True,1
+cnn,c06,2019,2018,True,1
+cnn,c07,2026,2018,True,8
+cnn,c09,2018,2018,True,0
+cnn,c12,2021,2018,True,3
+cnn,c15,2025,2018,True,7
+cnn,c18,2024,2018,True,6
+cnn,c19,2019,2018,True,1
+cnn,c20,2024,2018,True,6
+code generation,c01,2026,2023,False,3
+code generation,c02,2022,2023,False,-1
+code generation,c08,2026,2023,False,3
+code generation,c13,2025,2023,False,2
+code generation,c15,2026,2023,False,3
+code generation,c17,2026,2023,False,3
+combinatorial optimization,c02,2026,2020,False,6
+combinatorial optimization,c04,2022,2020,False,2
+combinatorial optimization,c05,2019,2020,False,-1
+combinatorial optimization,c07,2025,2020,False,5
+combinatorial optimization,c09,2019,2020,False,-1
+combinatorial optimization,c15,2026,2020,False,6
+combinatorial optimization,c16,2023,2020,False,3
+compression,c01,2022,2019,False,3
+compression,c02,2026,2019,False,7
+compression,c03,2021,2019,False,2
+compression,c04,2025,2019,False,6
+compression,c05,2022,2019,False,3
+compression,c06,2020,2019,False,1
+compression,c07,2022,2019,False,3
+compression,c08,2022,2019,False,3
+compression,c09,2018,2019,False,-1
+compression,c12,2026,2019,False,7
+compression,c14,2020,2019,False,1
+compression,c19,2026,2019,False,7
+compression,c20,2025,2019,False,6
+computer vision,c01,2025,2017,True,8
+computer vision,c03,2017,2017,True,0
+computer vision,c04,2023,2017,True,6
+computer vision,c05,2023,2017,True,6
+computer vision,c06,2017,2017,True,0
+computer vision,c07,2021,2017,True,4
+computer vision,c08,2023,2017,True,6
+computer vision,c09,2017,2017,True,0
+computer vision,c10,2017,2017,True,0
+computer vision,c11,2026,2017,True,9
+computer vision,c12,2017,2017,True,0
+computer vision,c13,2017,2017,True,0
+computer vision,c14,2017,2017,True,0
+computer vision,c15,2017,2017,True,0
+computer vision,c17,2019,2017,True,2
+computer vision,c18,2025,2017,True,8
+computer vision,c19,2017,2017,True,0
+computer vision,c20,2019,2017,True,2
+conformal prediction,c01,2026,2023,False,3
+conformal prediction,c03,2026,2023,False,3
+conformal prediction,c04,2026,2023,False,3
+conformal prediction,c05,2022,2023,False,-1
+conformal prediction,c06,2025,2023,False,2
+conformal prediction,c07,2025,2023,False,2
+conformal prediction,c11,2025,2023,False,2
+conformal prediction,c12,2024,2023,False,1
+conformal prediction,c18,2025,2023,False,2
+continual learning,c01,2022,2019,False,3
+continual learning,c02,2024,2019,False,5
+continual learning,c03,2023,2019,False,4
+continual learning,c04,2018,2019,False,-1
+continual learning,c05,2022,2019,False,3
+continual learning,c06,2019,2019,False,0
+continual learning,c07,2024,2019,False,5
+continual learning,c08,2024,2019,False,5
+continual learning,c09,2023,2019,False,4
+continual learning,c10,2021,2019,False,2
+continual learning,c11,2026,2019,False,7
+continual learning,c12,2025,2019,False,6
+continual learning,c13,2024,2019,False,5
+continual learning,c14,2019,2019,False,0
+continual learning,c15,2024,2019,False,5
+continual learning,c16,2023,2019,False,4
+continual learning,c17,2026,2019,False,7
+continual learning,c18,2023,2019,False,4
+continual learning,c20,2023,2019,False,4
+contrastive learning,c01,2021,2021,False,0
+contrastive learning,c02,2022,2021,False,1
+contrastive learning,c03,2021,2021,False,0
+contrastive learning,c04,2021,2021,False,0
+contrastive learning,c05,2022,2021,False,1
+contrastive learning,c06,2021,2021,False,0
+contrastive learning,c07,2023,2021,False,2
+contrastive learning,c08,2022,2021,False,1
+contrastive learning,c09,2024,2021,False,3
+contrastive learning,c10,2021,2021,False,0
+contrastive learning,c11,2021,2021,False,0
+contrastive learning,c12,2023,2021,False,2
+contrastive learning,c13,2023,2021,False,2
+contrastive learning,c14,2021,2021,False,0
+contrastive learning,c15,2024,2021,False,3
+contrastive learning,c16,2023,2021,False,2
+contrastive learning,c17,2023,2021,False,2
+contrastive learning,c18,2023,2021,False,2
+contrastive learning,c19,2023,2021,False,2
+contrastive learning,c20,2024,2021,False,3
+convex optimization,c05,2024,2021,False,3
+convex optimization,c07,2020,2021,False,-1
+convex optimization,c09,2021,2021,False,0
+convex optimization,c16,2026,2021,False,5
+convolutional neural networks,c03,2018,2018,True,0
+convolutional neural networks,c04,2019,2018,True,1
+convolutional neural networks,c05,2022,2018,True,4
+convolutional neural networks,c06,2019,2018,True,1
+convolutional neural networks,c07,2020,2018,True,2
+convolutional neural networks,c08,2019,2018,True,1
+convolutional neural networks,c09,2018,2018,True,0
+convolutional neural networks,c11,2020,2018,True,2
+convolutional neural networks,c12,2019,2018,True,1
+convolutional neural networks,c13,2020,2018,True,2
+convolutional neural networks,c14,2021,2018,True,3
+convolutional neural networks,c15,2020,2018,True,2
+convolutional neural networks,c16,2021,2018,True,3
+convolutional neural networks,c18,2020,2018,True,2
+convolutional neural networks,c19,2019,2018,True,1
+convolutional neural networks,c20,2020,2018,True,2
+curriculum learning,c01,2022,2020,False,2
+curriculum learning,c02,2023,2020,False,3
+curriculum learning,c03,2023,2020,False,3
+curriculum learning,c04,2019,2020,False,-1
+curriculum learning,c05,2026,2020,False,6
+curriculum learning,c06,2019,2020,False,-1
+curriculum learning,c11,2026,2020,False,6
+curriculum learning,c12,2026,2020,False,6
+curriculum learning,c14,2024,2020,False,4
+curriculum learning,c16,2024,2020,False,4
+curriculum learning,c17,2026,2020,False,6
+curriculum learning,c20,2024,2020,False,4
+data augmentation,c01,2021,2019,False,2
+data augmentation,c02,2024,2019,False,5
+data augmentation,c03,2021,2019,False,2
+data augmentation,c04,2022,2019,False,3
+data augmentation,c05,2023,2019,False,4
+data augmentation,c06,2019,2019,False,0
+data augmentation,c07,2026,2019,False,7
+data augmentation,c08,2026,2019,False,7
+data augmentation,c09,2021,2019,False,2
+data augmentation,c10,2021,2019,False,2
+data augmentation,c11,2023,2019,False,4
+data augmentation,c12,2019,2019,False,0
+data augmentation,c13,2023,2019,False,4
+data augmentation,c14,2021,2019,False,2
+data augmentation,c15,2022,2019,False,3
+data augmentation,c16,2022,2019,False,3
+data augmentation,c18,2024,2019,False,5
+data augmentation,c19,2025,2019,False,6
+data augmentation,c20,2024,2019,False,5
+deep generative models,c03,2022,2019,False,3
+deep generative models,c06,2022,2019,False,3
+deep generative models,c07,2022,2019,False,3
+deep generative models,c08,2020,2019,False,1
+deep generative models,c11,2020,2019,False,1
+deep generative models,c14,2018,2019,False,-1
+deep generative models,c17,2024,2019,False,5
+deep generative models,c18,2023,2019,False,4
+deep learning theory,c01,2025,2019,False,6
+deep learning theory,c02,2025,2019,False,6
+deep learning theory,c05,2025,2019,False,6
+deep learning theory,c06,2021,2019,False,2
+deep learning theory,c07,2020,2019,False,1
+deep learning theory,c08,2026,2019,False,7
+deep learning theory,c09,2019,2019,False,0
+deep learning theory,c12,2023,2019,False,4
+deep learning theory,c14,2023,2019,False,4
+deep learning theory,c15,2023,2019,False,4
+deep learning theory,c16,2021,2019,False,2
+deep learning theory,c19,2022,2019,False,3
+deep reinforcement learning,c02,2021,2018,True,3
+deep reinforcement learning,c04,2018,2018,True,0
+deep reinforcement learning,c05,2021,2018,True,3
+deep reinforcement learning,c07,2023,2018,True,5
+deep reinforcement learning,c09,2025,2018,True,7
+deep reinforcement learning,c11,2025,2018,True,7
+deep reinforcement learning,c12,2024,2018,True,6
+deep reinforcement learning,c13,2019,2018,True,1
+deep reinforcement learning,c20,2025,2018,True,7
+differential privacy,c01,2026,2020,False,6
+differential privacy,c05,2018,2020,False,-2
+differential privacy,c07,2024,2020,False,4
+differential privacy,c12,2026,2020,False,6
+diffusion,c03,2023,2022,False,1
+diffusion,c04,2025,2022,False,3
+diffusion,c05,2026,2022,False,4
+diffusion,c06,2025,2022,False,3
+diffusion,c07,2022,2022,False,0
+diffusion,c08,2024,2022,False,2
+diffusion,c09,2026,2022,False,4
+diffusion,c10,2026,2022,False,4
+diffusion,c11,2025,2022,False,3
+diffusion,c12,2026,2022,False,4
+diffusion,c13,2024,2022,False,2
+diffusion,c14,2022,2022,False,0
+diffusion,c16,2024,2022,False,2
+diffusion,c17,2024,2022,False,2
+diffusion,c18,2023,2022,False,1
+diffusion,c20,2025,2022,False,3
+diffusion models,c01,2024,2022,False,2
+diffusion models,c02,2026,2022,False,4
+diffusion models,c03,2023,2022,False,1
+diffusion models,c04,2024,2022,False,2
+diffusion models,c05,2023,2022,False,1
+diffusion models,c06,2024,2022,False,2
+diffusion models,c07,2023,2022,False,1
+diffusion models,c08,2024,2022,False,2
+diffusion models,c09,2024,2022,False,2
+diffusion models,c10,2025,2022,False,3
+diffusion models,c11,2023,2022,False,1
+diffusion models,c12,2023,2022,False,1
+diffusion models,c13,2024,2022,False,2
+diffusion models,c14,2022,2022,False,0
+diffusion models,c15,2026,2022,False,4
+diffusion models,c16,2024,2022,False,2
+diffusion models,c17,2023,2022,False,1
+diffusion models,c18,2024,2022,False,2
+diffusion models,c19,2025,2022,False,3
+diffusion models,c20,2025,2022,False,3
+disentanglement,c01,2025,2019,False,6
+disentanglement,c03,2022,2019,False,3
+disentanglement,c04,2026,2019,False,7
+disentanglement,c05,2025,2019,False,6
+disentanglement,c06,2020,2019,False,1
+disentanglement,c08,2021,2019,False,2
+disentanglement,c10,2023,2019,False,4
+disentanglement,c11,2021,2019,False,2
+disentanglement,c13,2026,2019,False,7
+disentanglement,c14,2018,2019,False,-1
+disentanglement,c15,2021,2019,False,2
+disentanglement,c17,2024,2019,False,5
+disentanglement,c19,2021,2019,False,2
+disentanglement,c20,2023,2019,False,4
+distillation,c01,2024,2020,False,4
+distillation,c02,2026,2020,False,6
+distillation,c03,2023,2020,False,3
+distillation,c04,2021,2020,False,1
+distillation,c06,2019,2020,False,-1
+distillation,c07,2025,2020,False,5
+distillation,c08,2024,2020,False,4
+distillation,c09,2021,2020,False,1
+distillation,c10,2025,2020,False,5
+distillation,c13,2025,2020,False,5
+distillation,c14,2024,2020,False,4
+distillation,c17,2026,2020,False,6
+domain adaptation,c01,2021,2018,True,3
+domain adaptation,c02,2025,2018,True,7
+domain adaptation,c03,2023,2018,True,5
+domain adaptation,c04,2020,2018,True,2
+domain adaptation,c05,2023,2018,True,5
+domain adaptation,c06,2018,2018,True,0
+domain adaptation,c07,2026,2018,True,8
+domain adaptation,c08,2025,2018,True,7
+domain adaptation,c10,2021,2018,True,3
+domain adaptation,c11,2021,2018,True,3
+domain adaptation,c12,2022,2018,True,4
+domain adaptation,c13,2021,2018,True,3
+domain adaptation,c14,2019,2018,True,1
+domain adaptation,c16,2024,2018,True,6
+domain adaptation,c17,2025,2018,True,7
+domain adaptation,c19,2024,2018,True,6
+domain adaptation,c20,2024,2018,True,6
+domain generalization,c03,2022,2021,False,1
+domain generalization,c05,2021,2021,False,0
+domain generalization,c06,2019,2021,False,-2
+domain generalization,c08,2026,2021,False,5
+domain generalization,c10,2024,2021,False,3
+domain generalization,c11,2021,2021,False,0
+domain generalization,c12,2023,2021,False,2
+domain generalization,c14,2025,2021,False,4
+domain generalization,c17,2024,2021,False,3
+domain generalization,c18,2023,2021,False,2
+domain generalization,c19,2026,2021,False,5
+domain generalization,c20,2025,2021,False,4
+dynamical system,c04,2024,2019,False,5
+dynamical system,c05,2026,2019,False,7
+dynamical system,c07,2020,2019,False,1
+dynamical system,c09,2019,2019,False,0
+dynamical system,c11,2025,2019,False,6
+dynamical system,c14,2025,2019,False,6
+dynamical system,c18,2020,2019,False,1
+dynamical system,c20,2019,2019,False,0
+efficient inference,c01,2026,2021,False,5
+efficient inference,c02,2026,2021,False,5
+efficient inference,c03,2024,2021,False,3
+efficient inference,c07,2024,2021,False,3
+efficient inference,c08,2023,2021,False,2
+efficient inference,c09,2020,2021,False,-1
+efficient inference,c10,2026,2021,False,5
+efficient inference,c12,2023,2021,False,2
+efficient inference,c17,2026,2021,False,5
+embedding,c01,2018,2019,False,-1
+embedding,c02,2025,2019,False,6
+embedding,c05,2023,2019,False,4
+embedding,c06,2024,2019,False,5
+embedding,c09,2025,2019,False,6
+embedding,c10,2020,2019,False,1
+embedding,c11,2025,2019,False,6
+embedding,c14,2025,2019,False,6
+embedding,c15,2025,2019,False,6
+embedding,c16,2019,2019,False,0
+embedding,c18,2022,2019,False,3
+embedding,c19,2019,2019,False,0
+embodied-ai,c02,2025,2024,False,1
+embodied-ai,c03,2026,2024,False,2
+embodied-ai,c04,2026,2024,False,2
+embodied-ai,c13,2023,2024,False,-1
+embodied-ai,c15,2025,2024,False,1
+energy-based model,c01,2021,2021,False,0
+energy-based model,c03,2025,2021,False,4
+energy-based model,c04,2023,2021,False,2
+energy-based model,c05,2026,2021,False,5
+energy-based model,c06,2022,2021,False,1
+energy-based model,c07,2022,2021,False,1
+energy-based model,c08,2025,2021,False,4
+energy-based model,c09,2025,2021,False,4
+energy-based model,c11,2021,2021,False,0
+energy-based model,c12,2025,2021,False,4
+energy-based model,c13,2024,2021,False,3
+energy-based model,c14,2020,2021,False,-1
+energy-based model,c15,2025,2021,False,4
+energy-based model,c19,2026,2021,False,5
+energy-based model,c20,2026,2021,False,5
+explainable ai,c01,2024,2021,False,3
+explainable ai,c02,2024,2021,False,3
+explainable ai,c03,2020,2021,False,-1
+explainable ai,c04,2023,2021,False,2
+explainable ai,c05,2024,2021,False,3
+explainable ai,c06,2026,2021,False,5
+explainable ai,c09,2025,2021,False,4
+explainable ai,c10,2024,2021,False,3
+explainable ai,c11,2025,2021,False,4
+explainable ai,c12,2023,2021,False,2
+explainable ai,c14,2024,2021,False,3
+explainable ai,c15,2020,2021,False,-1
+explainable ai,c16,2025,2021,False,4
+explainable ai,c18,2026,2021,False,5
+explainable ai,c20,2024,2021,False,3
+explainable artificial intelligence,c01,2025,2022,False,3
+explainable artificial intelligence,c02,2025,2022,False,3
+explainable artificial intelligence,c04,2025,2022,False,3
+explainable artificial intelligence,c05,2024,2022,False,2
+explainable artificial intelligence,c06,2024,2022,False,2
+explainable artificial intelligence,c09,2026,2022,False,4
+explainable artificial intelligence,c11,2026,2022,False,4
+explainable artificial intelligence,c12,2024,2022,False,2
+explainable artificial intelligence,c15,2020,2022,False,-2
+explainable artificial intelligence,c16,2025,2022,False,3
+explainable artificial intelligence,c20,2025,2022,False,3
+exploration,c02,2024,2019,False,5
+exploration,c04,2018,2019,False,-1
+exploration,c05,2019,2019,False,0
+exploration,c13,2020,2019,False,1
+exploration,c14,2026,2019,False,7
+federated learning,c01,2025,2020,False,5
+federated learning,c02,2026,2020,False,6
+federated learning,c03,2026,2020,False,6
+federated learning,c04,2024,2020,False,4
+federated learning,c05,2019,2020,False,-1
+federated learning,c06,2023,2020,False,3
+federated learning,c07,2022,2020,False,2
+federated learning,c08,2024,2020,False,4
+federated learning,c09,2021,2020,False,1
+federated learning,c10,2025,2020,False,5
+federated learning,c11,2026,2020,False,6
+federated learning,c12,2022,2020,False,2
+federated learning,c16,2023,2020,False,3
+federated learning,c18,2026,2020,False,6
+few-shot learning,c01,2021,2019,False,2
+few-shot learning,c02,2024,2019,False,5
+few-shot learning,c03,2021,2019,False,2
+few-shot learning,c04,2023,2019,False,4
+few-shot learning,c06,2019,2019,False,0
+few-shot learning,c07,2026,2019,False,7
+few-shot learning,c10,2018,2019,False,-1
+few-shot learning,c11,2023,2019,False,4
+few-shot learning,c12,2026,2019,False,7
+few-shot learning,c13,2026,2019,False,7
+few-shot learning,c14,2025,2019,False,6
+few-shot learning,c15,2021,2019,False,2
+few-shot learning,c16,2023,2019,False,4
+few-shot learning,c17,2025,2019,False,6
+few-shot learning,c20,2025,2019,False,6
+fine-tuning,c01,2022,2020,False,2
+fine-tuning,c02,2024,2020,False,4
+fine-tuning,c03,2023,2020,False,3
+fine-tuning,c04,2024,2020,False,4
+fine-tuning,c05,2022,2020,False,2
+fine-tuning,c06,2020,2020,False,0
+fine-tuning,c07,2024,2020,False,4
+fine-tuning,c08,2021,2020,False,1
+fine-tuning,c09,2021,2020,False,1
+fine-tuning,c10,2021,2020,False,1
+fine-tuning,c11,2024,2020,False,4
+fine-tuning,c12,2024,2020,False,4
+fine-tuning,c13,2026,2020,False,6
+fine-tuning,c14,2025,2020,False,5
+fine-tuning,c15,2026,2020,False,6
+fine-tuning,c17,2024,2020,False,4
+fine-tuning,c18,2026,2020,False,6
+fine-tuning,c20,2026,2020,False,6
+flow matching,c01,2026,2025,False,1
+flow matching,c03,2025,2025,False,0
+flow matching,c04,2026,2025,False,1
+flow matching,c07,2025,2025,False,0
+flow matching,c08,2025,2025,False,0
+flow matching,c10,2026,2025,False,1
+flow matching,c11,2025,2025,False,0
+flow matching,c13,2026,2025,False,1
+flow matching,c14,2024,2025,False,-1
+flow matching,c17,2025,2025,False,0
+flow matching,c18,2025,2025,False,0
+flow matching,c20,2026,2025,False,1
+foundation models,c01,2025,2023,False,2
+foundation models,c02,2025,2023,False,2
+foundation models,c03,2024,2023,False,1
+foundation models,c04,2026,2023,False,3
+foundation models,c05,2024,2023,False,1
+foundation models,c06,2024,2023,False,1
+foundation models,c07,2026,2023,False,3
+foundation models,c08,2025,2023,False,2
+foundation models,c09,2025,2023,False,2
+foundation models,c10,2024,2023,False,1
+foundation models,c11,2024,2023,False,1
+foundation models,c12,2024,2023,False,1
+foundation models,c13,2024,2023,False,1
+foundation models,c14,2026,2023,False,3
+foundation models,c15,2025,2023,False,2
+foundation models,c16,2025,2023,False,2
+foundation models,c17,2024,2023,False,1
+foundation models,c18,2024,2023,False,1
+foundation models,c20,2025,2023,False,2
+game theory,c01,2024,2019,False,5
+game theory,c02,2024,2019,False,5
+game theory,c04,2019,2019,False,0
+game theory,c05,2021,2019,False,2
+game theory,c07,2021,2019,False,2
+game theory,c11,2025,2019,False,6
+game theory,c12,2023,2019,False,4
+game theory,c14,2020,2019,False,1
+gaussian process,c04,2024,2020,False,4
+gaussian process,c05,2024,2020,False,4
+gaussian process,c06,2022,2020,False,2
+gaussian process,c07,2019,2020,False,-1
+gaussian process,c09,2019,2020,False,-1
+gaussian process,c10,2023,2020,False,3
+gaussian process,c11,2020,2020,False,0
+gaussian process,c16,2026,2020,False,6
+gaussian process,c18,2022,2020,False,2
+gaussian process,c19,2022,2020,False,2
+gaussian process,c20,2025,2020,False,5
+gaussian splatting,c03,2025,2025,False,0
+generative adversarial networks,c01,2019,2018,True,1
+generative adversarial networks,c03,2018,2018,True,0
+generative adversarial networks,c04,2021,2018,True,3
+generative adversarial networks,c05,2019,2018,True,1
+generative adversarial networks,c06,2019,2018,True,1
+generative adversarial networks,c07,2019,2018,True,1
+generative adversarial networks,c08,2019,2018,True,1
+generative adversarial networks,c09,2021,2018,True,3
+generative adversarial networks,c10,2023,2018,True,5
+generative adversarial networks,c11,2019,2018,True,1
+generative adversarial networks,c12,2018,2018,True,0
+generative adversarial networks,c14,2018,2018,True,0
+generative adversarial networks,c15,2022,2018,True,4
+generative adversarial networks,c17,2019,2018,True,1
+generative adversarial networks,c18,2021,2018,True,3
+generative adversarial networks,c19,2021,2018,True,3
+generative adversarial networks,c20,2022,2018,True,4
+generative modelling,c01,2026,2019,False,7
+generative modelling,c03,2021,2019,False,2
+generative modelling,c04,2025,2019,False,6
+generative modelling,c05,2024,2019,False,5
+generative modelling,c06,2025,2019,False,6
+generative modelling,c07,2024,2019,False,5
+generative modelling,c08,2026,2019,False,7
+generative modelling,c11,2021,2019,False,2
+generative modelling,c12,2022,2019,False,3
+generative modelling,c13,2024,2019,False,5
+generative modelling,c14,2018,2019,False,-1
+generative modelling,c17,2024,2019,False,5
+generative modelling,c18,2024,2019,False,5
+generative modelling,c19,2026,2019,False,7
+generative models,c01,2019,2018,True,1
+generative models,c02,2022,2018,True,4
+generative models,c03,2019,2018,True,1
+generative models,c04,2019,2018,True,1
+generative models,c05,2021,2018,True,3
+generative models,c06,2019,2018,True,1
+generative models,c07,2019,2018,True,1
+generative models,c08,2019,2018,True,1
+generative models,c09,2020,2018,True,2
+generative models,c10,2019,2018,True,1
+generative models,c11,2019,2018,True,1
+generative models,c12,2019,2018,True,1
+generative models,c13,2018,2018,True,0
+generative models,c14,2018,2018,True,0
+generative models,c15,2018,2018,True,0
+generative models,c16,2023,2018,True,5
+generative models,c17,2020,2018,True,2
+generative models,c18,2019,2018,True,1
+generative models,c19,2022,2018,True,4
+generative models,c20,2023,2018,True,5
+geometric deep learning,c03,2025,2021,False,4
+geometric deep learning,c07,2023,2021,False,2
+geometric deep learning,c11,2022,2021,False,1
+geometric deep learning,c15,2026,2021,False,5
+geometric deep learning,c16,2022,2021,False,1
+geometric deep learning,c19,2020,2021,False,-1
+geometric deep learning,c20,2025,2021,False,4
+gradient descent,c01,2025,2019,False,6
+gradient descent,c03,2026,2019,False,7
+gradient descent,c05,2023,2019,False,4
+gradient descent,c06,2025,2019,False,6
+gradient descent,c07,2019,2019,False,0
+gradient descent,c08,2025,2019,False,6
+gradient descent,c09,2019,2019,False,0
+gradient descent,c12,2025,2019,False,6
+gradient descent,c19,2025,2019,False,6
+gradient descent,c20,2024,2019,False,5
+graph,c01,2025,2019,False,6
+graph,c02,2025,2019,False,6
+graph,c03,2025,2019,False,6
+graph,c04,2024,2019,False,5
+graph,c06,2022,2019,False,3
+graph,c07,2023,2019,False,4
+graph,c09,2024,2019,False,5
+graph,c11,2020,2019,False,1
+graph,c14,2026,2019,False,7
+graph,c15,2025,2019,False,6
+graph,c16,2018,2019,False,-1
+graph,c18,2025,2019,False,6
+graph,c19,2025,2019,False,6
+graph learning,c02,2026,2022,False,4
+graph learning,c04,2026,2022,False,4
+graph learning,c05,2025,2022,False,3
+graph learning,c07,2026,2022,False,4
+graph learning,c11,2026,2022,False,4
+graph learning,c15,2026,2022,False,4
+graph learning,c16,2020,2022,False,-2
+graph learning,c19,2024,2022,False,2
+graph learning,c20,2026,2022,False,4
+graph neural networks,c01,2020,2019,False,1
+graph neural networks,c02,2019,2019,False,0
+graph neural networks,c03,2023,2019,False,4
+graph neural networks,c04,2019,2019,False,0
+graph neural networks,c05,2020,2019,False,1
+graph neural networks,c06,2023,2019,False,4
+graph neural networks,c07,2021,2019,False,2
+graph neural networks,c08,2026,2019,False,7
+graph neural networks,c09,2022,2019,False,3
+graph neural networks,c11,2020,2019,False,1
+graph neural networks,c12,2023,2019,False,4
+graph neural networks,c13,2021,2019,False,2
+graph neural networks,c15,2020,2019,False,1
+graph neural networks,c16,2018,2019,False,-1
+graph neural networks,c18,2022,2019,False,3
+graph neural networks,c19,2021,2019,False,2
+graph neural networks,c20,2025,2019,False,6
+graph representation learning,c11,2024,2021,False,3
+graph representation learning,c13,2026,2021,False,5
+graph representation learning,c15,2023,2021,False,2
+graph representation learning,c16,2020,2021,False,-1
+hierarchical reinforcement learning,c04,2019,2020,False,-1
+hierarchical reinforcement learning,c05,2026,2020,False,6
+hierarchical reinforcement learning,c13,2020,2020,False,0
+image classification,c03,2018,2018,True,0
+image classification,c05,2023,2018,True,5
+image classification,c06,2019,2018,True,1
+image classification,c07,2021,2018,True,3
+image classification,c08,2024,2018,True,6
+image classification,c09,2018,2018,True,0
+image classification,c10,2021,2018,True,3
+image classification,c12,2018,2018,True,0
+image classification,c14,2025,2018,True,7
+image classification,c15,2023,2018,True,5
+image classification,c19,2021,2018,True,3
+image classification,c20,2020,2018,True,2
+image editing,c03,2024,2024,False,0
+image editing,c10,2026,2024,False,2
+image editing,c12,2025,2024,False,1
+image editing,c14,2025,2024,False,1
+image editing,c17,2024,2024,False,0
+image generation,c03,2020,2020,False,0
+image generation,c06,2026,2020,False,6
+image generation,c09,2026,2020,False,6
+image generation,c10,2025,2020,False,5
+image generation,c12,2025,2020,False,5
+image generation,c13,2026,2020,False,6
+image generation,c14,2018,2020,False,-2
+image generation,c15,2026,2020,False,6
+image generation,c17,2023,2020,False,3
+image generation,c20,2026,2020,False,6
+imitation learning,c01,2024,2019,False,5
+imitation learning,c02,2022,2019,False,3
+imitation learning,c04,2018,2019,False,-1
+imitation learning,c05,2023,2019,False,4
+imitation learning,c11,2022,2019,False,3
+imitation learning,c13,2019,2019,False,0
+implicit neural representations,c03,2023,2023,False,0
+implicit neural representations,c07,2023,2023,False,0
+implicit neural representations,c09,2022,2023,False,-1
+implicit neural representations,c11,2025,2023,False,2
+implicit neural representations,c12,2026,2023,False,3
+implicit neural representations,c14,2026,2023,False,3
+implicit neural representations,c16,2026,2023,False,3
+implicit neural representations,c17,2025,2023,False,2
+implicit neural representations,c18,2024,2023,False,1
+implicit neural representations,c19,2024,2023,False,1
+implicit neural representations,c20,2025,2023,False,2
+in-context learning,c01,2023,2023,False,0
+in-context learning,c02,2023,2023,False,0
+in-context learning,c03,2026,2023,False,3
+in-context learning,c04,2024,2023,False,1
+in-context learning,c05,2024,2023,False,1
+in-context learning,c06,2025,2023,False,2
+in-context learning,c07,2025,2023,False,2
+in-context learning,c08,2024,2023,False,1
+in-context learning,c09,2025,2023,False,2
+in-context learning,c10,2024,2023,False,1
+in-context learning,c11,2025,2023,False,2
+in-context learning,c12,2026,2023,False,3
+in-context learning,c13,2026,2023,False,3
+in-context learning,c15,2025,2023,False,2
+in-context learning,c16,2026,2023,False,3
+in-context learning,c18,2026,2023,False,3
+in-context learning,c20,2026,2023,False,3
+information theory,c01,2021,2019,False,2
+information theory,c02,2026,2019,False,7
+information theory,c03,2023,2019,False,4
+information theory,c04,2021,2019,False,2
+information theory,c05,2019,2019,False,0
+information theory,c06,2021,2019,False,2
+information theory,c07,2019,2019,False,0
+information theory,c08,2026,2019,False,7
+information theory,c09,2019,2019,False,0
+information theory,c10,2024,2019,False,5
+information theory,c11,2025,2019,False,6
+information theory,c12,2020,2019,False,1
+information theory,c14,2018,2019,False,-1
+information theory,c16,2026,2019,False,7
+information theory,c17,2026,2019,False,7
+information theory,c18,2026,2019,False,7
+information theory,c19,2026,2019,False,7
+information theory,c20,2025,2019,False,6
+instruction tuning,c01,2024,2024,False,0
+instruction tuning,c02,2024,2024,False,0
+instruction tuning,c05,2025,2024,False,1
+instruction tuning,c08,2024,2024,False,0
+instruction tuning,c10,2024,2024,False,0
+instruction tuning,c15,2025,2024,False,1
+inverse problems,c03,2020,2020,False,0
+inverse problems,c07,2020,2020,False,0
+inverse problems,c11,2026,2020,False,6
+inverse problems,c14,2021,2020,False,1
+knowledge distillation,c01,2020,2019,False,1
+knowledge distillation,c02,2024,2019,False,5
+knowledge distillation,c03,2022,2019,False,3
+knowledge distillation,c04,2025,2019,False,6
+knowledge distillation,c05,2022,2019,False,3
+knowledge distillation,c06,2019,2019,False,0
+knowledge distillation,c07,2026,2019,False,7
+knowledge distillation,c08,2020,2019,False,1
+knowledge distillation,c09,2019,2019,False,0
+knowledge distillation,c10,2022,2019,False,3
+knowledge distillation,c11,2024,2019,False,5
+knowledge distillation,c12,2023,2019,False,4
+knowledge distillation,c13,2025,2019,False,6
+knowledge distillation,c14,2023,2019,False,4
+knowledge distillation,c15,2025,2019,False,6
+knowledge distillation,c16,2023,2019,False,4
+knowledge distillation,c17,2026,2019,False,7
+knowledge distillation,c18,2026,2019,False,7
+knowledge distillation,c20,2024,2019,False,5
+knowledge graph,c01,2021,2020,False,1
+knowledge graph,c02,2024,2020,False,4
+knowledge graph,c05,2025,2020,False,5
+knowledge graph,c11,2023,2020,False,3
+knowledge graph,c15,2019,2020,False,-1
+knowledge graph,c16,2023,2020,False,3
+language modeling,c01,2019,2019,False,0
+language modeling,c02,2022,2019,False,3
+language modeling,c06,2022,2019,False,3
+language modeling,c08,2018,2019,False,-1
+language modeling,c09,2020,2019,False,1
+language modeling,c11,2022,2019,False,3
+language modeling,c14,2025,2019,False,6
+language modeling,c20,2026,2019,False,7
+language models,c01,2018,2019,False,-1
+language models,c02,2022,2019,False,3
+language models,c04,2024,2019,False,5
+language models,c05,2022,2019,False,3
+language models,c06,2025,2019,False,6
+language models,c08,2019,2019,False,0
+language models,c09,2025,2019,False,6
+language models,c10,2023,2019,False,4
+language models,c11,2024,2019,False,5
+language models,c12,2025,2019,False,6
+language models,c13,2024,2019,False,5
+language models,c14,2026,2019,False,7
+language models,c15,2022,2019,False,3
+language models,c16,2025,2019,False,6
+language models,c17,2023,2019,False,4
+language models,c18,2026,2019,False,7
+language models,c20,2026,2019,False,7
+large language models,c01,2022,2023,False,-1
+large language models,c02,2023,2023,False,0
+large language models,c03,2024,2023,False,1
+large language models,c04,2024,2023,False,1
+large language models,c05,2024,2023,False,1
+large language models,c06,2025,2023,False,2
+large language models,c07,2025,2023,False,2
+large language models,c08,2024,2023,False,1
+large language models,c09,2024,2023,False,1
+large language models,c10,2023,2023,False,0
+large language models,c11,2024,2023,False,1
+large language models,c12,2024,2023,False,1
+large language models,c13,2024,2023,False,1
+large language models,c14,2026,2023,False,3
+large language models,c15,2024,2023,False,1
+large language models,c16,2024,2023,False,1
+large language models,c17,2024,2023,False,1
+large language models,c18,2024,2023,False,1
+large language models,c19,2026,2023,False,3
+large language models,c20,2025,2023,False,2
+large multimodal models,c01,2025,2025,False,0
+large multimodal models,c02,2025,2025,False,0
+large multimodal models,c03,2025,2025,False,0
+large multimodal models,c08,2026,2025,False,1
+large multimodal models,c10,2024,2025,False,-1
+large multimodal models,c13,2026,2025,False,1
+large multimodal models,c15,2025,2025,False,0
+large multimodal models,c17,2025,2025,False,0
+large vision-language models,c01,2025,2025,False,0
+large vision-language models,c10,2024,2025,False,-1
+large vision-language models,c12,2025,2025,False,0
+large vision-language models,c13,2026,2025,False,1
+large vision-language models,c15,2025,2025,False,0
+large vision-language models,c17,2026,2025,False,1
+learning theory,c01,2024,2020,False,4
+learning theory,c02,2025,2020,False,5
+learning theory,c03,2026,2020,False,6
+learning theory,c04,2022,2020,False,2
+learning theory,c05,2022,2020,False,2
+learning theory,c06,2021,2020,False,1
+learning theory,c07,2019,2020,False,-1
+learning theory,c08,2026,2020,False,6
+learning theory,c09,2019,2020,False,-1
+learning theory,c10,2025,2020,False,5
+learning theory,c12,2022,2020,False,2
+learning theory,c14,2025,2020,False,5
+learning theory,c16,2024,2020,False,4
+learning theory,c18,2026,2020,False,6
+learning theory,c19,2023,2020,False,3
+lifelong learning,c01,2020,2019,False,1
+lifelong learning,c02,2025,2019,False,6
+lifelong learning,c04,2022,2019,False,3
+lifelong learning,c05,2026,2019,False,7
+lifelong learning,c06,2018,2019,False,-1
+lifelong learning,c10,2024,2019,False,5
+lifelong learning,c13,2026,2019,False,7
+llm agent,c01,2025,2025,False,0
+llm agent,c02,2025,2025,False,0
+llm agent,c04,2025,2025,False,0
+llm agent,c11,2026,2025,False,1
+llm agent,c13,2025,2025,False,0
+llm reasoning,c01,2026,2026,False,0
+llm reasoning,c02,2025,2026,False,-1
+long context,c01,2024,2024,False,0
+long context,c02,2026,2024,False,2
+long context,c08,2024,2024,False,0
+long context,c10,2026,2024,False,2
+low-rank adaptation,c01,2025,2024,False,1
+low-rank adaptation,c02,2026,2024,False,2
+low-rank adaptation,c03,2025,2024,False,1
+low-rank adaptation,c05,2025,2024,False,1
+low-rank adaptation,c06,2025,2024,False,1
+low-rank adaptation,c07,2025,2024,False,1
+low-rank adaptation,c08,2024,2024,False,0
+low-rank adaptation,c10,2025,2024,False,1
+low-rank adaptation,c12,2026,2024,False,2
+low-rank adaptation,c17,2024,2024,False,0
+machine translation,c01,2018,2019,False,-1
+machine translation,c02,2024,2019,False,5
+machine translation,c08,2018,2019,False,-1
+machine translation,c09,2026,2019,False,7
+machine unlearning,c01,2025,2023,False,2
+machine unlearning,c05,2023,2023,False,0
+machine unlearning,c06,2024,2023,False,1
+machine unlearning,c08,2026,2023,False,3
+machine unlearning,c10,2026,2023,False,3
+machine unlearning,c12,2024,2023,False,1
+machine unlearning,c14,2025,2023,False,2
+machine unlearning,c16,2025,2023,False,2
+machine unlearning,c17,2026,2023,False,3
+mechanistic interpretability,c01,2024,2024,False,0
+mechanistic interpretability,c02,2024,2024,False,0
+mechanistic interpretability,c04,2025,2024,False,1
+mechanistic interpretability,c08,2025,2024,False,1
+mechanistic interpretability,c09,2025,2024,False,1
+mechanistic interpretability,c10,2026,2024,False,2
+mechanistic interpretability,c11,2025,2024,False,1
+mechanistic interpretability,c14,2026,2024,False,2
+mechanistic interpretability,c15,2025,2024,False,1
+mechanistic interpretability,c19,2026,2024,False,2
+mechanistic interpretability,c20,2024,2024,False,0
+meta-learning,c01,2022,2018,True,4
+meta-learning,c02,2023,2018,True,5
+meta-learning,c03,2021,2018,True,3
+meta-learning,c04,2018,2018,True,0
+meta-learning,c05,2020,2018,True,2
+meta-learning,c06,2018,2018,True,0
+meta-learning,c07,2019,2018,True,1
+meta-learning,c08,2021,2018,True,3
+meta-learning,c09,2018,2018,True,0
+meta-learning,c10,2019,2018,True,1
+meta-learning,c11,2020,2018,True,2
+meta-learning,c12,2021,2018,True,3
+meta-learning,c13,2021,2018,True,3
+meta-learning,c14,2021,2018,True,3
+meta-learning,c15,2022,2018,True,4
+meta-learning,c16,2020,2018,True,2
+meta-learning,c17,2025,2018,True,7
+meta-learning,c18,2022,2018,True,4
+meta-learning,c19,2021,2018,True,3
+meta-learning,c20,2020,2018,True,2
+mixture-of-experts,c01,2024,2023,False,1
+mixture-of-experts,c02,2025,2023,False,2
+mixture-of-experts,c03,2024,2023,False,1
+mixture-of-experts,c04,2025,2023,False,2
+mixture-of-experts,c05,2024,2023,False,1
+mixture-of-experts,c06,2024,2023,False,1
+mixture-of-experts,c07,2025,2023,False,2
+mixture-of-experts,c08,2023,2023,False,0
+mixture-of-experts,c09,2025,2023,False,2
+mixture-of-experts,c10,2024,2023,False,1
+mixture-of-experts,c11,2026,2023,False,3
+mixture-of-experts,c13,2026,2023,False,3
+mixture-of-experts,c14,2026,2023,False,3
+mixture-of-experts,c15,2025,2023,False,2
+mixture-of-experts,c16,2024,2023,False,1
+mixture-of-experts,c17,2026,2023,False,3
+mixture-of-experts,c18,2025,2023,False,2
+mixture-of-experts,c20,2025,2023,False,2
+model compression,c01,2022,2018,True,4
+model compression,c02,2026,2018,True,8
+model compression,c03,2023,2018,True,5
+model compression,c05,2024,2018,True,6
+model compression,c06,2021,2018,True,3
+model compression,c07,2026,2018,True,8
+model compression,c08,2020,2018,True,2
+model compression,c09,2018,2018,True,0
+model compression,c10,2026,2018,True,8
+model compression,c14,2023,2018,True,5
+model compression,c17,2026,2018,True,8
+model merging,c01,2025,2025,False,0
+model merging,c02,2026,2025,False,1
+model merging,c03,2025,2025,False,0
+model merging,c06,2025,2025,False,0
+model merging,c08,2025,2025,False,0
+model merging,c09,2025,2025,False,0
+model merging,c10,2025,2025,False,0
+model merging,c12,2026,2025,False,1
+model-based reinforcement learning,c04,2018,2019,False,-1
+model-based reinforcement learning,c13,2020,2019,False,1
+multi-agent,c01,2025,2019,False,6
+multi-agent,c02,2023,2019,False,4
+multi-agent,c04,2019,2019,False,0
+multi-agent,c07,2025,2019,False,6
+multi-agent,c13,2024,2019,False,5
+multi-agent,c17,2026,2019,False,7
+multi-agent reinforcement learning,c02,2022,2019,False,3
+multi-agent reinforcement learning,c04,2019,2019,False,0
+multi-agent reinforcement learning,c05,2023,2019,False,4
+multi-agent reinforcement learning,c13,2025,2019,False,6
+multi-agent systems,c01,2026,2021,False,5
+multi-agent systems,c02,2024,2021,False,3
+multi-agent systems,c04,2018,2021,False,-3
+multi-agent systems,c05,2026,2021,False,5
+multi-agent systems,c11,2026,2021,False,5
+multi-agent systems,c13,2026,2021,False,5
+multi-agent systems,c17,2026,2021,False,5
+multi-objective optimization,c01,2025,2022,False,3
+multi-objective optimization,c02,2025,2022,False,3
+multi-objective optimization,c04,2021,2022,False,-1
+multi-objective optimization,c05,2022,2022,False,0
+multi-objective optimization,c06,2025,2022,False,3
+multi-objective optimization,c07,2024,2022,False,2
+multi-objective optimization,c08,2026,2022,False,4
+multi-objective optimization,c09,2023,2022,False,1
+multi-objective optimization,c11,2025,2022,False,3
+multi-task learning,c01,2019,2018,True,1
+multi-task learning,c02,2025,2018,True,7
+multi-task learning,c03,2021,2018,True,3
+multi-task learning,c04,2020,2018,True,2
+multi-task learning,c05,2021,2018,True,3
+multi-task learning,c06,2018,2018,True,0
+multi-task learning,c07,2022,2018,True,4
+multi-task learning,c08,2021,2018,True,3
+multi-task learning,c10,2018,2018,True,0
+multi-task learning,c11,2024,2018,True,6
+multi-task learning,c13,2021,2018,True,3
+multi-task learning,c15,2026,2018,True,8
+multi-task learning,c16,2023,2018,True,5
+multi-task learning,c18,2022,2018,True,4
+multi-task learning,c20,2021,2018,True,3
+multimodal,c01,2025,2021,False,4
+multimodal,c02,2025,2021,False,4
+multimodal,c03,2023,2021,False,2
+multimodal,c05,2026,2021,False,5
+multimodal,c06,2025,2021,False,4
+multimodal,c08,2024,2021,False,3
+multimodal,c10,2020,2021,False,-1
+multimodal,c11,2025,2021,False,4
+multimodal,c12,2025,2021,False,4
+multimodal,c13,2025,2021,False,4
+multimodal,c14,2021,2021,False,0
+multimodal,c15,2023,2021,False,2
+multimodal,c17,2024,2021,False,3
+multimodal,c18,2025,2021,False,4
+multimodal,c20,2024,2021,False,3
+multimodal large language models,c01,2025,2024,False,1
+multimodal large language models,c02,2025,2024,False,1
+multimodal large language models,c03,2025,2024,False,1
+multimodal large language models,c05,2026,2024,False,2
+multimodal large language models,c08,2025,2024,False,1
+multimodal large language models,c10,2024,2024,False,0
+multimodal large language models,c11,2025,2024,False,1
+multimodal large language models,c12,2026,2024,False,2
+multimodal large language models,c13,2025,2024,False,1
+multimodal large language models,c15,2024,2024,False,0
+multimodal large language models,c17,2025,2024,False,1
+multimodal large language models,c18,2026,2024,False,2
+multimodal large language models,c20,2026,2024,False,2
+multimodal learning,c01,2025,2017,True,8
+multimodal learning,c02,2024,2017,True,7
+multimodal learning,c03,2025,2017,True,8
+multimodal learning,c05,2024,2017,True,7
+multimodal learning,c06,2025,2017,True,8
+multimodal learning,c08,2023,2017,True,6
+multimodal learning,c09,2026,2017,True,9
+multimodal learning,c10,2017,2017,True,0
+multimodal learning,c11,2024,2017,True,7
+multimodal learning,c12,2026,2017,True,9
+multimodal learning,c13,2024,2017,True,7
+multimodal learning,c14,2022,2017,True,5
+multimodal learning,c15,2023,2017,True,6
+multimodal learning,c17,2023,2017,True,6
+multimodal learning,c18,2024,2017,True,7
+multimodal learning,c20,2025,2017,True,8
+multimodality,c01,2026,2024,False,2
+multimodality,c02,2026,2024,False,2
+multimodality,c03,2024,2024,False,0
+multimodality,c04,2026,2024,False,2
+multimodality,c08,2026,2024,False,2
+multimodality,c10,2023,2024,False,-1
+multimodality,c11,2026,2024,False,2
+multimodality,c12,2026,2024,False,2
+multimodality,c13,2025,2024,False,1
+multimodality,c15,2025,2024,False,1
+multimodality,c17,2024,2024,False,0
+multimodality,c18,2026,2024,False,2
+multimodality,c20,2026,2024,False,2
+mutual information,c01,2025,2020,False,5
+mutual information,c02,2026,2020,False,6
+mutual information,c03,2026,2020,False,6
+mutual information,c04,2020,2020,False,0
+mutual information,c05,2024,2020,False,4
+mutual information,c06,2021,2020,False,1
+mutual information,c07,2024,2020,False,4
+mutual information,c08,2025,2020,False,5
+mutual information,c09,2023,2020,False,3
+mutual information,c11,2025,2020,False,5
+mutual information,c12,2026,2020,False,6
+mutual information,c14,2020,2020,False,0
+mutual information,c16,2021,2020,False,1
+mutual information,c19,2020,2020,False,0
+mutual information,c20,2021,2020,False,1
+natural language processing,c01,2017,2017,True,0
+natural language processing,c02,2017,2017,True,0
+natural language processing,c05,2022,2017,True,5
+natural language processing,c06,2019,2017,True,2
+natural language processing,c07,2025,2017,True,8
+natural language processing,c08,2017,2017,True,0
+natural language processing,c09,2018,2017,True,1
+natural language processing,c10,2021,2017,True,4
+natural language processing,c11,2021,2017,True,4
+natural language processing,c12,2023,2017,True,6
+natural language processing,c13,2021,2017,True,4
+natural language processing,c14,2020,2017,True,3
+natural language processing,c15,2017,2017,True,0
+natural language processing,c16,2026,2017,True,9
+natural language processing,c17,2021,2017,True,4
+natural language processing,c18,2024,2017,True,7
+natural language processing,c19,2021,2017,True,4
+natural language processing,c20,2025,2017,True,8
+neural architecture search,c03,2021,2019,False,2
+neural architecture search,c06,2020,2019,False,1
+neural architecture search,c08,2023,2019,False,4
+neural architecture search,c09,2019,2019,False,0
+neural architecture search,c10,2026,2019,False,7
+neural architecture search,c12,2024,2019,False,5
+neural architecture search,c16,2023,2019,False,4
+neural architecture search,c19,2026,2019,False,7
+neural architecture search,c20,2024,2019,False,5
+neural tangent kernel,c03,2025,2020,False,5
+neural tangent kernel,c04,2024,2020,False,4
+neural tangent kernel,c05,2023,2020,False,3
+neural tangent kernel,c06,2021,2020,False,1
+neural tangent kernel,c07,2023,2020,False,3
+neural tangent kernel,c08,2025,2020,False,5
+neural tangent kernel,c09,2020,2020,False,0
+neural tangent kernel,c12,2024,2020,False,4
+neural tangent kernel,c16,2026,2020,False,6
+neural tangent kernel,c19,2022,2020,False,2
+non-convex optimization,c03,2026,2019,False,7
+non-convex optimization,c04,2025,2019,False,6
+non-convex optimization,c05,2022,2019,False,3
+non-convex optimization,c07,2019,2019,False,0
+non-convex optimization,c09,2018,2019,False,-1
+non-convex optimization,c14,2022,2019,False,3
+non-convex optimization,c19,2024,2019,False,5
+normalizing flows,c04,2023,2020,False,3
+normalizing flows,c06,2025,2020,False,5
+normalizing flows,c07,2021,2020,False,1
+normalizing flows,c09,2021,2020,False,1
+normalizing flows,c11,2021,2020,False,1
+normalizing flows,c14,2020,2020,False,0
+normalizing flows,c18,2022,2020,False,2
+normalizing flows,c19,2025,2020,False,5
+novel view synthesis,c03,2023,2024,False,-1
+novel view synthesis,c17,2025,2024,False,1
+object detection,c03,2019,2019,False,0
+object detection,c06,2022,2019,False,3
+object detection,c09,2026,2019,False,7
+object detection,c10,2022,2019,False,3
+object detection,c12,2020,2019,False,1
+object detection,c13,2021,2019,False,2
+object detection,c15,2019,2019,False,0
+object detection,c17,2026,2019,False,7
+object detection,c20,2024,2019,False,5
+offline reinforcement learning,c01,2025,2021,False,4
+offline reinforcement learning,c02,2025,2021,False,4
+offline reinforcement learning,c04,2021,2021,False,0
+offline reinforcement learning,c05,2023,2021,False,2
+offline reinforcement learning,c11,2025,2021,False,4
+offline reinforcement learning,c13,2023,2021,False,2
+offline reinforcement learning,c14,2026,2021,False,5
+online learning,c02,2026,2020,False,6
+online learning,c04,2020,2020,False,0
+online learning,c05,2021,2020,False,1
+online learning,c06,2022,2020,False,2
+online learning,c07,2021,2020,False,1
+online learning,c08,2025,2020,False,5
+online learning,c09,2026,2020,False,6
+online learning,c10,2026,2020,False,6
+online learning,c12,2025,2020,False,5
+online learning,c16,2025,2020,False,5
+online learning,c18,2023,2020,False,3
+online learning,c19,2021,2020,False,1
+online learning,c20,2025,2020,False,5
+optimal transport,c01,2022,2019,False,3
+optimal transport,c03,2023,2019,False,4
+optimal transport,c04,2021,2019,False,2
+optimal transport,c05,2022,2019,False,3
+optimal transport,c06,2020,2019,False,1
+optimal transport,c07,2020,2019,False,1
+optimal transport,c08,2025,2019,False,6
+optimal transport,c09,2022,2019,False,3
+optimal transport,c10,2024,2019,False,5
+optimal transport,c11,2023,2019,False,4
+optimal transport,c12,2023,2019,False,4
+optimal transport,c13,2022,2019,False,3
+optimal transport,c14,2019,2019,False,0
+optimal transport,c15,2026,2019,False,7
+optimal transport,c16,2022,2019,False,3
+optimal transport,c17,2026,2019,False,7
+optimal transport,c19,2021,2019,False,2
+optimal transport,c20,2026,2019,False,7
+optimization,c01,2026,2017,True,9
+optimization,c02,2024,2017,True,7
+optimization,c03,2021,2017,True,4
+optimization,c04,2017,2017,True,0
+optimization,c05,2019,2017,True,2
+optimization,c06,2017,2017,True,0
+optimization,c07,2017,2017,True,0
+optimization,c08,2019,2017,True,2
+optimization,c09,2017,2017,True,0
+optimization,c10,2024,2017,True,7
+optimization,c11,2023,2017,True,6
+optimization,c12,2019,2017,True,2
+optimization,c14,2017,2017,True,0
+optimization,c16,2023,2017,True,6
+optimization,c18,2026,2017,True,9
+optimization,c19,2019,2017,True,2
+optimization,c20,2026,2017,True,9
+out-of-distribution detection,c01,2026,2020,False,6
+out-of-distribution detection,c03,2025,2020,False,5
+out-of-distribution detection,c04,2025,2020,False,5
+out-of-distribution detection,c06,2019,2020,False,-1
+out-of-distribution detection,c07,2020,2020,False,0
+out-of-distribution detection,c10,2025,2020,False,5
+out-of-distribution detection,c12,2022,2020,False,2
+out-of-distribution detection,c14,2020,2020,False,0
+out-of-distribution detection,c16,2024,2020,False,4
+parameter-efficient fine-tuning,c01,2025,2024,False,1
+parameter-efficient fine-tuning,c02,2025,2024,False,1
+parameter-efficient fine-tuning,c03,2026,2024,False,2
+parameter-efficient fine-tuning,c05,2025,2024,False,1
+parameter-efficient fine-tuning,c06,2024,2024,False,0
+parameter-efficient fine-tuning,c07,2025,2024,False,1
+parameter-efficient fine-tuning,c08,2024,2024,False,0
+parameter-efficient fine-tuning,c09,2026,2024,False,2
+parameter-efficient fine-tuning,c10,2024,2024,False,0
+parameter-efficient fine-tuning,c11,2026,2024,False,2
+parameter-efficient fine-tuning,c17,2025,2024,False,1
+planning,c01,2025,2020,False,5
+planning,c02,2024,2020,False,4
+planning,c04,2018,2020,False,-2
+planning,c05,2022,2020,False,2
+planning,c13,2020,2020,False,0
+policy gradient,c01,2020,2018,True,2
+policy gradient,c02,2023,2018,True,5
+policy gradient,c04,2018,2018,True,0
+policy gradient,c05,2024,2018,True,6
+policy gradient,c07,2025,2018,True,7
+post-training,c01,2025,2025,False,0
+post-training,c02,2025,2025,False,0
+post-training,c04,2026,2025,False,1
+post-training,c08,2025,2025,False,0
+post-training,c09,2026,2025,False,1
+post-training,c10,2026,2025,False,1
+post-training,c15,2026,2025,False,1
+pre-training,c01,2020,2020,False,0
+pre-training,c02,2021,2020,False,1
+pre-training,c03,2022,2020,False,2
+pre-training,c04,2023,2020,False,3
+pre-training,c05,2023,2020,False,3
+pre-training,c06,2021,2020,False,1
+pre-training,c07,2024,2020,False,4
+pre-training,c08,2021,2020,False,1
+pre-training,c09,2025,2020,False,5
+pre-training,c10,2022,2020,False,2
+pre-training,c11,2022,2020,False,2
+pre-training,c13,2024,2020,False,4
+pre-training,c15,2022,2020,False,2
+pre-training,c16,2025,2020,False,5
+pre-training,c17,2025,2020,False,5
+pre-training,c18,2024,2020,False,4
+pre-training,c20,2024,2020,False,4
+pruning,c01,2025,2019,False,6
+pruning,c02,2026,2019,False,7
+pruning,c03,2023,2019,False,4
+pruning,c05,2025,2019,False,6
+pruning,c06,2023,2019,False,4
+pruning,c07,2025,2019,False,6
+pruning,c08,2022,2019,False,3
+pruning,c09,2018,2019,False,-1
+pruning,c14,2026,2019,False,7
+pruning,c16,2024,2019,False,5
+pruning,c19,2024,2019,False,5
+pruning,c20,2025,2019,False,6
+quantization,c02,2026,2019,False,7
+quantization,c03,2023,2019,False,4
+quantization,c04,2023,2019,False,4
+quantization,c05,2023,2019,False,4
+quantization,c06,2025,2019,False,6
+quantization,c07,2021,2019,False,2
+quantization,c08,2023,2019,False,4
+quantization,c09,2018,2019,False,-1
+quantization,c10,2026,2019,False,7
+quantization,c14,2025,2019,False,6
+quantization,c16,2023,2019,False,4
+quantization,c19,2026,2019,False,7
+quantization,c20,2025,2019,False,6
+question answering,c01,2018,2018,True,0
+question answering,c02,2023,2018,True,5
+question answering,c08,2021,2018,True,3
+question answering,c15,2020,2018,True,2
+rag,c01,2025,2025,False,0
+rag,c02,2025,2025,False,0
+rag,c08,2026,2025,False,1
+rag,c10,2026,2025,False,1
+rag,c15,2026,2025,False,1
+rag,c17,2026,2025,False,1
+reasoning,c01,2022,2020,False,2
+reasoning,c02,2021,2020,False,1
+reasoning,c04,2025,2020,False,5
+reasoning,c08,2026,2020,False,6
+reasoning,c10,2025,2020,False,5
+reasoning,c11,2026,2020,False,6
+reasoning,c13,2026,2020,False,6
+reasoning,c15,2019,2020,False,-1
+reasoning,c18,2026,2020,False,6
+recurrent neural networks,c01,2019,2018,True,1
+recurrent neural networks,c02,2019,2018,True,1
+recurrent neural networks,c03,2026,2018,True,8
+recurrent neural networks,c04,2020,2018,True,2
+recurrent neural networks,c05,2021,2018,True,3
+recurrent neural networks,c06,2021,2018,True,3
+recurrent neural networks,c07,2018,2018,True,0
+recurrent neural networks,c08,2018,2018,True,0
+recurrent neural networks,c09,2018,2018,True,0
+recurrent neural networks,c13,2023,2018,True,5
+recurrent neural networks,c18,2019,2018,True,1
+recurrent neural networks,c20,2018,2018,True,0
+regression,c02,2026,2020,False,6
+regression,c03,2023,2020,False,3
+regression,c05,2021,2020,False,1
+regression,c06,2021,2020,False,1
+regression,c07,2020,2020,False,0
+regression,c09,2022,2020,False,2
+regression,c11,2025,2020,False,5
+regression,c18,2021,2020,False,1
+regression,c19,2021,2020,False,1
+regularization,c03,2023,2018,True,5
+regularization,c04,2020,2018,True,2
+regularization,c05,2022,2018,True,4
+regularization,c06,2019,2018,True,1
+regularization,c07,2019,2018,True,1
+regularization,c08,2020,2018,True,2
+regularization,c09,2018,2018,True,0
+regularization,c11,2022,2018,True,4
+regularization,c12,2019,2018,True,1
+regularization,c14,2020,2018,True,2
+regularization,c15,2021,2018,True,3
+regularization,c16,2023,2018,True,5
+regularization,c18,2026,2018,True,8
+regularization,c19,2020,2018,True,2
+regularization,c20,2025,2018,True,7
+reinforcement learning,c01,2017,2017,True,0
+reinforcement learning,c02,2018,2017,True,1
+reinforcement learning,c03,2020,2017,True,3
+reinforcement learning,c04,2017,2017,True,0
+reinforcement learning,c05,2019,2017,True,2
+reinforcement learning,c06,2019,2017,True,2
+reinforcement learning,c07,2018,2017,True,1
+reinforcement learning,c08,2021,2017,True,4
+reinforcement learning,c09,2018,2017,True,1
+reinforcement learning,c10,2025,2017,True,8
+reinforcement learning,c11,2018,2017,True,1
+reinforcement learning,c12,2021,2017,True,4
+reinforcement learning,c13,2017,2017,True,0
+reinforcement learning,c14,2024,2017,True,7
+reinforcement learning,c15,2018,2017,True,1
+reinforcement learning,c16,2021,2017,True,4
+reinforcement learning,c17,2024,2017,True,7
+reinforcement learning,c18,2023,2017,True,6
+reinforcement learning,c20,2020,2017,True,3
+representation learning,c01,2018,2018,True,0
+representation learning,c02,2019,2018,True,1
+representation learning,c03,2019,2018,True,1
+representation learning,c04,2019,2018,True,1
+representation learning,c05,2020,2018,True,2
+representation learning,c06,2019,2018,True,1
+representation learning,c07,2020,2018,True,2
+representation learning,c08,2021,2018,True,3
+representation learning,c09,2019,2018,True,1
+representation learning,c10,2020,2018,True,2
+representation learning,c11,2020,2018,True,2
+representation learning,c12,2021,2018,True,3
+representation learning,c13,2020,2018,True,2
+representation learning,c14,2018,2018,True,0
+representation learning,c15,2019,2018,True,1
+representation learning,c16,2019,2018,True,1
+representation learning,c17,2023,2018,True,5
+representation learning,c18,2020,2018,True,2
+representation learning,c19,2018,2018,True,0
+representation learning,c20,2021,2018,True,3
+retrieval-augmented generation,c01,2023,2025,False,-2
+retrieval-augmented generation,c02,2025,2025,False,0
+retrieval-augmented generation,c03,2026,2025,False,1
+retrieval-augmented generation,c05,2026,2025,False,1
+retrieval-augmented generation,c08,2026,2025,False,1
+retrieval-augmented generation,c10,2025,2025,False,0
+retrieval-augmented generation,c11,2026,2025,False,1
+retrieval-augmented generation,c13,2026,2025,False,1
+retrieval-augmented generation,c15,2025,2025,False,0
+retrieval-augmented generation,c17,2026,2025,False,1
+retrieval-augmented generation,c18,2026,2025,False,1
+retrieval-augmented generation,c19,2026,2025,False,1
+rlhf,c01,2024,2024,False,0
+rlhf,c02,2024,2024,False,0
+rlhf,c04,2024,2024,False,0
+rlhf,c05,2026,2024,False,2
+rlhf,c10,2026,2024,False,2
+rlhf,c14,2025,2024,False,1
+rlhf,c17,2025,2024,False,1
+sampling,c01,2024,2021,False,3
+sampling,c02,2025,2021,False,4
+sampling,c03,2025,2021,False,4
+sampling,c04,2022,2021,False,1
+sampling,c05,2025,2021,False,4
+sampling,c07,2021,2021,False,0
+sampling,c08,2025,2021,False,4
+sampling,c09,2026,2021,False,5
+sampling,c11,2025,2021,False,4
+sampling,c14,2021,2021,False,0
+sampling,c16,2022,2021,False,1
+sampling,c19,2025,2021,False,4
+self-attention,c01,2022,2019,False,3
+self-attention,c02,2023,2019,False,4
+self-attention,c03,2020,2019,False,1
+self-attention,c06,2025,2019,False,6
+self-attention,c07,2026,2019,False,7
+self-attention,c08,2020,2019,False,1
+self-attention,c09,2023,2019,False,4
+self-attention,c10,2022,2019,False,3
+self-attention,c15,2021,2019,False,2
+self-attention,c16,2020,2019,False,1
+self-attention,c17,2026,2019,False,7
+self-attention,c18,2026,2019,False,7
+self-attention,c19,2025,2019,False,6
+self-attention,c20,2023,2019,False,4
+self-supervised learning,c01,2021,2020,False,1
+self-supervised learning,c02,2022,2020,False,2
+self-supervised learning,c03,2020,2020,False,0
+self-supervised learning,c04,2021,2020,False,1
+self-supervised learning,c05,2021,2020,False,1
+self-supervised learning,c06,2021,2020,False,1
+self-supervised learning,c07,2026,2020,False,6
+self-supervised learning,c08,2020,2020,False,0
+self-supervised learning,c09,2023,2020,False,3
+self-supervised learning,c10,2020,2020,False,0
+self-supervised learning,c11,2022,2020,False,2
+self-supervised learning,c12,2023,2020,False,3
+self-supervised learning,c13,2020,2020,False,0
+self-supervised learning,c14,2021,2020,False,1
+self-supervised learning,c15,2020,2020,False,0
+self-supervised learning,c16,2022,2020,False,2
+self-supervised learning,c17,2023,2020,False,3
+self-supervised learning,c18,2022,2020,False,2
+self-supervised learning,c19,2021,2020,False,1
+self-supervised learning,c20,2024,2020,False,4
+semantic segmentation,c03,2019,2019,False,0
+semantic segmentation,c06,2021,2019,False,2
+semantic segmentation,c10,2025,2019,False,6
+semantic segmentation,c12,2024,2019,False,5
+semantic segmentation,c13,2025,2019,False,6
+semi-supervised learning,c01,2017,2017,True,0
+semi-supervised learning,c02,2023,2017,True,6
+semi-supervised learning,c03,2020,2017,True,3
+semi-supervised learning,c04,2023,2017,True,6
+semi-supervised learning,c05,2023,2017,True,6
+semi-supervised learning,c06,2018,2017,True,1
+semi-supervised learning,c07,2022,2017,True,5
+semi-supervised learning,c08,2023,2017,True,6
+semi-supervised learning,c10,2019,2017,True,2
+semi-supervised learning,c11,2026,2017,True,9
+semi-supervised learning,c12,2019,2017,True,2
+semi-supervised learning,c13,2021,2017,True,4
+semi-supervised learning,c14,2017,2017,True,0
+semi-supervised learning,c15,2021,2017,True,4
+semi-supervised learning,c16,2018,2017,True,1
+semi-supervised learning,c18,2021,2017,True,4
+semi-supervised learning,c19,2021,2017,True,4
+semi-supervised learning,c20,2026,2017,True,9
+sparse autoencoder,c01,2025,2025,False,0
+sparse autoencoder,c02,2026,2025,False,1
+sparse autoencoder,c03,2026,2025,False,1
+sparse autoencoder,c08,2025,2025,False,0
+sparse autoencoder,c09,2025,2025,False,0
+sparse autoencoder,c10,2026,2025,False,1
+sparse autoencoder,c11,2026,2025,False,1
+sparse autoencoder,c14,2026,2025,False,1
+sparse autoencoder,c15,2026,2025,False,1
+sparse autoencoder,c20,2025,2025,False,0
+spiking neural network,c03,2026,2021,False,5
+spiking neural network,c16,2025,2021,False,4
+spiking neural network,c20,2020,2021,False,-1
+stochastic gradient descent,c05,2022,2018,True,4
+stochastic gradient descent,c07,2018,2018,True,0
+stochastic gradient descent,c08,2026,2018,True,8
+stochastic gradient descent,c09,2019,2018,True,1
+stochastic gradient descent,c19,2020,2018,True,2
+stochastic optimization,c05,2020,2020,False,0
+stochastic optimization,c07,2019,2020,False,-1
+supervised learning,c01,2017,2017,True,0
+supervised learning,c02,2025,2017,True,8
+supervised learning,c03,2025,2017,True,8
+supervised learning,c04,2024,2017,True,7
+supervised learning,c05,2020,2017,True,3
+supervised learning,c06,2017,2017,True,0
+supervised learning,c07,2017,2017,True,0
+supervised learning,c08,2017,2017,True,0
+supervised learning,c09,2017,2017,True,0
+supervised learning,c10,2017,2017,True,0
+supervised learning,c11,2026,2017,True,9
+supervised learning,c12,2017,2017,True,0
+supervised learning,c14,2017,2017,True,0
+supervised learning,c15,2017,2017,True,0
+supervised learning,c16,2023,2017,True,6
+supervised learning,c18,2020,2017,True,3
+supervised learning,c19,2017,2017,True,0
+supervised learning,c20,2024,2017,True,7
+synthetic data,c01,2025,2023,False,2
+synthetic data,c02,2024,2023,False,1
+synthetic data,c03,2024,2023,False,1
+synthetic data,c04,2026,2023,False,3
+synthetic data,c05,2021,2023,False,-2
+synthetic data,c06,2025,2023,False,2
+synthetic data,c08,2025,2023,False,2
+synthetic data,c10,2025,2023,False,2
+synthetic data,c11,2024,2023,False,1
+synthetic data,c14,2024,2023,False,1
+synthetic data,c15,2025,2023,False,2
+synthetic data,c17,2024,2023,False,1
+synthetic data,c18,2025,2023,False,2
+tabular data,c01,2023,2021,False,2
+tabular data,c02,2025,2021,False,4
+tabular data,c05,2021,2021,False,0
+tabular data,c06,2022,2021,False,1
+tabular data,c10,2026,2021,False,5
+tabular data,c11,2024,2021,False,3
+tabular data,c12,2026,2021,False,5
+tabular data,c14,2023,2021,False,2
+tabular data,c15,2020,2021,False,-1
+tabular data,c16,2026,2021,False,5
+tabular data,c17,2025,2021,False,4
+tabular data,c19,2025,2021,False,4
+test-time adaptation,c02,2026,2023,False,3
+test-time adaptation,c03,2024,2023,False,1
+test-time adaptation,c04,2026,2023,False,3
+test-time adaptation,c05,2026,2023,False,3
+test-time adaptation,c06,2022,2023,False,-1
+test-time adaptation,c07,2026,2023,False,3
+test-time adaptation,c08,2025,2023,False,2
+test-time adaptation,c10,2024,2023,False,1
+test-time adaptation,c12,2025,2023,False,2
+test-time adaptation,c13,2026,2023,False,3
+test-time scaling,c01,2026,2026,False,0
+test-time scaling,c02,2026,2026,False,0
+test-time scaling,c08,2026,2026,False,0
+test-time scaling,c14,2026,2026,False,0
+test-time scaling,c17,2026,2026,False,0
+text-to-image generation,c03,2026,2024,False,2
+text-to-image generation,c10,2026,2024,False,2
+text-to-image generation,c14,2025,2024,False,1
+text-to-image generation,c15,2025,2024,False,1
+text-to-image generation,c17,2023,2024,False,-1
+time series,c02,2026,2020,False,6
+time series,c05,2022,2020,False,2
+time series,c06,2024,2020,False,4
+time series,c07,2021,2020,False,1
+time series,c10,2025,2020,False,5
+time series,c11,2021,2020,False,1
+time series,c18,2019,2020,False,-1
+time series,c19,2024,2020,False,4
+time series,c20,2024,2020,False,4
+time series forecasting,c07,2025,2022,False,3
+time series forecasting,c16,2026,2022,False,4
+time series forecasting,c18,2020,2022,False,-2
+time series forecasting,c20,2025,2022,False,3
+transfer learning,c01,2017,2017,True,0
+transfer learning,c02,2021,2017,True,4
+transfer learning,c03,2021,2017,True,4
+transfer learning,c04,2018,2017,True,1
+transfer learning,c05,2020,2017,True,3
+transfer learning,c06,2017,2017,True,0
+transfer learning,c07,2021,2017,True,4
+transfer learning,c08,2021,2017,True,4
+transfer learning,c09,2018,2017,True,1
+transfer learning,c10,2019,2017,True,2
+transfer learning,c11,2019,2017,True,2
+transfer learning,c12,2022,2017,True,5
+transfer learning,c13,2020,2017,True,3
+transfer learning,c14,2023,2017,True,6
+transfer learning,c15,2024,2017,True,7
+transfer learning,c16,2020,2017,True,3
+transfer learning,c17,2023,2017,True,6
+transfer learning,c18,2021,2017,True,4
+transfer learning,c19,2024,2017,True,7
+transfer learning,c20,2019,2017,True,2
+transformer,c01,2020,2019,False,1
+transformer,c02,2020,2019,False,1
+transformer,c03,2021,2019,False,2
+transformer,c04,2022,2019,False,3
+transformer,c05,2022,2019,False,3
+transformer,c06,2022,2019,False,3
+transformer,c07,2021,2019,False,2
+transformer,c08,2019,2019,False,0
+transformer,c09,2021,2019,False,2
+transformer,c10,2022,2019,False,3
+transformer,c11,2021,2019,False,2
+transformer,c12,2023,2019,False,4
+transformer,c13,2022,2019,False,3
+transformer,c14,2023,2019,False,4
+transformer,c15,2020,2019,False,1
+transformer,c16,2022,2019,False,3
+transformer,c17,2021,2019,False,2
+transformer,c18,2022,2019,False,3
+transformer,c19,2023,2019,False,4
+transformer,c20,2022,2019,False,3
+unsupervised learning,c01,2017,2017,True,0
+unsupervised learning,c02,2022,2017,True,5
+unsupervised learning,c03,2019,2017,True,2
+unsupervised learning,c04,2017,2017,True,0
+unsupervised learning,c05,2020,2017,True,3
+unsupervised learning,c06,2017,2017,True,0
+unsupervised learning,c07,2017,2017,True,0
+unsupervised learning,c08,2017,2017,True,0
+unsupervised learning,c09,2017,2017,True,0
+unsupervised learning,c10,2021,2017,True,4
+unsupervised learning,c11,2017,2017,True,0
+unsupervised learning,c12,2024,2017,True,7
+unsupervised learning,c13,2017,2017,True,0
+unsupervised learning,c14,2017,2017,True,0
+unsupervised learning,c15,2020,2017,True,3
+unsupervised learning,c16,2018,2017,True,1
+unsupervised learning,c17,2024,2017,True,7
+unsupervised learning,c18,2020,2017,True,3
+unsupervised learning,c19,2017,2017,True,0
+unsupervised learning,c20,2019,2017,True,2
+variational autoencoder,c01,2019,2018,True,1
+variational autoencoder,c03,2020,2018,True,2
+variational autoencoder,c04,2020,2018,True,2
+variational autoencoder,c05,2021,2018,True,3
+variational autoencoder,c06,2020,2018,True,2
+variational autoencoder,c07,2020,2018,True,2
+variational autoencoder,c08,2021,2018,True,3
+variational autoencoder,c10,2026,2018,True,8
+variational autoencoder,c11,2021,2018,True,3
+variational autoencoder,c13,2021,2018,True,3
+variational autoencoder,c14,2018,2018,True,0
+variational autoencoder,c15,2021,2018,True,3
+variational autoencoder,c17,2022,2018,True,4
+variational autoencoder,c18,2020,2018,True,2
+variational autoencoder,c19,2023,2018,True,5
+variational autoencoder,c20,2022,2018,True,4
+variational autoencoders,c03,2021,2019,False,2
+variational autoencoders,c07,2024,2019,False,5
+variational autoencoders,c10,2021,2019,False,2
+variational autoencoders,c11,2022,2019,False,3
+variational autoencoders,c14,2018,2019,False,-1
+variational autoencoders,c15,2021,2019,False,2
+variational autoencoders,c18,2021,2019,False,2
+variational autoencoders,c19,2025,2019,False,6
+variational inference,c01,2025,2018,True,7
+variational inference,c02,2024,2018,True,6
+variational inference,c03,2020,2018,True,2
+variational inference,c04,2018,2018,True,0
+variational inference,c05,2021,2018,True,3
+variational inference,c06,2022,2018,True,4
+variational inference,c07,2018,2018,True,0
+variational inference,c09,2019,2018,True,1
+variational inference,c10,2021,2018,True,3
+variational inference,c11,2023,2018,True,5
+variational inference,c13,2020,2018,True,2
+variational inference,c14,2018,2018,True,0
+variational inference,c15,2019,2018,True,1
+variational inference,c16,2023,2018,True,5
+variational inference,c18,2020,2018,True,2
+variational inference,c19,2021,2018,True,3
+variational inference,c20,2025,2018,True,7
+video generation,c03,2026,2022,False,4
+video generation,c10,2026,2022,False,4
+video generation,c12,2026,2022,False,4
+video generation,c13,2024,2022,False,2
+video generation,c14,2026,2022,False,4
+video generation,c17,2020,2022,False,-2
+video understanding,c10,2023,2023,False,0
+video understanding,c13,2020,2023,False,-3
+video understanding,c15,2026,2023,False,3
+video understanding,c17,2026,2023,False,3
+video understanding,c20,2025,2023,False,2
+vision transformer,c03,2022,2022,False,0
+vision transformer,c06,2023,2022,False,1
+vision transformer,c07,2025,2022,False,3
+vision transformer,c08,2025,2022,False,3
+vision transformer,c09,2024,2022,False,2
+vision transformer,c10,2023,2022,False,1
+vision transformer,c12,2022,2022,False,0
+vision transformer,c13,2023,2022,False,1
+vision transformer,c15,2022,2022,False,0
+vision transformer,c19,2026,2022,False,4
+vision-language model,c01,2026,2023,False,3
+vision-language model,c02,2025,2023,False,2
+vision-language model,c03,2024,2023,False,1
+vision-language model,c04,2026,2023,False,3
+vision-language model,c05,2026,2023,False,3
+vision-language model,c06,2025,2023,False,2
+vision-language model,c08,2026,2023,False,3
+vision-language model,c10,2023,2023,False,0
+vision-language model,c12,2024,2023,False,1
+vision-language model,c13,2024,2023,False,1
+vision-language model,c15,2024,2023,False,1
+vision-language model,c17,2025,2023,False,2
+vision-language model,c18,2026,2023,False,3
+vlm,c01,2026,2025,False,1
+vlm,c02,2026,2025,False,1
+vlm,c03,2026,2025,False,1
+vlm,c10,2025,2025,False,0
+vlm,c12,2026,2025,False,1
+vlm,c13,2025,2025,False,0
+vlm,c15,2025,2025,False,0
+vlm,c17,2026,2025,False,1
+world model,c01,2024,2022,False,2
+world model,c02,2026,2022,False,4
+world model,c03,2026,2022,False,4
+world model,c04,2021,2022,False,-1
+world model,c07,2026,2022,False,4
+world model,c10,2026,2022,False,4
+world model,c13,2021,2022,False,-1
+world model,c15,2026,2022,False,4
+world model,c17,2026,2022,False,4
+world model,c20,2026,2022,False,4
+zero-shot,c01,2023,2022,False,1
+zero-shot,c03,2023,2022,False,1
+zero-shot,c08,2024,2022,False,2
+zero-shot,c10,2022,2022,False,0
+zero-shot,c13,2025,2022,False,3
+zero-shot,c15,2024,2022,False,2
+zero-shot,c17,2024,2022,False,2
+zero-shot,c18,2025,2022,False,3

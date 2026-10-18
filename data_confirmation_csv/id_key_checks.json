@@ -1,0 +1,147 @@
+{
+  "status": "passed",
+  "a": {
+    "submission_rows": 11113,
+    "released_ids": 11113,
+    "exact_released_id_set_match": true
+  },
+  "b": {
+    "discovery_rows": 43516,
+    "submission_id_overlap": 0
+  },
+  "c": {
+    "author_rows": 56462,
+    "papers_with_declared_id_key": 11113,
+    "share_with_declared_id_key": 1.0,
+    "by_year": [
+      {
+        "year": 2017,
+        "submissions": 105,
+        "author_rows": 386,
+        "papers_with_declared_id_key": 105,
+        "share_with_declared_id_key": 1.0
+      },
+      {
+        "year": 2018,
+        "submissions": 214,
+        "author_rows": 824,
+        "papers_with_declared_id_key": 214,
+        "share_with_declared_id_key": 1.0
+      },
+      {
+        "year": 2019,
+        "submissions": 312,
+        "author_rows": 1217,
+        "papers_with_declared_id_key": 312,
+        "share_with_declared_id_key": 1.0
+      },
+      {
+        "year": 2020,
+        "submissions": 500,
+        "author_rows": 2060,
+        "papers_with_declared_id_key": 500,
+        "share_with_declared_id_key": 1.0
+      },
+      {
+        "year": 2021,
+        "submissions": 605,
+        "author_rows": 2512,
+        "papers_with_declared_id_key": 605,
+        "share_with_declared_id_key": 1.0
+      },
+      {
+        "year": 2022,
+        "submissions": 704,
+        "author_rows": 3010,
+        "papers_with_declared_id_key": 704,
+        "share_with_declared_id_key": 1.0
+      },
+      {
+        "year": 2023,
+        "submissions": 995,
+        "author_rows": 4521,
+        "papers_with_declared_id_key": 995,
+        "share_with_declared_id_key": 1.0
+      },
+      {
+        "year": 2024,
+        "submissions": 1447,
+        "author_rows": 7012,
+        "papers_with_declared_id_key": 1447,
+        "share_with_declared_id_key": 1.0
+      },
+      {
+        "year": 2025,
+        "submissions": 2286,
+        "author_rows": 12356,
+        "papers_with_declared_id_key": 2286,
+        "share_with_declared_id_key": 1.0
+      },
+      {
+        "year": 2026,
+        "submissions": 3945,
+        "author_rows": 22564,
+        "papers_with_declared_id_key": 3945,
+        "share_with_declared_id_key": 1.0
+      }
+    ]
+  },
+  "d": {
+    "new_distinct_declared_id_keys": 39240,
+    "discovery_distinct_declared_id_keys": 103706,
+    "distinct_keys_shared_with_discovery": 22909,
+    "public_native_id_keys_recomputed": 51145,
+    "key_recomputation_mismatches": 0,
+    "salt_added": false
+  },
+  "schema_checks": "all three headers match the original schema; submission/author headers also match discovery data directly",
+  "checks_use_only_ids_counts_keys": true,
+  "outcome_analysis_performed": false,
+  "e": {
+    "limit_bytes": 50000000,
+    "all_files_under_50_MB": true,
+    "files": [
+      {
+        "path": "adapter_reproduction.json",
+        "bytes": 2072
+      },
+      {
+        "path": "author_coverage_by_year.csv",
+        "bytes": 321
+      },
+      {
+        "path": "check_confirmation_csv_ids_keys.py",
+        "bytes": 5936
+      },
+      {
+        "path": "export_released_confirmation_csv.py",
+        "bytes": 6225
+      },
+      {
+        "path": "LOCAL_WORKAROUND.md",
+        "bytes": 3044
+      },
+      {
+        "path": "manifest.json",
+        "bytes": 3782
+      },
+      {
+        "path": "metadata_provenance.csv.gz",
+        "bytes": 1932301
+      },
+      {
+        "path": "submission_authors.csv.gz",
+        "bytes": 4019520
+      },
+      {
+        "path": "submissions.csv.gz",
+        "bytes": 7119773
+      },
+      {
+        "path": "validation.json",
+        "bytes": 909
+      }
+    ],
+    "largest_file_bytes": 7119773
+  }
+}

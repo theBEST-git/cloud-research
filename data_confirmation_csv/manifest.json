@@ -1,0 +1,90 @@
+{
+  "version": "iclr-author-inputs-v1",
+  "scope": "confirmation (held-out) submissions, ICLR 2017–2026; no discovery submissions",
+  "sources": {
+    "clean": {
+      "release": "eda_ready_20260913T143255Z",
+      "database": "eda.sqlite",
+      "database_bytes": 11763654656,
+      "database_mtime_ns": 1789317482859845000,
+      "sealed_database_sha256": "b0747cf5ae8f7ae7b901c29e21a714a0b8dd47c9043353db94efce5831cd335b",
+      "manifest_sha256": "45e5396c2d978673964c82eb8d50b5cc8d9b6209734101f5efcd351fd7932d5b",
+      "seal_sha256": "cefdccb2403431c4b667082dedfbbba66adba04a2352d1ffd5e56628d33c07c5",
+      "verification": "manifest/seal rehashed; database size and mtime recorded; no full database rehash"
+    },
+    "upstream": {
+      "release": "harmonized_20260910T125430Z",
+      "database": "corpus.sqlite",
+      "database_bytes": 27014475776,
+      "database_mtime_ns": 1789055622997294400,
+      "sealed_database_sha256": "f4b0569c950575f9d815cd6a6a228cb6f6d6f07ddfd79d35c7ac58284a851296",
+      "manifest_sha256": "0c90655e94d17569a6933b52b5321fa5dbdc3051278aa6382c94dc16003702fe",
+      "seal_sha256": "7b26f563203fd1937e1b472158f21092dbf188f805bc86a62c2e305902a4f4ee",
+      "verification": "manifest/seal rehashed; database size and mtime recorded; no full database rehash"
+    },
+    "patch": {
+      "release": "outcome_repair_20260923T104907Z",
+      "database": "outcomes.sqlite",
+      "database_bytes": 1630208,
+      "database_mtime_ns": 1790160978126985300,
+      "sealed_database_sha256": "402e8b20c110b4066c8180adbfa8145a02e0ba57fcc31c743f64adf57a56e001",
+      "manifest_sha256": "bf71c29329dba34fba93e5ca92bf0f66ab30effdef9a41c1daf1113ebf3358da",
+      "seal_sha256": "3f945fe7c5dd5eddd6e7c85723b44cec2f55934d965d54d662668256d48bf127",
+      "verification": "manifest/seal rehashed; database size and mtime recorded; no full database rehash"
+    },
+    "keywords": {
+      "release": "keyword_completion_20260926_v4/final",
+      "file": "submission_keywords.csv",
+      "sha256": "33a8e55de75d803386d076bb67f3f501f8d94040017210c071fff6e6f7006e23",
+      "bytes": 5436260
+    }
+  },
+  "files": [
+    {
+      "path": "metadata_provenance.csv.gz",
+      "bytes": 1932301,
+      "sha256": "f0aae31623ddf333abb92de4d12c2889600f4ec808db216473afe0c22b02f46f"
+    },
+    {
+      "path": "submission_authors.csv.gz",
+      "bytes": 4019520,
+      "sha256": "6e8bab7808443343e821feb4986e14d9252781a2e141a7f69cfaf5496ba1737b"
+    },
+    {
+      "path": "submissions.csv.gz",
+      "bytes": 7119773,
+      "sha256": "866fbab69984b74e233762745065719faecf7755d13efb6f7bd4cd7cc830d196"
+    }
+  ],
+  "counts": {
+    "author_lists_aligned_lists": 11093,
+    "author_lists_list_length_mismatch": 20,
+    "author_positions": 56462,
+    "email_positions_withheld": 5286,
+    "status_desk_rejected": 234,
+    "status_ordinary_submission": 8308,
+    "status_withdrawn": 2571,
+    "submissions": 11113,
+    "year_2017": 105,
+    "year_2018": 214,
+    "year_2019": 312,
+    "year_2020": 500,
+    "year_2021": 605,
+    "year_2022": 704,
+    "year_2023": 995,
+    "year_2024": 1447,
+    "year_2025": 2286,
+    "year_2026": 3945
+  },
+  "source_preservation_checks_passed": true,
+  "network_requests": 0,
+  "storage": {
+    "existing_phase1b_and_keyword_author_workspace_bytes": 73948314283,
+    "new_export_cap_bytes": 536870912,
+    "free_space_minimum_bytes": 53687091200,
+    "cumulative_cap_bytes": 214748364800
+  },
+  "experimental_inputs": [],
+  "identity_policy": "Declared IDs are not verified people; email identifiers withheld, exact-ID hash retained.",
+  "counting_policy": "One submission row; zero-based original author-list positions; no inferred name/ID alignment."
+}

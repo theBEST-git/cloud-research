@@ -1,0 +1,342 @@
+{
+  "free_summary": {
+    "papers_2023_2026_with_history": 35567,
+    "papers_2019_2020_with_history": 2509,
+    "author_rows_2023_2026": 114777,
+    "papers_with_an_excluded_prior_paper": 208,
+    "mean_F_max_newcomer_vs_incumbent": {
+      "0.0": 0.5254397643878848,
+      "1.0": 0.2555461241854469
+    },
+    "correlations": {
+      "F_max": {
+        "F_max": 1.0,
+        "F_first": 0.7783,
+        "F_last": 0.7485,
+        "F_team": 0.8441,
+        "F_nn": 0.896,
+        "F_max3": 0.8616,
+        "newcomer": -0.5704,
+        "log2_team": 0.1187,
+        "n_exp": 0.3417
+      },
+      "F_first": {
+        "F_max": 0.7783,
+        "F_first": 1.0,
+        "F_last": 0.574,
+        "F_team": 0.6365,
+        "F_nn": 0.6765,
+        "F_max3": 0.5914,
+        "newcomer": -0.3893,
+        "log2_team": -0.0623,
+        "n_exp": 0.0147
+      },
+      "F_last": {
+        "F_max": 0.7485,
+        "F_first": 0.574,
+        "F_last": 1.0,
+        "F_team": 0.8456,
+        "F_nn": 0.6517,
+        "F_max3": 0.7624,
+        "newcomer": -0.4267,
+        "log2_team": -0.0582,
+        "n_exp": 0.0606
+      },
+      "F_team": {
+        "F_max": 0.8441,
+        "F_first": 0.6365,
+        "F_last": 0.8456,
+        "F_team": 1.0,
+        "F_nn": 0.7448,
+        "F_max3": 0.884,
+        "newcomer": -0.4981,
+        "log2_team": -0.021,
+        "n_exp": 0.1306
+      },
+      "F_nn": {
+        "F_max": 0.896,
+        "F_first": 0.6765,
+        "F_last": 0.6517,
+        "F_team": 0.7448,
+        "F_nn": 1.0,
+        "F_max3": 0.7683,
+        "newcomer": -0.6026,
+        "log2_team": 0.1328,
+        "n_exp": 0.3572
+      },
+      "F_max3": {
+        "F_max": 0.8616,
+        "F_first": 0.5914,
+        "F_last": 0.7624,
+        "F_team": 0.884,
+        "F_nn": 0.7683,
+        "F_max3": 1.0,
+        "newcomer": -0.5227,
+        "log2_team": 0.0701,
+        "n_exp": 0.2452
+      },
+      "newcomer": {
+        "F_max": -0.5704,
+        "F_first": -0.3893,
+        "F_last": -0.4267,
+        "F_team": -0.4981,
+        "F_nn": -0.6026,
+        "F_max3": -0.5227,
+        "newcomer": 1.0,
+        "log2_team": -0.1026,
+        "n_exp": -0.2643
+      },
+      "log2_team": {
+        "F_max": 0.1187,
+        "F_first": -0.0623,
+        "F_last": -0.0582,
+        "F_team": -0.021,
+        "F_nn": 0.1328,
+        "F_max3": 0.0701,
+        "newcomer": -0.1026,
+        "log2_team": 1.0,
+        "n_exp": 0.6245
+      },
+      "n_exp": {
+        "F_max": 0.3417,
+        "F_first": 0.0147,
+        "F_last": 0.0606,
+        "F_team": 0.1306,
+        "F_nn": 0.3572,
+        "F_max3": 0.2452,
+        "newcomer": -0.2643,
+        "log2_team": 0.6245,
+        "n_exp": 1.0
+      }
+    },
+    "reference_points_recomputed": {
+      "F_max": {
+        "knots": [
+          -0.0388,
+          0.2814,
+          0.4786,
+          0.7205
+        ],
+        "p10": 0.0426,
+        "p50": 0.384,
+        "p90": 0.6635,
+        "papers": 35567,
+        "quintiles": [
+          0.1581,
+          0.318,
+          0.4478,
+          0.5811
+        ]
+      },
+      "F_first": {
+        "knots": [
+          -0.099,
+          0.2174,
+          0.4482,
+          0.7322
+        ],
+        "p10": -0.0236,
+        "p50": 0.3337,
+        "p90": 0.665,
+        "papers": 14981
+      },
+      "F_last": {
+        "knots": [
+          -0.1277,
+          0.1654,
+          0.3741,
+          0.6581
+        ],
+        "p10": -0.056,
+        "p50": 0.2692,
+        "p90": 0.5892,
+        "papers": 30356
+      },
+      "F_team": {
+        "knots": [
+          -0.112,
+          0.1885,
+          0.3935,
+          0.6567
+        ],
+        "p10": -0.0365,
+        "p50": 0.2924,
+        "p90": 0.5938,
+        "papers": 35567
+      },
+      "F_nn": {
+        "knots": [
+          0.0431,
+          0.3534,
+          0.5216,
+          0.7313
+        ],
+        "p10": 0.1333,
+        "p50": 0.4419,
+        "p90": 0.6758,
+        "papers": 35567
+      },
+      "F_max3": {
+        "knots": [
+          -0.0686,
+          0.252,
+          0.4487,
+          0.6887
+        ],
+        "p10": 0.0177,
+        "p50": 0.3535,
+        "p90": 0.6335,
+        "papers": 27594
+      },
+      "prior_cos": {
+        "quintiles": [
+          0.0427,
+          0.1985,
+          0.3425,
+          0.4996
+        ],
+        "author_rows": 114777
+      }
+    },
+    "max_abs_drift_from_REF": 0.0237,
+    "note": "outcome-free (any outcome); embeddings, authors, topics"
+  },
+  "summary": {
+    "population": "RQ3 decided papers 2023-2026 with >= 1 experienced author",
+    "papers": 26275,
+    "hot_papers": 7908,
+    "hot_share": 0.3009705042816365,
+    "n_exp": {
+      "1": 5460,
+      "2": 5909,
+      "3": 5212,
+      "4": 9694
+    },
+    "acceptance_rate": 0.43840152235965746,
+    "established_share": 0.8438058991436727,
+    "P2_author_rows_before_singletons": 86434,
+    "P2_authors_before_singletons": 26505,
+    "reference_points": {
+      "F_max": {
+        "knots": [
+          -0.0476,
+          0.2629,
+          0.4613,
+          0.7117
+        ],
+        "p10": 0.0339,
+        "p50": 0.366,
+        "p90": 0.6508,
+        "quintiles": [
+          0.1431,
+          0.298,
+          0.4293,
+          0.5661
+        ]
+      },
+      "F_first": {
+        "knots": [
+          -0.0998,
+          0.2056,
+          0.4394,
+          0.7284
+        ],
+        "p10": -0.0302,
+        "p50": 0.3247,
+        "p90": 0.6597
+      },
+      "F_last": {
+        "knots": [
+          -0.1335,
+          0.1543,
+          0.3624,
+          0.6507
+        ],
+        "p10": -0.061,
+        "p50": 0.2576,
+        "p90": 0.5791
+      },
+      "F_team": {
+        "knots": [
+          -0.1196,
+          0.178,
+          0.3813,
+          0.6497
+        ],
+        "p10": -0.0423,
+        "p50": 0.2792,
+        "p90": 0.5836
+      },
+      "F_nn": {
+        "knots": [
+          0.0273,
+          0.3297,
+          0.5027,
+          0.7192
+        ],
+        "p10": 0.1139,
+        "p50": 0.4191,
+        "p90": 0.6632
+      },
+      "F_max3": {
+        "knots": [
+          -0.0829,
+          0.2345,
+          0.4307,
+          0.677
+        ],
+        "p10": 0.0023,
+        "p50": 0.3368,
+        "p90": 0.619
+      },
+      "prior_cos": {
+        "quintiles": [
+          0.0351,
+          0.1872,
+          0.3303,
+          0.4883
+        ]
+      }
+    },
+    "argmax": {
+      "all": {
+        "argmax": 0.55984,
+        "ci95": [
+          0.50922,
+          0.7117
+        ],
+        "share_draws_lower_edge": 0.0,
+        "share_draws_upper_edge": 0.17417417417417416,
+        "share_of_group_at_or_below": 0.760685061845861
+      },
+      "hot": {
+        "argmax": 0.547185,
+        "ci95": [
+          0.471255,
+          0.7117
+        ],
+        "share_draws_lower_edge": 0.0,
+        "share_draws_upper_edge": 0.24924924924924924,
+        "share_of_group_at_or_below": 0.8184117349519474
+      },
+      "not hot": {
+        "argmax": 0.572495,
+        "ci95": [
+          0.49656500000000003,
+          0.7117
+        ],
+        "share_draws_lower_edge": 0.0,
+        "share_draws_upper_edge": 0.2952952952952953,
+        "share_of_group_at_or_below": 0.7471007785702619
+      },
+      "grid": [
+        -0.0476,
+        0.7117,
+        61
+      ],
+      "draws": 999
+    },
+    "note": "post hoc exploratory (PH5 pivot, selection S3); associations within topic x year, not causal effects"
+  }
+}
+

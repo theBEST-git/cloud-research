@@ -1,11 +1,16 @@
 # Q&A preparation
 
-Short answers first. Use the "If pushed" line only if they ask a follow-up. Appendix slides are A1–A12 (A12: the earlier keyword grid).
+Short answers first. Use the "If pushed" line only if they ask a follow-up. Appendix slides are A1–A18: A9–A11 title
+style, A12 definitions, A13 the earlier keyword grid, A14 held-out data, rules and power, A15 team experience (H1
+held-out), A16 keyword timing, A17 topic edges out of sample, A18 the pooled re-run (exploratory).
 
 **Three habits that keep answers safe:**
 - Say "goes with" or "is associated with", never "causes".
 - If you don't know, say "we didn't test that; it's a good next step."
 - Point to a backup slide when a number helps.
+- Held-out wording: "the released former confirmation split, which we had never analysed: a pre-registered
+  out-of-sample replication, not a certified untouched holdout." Underpowered nulls are "uninformative", not "no
+  effect".
 
 ---
 
@@ -195,24 +200,27 @@ analysis before the talk.]*
 **What does "returning authors lag on style" mean?**
 Authors who submitted before adopt the new title style less than the field does, while they keep pace on topics.
 The lag is largest for first authors. *[Check the exact definition of the lag measure in your title analysis.]*
-(A9)
+(A10)
 
 **Isn't this just ChatGPT?**
 LLM-favoured words like "Enhancing" jump after 2023, but the "NAME:" structure rises with or without LLM
-fingerprints in the abstract. (A10)
+fingerprints in the abstract. (A11)
 
 ### Reward
 
 **Your acceptance result for crowded topics isn't significant. So do they hurt or not?**
-We can't tell. The test could only detect effects of about 4 points per 2.7× more papers. All we can say is that
-there is no *premium*.
+We can't tell. The discovery test could only detect effects of about 4 points per 2.7× more papers, and the held-out
+test about 5 (−1.5 points, SE 1.9, one-sided p = 0.21). Inconclusive in both splits. All we can say is that there is
+no detectable *premium*.
 
 **Isn't "against the tide" overclaiming?**
 That's why it's labelled exploratory: p = 0.02, not corrected. One reading is scarcity: fewer architecture papers
-remain, and those that do may stand out. It's a hypothesis for the replication.
+remain, and those that do may stand out. It was not among the registered held-out tests, so it stays exploratory.
 
 **So what should a researcher do?**
-Don't count on following trends to get accepted. For people who study science: check your topic map with a
+We found no detectable acceptance premium for crowded topics, but the tests were too weak to rule one out. Far jumps
+from the team's own earlier ICLR work go with lower acceptance, in discovery and on held-out papers; we don't know
+whether changing closeness would change anything. For people who study science: check your topic map with a
 prospective version.
 
 **What does go with acceptance?**
@@ -222,10 +230,11 @@ not advice; team size also stands for compute and seniority. (A7, A8)
 ### Areas and federated learning (slides 14–15; post hoc PH4)
 
 **Is federated learning a scam?**
-*Don't use the word "scam" yourself.* Answer: "The data show the community cooled on federated learning. Its share
-of submissions fell by two-thirds after 2023, and since then FL papers have been accepted 11 to 15 points less often
-than other papers each year. That is not explained by who writes them: FL authors became *more* experienced. It
-fits growing scepticism about FL's research value, but we can't observe reviewers' reasons."
+*Don't use the word "scam" yourself.* Answer: "Submissions on federated learning fell: its share fell by two-thirds
+after 2023. In our discovery papers, FL papers were also accepted 11 to 15 points less often than other papers each
+year since 2023, and adjusting for who writes them changes that little: FL authors became *more* experienced. On the
+held-out papers the acceptance gap was smaller and not significant (−4.9 points, an underpowered test), so that part
+is not confirmed. We can't observe reviewers' reasons."
 
 **Is the FL result significant?**
 On its own, yes: about −11 points (keyword) or −14 points (topic), p = 0.005 each. After correcting for testing 68
@@ -234,20 +243,24 @@ credible than a random hit:
 - two independent definitions agree (author keywords and our content-based topic);
 - the gap is negative in every year since 2023, at about 100 papers a year.
 
-We registered it for replication on the held-out split (H4-FL).
+We registered it for the held-out papers (H4-FL), and it was **not confirmed**: −4.9 points (CI −15.4 to +5.7;
+one-sided p = 0.14). See "Held-out replication" below.
 
 **Is acceptance in FL *declining* over time, or just low?**
-Mostly low. The trend is −3 points per year (p = 0.08), and the early "premium" rests on 11 papers in 2020. The
-clearer "decline" is in submissions: from 3.2% of all submissions in 2023 to 1.1% in 2026.
+Mostly low. The discovery trend is −3 points per year (p = 0.08), and the early "premium" rests on 11 papers in 2020.
+The registered held-out trend went the other way: +3.2 points per year (CI −3.3 to +9.6; not supported), and in the
+pooled re-run the trend roughly halves (−1.9, p 0.18). The clearer "decline" is in submissions: from 3.2% of all
+submissions in 2023 to 1.1% in 2026.
 
 **How do you know it's not just weaker authors moving in?**
 Three checks:
 - the share of FL papers with an author who already had an accepted ICLR paper *rose* from 4% to about 60%;
 - team size and the share of method papers stayed flat;
 - adjusting for type, foundation-model use and team size barely changes the level (−11.3 → −10.5 points);
-- adding author experience to that adjustment still keeps 76% of the decline.
+- adding author experience keeps 76% of the decline, but the decline itself is not significant (trend p = 0.08;
+  adjusted p = 0.20), so don't lean on that number.
 
-**Then why are FL papers accepted less?**
+**Then why are FL papers accepted less (in discovery)?**
 Two explanations remain, and we can't separate them without review texts:
 - reviewers became more sceptical (novelty fatigue, or doubts about practical value);
 - the remaining papers are more incremental, as the big ideas were taken early.
@@ -266,13 +279,89 @@ These are associations with the same year's papers, not advice on what to work o
 The question came from an earlier keyword grid, so FL was not a blind discovery. We say this openly. That is why:
 - we ran a *systematic* screen of all 68 keywords and 100 topics, declared before running;
 - we corrected for multiple comparisons;
-- we registered FL for replication on unseen papers.
+- we registered FL for a held-out test before the run. It was not confirmed (−4.9 points, underpowered), so the FL
+  acceptance gap stays discovery evidence only.
 
 **Why both keywords and topics?**
 Keywords are chosen by the authors, so they carry no topic-map hindsight. Topics are content-based. Agreement between
 the two is the robustness check.
 
-## 5. Scope and next steps
+## 5. Held-out replication (slides 13 and 16; A14–A17)
+
+**What exactly are the held-out papers? Is this a true holdout?**
+They are the 11,099 papers (with text) of the source's former confirmation split, released on 18 October 2026. We
+had never analysed them. We registered every test before the single run, ran frozen code once, and report every
+result. But the source's policy says it does not certify an untouched, independent holdout, so we call this a
+*pre-registered out-of-sample replication*, not an independent confirmation.
+- *If pushed:* the source does not document how papers were assigned to the split; it excluded 1,309 pending
+  family/link cases. H4-FL's out-of-sample status is weaker still: the earlier keyword grid that suggested FL has
+  unknown provenance, so we cannot check whether it overlapped these papers.
+
+**Why one-sided tests?**
+Each held-out test asks one registered question: does the discovery direction hold? One-sided at α = 0.05 was
+registered in the original pre-registration, before any held-out data were available. Two-sided p are in the run
+output; H1d, H2b′, H2c′ and E1 would pass two-sided as well.
+
+**Why are some held-out estimates larger (H1d −0.110 vs −0.080; far jump −6.1 vs −5.4)?**
+The held-out sample is about a quarter of the size, so its intervals are wide (H1d: −0.181 to −0.039), and some tests
+(H1d, H2c′) were underpowered at the discovery size; significant estimates from underpowered tests tend to overstate.
+The replication supports the direction, not the size. Don't compare the sizes as if they had replicated.
+
+**The novelty floor did not replicate. Was it false?**
+Say it plainly: it did not replicate. In discovery, the least-novel fifth sat 3.3 points below the middle fifth; on
+the held-out papers it is −0.1 (CI −3.5 to +3.2). The held-out test had only 47% power at the discovery size
+(MDE₈₀ 5.4 points), so by our registered reading rule the result is uninformative: it neither confirms nor rules
+out a 3-point gap. We no longer claim the novelty floor.
+- *If pushed on why:* we don't know. It was post hoc, picked from many tests; novelty on held-out papers is measured
+  against the pooled earlier papers; and held-out abstracts had no cleaned-text check. We have not tested any of
+  these explanations.
+
+**So is federated learning just noise?**
+Not confirmed is not refuted. The held-out gap is −4.9 points, the same direction, with a CI from −15.4 to +5.7. With
+134 FL papers the test could only detect gaps of about 15 points (MDE₈₀ 14.5), so it is uninformative. The FL
+acceptance gap stands as discovery evidence only. The fall in FL's share of submissions is a separate, outcome-free
+observation in discovery.
+- *If pushed:* the held-out yearly gaps are mixed (2021: −20, 2022: −17, 2023: +6, 2024: −4, 2025: −11, 2026: −0
+  points, on 13–36 FL papers a year), and the registered trend test was not supported either. Don't read anything into
+  single years.
+
+**Is the far-jump gap just the newcomer gap?**
+Not only. In discovery it is −5.0 points with newcomer status controlled, vs −5.4 without. It also appears within the
+same author: closer papers go with higher acceptance, +0.55 (discovery) and +1.06 points (held-out) per +0.1 cosine.
+Co-author choice and failure-driven pivots are not controlled, so it is an association, not advice to stay put.
+
+**Isn't staying close then "safe"?**
+Near papers (90th percentile of closeness) are not accepted less often than the median: +1.7 points in discovery (CI
+−0.2 to +3.7), +2.3 on held-out papers (not registered, p 0.17), and +2.1 in the pooled re-run (Holm 0.036,
+exploratory). So no lower acceptance near the own record, and possibly a small gain; we did not register this
+contrast, and it is an association, not advice to stay put.
+
+**Isn't reporting the "supported" ones cherry-picking?**
+Every registered held-out test is on slide 16 or in A14, including the failures: P1b (not supported), H4-FL level
+and H4-FL trend (not supported; the trend had the opposite sign, +3.2 points per year), H3a (inconclusive), P7 (not
+supported). Secondary tests are each one-sided at 0.05 without adjustment, so with six of them one false positive
+would not be surprising; they carry less weight than the Holm-adjusted families.
+
+**The emerging-keyword result (A1) has a CI that includes zero. Why "supported"?**
+The 95% CI is two-sided (−0.2 to +6.7 points); the registered test is one-sided (p = 0.031), and it also had to pass
+a null-frame check (p = 0.020). It passes both, but only just. Treat it as weak support. (A16)
+
+**Topic acceptance edges: 0.60 out of sample vs 0.38 within discovery. Which is right?**
+They answer different questions with different windows: discovery 2018–22 vs held-out 2024–26 papers, against
+discovery 2018–22 vs discovery 2024–26 papers. The registered prediction was only 0 < b < 1, and it held: edges
+persist but shrink. Read raw topic rankings as shrunk towards zero. (A17)
+- *If pushed on the keyword ranking (slide 14):* the registered test used early-map topic units. For author keywords
+  like those plotted, held-out edges showed no detectable persistence: b = 0.16 (CI −0.34 to 0.66; not registered).
+
+**What is the pooled re-run?**
+After the held-out run, every analysis was re-run on all 54,579 papers (A18). It is exploratory and confirms nothing:
+about 80% of each pooled sample is discovery papers, and pooling changes some discovery features (hot topics, author
+histories). Every registered hypothesis keeps its discovery sign (H1d −8.9 points, H2b +3.5, H2c −1.7). H3a reaches
+p = 0.049, Holm 0.098, so it is still inconclusive. The FL topic is flagged (q = 0.037), but the registered held-out
+FL test was not supported. The pooled novelty floor (−3.0) is driven by the discovery papers. The discovery results
+stay the registered record.
+
+## 6. Scope and next steps
 
 **Is any of this causal?**
 No. Everything is an association. "Fade" and "lean" describe patterns, not proven causes. Topic, team and paper
@@ -286,9 +375,11 @@ rejections gives a similar estimate (−2.1 points instead of −1.7).
 They weren't in our data snapshot. They are the next step, because they could separate reviewers from final
 decisions.
 
-**Will it replicate?**
-We held out part of the ICLR data. The four key hypotheses are already registered for it, including the newcomer
-results in their new direction.
+**Did it replicate?**
+Partly, and we report all of it. On 11,099 held-out papers, with every test registered before the single run: the
+foundation-model result, both newcomer results and the far-jump gap replicated; the novelty floor did not (an
+uninformative test); the federated-learning gap was not confirmed (underpowered); crowding stayed inconclusive.
+(Slide 16, A14)
 
 **How reproducible is this?**
 All code, the frozen inputs and every output are in the repository. One command re-runs the frozen analysis.
@@ -323,13 +414,28 @@ All code, the frozen inputs and every output are in the repository. One command 
 | Branded titles | 9% → 41% |
 | Papers from 2024–26 | 69% |
 | "Emerging" topics | 8 (early map) vs. 29 (standard map) |
-| Foundation models vs. new architectures | −8 pp from 0 → 100% FM, so about a third fewer from 10 → 50% |
+| Foundation models vs. new architectures (discovery) | −8 pp from 0 → 100% FM, so about a third fewer at 50% vs 10% adoption |
 | Newcomers and methods | +3.7 pp (base 75%) |
 | Newcomers and benchmarks | −1.7 pp (base 7.7%, about a fifth fewer) |
 | Newcomer share | 73% of papers |
 | Label agreement | κ = 0.93 |
 | False positives found in simulation | up to 12.6% instead of 5% (one scenario) |
 | Newcomer acceptance gap | −10 pp in the same topic and year; −3 pp within the same authors |
-| Federated learning acceptance gap | −11 pp (keyword) / −14 pp (topic), p = 0.005; −11 to −15 pp each year since 2023 |
+| Federated learning acceptance gap (discovery) | −11 pp (keyword) / −14 pp (topic), p = 0.005; −11 to −15 pp each year since 2023 |
 | Federated learning share of submissions | 3.2% (2023 peak) → 1.1% (2026) |
 | Federated learning authors with an earlier accepted ICLR paper | 4% (2021) → about 60% |
+| **Held-out papers** | 11,099 (released former confirmation split; never analysed before the run); 8,284 decided, 8,185 in 2018–26 (acceptance tests) |
+| Held-out label agreement | κ = 0.93 (555-paper second pass) |
+| H1d held-out | −0.110 (CI −0.181 to −0.039), one-sided p 0.001: replicated (discovery −0.080) |
+| Newcomers held-out (H2b′ / H2c′) | +3.6 / −2.1 pp, one-sided Holm p 0.001 each: replicated |
+| Crowding held-out (H3a) | −1.5 pp (SE 1.9), p 0.21: inconclusive in both splits (MDE₈₀ 4.8 pp) |
+| Far jump vs median (E1) | −5.4 pp discovery; −6.1 pp held-out (CI −9.3 to −2.9), Holm p 0.005 |
+| Adjusted acceptance by closeness fifth (discovery) | 39.7 / 41.8 / 44.4 / 47.2 / 46.9% (far → close) |
+| Same author, per +0.1 cosine (E4) | +0.55 pp discovery; +1.06 pp held-out |
+| Novelty floor (P1b) | −3.3 pp discovery; −0.1 pp held-out (CI −3.5 to +3.2): not replicated, uninformative (power 0.47, MDE₈₀ 5.4 pp) |
+| Federated learning held-out (H4-FL) | −4.9 pp (CI −15.4 to +5.7), p 0.14; 134 FL papers, MDE₈₀ 14.5 pp: not confirmed; trend +3.2 pp/yr, not supported |
+| One topic insider vs none (teams H1) | +3.4 pp discovery; +3.9 pp held-out |
+| Emerging vs Mainstream keyword (A1) | +2.7 pp discovery; +3.3 pp held-out (one-sided p 0.031) |
+| Topic edges out of sample (premia b) | 0.60 (CI 0.32–0.88; early-map topics); within discovery 0.38; keywords 0.16 (not registered) |
+| Pooled re-run (exploratory, A18) | 54,579 papers; H1d −8.9 pp; far jump −5.5 pp; confirms nothing |
+| Hindsight map "forecast" of topic growth | R² 0.28 (standard map) vs −0.03 (2017–20 map) |

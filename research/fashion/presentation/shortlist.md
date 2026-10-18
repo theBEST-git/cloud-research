@@ -1,5 +1,60 @@
 # Final Round Shortlist: Findings for Future Authors
 
+## After the held-out run (2026-10-18)
+
+The sections below this one were written **before** the held-out run and are kept as the pre-run record. This section
+supersedes their status labels. Source: `research/fashion/output_pooled/confirmation_run/` (`summary.json`,
+`ph5/tests.csv`, `ph5/*.csv`); registration: the 2026-10-18 entry of `research/fashion/PREREGISTRATION.md`.
+
+**Status wording.** The held-out papers are the released former confirmation split (11,099 papers with text; 8,284
+decided, 8,185 of them in 2018–26, the population of the acceptance tests H3a and H4-FL): a pre-registered out-of-sample replication on papers this study had never analysed. The source does not
+certify an untouched independent holdout. The PH5 findings remain post hoc in discovery; their held-out tests were
+registered before the run (primary: E1 and P1b, Holm over the two one-sided p; secondary: E4, P7, teams H1, kwtiming
+A1, premia b and premia EB, each one-sided at 0.05). Associations only. Registered reading rule: a test that is not
+supported with |estimate| below its MDE80 is uninformative, not evidence against the discovery result. No cleaned-text
+(URL-stripped) vectors exist for held-out papers, so E1, E4, P1b and P7 use post-decision abstracts there.
+
+| # | Finding | Held-out test | Held-out result | Status now |
+|---|---|---|---|---|
+| 1a | Own-record tail: far jump (E1) | primary | −6.1 pp (CI −9.3 to −2.9), Holm p 0.005; discovery −5.4 | **Replicated**. Now its own slide (13), titled "Far Jumps Go with Lower Acceptance (Post Hoc, Replicated)" (shortened to fit one line; the first bullet says "from the team's own record") |
+| 1b | Own-record, within author (E4) | secondary | +1.06 pp per +0.1 cos (CI +0.23 to +1.89), one-sided p 0.006; discovery +0.55 | **Replicated** (secondary) |
+| 1c | Field tail: least-novel fifth (P1b) | primary | −0.1 pp (CI −3.5 to +3.2), Holm p 0.47; discovery −3.3; power 0.47 at the discovery size, MDE80 5.4 pp | **Not replicated** (uninformative by the registered rule: it neither confirms nor rules out a 3-point gap). Do not present the novelty floor as a finding; slides 13 and 17 say plainly that it did not replicate and that the test was uninformative (power 0.47, MDE80 5.4 pp) |
+| 1d | Within-author novelty (P7) | secondary | +0.34 pp per 10 percentile points (CI −0.47 to +1.16), one-sided p 0.22 | Not supported |
+| 2a | Topic edges shrink (premia b) | secondary | b = 0.60 (CI 0.32 to 0.88), 0 < b < 1, IUT p 0.003; within discovery 0.38 | **Replicated** (early-map topic units, as registered): edges persist but shrink. Not registered: keyword units b = 0.16 (CI −0.34 to 0.66), no detectable persistence, so do not read the slide-14 keyword ranking as persistent. Note on slide 14; scatter in A17 |
+| 2b | EB-shrunk edges predict better than zero (premia EB) | secondary | D0 > 0, one-sided p 0.005 | **Supported** |
+| 2c | Keyword winner's curse (raw vs EB growth lifts) | not registered | — | Unchanged: discovery only (outcome-free part) |
+| 3 | Concurrent twin, no detectable gap (P2) | not registered | the run reports P2 = +3.7 pp (CI +0.9 to +6.5), nominal p 0.010; hot-topic twin difference (P4) +1.5 pp (n.s.) | **Not tested**, and the unregistered held-out estimate does not fit the "no detectable gap" reading. Keep finding 3 out of the main deck; if asked, give both numbers and say neither is a registered test |
+| 4 | Forecastability only on the hindsight map | outcome-free; no test | unchanged (R² 0.28 vs −0.03) | Unchanged; now a bullet on slide 8 |
+| 5 | One topic insider vs none (teams H1) | secondary | +3.9 pp (CI +0.3 to +7.5), one-sided p 0.017; discovery +3.4 | **Replicated** (secondary). The per-head split itself was not tested (A15). Concavity (H2) not registered |
+| 6 | First-time teams, keyword vintage and FM share | outcome-free; no test | — | Unchanged; backup only (not in the deck) |
+| 7 | Emerging vs Mainstream keyword (A1) | secondary | +3.3 pp (CI −0.2 to +6.7), one-sided two-way p 0.031; null-frame p 0.020 | **Supported** (secondary; weak: the two-sided CI includes 0). A16 |
+| — | H4-FL (federated-learning acceptance gap, PH4) | registered | −4.9 pp (CI −15.4 to +5.7), one-sided p 0.14; 134 FL papers, MDE80 14.5 pp; trend not supported | **Not confirmed** (underpowered; uninformative). The gap stands as discovery evidence only; its out-of-sample status is itself unverified (the keyword grid's provenance is unknown) |
+
+**Registered RQ tests on the same papers:** H1d −0.110 (CI −0.181 to −0.039), one-sided p 0.001, supported (discovery
+−0.080); H2b′ +0.036 (CI 0.015 to 0.057) and H2c′ −0.021 (CI −0.033 to −0.008), one-sided Holm p 0.001 each,
+supported (discovery +0.037 / −0.017); H3a −0.015 (CI −0.052 to +0.022), inconclusive (MDE80 0.048).
+
+**Pooled re-run (exploratory, finished after the held-out run).** All analyses re-ran on the 54,579 papers
+(`output_pooled/frozen_run/`, `output_pooled/posthoc/`; deck appendix A18). It confirms nothing: about 80% of each
+pooled sample is discovery papers. Every finding above keeps its discovery sign there (E1 −5.5 pp, E4 +0.78, teams H1
++2.9, A1 +3.1, premia b 0.45); the pooled P1b (−3.0 pp) is driven by the discovery papers. Two unregistered contrasts
+that bear on discovery null readings move: E2, near vs median closeness, +2.1 pp (Holm 0.036; discovery Holm 0.15),
+and P2, a concurrent twin, +1.9 pp (Holm 0.063). By the RESULTS.md quoting rule, do not quote the discovery
+"no detectable gain/gap" readings of E2 or P2 without the held-out and pooled rows.
+
+**What changed in the deck.** The plan below was implemented with these changes: slide 12 (title style) moved to
+appendix A9; finding 1 became slide 13 without the concurrent-twin dot (finding 3 was not registered for the held-out
+papers, and its unregistered held-out estimate is larger and positive, +3.7 pp with nominal p 0.010, outside the gap
+sizes the discovery reading ruled out); finding 2 is a held-out note on slide 14 and the
+A17 scatter (registered b), not the discovery-only keyword lifts; finding 4 is a bullet on slide 8; findings 5 and 7
+are backup slides A15 and A16 with their held-out results; a new slide 16 tabulates every registered held-out test.
+The slide-13 footnote on keyword timing was not added (A16 instead). The guide for authors at the end of this file is
+the pre-run version: items 1 (novelty floor: not replicated, uninformative) and 5 (twins: the unregistered held-out estimate,
++3.7 pp with nominal p 0.010, does not fit the "no detectable gap" reading) should not be used as written; items 2, 3, 6 and 7 now have held-out support at the levels above;
+items 4 and 8 were not tested on the held-out papers.
+
+---
+
 Final-round PH5 candidates. Audit corrections are applied and numbers re-checked against committed outputs; derived quantities (shrinkage multipliers, per-pair twin rate, 10→90% FM bound, 16/56 precision) and the uncommitted no-momentum simulation are labelled as such.
 **Strength labels:** *strong* = the declared test is Holm-significant within its family, its raw p would also survive a Bonferroni correction across all PH5 tests (p ≤ 5e-4, i.e. over 100 tests), and its sign holds across declared variants (variants that lose significance are named); *moderate* = Holm-significant within its declared family only, or a single specification; *null-informative* = CI tight around zero per stated unit; *outcome-free descriptive* = no acceptance data used.
 **Status:** all post hoc and exploratory. Each analysis family was declared in PREREGISTRATION.md before it was run. The shrinkage multipliers, per-pair twin rate, 10→90% FM bound and 16/56 precision are derivations from committed outputs, the no-momentum benchmark is an uncommitted simulation, and the EB tie rule was amended after outcome-free outputs. These are associations, mostly within topic × year, not effects of an author's choice.
@@ -193,4 +248,4 @@ Pay for this by moving slide 12 (title style) to the appendix (−0:25; A9–A10
 7. **Experience more than headcount.** About +5 vs +1.5 pp per head, and one topic insider +3.4 pp; selection is heavy. *[moderate]*
 8. **First-time teams may want to check the topic's FM share and keyword vintage.** First-timers submit 4.6–14.7 pp fewer FM papers at 5–50% adoption; whether this goes with acceptance is not established. *[outcome-free descriptive]*
 
-Scope: ICLR discovery split only. The held-out confirmation split is not in this repository, so these post hoc associations stay unconfirmed until it is analysed; it is where the top findings should be confirmed.
+Scope (pre-run): ICLR discovery split only. The held-out confirmation split was not in this repository when this was written, so these post hoc associations stayed unconfirmed until it was analysed. It has since been released and analysed once; see "After the held-out run" at the top.

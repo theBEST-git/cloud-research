@@ -1,0 +1,42 @@
+% A18 frame body: discovery, held-out and pooled estimates (hand-written from the output files; audited twice
+% against output/, output_pooled/confirmation_run/ and output_pooled/; see RESULTS.md 'Pooled re-run').
+\centering\scriptsize
+\setlength{\tabcolsep}{4.5pt}\renewcommand{\arraystretch}{0.95}
+\begin{tabular}{@{}llrrr@{}}
+  \toprule
+  Association (pp unless stated)$^a$ & Status & Discovery & Held-out$^b$ & Pooled \\
+  \midrule
+  H1d: new architectures $\sim$ prior FM adoption, 0$\to$100\% & reg. & $-8.0$ & $-11.0$ & $-8.9$ \\
+  H2b: method papers $\sim$ newcomer paper & reg., opp.$^c$ & $+3.7$ & $+3.6$ & $+3.5$ \\
+  H2c: benchmark/eval.\ papers $\sim$ newcomer paper & reg., opp.$^c$ & $-1.7$ & $-2.1$ & $-1.7$ \\
+  H3a: acceptance $\sim$ topic maturity, per log unit & reg. & $-1.7$ & $-1.5$ n.s. & $-1.7$ \\
+  \midrule
+  E8: acceptance $\sim$ new arch.\ $\times$ prior FM, 0$\to$100\% & expl. & $+8.3$ & --- & $+9.4$ \\
+  FL gap: keyword / topic & post hoc & $-11.3$ / $-13.5$ & $-4.9$ n.s.$^\dagger$ / --- & $-9.9^\dagger$ / $-12.8$ \\
+  FL gap trend, per year: keyword / topic & post hoc & $-3.0$ / $-2.7$ & $+3.2$ n.s.$^\dagger$ / --- & $-1.9^\dagger$ / $-1.2$ \\
+  Keyword extremes: CNNs / pre-training & post hoc & $-14.2$ / $+9.9$ & --- & $-12.8$ / $+9.1$ \\
+  Far jump from own record (p10 vs p50) & post hoc & $-5.4$ & $-6.1$ & $-5.5$ \\
+  Least-novel fifth vs middle fifth & post hoc & $-3.3$ & $-0.1$ n.s.$^\dagger$ & $-3.0^\dagger$ \\
+  One topic insider vs none & post hoc & $+3.4$ & $+3.9$ & $+2.9$ \\
+  Emerging vs mainstream keywords & post hoc & $+2.7$ & $+3.3$ & $+3.1$ \\
+  Topic acceptance edge, 2024--26 on 2018--22: slope $b$ & post hoc & $0.38$ & $0.60^d$ & $0.45$ \\
+  \bottomrule
+\end{tabular}
+
+\vspace{0.5em}
+\begin{minipage}{\linewidth}
+  \scriptsize\raggedright
+  \textbf{Exploratory:} pooled includes the 11,099 held-out papers and is about 80\% discovery papers, so agreement
+  with discovery is expected and confirms nothing. Pooling also shifts features.\par
+  \vspace{0.2em}\tiny
+  reg.\ = registered; expl.\ = planned exploratory; post hoc = PH4/PH5, post hoc in discovery (their held-out tests
+  were registered before the run).
+  $^a$H1d--H3a, E8, far jump, least-novel fifth, insider, keyword timing: within topic and year (fixed effects). FL
+  and keyword extremes: vs all other papers of the year. Topic edge: across topic units.
+  $^b$Registered held-out test, one-sided; n.s.\ = not supported; --- = no held-out test.
+  $^c$opp.\ = opposite to the registered prediction in discovery; the held-out tests were the reversed hypotheses
+  H2b$'$/H2c$'$.
+  $^d$Held-out 2024--26 edges on discovery 2018--22 edges: a different comparison from the other two slopes.
+  $^\dagger$Registered held-out test not supported (the trend had the opposite sign); the pooled value is driven by
+  the discovery papers.
+\end{minipage}

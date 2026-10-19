@@ -11,7 +11,7 @@
   study had never analysed: a pre-registered out-of-sample replication, not a certified untouched holdout. Say "goes
   with", never "causes", "helps" or "penalises". A null is "no detectable" association; an underpowered null is
   "uninformative".
-- **Questions:** see `qa.md`. Appendix slides A1–A18 and the references come after the "Thank you" slide.
+- **Questions:** see `qa.md`. Appendix slides A1–A19 and the references come after the "Thank you" slide.
 
 | Slide | Words | Target | Ends by |
 |---|---|---|---|
@@ -28,12 +28,11 @@
 | 11 RQ2, newcomers and contribution types | 102 | 0:55 | 7:40 |
 | 12 RQ3, is following the fashion rewarded? | 64 | 0:35 | 8:15 |
 | 13 Far jumps go with lower acceptance (post hoc, replicated) | 133 | 1:10 | 9:25 |
-| 14 Which areas are accepted more or less often? (post hoc) | 96 | 0:50 | 10:15 |
-| 15 Federated learning: fewer papers, lower acceptance (post hoc) | 123 | 1:05 | 11:20 |
-| 16 Do the results hold on held-out papers? | 99 | 0:50 | 12:10 |
-| 17 Contributions | 85 | 0:45 | 12:55 |
-| 18 Limitations and future work | 59 | 0:30 | 13:25 |
-| 19 Thank you | 7 | 0:05 | 13:30 |
+| 14 Why do some areas lose favour? (post hoc) | 156 | 1:20 | 10:45 |
+| 15 Do the results hold on held-out papers? | 99 | 0:50 | 11:35 |
+| 16 Contributions | 85 | 0:45 | 12:20 |
+| 17 Limitations and future work | 59 | 0:30 | 12:50 |
+| 18 Thank you | 7 | 0:05 | 12:55 |
 
 ---
 
@@ -177,32 +176,19 @@ whether a 3-point gap exists, so we no longer claim it.
 
 These are associations: co-author choice and failed projects are not controlled.
 
-## Slide 14: Which areas are accepted more or less often? (post hoc)
+## Slide 14: Why do some areas lose favour? (post hoc)
 
-The next two slides are also post hoc. We screened 68 author keywords and 100 topics.
-- Areas differ by about plus or minus 10 points: generative and pre-training work above; federated learning, CNNs
-  and image classification below.
-- Federated learning is low under *both* definitions, minus 11 and minus 14 points, but the held-out papers did not
-  confirm it.
-- No single area survives correction for 68 comparisons.
+This slide is post hoc. We compared each author keyword's acceptance with all other papers of the same year.
+- Areas differ by about plus or minus 10 points. Generative and pre-training work sits above; maturing areas such as
+  CNNs, image classification and federated learning sit below.
+- Why would an area fall? We checked three explanations on the clearest case, federated learning, at minus 11
+  points. Weaker authors moving in? No: its authors actually became more established. The field moving on? Yes: its
+  share of submissions peaked in 2023 and has fallen to about a third of that. A higher bar for a cooling area? That
+  fits: since 2023 its papers were accepted 11 to 15 points less often every year.
+- To be careful: no single area survives correction for 68 comparisons, and on the held-out papers area edges
+  persist but shrink, while the federated-learning gap points the same way but is not confirmed.
 
-On the held-out papers, the registered test found that topic edges persist but shrink, to about 0.6 times; keyword
-edges like these showed no detectable persistence. So shrink raw rankings.
-
-## Slide 15: Federated learning: fewer papers, lower acceptance (post hoc)
-
-Federated learning is the clearest low area in discovery. Three questions.
-- **Inexperienced authors moving in?** No. FL authors became *more* established, and adjusting for type and team size
-  moves the gap little.
-- **Did the field move on?** FL's share of submissions peaked at 3.2 percent in 2023 and fell to 1.1.
-- **Lower acceptance?** Since 2023, FL papers were accepted 11 to 15 points less often every year. Whether reviewers
-  or the papers changed, we cannot tell.
-
-On the held-out papers, the registered estimate was minus 4.9 points: same direction, mostly from 2021 and 2022, and
-not significant. With 134 FL papers the test could detect only gaps of about 15 points. So the gap is not confirmed;
-it stands as discovery evidence only.
-
-## Slide 16: Do the results hold on held-out papers?
+## Slide 15: Do the results hold on held-out papers?
 
 Here is the full held-out picture: the released former confirmation split, which we had never analysed, with every
 test registered before the single run. The source does not certify these papers as untouched, so this is an
@@ -215,7 +201,7 @@ out-of-sample replication.
 Daggers mark tests too weak to tell either way, including those last three. *(Cut if short on time: Of the six
 secondary tests, five held; the within-author novelty slope did not, nor did the federated-learning trend.)*
 
-## Slide 17: Contributions
+## Slide 16: Contributions
 
 To summarise, three contributions.
 1. **Methodological.** Topic maps fitted with hindsight can manufacture emerging topics and reverse trend
@@ -225,7 +211,7 @@ To summarise, three contributions.
    and far jumps from a team's own record go with lower acceptance; all three replicated. The novelty floor did not,
    though that test was too weak to tell; federated learning is not confirmed; crowding stays inconclusive.
 
-## Slide 18: Limitations and future work
+## Slide 17: Limitations and future work
 
 The main limitations: one venue; associations, not causes; LLM labels; camera-ready text, checked in discovery but
 not on the held-out papers; and a released former holdout, not a certified untouched one. The pooled re-run in the
@@ -233,6 +219,6 @@ appendix is exploratory and confirms nothing.
 
 Next: a prospective test on future ICLR years, the ACL Anthology, and human validation of the labels.
 
-## Slide 19: Thank you
+## Slide 18: Thank you
 
 Thank you. I'm happy to take questions.

@@ -1,6 +1,6 @@
 # Q&A preparation
 
-Short answers first. Use the "If pushed" line only if they ask a follow-up. Appendix slides are A1–A18: A9–A11 title
+Short answers first. Use the "If pushed" line only if they ask a follow-up. Appendix slides are A1–A19 (A19: federated-learning worked example): A9–A11 title
 style, A12 definitions, A13 the earlier keyword grid, A14 held-out data, rules and power, A15 team experience (H1
 held-out), A16 keyword timing, A17 topic edges out of sample, A18 the pooled re-run (exploratory).
 
@@ -227,7 +227,7 @@ prospective version.
 Theory papers (+9 points vs. method papers) and larger teams (+9 points per doubling). These are associations,
 not advice; team size also stands for compute and seniority. (A7, A8)
 
-### Areas and federated learning (slides 14–15; post hoc PH4)
+### Areas and federated learning (slide 14 and A19; post hoc PH4)
 
 **Is federated learning a scam?**
 *Don't use the word "scam" yourself.* Answer: "Submissions on federated learning fell: its share fell by two-thirds

@@ -5,7 +5,7 @@ slides.
 
 | File | Contents |
 |---|---|
-| `slides.pdf` | The compiled deck, 38 pages: 19 main slides, appendix A1–A18 and references |
+| `slides.pdf` | The compiled deck, 38 pages: 18 main slides, appendix A1–A19 and references |
 | `slides.tex` | Beamer source (academic Madrid theme, pdflatex) |
 | `script.md` | Spoken script with a per-slide timing table computed from word counts: about 1,530 words, 12:50 at 120 words a minute; the rounded-up table ends at 13:30. Allowing for spoken numbers and slide changes, expect about 13:50–14:10 (about 0:50–1:10 of buffer under 15:00) |
 | `qa.md` | Expected questions with short answers (including the held-out replication), one-line summaries of the cited papers, a glossary (English and Chinese) and the key numbers |

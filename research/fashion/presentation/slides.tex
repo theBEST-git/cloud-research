@@ -369,65 +369,30 @@
   \end{columns}
 \end{frame}
 
-\begin{frame}{Which Areas Are Accepted More or Less Often? (Post Hoc)}
+\begin{frame}{Why Do Some Areas Lose Favour? (Post Hoc)}
   \begin{columns}[c]
-    \begin{column}{0.52\textwidth}
+    \begin{column}{0.50\textwidth}
       \begin{figure}
         \includegraphics[width=\textwidth]{figs/area_ranking.pdf}
-        \caption{Acceptance gap vs.\ papers of the same year, 2018--2026. Six highest and six lowest of the author
-        keywords with ${\geq}5$ years of data.}
+        \caption{Acceptance gap vs.\ papers of the same year, 2018--2026: six highest and six lowest author keywords
+        (${\geq}5$ years of data; 68 keywords, 32,190 decided papers).}
       \end{figure}
     \end{column}
-    \begin{column}{0.46\textwidth}
+    \begin{column}{0.48\textwidth}
       \footnotesize
+      \textbf{Pattern:} areas differ by about $\pm$10\pp; generative and pre-training work above, maturing areas
+      (CNNs, image classification, federated learning) below.\par\smallskip
+      \textbf{Three explanations, checked on the clearest case (federated learning, $-11$\pp):}
       \begin{itemize}
-        \item 68 author keywords, 100 topics, 32,190 decided papers
-        \item Areas differ by about $\pm$10\pp{}: generative and pre-training work above, federated learning, CNNs and
-          image classification below
-        \item Federated learning is low under \emph{both} definitions: keyword $-11$\pp, topic $-14$\pp{}
-          ($p = 0.005$ each); held-out: not confirmed
+        \item \emph{Weaker authors moving in?} No: authors became more established (4\%\,$\to$\,60\%); controls move
+          the gap little.
+        \item \emph{The field moving on?} Yes: share peaked in 2023 (3.2\%), 1.1\% by 2026.
+        \item \emph{Higher bar for a cooling area?} Consistent: gap of $-11$ to $-15$\pp{} every year since 2023.
       \end{itemize}
-      \gnote{\scriptsize No single area survives correction for 68 comparisons ($q \geq 0.17$; conservative test).}
-      \begin{block}{Held-out}
-        \scriptsize Registered, early-map topics: held-out 2024--26 premia $= 0.60\times$ discovery 2018--22 premia
-        (CI 0.32--0.88): edges shrink but persist. Keyword edges as plotted: $b = 0.16$ (CI $-0.34$ to $0.66$; not
-        registered), no detectable persistence. Shrink raw rankings.
-      \end{block}
+      \gnote{\scriptsize No single area survives correction for 68 comparisons. Held-out: area edges shrink to
+      $0.60\times$ but persist (topics); the FL gap points the same way ($-4.9$\pp) but is not confirmed (A19).}
     \end{column}
   \end{columns}
-\end{frame}
-
-\begin{frame}{Federated Learning: Fewer Papers, Lower Acceptance (Post Hoc)}
-  \vspace{-0.4em}
-  \begin{columns}[c]
-    \begin{column}{0.56\textwidth}
-      \begin{figure}
-        \includegraphics[width=\textwidth]{figs/fl_story.pdf}
-        \caption{Federated learning (author keyword), discovery; 95\% CI, years with ${\geq}10$ papers; dashed:
-        average.}
-      \end{figure}
-    \end{column}
-    \begin{column}{0.42\textwidth}
-      \begin{block}{Held-out (registered H4-FL)}
-        \scriptsize $-4.9$\pp{} (CI $-15.4$ to $+5.7$; one-sided $p = 0.14$): same direction, mostly from 2021--22
-        (2024--26: $-3.6$\pp); trend $+3.2$\pp/yr, not supported. \textbf{Not confirmed}: underpowered (134 FL
-        papers; MDE$_{80}$ 14.5\pp), so uninformative. The gap stands as discovery evidence only.
-      \end{block}
-    \end{column}
-  \end{columns}
-  \vspace{-0.3em}
-  \scriptsize
-  \begin{tabularx}{\textwidth}{@{}l X >{\raggedright\arraybackslash}p{3.6cm}@{}}
-    \toprule
-    Question & Evidence (discovery) & Reading \\
-    \midrule
-    Influx of inexperienced authors? & Authors became \emph{more} established (4\% $\to$ 60\%); adjusting for type,
-      FM and team size moves the gap little ($-11.3 \to -10.5$\pp) & Not supported \\
-    Did the field move on? & Share of submissions peaked in 2023 (3.2\%), 1.1\% by 2026 & Share fell (outcome-free) \\
-    Lower acceptance? & Gap $-11$ to $-15$\pp{} each year since 2023 & Gap observed; reviewers vs.\ papers not
-      separable \\
-    \bottomrule
-  \end{tabularx}
 \end{frame}
 
 % ============================================================================ 6
@@ -856,6 +821,39 @@
 
 \begin{frame}{A18. Pooled Re-run (Exploratory)}
   \input{figs/pooled_appendix.tex}
+\end{frame}
+
+\begin{frame}{A19. Worked Example: Federated Learning (Post Hoc)}
+  \vspace{-0.4em}
+  \begin{columns}[c]
+    \begin{column}{0.56\textwidth}
+      \begin{figure}
+        \includegraphics[width=\textwidth]{figs/fl_story.pdf}
+        \caption{Federated learning (author keyword), discovery; 95\% CI, years with ${\geq}10$ papers; dashed:
+        average.}
+      \end{figure}
+    \end{column}
+    \begin{column}{0.42\textwidth}
+      \begin{block}{Held-out (registered H4-FL)}
+        \scriptsize $-4.9$\pp{} (CI $-15.4$ to $+5.7$; one-sided $p = 0.14$): same direction, mostly from 2021--22
+        (2024--26: $-3.6$\pp); trend $+3.2$\pp/yr, not supported. \textbf{Not confirmed}: underpowered (134 FL
+        papers; MDE$_{80}$ 14.5\pp), so uninformative. The gap stands as discovery evidence only.
+      \end{block}
+    \end{column}
+  \end{columns}
+  \vspace{-0.3em}
+  \scriptsize
+  \begin{tabularx}{\textwidth}{@{}l X >{\raggedright\arraybackslash}p{3.6cm}@{}}
+    \toprule
+    Question & Evidence (discovery) & Reading \\
+    \midrule
+    Influx of inexperienced authors? & Authors became \emph{more} established (4\% $\to$ 60\%); adjusting for type,
+      FM and team size moves the gap little ($-11.3 \to -10.5$\pp) & Not supported \\
+    Did the field move on? & Share of submissions peaked in 2023 (3.2\%), 1.1\% by 2026 & Share fell (outcome-free) \\
+    Lower acceptance? & Gap $-11$ to $-15$\pp{} each year since 2023 & Gap observed; reviewers vs.\ papers not
+      separable \\
+    \bottomrule
+  \end{tabularx}
 \end{frame}
 
 \begin{frame}{References}

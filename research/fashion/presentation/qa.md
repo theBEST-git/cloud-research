@@ -102,8 +102,9 @@ Yes, in two ways. k = 100 was fixed before the analysis, not tuned.
   and 61% among the 198 finer topics, where chance is 10%.
 
 **Can you trust LLM labels for contribution type?**
-They are very consistent: a blind second pass agrees at kappa 0.93. But the reference labels were also made by an
-LLM, so this shows consistency, not human-level validity. A human check is our next step.
+They are very consistent: a blind second pass agrees at kappa 0.93. The reference labels were also made by an
+LLM, so that shows consistency. I also hand-checked a small random sample myself. A larger human validation is the
+next step.
 - *If pushed:* for label errors to create the newcomer result, they would have to differ between newcomer and
   incumbent papers. Correcting for the measured error rates makes the result slightly *larger*, not smaller.
 

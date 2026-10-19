@@ -10,7 +10,6 @@
 \usepackage{tabularx}
 \usepackage{tikz}
 \usetikzlibrary{positioning,arrows.meta}
-\usepackage{appendixnumberbeamer}
 
 \definecolor{navy}{HTML}{1F3A68}
 \definecolor{crimson}{HTML}{A31F34}
@@ -90,7 +89,7 @@
         \textbf{H3a}: topic maturity (prior papers in topic) $\to$ acceptance & $-$ \\
       \bottomrule
     \end{tabularx}
-    \caption{Selected hypotheses. All ten registered hypotheses and their verdicts: Appendix~A1.}
+    \caption{Selected hypotheses. Ten hypotheses registered in total.}
   \end{table}
   \gnote{\footnotesize Our RQ2 prediction followed the fashion view: newcomers imitate, insiders innovate.}
 \end{frame}
@@ -339,7 +338,6 @@
     splits. If anything, papers that go against the tide (architectures where FMs dominate) do relatively better
     (exploratory).
   \end{block}
-  \gnote{\footnotesize Other correlates of acceptance (theory papers, team size): Appendix A7--A8.}
 \end{frame}
 
 \begin{frame}{Far Jumps Go with Lower Acceptance (Post Hoc, Replicated)}
@@ -388,7 +386,7 @@
           to the topic; more newcomers, lower acceptance ($\rho = -0.40$, $p = 0.004$).
         \item \emph{Paradigm moved on:} CNN and image-classification shares peaked in 2018 (2026: 5\% and 24\% of
           peak); incremental gains on saturated benchmarks may face a higher bar (untested).
-        \item \emph{Cooling area:} federated learning, with established authors and a falling share since 2023 (A19).
+        \item \emph{Cooling area:} federated learning, with established authors and a falling share since 2023.
         \item \emph{Not} paper type, team size (adjusted vs.\ raw gaps $r = 0.97$) \emph{or} the FM wave (FM share
           vs.\ acceptance $\rho = 0.07$).
       \end{itemize}
@@ -409,8 +407,8 @@
     \input{figs/replication_table.tex}
     \caption{11,099 released former confirmation papers this study had never analysed: a pre-registered out-of-sample
     replication, not a certified untouched holdout. Supported: one-sided $p < 0.05$, Holm within families (so a 95\% CI
-    can cross 0: A1). pp unless noted. \dag\,Below MDE$_{80}$: uninformative. \ddag\,Within-discovery slope (A17).
-    Also registered (A14): H4-FL trend, P7 not supported; premia EB supported.}
+    can cross 0). pp unless noted. \dag\,Below MDE$_{80}$: uninformative. \ddag\,Within-discovery slope.
+    Also registered: H4-FL trend, P7 not supported; premia EB supported.}
   \end{table}
 \end{frame}
 
@@ -449,7 +447,7 @@
         \item LLM labels: consistent ($\kappa = 0.93$), not yet human-validated
         \item Camera-ready text: the discovery cleaned-text checks held; no such check for held-out papers
         \item Held-out papers are a released former holdout, not certified untouched
-        \item Pooled re-run (54,579 papers) is exploratory and confirms nothing (A18)
+        \item Pooled re-run (54,579 papers) is exploratory and confirms nothing
         \item 2021 author-ID change undercounts incumbents (expected bias towards zero)
       \end{itemize}
     \end{column}
@@ -472,391 +470,6 @@
   {\Large Thank you}\\[1em]
   Questions and comments welcome\\[0.5em]
   \gnote{\small [email]}
-\end{frame}
-
-% ============================================================================ appendix
-\appendix
-\section*{Appendix}
-
-\begin{frame}{A1. All Pre-registered Hypotheses}
-  \centering\scriptsize
-  \begin{tabular}{@{}llrl@{}}
-    \toprule
-    & Prediction & Estimate (95\% CI) & Verdict \\
-    \midrule
-    H1a & fewer new methods in mature topics & $-0.1$\pp{} ($-1.8$, $+1.5$) & not supported \\
-    H1b & more benchmarks in mature topics & $+0.5$\pp{} ($-0.8$, $+1.8$) & not supported \\
-    H1c & more empirical studies in mature topics & $-0.3$\pp{} ($-1.3$, $+0.7$) & not supported \\
-    \textbf{H1d} & \textbf{fewer new architectures after FM adoption} & $\mathbf{-8.0}$\pp{} ($-12.1$, $-3.8$) & \textbf{supported} \\
-    H1e & more empirical/evaluation after FM adoption & $-0.6$\pp{} ($-3.6$, $+2.4$) & not supported \\
-    H2a & fewer incumbents in hot topics & $-0.7$\pp{} ($-2.7$, $+1.2$) & inconclusive \\
-    \textbf{H2b} & \textbf{newcomers: fewer new methods} & $\mathbf{+3.7}$\pp{} ($+2.6$, $+4.8$) & \textbf{significant, opposite} \\
-    \textbf{H2c} & \textbf{newcomers: more benchmarks} & $\mathbf{-1.7}$\pp{} ($-2.5$, $-0.9$) & \textbf{significant, opposite} \\
-    H3a & lower acceptance in mature topics & $-1.7$\pp{} ($-3.7$, $+0.3$) & inconclusive (low power) \\
-    H3b & \ldots{} more so for method papers & $-0.4$\pp{} ($-1.5$, $+0.8$) & inconclusive \\
-    \bottomrule
-  \end{tabular}
-
-  \vspace{0.8em}
-  \raggedright\footnotesize
-  Discovery record. Maturity effects are per log unit of prior papers in the topic (2.7$\times$ more). H2d/H3c
-  (buzzwords) were dropped before any estimate because the measure failed its blind validation. Held-out tests of H1d,
-  H2b$'$, H2c$'$ (the reversed predictions), H3a and H4-FL: slide 16 and A14.
-\end{frame}
-
-\begin{frame}{A2. RQ2 Robustness}
-  \centering\small
-  \begin{tabular}{@{}lrr@{}}
-    \toprule
-    & New methods & Benchmarks \& eval. \\
-    \midrule
-    Main estimate & $+3.7$\pp & $-1.7$\pp \\
-    Range over 10 alternative specifications (all $p<0.05$) & $+2.2$ to $+3.9$ & $-1.8$ to $-0.9$ \\
-    Two-way clustering (topic $\times$ early-map topic) & $+3.7$ & $-1.7$ \\
-    Team size controlled & $+3.9$ & $-0.5$ ($p = 0.07$) \\
-    Only years with consistent author IDs & $+3.7$ & $-1.7$ \\
-    Excluding the paper's own earlier versions & $+3.8$ & $-1.7$ \\
-    Corrected for label errors & $+4.1$ & $-1.8$ \\
-    \bottomrule
-  \end{tabular}
-
-  \vspace{0.8em}
-  \raggedright\footnotesize
-  Base rates: 75\% of papers are new methods, 7.7\% benchmark or evaluation; 73\% are newcomer papers. Confirmatory
-  $p$ from a wild cluster restricted bootstrap \rc{Cameron et al., 2008}: $p < 0.001$ for both. The method gap
-  appears in every era (2019--20: $+5.5$\pp).
-\end{frame}
-
-\begin{frame}{A3. Calibration of Standard Errors}
-  \small
-  \begin{itemize}
-    \item Before seeing any result: 12,400 simulation runs, including no-effect scenarios with realistic topic
-      structure.
-    \item When true topic structure cuts across the 100 topics, the standard test rejected \alert{12.6\%} (H2b) and
-      10.0\% (H2c) of the time at nominal 5\%. The wild bootstrap did not fix this.
-    \item Added before the run:
-      \begin{itemize}
-        \item two-way clustering (two topic maps at once);
-        \item a stress test that deflates each $t$-statistic by the simulated inflation (1.31 / 1.22).
-      \end{itemize}
-    \item RQ2 results: $t = 6.7$ and $-4.4$. After the stress test, Holm $p$ = $4\times10^{-6}$ and $1\times10^{-3}$.
-  \end{itemize}
-  \begin{block}{Lesson}
-    Check the test on data shaped like yours before trusting its $p$-values.
-  \end{block}
-\end{frame}
-
-\begin{frame}{A4. Validity of Topics and Labels}
-  \begin{columns}[T]
-    \begin{column}{0.48\textwidth}
-      \textbf{Topics} {\small(SPECTER2, 100 clusters)}
-      \small
-      \begin{itemize}
-        \item Agreement with ICLR's primary areas (2024--26): NMI 0.30 vs.\ 0.27 for a TF-IDF baseline
-        \item Blind naming test: from title and abstract, a checker picks the right topic 80\% of the time at the
-          100-topic level (61\% among 198 fine topics; chance 10\%)
-        \item Stable across refits (ARI 0.66)
-      \end{itemize}
-    \end{column}
-    \begin{column}{0.48\textwidth}
-      \textbf{Contribution labels} {\small(LLM, fixed codebook)}
-      \small
-      \begin{itemize}
-        \item Blind second pass on 2,174 papers: $\kappa = 0.93$
-        \item Held-out papers (same model and prompt): second pass on 555 papers, $\kappa = 0.93$
-        \item 95.8\% agreement with 2,300 reference labels (also LLM-made, so this shows consistency, not human
-          validity)
-        \item A correction for label errors makes the RQ2 estimates slightly larger
-      \end{itemize}
-    \end{column}
-  \end{columns}
-\end{frame}
-
-\begin{frame}{A5. Hindsight: Further Evidence}
-  \begin{columns}[c]
-    \begin{column}{0.52\textwidth}
-      \includegraphics[width=\textwidth]{figs/hindsight_emerging.pdf}
-    \end{column}
-    \begin{column}{0.46\textwidth}
-      \small
-      \begin{itemize}
-        \item Share of 2024--26 papers in emerging topics: 22\% with the early map vs.\ 41\% with the standard map
-        \item Declining topics: 13 with the standard map vs.\ 26 with the year-balanced map, so faded topics are
-          absorbed into today's topics
-        \item Fit of papers to their topic: standard map 0.62 (2017) vs.\ 0.65 (2026); early map 0.69 vs.\ 0.53
-      \end{itemize}
-      \footnotesize All maps have 100 topics; only the fitting years differ.
-    \end{column}
-  \end{columns}
-\end{frame}
-
-\begin{frame}{A6. Newcomer Acceptance Gap (Exploratory)}
-  \begin{columns}[c]
-    \begin{column}{0.55\textwidth}
-      \includegraphics[width=\textwidth]{figs/newcomer_gap.pdf}
-    \end{column}
-    \begin{column}{0.43\textwidth}
-      \small
-      \begin{itemize}
-        \item Raw acceptance: 37\% vs.\ 47\%
-        \item The gap shrinks as comparisons tighten; within the same authors it is about $-3$\pp
-        \item The same person entering a topic new to them: $-1.4$\pp
-      \end{itemize}
-      \footnotesize Mostly about \emph{who} writes newcomer papers. ICLR is double-blind, so the remainder need not be
-      bias: being new to a topic can make a paper weaker.\par
-      \gnote{Author-FE sample: $-5.4$\pp{} without, $-3.1$\pp{} with author fixed effects.}
-    \end{column}
-  \end{columns}
-\end{frame}
-
-\begin{frame}{A7. Team Size and Acceptance (Exploratory)}
-  \begin{columns}[c]
-    \begin{column}{0.48\textwidth}
-      \includegraphics[width=\textwidth]{figs/team_size.pdf}
-    \end{column}
-    \begin{column}{0.50\textwidth}
-      \small
-      \begin{itemize}
-        \item $+8.8$\pp{} per doubling of team size, within topic $\times$ year
-        \item Steepest for benchmark and evaluation papers ($+13.5$\pp{} each); this ranking is only suggestive
-        \item Flattest for theory (1--2 authors: 42\%)
-        \item Positive in all 20 areas; flattest in federated learning and time series
-      \end{itemize}
-      \footnotesize Team size also proxies compute, data and seniority \rc{Wu et al., 2019}. Who is on the team:
-      A15.
-    \end{column}
-  \end{columns}
-\end{frame}
-
-\begin{frame}{A8. Acceptance by Contribution Type (Exploratory)}
-  \centering\small
-  Within topic $\times$ year, relative to new-method papers:\\[0.6em]
-  \begin{tabular}{@{}lr@{}}
-    \toprule
-    Theory & $+8.9$\pp \\
-    Dataset / benchmark & $+3.9$\pp \\
-    Evaluation & $-1.9$\pp{} (n.s.) \\
-    Empirical study & $-2.7$\pp \\
-    Other (systems, applications, position papers, \ldots) & $-8.0$\pp \\
-    \bottomrule
-  \end{tabular}
-
-  \vspace{0.6em}
-  \footnotesize Papers building on a foundation model: $+4.6$\pp{} vs.\ papers that do not.\\
-  Unadjusted, exploratory. Selection is likely: who writes theory papers differs from who writes method papers.
-\end{frame}
-
-\begin{frame}{A9. Fashion in Title Style (Exploratory)}
-  \begin{figure}
-    \includegraphics[width=0.84\textwidth]{figs/finding1_no_payoff.png}
-    \caption{Left: share of branded titles. Right: share among accepted $\div$ share among all submissions.}
-  \end{figure}
-  \vspace{-0.4em}
-  \small
-  \begin{itemize}
-    \item Branded titles rose more than fourfold; accepted papers carry them at the submitted rate (ratio 1.02).
-    \item The rise appears with and without LLM-style wording in the abstract. \gnote{(Not pre-registered.)}
-  \end{itemize}
-\end{frame}
-
-\begin{frame}{A10. Title Style: Who Carries It? (Exploratory)}
-  \begin{columns}[c]
-    \begin{column}{0.56\textwidth}
-      \includegraphics[width=\textwidth]{figs/finding2_style_vs_topic.png}
-    \end{column}
-    \begin{column}{0.42\textwidth}
-      \small
-      \begin{itemize}
-        \item Returning authors move into new topics as fast as the field
-        \item They lag on the new title style, most as first authors
-        \item Topics change with the field; style changes with the people
-      \end{itemize}
-    \end{column}
-  \end{columns}
-\end{frame}
-
-\begin{frame}{A11. Title Style and LLM Writing Tools (Exploratory)}
-  \centering
-  \includegraphics[width=0.92\textwidth]{figs/finding3_words_not_structure.png}
-
-  \vspace{0.3em}
-  \small LLM-favoured words (``Enhancing'', ``Unveiling'') jump after 2023 (odds ratio 2.2), while control word pairs do
-  not. The ``NAME: subtitle'' structure rises with or without LLM fingerprints in the abstract.
-\end{frame}
-
-\begin{frame}{A12. Definitions}
-  \footnotesize
-  \begin{description}[Benchmark \& eval.]
-    \item[Topic] one of 100 clusters of paper embeddings (title + abstract)
-    \item[Topic maturity] $\log(1 + \text{earlier papers in the topic})$; $+1$ = 2.7$\times$ more papers
-    \item[Hot topic] top fifth of topics by last year's growth
-    \item[Newcomer paper] no author has an earlier ICLR submission (any outcome) in that topic
-    \item[FM adoption] share of the topic's papers last year that built on a foundation model
-    \item[Benchmark \& eval.] primary contribution is a dataset, benchmark or evaluation
-    \item[Closeness] highest cosine between the abstract and an experienced co-author's earlier ICLR submissions
-      (their mean vector); far jump = 10th percentile
-    \item[Novelty] $1 -$ mean cosine to the 10 most similar earlier ICLR papers, as a percentile within topic
-      $\times$ year
-    \item[Model] linear probability model with topic and year fixed effects (topic $\times$ year cells for RQ2);
-      errors clustered by topic
-    \item[pp] percentage points
-  \end{description}
-\end{frame}
-
-\begin{frame}{A13. Earlier Keyword $\times$ Year Grid (Exploratory, Pre-registration)}
-  \centering
-  \includegraphics[height=0.80\textheight]{figs/keyword_year_heatmap.png}\\
-  {\tiny\gnote{Reference for Q\&A (zoom in the PDF): keyword papers minus all others, same year (pp); hatched: a group
-  below 50 papers; 31,239 submissions.}}
-\end{frame}
-
-\begin{frame}{A14. The Held-out Replication: Data, Rules and Power}
-  \begin{columns}[T]
-    \begin{column}{0.54\textwidth}
-      \scriptsize
-      \begin{itemize}
-        \item \textbf{Papers}: 11,099 with text (of 11,113 released), 2017--2026; 69\% from 2024--26; 8,185 decided
-          papers in the acceptance tests (2018--26)
-        \item \textbf{Assignment}: the source's original confirmation split (rule not documented by the source; 1,309
-          pending family/link cases excluded by it); released 2026-10-18; never analysed by this study before the run
-        \item \textbf{Status}: pre-registered out-of-sample replication; the source does not certify an untouched
-          independent holdout. H4-FL's out-of-sample status is unverified (earlier keyword grid of unknown provenance)
-        \item \textbf{Run}: once, hash-checked frozen code; frozen topic maps; features built on discovery + held-out
-          papers, populations held-out only; same LLM labels (555-paper second pass, $\kappa = 0.93$)
-        \item \textbf{Rule}: one-sided tests ($p_1$), $\alpha = 0.05$; Holm within families; simulated null size of
-          the RQ tests 2.0--5.0\%
-      \end{itemize}
-    \end{column}
-    \begin{column}{0.43\textwidth}
-      \centering\scriptsize
-      \begin{tabular}{@{}lrr@{}}
-        \toprule
-        Test & MDE$_{80}$ & $|$Held-out est.$|$ \\
-        \midrule
-        H1d (0 $\to$ 100\% FM) & 12.0\pp & 11.0\pp \\
-        H2b$'$ & 2.8\pp & 3.6\pp \\
-        H2c$'$ & 2.4\pp & 2.1\pp \\
-        H3a (per log unit) & 4.8\pp & 1.5\pp \\
-        H4-FL & 14.5\pp & 4.9\pp \\
-        E1 & 4.9\pp & 6.1\pp \\
-        P1b & 5.4\pp & 0.1\pp \\
-        A1$^*$ & 4.9\pp & 3.3\pp \\
-        Teams H1$^*$ & 5.1\pp & 3.9\pp \\
-        \bottomrule
-      \end{tabular}
-
-      \vspace{0.3em}
-      \raggedright $^*$Derived post hoc, not registered. Power at the discovery size: E1 0.89 (CR1 $p$; slightly less
-      under the registered rule), P1b 0.47. Reading rule: not supported with $|$estimate$|$ below MDE$_{80}$ =
-      uninformative. Also registered: H4-FL trend $+3.2$\pp/yr (CI $-3.3$ to $+9.6$; $p_1 = 0.88$; opposite sign to
-      discovery) and P7 ($+0.34$\pp{} per 10 novelty percentiles; $p_1 = 0.22$), not supported; premia EB
-      ($p_1 = 0.005$), supported.
-    \end{column}
-  \end{columns}
-\end{frame}
-
-\begin{frame}{A15. Team Experience and Acceptance (Post Hoc; H1 Held-out)}
-  \centering\small
-  Within topic $\times$ year, decided papers 2023--26:\\[0.5em]
-  \begin{tabular}{@{}lll@{}}
-    \toprule
-    & Discovery ($n = 24{,}601$) & Held-out ($n = 6{,}243$) \\
-    \midrule
-    \multicolumn{3}{@{}l}{\emph{Additive model: counts of each author type; class, FM and earlier-version controls}} \\
-    Per novice (no earlier ICLR submission) & $+1.5$\pp{} ($+1.0$, $+2.0$) & not registered \\
-    Per crossover (earlier ICLR, new to topic) & $+4.8$\pp & not registered \\
-    Per topic insider & $+5.3$\pp & not registered \\
-    \addlinespace
-    \multicolumn{3}{@{}l}{\emph{Model T1: team size and number of experienced authors fixed}} \\
-    One topic insider vs.\ none (H1) & $+3.4$\pp{} ($+1.2$, $+5.7$) & $+3.9$\pp{} ($+0.3$, $+7.5$) \\
-    Two or more insiders vs.\ one & $+0.5$\pp{} ($-2.2$, $+3.2$) & not registered \\
-    \bottomrule
-  \end{tabular}
-
-  \vspace{0.6em}
-  \raggedright\footnotesize Discovery H1: Holm $p = 0.019$ within its family. Held-out H1 (registered, secondary):
-  one-sided $p = 0.017$, supported. The per-head split is one specification outside the family and was not tested on
-  held-out papers. Selection is heavy: experienced authors may join better projects, so this is not advice to recruit
-  names. Author histories start in 2021.
-\end{frame}
-
-\begin{frame}{A16. Keyword Timing: Emerging vs.\ Mainstream (Post Hoc)}
-  \centering\small
-  Acceptance vs.\ papers listing an old, flat (``Mainstream'') author keyword, within topic $\times$ year:\\[0.5em]
-  \begin{tabular}{@{}lrl@{}}
-    \toprule
-    & Discovery ($n = 22{,}302$) & Held-out \\
-    \midrule
-    Emerging: young (1--2 years), rising (A1) & $+2.7$\pp{} ($+0.8$, $+4.6$) & $+3.3$\pp{} ($-0.2$, $+6.7$), supported \\
-    Cooling: old, falling (A2) & $+0.1$\pp{} ($-2.0$, $+2.3$) & not registered \\
-    Age gradient, young minus old (A3) & $+1.7$\pp, not supported & not registered \\
-    Resurgent: old, rising (nominal) & $+3.9$\pp{} ($+1.1$, $+6.6$) & not registered \\
-    Same keyword, rising vs.\ flat years & $+0.9$\pp{} ($-0.8$, $+2.7$) & not registered \\
-    \bottomrule
-  \end{tabular}
-
-  \vspace{0.6em}
-  \raggedright\footnotesize Discovery A1: Holm $p = 0.020$ within its 3-test family; null-frame $p = 0.005$. Held-out
-  A1: one-sided $p = 0.031$ (two-way clustering); null-frame $p = 0.020$. A one-sided test at 0.05 matches a 90\%
-  two-sided interval, so the 95\% CI can include 0. Old rising keywords are also high, so the contrast may reflect a
-  low Mainstream baseline as much as keyword age. Relabelling a paper is untested.
-\end{frame}
-
-\begin{frame}{A17. Topic Edges Out of Sample (Post Hoc; Registered Test)}
-  \begin{columns}[c]
-    \begin{column}{0.50\textwidth}
-      \includegraphics[width=\textwidth]{figs/premia_scatter.pdf}
-    \end{column}
-    \begin{column}{0.48\textwidth}
-      \small
-      \begin{itemize}
-        \item 75 early-map topics, ${\geq}15$ decided held-out papers in 2024--26 each; dot size: papers
-        \item Registered slope: $b = 0.60$ (CI 0.32--0.88), so $0 < b < 1$: edges persist but shrink
-        \item Within discovery, 2018--22 $\to$ 2024--26: $b = 0.38$ (CI 0.18--0.58)
-        \item Shrunk (EB) discovery edges predict held-out edges better than zero (one-sided $p = 0.005$)
-        \item Not registered: keyword units $b = 0.16$ (CI $-0.34$ to $0.66$), no detectable persistence
-      \end{itemize}
-      \footnotesize Premium: acceptance gap vs.\ same-year papers; weighted least squares. Read raw topic rankings
-      as shrunk towards zero.
-    \end{column}
-  \end{columns}
-\end{frame}
-
-\begin{frame}{A18. Pooled Re-run (Exploratory)}
-  \input{figs/pooled_appendix.tex}
-\end{frame}
-
-\begin{frame}{A19. Worked Example: Federated Learning (Post Hoc)}
-  \vspace{-0.4em}
-  \begin{columns}[c]
-    \begin{column}{0.56\textwidth}
-      \begin{figure}
-        \includegraphics[width=\textwidth]{figs/fl_story.pdf}
-        \caption{Federated learning (author keyword), discovery; 95\% CI, years with ${\geq}10$ papers; dashed:
-        average.}
-      \end{figure}
-    \end{column}
-    \begin{column}{0.42\textwidth}
-      \begin{block}{Held-out (registered H4-FL)}
-        \scriptsize $-4.9$\pp{} (CI $-15.4$ to $+5.7$; one-sided $p = 0.14$): same direction, mostly from 2021--22
-        (2024--26: $-3.6$\pp); trend $+3.2$\pp/yr, not supported. \textbf{Not confirmed}: underpowered (134 FL
-        papers; MDE$_{80}$ 14.5\pp), so uninformative. The gap stands as discovery evidence only.
-      \end{block}
-    \end{column}
-  \end{columns}
-  \vspace{-0.3em}
-  \scriptsize
-  \begin{tabularx}{\textwidth}{@{}l X >{\raggedright\arraybackslash}p{3.6cm}@{}}
-    \toprule
-    Question & Evidence (discovery) & Reading \\
-    \midrule
-    Influx of inexperienced authors? & Authors became \emph{more} established (4\% $\to$ 60\%); adjusting for type,
-      FM and team size moves the gap little ($-11.3 \to -10.5$\pp) & Not supported \\
-    Did the field move on? & Share of submissions peaked in 2023 (3.2\%), 1.1\% by 2026 & Share fell (outcome-free) \\
-    Lower acceptance? & Gap $-11$ to $-15$\pp{} each year since 2023 & Gap observed; reviewers vs.\ papers not
-      separable \\
-    \bottomrule
-  \end{tabularx}
 \end{frame}
 
 \begin{frame}{References}

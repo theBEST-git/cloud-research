@@ -11,7 +11,7 @@
   study had never analysed: a pre-registered out-of-sample replication, not a certified untouched holdout. Say "goes
   with", never "causes", "helps" or "penalises". A null is "no detectable" association; an underpowered null is
   "uninformative".
-- **Questions:** see `qa.md`. Appendix slides A1–A19 and the references come after the "Thank you" slide.
+- **Questions:** see `qa.md`. The references are the last page, after the "Thank you" slide.
 
 | Slide | Words | Target | Ends by |
 |---|---|---|---|
@@ -57,7 +57,7 @@ fashions, and if so: what they displace, who drives them, and whether followers 
 
 ## Slide 4: Research questions and pre-registered hypotheses
 
-This gives three research questions. The table shows the key hypothesis for each; all ten are in Appendix A1.
+This gives three research questions. The table shows the key hypothesis for each; all ten are in RESULTS.md.
 
 - **RQ1, rise.** H1d predicts that when more of a topic's papers build on foundation models, fewer of its papers
   propose new architectures.
@@ -220,8 +220,8 @@ To summarise, three contributions.
 ## Slide 17: Limitations and future work
 
 The main limitations: one venue; associations, not causes; LLM labels; camera-ready text, checked in discovery but
-not on the held-out papers; and a released former holdout, not a certified untouched one. The pooled re-run in the
-appendix is exploratory and confirms nothing.
+not on the held-out papers; and a released former holdout, not a certified untouched one. The pooled re-run is
+exploratory and confirms nothing.
 
 Next: a prospective test on future ICLR years, the ACL Anthology, and human validation of the labels.
 

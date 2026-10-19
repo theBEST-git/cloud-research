@@ -4,9 +4,9 @@ A talk of 15 minutes or less (strict limit) on the research-fashion study and it
 (supervisor: A/Prof Jianzhong Qi). Revised after the supervisor's feedback: two post hoc slides cut (far jumps, why areas
 lose favour), "pre-registered" dropped from the titles, "topic map" defined, and every slide reduced to its key point.
 
-Data credit (slide 6 and references): the corpus is an integrated, curated ICLR corpus built from our own official
-OpenReview snapshots, reconciled with Paper Copilot (Yang, Wei & Pei, 2025), Louis's ICLR archive
-(`MlouisBE/iclr-rebuttal-analysis`) and Re² (Zhang et al., 2025).
+Data credit (slide 6 and references): a provenance-preserving ICLR corpus built from our own dated official
+OpenReview snapshots. Re² (Zhang et al., 2025), the Louis archive (`MlouisBE/iclr-rebuttal-analysis`) and Paper
+Copilot (Yang, Wei & Pei, 2025) informed coverage and source audits but were not pooled into the analytical corpus.
 
 | File | Contents |
 |---|---|

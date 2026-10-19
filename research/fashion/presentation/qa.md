@@ -50,16 +50,26 @@ different settings is useful.
 ## 1. Data and measurement
 
 **Where does the data come from? Did you collect it yourselves?**
-Both. It is an integrated, curated ICLR corpus. The primary source is our own collection of official OpenReview
-snapshots: submission metadata, author lists (from the selected official metadata), reviews and discussions. We
-reconciled it with existing resources and credit them:
-- **Paper Copilot** (Yang, Wei & Pei, 2025): upstream provenance for archived metadata and reconstructed score pairs;
-- **Louis's ICLR archive** (`MlouisBE/iclr-rebuttal-analysis`): archived observations, source comparisons and
-  reconstructed score changes, partly distributed from Paper Copilot;
-- **Re²** (Zhang et al., 2025): a historical audit and validation reference.
+Yes. It is a provenance-preserving ICLR corpus built from our own dated acquisitions of official OpenReview records
+(2017–2026; 55,938 reconciled submission instances). Everything this study uses, namely titles, abstracts,
+author-declared keywords, primary areas, author lists and decisions, comes from the selected official submission
+metadata. The keyword cleaning (40,930 canonical expressions) is our own.
 
-Our own work on the data: acquisition, source reconciliation, cleaning, deduplication, eligibility rules, provenance
-tracking and keyword preprocessing.
+Existing datasets informed the design but were **not pooled** into the analytical corpus:
+- **Re²** (Zhang et al., 2025; `Daoze/ReviewRebuttal`): we first considered it as the main dataset and audited it.
+  Its main-conference ICLR coverage ends in 2023 and omits 2019, conversations include training-format placeholders,
+  and its rebuttal train/test partitions share 475 paper IDs. That motivated collecting official records ourselves.
+  It stayed a coverage and provenance reference.
+- **Louis archive** (`MlouisBE/iclr-rebuttal-analysis`): kept as a separate archive layer for source comparison and
+  identity reconciliation; it added no submissions of its own, and there is no Louis text fallback in the clean
+  corpus.
+- **Paper Copilot** (Yang, Wei & Pei, 2025): metadata comparisons, and the lineage of reconstructed 2024–25 score
+  changes (which reach us through the Louis archive). This study uses no review scores.
+
+Our own work on the data: acquisition across API versions, submission reconciliation (aliases, paper families),
+observation selection, conservative cleaning, eligibility rules, provenance tracking and keyword preprocessing.
+- *If pushed:* dated snapshots are not full histories; a review collected later is not necessarily its initial or
+  final version.
 
 **Why ICLR?**
 ICLR is one of the few major ML venues that has published its submissions, including rejected and withdrawn ones,

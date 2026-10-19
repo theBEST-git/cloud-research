@@ -114,13 +114,14 @@ smallest effect of interest (E9).
 ## Data
 
 - **Corpus:** the discovery split, 43,480 ICLR submissions (2017–2026) with a usable abstract.
-- **Data sources:** an integrated, curated ICLR corpus. Primary source: our own official OpenReview snapshots
-  (submission metadata, author lists from the selected official metadata, reviews, discussions). Reconciled with
-  existing resources: Paper Copilot (Yang, Wei & Pei, 2025, arXiv:2510.13201; upstream provenance for archived
-  metadata and reconstructed score pairs), Louis's ICLR archive (`MlouisBE/iclr-rebuttal-analysis`; archived
-  observations, source comparisons, reconstructed score changes) and Re² (Zhang et al., 2025, arXiv:2505.07920;
-  historical audit and validation reference). Our work: acquisition, source reconciliation, cleaning, deduplication,
-  eligibility rules, provenance tracking and keyword preprocessing.
+- **Data sources:** a provenance-preserving ICLR corpus built from our own dated acquisitions of official OpenReview
+  records (55,938 reconciled submission instances). Titles, abstracts, author-declared keywords, primary areas,
+  author lists and decisions all come from the selected official submission metadata; the keyword preprocessing is
+  our own. Existing datasets informed coverage and source audits but were not pooled into the analytical corpus:
+  Re² (Zhang et al., 2025, arXiv:2505.07920; audited, ICLR coverage ends 2023), the Louis archive
+  (`MlouisBE/iclr-rebuttal-analysis`; separate archive layer for source comparison) and Paper Copilot (Yang, Wei &
+  Pei, 2025, arXiv:2510.13201; metadata comparisons and the lineage of reconstructed score pairs, which this study
+  does not use).
 - **Added 2026-10-18:**
   - Held-out corpus: the 11,099 released former-holdout papers with an abstract (of 11,113), used for the registered
     replication.

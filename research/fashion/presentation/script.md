@@ -161,11 +161,11 @@ To summarise, three contributions.
 
 ## Slide 15: Limitations and future work
 
-The main limitations: one venue; associations, not causes; LLM labels that are consistent but not yet
-human-validated; held-out papers that are not certified untouched; and a 2021 author-ID change that undercounts
+The main limitations: one venue; associations, not causes; LLM labels that are consistent, but still need
+human validation on a random sample; held-out papers that are not certified untouched; and a 2021 author-ID change that undercounts
 incumbents.
 
-Next: a prospective test on future ICLR submissions, the ACL Anthology, and human validation of the labels.
+Next: a prospective test on future ICLR submissions, the ACL Anthology, and human validation of the labels on a random sample.
 
 ## Slide 16: Thank you
 

@@ -371,26 +371,29 @@
 
 \begin{frame}{Why Do Some Areas Lose Favour? (Post Hoc)}
   \begin{columns}[c]
-    \begin{column}{0.50\textwidth}
+    \begin{column}{0.45\textwidth}
       \begin{figure}
         \includegraphics[width=\textwidth]{figs/area_ranking.pdf}
-        \caption{Acceptance gap vs.\ papers of the same year, 2018--2026: six highest and six lowest author keywords
-        (${\geq}5$ years of data; 68 keywords, 32,190 decided papers).}
+        \caption{Acceptance gap vs.\ same-year papers, 2018--2026: six highest and six lowest author keywords
+        (${\geq}5$ years of data; 32,190 decided papers).}
       \end{figure}
     \end{column}
-    \begin{column}{0.48\textwidth}
-      \footnotesize
-      \textbf{Pattern:} areas differ by about $\pm$10\pp; generative and pre-training work above, maturing areas
-      (CNNs, image classification, federated learning) below.\par\smallskip
-      \textbf{Three explanations, checked on the clearest case (federated learning, $-11$\pp):}
-      \begin{itemize}
-        \item \emph{Weaker authors moving in?} No: authors became more established (4\%\,$\to$\,60\%); controls move
-          the gap little.
-        \item \emph{The field moving on?} Yes: share peaked in 2023 (3.2\%), 1.1\% by 2026.
-        \item \emph{Higher bar for a cooling area?} Consistent: gap of $-11$ to $-15$\pp{} every year since 2023.
+    \begin{column}{0.53\textwidth}
+      \scriptsize
+      \textbf{Pattern} ($\pm$10\pp): current-wave and specialist areas above; older or entry-level areas below.
+      \par\smallskip
+      \textbf{Candidate explanations (checked across 50 keywords):}
+      \begin{itemize}\setlength{\itemsep}{1pt}
+        \item \emph{Entry points attract newcomers:} 85--88\% of CNN and classification papers come from authors new
+          to the topic; more newcomers, lower acceptance ($\rho = -0.40$, $p = 0.004$).
+        \item \emph{Paradigm moved on:} CNN and image-classification shares peaked in 2018 (2026: 5\% and 24\% of
+          peak); incremental gains on saturated benchmarks may face a higher bar (untested).
+        \item \emph{Cooling area:} federated learning, with established authors and a falling share since 2023 (A19).
+        \item \emph{Not} paper type, team size (adjusted vs.\ raw gaps $r = 0.97$) \emph{or} the FM wave (FM share
+          vs.\ acceptance $\rho = 0.07$).
       \end{itemize}
-      \gnote{\scriptsize No single area survives correction for 68 comparisons. Held-out: area edges shrink to
-      $0.60\times$ but persist (topics); the FL gap points the same way ($-4.9$\pp) but is not confirmed (A19).}
+      \gnote{\tiny Associations, not causes; no area survives correction for 68 tests. Held-out: edges shrink
+      ($0.60\times$) but persist; FL gap not confirmed.}
     \end{column}
   \end{columns}
 \end{frame}

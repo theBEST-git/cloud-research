@@ -28,11 +28,11 @@
 | 11 RQ2, newcomers and contribution types | 102 | 0:55 | 7:40 |
 | 12 RQ3, is following the fashion rewarded? | 64 | 0:35 | 8:15 |
 | 13 Far jumps go with lower acceptance (post hoc, replicated) | 133 | 1:10 | 9:25 |
-| 14 Why do some areas lose favour? (post hoc) | 156 | 1:20 | 10:45 |
-| 15 Do the results hold on held-out papers? | 99 | 0:50 | 11:35 |
-| 16 Contributions | 85 | 0:45 | 12:20 |
-| 17 Limitations and future work | 59 | 0:30 | 12:50 |
-| 18 Thank you | 7 | 0:05 | 12:55 |
+| 14 Why do some areas lose favour? (post hoc) | 183 | 1:35 | 11:00 |
+| 15 Do the results hold on held-out papers? | 99 | 0:50 | 11:50 |
+| 16 Contributions | 85 | 0:45 | 12:35 |
+| 17 Limitations and future work | 59 | 0:30 | 13:05 |
+| 18 Thank you | 7 | 0:05 | 13:10 |
 
 ---
 
@@ -179,14 +179,20 @@ These are associations: co-author choice and failed projects are not controlled.
 ## Slide 14: Why do some areas lose favour? (post hoc)
 
 This slide is post hoc. We compared each author keyword's acceptance with all other papers of the same year.
-- Areas differ by about plus or minus 10 points. Generative and pre-training work sits above; maturing areas such as
-  CNNs, image classification and federated learning sit below.
-- Why would an area fall? We checked three explanations on the clearest case, federated learning, at minus 11
-  points. Weaker authors moving in? No: its authors actually became more established. The field moving on? Yes: its
-  share of submissions peaked in 2023 and has fallen to about a third of that. A higher bar for a cooling area? That
-  fits: since 2023 its papers were accepted 11 to 15 points less often every year.
-- To be careful: no single area survives correction for 68 comparisons, and on the held-out papers area edges
-  persist but shrink, while the federated-learning gap points the same way but is not confirmed.
+Areas differ by about plus or minus 10 points: current-wave and specialist areas, such as pre-training and imitation
+learning, sit above; older or entry-level areas, such as CNNs, image classification and federated learning, sit below.
+
+Why? We checked candidate explanations across 50 keywords.
+- **Entry points attract newcomers.** 85 to 88 percent of CNN and classification papers come from authors new to the
+  topic, and across areas, more newcomers goes with lower acceptance.
+- **The paradigm moved on.** CNN and image-classification shares peaked in 2018; incremental gains on saturated
+  benchmarks may face a higher bar. That part we could not test.
+- **Cooling areas.** Federated learning has established authors but a falling share since 2023, and a gap every
+  year.
+- What it is *not*: paper type and team size barely change the gaps, and riding the foundation-model wave does not
+  predict an area's acceptance.
+
+These are associations, no single area survives correction, and on held-out papers area edges shrink but persist.
 
 ## Slide 15: Do the results hold on held-out papers?
 

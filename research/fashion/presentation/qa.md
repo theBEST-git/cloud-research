@@ -227,6 +227,16 @@ prospective version.
 Theory papers (+9 points vs. method papers) and larger teams (+9 points per doubling). These are associations,
 not advice; team size also stands for compute and seniority. (A7, A8)
 
+### Why areas differ (slide 14; post hoc)
+
+**Q: What explains the low areas besides federated learning?**
+Across 50 keywords, areas where more papers come from topic newcomers are accepted less often (ρ = −0.40, p = 0.004);
+CNN and classification papers are 85–88% newcomer papers. Paper type and team size explain little (adjusted vs raw
+gaps r = 0.97), and foundation-model share does not predict an area's acceptance (ρ = 0.07). The "saturated paradigm"
+reading for CNNs and image classification (shares peaked in 2018) is a hypothesis we could not test.
+*If pushed:* the newcomer gap (~10 pp) times the extra newcomer share of these areas covers only a few points of a
+−10 to −14 pp gap, so composition is part of the story, not all of it.
+
 ### Areas and federated learning (slide 14 and A19; post hoc PH4)
 
 **Is federated learning a scam?**

@@ -1,8 +1,8 @@
 # Talk script: "Riding the Wave?"
 
 - **Speaker:** Minghan Li (supervisor: A/Prof Jianzhong Qi).
-- **Length:** about 1,000 spoken words, about 8:20 at a calm pace (120 words a minute). The timing table below is
-  computed from each slide's word count, rounded up to the next 5 seconds; it ends at 8:50. Numbers take longer to
+- **Length:** about 1,020 spoken words, about 8:30 at a calm pace (120 words a minute). The timing table below is
+  computed from each slide's word count, rounded up to the next 5 seconds; it ends at 9:00. Numbers take longer to
   say than their word count suggests, and each slide change costs 1–2 seconds, so expect about 9:30–10:00 in
   practice: about 5 minutes of buffer under the strict 15:00 limit, enough to slow down on the figures (slides 7,
   8, 10 and 11) or take a question during the talk.
@@ -21,17 +21,17 @@
 | 3 Motivation | 84 | 0:45 | 1:15 |
 | 4 Research questions and hypotheses | 66 | 0:35 | 1:50 |
 | 5 Related work and positioning | 59 | 0:30 | 2:20 |
-| 6 Data and measurement | 85 | 0:45 | 3:05 |
-| 7 Hindsight bias in topic maps | 88 | 0:45 | 3:50 |
-| 8 Consequence | 64 | 0:35 | 4:25 |
-| 9 Empirical strategy | 87 | 0:45 | 5:10 |
-| 10 RQ1, where foundation models spread, new architectures fade | 67 | 0:35 | 5:45 |
-| 11 RQ2, newcomers bring new methods | 67 | 0:35 | 6:20 |
-| 12 RQ3, is following the fashion rewarded? | 68 | 0:35 | 6:55 |
-| 13 Do the results hold on held-out papers? | 85 | 0:45 | 7:40 |
-| 14 Contributions | 64 | 0:35 | 8:15 |
-| 15 Limitations and future work | 49 | 0:25 | 8:40 |
-| 16 Thank you | 20 | 0:10 | 8:50 |
+| 6 Data and measurement | 107 | 0:55 | 3:15 |
+| 7 Hindsight bias in topic maps | 88 | 0:45 | 4:00 |
+| 8 Consequence | 64 | 0:35 | 4:35 |
+| 9 Empirical strategy | 87 | 0:45 | 5:20 |
+| 10 RQ1, where foundation models spread, new architectures fade | 67 | 0:35 | 5:55 |
+| 11 RQ2, newcomers bring new methods | 67 | 0:35 | 6:30 |
+| 12 RQ3, is following the fashion rewarded? | 68 | 0:35 | 7:05 |
+| 13 Do the results hold on held-out papers? | 85 | 0:45 | 7:50 |
+| 14 Contributions | 64 | 0:35 | 8:25 |
+| 15 Limitations and future work | 49 | 0:25 | 8:50 |
+| 16 Thank you | 20 | 0:10 | 9:00 |
 
 ---
 
@@ -75,8 +75,9 @@ papers; topics defined without hindsight; and registered tests, with a held-out 
 
 ## Slide 6: Data and measurement
 
-Our data are 43,480 ICLR submissions from 2017 to 2026, including rejected and withdrawn papers, plus 11,099
-held-out papers for the replication.
+Our data are an integrated, curated ICLR corpus: our own OpenReview collection, reconciled with existing archives,
+namely Paper Copilot, Re-squared and Louis's ICLR archive. It holds 43,480 submissions from 2017 to 2026, including
+rejected and withdrawn papers, plus 11,099 held-out papers for the replication.
 - **Topics:** we embed titles and abstracts with SPECTER2 and cluster them into 100 topics. With 75 or 150 topics,
   the results agree.
 - **Contribution type:** an LLM with a fixed codebook; a blind second pass agrees at kappa 0.93.

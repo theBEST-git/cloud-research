@@ -105,7 +105,7 @@
       \textbf{What we add to meta-research on machine learning}\\
       \rc{Koch et al., 2021; Birhane et al., 2022}
       \begin{itemize}\setlength{\itemsep}{0.6em}
-        \item All submissions, not only accepted papers
+        \item Content trends across all submissions, not only accepted papers
         \item Topics defined without hindsight
         \item Tests registered in advance \rc{Nosek et al., 2018}, plus a held-out replication
       \end{itemize}
@@ -123,8 +123,11 @@
       \toprule
       Construct & Measure \\
       \midrule
-      Papers & 43,480 ICLR submissions, 2017--2026 (accepted, rejected and withdrawn); 11,099 held-out papers
-        for the replication \\
+      Corpus & Integrated, curated ICLR corpus: our OpenReview collection, reconciled with existing archives
+        \rc{Paper Copilot: Yang et al., 2025; Re$^2$: Zhang et al., 2025; MlouisBE, n.d.} \\
+      \addlinespace
+      Papers & 43,480 submissions, 2017--2026 (accepted, rejected and withdrawn); 11,099 held-out papers for the
+        replication \\
       \addlinespace
       Topic & SPECTER2 embeddings of title + abstract \rc{Singh et al., 2023}, clustered into $k = 100$ topics;
         results agree at $k = 75$ and $150$ \\
@@ -361,8 +364,8 @@
 \end{frame}
 
 \begin{frame}{References}
-  \footnotesize
-  \begin{itemize}\setlength{\itemsep}{2pt}
+  \scriptsize
+  \begin{itemize}\setlength{\itemsep}{0pt}
     \item[] Abrahamson, E. (1991). Managerial fads and fashions: The diffusion and rejection of innovations.
       \emph{Academy of Management Review}, 16(3), 586--612.
     \item[] Azoulay, P., Fons-Rosen, C., \& Graff Zivin, J. S. (2019). Does science advance one funeral at a time?
@@ -375,10 +378,16 @@
       strategies. \emph{American Sociological Review}, 80(5), 875--908.
     \item[] Koch, B., Denton, E., Hanna, A., \& Foster, J. G. (2021). Reduced, reused and recycled: The life of a
       dataset in machine learning research. In \emph{NeurIPS Datasets and Benchmarks Track}.
+    \item[] MlouisBE. (n.d.). \emph{iclr-rebuttal-analysis} [ICLR archive; GitHub repository].
+      github.com/MlouisBE/iclr-rebuttal-analysis.
     \item[] Nosek, B. A., Ebersole, C. R., DeHaven, A. C., \& Mellor, D. T. (2018). The preregistration revolution.
       \emph{Proceedings of the National Academy of Sciences}, 115(11), 2600--2606.
     \item[] Singh, A., D'Arcy, M., Cohan, A., Downey, D., \& Feldman, S. (2023). SciRepEval: A multi-format benchmark
       for scientific document representations. In \emph{Proceedings of EMNLP}.
+    \item[] Yang, J., Wei, Q., \& Pei, J. (2025). Paper Copilot: Tracking the evolution of peer review in AI
+      conferences. \emph{arXiv:2510.13201}.
+    \item[] Zhang, D., Bao, Z., Du, S., Zhao, Z., Zhang, K., Bao, D., \& Yang, Y. (2025). Re$^2$: A consistency-ensured
+      dataset for full-stage peer review and multi-turn rebuttal discussions. \emph{arXiv:2505.07920}.
   \end{itemize}
 \end{frame}
 

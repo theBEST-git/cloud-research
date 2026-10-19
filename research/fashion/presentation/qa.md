@@ -49,6 +49,18 @@ different settings is useful.
 
 ## 1. Data and measurement
 
+**Where does the data come from? Did you collect it yourselves?**
+Both. It is an integrated, curated ICLR corpus. The primary source is our own collection of official OpenReview
+snapshots: submission metadata, author lists (from the selected official metadata), reviews and discussions. We
+reconciled it with existing resources and credit them:
+- **Paper Copilot** (Yang, Wei & Pei, 2025): upstream provenance for archived metadata and reconstructed score pairs;
+- **Louis's ICLR archive** (`MlouisBE/iclr-rebuttal-analysis`): archived observations, source comparisons and
+  reconstructed score changes, partly distributed from Paper Copilot;
+- **Re²** (Zhang et al., 2025): a historical audit and validation reference.
+
+Our own work on the data: acquisition, source reconciliation, cleaning, deduplication, eligibility rules, provenance
+tracking and keyword preprocessing.
+
 **Why ICLR?**
 ICLR is one of the few major ML venues that has published its submissions, including rejected and withdrawn ones,
 on OpenReview for ten years. That lets us avoid survivorship bias. The cost is that it's one venue. ACL is next.

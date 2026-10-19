@@ -5,7 +5,7 @@ Short answers first. Use the "If pushed" line only if they ask a follow-up. Ther
 **Three habits that keep answers safe:**
 - Say "goes with" or "is associated with", never "causes".
 - If you don't know, say "we didn't test that; it's a good next step."
-- Point to a backup slide when a number helps.
+- Point to a slide, or to RESULTS.md, when a number helps.
 - Held-out wording: "the released former confirmation split, which we had never analysed: a pre-registered
   out-of-sample replication, not a certified untouched holdout." Underpowered nulls are "uninformative", not "no
   effect".
@@ -56,6 +56,25 @@ on OpenReview for ten years. That lets us avoid survivorship bias. The cost is t
 **How were the topics built? Why 100?**
 We embedded each title and abstract with SPECTER2, a model trained on scientific papers, and clustered the papers
 into 100 groups. We re-ran everything with 75 and 150 topics, and the main results hold.
+
+**Did you study the impact of different k values?** *(Supervisor's question; slide 6.)*
+Yes, in two ways. k = 100 was fixed before the analysis, not tuned.
+- *Topic quality, k = 50 to 200* (`research/topics/README.md`, "Sensitivity to k"): agreement with ICLR's own
+  primary areas is flat (NMI 0.294–0.302). Larger k gives more specific topics but less stable ones (ARI 0.77 at
+  k = 50 down to 0.57 at k = 200), and fewer topics that can be tracked over time (100% of papers at k = 50, 94% at
+  k = 100, 53% at k = 200).
+- *Every registered test at k = 75 and 150*, as counted robustness variants:
+
+  | Test | k = 75 | k = 100 | k = 150 |
+  |---|---|---|---|
+  | H1d, FM adoption → new-architecture papers (pp, 0 → 100%) | −8.7 | −8.0 | −7.5 |
+  | H2b, newcomer → method paper (pp) | +3.1 | +3.7 | +3.9 |
+  | H2c, newcomer → benchmark paper (pp) | −1.5 | −1.7 | −1.8 |
+  | H3a, crowding → acceptance (pp per log unit) | −1.5 | −1.7 | −1.3 |
+
+  Same sign and similar size at every k; H3a is inconclusive at every k. The one registered test that changes sign
+  is H2a (hot topics and incumbents, k = 150: +0.4 pp), which was inconclusive anyway and is not in the talk.
+- *For the report:* a k-sensitivity table like this one (and k = 50 / 200 for the RQ tests) is a cheap addition.
 - *If pushed on quality:* the topics agree with ICLR's own area labels better than a keyword baseline (NMI 0.30 vs.
   0.27). From a paper's title and abstract, a blind checker picked its topic 80% of the time at the 100-topic level,
   and 61% among the 198 finer topics, where chance is 10%.
@@ -224,7 +243,7 @@ prospective version.
 Theory papers (+9 points vs. method papers) and larger teams (+9 points per doubling). These are associations,
 not advice; team size also stands for compute and seniority.
 
-### Why areas differ (slide 14; post hoc)
+### Why areas differ (post hoc; cut from the talk)
 
 **Q: What explains the low areas besides federated learning?**
 Across 50 keywords, areas where more papers come from topic newcomers are accepted less often (ρ = −0.40, p = 0.004);
@@ -293,7 +312,7 @@ The question came from an earlier keyword grid, so FL was not a blind discovery.
 Keywords are chosen by the authors, so they carry no topic-map hindsight. Topics are content-based. Agreement between
 the two is the robustness check.
 
-## 5. Held-out replication (slides 13 and 15)
+## 5. Held-out replication (slide 13)
 
 **What exactly are the held-out papers? Is this a true holdout?**
 They are the 11,099 papers (with text) of the source's former confirmation split, released on 18 October 2026. We
@@ -344,7 +363,8 @@ exploratory). So no lower acceptance near the own record, and possibly a small g
 contrast, and it is an association, not advice to stay put.
 
 **Isn't reporting the "supported" ones cherry-picking?**
-Every registered held-out test is on slide 15 or in RESULTS.md, including the failures: P1b (not supported), H4-FL level
+The four key tests are on slide 13; every registered held-out test is in RESULTS.md (and
+`figs/replication_table.tex`), including the failures: P1b (not supported), H4-FL level
 and H4-FL trend (not supported; the trend had the opposite sign, +3.2 points per year), H3a (inconclusive), P7 (not
 supported). Secondary tests are each one-sided at 0.05 without adjustment, so with six of them one false positive
 would not be surprising; they carry less weight than the Holm-adjusted families.
@@ -357,7 +377,7 @@ a null-frame check (p = 0.020). It passes both, but only just. Treat it as weak 
 They answer different questions with different windows: discovery 2018–22 vs held-out 2024–26 papers, against
 discovery 2018–22 vs discovery 2024–26 papers. The registered prediction was only 0 < b < 1, and it held: edges
 persist but shrink. Read raw topic rankings as shrunk towards zero.
-- *If pushed on the keyword ranking (slide 14):* the registered test used early-map topic units. For author keywords
+- *If pushed on the keyword ranking (cut from the talk):* the registered test used early-map topic units. For author keywords
   like those plotted, held-out edges showed no detectable persistence: b = 0.16 (CI −0.34 to 0.66; not registered).
 
 **What is the pooled re-run?**
@@ -386,7 +406,7 @@ decisions.
 Partly, and we report all of it. On 11,099 held-out papers, with every test registered before the single run: the
 foundation-model result, both newcomer results and the far-jump gap replicated; the novelty floor did not (an
 uninformative test); the federated-learning gap was not confirmed (underpowered); crowding stayed inconclusive.
-(Slide 15)
+(Slide 13)
 
 **How reproducible is this?**
 All code, the frozen inputs and every output are in the repository. One command re-runs the frozen analysis.
@@ -406,6 +426,7 @@ All code, the frozen inputs and every output are in the repository. One command 
 | Pre-registration | hypotheses and analysis written down before seeing results | 预注册：先写好假设和分析方法，再看结果 |
 | Outcome-blind | acceptance data locked until the final run | 结果盲：最终运行前看不到录取数据 |
 | Hindsight bias (topic maps) | defining topics with today's view distorts the past | 后见之明：用今天的主题划分去看过去，会扭曲历史 |
+| Topic map | the 100 topic clusters, fitted on papers from chosen years; each paper goes to its nearest topic. "All-years map" = the standard map; "2017–20 map" = the early map | 主题地图：用某些年份的论文聚出的100个主题，每篇论文归入最近的主题 |
 | Prospective map | map built only from early papers, applied to later ones | 前瞻地图：只用早期论文建的主题图 |
 | Kappa (κ) | agreement beyond chance; 0.93 is very high | 一致性指标，0.93 很高 |
 | Power / MDE | the smallest effect the test could reliably detect | 检验能可靠发现的最小效应 |
@@ -420,7 +441,7 @@ All code, the frozen inputs and every output are in the repository. One command 
 | Building on a foundation model | 0.3% → 54% |
 | Branded titles | 9% → 41% |
 | Papers from 2024–26 | 69% |
-| "Emerging" topics | 8 (early map) vs. 29 (standard map) |
+| "Emerging" topics | 8 (2017–20 map) vs. 29 (all-years map) |
 | Foundation models vs. new architectures (discovery) | −8 pp from 0 → 100% FM, so about a third fewer at 50% vs 10% adoption |
 | Newcomers and methods | +3.7 pp (base 75%) |
 | Newcomers and benchmarks | −1.7 pp (base 7.7%, about a fifth fewer) |
@@ -445,4 +466,4 @@ All code, the frozen inputs and every output are in the repository. One command 
 | Emerging vs Mainstream keyword | +2.7 pp discovery; +3.3 pp held-out (one-sided p 0.031) |
 | Topic edges out of sample (premia b) | 0.60 (CI 0.32–0.88; early-map topics); within discovery 0.38; keywords 0.16 (not registered) |
 | Pooled re-run (exploratory) | 54,579 papers; H1d −8.9 pp; far jump −5.5 pp; confirms nothing |
-| Hindsight map "forecast" of topic growth | R² 0.28 (standard map) vs −0.03 (2017–20 map) |
+| Hindsight map "forecast" of topic growth | R² 0.28 (all-years map) vs −0.03 (2017–20 map) |

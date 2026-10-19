@@ -1,4 +1,5 @@
 % Talk slides (<= 15 min): research fashions at ICLR 2017-2026, with the held-out replication. Academic Beamer style.
+% One key point per slide; details live in script.md, qa.md and RESULTS.md.
 % Build: python make_figures.py && pdflatex slides && pdflatex slides
 \documentclass[aspectratio=169,11pt]{beamer}
 \usetheme{Madrid}
@@ -31,11 +32,10 @@
 \newcommand{\rc}[1]{{\color{note}\footnotesize(#1)}}
 
 \title[Riding the Wave?]{Riding the Wave?}
-\subtitle{Who Starts, Follows and Gains from ML Research Trends\texorpdfstring{\\[0.3em]
-  \small A Pre-registered Study of ICLR Submissions, 2017--2026:\\ 43,480 Discovery and 11,099 Held-out Papers}{}}
-\author[{[Your name]}]{[Your name]}
-\institute[{[Institution]}]{[Department], [Institution]}
-\date[{[Date]}]{[Venue / seminar] \quad [Date]}
+\subtitle{Who Starts, Follows and Gains from Machine Learning Research Trends\texorpdfstring{\\[0.3em]
+  \small A Study of 54,579 ICLR Submissions, 2017--2026}{}}
+\author[Minghan Li]{Minghan Li\\[0.4em] {\small Supervisor: A/Prof Jianzhong Qi}}
+\date{}
 \pdfstringdefDisableCommands{\def\translate#1{#1}}
 
 \begin{document}
@@ -63,62 +63,52 @@
       carry a branded title (``NAME: subtitle'') & 9\% & 41\% \\
       \bottomrule
     \end{tabular}
-    \caption{Field-wide shifts in content and in style.}
   \end{table}
-  \begin{itemize}
-    \item ML research moves in waves, in \emph{what} is studied and in \emph{how} it is presented.
-    \item Are these \alert{fashions}? If so: what do they displace, who drives them, and are followers rewarded?
-  \end{itemize}
+  \vspace{1.5em}
+  \centering
+  Are these \alert{fashions}? What do they displace, who drives them, and are followers rewarded?
 \end{frame}
 
-\begin{frame}{Research Questions and Pre-registered Hypotheses}
+\begin{frame}{Research Questions and Hypotheses}
   \begin{table}
-    \centering\small
-    \begin{tabularx}{\textwidth}{@{}l >{\raggedright\arraybackslash}X c@{}}
+    \centering
+    \begin{tabularx}{\textwidth}{@{}l >{\raggedright\arraybackslash}X@{}}
       \toprule
-      Question & Key hypothesis & Predicted sign \\
+      Research question & Key prediction \\
       \midrule
-      \textbf{RQ1 Rise}: what does a fashion displace? &
-        \textbf{H1d}: prior foundation-model (FM) adoption in a topic $\to$ share of new-architecture papers & $-$ \\
+      \textbf{RQ1 Rise:} what does a fashion displace? &
+        More foundation-model (FM) papers in a topic $\to$ fewer new-architecture papers \rc{H1d} \\
       \addlinespace
-      \textbf{RQ2 Following}: who introduces new work? &
-        \textbf{H2b}: newcomer paper $\to$ new-method paper & $-$ \\
-      & \textbf{H2c}: newcomer paper $\to$ benchmark/evaluation paper & $+$ \\
+      \textbf{RQ2 Following:} who introduces new work? &
+        Newcomers imitate: fewer new-method papers, more benchmark papers \rc{H2b, H2c} \\
       \addlinespace
-      \textbf{RQ3 Reward}: are followers rewarded? &
-        \textbf{H3a}: topic maturity (prior papers in topic) $\to$ acceptance & $-$ \\
+      \textbf{RQ3 Reward:} are followers rewarded? &
+        Crowded topics $\to$ lower acceptance \rc{H3a} \\
       \bottomrule
     \end{tabularx}
-    \caption{Selected hypotheses. Ten hypotheses registered in total.}
   \end{table}
-  \gnote{\footnotesize Our RQ2 prediction followed the fashion view: newcomers imitate, insiders innovate.}
+  \gnote{\small All predictions were written down before any test was run (10 hypotheses in total).}
 \end{frame}
 
 \begin{frame}{Related Work and Positioning}
   \begin{columns}[T]
-    \begin{column}{0.49\textwidth}
-      \textbf{Two views of who drives new work}
-      \begin{itemize}
-        \item \emph{Fashion and herding}: ideas spread by imitation \rc{Abrahamson, 1991; Bikhchandani et al., 1992}
-          $\Rightarrow$ newcomers follow
-        \item \emph{Outsider innovation}: new entrants bring new ideas \rc{Azoulay et al., 2019};
-          tradition vs.\ innovation \rc{Foster et al., 2015}
-        \item Team size: large teams develop, small teams disrupt \rc{Wu et al., 2019}
+    \begin{column}{0.48\textwidth}
+      \textbf{Who drives new work? Two views}
+      \begin{itemize}\setlength{\itemsep}{0.6em}
+        \item \emph{Fashion and herding:} newcomers imitate\\
+          \rc{Abrahamson, 1991; Bikhchandani et al., 1992}
+        \item \emph{Outsider innovation:} newcomers bring new ideas\\
+          \rc{Foster et al., 2015; Azoulay et al., 2019}
       \end{itemize}
     \end{column}
-    \begin{column}{0.49\textwidth}
-      \textbf{Meta-research on ML}
-      \begin{itemize}
-        \item Benchmark concentration \rc{Koch et al., 2021}
-        \item Values encoded in ML papers \rc{Birhane et al., 2022}
+    \begin{column}{0.48\textwidth}
+      \textbf{What we add to meta-research on machine learning}\\
+      \rc{Koch et al., 2021; Birhane et al., 2022}
+      \begin{itemize}\setlength{\itemsep}{0.6em}
+        \item All submissions, not only accepted papers
+        \item Topics defined without hindsight
+        \item Tests registered in advance \rc{Nosek et al., 2018}, plus a held-out replication
       \end{itemize}
-      \vspace{0.3em}
-      \textbf{Measurement challenges we address}
-      \begin{enumerate}
-        \item Survivorship: only published papers observed
-        \item Hindsight: topics defined on the full period
-        \item Forking paths \rc{Gelman \& Loken, 2014} $\Rightarrow$ pre-registration \rc{Nosek et al., 2018}
-      \end{enumerate}
     \end{column}
   \end{columns}
 \end{frame}
@@ -127,72 +117,67 @@
 \section{Data and Measurement}
 
 \begin{frame}{Data and Measurement}
-  \footnotesize
   \begin{table}
-    \centering
-    \begin{tabularx}{\textwidth}{@{}l X X@{}}
+    \centering\small
+    \begin{tabularx}{\textwidth}{@{}l >{\raggedright\arraybackslash}X@{}}
       \toprule
-      Construct & Operationalisation & Validation \\
+      Construct & Measure \\
       \midrule
-      Corpus & 43,480 discovery + 11,099 held-out ICLR submissions (released former confirmation split),
-        2017--2026, from OpenReview: accepted, rejected, withdrawn &
-        Held-out: never analysed before its single registered run; a pre-registered out-of-sample replication, not a
-        certified untouched holdout \\
-      Topic & SPECTER2 embeddings of title + abstract \rc{Singh et al., 2023}; $k = 100$ clusters; held-out papers
-        placed on the frozen maps &
-        Agreement with ICLR areas: NMI 0.30 (keyword baseline 0.27); robust to $k = 75, 150$ \\
-      Contribution type & LLM with a fixed codebook: method, benchmark/evaluation, empirical, theory, other &
-        Blind second pass: $\kappa = 0.93$ on both splits (held-out: 555 papers) \\
-      Newcomer paper & No author has an earlier ICLR submission \emph{in the topic} (73\% of papers) &
-        Exact OpenReview author IDs \\
-      Acceptance & Final decision & Sealed in code until each split's single registered run (held-out: the earlier
-        keyword grid's overlap is unknown) \\
+      Papers & 43,480 ICLR submissions, 2017--2026 (accepted, rejected and withdrawn); 11,099 held-out papers
+        for the replication \\
+      \addlinespace
+      Topic & SPECTER2 embeddings of title + abstract \rc{Singh et al., 2023}, clustered into $k = 100$ topics;
+        results agree at $k = 75$ and $150$ \\
+      \addlinespace
+      Contribution type & LLM with a fixed codebook (method, benchmark, empirical, theory, other); blind second
+        pass $\kappa = 0.93$ \\
+      \addlinespace
+      Newcomer paper & No author has an earlier ICLR submission in the topic (73\% of papers) \\
+      \addlinespace
+      Acceptance & Final decision; locked away until the single registered run \\
       \bottomrule
     \end{tabularx}
-    \caption{Constructs, measures and checks.}
   \end{table}
 \end{frame}
 
 % ============================================================================ 3
-\section{Methodological Contribution: Hindsight Bias in Topic Maps}
+\section{Hindsight Bias in Topic Maps}
 
 \begin{frame}{Hindsight Bias in Topic Maps}
   \begin{columns}[c]
-    \begin{column}{0.58\textwidth}
+    \begin{column}{0.56\textwidth}
       \begin{figure}
         \includegraphics[width=\textwidth]{figs/hindsight_diversity.pdf}
-        \caption{Effective number of topics per year under three $k = 100$ maps fitted on different years.}
+        \caption{Topic diversity per year under three topic maps.}
       \end{figure}
     \end{column}
-    \begin{column}{0.40\textwidth}
-      \small
-      \begin{itemize}
-        \item 69\% of submissions are from 2024--26: a map fitted on all years is a map of the \emph{present}.
-        \item Each map finds peak diversity in the years used to fit it.
-      \end{itemize}
-      \begin{block}{Implication}
-        Topic maps are not neutral preprocessing: the fitting window shapes the history one observes.
+    \begin{column}{0.42\textwidth}
+      \begin{block}{Topic map}
+        \small The 100 topic clusters, fitted on papers from chosen years; every paper is then assigned to its
+        nearest topic.
       \end{block}
+      \vspace{0.5em}
+      Each map finds peak diversity in the years it was fitted on.
+      \vspace{0.8em}
+
+      $\Rightarrow$ \alert{The fitting window shapes the history one sees.}
     \end{column}
   \end{columns}
 \end{frame}
 
-\begin{frame}{Consequence: Substantive Conclusions Depend on the Map}
-  \small
+\begin{frame}{Consequence: Conclusions Depend on the Map}
   \begin{itemize}
-    \item Emerging topics (${\geq}3\times$ growth): \textbf{8} with the 2017--20 map vs.\ \textbf{29} with the standard map.
-    \item Small topics `predict' 2-year growth on the standard map ($R^2 = 0.28$), not on the 2017--20 map ($-0.03$).
-      \gnote{(Post hoc.)}
-    \item Do topics age, from new methods towards benchmarks? Same papers, same model:
+    \item Emerging topics (${\geq}3\times$ growth): \textbf{8} on the 2017--20 map vs.\ \textbf{29} on the
+      all-years map.
+    \item Do topics age, from new methods towards benchmarks? All-years map: no. 2017--20 map: yes.
   \end{itemize}
-  \vspace{-0.6em}
+  \vspace{-0.4em}
   \begin{figure}
-    \includegraphics[width=0.60\textwidth]{figs/lifecycle_flip.pdf}
-    \caption{Coefficient on topic maturity (log prior papers), 95\% CI. Early-map rows are exploratory.}
+    \includegraphics[width=0.62\textwidth]{figs/lifecycle_flip.pdf}
+    \caption{Same papers, same model: coefficient on topic maturity, 95\% CI (2017--20 rows exploratory).}
   \end{figure}
-  \vspace{-0.7em}
-  \centering\gnote{$\Rightarrow$ Every registered result must also pass two hindsight checks (early-year and
-  year-balanced maps).}
+  \vspace{-0.6em}
+  \centering $\Rightarrow$ Every registered result must also hold on the 2017--20 map and a year-balanced map.
 \end{frame}
 
 % ============================================================================ 4
@@ -201,40 +186,28 @@
 \begin{frame}{Empirical Strategy}
   \begin{columns}[T]
     \begin{column}{0.52\textwidth}
-      \textbf{Specification} (linear probability model)
+      \textbf{Model} (linear probability)
       \[
-        y_i \;=\; \beta\, x_i \;+\; \mu_{k(i)} \;+\; \tau_{t(i)} \;+\; \varepsilon_i
+        y_i \;=\; \beta\, x_i \;+\; \mu_{\text{topic}(i)} \;+\; \tau_{\text{year}(i)} \;+\; \varepsilon_i
       \]
-      \vspace{-1.2em}
-      \footnotesize
-      \begin{itemize}
-        \item $y_i \in \{0,1\}$: paper type or acceptance; $x_i$: e.g.\ newcomer paper
-        \item $\mu_k$, $\tau_t$: topic and year fixed effects (topic $\times$ year for RQ2)
-        \item Standard errors clustered by topic (100 clusters)
+      \small
+      \begin{itemize}\setlength{\itemsep}{0.4em}
+        \item $y_i$: paper type or acceptance (0/1); $x_i$: e.g.\ newcomer paper
+        \item Papers compared within the same topic and year; standard errors clustered by topic
       \end{itemize}
-      \small\textbf{Decision rule} (registered). Supported only if:
-      \footnotesize
-      \begin{enumerate}
-        \item predicted sign, and Holm-adjusted $p < 0.05$;
-        \item same sign in ${\geq}75\%$ of 9--11 alternative specifications;
-        \item same sign under both hindsight checks.
-      \end{enumerate}
     \end{column}
     \begin{column}{0.45\textwidth}
+      \begin{block}{Supported only if}
+        \small
+        \begin{enumerate}
+          \item predicted sign, Holm-adjusted $p < 0.05$
+          \item same sign in ${\geq}75\%$ of alternative specifications
+          \item same sign on both hindsight checks
+        \end{enumerate}
+      \end{block}
       \begin{block}{Protocol}
-        \footnotesize
-        Pre-registered; variables built blind to acceptance; 12,400 simulation runs; code and inputs frozen
-        (SHA-256); a single run; every estimate reported.
-      \end{block}
-      \vspace{-0.3em}
-      \begin{block}{Simulation finding}
-        \footnotesize No-effect data: clustered SEs rejected up to \alert{12.6\%} at nominal 5\%, so RQ2 gets two
-        extra checks (two-way clustering, a stress test).
-      \end{block}
-      \vspace{-0.3em}
-      \begin{block}{Held-out rule (registered)}
-        \footnotesize Registered tests only; one-sided $\alpha = 0.05$; frozen code and topic maps; features built on
-        discovery + held-out papers.
+        \small Registered in advance, acceptance locked, code frozen, run once; held-out tests registered before
+        their run.
       \end{block}
     \end{column}
   \end{columns}
@@ -243,7 +216,7 @@
 % ============================================================================ 5
 \section{Results}
 
-\begin{frame}{RQ1: Foundation-Model Adoption and New Architectures}
+\begin{frame}{RQ1: Where Foundation Models Spread, New Architectures Fade}
   \begin{columns}[c]
     \begin{column}{0.44\textwidth}
       \begin{figure}
@@ -252,186 +225,107 @@
       \end{figure}
     \end{column}
     \begin{column}{0.54\textwidth}
-      \small
-      Within topic, net of year effects: prior FM adoption vs.\ new-architecture papers.
+      Within topic and year, FM adoption 0 $\to$ 100\%:
       \begin{table}
-        \centering\footnotesize\setlength{\tabcolsep}{4pt}
+        \centering\small\setlength{\tabcolsep}{4pt}
         \begin{tabular}{@{}lrr@{}}
           \toprule
-          & Discovery & Held-out \\
+          New-architecture papers & Discovery & Held-out \\
           \midrule
-          $\hat\beta$ (0 $\to$ 100\% FM) & $-0.080$ & $\mathbf{-0.110}$ \\
-          (SE) & (0.021) & (0.036) \\
-          95\% CI & [$-0.121$, $-0.038$] & [$-0.181$, $-0.039$] \\
-          $p$ & Holm 0.001 & one-sided 0.001 \\
-          Same sign (specs) & 9 / 9 & 9 / 9 \\
-          $N$ & 42,990 & 10,978 \\
+          Change (pp) & $-8.0$ & $-11.0$ \\
+          95\% CI & [$-12.1$, $-3.8$] & [$-18.1$, $-3.9$] \\
           \bottomrule
         \end{tabular}
       \end{table}
-      \vspace{-0.5em}
-      \begin{itemize}
-        \item H1d \textbf{supported}, and \textbf{replicated} on the held-out papers.
-        \item Topics at 50\% vs.\ 10\% FM adoption: about \alert{one third fewer} new-architecture papers
-          (discovery; base 9\%).
-      \end{itemize}
+      \begin{block}{Supported and replicated}
+        \small Topics at 50\% vs.\ 10\% FM adoption: about \alert{one third fewer} new-architecture papers.
+      \end{block}
     \end{column}
   \end{columns}
 \end{frame}
 
-\begin{frame}{RQ2: Newcomers and Contribution Types}
+\begin{frame}{RQ2: Newcomers Bring New Methods, Opposite to Our Prediction}
   \begin{columns}[c]
     \begin{column}{0.50\textwidth}
       \begin{figure}
         \includegraphics[width=\textwidth]{figs/newcomers.pdf}
-        \caption{Discovery; topic $\times$ year FE; grey: predicted side.}
+        \caption{Discovery; within topic and year; grey: predicted side.}
       \end{figure}
     \end{column}
     \begin{column}{0.48\textwidth}
-      \footnotesize
       \begin{table}
-        \centering\footnotesize\setlength{\tabcolsep}{3pt}
+        \centering\small
         \begin{tabular}{@{}lrr@{}}
           \toprule
-          & H2b (method) & H2c (bench.) \\
+          Newcomer paper (pp) & Method & Benchmark \\
           \midrule
-          Discovery $\hat\beta$ (SE) & $+0.037$ (0.006) & $-0.017$ (0.004) \\
-          Same sign & 10/10 & 10/10 \\
-          Held-out $\hat\beta$ & $\mathbf{+0.036}$ & $\mathbf{-0.021}$ \\
-          95\% CI & [$0.015$, $0.057$] & [$-0.033$, $-0.008$] \\
-          Base rate: disc. & 75\% & 7.7\% \\
-          \quad held-out & 75\% & 7.9\% \\
+          Predicted & $-$ & $+$ \\
+          Discovery & $+3.7$ & $-1.7$ \\
+          Held-out & $+3.6$ & $-2.1$ \\
           \bottomrule
         \end{tabular}
       \end{table}
-      \vspace{-0.8em}
-      \begin{itemize}
-        \item Discovery: both \alert{opposite} to prediction (wild cluster bootstrap $p < 0.001$; $N = 42{,}315$)
-        \item Held-out: reversed predictions H2b$'$/H2c$'$ (registered) \textbf{supported} (one-sided Holm
-          $p = 0.001$ each; $N = 10{,}718$)
-        \item Consistent with outsider innovation, not with herding
-      \end{itemize}
-      \gnote{\scriptsize Most of the H2c gap goes with team size; H2b does not.}
+      \small
+      Reversed predictions registered, then \textbf{replicated} on held-out papers.
+      \begin{block}{Reading}
+        \small Consistent with outsider innovation, not with herding.
+      \end{block}
     \end{column}
   \end{columns}
 \end{frame}
 
 \begin{frame}{RQ3: Is Following the Fashion Rewarded?}
   \begin{table}
-    \centering\footnotesize
-    \begin{tabularx}{\textwidth}{@{}X r r l@{}}
+    \centering\small
+    \begin{tabularx}{\textwidth}{@{}X r r@{}}
       \toprule
-      Association with acceptance & Discovery & Held-out & Status \\
+      Association with acceptance (pp, 95\% CI) & Discovery & Held-out \\
       \midrule
-      Topic maturity, per log unit of prior papers (H3a) & $-1.7$\pp{} (SE 1.0) & $-1.5$\pp{} (SE 1.9)
-        & inconclusive in both \\
-      Branded title & ratio 1.02 & not tested & exploratory \\
-      New arch.\ $\times$ prior FM adoption (0 $\to$ 100\%) & $+8.3$\pp{} (SE 3.5) & not tested
-        & exploratory, $p = 0.02$ \\
+      Crowded topic, per log unit of prior papers (H3a) & $-1.7$ [$-3.7$, $+0.3$] & $-1.5$ [$-5.2$, $+2.2$] \\
+      Branded title (exploratory) & no premium & -- \\
+      New architecture $\times$ topic FM adoption (exploratory) & $+8.3$ [$+1.3$, $+15.4$] & -- \\
       \bottomrule
     \end{tabularx}
-    \caption{Topic and year fixed effects; SEs clustered by topic; decided papers, 2018--2026 (H3a: $N = 32{,}190$,
-    MDE$_{80}$ 4\pp; held-out $N = 8{,}185$, MDE$_{80}$ 4.8\pp, one-sided $p = 0.21$).}
+    \caption{Within topic and year. Crowding: neither split could detect effects below about 4--5\pp.}
   \end{table}
-  \begin{block}{Reading}
-    \small No detectable reward for following the fashion at review; the crowding test is inconclusive in both
-    splits. If anything, papers that go against the tide (architectures where FMs dominate) do relatively better
+  \vspace{0.5em}
+  \begin{block}{Key point}
+    No detectable reward for following the fashion; papers that go against the tide may even do better
     (exploratory).
   \end{block}
-\end{frame}
-
-\begin{frame}{Far Jumps Go with Lower Acceptance (Post Hoc, Replicated)}
-  \begin{columns}[c]
-    \begin{column}{0.53\textwidth}
-      \begin{figure}
-        \includegraphics[width=0.92\textwidth]{figs/far_jump.pdf}
-        \caption{Decided papers with ${\geq}1$ experienced author, 2023--26 (E1 sample: discovery 20,430; held-out
-        5,344). Closeness: highest cosine between the abstract and an experienced co-author's earlier ICLR work.
-        (b) 10th percentile minus median. 95\% CIs.}
-      \end{figure}
-    \end{column}
-    \begin{column}{0.45\textwidth}
-      \footnotesize
-      \begin{itemize}
-        \item Far jump from the team's own record vs.\ median: $-5.4$\pp{} in discovery; \alert{$-6.1$\pp{}}
-          held-out (CI $-9.3$ to $-2.9$; Holm $p = 0.005$)
-        \item Same author, closer paper: $+0.55$\pp{} (discovery), $+1.06$\pp{} (held-out) per $+0.1$ cosine
-        \item Near vs.\ median: not lower ($+1.7$\pp{} discovery; $+2.3$\pp{} held-out, not registered)
-        \item \textbf{Not replicated}: the field-novelty floor. Least-novel fifth: $-3.3$\pp{} in discovery,
-          $-0.1$\pp{} held-out (CI $-3.5$ to $+3.2$); uninformative by the registered rule (power 0.47,
-          MDE$_{80}$ 5.4\pp)
-      \end{itemize}
-      \gnote{\scriptsize Post hoc in discovery; held-out tests registered before the run. Held-out: post-decision
-      abstracts, no cleaned-text check. Associations: co-author choice and failed projects not controlled.}
-    \end{column}
-  \end{columns}
-\end{frame}
-
-\begin{frame}{Why Do Some Areas Lose Favour? (Post Hoc)}
-  \begin{columns}[c]
-    \begin{column}{0.45\textwidth}
-      \begin{figure}
-        \includegraphics[width=\textwidth]{figs/area_ranking.pdf}
-        \caption{Acceptance gap vs.\ same-year papers, 2018--2026: six highest and six lowest author keywords
-        (${\geq}5$ years of data; 32,190 decided papers).}
-      \end{figure}
-    \end{column}
-    \begin{column}{0.53\textwidth}
-      \scriptsize
-      \textbf{Pattern} ($\pm$10\pp): current-wave and specialist areas above; older or entry-level areas below.
-      \par\smallskip
-      \textbf{Candidate explanations (checked across 50 keywords):}
-      \begin{itemize}\setlength{\itemsep}{1pt}
-        \item \emph{Entry points attract newcomers:} 85--88\% of CNN and classification papers come from authors new
-          to the topic; more newcomers, lower acceptance ($\rho = -0.40$, $p = 0.004$).
-        \item \emph{Paradigm moved on:} CNN and image-classification shares peaked in 2018 (2026: 5\% and 24\% of
-          peak); incremental gains on saturated benchmarks may face a higher bar (untested).
-        \item \emph{Cooling area:} federated learning, with established authors and a falling share since 2023.
-        \item \emph{Not} paper type, team size (adjusted vs.\ raw gaps $r = 0.97$) \emph{or} the FM wave (FM share
-          vs.\ acceptance $\rho = 0.07$).
-      \end{itemize}
-      \gnote{\tiny Associations, not causes; no area survives correction for 68 tests. Held-out: edges shrink
-      ($0.60\times$) but persist; FL gap not confirmed.}
-    \end{column}
-  \end{columns}
 \end{frame}
 
 % ============================================================================ 6
 \section{Held-out Replication}
 
-\begin{frame}[t]{Do the Results Hold on Held-out Papers?}
-  \vspace{-0.4em}
+\begin{frame}{Do the Results Hold on Held-out Papers?}
+  \centering
+  \textbf{Three of four key results replicated; crowding stays inconclusive.}
   \begin{table}
-    \centering\scriptsize\setlength{\tabcolsep}{4.5pt}\renewcommand{\arraystretch}{0.92}
-    \setlength{\abovecaptionskip}{3pt}
-    \input{figs/replication_table.tex}
-    \caption{11,099 released former confirmation papers this study had never analysed: a pre-registered out-of-sample
-    replication, not a certified untouched holdout. Supported: one-sided $p < 0.05$, Holm within families (so a 95\% CI
-    can cross 0). pp unless noted. \dag\,Below MDE$_{80}$: uninformative. \ddag\,Within-discovery slope.
-    Also registered: H4-FL trend, P7 not supported; premia EB supported.}
+    \centering\small\setlength{\tabcolsep}{4pt}
+    \input{figs/replication_summary.tex}
+    \caption{11,099 papers from a released former test split, never analysed before one registered run: an
+    out-of-sample replication, not a certified untouched holdout. Supported: one-sided Holm $p < 0.05$; pp.
+    \dag\,Too weak to tell (below MDE$_{80}$).}
   \end{table}
+  \vspace{0.3em}
+  \gnote{\small Also registered: post hoc tests from discovery, e.g.\ far jumps from a team's own past work go with
+  lower acceptance (replicated). Full table in the report.}
 \end{frame}
 
 % ============================================================================ 7
 \section{Conclusion}
 
 \begin{frame}{Contributions}
-  \begin{enumerate}
-    \item \textbf{Methodological.} Topic maps fitted with hindsight manufacture emerging topics and can reverse trend
-      conclusions; early-year maps provide a cheap check.
-    \item \textbf{Design.} A pre-registered, outcome-blind, simulation-checked, single-run protocol for
-      science-of-science studies, with a registered held-out replication.
-    \item \textbf{Substantive} (associations).
-      \small
+  \begin{enumerate}\setlength{\itemsep}{0.9em}
+    \item \textbf{Method:} topic maps fitted with hindsight can manufacture trends; an early-year map is a cheap
+      check.
+    \item \textbf{Design:} registered, outcome-blind, single-run protocol, with a held-out replication.
+    \item \textbf{Findings} (associations):
       \begin{itemize}
-        \item \textbf{Replicated:} where foundation models spread, new architectures fade (H1d); newcomer papers lean
-          towards new methods and away from benchmarks (H2b$'$/H2c$'$); far jumps from the team's own record go with
-          lower acceptance (post hoc in discovery).
-        \item \textbf{Not replicated:} the field-novelty floor (least-novel fifth); the held-out test was
-          uninformative (power 0.47, MDE$_{80}$ 5.4\pp).
-        \item \textbf{Not confirmed:} the federated-learning acceptance gap; the held-out test was uninformative
-          (134 papers, MDE$_{80}$ 14.5\pp).
-        \item \textbf{Inconclusive} in both splits: crowded (mature) topics and acceptance.
+        \item where foundation models spread, new architectures fade \alert{(replicated)}
+        \item newcomers lean towards new methods, not imitation \alert{(replicated)}
+        \item no detectable acceptance reward for following the fashion
       \end{itemize}
   \end{enumerate}
 \end{frame}
@@ -440,25 +334,19 @@
   \begin{columns}[T]
     \begin{column}{0.50\textwidth}
       \textbf{Limitations}
-      \small
-      \begin{itemize}
-        \item One venue (ICLR)
-        \item Associations, not causal effects
+      \begin{itemize}\setlength{\itemsep}{0.4em}
+        \item One venue; associations, not causes
         \item LLM labels: consistent ($\kappa = 0.93$), not yet human-validated
-        \item Camera-ready text: the discovery cleaned-text checks held; no such check for held-out papers
-        \item Held-out papers are a released former holdout, not certified untouched
-        \item Pooled re-run (54,579 papers) is exploratory and confirms nothing
-        \item 2021 author-ID change undercounts incumbents (expected bias towards zero)
+        \item Held-out papers: a released former split, not certified untouched
+        \item 2021 author-ID change undercounts incumbents
       \end{itemize}
     \end{column}
     \begin{column}{0.46\textwidth}
       \textbf{Future work}
-      \small
-      \begin{itemize}
+      \begin{itemize}\setlength{\itemsep}{0.4em}
         \item A prospective test on future ICLR submissions
-        \item Extension to ACL Anthology / ARR
+        \item ACL Anthology / ARR
         \item Human validation of contribution labels
-        \item Review scores: reviewers vs.\ final decisions
       \end{itemize}
     \end{column}
   \end{columns}
@@ -468,13 +356,13 @@
   \centering
   \vspace{2em}
   {\Large Thank you}\\[1em]
-  Questions and comments welcome\\[0.5em]
-  \gnote{\small [email]}
+  Questions and comments welcome\\[2em]
+  {\small Many thanks to my supervisor, A/Prof Jianzhong Qi, for guidance and feedback.}
 \end{frame}
 
 \begin{frame}{References}
-  \scriptsize
-  \begin{itemize}\setlength{\itemsep}{1pt}
+  \footnotesize
+  \begin{itemize}\setlength{\itemsep}{2pt}
     \item[] Abrahamson, E. (1991). Managerial fads and fashions: The diffusion and rejection of innovations.
       \emph{Academy of Management Review}, 16(3), 586--612.
     \item[] Azoulay, P., Fons-Rosen, C., \& Graff Zivin, J. S. (2019). Does science advance one funeral at a time?
@@ -483,20 +371,14 @@
       change as informational cascades. \emph{Journal of Political Economy}, 100(5), 992--1026.
     \item[] Birhane, A., Kalluri, P., Card, D., Agnew, W., Dotan, R., \& Bao, M. (2022). The values encoded in machine
       learning research. In \emph{Proceedings of ACM FAccT}.
-    \item[] Cameron, A. C., Gelbach, J. B., \& Miller, D. L. (2008). Bootstrap-based improvements for inference with
-      clustered errors. \emph{Review of Economics and Statistics}, 90(3), 414--427.
     \item[] Foster, J. G., Rzhetsky, A., \& Evans, J. A. (2015). Tradition and innovation in scientists' research
       strategies. \emph{American Sociological Review}, 80(5), 875--908.
-    \item[] Gelman, A., \& Loken, E. (2014). The statistical crisis in science. \emph{American Scientist}, 102(6),
-      460--465.
     \item[] Koch, B., Denton, E., Hanna, A., \& Foster, J. G. (2021). Reduced, reused and recycled: The life of a
       dataset in machine learning research. In \emph{NeurIPS Datasets and Benchmarks Track}.
     \item[] Nosek, B. A., Ebersole, C. R., DeHaven, A. C., \& Mellor, D. T. (2018). The preregistration revolution.
       \emph{Proceedings of the National Academy of Sciences}, 115(11), 2600--2606.
     \item[] Singh, A., D'Arcy, M., Cohan, A., Downey, D., \& Feldman, S. (2023). SciRepEval: A multi-format benchmark
       for scientific document representations. In \emph{Proceedings of EMNLP}.
-    \item[] Wu, L., Wang, D., \& Evans, J. A. (2019). Large teams develop and small teams disrupt science and
-      technology. \emph{Nature}, 566(7744), 378--382.
   \end{itemize}
 \end{frame}
 

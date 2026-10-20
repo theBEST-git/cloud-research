@@ -12,7 +12,7 @@ Copilot (Yang, Wei & Pei, 2025) informed coverage and source audits but were not
 |---|---|
 | `slides.pdf` | The compiled deck, 17 pages: 16 slides and a references page |
 | `slides.tex` | Beamer source (academic Madrid theme, pdflatex) |
-| `script.md` | Spoken script with a per-slide timing table computed from word counts: about 1,120 words, 9:20 at 120 words a minute; the rounded-up table ends at 9:45. Allowing for spoken numbers and slide changes, expect about 10:00–10:30 (about 4–5 minutes of buffer under 15:00) |
+| `script.md` | Spoken script with a per-slide timing table computed from word counts: about 1,070 words, 8:55 at 120 words a minute; the rounded-up table ends at 9:25. Allowing for spoken numbers and slide changes, expect about 9:45–10:15 (about 4–5 minutes of buffer under 15:00) |
 | `qa.md` | Expected questions with short answers (including the held-out replication, the k sensitivity and the material of the cut slides), one-line summaries of the cited papers, a glossary (English and Chinese) and the key numbers |
 | `shortlist.md` | Post hoc PH5 shortlist; its top section records each finding's status after the held-out run |
 | `make_figures.py` | Slide figures and the three generated tables (`replication_summary.tex`, `replication_table.tex`, `pooled_table.tex`); reads only committed discovery outputs, outcome-free labels, the held-out run's estimates (`output_pooled/confirmation_run`) and the pooled re-run's estimates (`output_pooled/`, for `pooled_table.tex`) |

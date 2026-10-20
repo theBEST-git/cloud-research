@@ -1,9 +1,9 @@
 # Talk script: "Riding the Wave?"
 
 - **Speaker:** Minghan Li (supervisor: A/Prof Jianzhong Qi).
-- **Length:** about 1,120 spoken words, about 9:20 at a calm pace (120 words a minute). The timing table below is
-  computed from each slide's word count, rounded up to the next 5 seconds; it ends at 9:45. Numbers take longer to
-  say than their word count suggests, and each slide change costs 1–2 seconds, so expect about 10:00–10:30 in
+- **Length:** about 1,070 spoken words, about 8:55 at a calm pace (120 words a minute). The timing table below is
+  computed from each slide's word count, rounded up to the next 5 seconds; it ends at 9:25. Numbers take longer to
+  say than their word count suggests, and each slide change costs 1–2 seconds, so expect about 9:45–10:15 in
   practice: about 4–5 minutes of buffer under the strict 15:00 limit, enough to slow down on the figures (slides 7,
   8, 10 and 11) or take a question during the talk.
 - **Revised after supervisor feedback:** the far-jump and area slides were cut, and every slide keeps only its key
@@ -20,18 +20,18 @@
 | 2 Outline | 7 | 0:05 | 0:30 |
 | 3 Motivation | 84 | 0:45 | 1:15 |
 | 4 Research questions and hypotheses | 66 | 0:35 | 1:50 |
-| 5 Related work and positioning | 128 | 1:05 | 2:55 |
-| 6 Data and measurement | 119 | 1:00 | 3:55 |
-| 7 Hindsight bias in topic maps | 88 | 0:45 | 4:40 |
-| 8 Consequence | 64 | 0:35 | 5:15 |
-| 9 Empirical strategy | 87 | 0:45 | 6:00 |
-| 10 RQ1, where foundation models spread, new architectures fade | 67 | 0:35 | 6:35 |
-| 11 RQ2, newcomers bring new methods | 67 | 0:35 | 7:10 |
-| 12 RQ3, is following the fashion rewarded? | 68 | 0:35 | 7:45 |
-| 13 Do the results hold on held-out papers? | 85 | 0:45 | 8:30 |
-| 14 Contributions | 64 | 0:35 | 9:05 |
-| 15 Limitations and future work | 58 | 0:30 | 9:35 |
-| 16 Thank you | 20 | 0:10 | 9:45 |
+| 5 Related work and positioning | 87 | 0:45 | 2:35 |
+| 6 Data and measurement | 119 | 1:00 | 3:35 |
+| 7 Hindsight bias in topic maps | 88 | 0:45 | 4:20 |
+| 8 Consequence | 64 | 0:35 | 4:55 |
+| 9 Empirical strategy | 87 | 0:45 | 5:40 |
+| 10 RQ1, where foundation models spread, new architectures fade | 67 | 0:35 | 6:15 |
+| 11 RQ2, newcomers bring new methods | 67 | 0:35 | 6:50 |
+| 12 RQ3, is following the fashion rewarded? | 68 | 0:35 | 7:25 |
+| 13 Do the results hold on held-out papers? | 85 | 0:45 | 8:10 |
+| 14 Contributions | 64 | 0:35 | 8:45 |
+| 15 Limitations and future work | 58 | 0:30 | 9:15 |
+| 16 Thank you | 20 | 0:10 | 9:25 |
 
 ---
 
@@ -74,10 +74,6 @@ Each question builds on earlier work.
   outsiders bring new ideas. Our data can tell the two apart.
 - **RQ3:** novel work is risky and often undervalued, and reviewers score novel proposals lower. We ask whether
   following the fashion is rewarded at review.
-- **Method:** histories of ideas, such as Hall and colleagues' study of the ACL Anthology, fit one topic model on all
-  years. We show that the fitting window changes the conclusions.
-
-And we register our tests in advance, with a held-out replication.
 
 ## Slide 6: Data and measurement
 

@@ -91,26 +91,24 @@
 \end{frame}
 
 \begin{frame}{Related Work and Positioning}
-  \begin{columns}[T]
-    \begin{column}{0.48\textwidth}
-      \textbf{Who drives new work? Two views}
-      \begin{itemize}\setlength{\itemsep}{0.6em}
-        \item \emph{Fashion and herding:} newcomers imitate\\
-          \rc{Abrahamson, 1991; Bikhchandani et al., 1992}
-        \item \emph{Outsider innovation:} newcomers bring new ideas\\
-          \rc{Foster et al., 2015; Azoulay et al., 2019}
-      \end{itemize}
-    \end{column}
-    \begin{column}{0.48\textwidth}
-      \textbf{What we add to meta-research on machine learning}\\
-      \rc{Koch et al., 2021; Birhane et al., 2022}
-      \begin{itemize}\setlength{\itemsep}{0.6em}
-        \item Content trends across all submissions, not only accepted papers
-        \item Topics defined without hindsight
-        \item Tests registered in advance \rc{Nosek et al., 2018}, plus a held-out replication
-      \end{itemize}
-    \end{column}
-  \end{columns}
+  \begin{table}
+    \centering\small\renewcommand{\arraystretch}{1.15}
+    \begin{tabularx}{\textwidth}{@{}l >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}p{0.30\textwidth}@{}}
+      \toprule
+      & Prior work & Our angle \\
+      \midrule
+      \textbf{RQ1} & New paradigms displace old work \rc{Kuhn, 1962}; foundation models homogenise methods
+        \rc{Bommasani et al., 2021} & Do new architectures fade where foundation models spread? \\
+      \textbf{RQ2} & Herding: newcomers imitate \rc{Abrahamson, 1991; Bikhchandani et al., 1992} vs.\ outsiders bring
+        new ideas \rc{Jeppesen \& Lakhani, 2010; Azoulay et al., 2019} & Tell the two views apart \\
+      \textbf{RQ3} & Novelty is risky and undervalued \rc{Foster et al., 2015; Wang et al., 2017}; reviewers score novel
+        proposals lower \rc{Boudreau et al., 2016} & Is following the fashion rewarded at review? \\
+      \textbf{Method} & Histories of ideas fit one topic model on all years \rc{Hall et al., 2008}; topics can evolve
+        \rc{Blei \& Lafferty, 2006} & The fitting window changes conclusions \\
+      \textbf{Design} & Pre-registration \rc{Nosek et al., 2018} & Registered tests, run once, held-out replication \\
+      \bottomrule
+    \end{tabularx}
+  \end{table}
 \end{frame}
 
 % ============================================================================ 2
@@ -365,31 +363,33 @@
 \end{frame}
 
 \begin{frame}{References}
-  \scriptsize
-  \begin{itemize}\setlength{\itemsep}{0pt}
-    \item[] Abrahamson, E. (1991). Managerial fads and fashions: The diffusion and rejection of innovations.
-      \emph{Academy of Management Review}, 16(3), 586--612.
-    \item[] Azoulay, P., Fons-Rosen, C., \& Graff Zivin, J. S. (2019). Does science advance one funeral at a time?
-      \emph{American Economic Review}, 109(8), 2889--2920.
-    \item[] Bikhchandani, S., Hirshleifer, D., \& Welch, I. (1992). A theory of fads, fashion, custom, and cultural
-      change as informational cascades. \emph{Journal of Political Economy}, 100(5), 992--1026.
-    \item[] Birhane, A., Kalluri, P., Card, D., Agnew, W., Dotan, R., \& Bao, M. (2022). The values encoded in machine
-      learning research. In \emph{Proceedings of ACM FAccT}.
-    \item[] Foster, J. G., Rzhetsky, A., \& Evans, J. A. (2015). Tradition and innovation in scientists' research
-      strategies. \emph{American Sociological Review}, 80(5), 875--908.
-    \item[] Koch, B., Denton, E., Hanna, A., \& Foster, J. G. (2021). Reduced, reused and recycled: The life of a
-      dataset in machine learning research. In \emph{NeurIPS Datasets and Benchmarks Track}.
-    \item[] MlouisBE. (n.d.). \emph{iclr-rebuttal-analysis} [ICLR archive; GitHub repository].
-      github.com/MlouisBE/iclr-rebuttal-analysis.
-    \item[] Nosek, B. A., Ebersole, C. R., DeHaven, A. C., \& Mellor, D. T. (2018). The preregistration revolution.
-      \emph{Proceedings of the National Academy of Sciences}, 115(11), 2600--2606.
-    \item[] Singh, A., D'Arcy, M., Cohan, A., Downey, D., \& Feldman, S. (2023). SciRepEval: A multi-format benchmark
-      for scientific document representations. In \emph{Proceedings of EMNLP}.
-    \item[] Yang, J., Wei, Q., \& Pei, J. (2025). Paper Copilot: Tracking the evolution of peer review in AI
-      conferences. \emph{arXiv:2510.13201}.
-    \item[] Zhang, D., Bao, Z., Du, S., Zhao, Z., Zhang, K., Bao, D., \& Yang, Y. (2025). Re$^2$: A consistency-ensured
-      dataset for full-stage peer review and multi-turn rebuttal discussions. \emph{arXiv:2505.07920}.
-  \end{itemize}
+  \fontsize{7}{8.2}\selectfont
+  \begin{columns}[T]
+    \begin{column}{0.49\textwidth}
+      \begin{itemize}\setlength{\itemsep}{1pt}
+        \item[] Abrahamson, E. (1991). Managerial fads and fashions: The diffusion and rejection of innovations. \emph{Academy of Management Review}, 16(3), 586--612.
+        \item[] Azoulay, P., Fons-Rosen, C., \& Graff Zivin, J. S. (2019). Does science advance one funeral at a time? \emph{American Economic Review}, 109(8), 2889--2920.
+        \item[] Bikhchandani, S., Hirshleifer, D., \& Welch, I. (1992). A theory of fads, fashion, custom, and cultural change as informational cascades. \emph{Journal of Political Economy}, 100(5), 992--1026.
+        \item[] Blei, D. M., \& Lafferty, J. D. (2006). Dynamic topic models. In \emph{Proceedings of ICML}, 113--120.
+        \item[] Bommasani, R., et al. (2021). On the opportunities and risks of foundation models. \emph{arXiv:2108.07258}.
+        \item[] Boudreau, K. J., Guinan, E. C., Lakhani, K. R., \& Riedl, C. (2016). Looking across and looking beyond the knowledge frontier: Intellectual distance, novelty, and resource allocation in science. \emph{Management Science}, 62(10), 2765--2783.
+        \item[] Foster, J. G., Rzhetsky, A., \& Evans, J. A. (2015). Tradition and innovation in scientists' research strategies. \emph{American Sociological Review}, 80(5), 875--908.
+        \item[] Hall, D., Jurafsky, D., \& Manning, C. D. (2008). Studying the history of ideas using topic models. In \emph{Proceedings of EMNLP}, 363--371.
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.49\textwidth}
+      \begin{itemize}\setlength{\itemsep}{1pt}
+        \item[] Jeppesen, L. B., \& Lakhani, K. R. (2010). Marginality and problem-solving effectiveness in broadcast search. \emph{Organization Science}, 21(5), 1016--1033.
+        \item[] Kuhn, T. S. (1962). \emph{The Structure of Scientific Revolutions}. University of Chicago Press.
+        \item[] MlouisBE. (n.d.). \emph{iclr-rebuttal-analysis} [ICLR archive; GitHub repository]. github.com/MlouisBE/iclr-rebuttal-analysis.
+        \item[] Nosek, B. A., Ebersole, C. R., DeHaven, A. C., \& Mellor, D. T. (2018). The preregistration revolution. \emph{Proceedings of the National Academy of Sciences}, 115(11), 2600--2606.
+        \item[] Singh, A., D'Arcy, M., Cohan, A., Downey, D., \& Feldman, S. (2023). SciRepEval: A multi-format benchmark for scientific document representations. In \emph{Proceedings of EMNLP}.
+        \item[] Wang, J., Veugelers, R., \& Stephan, P. (2017). Bias against novelty in science: A cautionary tale for users of bibliometric indicators. \emph{Research Policy}, 46(8), 1416--1436.
+        \item[] Yang, J., Wei, Q., \& Pei, J. (2025). Paper Copilot: Tracking the evolution of peer review in AI conferences. \emph{arXiv:2510.13201}.
+        \item[] Zhang, D., Bao, Z., Du, S., Zhao, Z., Zhang, K., Bao, D., \& Yang, Y. (2025). Re$^2$: A consistency-ensured dataset for full-stage peer review and multi-turn rebuttal discussions. \emph{arXiv:2505.07920}.
+      \end{itemize}
+    \end{column}
+  \end{columns}
 \end{frame}
 
 \end{document}

@@ -19,23 +19,32 @@ show.
 
 | Paper | One-sentence summary | How it relates to us |
 |---|---|---|
-| Abrahamson (1991) | Management practices spread as fads and fashions through imitation, not only on merit | The fashion view behind our registered RQ2 prediction |
-| Bikhchandani, Hirshleifer & Welch (1992) | Informational cascades: people copy earlier choices and ignore their own information | Also predicts that newcomers follow |
-| Azoulay, Fons-Rosen & Graff Zivin (2019) | After a star scientist dies prematurely, outsiders enter the field, and their papers are often highly cited | Outsider innovation, which our RQ2 result is consistent with |
-| Foster, Rzhetsky & Evans (2015) | Scientists face a trade-off: tradition is safer, innovation is riskier but sometimes highly rewarded | Background on the tradition vs. innovation tension |
-| Wu, Wang & Evans (2019) | Large teams tend to develop existing ideas; small teams tend to disrupt | Fits our team-size caveat: larger teams write more benchmarks |
-| Koch, Denton, Hanna & Foster (2021) | ML research concentrates on fewer benchmark datasets over time, often borrowed from other tasks | Context for benchmark papers as shared infrastructure |
-| Birhane et al. (2022) | Highly cited ML papers mostly value performance and generalisation | Context on what ML rewards |
-| Gelman & Loken (2014) | The "garden of forking paths": many possible analyses make false findings easy | Why we pre-registered |
-| Nosek et al. (2018) | Pre-registration separates confirmatory from exploratory analysis | Our protocol |
+| Kuhn (1962) | Science advances through paradigm shifts, in which a new paradigm displaces the old one | RQ1: what a fashion displaces |
+| Bommasani et al. (2021) | Foundation models are adapted to many tasks, which "homogenises" methods and spreads one model's defects | RQ1: the expectation that new architectures fade |
+| Abrahamson (1991) | Management practices spread as fads and fashions through imitation, not only on merit (conceptual) | RQ2: the fashion view behind our registered prediction |
+| Bikhchandani, Hirshleifer & Welch (1992) | Informational cascades: people copy earlier choices and ignore their own information (formal model) | RQ2: also predicts that newcomers follow |
+| Jeppesen & Lakhani (2010) | In 166 crowdsourced science challenges, solvers far from the problem's field were more likely to solve it | RQ2: outsiders bring new ideas |
+| Azoulay, Fons-Rosen & Graff Zivin (2019) | After 452 star life scientists die prematurely, outsiders enter their fields and their papers are often highly cited | RQ2: outsider innovation, which our result is consistent with |
+| Foster, Rzhetsky & Evans (2015) | In 6.4 million biomedical abstracts, innovative strategies are rarer and riskier; the higher reward does not offset the risk | RQ3: is novelty rewarded? |
+| Wang, Veugelers & Stephan (2017) | Novel papers (first-time journal pairings) are recognised late and penalised by short-window citation metrics | RQ3: novelty is undervalued at first |
+| Boudreau, Guinan, Lakhani & Riedl (2016) | In a randomised grant review (142 evaluators, 150 proposals), more novel proposals got worse scores | RQ3: reviewers discount novelty |
+| Hall, Jurafsky & Manning (2008) | LDA on the ACL Anthology (1978–2006) traces how each topic rises and falls | Method: the "one map for all years" practice we test |
+| Blei & Lafferty (2006) | Dynamic topic models let topics themselves change over time | Method: an alternative to one fixed map |
+| Nosek et al. (2018) | Pre-registration separates confirmatory from exploratory analysis | Design: our protocol |
 | Singh et al. (2023) | SciRepEval benchmark; it introduced the SPECTER2 embeddings we use | Our topic embeddings |
-| Cameron, Gelbach & Miller (2008) | The wild cluster bootstrap for inference with few clusters | Our registered p-value method for RQ2 |
+| Zhang et al. (2025); Yang, Wei & Pei (2025); MlouisBE | Re², Paper Copilot and the Louis archive: peer-review datasets and archives | Audited for coverage and sources; not pooled into our corpus |
+
+Dropped from the slides when the deck was shortened (still fine to mention): Wu, Wang & Evans (2019), large teams
+develop and small teams disrupt (fits the team-size caveat); Koch et al. (2021), benchmark concentration; Birhane et
+al. (2022), values in ML papers; Gelman & Loken (2014), forking paths; Cameron, Gelbach & Miller (2008), the wild
+cluster bootstrap.
 
 *[Before the talk, open each reference once to confirm the details.]*
 
 **What is new compared with this literature?**
 Three things together:
-- the full submission pool, including rejected papers;
+- content trends across the full submission pool, including rejected papers (Re² and Paper Copilot also include
+  rejected papers, but study peer review, not content trends);
 - an explicit test of hindsight in topic definitions;
 - a pre-registered, single-run design.
 

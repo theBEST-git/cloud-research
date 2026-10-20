@@ -1,10 +1,10 @@
 # Talk script: "Riding the Wave?"
 
 - **Speaker:** Minghan Li (supervisor: A/Prof Jianzhong Qi).
-- **Length:** about 1,040 spoken words, about 8:40 at a calm pace (120 words a minute). The timing table below is
-  computed from each slide's word count, rounded up to the next 5 seconds; it ends at 9:05. Numbers take longer to
-  say than their word count suggests, and each slide change costs 1–2 seconds, so expect about 9:30–10:00 in
-  practice: about 5 minutes of buffer under the strict 15:00 limit, enough to slow down on the figures (slides 7,
+- **Length:** about 1,120 spoken words, about 9:20 at a calm pace (120 words a minute). The timing table below is
+  computed from each slide's word count, rounded up to the next 5 seconds; it ends at 9:45. Numbers take longer to
+  say than their word count suggests, and each slide change costs 1–2 seconds, so expect about 10:00–10:30 in
+  practice: about 4–5 minutes of buffer under the strict 15:00 limit, enough to slow down on the figures (slides 7,
   8, 10 and 11) or take a question during the talk.
 - **Revised after supervisor feedback:** the far-jump and area slides were cut, and every slide keeps only its key
   point. Their material is in `qa.md` for questions.
@@ -20,18 +20,18 @@
 | 2 Outline | 7 | 0:05 | 0:30 |
 | 3 Motivation | 84 | 0:45 | 1:15 |
 | 4 Research questions and hypotheses | 66 | 0:35 | 1:50 |
-| 5 Related work and positioning | 59 | 0:30 | 2:20 |
-| 6 Data and measurement | 119 | 1:00 | 3:20 |
-| 7 Hindsight bias in topic maps | 88 | 0:45 | 4:05 |
-| 8 Consequence | 64 | 0:35 | 4:40 |
-| 9 Empirical strategy | 87 | 0:45 | 5:25 |
-| 10 RQ1, where foundation models spread, new architectures fade | 67 | 0:35 | 6:00 |
-| 11 RQ2, newcomers bring new methods | 67 | 0:35 | 6:35 |
-| 12 RQ3, is following the fashion rewarded? | 68 | 0:35 | 7:10 |
-| 13 Do the results hold on held-out papers? | 85 | 0:45 | 7:55 |
-| 14 Contributions | 64 | 0:35 | 8:30 |
-| 15 Limitations and future work | 49 | 0:25 | 8:55 |
-| 16 Thank you | 20 | 0:10 | 9:05 |
+| 5 Related work and positioning | 128 | 1:05 | 2:55 |
+| 6 Data and measurement | 119 | 1:00 | 3:55 |
+| 7 Hindsight bias in topic maps | 88 | 0:45 | 4:40 |
+| 8 Consequence | 64 | 0:35 | 5:15 |
+| 9 Empirical strategy | 87 | 0:45 | 6:00 |
+| 10 RQ1, where foundation models spread, new architectures fade | 67 | 0:35 | 6:35 |
+| 11 RQ2, newcomers bring new methods | 67 | 0:35 | 7:10 |
+| 12 RQ3, is following the fashion rewarded? | 68 | 0:35 | 7:45 |
+| 13 Do the results hold on held-out papers? | 85 | 0:45 | 8:30 |
+| 14 Contributions | 64 | 0:35 | 9:05 |
+| 15 Limitations and future work | 58 | 0:30 | 9:35 |
+| 16 Thank you | 20 | 0:10 | 9:45 |
 
 ---
 
@@ -67,11 +67,17 @@ We wrote all predictions down before running any test.
 
 ## Slide 5: Related work and positioning
 
-Our RQ2 prediction followed one view in the literature: fashion and herding, where ideas spread by imitation, so
-newcomers follow. The other view is outsider innovation: new entrants bring new ideas.
+Each question builds on earlier work.
+- **RQ1:** Kuhn described how new paradigms displace old work, and Bommasani and colleagues argue that foundation
+  models homogenise methods. We test whether new architectures fade where foundation models spread.
+- **RQ2:** one view, fashion and herding, says newcomers imitate; our prediction followed it. The other view says
+  outsiders bring new ideas. Our data can tell the two apart.
+- **RQ3:** novel work is risky and often undervalued, and reviewers score novel proposals lower. We ask whether
+  following the fashion is rewarded at review.
+- **Method:** histories of ideas, such as Hall and colleagues' study of the ACL Anthology, fit one topic model on all
+  years. We show that the fitting window changes the conclusions.
 
-Compared with earlier meta-research on machine learning, we add three things: all submissions, not only accepted
-papers; topics defined without hindsight; and registered tests, with a held-out replication.
+And we register our tests in advance, with a held-out replication.
 
 ## Slide 6: Data and measurement
 

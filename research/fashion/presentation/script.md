@@ -167,7 +167,7 @@ The main limitations: one venue; associations, not causes; LLM labels that are c
 hand-checked only on a small random sample; held-out papers that are not certified untouched; and a 2021 author-ID change that undercounts
 incumbents.
 
-Next: a prospective test on future ICLR submissions, the ACL Anthology, and a larger human validation of the labels.
+Next: a prospective test on future ICLR submissions, and a larger human validation of the labels.
 
 ## Slide 16: Thank you
 

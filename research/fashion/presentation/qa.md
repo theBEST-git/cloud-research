@@ -83,7 +83,7 @@ observation selection, conservative cleaning, eligibility rules, provenance trac
 
 **Why ICLR?**
 ICLR is one of the few major ML venues that has published its submissions, including rejected and withdrawn ones,
-on OpenReview for ten years. That lets us avoid survivorship bias. The cost is that it's one venue. ACL is next.
+on OpenReview for ten years. That lets us avoid survivorship bias. The cost is that it's one venue.
 
 **How were the topics built? Why 100?**
 We embedded each title and abstract with SPECTER2, a model trained on scientific papers, and clustered the papers

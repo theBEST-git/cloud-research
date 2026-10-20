@@ -163,9 +163,8 @@ To summarise, three contributions.
 
 ## Slide 15: Limitations and future work
 
-The main limitations: one venue; associations, not causes; LLM labels that are consistent, but which I have
-hand-checked only on a small random sample; held-out papers that are not certified untouched; and a 2021 author-ID change that undercounts
-incumbents.
+The main limitations: one venue; associations, not causes; and LLM labels that are consistent, but which I have
+hand-checked only on a small random sample.
 
 Next: a prospective test on future ICLR submissions, and a larger human validation of the labels. I'm also
 adding more semantic labels, such as how exaggerated or playful a title is, but that takes time.

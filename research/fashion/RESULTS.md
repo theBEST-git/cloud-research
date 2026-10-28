@@ -959,6 +959,39 @@ Caveats:
     - P2, a concurrent twin, is +1.9 pp (p 0.009, Holm 0.063).
     These rows are exploratory too; see the quoting rule under "Unregistered rows" above.
 
+## Post hoc: does a keyword's acceptance gap fall after its share peaks? (PH6 waves, declared 2026-10-28)
+
+Declared in `PREREGISTRATION.md` (2026-10-28) and committed before it was run; run once
+(`ICLR_CORPUS=pooled posthoc.py ph5 waves`); outputs `output_pooled/posthoc/ph5_waves/`, figure `PH6_waves.png`.
+Post hoc: the question came from viewing the discovery per-year gaps of six keywords (disclosed). Associations only.
+
+- **Waves (outcome-free).** 17 of PH4's 68 keywords rose and fell: peak share in 2019–2024, at most half the peak
+  before it and in 2026 (e.g. graph neural networks 4.3% of submissions in 2022 → 1.8% in 2026; federated learning
+  3.2% in 2023 → 1.1%; vision transformer 1.4% in 2022 → 0.4%).
+- **Estimand.** D = weighted mean over waves of (gap after the peak − gap up to the peak), where the gap is the
+  keyword's acceptance minus that of all other decided papers of the same split and year. Inference from 2,000
+  within-year permutations.
+
+| Split | Waves | D (pp) | 95% interval | One-sided p | MDE80 |
+|---|---|---|---|---|---|
+| Held-out (declared test) | 17 | −5.2 | −11.1 to +0.7 | 0.043 | 7.4 |
+| Held-out, without the six viewed first | 11 | −1.7 | −9.7 to +6.3 | 0.33 | 10.1 |
+| Held-out, without federated learning | 16 | −6.2 | −12.5 to +0.1 | 0.033 | 7.9 |
+| Discovery (not a test) | 17 | −5.7 | −8.5 to −2.9 | < 0.001 | 3.6 |
+| Discovery, without the six viewed first | 11 | −3.7 | −7.5 to +0.2 | 0.034 | 4.8 |
+
+- **Verdict.** The declared held-out test is supported (p 0.043 < 0.05), but only just: the two-sided interval
+  includes 0, and the estimate is below its MDE80, so the size is not pinned down. Read it as support for the direction.
+- **What drives it.** Without the six keywords viewed first, the held-out estimate shrinks to −1.7 pp and is not
+  significant (those six were not viewed in the held-out data, so including them there is legitimate, but the
+  pattern leans on them). Vision transformer has the largest drop in both splits (−39.8 / −32.9 pp).
+- **Federated learning itself does not decline in the held-out papers** (+3.5 pp after vs up to its peak; discovery
+  −5.9 pp), consistent with the registered H4-FL trend not being supported there.
+- **Shape (descriptive, discovery).** Relative to each wave's own level, the gap is highest well before the peak (+9
+  to +30 pp at 2–5 years before, on few papers), near 0 around the peak, and −2 to −5 pp 3–5 years after. Early
+  arrivals do best; the decline starts before the peak. This fits PH5 kwtiming A1 (young rising keywords +2.7 pp in
+  discovery, +3.3 pp held-out). The held-out profile is noisy (few papers far from the peak).
+
 ## Reproduction
 
 ```text

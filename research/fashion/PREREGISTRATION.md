@@ -1975,3 +1975,50 @@ open or could not anticipate.
   - RQ1;
   - PH1–PH5 (`posthoc.py`).
 - Pooled numbers are labelled exploratory. The discovery results stay the registered record.
+
+## 2026-10-28: PH6 waves (post hoc; declared before it was run)
+
+Written and committed before any acceptance data were read for this question. Code: `research/fashion/ph5_waves.py`
+(committed with this entry; its docstring is the full specification). Run once, through the PH5 entry point:
+`ICLR_CORPUS=pooled python research/fashion/posthoc.py ph5 waves`. Outputs: `output_pooled/posthoc/ph5_waves/`.
+
+- **Question.** Does a keyword's acceptance gap (its papers vs all other decided papers of the same year) fall after the
+  keyword's share of submissions has peaked? Post hoc and exploratory; associations, not effects of choosing a keyword.
+- **What had been seen (disclosure).**
+  - The idea came from the committed PH4 per-year keyword gaps (`output/posthoc/ph4_keywords_cells.csv`, discovery),
+    viewed on 2026-10-28 for federated learning, graph neural networks, self-supervised learning, contrastive
+    learning, adversarial attack and adversarial robustness (the INSPECTED six), and for keywords that are not waves
+    under the rule below (generative adversarial networks, meta-learning, diffusion models, large language models,
+    convolutional neural networks, generative models, pre-training). PH4's per-keyword levels and calendar-year
+    trends (all 68 keywords) were computed on 2026-10-17 and partly viewed then.
+  - Held-out (confirmation) papers: per-keyword acceptance was seen only for federated learning (H4-FL, registered) and
+    inside the pooled PH4 re-run, whose cells mix both splits; held-out keyword × year gaps were not viewed.
+  - The wave list below was derived from submission shares only, before this entry, and no outcome was used to choose
+    the rule or its thresholds.
+- **Waves (outcome-free).** PH4's 68-keyword vocabulary; discovery shares 2018–2026; peak year in 2019–2024; minimum
+  share before the peak ≤ 0.5 × peak; 2026 share ≤ 0.5 × peak. 17 waves (peak year):
+
+  | Peak | Waves |
+  |---|---|
+  | 2019 | adversarial attack |
+  | 2020 | semi-supervised learning |
+  | 2021 | robustness, representation learning, data augmentation, adversarial robustness |
+  | 2022 | graph neural networks, multi-agent reinforcement learning, optimal transport, vision transformer |
+  | 2023 | federated learning, contrastive learning, differential privacy, offline reinforcement learning, self-supervised learning |
+  | 2024 | fairness, explainability |
+
+- **Estimand.** Per split (discovery; confirmation = the released held-out papers), RQ3 decided papers 2018–2026.
+  Δ_k = paper-weighted mean gap in the years after the peak minus that in the years up to and including it;
+  D = Σ w_k Δ_k / Σ w_k with w_k = N_pre N_post / (N_pre + N_post).
+- **Inference.** 2,000 within-year permutations of acceptance inside each split's population (seed 20261028): one-sided
+  p = (1 + #D_perm ≤ D) / 2,001; 95% interval D ± 1.96 SD(D_perm); MDE80 = 2.486 SD(D_perm). Binomial SE reported alongside.
+- **Declared test.** Held-out D < 0, one-sided p < 0.05, all 17 waves. A non-supported result with |D| below its MDE80
+  is uninformative, not evidence of no decline. The discovery D is reported but is not a test (the question came from
+  discovery cells).
+- **Variants (reported, not counted).** Without the INSPECTED six; without federated learning.
+- **Descriptive.** Δ_k per wave and split; the pooled event-time profile (gap minus the wave's own level, by years since
+  the peak).
+- **Pre-run checks on simulated outcomes (ph5_common.simulated_frame, discovery papers, 400 permutations).** Six null
+  frames: D from −0.9 to +2.2 pp, one-sided p 0.28–0.93. A planted −0.3 log-odds shift for wave papers after the
+  peak (about −7 pp): D −4.7 to −7.0 pp, p 0.0025 in 3 of 3. Discovery MDE80 ≈ 3.6–3.9 pp; the held-out sample is
+  about a quarter of the size, so its MDE80 is expected near 7–8 pp (the run reports the permutation MDE80).

@@ -1,0 +1,145 @@
+[
+ {
+  "split": "discovery",
+  "variant": "all",
+  "waves": 17,
+  "D": -0.0571,
+  "se_binomial": 0.014,
+  "sd_perm": 0.0143,
+  "ci95_lo": -0.0851,
+  "ci95_hi": -0.0291,
+  "p_less": 0.0005,
+  "p_two_sided": 0.0005,
+  "mde80": 0.0355,
+  "papers_pre": 1776,
+  "papers_post": 3975,
+  "decided_papers": 32190
+ },
+ {
+  "split": "discovery",
+  "variant": "without_inspected",
+  "waves": 11,
+  "D": -0.0365,
+  "se_binomial": 0.0194,
+  "sd_perm": 0.0194,
+  "ci95_lo": -0.0746,
+  "ci95_hi": 0.0015,
+  "p_less": 0.0345,
+  "p_two_sided": 0.064,
+  "mde80": 0.0482,
+  "papers_pre": 916,
+  "papers_post": 2102,
+  "decided_papers": 32190
+ },
+ {
+  "split": "discovery",
+  "variant": "without_federated_learning",
+  "waves": 16,
+  "D": -0.0569,
+  "se_binomial": 0.0148,
+  "sd_perm": 0.0151,
+  "ci95_lo": -0.0866,
+  "ci95_hi": -0.0273,
+  "p_less": 0.0005,
+  "p_two_sided": 0.0005,
+  "mde80": 0.0376,
+  "papers_pre": 1598,
+  "papers_post": 3678,
+  "decided_papers": 32190
+ },
+ {
+  "split": "confirmation",
+  "variant": "all",
+  "waves": 17,
+  "D": -0.0519,
+  "se_binomial": 0.0275,
+  "sd_perm": 0.0299,
+  "ci95_lo": -0.1105,
+  "ci95_hi": 0.0067,
+  "p_less": 0.043,
+  "p_two_sided": 0.085,
+  "mde80": 0.0743,
+  "papers_pre": 454,
+  "papers_post": 1022,
+  "decided_papers": 8185
+ },
+ {
+  "split": "confirmation",
+  "variant": "without_inspected",
+  "waves": 11,
+  "D": -0.017,
+  "se_binomial": 0.0381,
+  "sd_perm": 0.0407,
+  "ci95_lo": -0.0968,
+  "ci95_hi": 0.0629,
+  "p_less": 0.3348,
+  "p_two_sided": 0.6787,
+  "mde80": 0.1013,
+  "papers_pre": 222,
+  "papers_post": 554,
+  "decided_papers": 8185
+ },
+ {
+  "split": "confirmation",
+  "variant": "without_federated_learning",
+  "waves": 16,
+  "D": -0.062,
+  "se_binomial": 0.0291,
+  "sd_perm": 0.0319,
+  "ci95_lo": -0.1246,
+  "ci95_hi": 0.0006,
+  "p_less": 0.033,
+  "p_two_sided": 0.0545,
+  "mde80": 0.0794,
+  "papers_pre": 406,
+  "papers_post": 936,
+  "decided_papers": 8185
+ }
+]
+{
+  "settings": {
+    "waves": [
+      "adversarial attack",
+      "semi-supervised learning",
+      "robustness",
+      "representation learning",
+      "data augmentation",
+      "adversarial robustness",
+      "graph neural networks",
+      "multi-agent reinforcement learning",
+      "optimal transport",
+      "vision transformer",
+      "federated learning",
+      "contrastive learning",
+      "differential privacy",
+      "offline reinforcement learning",
+      "self-supervised learning",
+      "fairness",
+      "explainability"
+    ],
+    "inspected": [
+      "adversarial attack",
+      "adversarial robustness",
+      "graph neural networks",
+      "federated learning",
+      "contrastive learning",
+      "self-supervised learning"
+    ],
+    "perms": 2000,
+    "seed": 20261028,
+    "years": [
+      2018,
+      2026
+    ],
+    "peak_range": [
+      2019,
+      2024
+    ],
+    "rise": 0.5,
+    "fall": 0.5,
+    "declared_test": "confirmation, variant all: D < 0, one-sided p_less < 0.05",
+    "note": "post hoc (declared before the run); associations, not effects of keyword choice",
+    "held_out_verdict": "supported"
+  }
+}
+

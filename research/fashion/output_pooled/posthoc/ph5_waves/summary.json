@@ -1,0 +1,46 @@
+{
+  "settings": {
+    "waves": [
+      "adversarial attack",
+      "semi-supervised learning",
+      "robustness",
+      "representation learning",
+      "data augmentation",
+      "adversarial robustness",
+      "graph neural networks",
+      "multi-agent reinforcement learning",
+      "optimal transport",
+      "vision transformer",
+      "federated learning",
+      "contrastive learning",
+      "differential privacy",
+      "offline reinforcement learning",
+      "self-supervised learning",
+      "fairness",
+      "explainability"
+    ],
+    "inspected": [
+      "adversarial attack",
+      "adversarial robustness",
+      "graph neural networks",
+      "federated learning",
+      "contrastive learning",
+      "self-supervised learning"
+    ],
+    "perms": 2000,
+    "seed": 20261028,
+    "years": [
+      2018,
+      2026
+    ],
+    "peak_range": [
+      2019,
+      2024
+    ],
+    "rise": 0.5,
+    "fall": 0.5,
+    "declared_test": "confirmation, variant all: D < 0, one-sided p_less < 0.05",
+    "note": "post hoc (declared before the run); associations, not effects of keyword choice",
+    "held_out_verdict": "supported"
+  }
+}

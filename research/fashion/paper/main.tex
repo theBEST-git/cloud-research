@@ -1,7 +1,8 @@
-% Paper draft (ACL ARR long-paper template, 3,000-4,000 words). Skeleton only: section headings and figure slots.
+% Paper draft (ACL ARR long-paper template, 3,000-4,000 words of body text).
+% Part 1 (this version): title, abstract, introduction, Table 1. Parts 2-3 fill the other sections.
 % Build: python make_figures.py && pdflatex main && bibtex main && pdflatex main && pdflatex main
 \documentclass[11pt]{article}
-\usepackage[review]{acl}            % review = anonymous; preprint = names and page numbers (for the supervisor copy)
+\usepackage[preprint]{acl}          % preprint = names and page numbers (supervisor copy); review = anonymous for ARR
 \usepackage{times}
 \usepackage{latexsym}
 \usepackage[T1]{fontenc}
@@ -9,6 +10,12 @@
 \usepackage{microtype}
 \usepackage{graphicx}
 \usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{amssymb}
+\usepackage{placeins}
+
+\newcommand{\pp}{\,pp}
+\newcommand{\todo}[1]{\textit{[#1]}}
 
 \title{Riding the Wave? Tradition and Innovation in Machine Learning Research\\during the Foundation-Model Shift}
 \author{Minghan Li \\ Supervisor: A/Prof Jianzhong Qi}
@@ -17,46 +24,197 @@
 \maketitle
 
 \begin{abstract}
-% Part 1
+Machine learning research moves in waves. At ICLR, the share of submissions building on a foundation model rose from
+0.3\% in 2017 to 54\% in 2026, while the share proposing a new architecture fell from 24\% to 8\%, and keyword waves
+such as graph neural networks and federated learning rose and fell within about five years. We ask how a field that
+changes this fast balances tradition and innovation, at three levels: how the field changes, who brings new work, and
+what peer review rewards. We study 43,480 ICLR submissions from 2017--2026, including rejected and withdrawn papers,
+with registered tests run once and replicated on 11,099 held-out papers. Topic maps fitted with hindsight manufacture
+waves, but displacement is real: where foundation models spread, new architectures fade. Contrary to a herding
+account, papers by newcomers to a topic more often propose new methods. Review shows no detectable reward for
+following the crowd; acceptance instead goes with arriving early in a wave and with teams anchored in their own
+expertise. Innovation comes from outsiders; acceptance favours insiders and early arrivals.
 \end{abstract}
 
-\section{Introduction}
-% Part 1
-
-\section{Background: The Essential Tension}
-% Part 3
-
-\section{Data, Measurement and Evidence Tiers}
-% Part 3
-
-\section{The Field: Waves, Seen without Hindsight}
-% Part 2
 \begin{figure*}[t]
   \centering
   \includegraphics[width=\textwidth]{figs/fig1_waves.pdf}
-  \caption{Research waves at ICLR: share of submissions listing each author keyword, 2018--2026 (peak marked).}
+  \caption{Research waves at ICLR: share of submissions listing each author keyword, 2018--2026 (peak marked).
+  Graph neural networks, federated learning and self-supervised learning are among the 17 of 68 frequent keywords
+  that rose and fell (Section~\ref{sec:field}).}
   \label{fig:waves}
 \end{figure*}
 
-\section{People: Who Brings the New}
-% Part 2
+\begin{table*}[t]
+  \centering\small
+  \setlength{\tabcolsep}{4pt}
+  \begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}X l l c@{}}
+    \toprule
+    Finding & Discovery & Held-out & Tier \\
+    \midrule
+    \multicolumn{4}{@{}l}{\emph{RQ1 Field: how the field changes}} \\
+    Emerging topics: all-years map vs.\ 2017--20 map & 29 vs.\ 8 & -- & E \\
+    Keywords that rose and fell within 2018--2026 & 17 of 68 & -- & E \\
+    Foundation-model (FM) adoption (0 $\to$ 100\%) $\to$ new-architecture papers & $-8.0$ [$-12.1$, $-3.8$]
+      & $-11.0$ [$-18.1$, $-3.9$] & A \\
+    ``NAME: subtitle'' titles, 2017 $\to$ 2026 & 9\% $\to$ 41\% & -- & E$^*$ \\
+    Papers with a same-year twin on the same problem, 2019 $\to$ 2026 & 19.5\% $\to$ 48.8\% & -- & E \\
+    \quad twins per paper per 1,000 submissions & 0.32 $\to$ 0.19 & -- & E \\
+    \addlinespace
+    \multicolumn{4}{@{}l}{\emph{RQ2 People: who brings new work}} \\
+    Newcomer paper $\to$ method paper & $+3.7$ [$+2.6$, $+4.8$] & $+3.6$ [$+1.5$, $+5.7$] & A \\
+    Newcomer paper $\to$ benchmark or evaluation paper & $-1.7$ [$-2.5$, $-0.9$] & $-2.1$ [$-3.3$, $-0.8$] & A \\
+    Hot topic $\to$ paper with an incumbent author & $-0.7$ [$-2.7$, $+1.2$] & -- & C \\
+    First-time team $\to$ FM paper (topics at 5--50\% FM adoption) & $-4.6$ to $-14.7$ & -- & E \\
+    Returning first authors' lag behind the field: topic vs.\ title style & $+3\%$ vs.\ $+40\%$ & -- & E$^*$ \\
+    Newcomer paper $\to$ acceptance; within the same authors & $-10.2$; $-3.1$ [$-4.5$, $-1.6$] & -- & D \\
+    \addlinespace
+    \multicolumn{4}{@{}l}{\emph{RQ3 Review: what is rewarded}} \\
+    Topic maturity (per log unit of prior papers) $\to$ acceptance & $-1.7$ [$-3.7$, $+0.3$]
+      & $-1.5$ [$-5.2$, $+2.2$] & C \\
+    ``NAME: subtitle'' title: share among accepted $\div$ share among all & 1.02 & -- & D$^*$ \\
+    Young rising vs.\ old flat keyword $\to$ acceptance & $+2.7$ [$+0.8$, $+4.6$] & $+3.3$ [$-0.2$, $+6.7$] & B \\
+    Keyword gap after vs.\ up to its share peak (17 waves) & $-5.7$ [$-8.5$, $-2.9$] & $-5.2$ [$-11.1$, $+0.7$]
+      & B \\
+    Federated learning keyword $\to$ acceptance & $-11.3$ [$-17.9$, $-4.8$] & $-4.9$ [$-15.4$, $+5.7$] & D \\
+    Far jump from the team's own earlier work $\to$ acceptance & $-5.4$ [$-7.1$, $-3.8$] & $-6.1$ [$-9.3$, $-2.9$]
+      & B \\
+    One topic insider vs.\ none in the team $\to$ acceptance & $+3.4$ [$+1.2$, $+5.7$] & $+3.9$ [$+0.3$, $+7.5$]
+      & B \\
+    FM paper $\to$ acceptance & $+4.6$ & -- & D \\
+    Topic acceptance edge, 2018--22 $\to$ 2024--26 (slope) & 0.38 [0.18, 0.58] & 0.60 [0.32, 0.88] & B \\
+    \bottomrule
+  \end{tabularx}
+  \caption{All findings, by level. Percentage points (pp) with 95\% intervals unless noted; associations within topic
+  and year (keyword rows: against all other papers of the same year). Tiers: \textbf{A} registered and replicated on
+  held-out papers; \textbf{B} post hoc in discovery, declared before a held-out test that supported it;
+  \textbf{C} registered, inconclusive; \textbf{D} discovery only (exploratory or post hoc); \textbf{E} descriptive,
+  no acceptance outcome. Held-out tests are one-sided, so a supported test can have an interval that includes 0.
+  $^*$Earlier exploratory title analysis; numbers to be re-verified.}
+  \label{tab:findings}
+\end{table*}
+
+\section{Introduction}
+
+Machine learning (ML) research changes fast, and it changes in waves. At ICLR, the share of submissions that build on
+a foundation model rose from 0.3\% in 2017 to 54\% in 2026, while the share proposing a new architecture fell from
+24\% to 8\%. Author keywords show the same pattern at a finer grain (Figure~\ref{fig:waves}). Generative adversarial
+networks peaked at 8.1\% of submissions in 2018 and have almost disappeared. Graph neural networks, federated learning
+and self-supervised learning each rose and fell within about five years. Large language models went from nothing to
+16.7\% of submissions in four years. Even titles follow waves: titles of the form ``NAME: subtitle'' rose from 9\% to
+41\% of submissions.
+
+Such waves raise an old question about science. \citet{kuhn1977} called it the \emph{essential tension}: science needs
+tradition, the shared methods that let work accumulate, and innovation, the departures that open new directions. A
+fast-moving field makes this tension sharp, in three ways. A wave can displace earlier lines of work
+\citep{kuhn1962,bommasani2021}. It can be carried by imitators who follow what is popular
+\citep{abrahamson1991,bikhchandani1992}, or by outsiders who bring new ideas \citep{jeppesen2010,azoulay2019}. And
+peer review may reward conformity, because novel work is risky and often undervalued
+\citep{foster2015,wang2017,boudreau2016}.
+
+We therefore ask how ML research balances tradition and innovation during the foundation-model shift, at three
+levels:
+\begin{itemize}
+  \item[\textbf{RQ1}] \textbf{Field:} How does the field change, and can its waves be measured without hindsight?
+  \item[\textbf{RQ2}] \textbf{People:} Who brings new work, and who follows?
+  \item[\textbf{RQ3}] \textbf{Review:} Does peer review reward tradition, innovation or following?
+\end{itemize}
+
+We study 43,480 ICLR submissions from 2017 to 2026, built from our own snapshots of official OpenReview records. They
+include rejected and withdrawn papers, so what we observe is not only what survived review. We place papers in
+content-based topics using SPECTER2 embeddings \citep{singh2023}, label each paper's contribution type with a fixed
+LLM codebook, and identify newcomers to a topic from author identifiers. The core hypotheses were registered before
+any test was run \citep{nosek2018}, run once with frozen code, and then tested again on 11,099 held-out papers that we
+had never analysed. Because we report about twenty findings, each carries an evidence tier, from ``registered and
+replicated'' to ``descriptive'' (Table~\ref{tab:findings}). All results are associations; none is a causal effect of
+choosing a topic, a team or a type of contribution.
+
+\paragraph{Field.} The waves are real, but the standard way of measuring them is not neutral. A topic map fitted on
+all years at once, as is common in studies of research trends \citep{hall2008}, is dominated by recent papers: it
+finds 29 emerging topics where a map fitted on 2017--2020 papers finds 8. On maps without hindsight, displacement still
+holds: where foundation models spread, new architectures fade, in discovery and on held-out papers.
+
+\paragraph{People.} We registered the herding prediction, and it failed. Papers by newcomers to a topic are more
+often method papers and less often benchmark papers, in discovery and again on held-out papers. First-time teams are,
+if anything, slower than other teams to adopt trending keywords and foundation models.
+
+\paragraph{Review.} We find no detectable reward for following the crowd: the test for crowded topics is
+inconclusive, and trendy titles carry no premium. Timing and anchoring matter instead. Papers listing young, rising
+keywords are accepted slightly more often, and a keyword's acceptance gap falls after its share of submissions peaks;
+federated learning is the starkest case in discovery. Papers far from their team's own earlier work are accepted less
+often, and papers whose team includes a topic insider more often.
+
+Together, these findings point to one pattern: \emph{innovation comes from outsiders, while acceptance favours
+insiders and early arrivals}. Waves go with rewards for those who ride them early, not for those who follow. Our
+contributions are:
+\begin{itemize}
+  \item \textbf{Measurement.} We show that topic maps fitted with hindsight manufacture research waves and can
+    reverse trend conclusions, and we give a cheap check: refit the map on early years only.
+  \item \textbf{Evidence.} We give a three-level account of how a fast-moving field changes, who drives the change and
+    what review rewards, with every finding labelled by its evidence tier and the core findings replicated on
+    held-out papers.
+  \item \textbf{Design.} We show that a registered, outcome-blind, single-run protocol with a held-out replication
+    is feasible for observational studies of science.
+\end{itemize}
+
+\section{Background: The Essential Tension}
+\todo{Part 3.}
+
+\section{Data, Measurement and Evidence Tiers}
+\label{sec:data}
+\todo{Part 3.}
+
+\section{The Field: Waves, Seen without Hindsight}
+\label{sec:field}
+\todo{Part 2.}
+
+\section{People: Who Brings New Work}
+\label{sec:people}
+\todo{Part 2.}
 
 \section{Review: What Is Rewarded}
-% Part 2
+\label{sec:review}
+\todo{Part 2.}
 
 \section{Discussion}
-% Part 3
+\todo{Part 3.}
 
 \section{Conclusion}
-% Part 3
+\todo{Part 3.}
 
 \section*{Limitations}
-% Part 3 (required by ARR; not counted in the page limit)
+\todo{Part 3 (required by ARR; not counted in the page limit).}
 
+\FloatBarrier
 \bibliography{references}
 
 \appendix
-\section{Appendix}
-% Part 3
+
+\section*{Draft notes for the supervisor (to be removed)}
+
+\paragraph{This draft (Part 1).} Title, abstract, introduction and Table~\ref{tab:findings}. The question for this
+round: does the framing hold? One question (tradition and innovation during the foundation-model shift), three levels
+(field, people, review) and one through-line (innovation from outsiders; acceptance favours insiders and early
+arrivals), with every finding placed under a level and labelled by its evidence tier.
+
+\paragraph{Planned figures.}
+\begin{itemize}
+  \item Figure~\ref{fig:waves}, research waves (this draft).
+  \item Figure 2 (Section~\ref{sec:field}): topic diversity per year under three topic maps, and emerging topics
+    under each map (hindsight).
+  \item Figure 3 (Section~\ref{sec:people}): the newcomer coefficients for method and benchmark papers (discovery and
+    held-out), and returning authors' lag behind the field on topic vs.\ title style.
+  \item Figure 4 (Section~\ref{sec:review}): federated learning (share of submissions and yearly acceptance gap), next
+    to the wave life cycle (acceptance gap by years since a keyword's peak, pooled over 17 waves).
+  \item Appendix: far jumps from a team's own work, shrinkage of topic acceptance edges, team size, the full held-out
+    table.
+\end{itemize}
+
+\paragraph{Word budget.} Abstract 180 (this draft: 179); introduction 650 (this draft: 710); background 350; data 450; field 650; people
+550; review 650; discussion 350; conclusion 120. About 3,950 words.
+
+\paragraph{Open questions.} (1) Is ``tradition and innovation'' the right umbrella, or would ``conformity and
+novelty'' be clearer? (2) Should federated learning stay a main-text figure, given that it is discovery-only and its
+held-out test was underpowered? (3) Which rows of Table~\ref{tab:findings} should move to the appendix?
 
 \end{document}

@@ -1,0 +1,572 @@
+% Herded or Anchored? Conformity at ICLR during the Foundation-Model Wave
+% Supervisor copy. NOTE: the ARR submission must switch the acl option below from [preprint] to [review]
+% (anonymised, with line numbers); the author block is then replaced by "Anonymous ACL submission".
+\documentclass[11pt]{article}
+
+\usepackage[preprint]{acl}
+
+\usepackage{times}
+\usepackage{latexsym}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{microtype}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{xurl}
+
+\newcommand{\Hok}{H\ensuremath{\checkmark}}
+\newcommand{\Hno}{H\ensuremath{\times}}
+\newcommand{\Tok}{T\ensuremath{\checkmark}}
+\newcommand{\Fmax}{\ensuremath{F_{\max}}}
+\newcommand{\by}{\ensuremath{\times}}
+\newcommand{\ra}{\ensuremath{\rightarrow}}
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+\renewcommand{\dbltopfraction}{0.95}
+\renewcommand{\topfraction}{0.9}
+\renewcommand{\textfraction}{0.07}
+\renewcommand{\floatpagefraction}{0.8}
+\renewcommand{\dblfloatpagefraction}{0.8}
+
+\title{Herded or Anchored? Conformity at ICLR\\ during the Foundation-Model Wave}
+
+% ARR submission: \usepackage[review]{acl} (see the note at the top of this file).
+\author{Minghan Li \\ Supervisor: A/Prof Jianzhong Qi}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Machine learning, NLP included, is said to herd: researchers chase what is hot, and review rewards it. We test this account
+on 43,480 ICLR submissions (2017--2026), rejected and withdrawn papers included, with hypotheses registered before
+outcomes were read and tested again on 11,099 held-out papers. We separate two routes to conformity: imitation takes
+its cue from what others do now, continuity from an accumulated record. The field converged: topics with more
+foundation-model papers the year before had fewer new-architecture papers. Hindsight inflates emergence: on the same
+papers, a topic map fitted on all years finds 29 emerging topics, one fitted on 2017--2020 only 8. Among topic
+newcomers (no author had submitted there), where imitation theory expects herding most, our registered
+prediction of follow-on work failed in the opposite direction: their papers more often propose methods and less often
+benchmarks, datasets or evaluations, and the reversal replicated. Review shows no detectable premium for crowded
+topics. In post hoc tests supported on held-out papers, acceptance is lower far from the team's earlier work and
+higher with a topic insider on the team. At ICLR, the conformity we can detect points to a record, not to the crowd.
+All findings are associations.
+\end{abstract}
+
+% ---------------------------------------------------------------------------------------------------------------
+\begin{figure*}[t]
+  \centering
+  \includegraphics[width=0.76\textwidth]{figs/fig1_waves.pdf}
+  \caption{Research waves at ICLR: share of discovery submissions listing each author keyword, 2018--2026; dots
+  mark the peak. The eight keywords were chosen for display after their curves were known. Across the 68 most
+  frequent keywords, 17 peaked in 2019--2024 with shares of at most half the peak both before it and in 2026 (discovery
+  shares; these are the waves of Section~\ref{sec:gate}). Outcome-free.}
+  \label{fig:waves}
+\end{figure*}
+
+% ===============================================================================================================
+\section{Introduction}
+\label{sec:intro}
+
+Machine learning is said to herd. Between 2017 and 2026, yearly submissions in our discovery corpus of the
+International Conference on Learning Representations (ICLR) grew 40-fold, from 384 to 15,411. The share building on a
+foundation model (FM) rose from 0.3\% to 54.4\%, and the share proposing a new architecture fell from 24.5\% to
+7.5\%. Keywords rose and fell (Figure~\ref{fig:waves}): generative adversarial networks fell from 8.1\% of submissions
+in 2018, and large language models reached 16.7\% in 2026. The wave is also NLP's, whose researchers increasingly
+publish, and debut, at ML venues \citep{jurgens2026future}. Critics of machine-learning scholarship point to
+incentives that favour short-term success \citep{lipton2019troubling} and to convergence on what suits the field's
+hardware, benchmarks and foundation models \citep{hooker2021hardware,dehghani2021benchmark,bommasani2021opportunities}.
+In cascade and fashion theories, people take their cue from others
+\citep{bikhchandani1992theory,banerjee1992simple,abrahamson1991managerial}. Read as herding, the waves make three
+claims: they are fashions, imitators carry them, and following pays at review.
+
+Convergence, however, does not require copying. Conformity, a pull towards an existing reference point that need not
+make papers identical, has two routes that the herding account runs together. \emph{Imitation} takes its reference
+point from what others are doing, or are rewarded for, now: popularity, momentum, recent acceptance.
+\emph{Continuity} takes it from an accumulated record: the team's own past work, or a topic's past work carried by a
+team member who has submitted in it. \citet{weisberg2009epistemic} model ``followers'', drawn to approaches others have
+already explored, apart from agents who ignore others' findings and from ``mavericks''. Later work models herding in
+science as risk-avoiding clustering \citep{weisberg2013modeling}, which either route could produce. The route
+matters: imitation can discard private information and leave a fragile consensus
+\citep{banerjee1992simple,bikhchandani1992theory}, while continuity keeps work near existing competence, with
+short-run gains and long-run costs \citep{march1991exploration}.
+
+We call work that conforms by continuity \emph{anchored}.\footnote{We use `anchored' for work that conforms by
+continuity, a position relative to a record; it is not the anchoring-and-adjustment heuristic
+\citep{tversky1974judgment}, the sense in which writing on herding in science uses the word
+\citep{baddeley2015herding}.} Our thesis is that the conformity we can detect at ICLR is anchored to
+a record, not herded by the crowd. The field did converge on a shared package (A), as both routes predict. But where the
+routes part, at entry to a topic and at review, the evidence points away from imitation. We expected a herd too: before any outcome was read, we registered that topic newcomers would write fewer method
+papers and more benchmark and evaluation papers. The prediction failed in the opposite direction.
+
+Prior work relates ICLR acceptance to prestige, process and research area
+\citep{tran2020open,ibrahim2026bias,jung2025what,wang2023what,xu2026reviewer} and describes which ICLR papers start
+topics, who enters LLM research and how far researchers stay from their own past work
+\citep{huang2026catalyst,movva2024topics,bao2025persistence}. Moving far from one's own record goes with fewer citations
+and lower publication success \citep{hill2025pivot}, and field histories read trends from topic models fitted on the whole
+period \citep{hall2008studying,anderson2012towards}. To our knowledge, among the works we checked, no study tests all
+three claims of the herding account within one submission population, rejected and withdrawn papers included, with
+registered hypotheses tested again on held-out papers, as \citet{ibrahim2026bias} did for a prestige gap.
+
+We test the account on 43,480 ICLR submissions, 2017--2026. Hypotheses were registered before any full-corpus label
+existed, tested once in a frozen run, and tested again on 11,099 \emph{held-out} papers: a pre-registered
+out-of-sample replication, not a certified untouched holdout. Every result carries an evidence tier: \textbf{A}
+registered and replicated; \textbf{B} post hoc, then supported by a declared held-out test; \textbf{C} registered,
+inconclusive or not replicated; \textbf{D} discovery only; \textbf{E} descriptive. All results are associations.
+
+For theories of herding and fashion, we contribute a registered test of imitation at entry, where its prediction
+is sharpest, read post hoc against continuity, a route long separated from it in theory
+\citep{levitt1988organizational,weisberg2009epistemic}. The reversal replicated (A), and
+teams new to ICLR come later to the package (E). For the science of science, acceptance goes with a paper's distance
+from its own authors' record (B), in line with the pivot penalty \citep{hill2025pivot}, while crowded topics carry
+no detectable premium (C). For computational histories of NLP and ML, hindsight inflates
+emergence: on the same papers, an all-years topic map finds 29 emerging topics and an early map 8 (E). At ICLR, the
+conformity we can detect points to a record, not to the crowd.
+
+% ===============================================================================================================
+\section{Two Routes to Conformity}
+\label{sec:theory}
+
+Conformity alone does not reveal its reference point. Imitation makes teams alike; continuity keeps each team, and
+so the field, near its past.
+
+\paragraph{Imitation.}
+We measure frequency imitation, through crowding, hot topics, rising keywords and FM adoption, and outcome imitation,
+through topics with high past acceptance, but not trait imitation \citep{haunschild1997modes}. Uncertainty breeds
+mimicry \citep{dimaggio1983iron} and cascades \citep{bikhchandani1992theory}, so topic entrants are predicted to
+imitate most. They would flock to hot topics, take up a rising package fast, and build on what others proposed by
+evaluating or benchmarking it: the follow-on work we registered. Reputational herding pays when evaluators judge
+people relative to their peers \citep{scharfstein1990herd}, and bandwagons can spread without reward
+\citep{abrahamson1993institutional}.
+
+\paragraph{Continuity.}
+Search stays near existing competence \citep{march1991exploration,stuart1996local}, and absorptive capacity depends on
+prior related knowledge \citep{cohen1990absorptive}. Teams without a record would thus take up a new package slowly,
+against the cascade prediction. At entry, continuity predicts that incumbents consolidate the topic's
+record. Producer-side studies find that fresh teams and younger researchers try new ideas
+\citep{zeng2021fresh,packalen2019age}; on such \emph{outsider accounts}, entrants bring other work. In
+\citeauthor{bourdieu1975specificity}'s field \citeyearpar{bourdieu1975specificity}, ``the dominant are committed to
+conservation strategies'' and journals ``consecrate productions faithful to the principles of official science''.
+Official science, like tradition \citep{foster2015tradition}, is a third reference point, others' accumulated work,
+which both routes approach, so distance from it cannot separate them. We measure continuity by where a paper's content
+sits relative to its team's record and, more weakly, by a topic insider on the team. An insider is a record possessed,
+which cumulative advantage \citep{merton1968matthew} and, where authors are identifiable, visible status
+\citep{ibrahim2026bias} predict too.
+
+\paragraph{Timing and the field level.}
+Timing separates rewarded imitation of what is popular, under which late riders do as well as early ones, from
+priority, under which the premium falls as a wave matures \citep{merton1957priorities,strevens2003role}. A package
+bandwagon \citep{fujimura1988molecular}, lock-in \citep{arthur1989competing} and efficient choice
+\citep{sutton2019bitter} all predict convergence on a package, so only entry and the gate can tell the routes apart.
+
+\paragraph{Gap.}
+To our knowledge, among the works we checked, imitation and continuity have not been tested against each other at
+entry, or side by side at the review gate. A recent review of topic choice names social context and path dependence
+as drivers and leaves entry costs open \citep{xiang2025research}. We use the Weisberg--Muldoon taxonomy, not its
+welfare conclusions, which are disputed \citep{alexander2015epistemic}; our terms, adopted after the tests ran,
+label papers' positions, not motives.
+
+\begin{table*}[t!]
+\centering
+\scriptsize
+\setlength{\tabcolsep}{2pt}
+\renewcommand{\arraystretch}{1.0}
+\begin{tabularx}{\textwidth}{@{}r Y L{2.2cm} L{2.75cm} L{2.85cm} L{0.85cm} L{2.05cm}@{}}
+\toprule
+\# & Observable [code] & Predicted: imitation / continuity & Discovery [95\% CI] & Held-out [95\% CI]; MDE80 or power & Tier & Reading \\
+\midrule
+\multicolumn{7}{@{}l}{\textit{(i) The field: are the waves fashions?}} \\
+1 & Emerging topics: all-years vs 2017--2020 map [hindsight vs P] & $\cdot$ / $\cdot$ & 29 (40.9\%) vs 8 (22.3\%) & -- & E & hindsight inflates emergence \\
+2 & Prior-year FM adoption 0\ra100\% \ra{} new-architecture paper [P, \Hok] & $-$ / $-$ (lock-in) & $-$7.98 [$-$12.14, $-$3.82] & $-$11.0 [$-$18.1, $-$3.9]; MDE80 12.0$^a$ & A & convergence; does not discriminate \\
+3 & Twins per paper per 1,000 submissions, 2019\ra2026 [P] & + / $\cdot$ & 0.32\ra0.19 & -- & E & volume, not piling on \\
+\multicolumn{7}{@{}l}{\textit{(ii) Entry: what topic newcomers write}} \\
+4 & Newcomer \ra{} method paper (base 75.0\%) [P, \Hok] & $-$ (registered) / + & +3.71 [+2.61, +4.80] & +3.60 [+1.48, +5.71]; MDE80 2.8 & A (rev.) & against imitation$^h$ \\
+5 & Newcomer \ra{} measurement paper (base 7.7\%) [P, \Hok] & + (registered) / $-$ & $-$1.70 [$-$2.46, $-$0.93] & $-$2.10 [$-$3.35, $-$0.85]; MDE80 2.4 & A (rev.) & against imitation; partly team size$^g$ \\
+6 & Newcomer \ra{} distance from earlier ICLR work [P] & $-$ / + (incumbents' own work) & +5.90 [+4.95, +6.85]; own work excluded +4.33 [+3.44, +5.22] & -- & E & against imitation$^i$ \\
+7 & First-time vs returning team \ra{} Emerging keyword; first-time team vs returning topic newcomer \ra{} FM paper at 5--15 / 15--30 / 30--50\% adoption, 2023--2026 [P] & + / $-$ (absorptive capacity) & $-$3.74 [$-$5.14, $-$2.35]; $-$4.58 / $-$8.96 / $-$14.71 & -- & E & later onto trend and package \\
+8 & Hot topic \ra{} incumbent share (flocking) [P, \Hno] & $-$ / $\cdot$ & $-$0.73 [$-$2.68, +1.22] & not registered & C & inconclusive \\
+\multicolumn{7}{@{}l}{\textit{(iii) The gate: following and timing}} \\
+9 & Crowding, per log unit \ra{} acceptance [P, \Hno] & + if rewarded (registered: $-$) / $\cdot$ & $-$1.68 [$-$3.68, +0.32] & $-$1.51 [$-$5.20, +2.19]; MDE80 4.8 & C & no detectable premium$^b$ \\
+10 & Topic edge 2018--2022 \ra{} edge 2024--2026 [P] & $b>0$ if outcome imitation pays / $\cdot$ & 0.38 [0.18, 0.58] & 0.60 [0.32, 0.88] & B & real but regressing \\
+11 & Emerging minus Mainstream keyword [P]; after vs up to a keyword's peak, 17 waves [R] & + / + (priority); 0 or $-$ / $-$ & +2.67 [+0.76, +4.58]; $-$5.7 [$-$8.5, $-$2.9] & +3.25 [$-$0.18, +6.69]; $-$5.2 [$-$11.1, +0.7] (MDE80 7.4) & B, weak & momentum vs priority open; shape leans to priority (D)$^c$ \\
+12 & Federated-learning keyword gap [R] & $\cdot$ / $\cdot$ & $-$11.3 [$-$17.9, $-$4.8] & $-$4.9 [$-$15.4, +5.7]; MDE80 14.5 & D/C & not confirmed$^d$ \\
+\multicolumn{7}{@{}l}{\textit{(iv) The gate: distance from the field's and from the team's own record}} \\
+13 & Field distance: least-distant vs middle fifth [P, \Tok] & + if rewarded (declared: $-$) / + (field record) & $-$3.27 [$-$4.93, $-$1.60] & $-$0.13 [$-$3.50, +3.25]; power 0.47 & C & undetermined; does not discriminate$^e$ \\
+14 & Far jump from own record: \Fmax{} p10 $-$ p50 [P, \Tok] & $\cdot$ / $-$ & $-$5.44 [$-$7.10, $-$3.78] & $-$6.09 [$-$9.32, $-$2.86]; MDE80 4.9 & B (prim.) & for continuity$^f$ \\
+15 & Same author, per +0.1 cosine closer [P, \Tok] & $\cdot$ / + & +0.55 [+0.21, +0.90] & +1.06 [+0.23, +1.89] & B (sec.) & for continuity \\
+16 & One topic insider vs none [P] & $\cdot$ / + & +3.42 [+1.18, +5.66] & +3.88 [+0.28, +7.47]; MDE80 $\approx$4.5 & B (sec.) & status-compatible \\
+\bottomrule
+\end{tabularx}
+
+\vspace{2pt}
+\parbox{\textwidth}{\scriptsize\raggedright
+$^a$Underpowered at the discovery size: direction, not size.
+$^b$Registered H3a predicted a penalty ($-$); one-sided held-out $p$~0.21; the hindsight requirement fails held-out (early map on
+2021--2026 papers +1.44). Penalties
+below about 5\,pp per log unit cannot be told from zero; premiums above +0.32 / +2.19\,pp per log unit lie outside
+the intervals.
+$^c$`Early' means early in a keyword's life, not in the submission window \citep[cf.][]{jung2025what}. Imitation
+predicts + for Emerging if momentum is rewarded, and after the peak 0 (popularity) or $-$ (momentum). The Emerging
+contrast's two-sided interval includes 0 (MDE80 $\approx$4.3); old rising keywords +3.9 (nominal).
+Discovery wave estimate descriptive, not a test; wave set retrospective; held-out $-$1.7 ($p$~0.33) without the six
+keywords inspected first. In discovery the gap falls before the peak, and rising against flat years of the same
+keyword differ by +0.9 [$-$0.8, +2.7].
+$^d$Held-out trend of opposite sign (+3.2\,pp per year).
+$^e$Uninformative. Rows 13--16 differ in population and unit: compare replication status, not size.
+$^f$Newcomer control $-$5.0; link-removed $-$5.39; early map $-$5.2; correlation with newcomer flag $-$0.57.
+$^g$With log team size: $-$0.54 [$-$1.11, +0.04] in discovery, $-$0.98 held-out; row 4 unchanged (+3.92 in discovery,
++3.64 held-out); supplementary to A.
+$^h$Rows 4--5: all 10 counted variants agree, and the t-statistics (6.7, $-$4.4) dwarf the size-failure inflation
+factors (1.31, 1.22).
+$^i$Raw scale: +1.35 [+1.16, +1.55] hundredths of cosine distance, 0.22 of a within-cell standard deviation.}
+\caption{The herding account tested at three points: each observable and the sign predicted by imitation and by
+continuity (in parentheses: its mechanism or reference point, or a named alternative: lock-in, priority; $\cdot$:
+none). Percentage points
+unless the row states otherwise (row 1: counts; row 3: twins per paper per 1,000 submissions; row 6: percentile
+points; row 10: slope $b$), 95\% intervals, within topic and year (keyword rows and row 10: against the same year's
+other papers). Held-out tests are one-sided and confirm direction, not size, so a supported test can have an interval
+that includes 0. Codes: P only earlier data; \Hok/\Hno{} registered hindsight variants pass/fail; R retrospective by
+construction; \Tok{} held after link removal. Tiers as in Section~\ref{sec:intro}; rev.: reversed registered
+prediction; prim./sec.: declared primary/secondary held-out test (secondary tests, six in all, among them rows 10, 11 (Emerging), 15 and 16,
+were one-sided and unadjusted, so one false positive would not be surprising); D/C: discovery-only gap whose registered held-out
+test was not supported. Every test, and further notes to rows 6, 7, 10 and 16, in Appendix~\ref{app:tests}.}
+\label{tab:main}
+\end{table*}
+
+% ===============================================================================================================
+\section{Data and Design}
+\label{sec:design}
+
+The tests need every submission, past-only predictors and sealed outcomes.
+
+\paragraph{Corpus.}
+The corpus is our own dated acquisitions of official OpenReview records (Appendix~\ref{app:data}). Acceptance
+tests use 32,190 decided discovery papers, 40.1\% of them accepted, and 8,185 decided held-out papers; withdrawn
+papers are left out.
+
+\paragraph{Instruments.}
+A \emph{topic} is one of 100 spherical k-means clusters of SPECTER2 embeddings of title and abstract
+\citep{cohan2020specter,singh2023scirepeval}, fitted on all years unless another map is named. An LLM with a fixed
+codebook gives each paper one primary contribution type. A \emph{method paper} includes new architectures, a
+\emph{measurement paper} is a dataset/benchmark or evaluation paper, and an \emph{FM paper} uses or adapts a large
+pre-trained model. A blind second pass agreed at $\kappa$ 0.93: consistency between LLM labellings, not human-level
+validity. In a \emph{newcomer paper}, no author ID has an earlier ICLR submission, with any outcome, in the paper's
+topic \citep[a topic-relative definition, as in][]{biliotti2024breaking}; otherwise it is an \emph{incumbent paper}.
+A \emph{first-time team} has no earlier ICLR submission at all; a \emph{returning team} has one. A \emph{returning
+topic newcomer} paper is a newcomer paper with an author who has one in another topic, and a \emph{topic insider} is
+an author with one in the paper's topic.
+
+\paragraph{Two distances.}
+Both use the centred SPECTER2 space. Our closeness measure follows \citet{bao2025persistence}, who use SPECTER2
+similarity to a researcher's own earlier papers. \Fmax{} is the highest cosine between the paper and the mean of an
+author's earlier submissions, taken over \emph{experienced authors}, those with an earlier ICLR submission since 2021
+(exclusions in Appendix~\ref{app:measure}). \emph{Distance from earlier ICLR work} is one minus the mean cosine to the
+10 nearest earlier-year submissions, as a percentile within topic \by{} year.
+
+\paragraph{Prospective measurement.}
+All predictors use only the past. \emph{Prior FM adoption} is the FM share of a topic's previous-year papers,
+\emph{crowding} is the log of one plus the topic's earlier papers, and a \emph{hot topic} is in the top 20\% of prior
+growth. Code links leak the outcome into 17.6\% of accepted but 0.5\% of rejected 2023--2026 abstracts
+\citep{kaufman2012leakage}; \Tok{} in Table~\ref{tab:main} marks estimates that held after we removed them.
+
+\paragraph{Protocol.}
+A registered hypothesis was supported if it had the predicted sign, Holm-adjusted $p<0.05$ in its family
+\citep{holm1979simple}, and that sign in 75\% of counted variants and in both hindsight variants. These are a
+year-balanced map and the 2017--2020 map applied to 2021--2026 papers. Outcomes stayed sealed until one frozen run
+\citep{nosek2018preregistration,vandenakker2021preregistration}; post hoc families were declared before they were
+run, and held-out tests were registered beforehand and run once. Models are linear probability models with topic and
+year fixed effects and topic-clustered errors. Under a null that cuts across topics, the main entry tests rejected
+12.6\% and 10.0\% of the time at a nominal 5\%, which a wild cluster bootstrap \citep{cameron2008bootstrap} did not
+fix (Appendix~\ref{app:size}). A test not supported and below its 80\%-power minimum detectable effect (MDE80) is
+\emph{uninformative}.
+
+% ===============================================================================================================
+\section{The Field: One Package, Less Emergence than Hindsight Shows}
+\label{sec:field}
+
+The herding account's first claim is that the waves are fashions: rises that will fall. We ask what survives a
+measurement that cannot see the future.
+
+\paragraph{Hindsight inflates emergence.}
+Computational histories fit one topic model on the whole archive and read it forward
+\citep{hall2008studying,anderson2012towards,klinger2020narrowing}, and dynamic topic models and
+BERTopic also fit all years at once \citep{blei2006dynamic,grootendorst2022bertopic}. Some attributes of emergence can be
+judged only after the fact \citep{rotolo2015what}, static models can miss small emerging topics
+\citep{li2025evaluation}, and a prospective signal has been tested \citep{khanbayov2026topical}. An all-years map
+leaks the future into the past, like temporal leakage in prediction \citep{kapoor2023leakage} and hindsight in
+judgement \citep{fischhoff1975hindsight}. \emph{Emerging topics} are those whose 2024--2026 share is at least three
+times their 2017--2020 share. On the same papers and pipeline, their number depends on the fitting years: 8 on the
+2017--2020 map, rising with later fitting years to 29 on all years (Figure~\ref{fig:field}a; E). With 69\% of papers
+from 2024--2026, the all-years map is a present-day map. The share of 2024--2026 papers in emerging topics, 22.3\% on
+the 2017--2020 map and 40.9\% on the all-years map (20.9--42.2\% across the six maps), is a bracket. The early map
+cannot represent topics born after 2020, and the maps differ in fitting corpus as well as window. A registered trend
+conclusion also changes with the map (Appendix~\ref{app:hindsight}).
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\columnwidth]{figs/fig2_field.pdf}
+  \caption{(a) Emerging (bars) and declining (grey diamonds) topics on $k = 100$ maps fitted on different years, same
+  43,480 papers; right-hand labels: emerging count (share of 2024--2026 papers in emerging topics). All years (refit): the all-years map
+  refitted with another seed (Table~\ref{tab:app-maps}). Topic size `predicts' two-year growth only on the all-years map ($R^2$ 0.28 vs $-$0.03; no
+  paired test). (b) Share of submissions building on an FM (blue circles) and proposing a new architecture (orange
+  squares); LLM labels. Inset: registered H1d (A; held-out confirms direction, not size). No acceptance data.}
+  \label{fig:field}
+\end{figure}
+
+\paragraph{What survives: a package.}
+What survives every map is a package. The FM share rose every year from 2018 (Figure~\ref{fig:field}b). Of the 68 most
+frequent keywords, 17 instead rose and fell (E). Registered H1d held: where more of a topic's previous-year papers
+built on FMs, fewer of its papers propose new architectures. The estimate is $-$7.98\,pp [$-$12.14, $-$3.82] for
+adoption from 0 to 100\% in discovery and $-$11.0 [$-$18.1, $-$3.9] held-out (A, direction only). That is about a third
+fewer at 50\% adoption than at 10\%, on a base near 9\%. No detectable shift towards empirical or evaluation papers goes with
+it ($-$0.63 [$-$3.64, +2.38]; C), and reverse causality is possible. The pattern is consistent with accounts of NLP's
+paradigm shifts \citep{gururaja2023build,saphra2024first,pramanick2023diachronic}.
+
+\paragraph{What the field level cannot decide.}
+Papers with an independent \emph{same-year twin}, at cosine $\geq$ 0.70, grew with volume but not per possible pair
+(E; Table~\ref{tab:main}). Imitation-like spread is plainest in surface form: \emph{branded titles}, a short coined
+name and a colon, rose about fourfold (E$^*$). An earlier exploratory analysis, not re-run, found them accepted at the
+submitted rate (ratio 1.02; D$^*$). The first claim thus holds only in part: keywords rose and fell, but emergence
+depends on the map, and the largest shift, the package, rose every year. It fits both routes, and lock-in
+\citep{hooker2021hardware}, so the field level cannot tell imitation from continuity; entry and the gate must.
+
+% ===============================================================================================================
+\section{Entry: Newcomers Propose Rather than Follow}
+\label{sec:entry}
+
+The herding account's second claim is that imitators carry the waves: newcomers to a topic follow where others have
+led. A randomised trial at ICML detected no herding among reviewers in discussion \citep{stelmakh2023large}, though
+co-reviewers' ratings predict rebuttal-phase score changes at ICLR \citep{kargaran2025insights}. We ask about authors
+entering a topic, where imitation theory expects herding most and continuity the opposite.
+
+\paragraph{The registered prediction reversed.}
+Newcomer papers are 72.9\% of 42,325 papers. Our registered herding prediction, that they would be follow-on work,
+failed in the opposite direction, and the reversal replicated (A; Figure~\ref{fig:entry}a). Newcomer papers are more
+often method papers, +3.71\,pp [+2.61, +4.80] in discovery and +3.60 [+1.48, +5.71] held-out. They are less often
+measurement papers, $-$1.70 [$-$2.46, $-$0.93] in discovery and $-$2.10 [$-$3.35, $-$0.85] held-out (direction only).
+All counted variants agree (Table~\ref{tab:main}, note h), and the reversed hypotheses were registered before any
+held-out data.
+
+\paragraph{What the reversal means.}
+A method paper is a contribution type, not a measure of novelty; an adapter on an LLM counts as method. As three
+quarters of ICLR papers are method papers, newcomers could also be imitating the venue's dominant genre, a reading our
+registered prediction did not encode. Against it, first-time teams come later to its dominant package, and
+newcomer papers sit farther from earlier work. Incumbent papers carry more of a topic's measurement work, the
+consolidation continuity expects, but much of that gap is team size, unlike the method
+gap (Table~\ref{tab:main}, note g).
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\columnwidth]{figs/fig3_entry.pdf}
+  \caption{(a) Newcomer minus incumbent papers within topic and year (pp): discovery (blue circles), held-out (orange
+  squares), 95\% intervals; grey band: the side the herding prediction expected; twin row: class, FM and team-size
+  controls. Below the line: first-time minus returning teams. A method paper is a contribution type, not a measure of
+  novelty. (b) FM-paper share gap by the topic's prior-year FM adoption, 2023--2026, class and team-size controls:
+  first-time team vs returning topic newcomer (blue circles); returning topic newcomer vs incumbent (grey triangles);
+  95\% intervals. Outcome-free.}
+  \label{fig:entry}
+\end{figure}
+
+\paragraph{Farther from earlier work.}
+Newcomer papers also sit farther from earlier ICLR work, in an unregistered comparison added during writing (E).
+The gap is +5.90 percentile points [+4.95, +6.85] within topic \by{} year, +5.24 [+4.16, +6.31] among method papers
+alone, and +4.33 [+3.44, +5.22] with the authors' own earlier papers excluded from the reference set. About a quarter
+of the gap is thus incumbents' closeness to their own work, itself continuity among producers; the rest is distance
+from the field's earlier work. The gap is modest on the raw scale (Table~\ref{tab:main},
+note i), and distance in SPECTER2 space is not originality. But the
+follow-on prediction expects newcomer papers to sit closer to earlier work, and they do not. They also less often have a
+same-year twin, $-$3.86 [$-$4.98, $-$2.74] (E; Figure~\ref{fig:entry}a).
+
+\paragraph{Later onto the package and the trend.}
+First-time teams come later to both the package and the trend (E; Figure~\ref{fig:entry}a--b). Among 2023--2026
+submissions in topics at 5--50\% prior adoption, the FM-paper gap between first-time teams and returning topic
+newcomers runs from $-$4.58\,pp [$-$6.55, $-$2.60] to $-$14.71 [$-$19.82, $-$9.61]. Returning topic newcomers do not
+differ detectably from incumbents. First-time teams also list \emph{Emerging} keywords, young and rising,
+less often than returning teams: $-$3.74 [$-$5.14, $-$2.35]. The package travels with an ICLR record, the order
+absorptive capacity predicts \citep{cohen1990absorptive} and the reverse of younger researchers' pull to new ideas
+\citep{packalen2019age} if first-time teams are younger. The compute and access a record brings predict the same
+order.
+
+\paragraph{What stays open.}
+The registered flocking test is inconclusive (C): the incumbent share in hot versus other topics differs by $-$0.73
+[$-$2.68, +1.22], pointing the imitation way. Whether entrants crowd into hot topics thus stays open. The method,
+measurement and distance gaps speak for continuity only through incumbents. The newcomer side fits outsider accounts
+as well, since entering a topic is itself a move away from a team's ICLR record: \Fmax{} correlates $-$0.57 with the
+newcomer flag. The FM contrast between topic newcomers with and without an ICLR record does separate continuity from
+outsider accounts. At entry, then, every detectable difference runs against imitation: newcomers write less follow-on
+work, not more, and the package travels with an ICLR record.
+
+% ===============================================================================================================
+\section{The Gate: What Acceptance Goes With}
+\label{sec:gate}
+
+The herding account's third claim is that following pays at review. The negative half of our thesis rests on a
+registered test (C), the positive half on post hoc tests supported by declared held-out tests (B).
+
+\paragraph{Crowd, package and past winners.}
+The registered crowding test, which predicted a penalty, is uninformative: $-$1.68\,pp per log
+unit [$-$3.68, +0.32] in discovery and $-$1.51 [$-$5.20, +2.19] held-out, against an MDE80 of 4.8 (C). Crowded topics
+carry no detectable premium (Table~\ref{tab:main}, note b). FM papers, the package itself, are accepted more often,
++4.62\,pp [+2.79, +6.44] (D). That premium does not detectably change with the topic's prior adoption, +0.19 [$-$0.96,
++1.34] per logit unit (D): late adopters fare as early ones do, which fits rewarded imitation and efficient choice
+alike. Topics differ in acceptance at ICLR \citep{wang2023what}, even at equal reviewer scores \citep{xu2026reviewer};
+we find these edges real but regressing. A \emph{topic edge}, acceptance minus that of all other papers of the same
+year, in 2018--2022 predicts the 2024--2026 edge with slope $b$ of 0.38 [0.18, 0.58] in discovery and 0.60 [0.32,
+0.88] held-out. With $0<b<1$ (B), a favoured topic keeps part of its edge, not all of it.
+
+\paragraph{Continuity: closeness to the team's own record.}
+Holding the author fixed, a paper 0.1 closer in cosine to that author's earlier work goes with +0.55\,pp [+0.21,
++0.90] higher acceptance in discovery and +1.06 [+0.23, +1.89] held-out (B, secondary). Co-author composition may
+explain half or more of this. The declared primary test compares teams that all have a record. Among 20,430 decided
+2023--2026 papers with an experienced author, the \emph{far jump}, acceptance at the 10th percentile of \Fmax{} minus
+that at the median, is $-$5.44 [$-$7.10, $-$3.78] in discovery and $-$6.09 [$-$9.32,
+$-$2.86] held-out, with power 0.89 (B). Adjusted acceptance rises with closeness up to the fourth fifth (D;
+Figure~\ref{fig:gate}). Larger pivots are less often published \citep{hill2025pivot}; we observe the decision itself,
+on every submission, under double-blind review, with a declared held-out test. Unlike distance from an evaluator's
+expertise \citep{boudreau2016looking} or reference-based novelty \citep{teplitskiy2022is}, ours runs from a
+submission to its own authors' record.
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\columnwidth]{figs/fig4_gate.pdf}
+  \caption{Adjusted acceptance by fifth of closeness to the team's earlier ICLR work, far to near, 95\%
+  intervals (discovery, 2023--2026, papers with an experienced author; D); annotation: declared held-out far-jump test
+  (B).}
+  \label{fig:gate}
+\end{figure}
+
+\paragraph{A topic insider: a record possessed.}
+At fixed team size and number of experienced authors, one topic insider on the team, against none, goes with
++3.42\,pp [+1.18, +5.66] in discovery and +3.88 [+0.28, +7.47] held-out (B, secondary, direction only). A status
+reading \citep{merton1968matthew,ibrahim2026bias} explains this as well as continuity does, and a discovery-only
+contrast leans that way. Per head, an insider goes with only +0.58\,pp more than an experienced author from another
+topic ($p$~0.16; D).\footnote{Newcomer papers are accepted less often, $-$10.2\,pp [$-$11.8, $-$8.7] (D), but
+that gap mostly reflects who writes (Appendix~\ref{app:gate}).} Chaperoned entry into top journals
+\citep{sekara2018chaperone} and, on the producer side, expertise that offsets a newcomer disadvantage
+\citep{biliotti2024breaking} are parallels.
+
+\paragraph{Two records in one space.}
+In the same space, closeness to the field's earlier papers is undetermined (Appendix~\ref{app:tests}, Figure~\ref{fig:gate-tests}). The
+least-distant fifth against the middle fifth is $-$3.27 [$-$4.93, $-$1.60] in discovery, the declared direction, but
+$-$0.13 [$-$3.50, +3.25] held-out, with power 0.47 (C). The within-author slope for field distance was not supported
+either (C). Only the own-record associations held on held-out papers.
+
+\paragraph{Timing: early, weakly.}
+Emerging keywords go with higher acceptance than \emph{Mainstream} ones, which are old and flat: +2.67\,pp [+0.76,
++4.58] in discovery and +3.25 [$-$0.18, +6.69] held-out, a two-sided interval that includes 0 (B, weak). Old rising
+keywords do about as well (+3.9, nominal; D), so this fits a premium for what is rising as well as priority.
+\emph{Waves} are the 17 keywords whose share peaked in 2019--2024. Acceptance after the peak, against up to it, is
+$-$5.7 [$-$8.5, $-$2.9] in discovery, not a test, and $-$5.2 [$-$11.1, +0.7] held-out (B, weak). The wave set is
+retrospective, and the held-out estimate leans on the six keywords inspected first (without them, $-$1.7, $p$~0.33). A
+premium for what is rising would also fall after a peak, but the discovery gap falls before it, which leans towards
+priority \citep{merton1957priorities,strevens2003role} (D). Neither test shows the flat premium
+that rewarded imitation of what is popular predicts.
+
+\paragraph{What acceptance goes with.}
+Of the post hoc patterns taken to held-out papers, the three referenced to a record and the topic-edge regression
+held. The timing tests held weakly, and field distance and the federated-learning gap (Table~\ref{tab:main}, row 12)
+were not confirmed (Appendix~\ref{app:tests}). Every association that held is referenced to a record or fits imitation
+and a rival alike. At the gate, acceptance goes with a team's record, not detectably with the crowd.
+
+% ===============================================================================================================
+\section{Discussion: Where Conformity Lives}
+\label{sec:discussion}
+
+\begin{table}[t]
+\centering
+\scriptsize
+\setlength{\tabcolsep}{2.5pt}
+\begin{tabularx}{\columnwidth}{@{}L{1.3cm} Y Y@{}}
+\toprule
+ & Producers (what is written) & Gate (acceptance) \\
+\midrule
+\textbf{Imitation} (others now) & Follow-on prediction reversed (A); newcomers farther from earlier work (E); first-time teams later onto FMs and rising keywords (E); fewer newcomer twins (E). Flocking inconclusive (C). Spread plainest in title form (E$^*$). & No detectable crowding premium (C); branded titles at the submitted rate (D$^*$); late riding not favoured (B, weak). Fit imitation and a rival alike: rising keywords weakly favoured (B, weak); topic edges partly kept (B); FM premium not fading (D). \\
+\midrule
+\textbf{Continuity} (a record) & Incumbents write more measurement papers (A; much of it team size); the package travels with an ICLR record (E); incumbents closer to their own earlier work (E). & Lower far from the team's record (B); higher for the same author's closer papers (B); higher with a topic insider (B; a record possessed, status-compatible). \\
+\bottomrule
+\end{tabularx}
+\caption{Where conformity shows, by route and site. Tiers in parentheses. Cells summarise Table~\ref{tab:main} and
+Sections~\ref{sec:field}--\ref{sec:gate}; no new estimates. Field distance (Table~\ref{tab:main}, row 13),
+predicted by both routes, is undetermined (C).}
+\label{tab:routes}
+\end{table}
+
+\paragraph{What the evidence supports.}
+The conformity we can detect at ICLR points to continuity rather than imitation, though three gate patterns fit
+rewarded imitation and a rival alike (Table~\ref{tab:routes}). Conformity here is a pull towards a record, not identical
+work: incumbents' papers sit closer to their own earlier work (E), and acceptance goes with closeness to a team's
+record (B). Weisberg's risk-avoiding clustering \citep{weisberg2013modeling} appears here as continuity. The
+consecration of ``official science'' that Bourdieu describes \citep{bourdieu1975specificity} we detect
+only for a team's own line of work.
+
+\paragraph{What remains open.}
+Expertise, evaluator conservatism, visible status, cumulative advantage and selection into teams cannot be separated
+here \citep{li2017expertise,merton1968matthew,ibrahim2026bias}. Double-blind review rules none of them out, since
+preprints can identify authors \citep{bharadhwaj2020deanonymization}. The within-author and far-jump tests add that
+acceptance goes with how close the content stays to a record, not only with having one, though close work may itself
+reveal its authors. Whether entrants' distant work is taken up less, as in the diversity--innovation paradox
+\citep{hofstra2020diversity}, our data cannot say. In the previous shift, researchers who
+stayed close to their own record had lower later impact \citep{bao2025persistence}. Acceptance is a short-run
+outcome, and acceptance and later citation need not go with the same work
+\citep[cf.][]{march1991exploration,rzhetsky2015choosing}, which we cannot test.
+
+\paragraph{Why the distinction matters.}
+A field that looks herded may conform by continuity instead; the routes carry different risks: a fragile consensus
+for imitation, long-run costs for continuity \citep{bikhchandani1992theory,march1991exploration}. At ICLR the substrate
+converged (A), consistent with homogenisation \citep{bommasani2021opportunities}, but no herding of the testable
+kinds was detected at entry. For histories of NLP and ML \citep{hall2008studying,anderson2012towards},
+an early refit and lagged predictors show cheaply which trend claims survive hindsight.
+
+% ===============================================================================================================
+\section{Conclusion}
+\label{sec:conclusion}
+
+We tested the herding account of ICLR's FM wave at three points, separating imitation from continuity. The field
+converged on a package, with less emergence than hindsight shows; newcomer papers reversed our registered herding
+prediction (A); crowded topics carry no detectable premium (C); and acceptance goes with a paper's position relative
+to its team's record (B). At ICLR, the conformity we can detect points to a record, not to the crowd: one
+venue, associations only, every claim tiered.
+
+% ===============================================================================================================
+\section*{Limitations}
+
+All results are associations at one venue; none is a causal effect of a topic, team or contribution type. The
+held-out set is a pre-registered out-of-sample replication, not a certified untouched holdout: it shares
+conference-years, reviewer pools and authors with the discovery papers, so it guards against analyst overfitting but
+not against year- or reviewer-specific patterns, and supported tests confirm direction, not size. The continuity
+results were found post hoc; their held-out tests were declared in advance, but two of the three are among six
+secondary tests run one-sided and unadjusted. The imitation--continuity frame was drawn up after the registered and
+declared tests had run: it organises those tests rather than generating them, and the continuity predictions in
+Table~\ref{tab:main} were written afterwards. Under one simulated null the main entry tests rejected 12.6\% and
+10.0\% of the time at a nominal 5\%. Contribution and foundation-model labels are LLM labels checked against LLM
+labels, and abstracts are partly camera-ready; links were removed and the text re-embedded for discovery papers only.
+Entry status counts ICLR submissions only, and the 2021 switch from e-mail to profile identifiers hides earlier
+histories, which pulls entry contrasts towards zero. Withdrawn papers are left out of acceptance tests. Whether
+entrants crowd into hot topics is unsettled (the flocking test is inconclusive), and the absence of a premium does not
+rule out unrewarded bandwagons. No declared held-out gate test pits imitation against continuity on the same unit; in
+discovery, the far-jump and insider contrasts in hot versus other topics are inconclusive ($-$0.35 [$-$3.13, +2.42]
+and $-$0.8 [$-$4.9, +3.2]; D). Work that continues a known line may itself reveal its authors, so even the
+within-author and far-jump associations do not exclude visible status. The insider and far-jump associations could
+be separated from it by asking whether they concentrate where a preprint identifies the authors, as the prestige gap
+at ICLR does \citep{ibrahim2026bias}; we did not run that test. The hindsight
+comparison is a bracket, because the maps differ in fitting corpus as well as window. The content-distance comparison
+was added during writing and is unregistered; about a quarter of its gap reflects incumbents' closeness to their own
+earlier work (with that work excluded, the gap is +4.33 [+3.44, +5.22] percentile points), and distance in embedding
+space is not originality.
+
+\section*{Ethics Statement}
+
+Author identifiers were used only as keys to compute entry status, closeness and the exclusion of a paper's own
+authors' earlier work; no author is named and all results are aggregates. The data are public OpenReview records,
+collected in our own dated acquisitions under the platform's terms. No review scores are used. Contribution labels
+were produced by an LLM (Claude Haiku) with a fixed codebook; agreement figures compare LLM labellings, not human
+judgement.
+
+\bibliography{references}
+
+\appendix
+\IfFileExists{appendix.tex}{\input{appendix}}{}
+
+\end{document}

@@ -43,7 +43,7 @@ WAVES = [("generative adversarial networks", "GANs"), ("adversarial attack", "Ad
 plt.rcParams.update({"font.family": "DejaVu Sans", "font.size": 9, "axes.edgecolor": INK2, "axes.linewidth": 0.8,
                      "axes.labelcolor": INK2, "xtick.color": INK2, "ytick.color": INK2, "axes.grid": True,
                      "grid.color": GRID, "grid.linewidth": 0.6, "axes.axisbelow": True, "axes.spines.top": False,
-                     "axes.spines.right": False})
+                     "axes.spines.right": False, "pdf.fonttype": 42, "ps.fonttype": 42})
 
 
 def shares() -> dict[str, np.ndarray]:
@@ -56,37 +56,36 @@ def shares() -> dict[str, np.ndarray]:
 
 def waves() -> None:
     sh = shares()
-    fig, axes = plt.subplots(2, 4, figsize=(7.0, 3.0), sharex=True)
+    fig, axes = plt.subplots(2, 4, figsize=(4.8, 2.05), sharex=True)   # printed at 0.76 \\textwidth
     for ax, (kw, label) in zip(axes.ravel(), WAVES):
         y = sh[kw]
         i = int(np.argmax(y))
         ax.fill_between(YEARS, y, color=BLUE, alpha=0.15, lw=0)
-        ax.plot(YEARS, y, color=BLUE, lw=1.8)
-        ax.plot(YEARS[i], y[i], "o", color=BLUE, ms=4)
+        ax.plot(YEARS, y, color=BLUE, lw=1.3)
+        ax.plot(YEARS[i], y[i], "o", color=BLUE, ms=3)
         ha = "left" if i <= 1 else "right" if i == len(YEARS) - 1 else "center"
-        ax.annotate(f"{y[i]:.1f}% ({YEARS[i]})", (YEARS[i], y[i]), xytext=(0, 4), textcoords="offset points", ha=ha,
-                    va="bottom", fontsize=7, color=INK)
-        ax.set_ylim(0, y.max() * 1.35)
-        ax.set_title(label, fontsize=8.5, color=INK, loc="left")
+        ax.annotate(f"{y[i]:.1f}% ({YEARS[i]})", (YEARS[i], y[i]), xytext=(0, 2.5), textcoords="offset points",
+                    ha=ha, va="bottom", fontsize=7, color=INK)
+        ax.set_ylim(0, y.max() * 1.42)
+        ax.set_title(label, fontsize=7.5, color=INK, loc="center", pad=2)
         ax.set_xticks([2018, 2022, 2026], ["'18", "'22", "'26"])
-        ax.tick_params(labelsize=7.5, length=2)
-        ax.yaxis.set_major_locator(plt.MaxNLocator(3))
-    for ax in axes[:, 0]:
-        ax.set_ylabel("% of subm.", fontsize=8)
-    fig.tight_layout(w_pad=0.6, h_pad=0.8)
+        ax.tick_params(labelsize=7, length=2, pad=1.5)
+        ax.yaxis.set_major_locator(plt.MaxNLocator(3, integer=True))
+        print(f"{label}: peak {y[i]:.1f}% ({YEARS[i]})")
+    fig.supylabel("% of submissions", fontsize=7.5, color=INK2, x=0.005)
+    fig.tight_layout(w_pad=0.6, h_pad=0.45, pad=0.2)
     FIGS.mkdir(exist_ok=True)
     for ext in ("pdf", "png"):
-        fig.savefig(FIGS / f"fig1_waves.{ext}", dpi=220, bbox_inches="tight")
+        fig.savefig(FIGS / f"fig1_waves.{ext}", dpi=300 if ext == "png" else None, bbox_inches="tight",
+                    pad_inches=0.02)
     plt.close(fig)
-    for kw, label in WAVES:
-        y = sh[kw]
-        print(f"{label}: peak {y.max():.1f}% ({YEARS[np.argmax(y)]}), 2026 {y[-1]:.1f}%")
 
 
 W = 3.03                                                         # ACL column width (inches)
 FS, FT = 7.5, 7                                                  # base and smallest text size (pt)
 MINUS = "\u2212"
 SMALL = {"font.size": FS, "xtick.labelsize": FT, "ytick.labelsize": FT, "axes.labelsize": FS, "legend.fontsize": FT}
+FIG1 = {"font.size": 7.5, "axes.linewidth": 0.7, "grid.linewidth": 0.5, "xtick.labelsize": 7, "ytick.labelsize": 7}
 
 
 def n(v: float) -> str:
@@ -293,7 +292,8 @@ def gate_tests() -> None:
 
 
 if __name__ == "__main__":
-    waves()
+    with plt.rc_context(FIG1):
+        waves()
     with plt.rc_context(SMALL):
         field()
         entry()

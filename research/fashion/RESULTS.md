@@ -992,6 +992,30 @@ Post hoc: the question came from viewing the discovery per-year gaps of six keyw
   arrivals do best; the decline starts before the peak. This fits PH5 kwtiming A1 (young rising keywords +2.7 pp in
   discovery, +3.3 pp held-out). The held-out profile is noisy (few papers far from the peak).
 
+## Descriptive: are newcomer papers more novel in content? (added 2026-11-03, outcome-free)
+
+Added while writing the paper; not pre-registered; reads no outcome (`paper/analysis/novelty_newcomer.py`, outputs
+`output/paper_novelty/`). Novelty as in PH5 position: 1 − mean cosine to the 10 nearest papers of strictly earlier
+years (any topic; SPECTER2 centred with the frozen mean; a paper's own chain of probable earlier versions excluded),
+as a percentile within the k100 topic × year cell. Population: the RQ2 papers (2019–2026, an author ID; 42,325).
+LPM with topic × year FE, CR1 SE by topic (100 clusters).
+
+| Newcomer minus incumbent papers (percentile points) | Estimate | 95% CI |
+|---|---|---|
+| Main | +5.90 | +4.95 to +6.85 |
+| Method papers only | +5.24 | +4.16 to +6.31 |
+| With log2 team size | +5.59 | +4.64 to +6.54 |
+| With class, FM and team controls | +5.76 | +4.82 to +6.70 |
+| 2019–2022 / 2023–2026 | +4.95 / +6.01 | +2.32 to +7.58 / +5.03 to +6.98 |
+| **Own work excluded** (earlier papers sharing an author key removed from the reference set) | **+4.33** | **+3.44 to +5.22** |
+| Own work excluded, method papers only | +3.71 | +2.70 to +4.72 |
+| Raw cosine distance (× 100) | +1.35 | +1.16 to +1.55 (0.22 within-cell SD) |
+
+- Positive in every year 2020–2026 (+5.0 to +6.4; 2019 +1.3, n.s.; 2021 rests on 11 incumbent papers).
+- About a quarter of the gap is mechanical continuity: incumbents' papers sit near their own earlier work. The rest is
+  distance from the field's earlier work.
+- Association, descriptive; the 2021 author-ID switch biases towards zero.
+
 ## Reproduction
 
 ```text

@@ -6,7 +6,9 @@ run's estimates).
   fig2_field   (a) emerging / declining topics on k = 100 maps fitted on different years; (b) FM vs new-architecture share
   fig3_entry   (a) newcomer minus incumbent papers (contribution type, twins) and first-time teams' Emerging keywords;
                (b) first-time teams' FM-paper gap by the topic's prior FM adoption
-  fig4_gate    (a) adjusted acceptance by fifth of closeness to the team's own record; (b) the gate tests by reference point
+  fig4_gate    adjusted acceptance by fifth of closeness to the team's own record (main text)
+  fig4b_tests  the gate tests by reference point, discovery and held-out (appendix)
+Figures 2-4 are drawn at the ACL column width (3.03 in) with text of at least 7 pt.
 
     python research/fashion/paper/make_figures.py      -> research/fashion/paper/figs/fig{1,2,3,4}_*.{pdf,png}
 """
@@ -81,10 +83,21 @@ def waves() -> None:
         print(f"{label}: peak {y.max():.1f}% ({YEARS[np.argmax(y)]}), 2026 {y[-1]:.1f}%")
 
 
+W = 3.03                                                         # ACL column width (inches)
+FS, FT = 7.5, 7                                                  # base and smallest text size (pt)
+MINUS = "\u2212"
+SMALL = {"font.size": FS, "xtick.labelsize": FT, "ytick.labelsize": FT, "axes.labelsize": FS, "legend.fontsize": FT}
+
+
+def n(v: float) -> str:
+    """One decimal with a typeset minus."""
+    return f"{v:.1f}".replace("-", MINUS)
+
+
 def save(fig, name: str) -> None:
     FIGS.mkdir(exist_ok=True)
     for ext in ("pdf", "png"):
-        fig.savefig(FIGS / f"{name}.{ext}", dpi=220, bbox_inches="tight")
+        fig.savefig(FIGS / f"{name}.{ext}", dpi=220, bbox_inches="tight", pad_inches=0.02)
     plt.close(fig)
 
 
@@ -97,66 +110,66 @@ def row(df: pd.DataFrame, **match) -> pd.Series:
 
 
 def field() -> None:
-    """Figure 2: (a) emerging and declining topics by map; (b) FM and new-architecture shares with the H1d estimates."""
+    """Figure 2: (a) emerging and declining topics by map; (b) FM and new-architecture shares with H1d."""
     maps = json.loads((TOPICS / "hindsight_check.json").read_text())["maps"]
-    order = [("pooled", "all years"), ("seed_refit", "all years (refit)"), ("late", "2024\u201326"),
-             ("balanced", "year-balanced"), ("middle", "2021\u201323"), ("early", "2017\u201320")]
+    order = [("pooled", "all years"), ("seed_refit", "all years (refit)"), ("late", "2024–26"),
+             ("balanced", "year-balanced"), ("middle", "2021–23"), ("early", "2017–20")]
     lab = pd.read_csv(TOPICS / "paper_contributions.csv.gz", usecols=["year", "primary_type", "foundation_model"])
     by = lab.groupby("year").agg(fm=("foundation_model", lambda x: (x == "yes").mean()),
                                  arch=("primary_type", lambda x: (x == "model").mean())) * 100
     rq1 = row(pd.read_csv(OUTPUT / "rq1_results.csv"), hypothesis="H1d", variant="main")
     held = row(pd.read_csv(CONF / "h1d.csv"), hypothesis="H1d", variant="main")
-    fig, (a, b) = plt.subplots(2, 1, figsize=(3.3, 4.3), gridspec_kw={"height_ratios": [1.05, 1]})
+    fig, (a, b) = plt.subplots(2, 1, figsize=(W, 3.15), gridspec_kw={"height_ratios": [1.0, 1]})
     y = np.arange(len(order))[::-1]
     em = [maps[k]["emerging_topics"] for k, _ in order]
     de = [maps[k]["declining_topics"] for k, _ in order]
     sh = [maps[k]["late_paper_share_in_emerging"] for k, _ in order]
-    a.barh(y, em, color=BLUE, height=0.62, label="emerging")
+    a.barh(y, em, color=BLUE, height=0.66, label="emerging")
     a.plot(de, y, "D", color=MUTED, ms=4, label="declining")
-    for yi, e, dv, v in zip(y, em, de, sh):
-        a.text(max(e, dv) + 1.2, yi, f"{e}  ({100 * v:.0f}%)", va="center", fontsize=7, color=INK)
-    a.set_yticks(y, [lbl for _, lbl in order], fontsize=7.5)
-    a.set_xlim(0, 40)
-    a.set_xlabel("Topics (of 100)", fontsize=8)
-    a.set_title("(a) Map fitted on \u2026", fontsize=8.5, loc="left", color=INK)
+    for yi, e, v in zip(y, em, sh):
+        a.text(44.5, yi, f"{e} ({100 * v:.0f}%)", va="center", ha="right", fontsize=FT, color=INK)
+    a.set_yticks(y, [lbl for _, lbl in order])
+    a.set_xlim(0, 45)
+    a.set_xticks(range(0, 31, 10))
+    a.set_xlabel("Topics: emerging (bars), declining (◆)", labelpad=1)
+    a.set_title("(a) Map fitted on …", fontsize=8, loc="left", color=INK)
     a.grid(axis="y", visible=False)
-    a.legend(fontsize=6.5, frameon=False, loc="lower right", handletextpad=0.3, borderaxespad=0.2)
     yrs = by.index.to_numpy()
     b.plot(yrs, by.fm, color=BLUE, lw=1.8, marker="o", ms=3)
     b.plot(yrs, by.arch, color=ORANGE, lw=1.8, marker="s", ms=3)
-    b.text(2023.6, 30, "builds on a\nfoundation model", color=BLUE, fontsize=7, ha="right")
-    b.text(2018.6, 19.5, "proposes a new architecture", color=ORANGE, fontsize=7)
-    b.text(2026.2, by.fm.iloc[-1], f"{by.fm.iloc[-1]:.0f}%", fontsize=7, va="center", color=INK)
-    b.text(2026.2, by.arch.iloc[-1], f"{by.arch.iloc[-1]:.0f}%", fontsize=7, va="center", color=INK)
-    ci = (100 * (rq1.coef - 1.96 * rq1.se), 100 * (rq1.coef + 1.96 * rq1.se))
-    b.text(2017.0, 58, "H1d, 0\u2192100% prior FM adoption:\n"
-           f"discovery {100 * rq1.coef:.1f} [{ci[0]:.1f}, {ci[1]:.1f}]\n"
-           f"held-out {100 * held.coef:.1f} [{100 * held.ci95_lo:.1f}, {100 * held.ci95_hi:.1f}] (A)",
-           fontsize=6.5, color=INK2, va="top", ha="left",
-           bbox=dict(boxstyle="round,pad=0.3", fc="white", ec=GRID, lw=0.6))
-    b.set_xlim(2016.6, 2027.3)
-    b.set_ylim(0, 60)
+    b.text(2023.3, 34, "builds on an FM", color=BLUE, fontsize=FT, ha="right")
+    b.text(2018.2, 18.0, "proposes a new\narchitecture", color=ORANGE, fontsize=FT, va="bottom")
+    b.text(2026.25, by.fm.iloc[-1], f"{by.fm.iloc[-1]:.0f}%", fontsize=FT, va="center", color=INK)
+    b.text(2026.25, by.arch.iloc[-1], f"{by.arch.iloc[-1]:.0f}%", fontsize=FT, va="center", color=INK)
+    lo, hi = 100 * (rq1.coef - 1.96 * rq1.se), 100 * (rq1.coef + 1.96 * rq1.se)
+    b.text(2016.9, 75, "H1d (A), prior FM\nadoption 0→100%:\n"
+           f"discovery {n(100 * rq1.coef)} [{n(lo)}, {n(hi)}]\n"
+           f"held-out {n(100 * held.coef)} [{n(100 * held.ci95_lo)}, {n(100 * held.ci95_hi)}]",
+           fontsize=FT, color=INK2, va="top", ha="left", linespacing=1.05,
+           bbox=dict(boxstyle="round,pad=0.25", fc="white", ec=GRID, lw=0.6))
+    b.set_xlim(2016.6, 2027.6)
+    b.set_ylim(0, 77)
+    b.set_yticks(range(0, 61, 20))
     b.set_xticks(range(2017, 2027, 3))
-    b.set_ylabel("% of submissions", fontsize=8)
-    b.set_title("(b) The package shift", fontsize=8.5, loc="left", color=INK)
-    fig.tight_layout(h_pad=1.0)
+    b.set_ylabel("% of submissions")
+    b.set_title("(b) The package shift", fontsize=8, loc="left", color=INK)
+    fig.tight_layout(h_pad=0.4)
     save(fig, "fig2_field")
 
 
 def shaded_rows(ax, ys, predicted, lim) -> None:
-    """Grey band on the side of zero that the herding prediction expected, one per row."""
     for yi, sgn in zip(ys, predicted):
         lo, hi = (0, lim[1]) if sgn > 0 else (lim[0], 0)
         ax.fill_between([lo, hi], yi - 0.42, yi + 0.42, color=SHADE, lw=0, zorder=0)
 
 
-def dot(ax, y, est, lo, hi, colour, marker, filled=True) -> None:
+def dot(ax, y, est, lo, hi, colour, marker) -> None:
     ax.plot([lo, hi], [y, y], color=colour, lw=1.4, zorder=2)
-    ax.plot(est, y, marker, color=colour, ms=4.5, mfc=colour if filled else "white", mew=1.2, zorder=3)
+    ax.plot(est, y, marker, color=colour, ms=4.5, mfc=colour, mew=1.2, zorder=3)
 
 
 def entry() -> None:
-    """Figure 3: (a) entry contrasts with the herding-predicted side shaded; (b) first-time teams' FM-paper gap."""
+    """Figure 3: (a) entry contrasts, herding-predicted side shaded; (b) first-time teams' FM-paper gap."""
     rq2 = pd.read_csv(OUTPUT / "frozen_run" / "rq2_results.csv")
     held = pd.read_csv(CONF / "rq2_rows.csv")
     herd = pd.read_csv(OUTPUT / "posthoc" / "ph5_position" / "free_herding.csv")
@@ -166,8 +179,10 @@ def entry() -> None:
             ("Benchmark, dataset or\nevaluation paper", row(rq2, hypothesis="H2c", variant="main"),
              row(held, hypothesis="H2c", variant="main"), +1, "A"),
             ("Has a same-year twin", row(herd, term="newcomer"), None, +1, "E"),
-            ("First-time vs returning team:\nEmerging keyword", row(prof, state="young_rising"), None, +1, "E")]
-    fig, (a, b) = plt.subplots(2, 1, figsize=(3.3, 4.2), gridspec_kw={"height_ratios": [1.1, 1]})
+            ("First-time vs returning\nteam: Emerging keyword", row(prof, state="young_rising"), None, +1, "E")]
+    fig = plt.figure(figsize=(W, 3.45))
+    a = fig.add_axes([0.43, 0.585, 0.47, 0.305])
+    b = fig.add_axes([0.17, 0.095, 0.79, 0.285])
     ys = [3.2, 2.2, 1.2, 0.0]
     lim = (-6.5, 6.5)
     shaded_rows(a, ys, [r[3] for r in rows], lim)
@@ -175,44 +190,65 @@ def entry() -> None:
         dot(a, yi + (0.12 if h is not None else 0), 100 * d.coef, 100 * d.ci95_lo, 100 * d.ci95_hi, BLUE, "o")
         if h is not None:
             dot(a, yi - 0.12, 100 * h.coef, 100 * h.ci95_lo, 100 * h.ci95_hi, ORANGE, "s")
-        a.text(lim[1] + 0.3, yi, tier, va="center", fontsize=7.5, color=INK)
+        a.text(lim[1] + 0.3, yi, tier, va="center", fontsize=FS, color=INK)
     a.axhline(0.6, color=GRID, lw=0.8)
     a.axvline(0, color=INK2, lw=0.9)
-    a.set_yticks(ys, [r[0] for r in rows], fontsize=7)
+    a.set_yticks(ys, [r[0] for r in rows])
     a.set_xlim(*lim)
     a.set_ylim(-0.6, 3.75)
-    a.set_xlabel("Newcomer minus incumbent paper (pp)", fontsize=7.5)
+    a.set_xlabel("Newcomer minus incumbent paper (pp)", loc="right")
     a.grid(axis="y", visible=False)
     a.plot([], [], "o", color=BLUE, ms=4.5, label="discovery")
     a.plot([], [], "s", color=ORANGE, ms=4.5, label="held-out")
     a.fill_between([], [], color=SHADE, label="herding predicted")
-    a.legend(fontsize=6.5, frameon=False, loc="lower left", ncol=3, bbox_to_anchor=(-0.02, 1.0), handletextpad=0.3,
-             columnspacing=0.8)
-    a.set_title("(a)", fontsize=8.5, loc="left", color=INK, pad=14)
+    fig.legend(*a.get_legend_handles_labels(), frameon=False, loc="lower left", ncol=3, bbox_to_anchor=(0.0, 0.893),
+               handletextpad=0.3, columnspacing=0.7)
+    fig.text(0.01, 0.955, "(a)", fontsize=8, color=INK, va="bottom")
     bins = ["0-5%", "5-15%", "15-30%", "30-50%", ">=50%"]
     x = np.arange(len(bins))
     for off, (term, label, colour, marker) in zip((-0.12, 0.12), [
-            ("first_time (vs returning topic newcomer)", "first-time team vs returning newcomer", BLUE, "o"),
-            ("topic newcomer (vs incumbent)", "returning newcomer vs incumbent", MUTED, "^")]):
+            ("first_time (vs returning topic newcomer)", "first-time team vs returning topic newcomer", BLUE, "o"),
+            ("topic newcomer (vs incumbent)", "returning topic newcomer vs incumbent", MUTED, "^")]):
         part = fe[fe.term == term].set_index("bin").reindex(bins)
         b.errorbar(x + off, 100 * part.coef, yerr=[100 * (part.coef - part.ci95_lo), 100 * (part.ci95_hi - part.coef)],
                    fmt=marker, color=colour, ms=4, lw=1.2, capsize=0, label=label)
     b.axhline(0, color=INK2, lw=0.9)
-    b.set_xticks(x, ["0\u20135", "5\u201315", "15\u201330", "30\u201350", "\u226550"], fontsize=6.5, rotation=25)
-    b.set_xlabel("Topic's prior-year FM adoption (%)", fontsize=7.5)
-    b.set_ylabel("Gap in FM-paper share (pp)", fontsize=7.5)
-    b.legend(fontsize=6.5, frameon=False, loc="lower left", bbox_to_anchor=(0.06, 1.0), ncol=1, handletextpad=0.3)
-    b.set_title("(b)", fontsize=8.5, loc="left", color=INK, pad=22)
+    b.set_xticks(x, ["0–5", "5–15", "15–30", "30–50", "≥50"])
+    b.set_xlabel("Topic's prior-year FM adoption (%)")
+    b.set_ylabel("Gap in FM-paper share (pp)")
+    fig.legend(*b.get_legend_handles_labels(), frameon=False, loc="lower left", bbox_to_anchor=(0.06, 0.385), ncol=1,
+               handletextpad=0.3, labelspacing=0.3)
+    fig.text(0.01, 0.478, "(b)", fontsize=8, color=INK, va="bottom")
     b.set_xlim(-0.5, len(bins) - 0.5)
     b.grid(axis="x", visible=False)
-    fig.tight_layout(h_pad=1.2)
     save(fig, "fig3_entry")
 
 
-def gate() -> None:
-    """Figure 4: (a) adjusted acceptance by fifth of F_max; (b) gate tests grouped by reference point."""
+def gate_a() -> None:
+    """Figure 4: adjusted acceptance by fifth of F_max (discovery) with the held-out far-jump test."""
     q = pd.read_csv(OUTPUT / "posthoc" / "ph5_pivot" / "quintiles.csv")
     q = q[q.model == "P1 F_max quintiles (adjusted P(accept))"]
+    held = pd.read_csv(CONF / "ph5" / "tests.csv")
+    e1h = row(held, test="E1")
+    fig, a = plt.subplots(figsize=(W, 1.8))
+    x = np.arange(1, 6)
+    a.errorbar(x, 100 * q.coef, yerr=[100 * (q.coef - q.ci95_lo), 100 * (q.ci95_hi - q.coef)], fmt="o-",
+               color=BLUE, ms=4, lw=1.4, capsize=0)
+    for xi, v in zip(x, 100 * q.coef):
+        a.text(xi + 0.12, v + 1.0, f"{v:.1f}", ha="left", fontsize=FT, color=INK)
+    a.set_xticks(x, ["1 far", "2", "3", "4", "5 near"])
+    a.set_xlim(0.6, 5.75)
+    a.set_xlabel("Closeness to the team's earlier work (fifth)", fontsize=FT)
+    a.set_ylabel("Adjusted acceptance (%)")
+    a.set_ylim(36, 52)
+    a.text(0.98, 0.05, f"held-out far jump: {n(100 * e1h.coef)} [{n(100 * e1h.ci95_lo)}, {n(100 * e1h.ci95_hi)}] (B)",
+           transform=a.transAxes, ha="right", fontsize=FT, color=ORANGE)
+    fig.tight_layout()
+    save(fig, "fig4_gate")
+
+
+def gate_tests() -> None:
+    """Appendix figure: the gate tests grouped by reference point, discovery and held-out."""
     held = pd.read_csv(CONF / "ph5" / "tests.csv")
     piv = pd.read_csv(OUTPUT / "posthoc" / "ph5_pivot" / "tests.csv")
     teams = pd.read_csv(OUTPUT / "posthoc" / "ph5_teams" / "family.csv")
@@ -220,34 +256,21 @@ def gate() -> None:
     rq3 = row(pd.read_csv(OUTPUT / "frozen_run" / "rq3_results.csv"), hypothesis="H3a", variant="main")
     rq3h = row(pd.read_csv(CONF / "rq3_rows.csv"), hypothesis="H3a", variant="main")
     e1h = row(held, test="E1")
-    tests = [  # label, unit note, discovery (coef, lo, hi), held-out, verdict
-        ("Far jump (p10 \u2212 median)", row(piv, test="E1"), e1h, "supported"),
-        ("Same author, +0.1 cosine", row(piv, test="E4"), row(held, test="E4"), "supported"),
-        ("One topic insider vs none", row(teams, test="H1").rename({"estimate": "coef"}), row(held, test="H1"), "supported"),
-        ("Crowding, per log unit", rq3, rq3h, "uninformative"),
-        ("Least-distant fifth vs middle", row(pos, test="P1b"), row(held, test="P1b"), "uninformative"),
-        ("Same author, +10 pct of distance", row(pos, test="P7"), row(held, test="P7"), "not supported")]
-    fig = plt.figure(figsize=(3.3, 5.2))
-    top = fig.add_gridspec(1, 1, left=0.15, right=0.97, top=0.95, bottom=0.62)
-    a = fig.add_subplot(top[0])
-    x = np.arange(1, 6)
-    a.errorbar(x, 100 * q.coef, yerr=[100 * (q.coef - q.ci95_lo), 100 * (q.ci95_hi - q.coef)], fmt="o-", color=BLUE,
-               ms=4, lw=1.4, capsize=0)
-    for xi, v in zip(x, 100 * q.coef):
-        a.text(xi + 0.12, v + 1.0, f"{v:.1f}", ha="left", fontsize=6.5, color=INK)
-    a.set_xticks(x, ["1\nfar", "2", "3", "4", "5\nnear"], fontsize=7)
-    a.set_xlim(0.6, 5.6)
-    a.set_ylabel("Adjusted acceptance (%)", fontsize=7.5)
-    a.set_ylim(36, 52)
-    a.text(0.97, 0.05, f"held-out far jump: {100 * e1h.coef:.1f} [{100 * e1h.ci95_lo:.1f}, {100 * e1h.ci95_hi:.1f}] (B)",
-           transform=a.transAxes, ha="right", fontsize=6.5, color=ORANGE)
-    a.set_title("(a) Closeness to the team's own earlier work, by fifth", fontsize=8, loc="left", color=INK)
-    rows = fig.add_gridspec(8, 1, left=0.43, right=0.76, top=0.50, bottom=0.03,
-                            height_ratios=[0.55, 1, 1, 1, 0.55, 1, 1, 1], hspace=0.55)
-    for i, txt in [(0, "(b) Referenced to a record"), (4, "Referenced to others or the field")]:
+    tests = [
+        ("Far jump\n(p10 − median)", row(piv, test="E1"), e1h, "supported"),
+        ("Same author,\n+0.1 cosine", row(piv, test="E4"), row(held, test="E4"), "supported"),
+        ("One topic insider\nvs none", row(teams, test="H1").rename({"estimate": "coef"}), row(held, test="H1"), "supported"),
+        ("Crowding,\nper log unit", rq3, rq3h, "uninformative"),
+        ("Least-distant fifth\nvs middle", row(pos, test="P1b"), row(held, test="P1b"), "uninformative"),
+        ("Same author, +10\npct of distance", row(pos, test="P7"), row(held, test="P7"), "not\nsupported")]
+    fig = plt.figure(figsize=(W, 2.95))
+    rows = fig.add_gridspec(8, 1, left=0.40, right=0.76, top=0.97, bottom=0.07,
+                            height_ratios=[0.5, 1, 1, 1, 0.5, 1, 1, 1], hspace=0.75)
+    for i, txt in [(0, "Referenced to a record"), (4, "Referenced to others or the field")]:
         ax = fig.add_subplot(rows[i])
         ax.axis("off")
-        ax.text(-1.25, 0.0, txt, fontsize=7.5, color=INK, transform=ax.transAxes, va="bottom")
+        pos_ = ax.get_position()
+        fig.text(0.01, pos_.y0, txt, fontsize=FS, color=INK, va="bottom", ha="left")
     for slot, (label, d, h, verdict) in zip([1, 2, 3, 5, 6, 7], tests):
         ax = fig.add_subplot(rows[slot])
         vals = [100 * d.coef, 100 * d.ci95_lo, 100 * d.ci95_hi, 100 * h.coef, 100 * h.ci95_lo, 100 * h.ci95_hi]
@@ -258,17 +281,21 @@ def gate() -> None:
         ax.set_xlim(-m, m)
         ax.set_ylim(-0.8, 0.8)
         ax.set_yticks([])
-        ax.tick_params(axis="x", labelsize=5.5, length=2, pad=1)
+        ax.xaxis.set_major_locator(plt.MaxNLocator(3, symmetric=True))
+        ax.tick_params(axis="x", labelsize=FT, length=2, pad=1)
         ax.grid(False)
         ax.spines["left"].set_visible(False)
-        ax.text(-0.04, 0.5, label, transform=ax.transAxes, ha="right", va="center", fontsize=6.5, color=INK)
-        ax.text(1.04, 0.5, verdict, transform=ax.transAxes, ha="left", va="center", fontsize=6.5,
-                color=INK if verdict == "supported" else MUTED)
-    save(fig, "fig4_gate")
+        ax.text(-0.05, 0.5, label, transform=ax.transAxes, ha="right", va="center", fontsize=FT, color=INK,
+                linespacing=1.0)
+        ax.text(1.05, 0.5, verdict, transform=ax.transAxes, ha="left", va="center", fontsize=FT,
+                color=INK if verdict == "supported" else MUTED, linespacing=1.0)
+    save(fig, "fig4b_tests")
 
 
 if __name__ == "__main__":
     waves()
-    field()
-    entry()
-    gate()
+    with plt.rc_context(SMALL):
+        field()
+        entry()
+        gate_a()
+        gate_tests()

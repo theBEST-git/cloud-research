@@ -1,0 +1,17 @@
+{
+  "settings": {
+    "years": [
+      2018,
+      2026
+    ],
+    "late": [
+      2023,
+      2026
+    ],
+    "primary_definition": "D2",
+    "sesoi_pp": 2.0,
+    "declared_test": "confirmation, D2, controls model: coef > 0, one-sided p < 0.05; else 90% CI inside +-2 pp -> no premium of 2 pp or more; else not supported (uninformative if |coef| < MDE80)",
+    "note": "post hoc (declared before the run); associations, not effects of title choice",
+    "held_out_verdict": "not supported (uninformative: |coef| < MDE80)"
+  }
+}

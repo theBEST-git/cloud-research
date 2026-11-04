@@ -1016,6 +1016,61 @@ LPM with topic × year FE, CR1 SE by topic (100 clusters).
   distance from the field's earlier work.
 - Association, descriptive; the 2021 author-ID switch biases towards zero.
 
+## Post hoc: do branded titles go with acceptance? (PH7 titles, declared 2026-11-04)
+
+`ph5_titles.py`, declared in PREREGISTRATION.md before it was run; run once with
+`ICLR_CORPUS=pooled python research/fashion/posthoc.py ph5 titles`; outputs in `output_pooled/posthoc/ph5_titles/`.
+Branded title = a short coined name and a colon (D2, primary; D1, D3, D4 variants). RQ3 decided papers 2018–2026.
+Associations, not effects of choosing a title.
+
+- **Shares (outcome-free, `shares.csv`).** D2 rose from 10.9% (2017) to 44.6% (2026) of discovery submissions; D1
+  14.3 → 48.8%, D3 6.5 → 37.0%, D4 7.6 → 38.8%. These committed shares back the paper's title table (Appendix G).
+- **Declared held-out test (D2, topic × year FE, class, FM and log2 team controls).** +1.76 pp [−0.82, +4.34],
+  one-sided p 0.089, MDE80 3.23, 8,185 papers. **Not supported, uninformative** (|coef| < MDE80). The 90% CI
+  [−0.40, +3.92] does not lie inside ±2 pp, so "no premium of 2 pp or more" cannot be claimed either.
+- **Discovery (not a test; title style had been explored before registration).** +1.74 [+0.37, +3.11] (p 0.013);
+  D1 +1.78, D3 +1.60, D4 +1.58, all with intervals above 0.
+- **Raw within-year gaps (year FE only).** +3.31 [+1.75, +4.87] in discovery and +3.97 [+1.32, +6.62] held-out; raw
+  acceptance 42.5% vs 38.9% (discovery) and 42.4% vs 37.9% (held-out). About half of the raw gap goes with topic, class,
+  FM and team size.
+- **Timing (descriptive).** Branded × 2023–2026: −0.81 [−3.89, +2.27] in discovery, −5.04 [−11.53, +1.44] held-out.
+- **Supersedes** the earlier exploratory "accepted at the submitted rate (ratio 1.02)", whose code was not kept: on
+  the same papers branded titles are accepted somewhat more often, not at the submitted rate.
+- **Reading.** A small premium for the form that spread most, discovery-only (tier D): the declared held-out estimate
+  has the same size but is not supported. Titles can be revised after the decision (camera-ready), which could create
+  such a premium; it cannot be checked here.
+
+## Descriptive: what is the newcomer reversal made of? (added 2026-11-04, outcome-free)
+
+`paper/analysis/newcomer_profiles.py`; outputs in `output/paper_profiles/`. RQ2 population (k100, 2019–2026, author
+ID), discovery papers, 42,325. Profiles: first-time team (no author has any earlier ICLR submission; 11,112, 26.3%),
+returning topic newcomer (new to the topic, an author has an ICLR submission elsewhere; 19,765, 46.7%), topic
+incumbent (11,448, 27.0%). Median team size 3 / 5 / 5. Within topic × year, CR1 by topic. The single newcomer contrast
+reproduces H2b/H2c (+3.71 / −1.70).
+
+| Contrast (pp) | Method | Method, + log2 team | Measurement | Measurement, + log2 team |
+|---|---|---|---|---|
+| returning topic newcomer − incumbent | +3.43 [+2.31, +4.55] | +3.62 [+2.44, +4.79] | −1.47 [−2.23, −0.70] | −0.81 [−1.47, −0.16] |
+| first-time team − returning topic newcomer | +0.92 [−0.44, +2.29] | +1.40 [−0.15, +2.95] | −0.78 [−1.51, −0.05] | +0.90 [+0.15, +1.65] |
+| first-time team − incumbent | +4.35 [+2.82, +5.89] | +5.02 [+3.12, +6.92] | −2.24 [−3.24, −1.25] | +0.09 [−0.63, +0.81] |
+
+- **Method.** The surplus is a topic-entry pattern: researchers who already have ICLR work elsewhere write it as much
+  as first-time teams, at the same median team size as incumbents, and it holds with team size.
+- **Measurement.** For first-time teams the deficit is team size (+0.09 with it); for returning topic newcomers part of
+  it remains (−0.81).
+- **By era** (no team control). Method, returning − incumbent: +4.43 (2019–20), +2.28 (2021–23), +3.61 (2024–26);
+  first-time − incumbent +6.61, +5.00, +3.74. Measurement, first-time − incumbent: −0.70, −0.71 (both n.s.), −2.75
+  [−4.07, −1.44] in 2024–26; returning − incumbent −0.34, −0.30 (n.s.), −1.71 [−2.57, −0.85]. The measurement gap is a
+  2024–2026 pattern; the method gap predates foundation models.
+- Descriptive (E), unregistered, added during revision.
+
+## Record pointers for paper tables (added 2026-11-04)
+
+- Effective number of topics by map (paper Table 7): `research/topics/output/hindsight_check.json`.
+- Out-of-time topic-growth forecasts (paper Table 8; R² of size 0.281 [0.217, 0.335] on the all-years map vs −0.033
+  [−0.082, −0.002] on the 2017–2020 map): `output/ph5_forecast/summary.json` (`headline`).
+- Title shares by year (paper title table): `output_pooled/posthoc/ph5_titles/shares.csv`.
+
 ## Reproduction
 
 ```text

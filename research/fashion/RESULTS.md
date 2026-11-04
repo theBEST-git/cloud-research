@@ -1050,13 +1050,13 @@ reproduces H2b/H2c (+3.71 / −1.70).
 
 | Contrast (pp) | Method | Method, + log2 team | Measurement | Measurement, + log2 team |
 |---|---|---|---|---|
-| returning topic newcomer − incumbent | +3.43 [+2.31, +4.55] | +3.62 [+2.44, +4.79] | −1.47 [−2.23, −0.70] | −0.81 [−1.47, −0.16] |
+| returning topic newcomer − incumbent | +3.43 [+2.31, +4.55] | +3.62 [+2.44, +4.79] | −1.47 [−2.23, −0.70] | −0.81 [−1.46, −0.16] |
 | first-time team − returning topic newcomer | +0.92 [−0.44, +2.29] | +1.40 [−0.15, +2.95] | −0.78 [−1.51, −0.05] | +0.90 [+0.15, +1.65] |
-| first-time team − incumbent | +4.35 [+2.82, +5.89] | +5.02 [+3.12, +6.92] | −2.24 [−3.24, −1.25] | +0.09 [−0.63, +0.81] |
+| first-time team − incumbent | +4.35 [+2.82, +5.89] | +5.02 [+3.12, +6.91] | −2.24 [−3.24, −1.25] | +0.09 [−0.63, +0.80] |
 
 - **Method.** The surplus is a topic-entry pattern: researchers who already have ICLR work elsewhere write it as much
   as first-time teams, at the same median team size as incumbents, and it holds with team size.
-- **Measurement.** For first-time teams the deficit is team size (+0.09 with it); for returning topic newcomers part of
+- **Measurement.** For first-time teams the deficit is accounted for by team size (+0.09 with it); for returning topic newcomers part of
   it remains (−0.81).
 - **By era** (no team control). Method, returning − incumbent: +4.43 (2019–20), +2.28 (2021–23), +3.61 (2024–26);
   first-time − incumbent +6.61, +5.00, +3.74. Measurement, first-time − incumbent: −0.70, −0.71 (both n.s.), −2.75

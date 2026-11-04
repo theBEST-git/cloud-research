@@ -142,7 +142,7 @@ def field() -> None:
     b.text(2026.25, by.fm.iloc[-1], f"{by.fm.iloc[-1]:.0f}%", fontsize=FT, va="center", color=INK)
     b.text(2026.25, by.arch.iloc[-1], f"{by.arch.iloc[-1]:.0f}%", fontsize=FT, va="center", color=INK)
     lo, hi = 100 * (rq1.coef - 1.96 * rq1.se), 100 * (rq1.coef + 1.96 * rq1.se)
-    b.text(2016.9, 75, "H1d (A), prior FM\nadoption 0→100%:\n"
+    b.text(2016.9, 75, "Registered test, prior\nFM adoption 0→100%:\n"
            f"discovery {n(100 * rq1.coef)} [{n(lo)}, {n(hi)}]\n"
            f"held-out {n(100 * held.coef)} [{n(100 * held.ci95_lo)}, {n(100 * held.ci95_hi)}]",
            fontsize=FT, color=INK2, va="top", ha="left", linespacing=1.05,

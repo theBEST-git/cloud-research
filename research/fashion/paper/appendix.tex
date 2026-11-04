@@ -2,11 +2,20 @@
 % Appendix (input after \appendix in paper.tex). No preamble.
 % Sources: paper_ws/dossier_core.md (DC), paper_ws/dossier_posthoc.md (DP),
 % research/fashion/RESULTS.md, research/fashion/output/paper_novelty/novelty_newcomer.csv,
-% research/topics/output/hindsight_check.json, research/fashion/output/rq1_results.csv,
-% research/fashion/output/posthoc/ph5_pivot/quintiles.csv, paper_ws/title_share.json.
-% Tiers: A registered and replicated; B post hoc, supported by a declared held-out test;
+% research/fashion/output/paper_profiles/ (newcomer profiles),
+% research/fashion/output_pooled/posthoc/ph5_titles/ (PH7 titles: shares.csv, tests.csv, rates.csv),
+% research/topics/output/hindsight_check.json, research/fashion/output/ph5_forecast/summary.json,
+% research/fashion/output/rq1_results.csv, research/fashion/output/posthoc/ph5_pivot/quintiles.csv.
+% Tiers (appendix only): A registered and replicated; B post hoc, supported by a declared held-out test;
 % C registered, inconclusive or not replicated; D discovery only; E descriptive.
+% Main-text labels: replicated (A), held-out supported (B), exploratory (D, E and the demoted A1, PH6, PH7);
+% Table tab:app-codes maps every code to its main-text name and label.
 % ======================================================================
+
+% Codes used only in the appendix tables.
+\providecommand{\Hok}{H\ensuremath{\checkmark}}
+\providecommand{\Hno}{H\ensuremath{\times}}
+\providecommand{\Tok}{T\ensuremath{\checkmark}}
 
 % ----------------------------------------------------------------------
 \section{Data Provenance}\label{app:data}
@@ -63,8 +72,8 @@ All & 43,480 & 11,099 \\
 from 2018--2026; H1d and H1e 42,990). Entry analyses use the 42,325 papers from 2019--2026 with at least one author
 identifier (42,315 in 776 topic-year cells after singleton cells are dropped). Acceptance tests use the 32,190
 ordinary submissions from 2018--2026 with a final accept or reject decision (40.1\% accepted); the 9,986 withdrawn
-submissions are left out. Held-out populations are 10,978 papers (H1d), 10,718 (entry) and 8,185 decided papers from
-2018--2026 (acceptance; 8,284 decided in all). The post hoc gate modules use decided 2023--2026 papers
+submissions are left out. Held-out populations are 10,978 papers (H1d), 10,718 (entry) and 8,185 decided held-out
+papers from 2018--2026 (acceptance; 8,284 decided in all). The post hoc gate modules use decided 2023--2026 papers
 (Appendix~\ref{app:gate}).
 
 \paragraph{Existing collections, audited and not pooled.} Re$^2$ \citep{zhang2025re2} was initially considered as the
@@ -80,6 +89,7 @@ corpus.
 newcomers write is observed for every paper they submitted, and the gate tests compare accepted with rejected papers
 of the same topic and year. Neither half of the herding account is tested on survivors only.
 
+\FloatBarrier
 % ----------------------------------------------------------------------
 \section{Measurement Validation}\label{app:measure}
 % ----------------------------------------------------------------------
@@ -154,7 +164,9 @@ false-positive and false-negative rates are 0.084 and 0.011 for method, and 0.00
 variant rescales the entry estimates by them, which can only enlarge them (+4.09 and $-$1.84\,pp). On 555 held-out
 papers, agreement is 96.9\% for the main class ($\kappa$ 0.931), 98.0\% for method (0.949), 99.1\% for measurement
 (0.923) and 98.2\% for FM (0.960). These figures show consistency between LLM labellings more than human-level
-validity. Over all discovery papers, the class mix is method 75.1\%, empirical 6.9\%, theory 6.9\%, dataset/benchmark
+validity. The author also hand-checked a small random sample of labels against the codebook.
+% TODO(author): sample size and agreement of the hand check
+No agreement figure between the LLM and a human annotator is available. Over all discovery papers, the class mix is method 75.1\%, empirical 6.9\%, theory 6.9\%, dataset/benchmark
 5.2\%, other 3.5\% and evaluation 2.4\%; the measurement share rose from 2.6\% (2017) to 11.1\% (2026) (E).
 
 \paragraph{Keywords.} Author keywords are canonicalised to 40,930 expressions. The 912 keywords with at least 20
@@ -205,6 +217,7 @@ splits.
 and the identifier switch hides earlier histories. The switch pulls the entry contrasts towards zero, as does label
 error if it is non-differential, so neither can produce the reversal of the registered herding prediction.
 
+\FloatBarrier
 % ----------------------------------------------------------------------
 \section{Hindsight Details}\label{app:hindsight}
 % ----------------------------------------------------------------------
@@ -269,7 +282,8 @@ Year & All & Seed & Bal. & 24--26 & 21--23 & 17--20 \\
 \bottomrule
 \end{tabular}
 \caption{Effective number of topics divided by $k$, by year and map (maximum in bold). Each map is most diverse in
-its own fitting years. Outcome-free (E); not a finding.}
+its own fitting years. Outcome-free (E); not a finding. Record:
+\url{research/topics/output/hindsight_check.json}.}
 \label{tab:app-div}
 \end{table}
 
@@ -301,7 +315,8 @@ Topic-years & 446 & 522 \\
 \end{tabular}
 \caption{Out-of-time forecasts of two-year topic growth, test origins 2021--2024. Intervals for size: $R^2$ [0.217,
 0.335] against [$-$0.082, $-$0.002]; Spearman [0.510, 0.672] against [$-$0.151, 0.063]. Chance precision is 0.20.
-Post hoc, outcome-free (E).}
+Post hoc, outcome-free (E). Record: \url{research/fashion/output/ph5_forecast/summary.json}
+(\texttt{headline}).}
 \label{tab:app-forecast}
 \end{table}
 
@@ -343,13 +358,64 @@ is partly a property of when its map was fitted. For this reason every registere
 the year-balanced map and on the 2017--2020 map applied to 2021--2026 papers. H1d, the package result, passes both;
 the lifecycle claims do not.
 
+\FloatBarrier
 % ----------------------------------------------------------------------
 \section{Every Registered and Declared Test}\label{app:tests}
 % ----------------------------------------------------------------------
 
-The negative half of our thesis rests on registered tests and the positive half on post hoc tests with declared
-held-out tests. This appendix lists every such test, including those that failed, so that the denominators are
-visible (Table~\ref{tab:app-tests}).
+This appendix lists every registered and declared test, including those that failed, so that the denominators are
+visible (Table~\ref{tab:app-tests}). It keeps the detailed tiers and internal codes that the main text replaces with
+three labels. The tiers are: \textbf{A} registered and replicated; \textbf{B} found post hoc, then supported by a
+held-out test declared before any held-out estimate for that question was computed; \textbf{C} registered, inconclusive or not replicated;
+\textbf{D} discovery only; \textbf{E} descriptive. Table~\ref{tab:app-codes} maps every code to its name and label in
+the main text, and Table~\ref{tab:app-main} gives the full version of the evidence summarised in
+Tables~\ref{tab:entry} and~\ref{tab:gate}, with codes, predicted signs and notes. Figure~\ref{fig:gate} in the main
+text shows the gate tests by reference point.
+
+\begin{table}[t]
+\centering\scriptsize
+\setlength{\tabcolsep}{2.5pt}
+\renewcommand{\arraystretch}{1.05}
+\begin{tabularx}{\columnwidth}{@{}L{1.55cm} Y L{1.75cm}@{}}
+\toprule
+Code (tier) & Main-text name (section) & Main-text label \\
+\midrule
+\multicolumn{3}{@{}l}{\textit{Registered 2026-10-13 (H4-FL: 2026-10-17)}} \\
+H1a--c (C) & Topic crowding and the contribution mix (App.~\ref{app:hindsight}) & not supported \\
+H1d (A) & Package shift: prior FM adoption and new-architecture papers (\S\ref{sec:field}) & \lab{replicated} \\
+H1e (C) & Prior FM adoption and empirical or evaluation papers (\S\ref{sec:field}) & not supported (inconclusive) \\
+H2a (C) & Flocking: incumbent share in hot topics (\S\ref{sec:entry}) & inconclusive \\
+H2b, H2b$'$ (A) & Newcomer papers and method papers (\S\ref{sec:entry}) & \lab{replicated} \\
+H2c, H2c$'$ (A) & Newcomer papers and measurement papers (\S\ref{sec:entry}) & \lab{replicated} \\
+H3a (C) & Crowding and acceptance (\S\ref{sec:gate}) & uninformative \\
+H3b (C) & Crowding $\times$ method paper (appendix only) & inconclusive \\
+H4-FL (C) & Federated-learning gap (appendix only) & not confirmed \\
+\multicolumn{3}{@{}p{\columnwidth}@{}}{\textit{Post hoc; each held-out test declared before any held-out estimate for that
+question was computed}} \\
+PH5 E1 (B) & Far jump (\S\ref{sec:gate}) & \lab{held-out supported} \\
+PH5 E4 (B) & Same author, +0.1 cosine closer (\S\ref{sec:gate}) & \lab{held-out supported} \\
+Teams H1 (B) & One topic insider vs none (\S\ref{sec:gate}) & \lab{held-out supported} \\
+Premia $b$, D0 (B) & Topic edges are real but regress (\S\ref{sec:gate}) & \lab{held-out supported} \\
+PH5 P1b (C) & Least-distant fifth vs middle: the field's record (\S\ref{sec:gate}) & uninformative \\
+PH5 P7 (C) & Same author, +10 percentile points of distance (\S\ref{sec:gate}) & not supported \\
+A1 (B weak) & Emerging vs Mainstream keywords (\S\ref{sec:gate}) & \lab{exploratory} (demoted) \\
+PH6 (B weak) & Acceptance after a keyword's peak (\S\ref{sec:gate}) & \lab{exploratory} (demoted) \\
+PH7 (D) & Branded titles (\S\ref{sec:gate}, App.~\ref{app:titles}) & \lab{exploratory} \\
+\multicolumn{3}{@{}l}{\textit{Exploratory, no held-out test}} \\
+Planned E1; fmwave (D) & FM premium and its change with prior adoption (\S\ref{sec:gate}) & \lab{exploratory} \\
+Planned E2; PH3 (D) & Newcomer acceptance gap; same author in a new topic (\S\ref{sec:gate}) & \lab{exploratory} \\
+Teams per head (D) & Insider vs experienced outsider, per head (\S\ref{sec:gate}) & \lab{exploratory} \\
+Profiles (E) & Entering a topic, not ICLR (\S\ref{sec:entry}, App.~\ref{app:entry}) & \lab{exploratory} \\
+Distance (E) & Newcomer papers farther from earlier ICLR work (\S\ref{sec:entry}) & \lab{exploratory} \\
+Twins, FM bins, kwtiming profiles (E) & Same-year twins; first-time teams later onto FMs and Emerging keywords (\S\ref{sec:entry}) & \lab{exploratory} \\
+Hindsight maps (E) & Emerging topics on six maps (\S\ref{sec:field}) & \lab{exploratory} \\
+\bottomrule
+\end{tabularx}
+\caption{From internal code and tier to the name and label used in the main text. A1 and PH6 were supported on
+held-out papers only weakly and are demoted to exploratory in the main text: A1 does not survive Holm across the six
+secondary held-out tests (0.063), and the PH6 wave test leans on the six keywords inspected first.}
+\label{tab:app-codes}
+\end{table}
 
 \paragraph{Protocol.} Hypotheses, models, the support rule and the robustness variants were registered on 2026-10-13,
 before any full-corpus label existed (only the 2,300 validation papers had labels, and no hypothesis had been tested
@@ -371,12 +437,17 @@ the two-sided $p$ of the discovery method; the exception is premia $b$, whose $p
 for $0<b<1$ (0.003). Holm families were \{H1d\}, \{H2b$'$, H2c$'$\}, \{H3a\}, \{H4-FL\} and the
 post hoc primary pair \{E1, P1b\}. Six post hoc secondary tests (E4, P7, teams H1, A1, premia $b$, premia D0) are each
 one-sided at 0.05 and unadjusted, so one false positive among them would not be surprising; their Holm values hold
-within their own module only (teams H1 about 0.17 across modules, A1 about 0.18). The PH6 wave test was declared on
-2026-10-28 and run once. H2b$'$ and H2c$'$ reverse the registered herding predictions, which failed in discovery;
+within their own module only (teams H1 about 0.17 across modules, A1 about 0.18). Under Holm across the six
+secondary tests, the adjusted one-sided $p$, computed from the exact one-sided $p$ (0.003084, 0.005125, 0.006184, 0.017427,
+0.031489, 0.21699), are 0.019 (premia $b$), 0.026 (D0), 0.026 (E4), 0.052 (teams H1), 0.063 (A1) and 0.22 (P7): E4 and both premia tests survive this family-wise correction, teams H1 and A1 do not. The main
+text keeps the insider association as held-out supported with that caveat, and demotes A1 to exploratory. The PH6
+wave test was declared on 2026-10-28 and run once; it is exploratory in the main text, because it leans on the six
+keywords inspected first. The PH7 branded-title test was declared on 2026-11-04 and run once
+(Appendix~\ref{app:titles}). H2b$'$ and H2c$'$ reverse the registered herding predictions, which failed in discovery;
 they were registered after discovery and before any held-out data existed.
 
 \begin{table*}[p]
-\centering\footnotesize
+\centering\scriptsize
 \setlength{\tabcolsep}{3pt}
 \begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}X l l l l >{\raggedright\arraybackslash}p{2.45cm}@{}}
 \toprule
@@ -400,7 +471,7 @@ H3b acceptance $\sim$ crowding $\times$ method paper ($-$) & $-$0.36 [$-$1.51, +
 H4-FL federated-learning keyword, level ($-$; 134 FL papers) & $-$11.3 [$-$17.9, $-$4.8] & $-$4.9 [$-$15.4, +5.7] & 0.14 & 14.5 & not supported; uninformative (C; discovery D) \\
 H4-FL trend, pp per year ($-$) & $-$3.0 [$-$6.4, +0.5] & +3.2 [$-$3.3, +9.6] & 0.88 & n.c. & not supported, opposite sign (C) \\
 \midrule
-\multicolumn{6}{@{}l}{\textit{Gate: post hoc in discovery (declared before run); held-out tests declared 2026-10-18 (PH6: 2026-10-28)}} \\
+\multicolumn{6}{@{}l}{\textit{Gate: post hoc in discovery (declared before run); held-out tests declared 2026-10-18 (PH6: 2026-10-28; PH7: 2026-11-04)}} \\
 E1 far jump: $F_{\max}$ p10 $-$ p50 ($-$; 5,344) & $-$5.44 [$-$7.10, $-$3.78] & $-$6.09 [$-$9.32, $-$2.86] & 0.0025 & 4.9 (0.89) & supported, primary (B) \\
 P1b field distance: least-distant fifth $-$ middle fifth ($-$; 8,010) & $-$3.27 [$-$4.93, $-$1.60] & $-$0.13 [$-$3.50, +3.25] & 0.47 & 5.4 (0.47) & not supported; uninformative (C; discovery D) \\
 E4 within-author closeness, per +0.1 cosine (+; 4,311) & +0.55 [+0.21, +0.90] & +1.06 [+0.23, +1.89] & 0.006 & n.c. & supported, secondary (B) \\
@@ -410,6 +481,7 @@ A1 Emerging $-$ Mainstream keyword (+; 5,741) & +2.67 [+0.76, +4.58] & +3.25 [$-
 Premia $b$: 2024--2026 topic edge on 2018--2022 edge ($0<b<1$; 75 units) & 0.38 [0.18, 0.58] & 0.60 [0.32, 0.88] & 0.003$^i$ & n.c. & supported, secondary (B) \\
 Premia D0: EB-shrunk edges predict better than zero, $\times10^{-3}$ (+) & none (new test) & 1.71 [0.42, 3.01] & 0.005 & n.c. & supported, secondary (B) \\
 PH6 waves: gap after $-$ up to a keyword's share peak ($-$; 17 waves) & $-$5.7 [$-$8.5, $-$2.9]$^t$ & $-$5.2 [$-$11.1, +0.7] & 0.043 & 7.4 & supported, only just: CI includes 0 (B weak) \\
+PH7 branded title (D2) vs other, class, FM and team-size controls (+; 8,185; D1, D3, D4 in Table~\ref{tab:app-ph7}) & +1.74 [+0.37, +3.11]$^t$ & +1.76 [$-$0.82, +4.34] & 0.089 & 3.2$^a$ & not supported; uninformative (D) \\
 \bottomrule
 \end{tabularx}
 \caption{Every registered and declared test. Estimates in pp within topic and year (H1d: change in the
@@ -419,22 +491,84 @@ one-sided $p$; Holm-adjusted, it is unchanged except for H2b$'$ and H2c$'$ (0.00
 held-out minimum detectable effect at 80\% power, registered unless marked, with power at the discovery effect for E1
 and P1b in parentheses; $^f$ discovery MDE80 from the frozen dry run; $^d$ derived post hoc ($2.49\times$SE), with
 no reading rule; n.c.\ not computed. $^u$ unregistered held-out row (Table~\ref{tab:app-unreg}). $^n$ null-frame
-$p_1$ 0.020; two-sided $p$~0.063. $^i$ intersection-union $p$ for $0<b<1$. $^t$ not a test. Tiers as in Table~\ref{tab:main};
-reading rules in the text.}
+$p_1$ 0.020; two-sided $p$~0.063. $^i$ intersection-union $p$ for $0<b<1$. $^t$ not a test (PH7: title style had
+been explored before registration). $^a$ computed analytically in the declared run ($2.49\times$SE). Tiers as at
+the start of this appendix; main-text labels in Table~\ref{tab:app-codes}; reading rules in the text.}
 \label{tab:app-tests}
 \end{table*}
 
-\begin{figure}[t]
-  \centering
-  \includegraphics[width=\columnwidth]{figs/fig4b_tests.pdf}
-  \caption{Gate tests by reference point: discovery (blue circles),
-  held-out (orange squares), 95\% intervals, each row on its own axis, held-out verdict at right. `Others or the
-  field' groups crowding (others now) with distance from earlier ICLR work (the field's record); `Same author, +10 pct
-  of distance' is the within-author slope for that distance. Compare replication status, not size. All rows except
-  crowding (registered H3a) were post hoc in discovery; held-out tests are one-sided, and the same-author and insider
-  tests are secondary and unadjusted.}
-  \label{fig:gate-tests}
-\end{figure}
+\begin{table*}[p]
+\centering
+\scriptsize
+\setlength{\tabcolsep}{2pt}
+\renewcommand{\arraystretch}{1.0}
+\begin{tabularx}{\textwidth}{@{}r Y L{2.2cm} L{2.75cm} L{2.85cm} L{0.85cm} L{2.05cm}@{}}
+\toprule
+\# & Observable [code] & Predicted: imitation / continuity & Discovery [95\% CI] & Held-out [95\% CI]; MDE80 or power & Tier & Reading \\
+\midrule
+\multicolumn{7}{@{}l}{\textit{(i) The field: are the waves fashions?}} \\
+1 & Emerging topics: all-years vs 2017--2020 map [hindsight vs P] & $\cdot$ / $\cdot$ & 29 (40.9\%) vs 8 (22.3\%) & -- & E & emergence depends on the map \\
+2 & Prior-year FM adoption 0\ra100\% \ra{} new-architecture paper [P, \Hok; H1d] & $-$ / $-$ (lock-in) & $-$7.98 [$-$12.14, $-$3.82] & $-$11.0 [$-$18.1, $-$3.9]; MDE80 12.0$^a$ & A & convergence; does not discriminate \\
+3 & Twins per paper per 1,000 submissions, 2019\ra2026 [same-year] & + / $\cdot$ & 0.32\ra0.19 & -- & E & volume, not piling on \\
+\multicolumn{7}{@{}l}{\textit{(ii) Entry: what topic newcomers write}} \\
+4 & Newcomer \ra{} method paper (base 75.0\%) [P, \Hok; H2b, H2b$'$] & $-$ (registered) / + & +3.71 [+2.61, +4.80] & +3.60 [+1.48, +5.71]; MDE80 2.8 & A (rev.) & against imitation$^h$ \\
+5 & Newcomer \ra{} measurement paper (base 7.7\%) [P, \Hok; H2c, H2c$'$] & + (registered) / $-$ & $-$1.70 [$-$2.46, $-$0.93] & $-$2.10 [$-$3.35, $-$0.85]; MDE80 2.4 & A (rev.) & against imitation; partly team size$^g$ \\
+6 & Newcomer \ra{} distance from earlier ICLR work [P] & $-$ / + (incumbents' own work) & +5.90 [+4.95, +6.85]; own work excluded +4.33 [+3.44, +5.22] & -- & E & against imitation$^i$ \\
+7 & First-time vs returning team \ra{} Emerging keyword; first-time team vs returning topic newcomer \ra{} FM paper at 5--15 / 15--30 / 30--50\% adoption, 2023--2026 [P] & + / $-$ (absorptive capacity) & $-$3.74 [$-$5.14, $-$2.35]; $-$4.58 / $-$8.96 / $-$14.71 & -- & E & later onto trend and package \\
+8 & Hot topic \ra{} incumbent share (flocking) [P, \Hno; H2a] & $-$ / $\cdot$ & $-$0.73 [$-$2.68, +1.22] & not registered & C & inconclusive \\
+\multicolumn{7}{@{}l}{\textit{(iii) The gate: following and timing}} \\
+9 & Crowding, per log unit \ra{} acceptance [P, \Hno; H3a] & + if favoured (registered: $-$) / $\cdot$ & $-$1.68 [$-$3.68, +0.32] & $-$1.51 [$-$5.20, +2.19]; MDE80 4.8 & C & no detectable premium$^b$ \\
+10 & Branded title (D2) \ra{} acceptance [explored before registration; PH7] & + if favoured / $\cdot$ & +1.74 [+0.37, +3.11] (not a test) & +1.76 [$-$0.82, +4.34]; MDE80 3.2 & D & small premium, not confirmed$^j$ \\
+11 & Topic edge 2018--2022 \ra{} edge 2024--2026, slope $b$ [P; premia $b$] & $b>0$ if outcome imitation is favoured / $\cdot$ & 0.38 [0.18, 0.58]: discovery 2024--2026 edges on discovery 2018--2022 edges & 0.60 [0.32, 0.88]: held-out 2024--2026 edges on discovery 2018--2022 edges & B & real but regressing \\
+12 & Emerging minus Mainstream keyword [P; A1]; after vs up to a keyword's peak, 17 waves [R; PH6] & + / + (priority); 0 or $-$ / $-$ & +2.67 [+0.76, +4.58]; $-$5.7 [$-$8.5, $-$2.9] & +3.25 [$-$0.18, +6.69]; $-$5.2 [$-$11.1, +0.7] (MDE80 7.4) & B, weak; main text D & timing open; exploratory$^c$ \\
+13 & Federated-learning keyword gap [R; H4-FL] & $\cdot$ / $\cdot$ & $-$11.3 [$-$17.9, $-$4.8] & $-$4.9 [$-$15.4, +5.7]; MDE80 14.5 & D/C & not confirmed$^d$ \\
+\multicolumn{7}{@{}l}{\textit{(iv) The gate: distance from the field's and from the team's own record}} \\
+14 & Field distance: least-distant vs middle fifth [P, \Tok; P1b] & + if favoured (declared: $-$) / + (field record) & $-$3.27 [$-$4.93, $-$1.60] & $-$0.13 [$-$3.50, +3.25]; power 0.47 & C & undetermined; does not discriminate$^e$ \\
+15 & Far jump from own record: \Fmax{} p10 $-$ p50 [P, \Tok; PH5 E1] & $\cdot$ / $-$ & $-$5.44 [$-$7.10, $-$3.78] & $-$6.09 [$-$9.32, $-$2.86]; MDE80 4.9 & B (prim.) & for continuity$^f$ \\
+16 & Same author, per +0.1 cosine closer [P, \Tok; PH5 E4] & $\cdot$ / + & +0.55 [+0.21, +0.90] & +1.06 [+0.23, +1.89] & B (sec.) & for continuity \\
+17 & One topic insider vs none [P; teams H1] & $\cdot$ / + & +3.42 [+1.18, +5.66] & +3.88 [+0.28, +7.47]; MDE80 $\approx$4.5 & B (sec.) & status-compatible \\
+\bottomrule
+\end{tabularx}
+
+\vspace{2pt}
+\parbox{\textwidth}{\scriptsize\raggedright
+$^a$Underpowered at the discovery size: direction, not size.
+$^b$Registered H3a predicted a penalty ($-$); one-sided held-out $p$~0.21; the hindsight requirement fails held-out (early map on
+2021--2026 papers +1.44). Penalties
+below about 5\,pp per log unit cannot be told from zero; premiums above +0.32 / +2.19\,pp per log unit lie outside
+the intervals.
+$^c$`Early' means early in a keyword's life, not in the submission window \citep[cf.][]{jung2025what}. Imitation
+predicts + for Emerging if momentum is favoured, and after the peak 0 (popularity) or $-$ (momentum). The Emerging
+contrast's two-sided interval includes 0 (MDE80 $\approx$4.3); old rising keywords +3.9 (nominal).
+Discovery wave estimate descriptive, not a test; wave set retrospective; held-out $-$1.7 ($p$~0.33) without the six
+keywords inspected first. In discovery the gap falls before the peak, and rising against flat years of the same
+keyword differ by +0.9 [$-$0.8, +2.7]. Exploratory in the main text: A1 gives Holm 0.063 across the six secondary
+held-out tests, and the wave test leans on the six keywords inspected first.
+$^d$Held-out trend of opposite sign (+3.2\,pp per year).
+$^e$Uninformative. Rows 14--17 differ in population and unit: compare replication status, not size.
+$^f$Newcomer control $-$5.0; link-removed $-$5.39; early map $-$5.2; correlation with newcomer flag $-$0.57.
+$^g$With log team size: $-$0.54 [$-$1.11, +0.04] in discovery, $-$0.98 held-out; row 4 unchanged (+3.92 in discovery,
++3.64 held-out); supplementary to A.
+$^h$Rows 4--5: all 10 counted variants agree, and the t-statistics (6.7, $-$4.4) dwarf the size-failure inflation
+factors (1.31, 1.22).
+$^i$Raw scale: +1.35 [+1.16, +1.55] hundredths of cosine distance, 0.22 of a within-cell standard deviation.
+$^j$Title style had been explored before registration, so the discovery estimate is not a test; declared held-out
+test one-sided $p$ 0.089, not supported and uninformative; raw within-year gaps +3.31 and +3.97
+(Appendix~\ref{app:titles}).}
+\caption{The herding account tested at three points, in full: each observable, its internal code and the sign
+predicted by imitation and by continuity (in parentheses: its mechanism or reference point, or a named alternative:
+lock-in, priority; $\cdot$: none). Percentage points unless the row states otherwise (row 1: counts; row 3: twins per
+paper per 1,000 submissions; row 6: percentile points; row 11: slope $b$), 95\% intervals, within topic and year
+(keyword rows and row 11: against the same year's other papers). Held-out tests are one-sided and confirm direction,
+not size, so a supported test can have an interval that includes 0. Codes: P only earlier data; same-year: twins are
+concurrent papers, so not only earlier data; \Hok/\Hno{} registered hindsight variants pass/fail; R retrospective by
+construction; \Tok{} held after link removal. Tiers as at the start of this appendix; rev.: reversed registered
+prediction; prim./sec.: declared primary/secondary held-out test (six secondary tests in all, among them rows 11, 12
+(Emerging), 16 and 17, one-sided and unadjusted; under Holm across the six they give 0.019, 0.063, 0.026 and 0.052);
+D/C: discovery-only gap whose registered held-out test was not supported. The continuity predictions were written
+after the tests had run. Main-text labels in Table~\ref{tab:app-codes}.}
+\label{tab:app-main}
+\end{table*}
 
 \paragraph{Discovery details.} H1a--c, H1e: Holm 1.0; predicted sign in 7/9, 8/9, 0/9 and 4/9 counted variants
 (H1c also fails both hindsight variants). H1d: Holm 0.0014; 9/9 variants ($-$6.3 to $-$14.2). H2a: Holm 0.46; 8/10
@@ -464,22 +598,24 @@ They confirm direction, not size; among underpowered tests, the significant ones
 non-supported registered test whose estimate is below its MDE80 (H3a, H4-FL, P1b) is uninformative, not evidence of no
 association. A1's 95\% interval includes 0 because a one-sided 5\% test corresponds to a 90\% interval.
 
-\paragraph{Further notes to Table~\ref{tab:main}.} Row 6 (distance from earlier ICLR work): outcome-free,
+\paragraph{Further notes to Table~\ref{tab:app-main}.} Row 6 (distance from earlier ICLR work): outcome-free,
 unregistered and added during writing; among method papers the gap is +5.24 [+4.16, +6.31]; ``own work excluded''
 means that every earlier paper sharing an author with the paper is removed from its reference set
 (Appendix~\ref{app:distance}). Row 7: the FM gaps compare first-time teams with returning topic newcomers; no gap is
 detectable at 0--5\% ($-$0.95) or $\geq$50\% ($-$1.96) prior adoption, or between returning topic newcomers and
 incumbents in any bin ($-$2.58 to +2.87); the keyword contrast compares first-time with returning teams and has no
-team-size control. Row 10: with keywords as units the held-out slope is +0.16 [$-$0.34, +0.66] (unregistered);
-empirical-Bayes-shrunk edges predict better than zero (D0 1.71\,$\times$\,10$^{-3}$, B). Row 16: estimated at fixed
+team-size control. Row 11: with keywords as units the held-out slope is +0.16 [$-$0.34, +0.66] (unregistered);
+empirical-Bayes-shrunk edges predict better than zero (D0 1.71\,$\times$\,10$^{-3}$, B). Row 17: estimated at fixed
 team size and number of experienced authors; underpowered at the discovery effect; its Holm value holds within its
-module only ($\approx$0.17 across modules); an early-map insider gives +3.0 and a keyword-defined insider +0.0.
+module only ($\approx$0.17 across modules; 0.052 under Holm across the six secondary held-out tests); an early-map
+insider gives +3.0 and a keyword-defined insider +0.0.
 
 \paragraph{PH6 variants.} The wave test is post hoc: the question came from viewing the discovery per-year gaps of six
 keywords, and its wave set is retrospective by construction. Table~\ref{tab:app-ph6} shows that it leans on those six
 keywords: without them the held-out estimate is $-$1.7 ($p_1$ 0.33). Vision transformer has the largest drop in both
 splits, and federated learning itself does not decline in the held-out papers (+3.5\,pp after against up to its peak;
-discovery $-$5.9), consistent with the failed H4-FL trend.
+discovery $-$5.9), consistent with the failed H4-FL trend. For these reasons the main text reports the wave test as
+exploratory, in one sentence.
 
 \begin{table}[t]
 \centering\footnotesize
@@ -583,21 +719,122 @@ registered record.}
 \label{tab:app-pooled}
 \end{table}
 
-\paragraph{What this means for the test.} Read by reference point, the denominators line up with the thesis. The
+\paragraph{What this means for the test.} Read by reference point, the denominators line up with the main text. The
 package convergence (H1d) replicated but does not discriminate between the routes. The registered imitation-side tests
 either failed in the opposite direction (H2b, H2c) or were inconclusive (H2a; H3a, which predicted a crowding penalty
-and whose intervals exclude premiums above +0.32 and +2.19\,pp per log unit: no detectable premium).
-Among the post hoc gate patterns taken to held-out papers, those referenced to a record held (E1, E4, teams H1) and
-topic edges regressed (premia $b$, D0); the timing tests held only weakly (A1, PH6); those referenced to the field or
-to one vivid case did not (P1b, P7, H4-FL).
+and whose intervals exclude premiums above +0.32 and +2.19\,pp per log unit: no detectable premium). Among the post
+hoc gate patterns taken to held-out papers, those referenced to the team's own record held (E1, E4, teams H1) and
+topic edges regressed (premia $b$, D0); the timing tests held only weakly (A1, PH6) and are exploratory in the main
+text; the branded-title premium (PH7) was not confirmed; and those referenced to the field or to one vivid case did not
+hold (P1b, P7, H4-FL).
 
+\FloatBarrier
 % ----------------------------------------------------------------------
-\section{Distance from Earlier ICLR Work}\label{app:distance}
+\section{Entry Details}\label{app:entry}
 % ----------------------------------------------------------------------
+
+Section~\ref{sec:entry} reads the registered entry result as a division of labour. This appendix gives the two
+descriptive analyses behind that reading: what the newcomer contrast is made of, and how far newcomer papers sit from
+earlier ICLR work. Both were added during writing, read no outcome, are unregistered and are descriptive (E).
+
+\subsection{What the newcomer reversal is made of}\label{app:profiles}
+
+\paragraph{Profiles.} The population is the registered entry population (discovery papers 2019--2026 with an author
+identifier, all-years map; 42,325 papers). Each paper has one of three profiles: a \emph{first-time team}, in which no
+author has any earlier ICLR submission (11,112 papers, 26.3\%; median team size 3); a \emph{returning topic newcomer},
+new to the topic but with an author who has an ICLR submission in another topic (19,765, 46.7\%; median 5); and a
+\emph{topic incumbent} (11,448, 27.0\%; median 5). Contrasts are linear probability models within topic $\times$ year,
+with standard errors clustered by topic (CR1). The single newcomer contrast in this code reproduces the registered
+estimates (+3.71 and $-$1.70). Script \url{research/fashion/paper/analysis/newcomer_profiles.py}; outputs
+\url{research/fashion/output/paper_profiles/}.
+
+\begin{table}[t]
+\centering\scriptsize
+\setlength{\tabcolsep}{2pt}
+\begin{tabularx}{\columnwidth}{@{}Y L{1.55cm} L{1.55cm}@{}}
+\toprule
+Contrast (pp) & Without team size & With log$_2$ team size \\
+\midrule
+\multicolumn{3}{@{}l}{\textit{Method paper}} \\
+Returning topic newcomer $-$ incumbent & +3.43\newline[+2.31, +4.55] & +3.62\newline[+2.44, +4.79] \\
+First-time team $-$ returning topic newcomer & +0.92\newline[$-$0.44, +2.29] & +1.40\newline[$-$0.15, +2.95] \\
+First-time team $-$ incumbent & +4.35\newline[+2.82, +5.89] & +5.02\newline[+3.12, +6.91] \\
+\multicolumn{3}{@{}l}{\textit{Measurement paper}} \\
+Returning topic newcomer $-$ incumbent & $-$1.47\newline[$-$2.23, $-$0.70] & $-$0.81\newline[$-$1.46, $-$0.16] \\
+First-time team $-$ returning topic newcomer & $-$0.78\newline[$-$1.51, $-$0.05] & +0.90\newline[+0.15, +1.65] \\
+First-time team $-$ incumbent & $-$2.24\newline[$-$3.24, $-$1.25] & +0.09\newline[$-$0.63, +0.80] \\
+\midrule
+\multicolumn{3}{@{}l}{\textit{Raw shares, method / measurement (\%)}} \\
+First-time team & \multicolumn{2}{l}{77.56 / 5.01} \\
+Returning topic newcomer & \multicolumn{2}{l}{75.12 / 8.47} \\
+Topic incumbent & \multicolumn{2}{l}{72.48 / 9.01} \\
+\bottomrule
+\end{tabularx}
+\caption{The newcomer contrast by profile, within topic $\times$ year, 2019--2026 (42,325 papers; 95\% intervals).
+Descriptive and unregistered (E).}
+\label{tab:app-profiles}
+\end{table}
+
+\begin{table}[t]
+\centering\scriptsize
+\setlength{\tabcolsep}{2pt}
+\begin{tabularx}{\columnwidth}{@{}Y L{1.62cm} L{1.62cm} L{1.62cm}@{}}
+\toprule
+Contrast (pp) & 2019--2020 & 2021--2023 & 2024--2026 \\
+\midrule
+\multicolumn{4}{@{}l}{\textit{Method paper}} \\
+Returning $-$ incumbent & +4.43\newline[+0.01, +8.84] & +2.28\newline[$-$0.29, +4.84] & +3.61\newline[+2.36, +4.86] \\
+First-time $-$ returning & +2.19\newline[$-$1.35, +5.72] & +2.73\newline[+0.57, +4.89] & +0.12\newline[$-$1.53, +1.78] \\
+First-time $-$ incumbent & +6.61\newline[+2.11, +11.12] & +5.00\newline[+2.12, +7.89] & +3.74\newline[+1.94, +5.53] \\
+\multicolumn{4}{@{}l}{\textit{Measurement paper}} \\
+Returning $-$ incumbent & $-$0.34\newline[$-$1.68, +1.01] & $-$0.30\newline[$-$1.49, +0.89] & $-$1.71\newline[$-$2.57, $-$0.85] \\
+First-time $-$ returning & $-$0.36\newline[$-$1.78, +1.06] & $-$0.41\newline[$-$1.43, +0.61] & $-$1.04\newline[$-$2.08, $-$0.00] \\
+First-time $-$ incumbent & $-$0.70\newline[$-$2.34, +0.94] & $-$0.71\newline[$-$1.93, +0.51] & $-$2.75\newline[$-$4.07, $-$1.44] \\
+\midrule
+Papers & 3,318 & 8,881 & 30,126 \\
+\bottomrule
+\end{tabularx}
+\caption{The profile contrasts by era, without a team-size control (95\% intervals). Returning: returning topic
+newcomer. The 2021--2023 era contains the identifier switch, which hides earlier histories. Descriptive and
+unregistered (E).}
+\label{tab:app-profiles-era}
+\end{table}
+
+\paragraph{Method.} The method surplus is mainly a topic-entry pattern (Table~\ref{tab:app-profiles}). Returning topic
+newcomers, who already have ICLR work elsewhere, write method papers more often than incumbents (+3.43), at the same
+median team size and also with team size controlled (+3.62); first-time teams do not differ detectably from them
+(+0.92). By era (Table~\ref{tab:app-profiles-era}), first-time teams write method papers more often than incumbents
+in every era (+6.61, +5.00, +3.74), so the surplus predates the FM wave; the returning-minus-incumbent contrast
+is positive in every era, and its 2021--2023 interval, in the era of the identifier switch, includes 0.
+
+\paragraph{Measurement.} For first-time teams the measurement deficit is accounted for by team size (in the statistical
+sense): $-$2.24 against incumbents
+without, +0.09 with a team-size control. For returning topic newcomers part of it remains with team size ($-$0.81).
+The deficit is a 2024--2026 pattern: first-time teams against incumbents $-$2.75 [$-$4.07, $-$1.44] and returning
+topic newcomers against incumbents $-$1.71 [$-$2.57, $-$0.85], against intervals that include 0 in both earlier eras.
+In the FM era, benchmark and evaluation work sits with topic incumbents and larger teams; team size is the only
+resource measured, and we make no claim about compute.
+
+\paragraph{Package uptake.} Figure~\ref{fig:app-fm-entry} shows the FM-paper share gap by the topic's prior-year FM
+adoption among 2023--2026 submissions, with class and team-size controls. First-time teams write FM papers less often
+than returning topic newcomers at 5--15\%, 15--30\% and 30--50\% prior adoption ($-$4.58 [$-$6.55, $-$2.60], $-$8.96
+and $-$14.71 [$-$19.82, $-$9.61]); no gap is detectable at 0--5\% ($-$0.95) or $\geq$50\% ($-$1.96), or between
+returning topic newcomers and incumbents in any bin ($-$2.58 to +2.87). Absorptive capacity and network diffusion
+both predict this order.
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\columnwidth]{figs/figA_fm_entry.pdf}
+  \caption{FM-paper share gap by the topic's prior-year FM adoption, 2023--2026 submissions, class and team-size
+  controls: first-time teams vs returning topic newcomers (blue circles); returning topic newcomers vs incumbents
+  (grey triangles); 95\% intervals. Exploratory (E). Uses no acceptance data.}
+  \label{fig:app-fm-entry}
+\end{figure}
+
+\subsection{Distance from earlier ICLR work}\label{app:distance}
 
 The follow-on reading of herding predicts that topic newcomers write work that sits close to what the topic has
-already produced. This appendix gives the full comparison behind Section~\ref{sec:entry}. It was added during writing, reads no
-outcome, is unregistered, and is descriptive (E).
+already produced. This subsection gives the full comparison behind Section~\ref{sec:entry}.
 
 \paragraph{Definition.} Vectors are SPECTER2 embeddings of title and abstract, centred with the frozen discovery mean
 and L2-normalised. A paper's distance from earlier ICLR work is $1-$ the mean cosine to its 10 nearest discovery
@@ -712,6 +949,7 @@ the gap that is incumbents' closeness to their own earlier work is itself contin
 is a contribution type, not a measure of novelty, and this distance is not one either; but neither measure shows
 newcomers following.
 
+\FloatBarrier
 % ----------------------------------------------------------------------
 \section{Other Gate Modules}\label{app:gate}
 % ----------------------------------------------------------------------
@@ -762,7 +1000,8 @@ compatible with general experience and visible status as well as with topic cont
 
 \paragraph{Far jump: shape and robustness.} Among 20,430 decided 2023--2026 papers with at least one experienced author
 (acceptance 44.1\%), adjusted acceptance by fifth of $F_{\max}$, far to near, is 39.7 [38.1, 41.2], 41.8 [40.3, 43.3],
-44.4 [43.1, 45.8], 47.2 [45.8, 48.6] and 46.9\% [45.2, 48.6] (3,855 to 4,265 papers per fifth; D shape). Acceptance is
+44.4 [43.1, 45.8], 47.2 [45.8, 48.6] and 46.9\% [45.2, 48.6] (3,855 to 4,265 papers per fifth; D shape;
+Figure~\ref{fig:app-closeness}). Acceptance is
 lower the farther a paper sits from the record, and the closest fifth is no higher than the fourth. E1 holds with a newcomer control
 ($-$5.0), with at least three prior authors ($-$4.1), without earlier versions ($-$5.5), with withdrawals after review
 counted as rejections ($-$4.9), on the early map ($-$5.2), with closeness to the last author's record ($-$4.6) or the
@@ -770,9 +1009,20 @@ whole team's ($-$4.7), and on link-removed text ($-$5.39). $F_{\max}$ correlates
 partly overlaps the newcomer gap. E2, near against median closeness, is +1.75 [$-$0.17, +3.66] (Holm 0.148) in
 discovery; by the quoting rule it comes with the held-out +2.34 [$-$1.01, +5.70] ($p$~0.17, unregistered) and the
 pooled +2.10 (Holm 0.036), so ``no further gain near the record'' is not established. E3, the far-jump contrast in hot
-minus other topics, is $-$0.35 [$-$3.13, +2.42]. Within-author closeness (E4) may be explained half or more by
-co-author composition. Far means far from the visible ICLR record since 2021; co-author choice and pivots that follow
+minus other topics, is $-$0.35 [$-$3.13, +2.42]. Within-author closeness (E4) compares one author's papers with
+different co-authors. Controls for newcomer status and for co-authors' experience move it little (+0.48 and +0.50 per
+0.1 cosine), but an unobserved co-author quality confounder could also bias it: in a simulation reported in its
+declaration, a planted between-author quality confounder that runs through co-authors moved the estimate. Far means far from the visible ICLR record since 2021; co-author choice and pivots that follow
 failures are not controlled.
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\columnwidth]{figs/figA_closeness.pdf}
+  \caption{Adjusted acceptance by fifth of closeness to the team's earlier ICLR work (\Fmax{}), far to near, with
+  95\% intervals: discovery, decided 2023--2026 papers with an experienced author (20,430 papers; shape descriptive,
+  D). Annotation: the declared held-out far-jump test (B; held-out supported in the main text).}
+  \label{fig:app-closeness}
+\end{figure}
 
 \paragraph{Field distance and twins.} The field-distance population is 31,549 decided 2019--2026 papers (acceptance
 40.1\%). P1b is negative in 11 of 11 variants and Holm-significant in 8 (within class $\times$ year $-$2.0, Holm 0.65;
@@ -852,63 +1102,107 @@ wording, labels, topics or titles, and no link-removed text exists for held-out 
 \paragraph{What this means for the test.} None of these modules shows a premium that changes with how many others
 follow. Interactions with topic heat are null, and the edges of both topics and keywords regress. The FM premium does
 not detectably change with adoption, which fits rewarded imitation and efficient choice alike
-(Section~\ref{sec:theory}); at the package level the gate cannot separate the routes. What acceptance does go with, beyond the record, is who writes (team size, experience), which is why Section~\ref{sec:gate} orders
-the evidence by how well it holds the writer fixed.
+(Section~\ref{sec:theory}); at the package level the gate cannot separate the routes. What acceptance does go with, beyond the record, is who writes (team size, experience), which is why
+Section~\ref{sec:gate} leads with the far jump among papers that all have an experienced author and with the
+within-author slope, which hold more of the writer fixed.
 
+\FloatBarrier
 % ----------------------------------------------------------------------
 \section{Title Style}\label{app:titles}
 % ----------------------------------------------------------------------
 
-Surface form is where an imitation-like spread is plainest. This appendix gives the definitions and yearly
-shares behind Section~\ref{sec:field} (E\textsuperscript{*}, earlier exploratory, share re-verified for this paper).
+Surface form is where an imitation-like spread is plainest. This appendix gives the definitions, the yearly shares and
+the declared acceptance test behind Section~\ref{sec:gate}. All numbers come from the committed outputs of the PH7
+module (\url{research/fashion/output_pooled/posthoc/ph5_titles/}: \url{shares.csv}, \url{tests.csv},
+\url{rates.csv}).
 
 \paragraph{Definitions.} The prefix is the text before a title's first colon, and the subtitle after it must be
-non-empty. D1 (broad): the prefix has 1--3 whitespace tokens. D2 (name-like): D1, every prefix token starts with an
-upper-case letter or a digit, and the first token is not a generic lead word (for example Towards, Beyond,
-Rethinking, Learning, Understanding, Enhancing, On, How, What, Position). D3 (coined single token): one token with at
-least two capitals, or a digit and a capital (as in BERT, LoRA, GraphSAGE, Llama-2). D4 (one name-like token): D2
-restricted to exactly one token. Titles come from the raw discovery file (43,515 rows with a non-empty title), so
-yearly counts differ slightly from the 43,480-paper corpus. No outcome column is read.
+non-empty. D1 (broad): the prefix has 1--3 whitespace tokens. D2 (name-like; the primary definition): D1, every prefix
+token starts with an upper-case letter or a digit, and the first token is not a generic lead word (for example
+Towards, Beyond, Rethinking, Learning, Understanding, Enhancing, On, How, What, Position). D3 (coined single token):
+one token with at least two capitals, or a digit and a capital (as in BERT, LoRA, GraphSAGE, Llama-2). D4 (one
+name-like token): D2 restricted to exactly one token. Shares are computed over the 43,480-paper discovery corpus
+(Table~\ref{tab:app-years}); no outcome column is read for them.
 
 \begin{table}[t]
 \centering\footnotesize
 \setlength{\tabcolsep}{3.5pt}
-\begin{tabular}{@{}lrrrrrr@{}}
+\begin{tabular}{@{}lrrrrr@{}}
 \toprule
-Year & $n$ & Colon & D1 & D2 & D4 & D3 \\
+Year & $n$ & D1 & D2 & D3 & D4 \\
 \midrule
-2017 & 384 & 19.0 & 14.3 & 10.9 & 7.6 & 6.5 \\
-2018 & 774 & 22.4 & 16.8 & 13.8 & 8.8 & 7.9 \\
-2019 & 1,255 & 25.6 & 19.8 & 17.6 & 11.8 & 10.7 \\
-2020 & 2,071 & 26.4 & 21.4 & 18.8 & 14.6 & 13.8 \\
-2021 & 2,364 & 27.8 & 21.1 & 18.7 & 14.1 & 13.2 \\
-2022 & 2,649 & 31.4 & 24.6 & 21.9 & 17.3 & 16.0 \\
-2023 & 3,872 & 32.4 & 25.9 & 23.2 & 19.0 & 17.6 \\
-2024 & 5,766 & 40.8 & 32.9 & 30.2 & 25.3 & 23.9 \\
-2025 & 8,960 & 49.5 & 40.7 & 37.6 & 31.2 & 29.3 \\
-2026 & 15,420 & 59.7 & 48.8 & 44.6 & 38.8 & 37.0 \\
+2017 & 384 & 14.32 & 10.94 & 6.51 & 7.55 \\
+2018 & 770 & 16.88 & 13.90 & 7.92 & 8.83 \\
+2019 & 1,248 & 19.95 & 17.71 & 10.74 & 11.86 \\
+2020 & 2,070 & 21.40 & 18.79 & 13.77 & 14.64 \\
+2021 & 2,360 & 21.10 & 18.77 & 13.18 & 14.11 \\
+2022 & 2,649 & 24.61 & 21.93 & 15.97 & 17.25 \\
+2023 & 3,872 & 25.88 & 23.22 & 17.61 & 18.96 \\
+2024 & 5,765 & 32.91 & 30.20 & 23.94 & 25.26 \\
+2025 & 8,951 & 40.74 & 37.56 & 29.33 & 31.25 \\
+2026 & 15,411 & 48.83 & 44.57 & 37.00 & 38.76 \\
 \bottomrule
 \end{tabular}
-\caption{Share of titles (\%) with any colon and under definitions D1--D4, by year. Outcome-free (E\textsuperscript{*},
-re-verified).}
+\caption{Share of discovery submissions (\%) whose title is branded under definitions D1--D4, by year. Record:
+\url{shares.csv} (discovery rows). Outcome-free (E).}
 \label{tab:app-titles}
 \end{table}
 
 \paragraph{Shares.} Under every definition the share of titles that open with a short coined name and a colon rose
 roughly fourfold, from 7--14\% (2017) to 37--49\% (2026), by 3.4 times (D1) to 5.7 times (D3), and it rises every year
 after 2021 (Table~\ref{tab:app-titles}). The level depends on the definition by about $\pm$4\,pp in 2017 and $\pm$6\,pp
-in 2026; the trend does not. The 2017 share rests on 384 titles (sampling SE about 1.6\,pp at 11\%). Whether accepted
-papers' titles were edited after the decision was not checked.
+in 2026; the trend does not. The 2017 share rests on 384 titles (sampling SE about 1.6\,pp at 11\%).
 
-\paragraph{Acceptance (D\textsuperscript{*}).} In an earlier exploratory analysis, accepted papers carried branded
-titles at the submitted rate (ratio 1.02; odds ratio 1.00). That analysis is earlier exploratory and was not re-run.
-Two further earlier observations (on returning authors and on title wording) were not re-verified and are not
-reported.
+\paragraph{The declared acceptance test (PH7).} The test was declared in the pre-registration log before it was run
+(2026-11-04) and run once; discovery and held-out estimates are computed separately. The population is the registered
+acceptance population (decided ordinary submissions, 2018--2026: 32,190 discovery and 8,185 held-out papers). The
+model is a linear probability model of acceptance on the branded-title indicator with topic $\times$ year fixed effects
+and class, FM and log$_2$ team-size controls, with errors clustered by topic; the raw model has year fixed effects
+only. The declared rule: the held-out D2 estimate is supported if it is positive with one-sided $p<0.05$; otherwise
+``no premium of 2\,pp or more'' if its 90\% interval lies inside $\pm$2\,pp; otherwise not supported, and uninformative
+if it lies below its MDE80. Table~\ref{tab:app-ph7} gives every estimate.
 
-\paragraph{What this means for the test.} The title form spread roughly fourfold with no detectable premium at the
-gate in the earlier analysis: an imitation-like spread in form, consistent with bandwagons that go unrewarded
-\citep{abrahamson1993institutional}.
+\begin{table*}[t]
+\centering\footnotesize
+\setlength{\tabcolsep}{3pt}
+\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}X llll@{}}
+\toprule
+Split and model & D2 (primary) & D1 & D3 & D4 \\
+\midrule
+Discovery, controls (not a test) & +1.74 [+0.37, +3.11] & +1.78 [+0.42, +3.14] & +1.60 [+0.19, +3.02] & +1.58 [+0.18, +2.97] \\
+Discovery, raw (year FE only) & +3.31 [+1.75, +4.87] & +3.26 [+1.78, +4.75] & +3.34 [+1.79, +4.89] & +3.39 [+1.82, +4.96] \\
+Discovery, branded $\times$ 2023--2026 & $-$0.81 [$-$3.89, +2.27] & $-$1.49 [$-$4.67, +1.68] & $-$1.74 [$-$5.13, +1.66] & $-$0.69 [$-$3.86, +2.49] \\
+Held-out, controls (declared test for D2) & +1.76 [$-$0.82, +4.34] & +2.08 [$-$0.52, +4.67] & +0.62 [$-$1.90, +3.13] & +1.50 [$-$1.10, +4.09] \\
+\quad one-sided $p$; MDE80 & 0.089; 3.23 & 0.058; 3.25 & 0.313; 3.15 & 0.128; 3.25 \\
+Held-out, raw (year FE only) & +3.97 [+1.32, +6.62] & +4.05 [+1.37, +6.73] & +3.55 [+1.03, +6.06] & +4.15 [+1.54, +6.77] \\
+Held-out, branded $\times$ 2023--2026 & $-$5.04 [$-$11.53, +1.44] & $-$4.78 [$-$10.79, +1.23] & $-$0.56 [$-$8.54, +7.41] & $-$1.58 [$-$9.40, +6.25] \\
+\bottomrule
+\end{tabularx}
+\caption{PH7: acceptance of branded against other titles, pp with 95\% intervals (discovery 32,190 papers, held-out
+8,185). Controls: topic $\times$ year fixed effects, class, FM and log$_2$ team size. Raw: year fixed effects only.
+Branded $\times$ 2023--2026: the change in the gap in the late years. MDE80 computed in the declared run. Title style
+had been explored before registration, so no discovery row is a test. Record: \url{tests.csv}.}
+\label{tab:app-ph7}
+\end{table*}
 
+\paragraph{Result.} The declared held-out test gives +1.76 [$-$0.82, +4.34], one-sided $p$ 0.089, MDE80 3.23: not
+supported, and uninformative. Its 90\% interval [$-$0.40, +3.92] does not lie inside $\pm$2\,pp, so ``no premium of
+2\,pp or more'' cannot be claimed either. In discovery, branded titles are accepted +1.74 [+0.37, +3.11] more often,
+and all four definitions give intervals above 0 (+1.58 to +1.78), but these are not tests. Raw acceptance is 42.5\%
+for branded and 38.9\% for other titles in discovery (10,395 and 21,795 papers), and 42.4\% and 37.9\% held-out (2,685
+and 5,500). The raw within-year gaps (+3.31 and +3.97) are about twice the controlled ones, so about half of the raw
+gap goes with topic, class, FM use and team size. Whether the gap changed in 2023--2026 cannot be told ($-$0.81 in
+discovery, $-$5.04 held-out, both intervals including 0). The test supersedes an earlier exploratory estimate whose
+code was not kept: on the same papers, branded titles are accepted somewhat more often, not at the submitted rate.
+
+\paragraph{What this means for the test.} The title form spread roughly fourfold, the plainest imitation-like
+spread in the corpus. It goes with a small acceptance premium in discovery, which is not a test, and the declared
+held-out estimate has the same size but is not supported. Titles can be revised after the decision (camera-ready),
+which could create such a premium, and this cannot be checked here. Whether the spread is a bandwagon that goes
+unrewarded \citep{abrahamson1993institutional} or carries a small premium stays open; the main text labels it
+exploratory.
+
+\FloatBarrier
 % ----------------------------------------------------------------------
 \section{Size Calibration}\label{app:size}
 % ----------------------------------------------------------------------
@@ -961,13 +1255,14 @@ P7 & -- & -- & $\approx$1.0--1.1$^d$ & +0.39 \\
 Teams H1 & -- & -- & $\approx$4.5$^d$ & +3.42 \\
 A1 & -- & -- & $\approx$4.3$^d$ & +2.67 \\
 PH6 D & -- & 3.6 & 7.4 & $-$5.7 \\
+PH7 titles (D2) & -- & -- & 3.2$^r$ & +1.74 \\
 \bottomrule
 \end{tabular}
 \caption{Smallest effects of interest (SESOI, $\pm$) and MDE80 in pp (H3a, H3b per log unit). Disc.: frozen
 discovery dry run (high-variance setting; low-variance in parentheses). Held-out:
 registered, simulated at each test's Holm first step; $^d$ derived post hoc ($2.49\times$SE). PH6: discovery MDE80 as
 reported with its discovery estimate, which is not a test. Est.: discovery estimate, for comparison; power at the discovery effect for E1 and P1b. $^p$ H3a power at three
-times the SESOI in the discovery dry run.}
+times the SESOI in the discovery dry run. $^r$ computed analytically in the declared PH7 run.}
 \label{tab:app-mde}
 \end{table}
 

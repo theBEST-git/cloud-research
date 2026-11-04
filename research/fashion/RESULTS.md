@@ -1066,10 +1066,10 @@ reproduces H2b/H2c (+3.71 / −1.70).
 
 ## Record pointers for paper tables (added 2026-11-04)
 
-- Effective number of topics by map (paper Table 7): `research/topics/output/hindsight_check.json`.
-- Out-of-time topic-growth forecasts (paper Table 8; R² of size 0.281 [0.217, 0.335] on the all-years map vs −0.033
+- Effective number of topics by map (paper Table 9): `research/topics/output/hindsight_check.json`.
+- Out-of-time topic-growth forecasts (paper Table 10; R² of size 0.281 [0.217, 0.335] on the all-years map vs −0.033
   [−0.082, −0.002] on the 2017–2020 map): `output/ph5_forecast/summary.json` (`headline`).
-- Title shares by year (paper title table): `output_pooled/posthoc/ph5_titles/shares.csv`.
+- Title shares by year (paper Table 22; the PH7 tests are Table 23): `output_pooled/posthoc/ph5_titles/shares.csv`.
 
 ## Reproduction
 

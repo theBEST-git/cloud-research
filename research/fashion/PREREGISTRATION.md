@@ -2022,3 +2022,42 @@ Written and committed before any acceptance data were read for this question. Co
   frames: D from −0.9 to +2.2 pp, one-sided p 0.28–0.93. A planted −0.3 log-odds shift for wave papers after the
   peak (about −7 pp): D −4.7 to −7.0 pp, p 0.0025 in 3 of 3. Discovery MDE80 ≈ 3.6–3.9 pp; the held-out sample is
   about a quarter of the size, so its MDE80 is expected near 7–8 pp (the run reports the permutation MDE80).
+
+## 2026-11-04: PH7 titles (post hoc; declared before it was run)
+
+Written and committed before any acceptance data were read for this question in this form. Code:
+`research/fashion/ph5_titles.py` (committed with this entry; its docstring is the full specification). Run once,
+through the PH5 entry point: `ICLR_CORPUS=pooled python research/fashion/posthoc.py ph5 titles`. Outputs:
+`output_pooled/posthoc/ph5_titles/`.
+
+- **Question.** Do branded titles (a short coined name and a colon, "NAME: what it does"), whose share rose about
+  fourfold in 2017–2026, go with higher acceptance? This is the gate test for the plainest imitation-like spread in the
+  corpus: rewarded imitation of form predicts a premium. Post hoc and exploratory; associations, not effects of
+  choosing a title.
+- **What had been seen (disclosure).**
+  - An earlier exploratory analysis on the discovery papers, before registration (listed in "What had been seen before
+    registration"), compared title style with acceptance and found branded titles accepted at about the submitted rate
+    (ratio 1.02). Its code was not kept. The discovery estimates of this run are therefore reported but are not a test.
+  - Held-out (confirmation) papers: no title-style acceptance figure has been computed or viewed.
+  - Outcome-free yearly shares under D1–D4 were computed for the paper (Appendix G) before this entry.
+- **Definitions (outcome-free, frozen).** D2 (primary): 1–3 tokens before the first colon, each starting with a capital
+  or digit, the first not a generic lead word, and a non-empty subtitle. Variants D1 (any 1–3-token prefix), D3 (one
+  coined token with ≥ 2 capitals or a digit and a capital), D4 (D2 with one token). Reported, not counted.
+- **Population.** Per split (discovery; confirmation = the released held-out papers), RQ3 decided papers 2018–2026.
+- **Models.** Controls (primary): accepted ~ branded + class dummies (ref. method) + FM + log2 team size | k100 topic ×
+  year FE; CR1 SE by topic, t(G − 1). Raw: accepted ~ branded | year FE. Timing (descriptive): branded × 2023–2026.
+- **Declared test.** Held-out, D2, controls model: premium > 0 with one-sided p < 0.05 → supported. Otherwise, if the
+  90% CI lies inside ±2 pp (the SESOI used for H2a/H3c in D12) → "no premium of 2 pp or more"; otherwise not supported,
+  uninformative if |coef| < MDE80 (2.486 SE).
+- **Known threat.** Titles are as recorded on OpenReview and can be revised after the decision (camera-ready), which
+  could create a spurious premium for accepted papers' titles; it cannot create a spurious null. Not correctable here.
+- **Pre-run checks on simulated outcomes (ph5_common.simulated_frame, discovery papers).** Four null frames: D2
+  controls estimate −0.45 to +0.05 pp, one-sided p 0.47–0.78, SE ≈ 0.6 pp, MDE80 ≈ 1.5 pp. A planted +0.2 log-odds
+  shift for D2 titles (about +4.5 pp): estimates +4.4 to +5.5 pp, p < 0.001 in 3 of 3. The held-out sample is about a
+  quarter of the size, so its SE is expected near 1.2 pp.
+
+## 2026-11-04: newcomer profiles (descriptive, outcome-free; recorded, not a test)
+
+`research/fashion/paper/analysis/newcomer_profiles.py` splits the registered newcomer contrast (H2b/H2c) into
+first-time teams, returning topic newcomers and topic incumbents within topic × year (discovery, RQ2 population). It
+reads no outcome column. It was added during the paper revision on 2026-11-04 and is reported as descriptive (E).

@@ -1,0 +1,200 @@
+{
+ "population": {
+  "papers": 42325,
+  "profiles": {
+   "returning_newcomer": 19765,
+   "incumbent": 11448,
+   "first_time": 11112
+  },
+  "profile_share_pct": {
+   "returning_newcomer": 46.7,
+   "incumbent": 27.0,
+   "first_time": 26.3
+  },
+  "median_team_size": {
+   "first_time": 3.0,
+   "incumbent": 5.0,
+   "returning_newcomer": 5.0
+  }
+ },
+ "check_single_newcomer_pp": {
+  "method": 3.7063343595697775,
+  "measurement": -1.69860711559414
+ },
+ "raw_class_shares_pct": {
+  "first_time": {
+   "method": 77.56,
+   "measurement": 5.01,
+   "theory": 7.36,
+   "empirical": 6.35,
+   "dataset_benchmark": 2.97,
+   "evaluation": 2.04,
+   "other": 3.71
+  },
+  "incumbent": {
+   "method": 72.48,
+   "measurement": 9.01,
+   "theory": 8.0,
+   "empirical": 7.22,
+   "dataset_benchmark": 6.73,
+   "evaluation": 2.28,
+   "other": 3.29
+  },
+  "returning_newcomer": {
+   "method": 75.12,
+   "measurement": 8.47,
+   "theory": 5.97,
+   "empirical": 7.0,
+   "dataset_benchmark": 5.85,
+   "evaluation": 2.63,
+   "other": 3.44
+  }
+ },
+ "contrasts_main": [
+  {
+   "outcome": "method",
+   "team_control": false,
+   "contrast": "returning_newcomer - incumbent",
+   "pp": 3.431,
+   "lo": 2.312,
+   "hi": 4.55,
+   "p": 0.0,
+   "n": 42325,
+   "clusters": 100,
+   "era": "2019-2026"
+  },
+  {
+   "outcome": "method",
+   "team_control": false,
+   "contrast": "first_time - returning_newcomer",
+   "pp": 0.922,
+   "lo": -0.445,
+   "hi": 2.288,
+   "p": 0.184,
+   "n": 42325,
+   "clusters": 100,
+   "era": "2019-2026"
+  },
+  {
+   "outcome": "method",
+   "team_control": false,
+   "contrast": "first_time - incumbent",
+   "pp": 4.353,
+   "lo": 2.819,
+   "hi": 5.886,
+   "p": 0.0,
+   "n": 42325,
+   "clusters": 100,
+   "era": "2019-2026"
+  },
+  {
+   "outcome": "method",
+   "team_control": true,
+   "contrast": "returning_newcomer - incumbent",
+   "pp": 3.617,
+   "lo": 2.44,
+   "hi": 4.793,
+   "p": 0.0,
+   "n": 42325,
+   "clusters": 100,
+   "era": "2019-2026"
+  },
+  {
+   "outcome": "method",
+   "team_control": true,
+   "contrast": "first_time - returning_newcomer",
+   "pp": 1.399,
+   "lo": -0.152,
+   "hi": 2.95,
+   "p": 0.077,
+   "n": 42325,
+   "clusters": 100,
+   "era": "2019-2026"
+  },
+  {
+   "outcome": "method",
+   "team_control": true,
+   "contrast": "first_time - incumbent",
+   "pp": 5.015,
+   "lo": 3.116,
+   "hi": 6.915,
+   "p": 0.0,
+   "n": 42325,
+   "clusters": 100,
+   "era": "2019-2026"
+  },
+  {
+   "outcome": "measurement",
+   "team_control": false,
+   "contrast": "returning_newcomer - incumbent",
+   "pp": -1.466,
+   "lo": -2.234,
+   "hi": -0.699,
+   "p": 0.0,
+   "n": 42325,
+   "clusters": 100,
+   "era": "2019-2026"
+  },
+  {
+   "outcome": "measurement",
+   "team_control": false,
+   "contrast": "first_time - returning_newcomer",
+   "pp": -0.778,
+   "lo": -1.508,
+   "hi": -0.047,
+   "p": 0.037,
+   "n": 42325,
+   "clusters": 100,
+   "era": "2019-2026"
+  },
+  {
+   "outcome": "measurement",
+   "team_control": false,
+   "contrast": "first_time - incumbent",
+   "pp": -2.244,
+   "lo": -3.235,
+   "hi": -1.253,
+   "p": 0.0,
+   "n": 42325,
+   "clusters": 100,
+   "era": "2019-2026"
+  },
+  {
+   "outcome": "measurement",
+   "team_control": true,
+   "contrast": "returning_newcomer - incumbent",
+   "pp": -0.814,
+   "lo": -1.465,
+   "hi": -0.163,
+   "p": 0.015,
+   "n": 42325,
+   "clusters": 100,
+   "era": "2019-2026"
+  },
+  {
+   "outcome": "measurement",
+   "team_control": true,
+   "contrast": "first_time - returning_newcomer",
+   "pp": 0.899,
+   "lo": 0.15,
+   "hi": 1.649,
+   "p": 0.019,
+   "n": 42325,
+   "clusters": 100,
+   "era": "2019-2026"
+  },
+  {
+   "outcome": "measurement",
+   "team_control": true,
+   "contrast": "first_time - incumbent",
+   "pp": 0.085,
+   "lo": -0.634,
+   "hi": 0.805,
+   "p": 0.814,
+   "n": 42325,
+   "clusters": 100,
+   "era": "2019-2026"
+  }
+ ],
+ "note": "descriptive (E), outcome-free, discovery only, added during revision; not registered"
+}

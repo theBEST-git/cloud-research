@@ -3,7 +3,7 @@
 \lhead{\emph{Chapter 3. Data and Design}}  % page header
 
 \paragraph{Corpus.}
-The corpus comes from our own dated acquisitions of official OpenReview records (Appendix~\ref{app:data}): 43,480
+The corpus comes from our own dated acquisitions of official OpenReview records: 43,480
 discovery submissions with a usable abstract and 11,099 held-out papers. Acceptance tests use the 32,190 decided
 discovery papers from 2018--2026, 40.1\% of them accepted, and 8,185 decided held-out papers from 2018--2026; withdrawn papers are
 left out.
@@ -38,7 +38,7 @@ Predictors use only the past: \emph{prior FM adoption} is the FM share of the to
 \emph{crowding} is the log of one plus the topic's earlier papers, and a \emph{hot topic} is in the top fifth of
 prior growth. Code links leak the outcome into 17.6\% of accepted but 0.5\% of rejected 2023--2026 abstracts
 \citep{kaufman2012leakage}; in discovery, the distance-based gate estimates hold without them (no link-removed text
-exists for held-out papers; Appendix~\ref{app:gate}).
+exists for held-out papers).
 
 \paragraph{Protocol.}
 Hypotheses, models and a support rule were registered before any full-corpus label existed. A hypothesis is
@@ -49,7 +49,7 @@ to 2021--2026 papers). Outcomes could be read only by committed code in one logg
 run, and their one-sided held-out tests before any held-out estimate for that question was computed. Models are linear probability models
 with topic and year fixed effects and topic-clustered errors. We disclose two weaknesses. Under a simulated null
 whose structure cuts across topics, the main entry tests rejected 12.6\% and 10.0\% of the time at a nominal 5\%,
-which a wild cluster bootstrap \citep{cameron2008bootstrap} did not fix (Appendix~\ref{app:size}). And keyword
+which a wild cluster bootstrap \citep{cameron2008bootstrap} did not fix. And keyword
 popularity and title style had been explored against acceptance on the discovery papers before registration: the
 discovery estimate for titles is not a test, and the keyword-timing tests probe a dimension already seen. A test that is not
 supported and whose estimate lies below its minimum detectable effect at 80\% power (MDE80) is \emph{uninformative}:

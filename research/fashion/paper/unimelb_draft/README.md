@@ -7,7 +7,6 @@ https://www.overleaf.com/latex/templates/university-of-melbourne-thesis-template
   `\degree{...}` instead of the fixed "degree of Doctor of Philosophy"; the abstract page says "Science Research Project (SCIE30001)"
   instead of "Doctor of Philosophy".
 - `Thesis.tex`: title, author, school, chapters 1–6, real abbreviation and symbol lists (no physical constants), no
-  appendix; vector Latin Modern fonts (T1); `xr` reads `fullref.aux` so "Appendix X" mentions keep the full paper's
-  letters.
+  appendix (pointers to the full paper's appendix are removed); vector Latin Modern fonts (T1).
 
-Build: `pdflatex Thesis && bibtex Thesis && pdflatex Thesis && pdflatex Thesis`.
+Build (BibTeX is required, or citations print as [?]): `pdflatex Thesis && bibtex Thesis && pdflatex Thesis && pdflatex Thesis`. On Overleaf, upload the whole folder; it runs BibTeX automatically.

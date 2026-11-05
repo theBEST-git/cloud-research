@@ -2,13 +2,13 @@
 \label{sec:design}
 \lhead{\emph{Chapter 3. Data and Design}}  % page header
 
-\paragraph{Corpus.}
+\section{Corpus}
 The corpus comes from our own dated acquisitions of official OpenReview records: 43,480
 discovery submissions with a usable abstract and 11,099 held-out papers. Acceptance tests use the 32,190 decided
 discovery papers from 2018--2026, 40.1\% of them accepted, and 8,185 decided held-out papers from 2018--2026; withdrawn papers are
 left out.
 
-\paragraph{Instruments.}
+\section{Instruments}
 A \emph{topic} is one of 100 spherical $k$-means clusters of SPECTER2 embeddings of title and abstract
 \citep{cohan2020specter,singh2023scirepeval}, fitted on all years unless another map is named. An LLM with a fixed
 codebook gives each paper one primary contribution type: a \emph{method paper} proposes a method, including a new
@@ -19,28 +19,28 @@ random sample.
 This is consistency between LLM labellings, not human-level validity; zero-shot LLM labels reach only fair agreement
 with human coders on many tasks \citep{ziems2024can}.
 
-\paragraph{Entry profiles.}
+\section{Entry profiles}
 Entry status is relative to a topic and counts ICLR submissions only. In a \emph{newcomer paper}, no author has an
 earlier ICLR submission, with any outcome, in the paper's topic \citep[a topic-relative definition, as
 in][]{biliotti2024breaking}; otherwise it is an \emph{incumbent paper}, and an author with such a submission is a
 \emph{topic insider}. A newcomer paper comes from a \emph{first-time team} if no author has any earlier ICLR
 submission, and from a \emph{returning topic newcomer} if some author has one in another topic.
 
-\paragraph{Two distances.}
+\section{Two distances}
 Both distances use one centred SPECTER2 space, with different reference points. \emph{Closeness to the team's own record},
 \Fmax{}, is the highest cosine between the paper and the mean of an author's earlier ICLR submissions since 2021,
 taken over the paper's \emph{experienced authors}, those with such submissions \citep[following][]{bao2025persistence}. \emph{Distance from earlier
 ICLR work} is one minus the mean cosine to the ten nearest submissions of earlier years, as a percentile within topic
 and year.
 
-\paragraph{Prospective measurement.}
+\section{Prospective measurement}
 Predictors use only the past: \emph{prior FM adoption} is the FM share of the topic's previous-year papers,
 \emph{crowding} is the log of one plus the topic's earlier papers, and a \emph{hot topic} is in the top fifth of
 prior growth. Code links leak the outcome into 17.6\% of accepted but 0.5\% of rejected 2023--2026 abstracts
 \citep{kaufman2012leakage}; in discovery, the distance-based gate estimates hold without them (no link-removed text
 exists for held-out papers).
 
-\paragraph{Protocol.}
+\section{Protocol}
 Hypotheses, models and a support rule were registered before any full-corpus label existed. A hypothesis is
 supported if it has the predicted sign, a Holm-adjusted $p<0.05$ in its family \citep{holm1979simple}, and that sign
 in at least 75\% of counted variants and in both hindsight variants (a year-balanced map; the 2017--2020 map applied

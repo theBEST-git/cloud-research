@@ -5,7 +5,7 @@
 At the gate we detect no premium for following the crowd. Apart from topic edges, which regress, what replicated is
 tied to the team's own record, which continuity predicts and status and expertise predict too.
 
-\paragraph{Does acceptance go with following the crowd?}
+\section{Does acceptance go with following the crowd?}
 The registered crowding test predicted a penalty, and it is uninformative: $-$1.68\,pp per log unit (natural log of one plus the
 topic's earlier papers) [$-$3.68, +0.32] in discovery and $-$1.51 [$-$5.20, +2.19] held-out, against an MDE80 of 4.8 (Table~\ref{tab:gate},
 Figure~\ref{fig:gate}). Neither a penalty nor a premium is detectable, and held-out premiums above +2.19\,pp per log
@@ -55,7 +55,7 @@ One topic insider vs none$^c$ & +3.42\newline[+1.18, +5.66] & +3.88\newline[+0.2
 Least-distant fifth $-$ middle fifth & $-$3.27\newline[$-$4.93, $-$1.60] & $-$0.13\newline[$-$3.50, +3.25] & uninformative \\
 \bottomrule
 \end{tabularx}
-\caption{The gate: pp within topic and year (topic edges and keywords: against the same year's other papers). Rows
+\caption[Acceptance contrasts at the gate]{The gate: pp within topic and year (topic edges and keywords: against the same year's other papers). Rows
 differ in population and unit: compare replication status, not size. Held-out tests are one-sided and confirm
 direction, not size. $^a$Registered; predicted a penalty; MDE80 4.8. $^b$Explored against acceptance before registration. Titles:
 the discovery estimate is not a test; held-out MDE80 3.2. Keywords: the discovery estimate is a declared post hoc
@@ -64,7 +64,7 @@ test on a dimension already seen. $^c$Holm across the six secondary held-out tes
 \label{tab:gate}
 \end{table}
 
-\paragraph{What does acceptance go with?}
+\section{What does acceptance go with?}
 The clearest pattern is the \emph{far jump}. Among 20,430 decided 2023--2026 papers with an experienced author,
 acceptance at the 10th percentile of closeness to the team's own record minus that at the median is $-$5.44\,pp
 [$-$7.10, $-$3.78] in discovery and $-$6.09 [$-$9.32, $-$2.86] held-out, with power 0.89 (\lab{held-out supported};
@@ -74,8 +74,7 @@ Holding the author fixed, a paper 0.1 closer in cosine to that author's earlier 
 [+0.21, +0.90] higher in discovery and +1.06 [+0.23, +1.89] held-out (\lab{held-out supported}; it survives a
 family-wise correction across the secondary tests). Controls for newcomer status and for co-authors'
 experience move it little (+0.48 and +0.50), though a confounder in co-author quality could also bias it: in a
-simulation reported in its declaration, such a confounder moved the estimate. Likewise, the same author is accepted about 1.4\,pp less often [$-$2.7,
-$-$0.0] on a paper in a topic new to them (author fixed effects; \lab{exploratory}).\footnote{Newcomer papers as a
+simulation reported in its declaration, such a confounder moved the estimate. Likewise, the same author is accepted about 1.4\,pp less often [$-$2.74, $-$0.004] on a paper in a topic new to them (author fixed effects; \lab{exploratory}).\footnote{Newcomer papers as a
 whole are accepted 10.2\,pp less often [$-$11.8, $-$8.7] within topic and year (\lab{exploratory}), but that gap
 mostly reflects who writes them: the gap shrinks once team size and the authors' ICLR experience are controlled, and further within the same authors.}
 
@@ -92,7 +91,7 @@ the own-record associations replicated.
 \begin{figure}[t]
   \centering
   \includegraphics[width=0.72\textwidth]{figs/fig4_gate.pdf}
-  \caption{Gate tests by reference point: discovery estimates (blue circles) and held-out declared tests (orange
+  \caption[Gate tests by reference point]{Gate tests by reference point: discovery estimates (blue circles) and held-out declared tests (orange
   squares), 95\% intervals; the held-out verdict is at right (supported: \lab{held-out supported}; uninformative:
   not supported and below the test's MDE80; not supported: a declared test without a registered MDE80). Each row has its own scale: pp for the far jump, insider, branded title
   and least-distant fifth; pp per log unit for crowding; per 0.1 cosine and per 10 percentile points for the two
@@ -102,7 +101,7 @@ the own-record associations replicated.
   \label{fig:gate}
 \end{figure}
 
-\paragraph{Readings.}
+\section{Interpretation}
 These associations are referenced to a record, as continuity predicts, but expertise, evaluator conservatism and
 visible status predict them as well \citep{li2017expertise,merton1968matthew}. Double-blind review does not rule status
 out: where reviewers see the authors, famous authors fare better \citep{tomkins2017reviewer}, and preprints can

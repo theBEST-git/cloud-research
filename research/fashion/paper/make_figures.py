@@ -271,7 +271,7 @@ def gate_tests() -> None:
         ("Branded title\nvs other", row(tit, split="discovery", definition="D2", model="controls"),
          row(tit, split="confirmation", definition="D2", model="controls"), "uninformative"),
         ("Least-distant fifth\nvs middle", row(pos, test="P1b"), row(held, test="P1b"), "uninformative"),
-        ("Same author, +10\npct of distance", row(pos, test="P7"), row(held, test="P7"), "not\nsupported")]
+        ("Same author, +10\npercentile pts of distance", row(pos, test="P7"), row(held, test="P7"), "not\nsupported")]
     fig = plt.figure(figsize=(W, 3.55))
     rows = fig.add_gridspec(9, 1, left=0.40, right=0.76, top=0.91, bottom=0.06,
                             height_ratios=[0.5, 1, 1, 1, 0.5, 1, 1, 1, 1], hspace=0.75)

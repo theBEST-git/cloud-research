@@ -2,8 +2,7 @@
 \label{sec:gate}
 \lhead{\emph{Chapter 6. The Gate}}  % page header
 
-At the gate we detect no premium for following the crowd. Apart from topic edges, which regress, what replicated is
-tied to the team's own record, which continuity predicts and status and expertise predict too.
+At the gate we detect no premium for following the crowd. Apart from topic-level differences in acceptance, which persist only in part, what replicated is tied to the team's own earlier work. Continuity predicts this, but so do status and expertise.
 
 \section{Does acceptance go with following the crowd?}
 The registered crowding test predicted a penalty, and it is uninformative: $-$1.68\,pp per log unit (natural log of one plus the
@@ -41,7 +40,7 @@ popular predicts.
 \toprule
 Acceptance and \ldots & Discovery [95\% CI] & Held-out [95\% CI] & Label \\
 \midrule
-\multicolumn{4}{@{}l}{\textit{Others: the crowd, the form, the package}} \\
+\multicolumn{4}{@{}l}{\textit{Others: crowded topics, popular title forms, foundation models}} \\
 Crowding, per log unit$^a$ & $-$1.68\newline[$-$3.68, +0.32] & $-$1.51\newline[$-$5.20, +2.19] & uninformative \\
 Branded title$^b$ & +1.74\newline[+0.37, +3.11] & +1.76\newline[$-$0.82, +4.34] & \lab{exploratory} \\
 FM premium, per logit unit of prior adoption & +0.19\newline[$-$0.96, +1.34] & -- & \lab{exploratory} \\
@@ -65,7 +64,7 @@ test on a dimension already seen. $^c$Holm across the six secondary held-out tes
 \end{table}
 
 \section{What does acceptance go with?}
-The clearest pattern is the \emph{far jump}. Among 20,430 decided 2023--2026 papers with an experienced author,
+The clearest pattern is the \emph{far jump}: how much less often papers far from the team's earlier work are accepted. Among 20,430 decided 2023--2026 papers with an experienced author,
 acceptance at the 10th percentile of closeness to the team's own record minus that at the median is $-$5.44\,pp
 [$-$7.10, $-$3.78] in discovery and $-$6.09 [$-$9.32, $-$2.86] held-out, with power 0.89 (\lab{held-out supported};
 the declared primary test). Adjusted acceptance rises with closeness up to the fourth fifth.
@@ -73,8 +72,7 @@ The far jump holds with a newcomer control ($-$5.0), although closeness correlat
 Holding the author fixed, a paper 0.1 closer in cosine to that author's earlier work goes with acceptance +0.55\,pp
 [+0.21, +0.90] higher in discovery and +1.06 [+0.23, +1.89] held-out (\lab{held-out supported}; it survives a
 family-wise correction across the secondary tests). Controls for newcomer status and for co-authors'
-experience move it little (+0.48 and +0.50), though a confounder in co-author quality could also bias it: in a
-simulation reported in its declaration, such a confounder moved the estimate. Likewise, the same author is accepted about 1.4\,pp less often [$-$2.74, $-$0.004] on a paper in a topic new to them (author fixed effects; \lab{exploratory}).\footnote{Newcomer papers as a
+experience move it little (+0.48 and +0.50), though unmeasured differences in co-author quality could also bias it, as a simulation run before the test showed. Likewise, the same author is accepted about 1.4\,pp less often [$-$2.74, $-$0.004] on a paper in a topic new to them (author fixed effects; \lab{exploratory}).\footnote{Newcomer papers as a
 whole are accepted 10.2\,pp less often [$-$11.8, $-$8.7] within topic and year (\lab{exploratory}), but that gap
 mostly reflects who writes them: the gap shrinks once team size and the authors' ICLR experience are controlled, and further within the same authors.}
 
@@ -105,7 +103,6 @@ the own-record associations replicated.
 These associations are referenced to a record, as continuity predicts, but expertise, evaluator conservatism and
 visible status predict them as well \citep{li2017expertise,merton1968matthew}. Double-blind review does not rule status
 out: where reviewers see the authors, famous authors fare better \citep{tomkins2017reviewer}, and preprints can
-reveal who wrote a paper \citep{bharadhwaj2020deanonymization}. Pivots have been related to publication success
-\citep{hill2025pivot}; we observe the accept/reject decision itself, for every decided submission.
+reveal who wrote a paper \citep{bharadhwaj2020deanonymization}. Unlike studies of published work \citep{hill2025pivot}, these results come from the accept/reject decision for every decided submission.
 
 % ===============================================================================================================

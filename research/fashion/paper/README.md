@@ -8,6 +8,7 @@ Paper draft, written in the ACL ARR template.
 | `appendix.tex` | Appendices A–H, pulled in by the main file. |
 | `herded_or_anchored_main.pdf` | Short version: pages 1–11 of the full PDF (main text, Limitations, Ethics, Acknowledgments, References; no appendix). |
 | `herded_or_anchored_sec1-6.pdf` | Draft for supervisor feedback: Sections 1–6 and their references only (Discussion, Conclusion, Limitations, Ethics, Acknowledgments and appendix removed; appendix references keep their letters). |
+| `unimelb_draft/SCIE30001.pdf` | The report for Science Research Project (SCIE30001), Chapters 1–6, in the University of Melbourne thesis template (source `unimelb_draft/SCIE30001.tex`). |
 | `references.bib` | Bibliography: 84 entries, each checked against its source. |
 | `make_figures.py` | Draws `figs/fig1`–`fig4` (main text) and `figs/figA_*` (appendix). It reads only outcome-free labels and committed outputs. |
 | `analysis/novelty_newcomer.py` | Content-distance analysis: are newcomer papers farther from earlier ICLR work? Results are in `../output/paper_novelty/`. |

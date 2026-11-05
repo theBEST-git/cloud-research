@@ -2,46 +2,46 @@
 \label{sec:field}
 \lhead{\emph{Chapter 4. The Field}}  % page header
 
-Keyword waves are real, but how many topics look emergent depends on hindsight, and the one durable shift, the move to foundation models, fits every route.
+This chapter asks which changes in the field are passing fashions and which persist.
 
-\section{Waves}
-Author keywords need no topic map, and at their level the waves are real: of the 68 most frequent keywords, 17
-rose and fell, peaking in 2019--2024 with shares of at most half the peak both before it and in 2026
-(Figure~\ref{fig:waves}; \lab{exploratory}).
-
-\section{Emergence depends on hindsight}
-Histories of the field usually fit one topic model to the whole archive
-\citep{hall2008studying,anderson2012towards,klinger2020narrowing}, and dynamic topic models and BERTopic fit all years
-at once \citep{blei2006dynamic,grootendorst2022bertopic}. We call a topic \emph{emerging} if its 2024--2026 share is at least
-three times its 2017--2020 share. On the same papers and pipeline, a map fitted on 2017--2020 finds 8 emerging
-topics and a map fitted on all years finds 29 (Figure~\ref{fig:field}a; \lab{exploratory}). Two reasons combine, and
-we cannot separate them. A map fitted on all years leaks the future into the past, like temporal leakage in
-prediction \citep{kapoor2023leakage} and hindsight in judgement \citep{fischhoff1975hindsight}: with 69\% of papers
-from 2024--2026, it is in effect a present-day map. And the early map cannot represent topics born after 2020. The
-two counts therefore bracket the number of emerging topics rather than fix it.
-
-\begin{figure}[t]
+\begin{figure}[tb]
   \centering
-  \includegraphics[width=0.55\textwidth]{figs/fig2_field.pdf}
-  \caption[Emerging topics by fitting window, and the shift to foundation models]{(a) Emerging (bars) and declining (grey diamonds) topics on $k = 100$ maps fitted on different years,
-  same 43,480 papers; right-hand labels: emerging count (share of 2024--2026 papers in emerging topics, 22.3\% on the
-  2017--2020 map against 40.9\% on the all-years map). All years (refit): the all-years map refitted with another
-  seed. Topic size `predicts' two-year growth only on the all-years map ($R^2$ 0.28 against $-$0.03; no paired
-  test). (b) Share of submissions building on an FM (blue circles) and proposing a new architecture (orange
-  squares); LLM labels. Inset: the registered test of the shift to FMs, \lab{replicated} (held-out confirms
-  direction, not size). Uses no acceptance data.}
+  \includegraphics[width=0.62\textwidth]{figs/fig2_field.pdf}
+  \caption[Emerging topics by fitting window, and the shift to foundation models]{(a) Emerging (bars) and declining
+  (grey diamonds) topics on topic maps fitted on different years, for the same 43,480 papers. Labels at right show the
+  number of emerging topics and, in brackets, the share of 2024--2026 papers in them (22.3\% on the 2017--2020 map,
+  40.9\% on the all-years map); `all years (refit)' uses another random seed. Topic size `predicts' two-year growth
+  only on the all-years map (out-of-sample $R^2 = 0.28$ against $-$0.03; no paired test). (b) Share of submissions
+  building on an FM (blue) and proposing a new architecture (orange), using contribution types assigned by the LLM,
+  with the registered test inset (\lab{replicated}).}
   \label{fig:field}
 \end{figure}
 
+\section{Waves}
+Author keywords need no topic map, and at their level waves are real: 17 of the 68 most frequent keywords are
+\emph{waves}, which rose and fell, peaking in 2019--2024 with shares of at most half the peak both before it and in
+2026 (Figure~\ref{fig:waves}; \lab{exploratory}).
+
+\section{Emergence depends on hindsight}
+Histories of a field usually fit one topic model to the whole archive
+\citep{hall2008studying,anderson2012towards,klinger2020narrowing}, as do dynamic topic models and BERTopic
+\citep{blei2006dynamic,grootendorst2022bertopic}. We call a topic \emph{emerging} if its 2024--2026
+share is at least three times its 2017--2020 share, and \emph{declining} if its 2024--2026 share is at most a third of
+its 2017--2020 share. With the same papers and pipeline, a map fitted on 2017--2020 finds 8 emerging topics
+and one fitted on all years finds 29 (Figure~\ref{fig:field}a; \lab{exploratory}). Two causes combine, and we
+cannot separate them. The all-years map leaks the future into the past, like temporal leakage in
+prediction \citep{kapoor2023leakage} and hindsight bias in judgement \citep{fischhoff1975hindsight}: with 69\% of
+its papers in 2024--2026, it is in effect a present-day map. The early map cannot represent topics born
+after 2020. The two counts therefore bracket the number of emerging topics.
+
 \section{What lasts: the shift to foundation models}
-The FM share rose every year from 2018 (Figure~\ref{fig:field}b). Where more of a topic's previous-year papers built
-on FMs, fewer of its papers proposed new architectures: $-$7.98\,pp [$-$12.14, $-$3.82] for prior adoption from 0 to
-100\% in discovery and $-$11.0 [$-$18.1, $-$3.9] on held-out papers (\lab{replicated}; the held-out test confirms the
-direction, not the size). No
-detectable shift towards empirical or evaluation papers came with it ($-$0.63 [$-$3.64, +2.38]; not supported, inconclusive), and
-the association may also run the other way. The pattern matches accounts of NLP's paradigm shifts
-\citep{gururaja2023build,saphra2024first,pramanick2023diachronic}. But lock-in \citep{hooker2021hardware}, efficient
-choice \citep{sutton2019bitter} and a bandwagon \citep{fujimura1988molecular} all predict such convergence, so the
-field level cannot tell imitation from continuity; only entry and the gate can.
+The FM share rose every year from 2018 (Figure~\ref{fig:field}b). Prior FM adoption is associated with fewer
+new-architecture papers: from 0 to 100\% adoption the difference is $-$7.98\,pp [$-$12.14, $-$3.82] in discovery and
+$-$11.0 [$-$18.1, $-$3.9] held-out (\lab{replicated}), though the association may run the other way. The test for a
+parallel shift towards empirical or evaluation papers (a separate registered measure) is inconclusive ($-$0.63
+[$-$3.64, +2.38]). The pattern matches accounts of NLP's paradigm shifts
+\citep{gururaja2023build,saphra2024first,pramanick2023diachronic}, but lock-in \citep{hooker2021hardware}, efficient
+choice \citep{sutton2019bitter} and a bandwagon \citep{fujimura1988molecular} predict it too, so only entry and the gate
+can separate the routes.
 
 % ===============================================================================================================

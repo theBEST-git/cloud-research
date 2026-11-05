@@ -2,60 +2,86 @@
 \label{sec:intro}
 \lhead{\emph{Chapter 1. Introduction}}  % page header
 
-\begin{figure}[t]
+\begin{figure}[tb]
   \centering
   \includegraphics[width=\textwidth]{figs/fig1_waves.pdf}
-  \caption[Research waves at ICLR, 2018--2026]{Research waves at ICLR: share of discovery submissions listing each author keyword, 2018--2026; dots
-  mark the peak. The eight keywords were chosen for display after their curves were known. Across the 68 most
-  frequent keywords, 17 peaked in 2019--2024 with shares of at most half the peak both before it and in 2026.
-  Uses no acceptance data.}
+  \caption[Keyword trends at ICLR, 2018--2026]{Keyword trends at ICLR: share of submissions in the discovery set
+  listing each author keyword, 2018--2026; dots mark the peak. The eight keywords were chosen for display after their
+  curves were known. Across the 68 most frequent keywords, 17 peaked in 2019--2024 with shares of at most half the
+  peak both before it and in 2026; Chapter~\ref{sec:field} calls these waves.}
   \label{fig:waves}
 \end{figure}
 
 Machine learning (ML) is often said to herd. Between 2017 and 2026, yearly submissions to the International Conference
-on Learning Representations (ICLR) in our discovery corpus grew 40-fold, from 384 to 15,411. The share building on a
-foundation model (FM) rose from 0.3\% to 54.4\%, and the share proposing a new architecture fell from 24.5\% to
-7.5\%. Keywords rose and fell (Figure~\ref{fig:waves}): generative adversarial networks fell from 8.1\% of
-submissions in 2018, and large language models reached 16.7\% in 2026. The wave is also one for natural language processing (NLP), whose researchers increasingly publish at ML venues \citep{jurgens2026future}. Whether science has fashions is an old question
-\citep{crane1969fashion}. Critics of ML scholarship point to incentives that favour short-term success
-\citep{lipton2019troubling} and to convergence on what suits the field's hardware, benchmarks and foundation models
-\citep{hooker2021hardware,dehghani2021benchmark,bommasani2021opportunities}; cascade and fashion theories explain
+on Learning Representations (ICLR) in our discovery set (Chapter~\ref{sec:design}) grew 40-fold, from 384 to 15,411.
+Over the same years, the share of submissions building on a foundation model (FM) rose from 0.3\% to 54.4\%, while
+the share proposing a new architecture fell from 24.5\% to 7.5\%. Individual keywords rose and fell
+(Figure~\ref{fig:waves}): generative adversarial networks declined from 8.1\% of submissions in 2018, and large
+language models (LLMs) reached 16.7\% in 2026. The rise of LLMs also involves natural language processing (NLP)
+researchers, who increasingly publish at ML venues \citep{jurgens2026future}. Whether science has fashions is an old
+question \citep{crane1969fashion}. Critics of ML scholarship point to incentives that favour short-term success
+\citep{lipton2019troubling} and to convergence on whatever suits the field's hardware, benchmarks and foundation models
+\citep{hooker2021hardware,dehghani2021benchmark,bommasani2021opportunities}, while cascade and fashion theories explain
 waves by people taking their cue from others
 \citep{bikhchandani1992theory,banerjee1992simple,abrahamson1991managerial}.
 
-Is the switch to FMs not itself herding? Not necessarily: convergence on a shared tool is predicted by lock-in, by the efficient choice of a tool that works and by a bandwagon alike, so the rising curve cannot tell them apart. The herding question is about behaviour: what researchers write when they enter a topic, and what peer review accepts. Here two routes to conformity diverge. \emph{Imitation} takes its reference point from what
-others are doing now: what is popular, rising or recently accepted. \emph{Continuity} takes it from a record: the
-team's own earlier work, or a topic that a team member already knows. Imitation makes teams alike; continuity keeps
-each team near its own past. We call work that conforms by continuity \emph{anchored}.\footnote{`Anchored' names a position relative to a record, not a mechanism.
-It is not the anchoring-and-adjustment heuristic \citep{tversky1974judgment}, the sense in which writing on herding
-in science uses the word \citep{baddeley2015herding}.}
+Is the switch to FMs not itself herding? Not necessarily. Lock-in, the efficient choice of a tool that works and a
+bandwagon all predict convergence on a shared tool, so the rising FM share (Figure~\ref{fig:field}b) cannot tell them
+apart. The herding question is about behaviour: what researchers write when they enter a topic, and what peer review
+accepts. Here two routes to conformity diverge. \emph{Imitation} takes its reference point from what others are doing
+now: what is popular, rising or recently accepted. \emph{Continuity} takes it from a record: the team's own earlier
+work, or a topic that a team member already knows. Imitation makes teams alike, whereas continuity keeps each team near
+its own past. We call work that conforms by continuity \emph{anchored}.\footnote{`Anchored' describes a position
+relative to a record and implies no particular mechanism. It does not refer to the anchoring-and-adjustment heuristic
+\citep{tversky1974judgment}, the sense in which writing on herding in science uses the word
+\citep{baddeley2015herding}.}
 
-Read as herding, the waves make three claims: they are fashions; newcomers to a topic carry them by following
-others; and review favours following. We test each claim where it applies: in the field as a whole, at entry to a topic, and at the acceptance decision, which we call the gate. The data are 43,480 ICLR submissions from 2017--2026, rejected and withdrawn papers included. Hypotheses
-were registered before any full-corpus label existed, outcomes stayed sealed until one frozen run, and the main tests were run again on 11,099 held-out papers: a pre-registered out-of-sample replication, not a
-certified untouched holdout. Each finding carries one of three labels: \lab{replicated} (from a registered test,
-supported again on held-out papers), \lab{held-out supported} (found post hoc, then supported by a
-test declared before the held-out data were read) or \lab{exploratory} (discovery only, or descriptive). Tests
-without a verdict are called inconclusive or uninformative (Chapter~\ref{sec:design}).
+Read as herding, the waves make three claims: they are fashions; newcomers to a topic carry them by following others;
+and review favours following. We test each claim at the level where it applies: in the field as a whole, at entry to a
+topic, and at the acceptance decision, which we call the gate. The data are 43,480 ICLR submissions from 2017 to 2026,
+including rejected and withdrawn papers. Hypotheses were registered before any paper in the full corpus was labelled,
+and outcomes were examined only once, in a single pre-specified analysis run. The main tests were then run again on
+11,099 held-out papers. This is a pre-registered out-of-sample replication, not a certified untouched holdout. Each
+finding carries one of three labels. A \lab{replicated} finding comes from a registered test whose discovery result, in
+either direction, was confirmed on held-out papers by a test registered before the held-out data were read. A
+\lab{held-out supported} finding was found post hoc and then supported by a test declared before the held-out data were
+read. An \lab{exploratory} finding rests on the discovery papers alone or is descriptive. Tests that reach no verdict
+are called inconclusive or uninformative, as defined in Chapter~\ref{sec:design}.
 
-In the field as a whole, keyword waves are real, but how many topics look emergent depends on hindsight, and the one durable shift, the move to foundation models, fits every route. At entry, researchers new to a topic propose methods more often than incumbents, while in the FM era benchmark and evaluation work stays with incumbents. This is the opposite of the follow-on entry that herding implies, and of our own registered prediction. At the gate, no premium for crowded topics is detectable; titles that open with a coined name carry a small premium that the held-out test was too small to confirm; and most of what replicated is tied to the team's own earlier work.
+In the field as a whole, keyword waves are real, but the number of topics that appear to be emerging depends on
+hindsight, and the one durable shift, the move to foundation models, fits both routes. At entry, researchers new to a
+topic propose methods more often than incumbents do, and in 2024--2026, the period we call the FM era, measurement
+papers (those contributing a benchmark, dataset or evaluation) are concentrated among incumbents and larger teams
+(\lab{exploratory}). Both patterns run against
+herding, which implies that newcomers write follow-on work (benchmarking or evaluating others' methods), and against our
+own registered prediction. At the gate, we find no evidence of a premium for crowded topics. Titles that open with a coined
+name carry a small premium, but the held-out test lacked the power to confirm it, and most of what held up on held-out
+papers is tied to the team's own earlier work.
 
 Prior work relates ICLR acceptance to prestige, process and research area
-\citep{tran2020open,ibrahim2026bias,jung2025what,wang2023what,xu2026reviewer} and describes which papers start
-topics, who enters LLM research and how far researchers move from their own past work
-\citep{huang2026catalyst,movva2024topics,bao2025persistence}. To our knowledge, among the works we checked, none
-tests the herding account at entry and at the gate within one submission population, with registered hypotheses
-re-tested on held-out papers, as \citet{ibrahim2026bias} did for a prestige gap. We contribute:
-\begin{itemize}[leftmargin=*,itemsep=1pt,topsep=3pt,parsep=0pt]
-\item \textbf{Entry.} A registered test of herding where imitation predicts it most sharply. Researchers entering a
-topic propose methods more often (+3.7\,pp; \lab{replicated}). The surplus holds for researchers with ICLR work in
-other topics and predates the FM wave, while, in the FM era, benchmark and evaluation work sits with topic
-incumbents and larger teams (\lab{exploratory}).
-\item \textbf{Gate.} Across every decided submission under double-blind review, rejected ones included, acceptance goes with closeness to the team's own earlier work: papers far from it are accepted 5.4\,pp less often (6.1\,pp on held-out papers; \lab{held-out supported}). No association with following the crowd is detectable. \citet{hill2025pivot} relate moving away from one's own research to publication success; we add the accept/reject decision itself.
-\item \textbf{Method.} On the same papers, the number of emerging topics ranges from 8 to 29 depending on the
-years the topic map is fitted on (\lab{exploratory}). Emergence is hard to judge before the fact
+\citep{tran2020open,ibrahim2026bias,jung2025what,wang2023what,xu2026reviewer}, and describes which papers start topics,
+who enters LLM research and how far researchers move from their own past work
+\citep{huang2026catalyst,movva2024topics,bao2025persistence}. To our knowledge, no study has tested the herding account
+both at entry and at the gate within one submission population, using registered hypotheses that are re-tested on
+held-out papers, an approach \citet{ibrahim2026bias} applied to a prestige gap. This report makes three contributions.
+\begin{itemize}[leftmargin=*,itemsep=2pt,topsep=3pt,parsep=0pt]
+\item First, at entry, we report a registered test of herding where imitation predicts it most sharply. Researchers
+entering a topic propose methods more often than incumbents, by 3.7 percentage points (pp), a \lab{replicated}
+result. The surplus holds for researchers with ICLR work in other topics and appears in every period, including before
+2023.
+\item Second, at the gate, using decided submissions under double-blind review, rejected ones included, we find that
+acceptance is associated with closeness to the team's own earlier work: papers far from it are accepted 5.4\,pp less often in
+discovery and 6.1\,pp less often on held-out papers (\lab{held-out supported}). We find no evidence that following the
+crowd is associated with acceptance. \citet{hill2025pivot} relate moving away from one's own research to publication
+success; we add the accept/reject decision.
+\item Third, on method, we show that the same papers yield between 8 and 29 emerging topics, depending on the years
+the topic model is fitted to (\lab{exploratory}). Emergence is hard to judge before the fact
 \citep{rotolo2015what,li2025evaluation}, and a prospective signal has been tested \citep{khanbayov2026topical};
-an early-window refit is a cheap check on trend claims.
+refitting the topic model on early years is a cheap check on claims about trends.
 \end{itemize}
+
+Chapter~\ref{sec:theory} sets out the two routes and what each predicts. Chapter~\ref{sec:design} describes the data,
+measures and testing protocol. Chapters~\ref{sec:field}, \ref{sec:entry} and~\ref{sec:gate} report results for the
+field, for entry to topics and for the acceptance decision.
 
 % ===============================================================================================================

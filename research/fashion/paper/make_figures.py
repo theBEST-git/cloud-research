@@ -275,7 +275,7 @@ def gate_tests() -> None:
     fig = plt.figure(figsize=(W, 3.55))
     rows = fig.add_gridspec(9, 1, left=0.40, right=0.76, top=0.91, bottom=0.06,
                             height_ratios=[0.5, 1, 1, 1, 0.5, 1, 1, 1, 1], hspace=0.75)
-    for i, txt in [(0, "Referenced to a record"), (4, "Referenced to others or the field")]:
+    for i, txt in [(0, "Referenced to the team's own record"), (4, "Referenced to others or the field")]:
         ax = fig.add_subplot(rows[i])
         ax.axis("off")
         pos_ = ax.get_position()

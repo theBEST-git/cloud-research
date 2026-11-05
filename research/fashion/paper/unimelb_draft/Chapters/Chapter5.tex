@@ -2,92 +2,107 @@
 \label{sec:entry}
 \lhead{\emph{Chapter 5. Entry}}  % page header
 
-Entry shows a division of labour: researchers entering a topic bring methods, while, in the FM era, benchmark and
-evaluation work sits with larger teams and topic incumbents. This is the opposite of the follow-on entry that the herding account implies.
+This chapter asks what researchers write when they enter a topic, and whether they follow others into it as the
+herding account implies.
 
 \section{Newcomers propose methods}
-We registered that newcomer papers, whose authors face the most uncertainty, would more often be follow-on work: benchmarks, datasets and evaluations of what others had proposed. Newcomer papers are 72.9\% of the 42,325 papers from 2019--2026 with an author
-identifier. They are more often method
-papers, +3.71\,pp [+2.61, +4.80] in discovery and +3.60 [+1.48, +5.71] held-out, and less often measurement papers,
-$-$1.70 [$-$2.46, $-$0.93] and $-$2.10 [$-$3.35, $-$0.85] (Table~\ref{tab:entry}, Figure~\ref{fig:entry};
-\lab{replicated}). Our registered prediction thus failed in the opposite direction, and the reversed hypotheses,
-registered before any held-out data existed, held on held-out papers. All 10 counted variants agree, and the
-$t$-statistics (6.7 and $-$4.4) are large against the inflated test size. Much of the
-measurement gap is accounted for by team size: with log team size it shrinks to $-$0.54 [$-$1.11, +0.04] in discovery and $-$0.98
-held-out, while the method gap does not move (+3.92 and +3.64).
+We registered the prediction that newcomer papers, whose authors face the most uncertainty, would more often be
+follow-on work: measurement papers that benchmark, collect data for or evaluate what others had proposed. Newcomer
+papers make up 73\% of the 42,325 papers in 2019--2026 that have an author identifier. Against incumbent papers, the
+difference in the share of method papers is +3.71\,pp [+2.61, +4.80] in discovery and +3.60 [+1.48, +5.71] on held-out
+papers; for measurement papers it is $-$1.70 [$-$2.46, $-$0.93] and $-$2.10 [$-$3.35, $-$0.85]
+(Table~\ref{tab:entry}, Figure~\ref{fig:entry}). Both contrasts are \lab{replicated}. Our
+registered prediction thus failed in the opposite direction, and the reversed hypotheses, registered before the
+held-out data were released to us, were supported on the held-out papers. All ten counted variants agree in sign, and
+the $t$-statistics (6.7 and $-$4.4) are too large to be explained by the inflated false-positive rate reported in
+Chapter~\ref{sec:design}. Team size accounts for much of the measurement gap: with log team size as a control, the gap
+shrinks to $-$0.54 [$-$1.11, +0.04] in discovery and $-$0.98 ($p = 0.10$) on held-out papers, whereas the method gap
+barely changes (+3.92 and +3.64).
 
-\begin{table}[t]
+\begin{table}[tb]
 \centering
-\scriptsize
-\setlength{\tabcolsep}{2pt}
-\renewcommand{\arraystretch}{1.05}
-\begin{tabularx}{\textwidth}{@{}Y L{2.6cm} L{2.6cm} L{2.3cm}@{}}
+\footnotesize
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.1}
+\begin{tabularx}{\textwidth}{@{}Y L{2.7cm} L{2.7cm} L{2.4cm}@{}}
 \toprule
 Contrast & Discovery [95\% CI] & Held-out [95\% CI] & Label \\
 \midrule
 Method paper & +3.71\newline[+2.61, +4.80] & +3.60\newline[+1.48, +5.71] & \lab{replicated} \\
 Measurement paper & $-$1.70\newline[$-$2.46, $-$0.93] & $-$2.10\newline[$-$3.35, $-$0.85] & \lab{replicated} \\
-Measurement paper, with log team size$^a$ & $-$0.54\newline[$-$1.11, +0.04] & $-$0.98 & registered variant \\
+Measurement paper, with log team size$^a$ & $-$0.54\newline[$-$1.11, +0.04] & $-$0.98\newline($p = 0.10$) &
+\lab{registered variant} \\
 \addlinespace
 Method: returning topic newcomer $-$ incumbent$^b$ & +3.43\newline[+2.31, +4.55] & -- & \lab{exploratory} \\
 Method: first-time team $-$ returning topic newcomer$^b$ & +0.92\newline[$-$0.44, +2.29] & -- & \lab{exploratory} \\
 Distance from earlier ICLR work, own work excluded (percentile points) & +4.33\newline[+3.44, +5.22] & -- &
 \lab{exploratory} \\
 \addlinespace
-Flocking: incumbent share, hot $-$ other topics & $-$0.73\newline[$-$2.68, +1.22] & not registered & inconclusive \\
+Entry into hot topics: incumbent share, hot $-$ other topics$^c$ & $-$0.73\newline[$-$2.68, +1.22] & -- &
+\lab{inconclusive} \\
 \bottomrule
 \end{tabularx}
-\caption[Entry contrasts between newcomer and incumbent papers]{Entry: newcomer minus incumbent papers unless the row names other profiles; pp within topic and year.
-Held-out tests are one-sided and confirm direction, not size. $^a$Registered supplementary variant, outside the
-support rule. $^b$First-time team: no author has any earlier ICLR submission; returning topic newcomer: an author
-has one, in another topic.}
+\caption[Entry contrasts between newcomer and incumbent papers]{Entry contrasts: newcomer minus incumbent papers
+unless the row names other profiles, in pp within topic and year. Held-out tests are one-sided. $^a$Registered
+supplementary variant, outside the support rule. $^b$First-time team: no author has any earlier ICLR submission;
+returning topic newcomer: an author has one, in another topic. $^c$No held-out test was registered.}
 \label{tab:entry}
 \end{table}
 
-\section{Entering a topic, not entering ICLR}
-Newcomer papers split into first-time teams (26.3\% of papers; median team of 3) and returning topic newcomers
-(46.7\%; median 5); incumbent papers are the other 27.0\% (median 5). Returning topic newcomers write method papers
-more often than incumbents, +3.43\,pp [+2.31, +4.55], at the same median team size and also with team size
-controlled (+3.62). First-time teams do so by +4.35 [+2.82, +5.89], and the two newcomer profiles do not differ
-detectably (+0.92 [$-$0.44, +2.29]; all \lab{exploratory}). The method surplus thus goes mainly with entering a topic,
-not with being new to ICLR or with small teams, and it is present in every era, so it predates the FM wave.
-The measurement gap is different. For first-time teams it is accounted for by team size
-($-$2.24 [$-$3.24, $-$1.25] against incumbents, +0.09 [$-$0.63, +0.80] with team size); for returning topic
-newcomers part of it remains ($-$1.47, and $-$0.81 [$-$1.46, $-$0.16] with team size). It appears only in
-2024--2026 (first-time teams against incumbents $-$2.75 [$-$4.07, $-$1.44]). In the FM era, then, benchmark and evaluation work
-sits with topic incumbents and larger teams; team size is the only resource we measure. NLP shows a parallel at the
-level of research trends, where tasks and methods lead and datasets follow \citep{pramanick2023diachronic}.
+\section{Topic newcomers and first-time ICLR teams}
+Newcomer papers split into those from first-time teams (26.3\% of papers; median team size 3) and those from returning
+topic newcomers (46.7\%; median 5); incumbent papers make up the remaining 27.0\% (median 5). Returning topic newcomers
+write method papers more often than incumbents (+3.43\,pp [+2.31, +4.55]) at the same median team size, and the
+difference holds with team size controlled (+3.62). For first-time teams the difference is +4.35 [+2.82, +5.89], and
+the interval for the gap between the two newcomer profiles includes zero (+0.92 [$-$0.44, +2.29]). All three contrasts
+are \lab{exploratory}. The method surplus, then, is associated mainly with entering a topic rather than with being new to ICLR or with
+working in a small team, and it appears in every period, including before 2023.
 
-\begin{figure}[t]
+The measurement gap behaves differently. For first-time teams it is accounted for by team size ($-$2.24 [$-$3.24,
+$-$1.25] against incumbents, and +0.09 [$-$0.63, +0.80] with team size controlled); for returning topic newcomers part
+of it remains ($-$1.47, and $-$0.81 [$-$1.46, $-$0.16] with team size controlled). The gap appears only in 2024--2026
+(first-time teams against incumbents: $-$2.75 [$-$4.07, $-$1.44]). In the FM era, then, measurement papers are
+concentrated among topic incumbents and larger teams. Team size is the only resource we observe; others, such as
+compute, may also matter. NLP shows a parallel at the level of research trends, where tasks and methods lead and
+datasets follow \citep{pramanick2023diachronic}.
+
+\begin{figure}[tb]
   \centering
   \includegraphics[width=0.72\textwidth]{figs/fig3_entry.pdf}
-  \caption[Entry contrasts within topic and year]{Entry contrasts within topic and year (pp) with 95\% intervals: discovery (blue circles) and held-out
-  (orange squares). Rows 1--2, newcomer minus incumbent papers, are registered and \lab{replicated} (held-out
-  confirms direction, not size). Rows 3--5 are \lab{exploratory} (discovery only): row 3 compares papers by topic
-  newcomers with an ICLR record with incumbent papers (first-time teams controlled separately; class, FM and
-  team-size controls); row 4 compares first-time teams with returning topic newcomers, and row 5 with all teams that
-  have an ICLR record. Grey: the side the herding prediction expected. Uses no acceptance data.}
+  \caption[Entry contrasts within topic and year]{Entry contrasts within topic and year (pp), with 95\% intervals:
+  discovery (blue circles) and held-out (orange squares). Rows 1--2 compare newcomer with incumbent papers; they are
+  registered and \lab{replicated}. Rows 3--5 are \lab{exploratory} (discovery only). Row 3 compares papers by returning
+  topic newcomers with incumbent papers, with first-time teams entered separately and with contribution-type, FM and
+  team-size controls. Row 4 compares first-time teams with returning topic newcomers, and row 5 compares first-time
+  teams with returning teams (all teams with earlier ICLR submissions) on the use of young, rising Emerging keywords.
+  Grey shading marks the side that the herding prediction expected.}
   \label{fig:entry}
 \end{figure}
 
 \section{Farther from earlier work}
-Newcomer papers also sit farther from earlier ICLR work: +5.90 percentile points [+4.95, +6.85] within topic and
-year, +5.24 among method papers alone, and +4.33 [+3.44, +5.22] with the authors' own earlier papers excluded from
-the reference set (\lab{exploratory}). Papers by topic newcomers with an ICLR record are also less likely than incumbent papers to have a same-year \emph{twin}, an independent submission at cosine $\geq$ 0.70, with first-time teams controlled separately ($-$3.86\,pp [$-$4.98, $-$2.74]; \lab{exploratory}).
-The follow-on prediction expects newcomer papers to sit closer to earlier work, not farther. Writing method papers could itself be imitation of the venue's dominant genre, since three quarters of ICLR papers are method papers, but newcomers' distance from earlier work tells against that reading. A method paper is a contribution type, and embedding distance is not originality:
-these measures give no sign that newcomers follow, and do not show that they are more original.
+Newcomer papers lie farther from earlier ICLR work than incumbent papers. Within topic and year the difference is
++5.90 percentile points [+4.95, +6.85]; it is +5.24 among method papers alone and +4.33 [+3.44, +5.22] when the
+authors' own earlier papers are excluded from the reference set. Papers by returning topic newcomers are less likely than incumbent papers to
+have a same-year \emph{twin}, an independent submission at cosine similarity $\geq 0.70$; with first-time teams
+controlled separately, the difference in twin share is $-$3.86\,pp [$-$4.98, $-$2.74]. These results are
+\lab{exploratory}. The follow-on prediction expects newcomer papers to lie closer to earlier work. Writing method papers
+could itself be imitation of the venue's dominant genre, since three quarters of ICLR papers are method papers, but
+newcomers' distance from earlier work argues against that reading. Neither contribution type nor embedding distance
+measures originality; these results argue against newcomers following others but say nothing about whether their work
+is more original.
 
 \section{Later uptake of foundation models}
-In 2023--2026 topics at 5--50\% prior FM adoption, first-time teams write FM papers less often than returning topic
-newcomers, by $-$4.58\,pp [$-$6.55, $-$2.60] up to $-$14.71 [$-$19.82, $-$9.61] as adoption rises, while returning
-topic newcomers do not differ detectably from incumbents. First-time teams also list
-young, rising \emph{Emerging} keywords less often than teams with an ICLR record: $-$3.74 [$-$5.14, $-$2.35] (both
-\lab{exploratory}). Foundation models thus spread through teams with an ICLR record, as absorptive capacity predicts \citep{cohen1990absorptive}; network diffusion predicts the same order, so this contrast does not
-discriminate.
+Among 2023--2026 papers in topics where 5--50\% of the previous year's papers built on FMs, the gap in FM-paper share
+between first-time teams and returning topic newcomers is $-$4.58\,pp [$-$6.55, $-$2.60], widening to $-$14.71
+[$-$19.82, $-$9.61] as adoption rises. For returning topic newcomers and incumbents the data show no clear difference.
+First-time teams also list \emph{Emerging} keywords, which are young and rising, at a lower rate than teams with earlier
+ICLR submissions; the difference is $-$3.74 [$-$5.14, $-$2.35]. Both results are \lab{exploratory}. Foundation models
+thus spread through teams with earlier ICLR work, as absorptive capacity predicts \citep{cohen1990absorptive}. Network
+diffusion predicts the same order, however, so this contrast cannot tell the routes apart.
 
 \section{Open questions}
-Whether entrants crowd into hot topics is unsettled: the registered flocking test, the incumbent share in hot
-against other topics, is inconclusive ($-$0.73 [$-$2.68, +1.22]). At entry, no detectable difference fits the
-follow-on prediction.
+Whether entrants crowd into hot topics remains open. The registered test of entry into hot topics, which compares the
+incumbent share in hot and other topics, is inconclusive ($-$0.73 [$-$2.68, +1.22]), and no held-out test was registered
+for it. None of the entry contrasts we measured favours the follow-on prediction.
 
 % ===============================================================================================================

@@ -1,0 +1,9 @@
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {2.1}{\ignorespaces What each route predicts at the three sites. Lock-in and efficient choice also predict convergence on a package, so only entry and the gate can tell the routes apart. Imitation's entry and gate predictions were registered before outcomes were read; continuity's were written after the tests had run.}}{5}{table.caption.23}%
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {5.1}{\ignorespaces Entry: newcomer minus incumbent papers unless the row names other profiles; pp within topic and year. Held-out tests are one-sided and confirm direction, not size. $^a$Registered supplementary variant, outside the support rule. $^b$First-time team: no author has any earlier ICLR submission; returning topic newcomer: an author has one, in another topic (Appendix~\ref {app:entry}).}}{11}{table.caption.38}%
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {6.1}{\ignorespaces The gate: pp within topic and year (topic edges and keywords: against the same year's other papers). Rows differ in population and unit: compare replication status, not size. Held-out tests are one-sided and confirm direction, not size. $^a$Registered; predicted a penalty; MDE80 4.8. $^b$Explored against acceptance before registration. Titles: the discovery estimate is not a test; held-out MDE80 3.2. Keywords: the discovery estimate is a declared post hoc test on a dimension already seen. $^c$Holm across the six secondary held-out tests: topic edge 0.019, same author 0.026, insider 0.052, Emerging keywords 0.063.}}{15}{table.caption.46}%

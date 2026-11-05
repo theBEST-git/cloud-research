@@ -269,7 +269,7 @@
     {\normalsize \deptname \par}
     {\normalsize \schoolname \par}
     \bigskip
-    {\normalsize Research report\par}
+    {\normalsize Science Research Project (SCIE30001)\par}
     \bigskip
     {\normalsize\bf \@title \par}
     \medskip

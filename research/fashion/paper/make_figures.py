@@ -119,7 +119,7 @@ def field() -> None:
                                  arch=("primary_type", lambda x: (x == "model").mean())) * 100
     rq1 = row(pd.read_csv(OUTPUT / "rq1_results.csv"), hypothesis="H1d", variant="main")
     held = row(pd.read_csv(CONF / "h1d.csv"), hypothesis="H1d", variant="main")
-    fig, (a, b) = plt.subplots(2, 1, figsize=(W, 3.15), gridspec_kw={"height_ratios": [1.0, 1]})
+    fig, (a, b) = plt.subplots(2, 1, figsize=(W, 3.35), gridspec_kw={"height_ratios": [1.0, 1]})
     y = np.arange(len(order))[::-1]
     em = [maps[k]["emerging_topics"] for k, _ in order]
     de = [maps[k]["declining_topics"] for k, _ in order]
@@ -139,21 +139,21 @@ def field() -> None:
     b.plot(yrs, by.arch, color=ORANGE, lw=1.8, marker="s", ms=3)
     b.text(2023.3, 34, "builds on an FM", color=BLUE, fontsize=FT, ha="right")
     b.text(2018.2, 18.0, "proposes a new\narchitecture", color=ORANGE, fontsize=FT, va="bottom")
-    b.text(2026.25, by.fm.iloc[-1], f"{by.fm.iloc[-1]:.0f}%", fontsize=FT, va="center", color=INK)
-    b.text(2026.25, by.arch.iloc[-1], f"{by.arch.iloc[-1]:.0f}%", fontsize=FT, va="center", color=INK)
+    b.text(2026.25, by.fm.iloc[-1], f"{by.fm.iloc[-1]:.1f}%", fontsize=FT, va="center", color=INK)
+    b.text(2026.25, by.arch.iloc[-1], f"{by.arch.iloc[-1]:.1f}%", fontsize=FT, va="center", color=INK)
     lo, hi = 100 * (rq1.coef - 1.96 * rq1.se), 100 * (rq1.coef + 1.96 * rq1.se)
     b.text(2016.9, 75, "Registered test, prior\nFM adoption 0→100%:\n"
            f"discovery {n(100 * rq1.coef)} [{n(lo)}, {n(hi)}]\n"
            f"held-out {n(100 * held.coef)} [{n(100 * held.ci95_lo)}, {n(100 * held.ci95_hi)}]",
            fontsize=FT, color=INK2, va="top", ha="left", linespacing=1.05,
            bbox=dict(boxstyle="round,pad=0.25", fc="white", ec=GRID, lw=0.6))
-    b.set_xlim(2016.6, 2027.6)
+    b.set_xlim(2016.6, 2028.2)
     b.set_ylim(0, 77)
     b.set_yticks(range(0, 61, 20))
     b.set_xticks(range(2017, 2027, 3))
     b.set_ylabel("% of submissions")
-    b.set_title("(b) The package shift", fontsize=8, loc="left", color=INK)
-    fig.tight_layout(h_pad=0.4)
+    b.set_title("(b) The shift to foundation models", fontsize=8, loc="left", color=INK)
+    fig.tight_layout(h_pad=1.6)
     save(fig, "fig2_field")
 
 
@@ -178,10 +178,10 @@ def entry() -> None:
     ftm = row(pp, outcome="method", team_control=False, era="2019-2026", contrast="first_time - returning_newcomer")
     ftm = pd.Series({"coef": ftm.pp / 100, "ci95_lo": ftm.lo / 100, "ci95_hi": ftm.hi / 100})
     rows = [("Method paper", row(rq2, hypothesis="H2b", variant="main"), row(held, hypothesis="H2b", variant="main"), -1, "A"),
-            ("Benchmark, dataset or\nevaluation paper", row(rq2, hypothesis="H2c", variant="main"),
+            ("Measurement paper (benchmark,\ndataset or evaluation)", row(rq2, hypothesis="H2c", variant="main"),
              row(held, hypothesis="H2c", variant="main"), +1, "A"),
             ("Has a same-year twin", row(herd, term="newcomer"), None, +1, "E"),
-            ("First-time vs returning\nteam: method paper", ftm, None, -1, "E"),
+            ("First-time team vs returning\ntopic newcomer: method paper", ftm, None, -1, "E"),
             ("First-time vs returning\nteam: Emerging keyword", row(prof, state="young_rising"), None, +1, "E")]
     fig = plt.figure(figsize=(W, 2.25))
     a = fig.add_axes([0.45, 0.17, 0.52, 0.66])

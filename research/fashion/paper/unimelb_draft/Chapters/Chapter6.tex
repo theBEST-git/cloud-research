@@ -1,0 +1,113 @@
+\chapter{The Gate: Crowd or Record?}
+\label{sec:gate}
+\lhead{\emph{Chapter 6. The Gate}}  % page header
+
+At the gate we detect no premium for following the crowd. Apart from topic edges, which regress, what replicated is
+tied to the team's own record, which continuity predicts and status and expertise predict too.
+
+\paragraph{Does acceptance go with following the crowd?}
+The registered crowding test predicted a penalty, and it is uninformative: $-$1.68\,pp per log unit (natural log of one plus the
+topic's earlier papers) [$-$3.68, +0.32] in discovery and $-$1.51 [$-$5.20, +2.19] held-out, against an MDE80 of 4.8 (Table~\ref{tab:gate},
+Figure~\ref{fig:gate}). Neither a penalty nor a premium is detectable, and held-out premiums above +2.19\,pp per log
+unit lie outside the interval.
+
+The plainest imitation-like spread in the corpus is in form. The share of titles that open with a short coined name
+and a colon rose from 10.9\% in 2017 to 44.6\% in 2026 (Appendix~\ref{app:titles}). Within topic and year, with
+class, FM and team-size controls, such branded titles are accepted +1.74\,pp [+0.37, +3.11] more often in
+discovery, which is not a test, since title style had been explored before registration. The declared held-out test
+gives +1.76 [$-$0.82, +4.34] (one-sided $p$ 0.089, MDE80 3.2): not supported, and uninformative, so the premium
+stays \lab{exploratory}. Raw within-year gaps are larger (+3.3 in discovery, +4.0 held-out); about half goes with
+topic, type, FM use and team size. Titles can also be revised after the decision, which could create such a premium.
+
+FM papers are accepted more often, +4.62\,pp [+2.79, +6.44], with no detectable difference between late and
+early adopters: the premium changes by +0.19 [$-$0.96, +1.34] per logit unit (log-odds of the topic's prior FM
+adoption; \lab{exploratory}), which fits rewarded imitation and efficient choice alike. A topic's \emph{edge}, its acceptance
+minus that of all other papers of the same year (topics of the 2017--2020 map), is real but regresses: the 2018--2022 edge predicts the 2024--2026
+edge with slope 0.38 [0.18, 0.58] among discovery papers, and the held-out papers' 2024--2026 edges regress on the
+discovery 2018--2022 edges with slope 0.60 [0.32, 0.88] (\lab{held-out supported}; two different comparisons). A
+favoured topic keeps part of its edge, not all of it, as expected when decisions carry a large arbitrary component
+\citep{cortes2021inconsistency,beygelzimer2023has}. Keyword timing is weak (\lab{exploratory}; Appendix~\ref{app:tests}):
+on held-out papers, \emph{Emerging} keywords go with higher acceptance than old, flat \emph{Mainstream} ones (+3.25
+[$-$0.18, +6.69]), and acceptance may fall after a keyword's share peaks ($-$5.2 [$-$11.1, +0.7]; $-$1.7 without the
+six keywords inspected first). Neither shows the flat premium that rewarded imitation of what is
+popular predicts.
+
+\begin{table}[t]
+\centering
+\scriptsize
+\setlength{\tabcolsep}{2pt}
+\renewcommand{\arraystretch}{1.05}
+\begin{tabularx}{\textwidth}{@{}Y L{2.6cm} L{2.6cm} L{2.3cm}@{}}
+\toprule
+Acceptance and \ldots & Discovery [95\% CI] & Held-out [95\% CI] & Label \\
+\midrule
+\multicolumn{4}{@{}l}{\textit{Others: the crowd, the form, the package}} \\
+Crowding, per log unit$^a$ & $-$1.68\newline[$-$3.68, +0.32] & $-$1.51\newline[$-$5.20, +2.19] & uninformative \\
+Branded title$^b$ & +1.74\newline[+0.37, +3.11] & +1.76\newline[$-$0.82, +4.34] & \lab{exploratory} \\
+FM premium, per logit unit of prior adoption & +0.19\newline[$-$0.96, +1.34] & -- & \lab{exploratory} \\
+Topic edge 2018--22 \ra{} 2024--26, slope$^c$ & 0.38\newline[0.18, 0.58] & 0.60\newline[0.32, 0.88] & \lab{held-out supported} \\
+Emerging $-$ Mainstream keyword$^{b,c}$ & +2.67\newline[+0.76, +4.58] & +3.25\newline[$-$0.18, +6.69] & \lab{exploratory} \\
+\multicolumn{4}{@{}l}{\textit{The team's own record}} \\
+Far jump: \Fmax{} p10 $-$ median & $-$5.44\newline[$-$7.10, $-$3.78] & $-$6.09\newline[$-$9.32, $-$2.86] & \lab{held-out supported} \\
+Same author, +0.1 cosine closer$^c$ & +0.55\newline[+0.21, +0.90] & +1.06\newline[+0.23, +1.89] & \lab{held-out supported} \\
+One topic insider vs none$^c$ & +3.42\newline[+1.18, +5.66] & +3.88\newline[+0.28, +7.47] & \lab{held-out supported} \\
+\multicolumn{4}{@{}l}{\textit{The field's record}} \\
+Least-distant fifth $-$ middle fifth & $-$3.27\newline[$-$4.93, $-$1.60] & $-$0.13\newline[$-$3.50, +3.25] & uninformative \\
+\bottomrule
+\end{tabularx}
+\caption{The gate: pp within topic and year (topic edges and keywords: against the same year's other papers). Rows
+differ in population and unit: compare replication status, not size. Held-out tests are one-sided and confirm
+direction, not size. $^a$Registered; predicted a penalty; MDE80 4.8. $^b$Explored against acceptance before registration. Titles:
+the discovery estimate is not a test; held-out MDE80 3.2. Keywords: the discovery estimate is a declared post hoc
+test on a dimension already seen. $^c$Holm across the six secondary held-out tests: topic edge 0.019, same author
+0.026, insider 0.052, Emerging keywords 0.063.}
+\label{tab:gate}
+\end{table}
+
+\paragraph{What does acceptance go with?}
+The clearest pattern is the \emph{far jump}. Among 20,430 decided 2023--2026 papers with an experienced author,
+acceptance at the 10th percentile of closeness to the team's own record minus that at the median is $-$5.44\,pp
+[$-$7.10, $-$3.78] in discovery and $-$6.09 [$-$9.32, $-$2.86] held-out, with power 0.89 (\lab{held-out supported};
+the declared primary test). Adjusted acceptance rises with closeness up to the fourth fifth (Figure~\ref{fig:app-closeness} in
+Appendix~\ref{app:gate}).
+The far jump holds with a newcomer control ($-$5.0), although closeness correlates $-$0.57 with the newcomer flag.
+Holding the author fixed, a paper 0.1 closer in cosine to that author's earlier work goes with acceptance +0.55\,pp
+[+0.21, +0.90] higher in discovery and +1.06 [+0.23, +1.89] held-out (\lab{held-out supported}; it survives a
+family-wise correction across the secondary tests). Controls for newcomer status and for co-authors'
+experience move it little (+0.48 and +0.50), though a confounder in co-author quality could also bias it: in a
+simulation reported in its declaration, such a confounder moved the estimate. Likewise, the same author is accepted about 1.4\,pp less often [$-$2.7,
+$-$0.0] on a paper in a topic new to them (author fixed effects; \lab{exploratory}).\footnote{Newcomer papers as a
+whole are accepted 10.2\,pp less often [$-$11.8, $-$8.7] within topic and year (\lab{exploratory}), but that gap
+mostly reflects who writes them (Appendix~\ref{app:gate}).}
+
+One topic insider on the team, against none, goes with +3.42\,pp [+1.18, +5.66] in discovery and +3.88 [+0.28,
++7.47] held-out, at fixed team size and number of experienced authors (\lab{held-out supported}). It does not
+survive the family-wise correction (Holm 0.052), and a status reading fits it as well: per head, an insider goes
+with only +0.58\,pp more than an experienced author from another topic ($p$ 0.16; \lab{exploratory}).
+
+The field's record is undetermined (uninformative). In the same space, the least-distant fifth of papers against the middle fifth
+is $-$3.27 [$-$4.93, $-$1.60] in discovery but $-$0.13 [$-$3.50, +3.25] held-out, with power 0.47 (uninformative),
+and the within-author slope for distance from the field was not supported either. Of the distance-based tests, only
+the own-record associations replicated.
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=0.72\textwidth]{figs/fig4_gate.pdf}
+  \caption{Gate tests by reference point: discovery estimates (blue circles) and held-out declared tests (orange
+  squares), 95\% intervals; the held-out verdict is at right (supported: \lab{held-out supported}; uninformative:
+  not supported and below the test's MDE80; not supported: a declared test without a registered MDE80). Each row has its own scale: pp for the far jump, insider, branded title
+  and least-distant fifth; pp per log unit for crowding; per 0.1 cosine and per 10 percentile points for the two
+  same-author slopes. Compare replication status, not size. Crowding was registered; title style had been explored before
+  registration; the other rows were found post hoc in discovery. Each held-out test was declared before any held-out
+  estimate for that question was computed.}
+  \label{fig:gate}
+\end{figure}
+
+\paragraph{Readings.}
+These associations are referenced to a record, as continuity predicts, but expertise, evaluator conservatism and
+visible status predict them as well \citep{li2017expertise,merton1968matthew}. Double-blind review does not rule status
+out: where reviewers see the authors, famous authors fare better \citep{tomkins2017reviewer}, and preprints can
+reveal who wrote a paper \citep{bharadhwaj2020deanonymization}. Pivots have been related to publication success
+\citep{hill2025pivot}; we observe the accept/reject decision itself, for every decided submission.
+
+% ===============================================================================================================

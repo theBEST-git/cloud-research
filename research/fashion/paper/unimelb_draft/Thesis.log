@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2026.10.16)  5 NOV 2026 05:02
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2026.10.16)  5 NOV 2026 05:03
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -792,7 +792,7 @@ Chapter 1.
 ------------------------------------------------------------------------------
  1 Introduction
 ------------------------------------------------------------------------------
-<figs/fig1_waves.pdf, id=308, 355.93004pt x 148.4471pt>
+<figs/fig1_waves.pdf, id=307, 355.93004pt x 148.4471pt>
 File: figs/fig1_waves.pdf Graphic file (type pdf)
 <use figs/fig1_waves.pdf>
 Package pdftex.def Info: figs/fig1_waves.pdf  used on input line 7.
@@ -1093,7 +1093,7 @@ ut line 20.
 Package natbib Warning: Citation `fischhoff1975hindsight' on page 8 undefined o
 n input line 20.
 
-<figs/fig2_field.pdf, id=366, 205.55733pt x 214.14128pt>
+<figs/fig2_field.pdf, id=365, 205.55733pt x 214.14128pt>
 File: figs/fig2_field.pdf Graphic file (type pdf)
 <use figs/fig2_field.pdf>
 Package pdftex.def Info: figs/fig2_field.pdf  used on input line 26.
@@ -1152,7 +1152,7 @@ Package natbib Warning: Citation `pramanick2023diachronic' on page 10 undefined
 [10
 
 ]
-<figs/fig3_entry.pdf, id=400, 212.09998pt x 156.6264pt>
+<figs/fig3_entry.pdf, id=399, 212.09998pt x 156.6264pt>
 File: figs/fig3_entry.pdf Graphic file (type pdf)
 <use figs/fig3_entry.pdf>
 Package pdftex.def Info: figs/fig3_entry.pdf  used on input line 63.
@@ -1192,7 +1192,7 @@ Package hyperref Warning: Difference (3) between bookmark levels is greater
 (hyperref)                than one, level fixed on input line 68.
 
 [15]
-<figs/fig4_gate.pdf, id=449, 220.2811pt x 250.34491pt>
+<figs/fig4_gate.pdf, id=448, 220.2811pt x 250.34491pt>
 File: figs/fig4_gate.pdf Graphic file (type pdf)
 <use figs/fig4_gate.pdf>
 Package pdftex.def Info: figs/fig4_gate.pdf  used on input line 95.
@@ -1297,10 +1297,10 @@ m/lmr9.pfb></usr/share/texmf/fonts/type1/public/lm/lmri10.pfb></usr/share/texmf
 .pfb></usr/share/texmf/fonts/type1/public/lm/lmsy10.pfb></usr/share/texmf/fonts
 /type1/public/lm/lmsy8.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy9.pfb></
 usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msam7.pfb>
-Output written on Thesis.pdf (28 pages, 528829 bytes).
+Output written on Thesis.pdf (28 pages, 528375 bytes).
 PDF statistics:
- 599 PDF objects out of 1000 (max. 8388607)
- 494 compressed objects within 5 object streams
+ 598 PDF objects out of 1000 (max. 8388607)
+ 493 compressed objects within 5 object streams
  88 named destinations out of 1000 (max. 500000)
  293 words of extra memory for PDF output out of 10000 (max. 10000000)
 

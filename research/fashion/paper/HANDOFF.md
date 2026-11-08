@@ -86,10 +86,14 @@ of science on topic choice and novelty, peer-review studies, ML/NLP meta-researc
 (data, held-out selection, measures, labelling, protocol); 4 Results (field, entry, gate); 5 Conclusions and Future
 Work (all key findings listed; limitations; future work). Discussion and the appendix were withheld from draft 1.
 
+Author's answers (2026-11-08):
+- Hand check of LLM labels: the author alone checked 100 labels. About 80 were clearly right. The other ~20 were
+  boundary cases the author could not decide either, so the LLM label was kept. Report these ~20 as undecidable, not
+  as agreement. No second human coder, so there is no human inter-annotator agreement; list this as a limitation.
+- Held-out set: selected randomly (about 20% of all submissions). Still to confirm: was the draw random at paper
+  level, and who made it (the data source or the author)?
+
 Open questions for the author (needed before writing):
-- Hand check of LLM labels: sample size, agreement rate, done alone or with someone (supervisor asked).
-- How the held-out (former confirmation) set was selected (about 20% of all submissions; the rule is not documented in
-  this repo — `data_confirmation/README.md` only says it was the source's original confirmation split).
 - The "blind second labelling pass" was a second, independent run of the same LLM (κ = 0.93).
 - Whether the author rewrites the prose personally (supervisor asked for "your own plain words"); suggested division:
   Claude does structure, literature research, factual fixes; the author writes the prose.

@@ -98,13 +98,14 @@ fixes. The "blind second labelling pass" is described as a second, independent r
 
 ## 4a. Revision status (2026-11-08)
 
-Draft 2 restructure is done in `unimelb_draft/` and builds cleanly (57 pages):
+Draft 2 restructure is done in `unimelb_draft/` and builds cleanly (59 pages):
 1 Introduction (motivation, gap, RQ1–RQ3, approach, contributions, outline); 2 Literature Review (seven areas of
 research about research, only verified references from `notes/literature/`); 3 Method (hypotheses with the
 predictions table and a registered-hypotheses table, data with held-out selection and a papers-by-year table,
 measures incl. the hand check, protocol, design weaknesses); 4 Results (old Chapters 4–6 merged, plus a verdict table
-for every registered hypothesis); 5 Conclusions and Future Work (16 numbered key findings, answers to the RQs,
-limitations, future work). Acknowledgements removed. All 16 supervisor annotations addressed.
+for every registered hypothesis); 5 Conclusions and Future Work (all prose, by the author's request: summary of
+key findings per RQ, discussion against the literature with a results-by-route table, limitations, future work,
+closing remarks). Lists were turned into prose to avoid a tech-report feel; only the RQ list in Chapter 1 remains. Acknowledgements removed. All 16 supervisor annotations addressed.
 
 Still open:
 - Held-out selection: the report now says the held-out fifth was "selected at random" (author's answer), but the

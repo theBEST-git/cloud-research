@@ -2,145 +2,231 @@
 \label{sec:conclusion}
 \lhead{\emph{Chapter 5. Conclusions and Future Work}}  % page header
 
-This report tested the herding account of ML on ten years of ICLR submissions, at the level of the field, at entry to
-a topic and at the acceptance decision. This chapter lists the key findings (Section~\ref{sec:findings}), answers the
-research questions (Section~\ref{sec:answers}), states the limitations (Section~\ref{sec:limitations}) and suggests
-future work (Section~\ref{sec:future}).
+This report set out to test whether research in machine learning herds. It separated two ways in which a field can
+conform, imitation of what others are doing and continuity with one's own record, and tested their predictions on ten
+years of ICLR submissions at three levels: the field as a whole, entry to a topic and the acceptance decision. This
+chapter first summarises the key findings (Section~\ref{sec:findings}). It then discusses what they mean for each
+research question and how they relate to earlier work (Section~\ref{sec:discussion}), sets out the limitations
+(Section~\ref{sec:limitations}) and suggests future work (Section~\ref{sec:future}).
 
-\section{Key findings}
+\section{Summary of key findings}
 \label{sec:findings}
 
-The evidence label of each finding is given in brackets (see Chapter~\ref{sec:intro}).
+At the level of the field (RQ1), keyword waves are real. Of the 68 most frequent author keywords, 17 rose and then fell
+between 2019 and 2026 (\lab{exploratory}). The number of topics that appear to be emerging, however, depends on how the
+topics are defined. The same papers give 8 emerging topics when the topic map is fitted on 2017--2020 and 29 when it is
+fitted on all years (\lab{exploratory}). The one change that clearly lasted is the shift to foundation models: their
+share of submissions rose from 0.3\% in 2017 to 54.4\% in 2026, and topics in which more papers built on FMs in the
+previous year have fewer papers proposing a new architecture, by 8.0\,pp in discovery and 11.0\,pp on held-out papers
+for a change from no adoption to full adoption (\lab{replicated}). The registered tests of whether a topic's mix of
+contribution types changes as the topic grows were not supported.
 
-\paragraph{The field (RQ1).}
-\begin{enumerate}[leftmargin=*,itemsep=2pt,topsep=3pt,parsep=0pt,label=F\arabic*.]
-\item Keyword waves are real: 17 of the 68 most frequent author keywords rose and then fell between 2019 and 2026
-(\lab{exploratory}).
-\item The number of emerging topics depends on hindsight. The same papers give 8 emerging topics on a topic map fitted
-on 2017--2020 and 29 on a map fitted on all years (\lab{exploratory}).
-\item The shift to foundation models is the one lasting change. Topics where more papers built on FMs in the previous
-year have fewer papers proposing a new architecture: $-$8.0\,pp in discovery and $-$11.0\,pp on held-out papers for a
-change from 0 to 100\% adoption (\lab{replicated}). Lock-in, efficient choice and a bandwagon all predict this shift.
-\item A topic's contribution mix does not change detectably as the topic accumulates papers on the all-years map
-(registered tests not supported).
-\end{enumerate}
+At entry to a topic (RQ2), the registered herding prediction failed in the opposite direction. Papers by newcomers to a
+topic are more often method papers than papers by incumbents, by 3.7\,pp in discovery and 3.6\,pp on held-out papers,
+and less often measurement papers, by 1.7\,pp and 2.1\,pp (\lab{replicated}). The method surplus is linked to entering
+the topic rather than to being new to ICLR, since researchers who already had ICLR papers in other topics show it as
+well, and it appears in every period, including the years before 2023 (\lab{exploratory}). Much of the measurement gap
+goes with team size, and in 2024--2026 measurement papers are concentrated among incumbents and larger teams. Newcomer
+papers also lie farther from earlier ICLR work, and first-time ICLR teams take up foundation models and young, rising
+keywords later than teams with an ICLR record (\lab{exploratory}). Whether entrants flock to hot topics could not be
+decided (\lab{inconclusive}).
 
-\paragraph{Entry (RQ2).}
-\begin{enumerate}[leftmargin=*,itemsep=2pt,topsep=3pt,parsep=0pt,label=F\arabic*.,resume]
-\item Newcomers to a topic write more method papers than incumbents, by 3.7\,pp in discovery and 3.6\,pp on held-out
-papers, and fewer measurement papers, by 1.7\,pp and 2.1\,pp. This is the reverse of the registered herding prediction
-(\lab{replicated}).
-\item The method surplus is about entering a topic, not about being new to ICLR: researchers with ICLR work in other
-topics show it too (+3.4\,pp), and it appears in every period, including before 2023 (\lab{exploratory}).
-\item Much of the measurement gap goes with team size. In 2024--2026, measurement papers are concentrated among topic
-incumbents and larger teams (\lab{exploratory}).
-\item Newcomer papers lie farther from earlier ICLR work than incumbent papers (+4.3 percentile points with the authors'
-own work excluded), and papers by returning topic newcomers less often have a very similar paper (a twin) in the same year
-(\lab{exploratory}).
-\item First-time ICLR teams take up foundation models and young, rising keywords later than teams with earlier ICLR
-work (\lab{exploratory}).
-\item Whether entrants flock to hot topics could not be decided (registered test \lab{inconclusive}).
-\end{enumerate}
+At the acceptance decision (RQ3), the registered test found no detectable penalty or premium for papers in crowded
+topics, but the test could not rule out effects smaller than about 5\,pp per log unit (\lab{uninformative}). Branded
+titles spread from 10.9\% to 44.6\% of titles and carry a small premium in discovery, which the held-out test was too
+weak to confirm (\lab{exploratory}). The associations that held up on held-out papers all involve the team's own
+earlier work. Papers far from it are accepted 5.4\,pp less often in discovery and 6.1\,pp less often on held-out
+papers; for the same author, a paper closer to their earlier work is accepted more often; and a team with one topic
+insider is accepted more often than a team with none (all \lab{held-out supported}, although the insider result does
+not survive a family-wise correction). A topic that was favoured at review in 2018--2022 kept only part of its
+advantage in 2024--2026 (\lab{held-out supported}). FM papers are accepted more often, by 4.6\,pp, and this premium did
+not shrink as FMs spread within a topic, while the timing of keywords shows at most weak associations with acceptance
+(both \lab{exploratory}).
 
-\paragraph{The gate (RQ3).}
-\begin{enumerate}[leftmargin=*,itemsep=2pt,topsep=3pt,parsep=0pt,label=F\arabic*.,resume]
-\item There is no detectable penalty or premium for papers in crowded topics; the registered test is
-\lab{uninformative}.
-\item Branded titles (a coined name and a colon) rose from 10.9\% to 44.6\% of titles and carry a small premium in
-discovery (+1.7\,pp), which the held-out test was too weak to confirm (\lab{exploratory}).
-\item Papers far from their team's own earlier work are accepted less often: 5.4\,pp less in discovery and 6.1\,pp less
-on held-out papers (\lab{held-out supported}).
-\item For the same author, a paper closer to that author's earlier work is accepted more often, and a team with one
-topic insider is accepted more often than a team with none (\lab{held-out supported}; the insider result does not
-survive the family-wise correction).
-\item A topic that was favoured at review in 2018--2022 keeps only part of its advantage in 2024--2026
-(\lab{held-out supported}).
-\item FM papers are accepted 4.6\,pp more often, and the premium does not change as FMs spread within a topic
-(\lab{exploratory}).
-\item Keyword timing shows at most weak associations with acceptance (\lab{exploratory}).
-\end{enumerate}
+\section{Discussion}
+\label{sec:discussion}
 
-\section{Answers to the research questions}
-\label{sec:answers}
+\subsection{Does machine learning herd?}
 
-\paragraph{RQ1.} Keyword waves exist, but the number of emerging topics depends on whether the topic map is fitted with
-knowledge of later years, so trend claims based on a single map fitted on all years should be checked against a map
-fitted on early years. The one lasting change, the shift to foundation models, is predicted equally by imitation and by
-continuity, so the field level alone cannot show whether ML herds.
+Table~\ref{tab:routes} places each result under the route it fits. The field converged on foundation models, but
+imitation, continuity, lock-in and efficient choice all predict that, so the field level cannot settle the question.
+Where the two routes make different predictions, at entry and at the gate, the evidence leans towards continuity. The
+registered herding predictions for entry failed or were inconclusive, and the registered crowding test at the gate was
+uninformative. Every result that replicated at the gate is referenced to the team's own record, with one exception:
+the persistence of topic edges, which fits imitation of past acceptance and regression to the mean in a noisy review
+process equally well. The conformity that can be detected at ICLR is a pull towards a record rather than towards what
+others are doing.
 
-\paragraph{RQ2.} Researchers entering a topic do not appear to follow others. They propose methods more often than
-incumbents and lie farther from earlier work, the opposite of what the herding account predicts. Benchmark and
-evaluation work in the FM era sits mainly with incumbents and larger teams.
+\begin{table}[tb]
+\centering
+\footnotesize
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabularx}{\textwidth}{@{}L{2.3cm} Y Y@{}}
+\toprule
+ & Entry (what is written) & Gate (acceptance) \\
+\midrule
+\multicolumn{3}{@{}p{\textwidth}@{}}{\textbf{Field}, both routes: convergence on foundation models (\lab{replicated}),
+also predicted by lock-in and efficient choice.} \\
+\midrule
+\textbf{Imitation} (others, now) & Follow-on prediction reversed (\lab{replicated}); newcomers farther from earlier
+work and fewer twins for returning topic newcomers (\lab{exploratory}); flocking \lab{inconclusive}. & No detectable
+crowding premium (\lab{uninformative}); branded titles: small premium, held-out test too weak (\lab{exploratory}).
+Also fit a rival: topic edges partly kept (\lab{held-out supported}); no change in the FM premium; weak keyword timing
+(\lab{exploratory}). \\
+\midrule
+\textbf{Continuity} (a record) & Incumbents write more measurement papers (\lab{replicated}; much of it with team size);
+foundation models spread through teams with an ICLR record, as diffusion also predicts (\lab{exploratory}). & Lower
+acceptance far from the team's record; higher for the same author's closer work and with a topic insider
+(\lab{held-out supported}; status and expertise fit too). \\
+\bottomrule
+\end{tabularx}
+\caption[Results by route and level]{Where conformity shows, by route and level. The table summarises
+Chapter~\ref{sec:results} and adds no new estimates.}
+\label{tab:routes}
+\end{table}
 
-\paragraph{RQ3.} Acceptance shows no detectable response to crowding. The associations that held up on held-out papers
-all involve the team's own earlier work: papers far from it are accepted less often. These results fit continuity, but
-they do not single it out. Expertise, conservative evaluators and visible status predict them as well
-\citep{li2017expertise,merton1968matthew}. Double-blind review does not rule status out: where reviewers can see the
-authors, famous authors fare better \citep{tomkins2017reviewer}, and preprints can reveal who wrote a paper
-\citep{bharadhwaj2020deanonymization}.
+This answer needs two qualifications. First, the absence of a detectable crowding premium does not rule out a
+bandwagon. \citet{abrahamson1993institutional} showed that bandwagons can spread even when adopting brings no gain, and
+the spread of branded titles may be such a case. Second, the record-side results at the gate fit continuity, but they
+do not single it out. The next subsections take each research question in turn.
 
-The conformity that can be detected at ICLR therefore points to a record, not to the crowd. The
-distinction matters because the two routes carry different risks. Imitation can discard private information and leave
-a fragile consensus \citep{bikhchandani1992theory,banerjee1992simple}; continuity trades long-run exploration for
-short-run competence \citep{march1991exploration}. A field that looks herded may instead conform by continuity, and a
-diagnosis of fads would then misread it. The finding also qualifies earlier work on newcomers and the reward of
-novelty. Newcomers to ICLR topics bring methods, as the work on outsiders would expect
-\citep{jeppesen2010marginality,zeng2021fresh}, and moving far from one's own earlier work is associated with lower
-acceptance, which extends the pivot penalty \citep{hill2025pivot} to the review decision at an ML venue.
+\subsection{The field: trends and hindsight}
+
+The hindsight result speaks to a common practice in the history of research fields. Studies of PNAS, computational
+linguistics and AI research have fitted one topic model to all years and then read trends from it
+\citep{griffiths2004finding,hall2008studying,anderson2012towards,klinger2020narrowing}. The present results show that,
+with the papers and the pipeline held fixed, the choice of fitting years alone can change the count of emerging topics
+by a factor of more than three. This turns a concern raised in principle by \citet{leydesdorff2002dynamic} and
+\citet{rotolo2015what} into a measured difference, and it adds the time window to the list of analysis choices that a
+multiverse analysis would vary \citep{steegen2016increasing}. It also fits with recent work that tests signals of
+emergence using only earlier data \citep{khanbayov2026topical}. The comparison is a bracket, not a correction: the
+early map cannot see topics that appeared after 2020, so neither count is the true number.
+
+The shift to foundation models is the clearest case of convergence in the corpus, and it matches the accounts of
+paradigm shifts in NLP \citep{gururaja2023build,saphra2024first} and the concern about homogenisation around shared
+models \citep{bommasani2021opportunities}. It is also what one would expect if general methods that scale with
+computation simply work better \citep{sutton2019bitter}. Because both routes and both of these readings predict it,
+the shift by itself says little about herding. This is the reason the report turned to entry and to the gate.
+
+\subsection{Entry: who brings what}
+
+The entry results run against the picture of the newcomer that underlies the herding account. In cascade models, the
+person with the least information follows those who chose before them \citep{bikhchandani1992theory,banerjee1992simple}.
+At ICLR, researchers new to a topic are the ones who more often propose methods, and their papers lie farther from
+earlier work. This fits the literature on outsiders, which finds that people from the margin of a field more often
+bring solutions and new ideas \citep{jeppesen2010marginality,zeng2021fresh,azoulay2019does}. The present results add
+one detail that earlier work did not measure: the type of contribution. Newcomers bring methods, and incumbents and
+larger teams write more of the benchmarks and evaluations. This is consistent with the finding that ML relies on a
+small number of benchmark datasets \citep{koch2021reduced}, and with the observation in NLP that tasks and methods lead
+while datasets follow \citep{pramanick2023diachronic}. A method paper is not necessarily an original one, however, so
+these results say who proposes methods, not whose work is more novel.
+
+First-time teams took up foundation models later than teams with earlier ICLR work. This fits absorptive capacity,
+the idea that new knowledge is taken up by those who already hold related knowledge \citep{cohen1990absorptive}. It
+fits network diffusion equally well \citep{coleman1957diffusion,rogers2003diffusion}, so it cannot separate the routes.
+It does, however, contradict the idea that the newest entrants rush to whatever is fashionable. Half of the first
+authors of LLM papers on arXiv in 2023 were new to LLM research \citep{movva2024topics}, but at ICLR, teams new to the
+venue did not lead the adoption of foundation models.
+
+\subsection{The gate: crowd or record}
+
+The strongest result at the gate is the far jump: papers far from the team's earlier work are accepted less often.
+This extends the pivot penalty, in which larger moves away from one's own past work go with lower impact and lower
+publication success \citep{hill2025pivot}, to the accept or reject decision of an ML venue under double-blind review,
+with every rejected paper in view. It also fits the finding that innovative research strategies are riskier
+\citep{foster2015tradition}. The shape of the association matters: acceptance rises with closeness up to the fourth
+fifth of the distribution and then levels off, so leaving one's record is associated with lower acceptance, but staying
+very close brings no further gain. This reading suggests a threshold rather than a reward for repetition.
+
+Several explanations fit these results, and the data cannot separate them. Continuity is one. Expertise is another:
+reviewers may judge work from a team that knows the area as stronger, and with reason, as grant reviewers are both
+biased towards and better informed about work in their own area \citep{li2017expertise}. Status is a third.
+Cumulative advantage favours those already recognised \citep{merton1968matthew}, famous authors fare better when
+reviewers can see them \citep{tomkins2017reviewer}, and preprints can reveal authors under double-blind review
+\citep{bharadhwaj2020deanonymization}; at ICLR, a prestige gap has been tested with a pre-registered out-of-sample test
+\citep{ibrahim2026bias}. The insider result is a good example. One insider on the team goes with higher acceptance,
+which matches the chaperone effect \citep{sekara2018chaperone} and the finding that senior expertise offsets the
+disadvantage of newcomers \citep{biliotti2024breaking}. But each additional insider adds little more than each
+additional experienced author from another topic, so a proven record in general may matter more than knowledge of the
+specific topic.
+
+On the side of imitation, the gate shows little. The registered crowding test was too weak to detect effects of a few
+points, which is consistent with the high level of noise in ML review \citep{cortes2021inconsistency,
+beygelzimer2023has}. Topic edges persist only in part, which noise also predicts, although differences between research
+areas in how reviewers score papers are a rival account \citep{xu2026reviewer}. Together with a randomised trial that
+found no herding among reviewers in discussions \citep{stelmakh2023large}, the results give little support to the idea
+that ICLR review rewards following the crowd. Whether evaluators penalise novelty remains contested
+\citep{boudreau2016looking,teplitskiy2022is}, and the present results do not settle it: the penalty found here is for
+distance from the team's own work, not for distance from the field, and the test of distance from earlier ICLR work as
+a whole was uninformative.
+
+\subsection{Why the distinction matters}
+
+The two routes carry different risks for a field. Imitation can discard private information and leave a consensus
+that rests on little evidence and breaks easily \citep{bikhchandani1992theory,banerjee1992simple}. Continuity trades
+long-run exploration for short-run competence \citep{march1991exploration}, and choices that are safe for each
+researcher can make a whole field explore less \citep{rzhetsky2015choosing}. A field that looks herded may in fact
+conform by continuity, and a diagnosis of fads would then point to the wrong problem. Acceptance is also only a
+short-run outcome. During the previous shift in ML, researchers who stayed close to their own record had lower later
+impact \citep{bao2025persistence}, so the work that is accepted and the work that matters later need not be the same. For those who write the history of ML and NLP, the results suggest a simple check: before reading trends from a
+topic model, refit it on early years and see which trends remain.
 
 \section{Limitations}
 \label{sec:limitations}
 
-\begin{itemize}[leftmargin=*,itemsep=2pt,topsep=3pt,parsep=0pt]
-\item \textbf{Associations only.} All results are associations at one venue. None measures what choosing a different
-topic, team, title or contribution type would change.
-\item \textbf{The held-out set.} The held-out papers share conference years, reviewers and authors with the discovery
-papers. The held-out tests guard against overfitting by the analyst, not against patterns specific to a year or to a
-pool of reviewers, and a supported test confirms the direction of an association, not its size.
-\item \textbf{The framework came after the tests.} The imitation--continuity framework was drawn up after the
-registered and declared tests had run, and continuity's predictions were written afterwards. The record-side gate
-results were found post hoc; two of the three are secondary held-out tests, and the insider result does not survive a
-family-wise correction.
-\item \textbf{Inference.} Under one simulated null, the main entry tests rejected 12.6\% and 10.0\% of the time at a
-nominal 5\% level.
-\item \textbf{Labels.} Contribution and FM labels come from an LLM. They are consistent across two runs, but they were
-hand-checked by the author alone, on 100 papers, of which about 20 were borderline cases. No agreement with a second
-human coder is available. A method paper is a contribution type, not a measure of novelty, and embedding distance is
-not originality.
-\item \textbf{Entry status.} Entry status counts ICLR submissions only, and the 2021 change in author identifiers
-hides earlier histories, which pulls the entry contrasts towards zero.
-\item \textbf{Text versions.} Abstracts and titles are partly final versions. Code links were removed and the text
-re-embedded for discovery papers only, and titles could not be corrected.
-\item \textbf{Selection.} Withdrawn papers are left out of the acceptance tests.
-\item \textbf{Status.} Status and continuity are not separated. Work that continues a known line may itself reveal its
-authors.
-\item \textbf{Hindsight.} The hindsight comparison is a bracket, because the topic maps differ in the papers they are
-fitted on as well as in their time window.
-\item \textbf{Prior exploration.} Keyword popularity and title style had been explored against acceptance before
-registration.
-\end{itemize}
+All results are associations at one venue, and none measures what would change if a researcher chose a different
+topic, team, title or type of contribution. The held-out papers share conference years, reviewers and authors with the
+discovery papers. The held-out tests therefore guard against overfitting by the analyst, but not against patterns that
+are specific to a year or a pool of reviewers, and a supported held-out test confirms the direction of an association
+rather than its size. The standard errors may also be too small: under one simulated null, the main entry tests gave a
+significant result 12.6\% and 10.0\% of the time at a nominal 5\% level.
+
+The framework of the report was built partly after the analysis. The distinction between imitation and continuity was
+drawn up after the registered and declared tests had run, and the predictions of continuity were written afterwards.
+The record-side results at the gate were found post hoc. Two of the three rest on secondary held-out tests, and the
+insider result does not survive a family-wise correction. Keyword popularity and title style had been explored against
+acceptance before registration.
+
+The measures have their own limits. Contribution and FM labels come from an LLM. They were consistent across two runs,
+but they were checked by hand only by the author, on 100 papers, about 20 of which were borderline, and there is no
+measure of agreement with a second human coder. A method paper is a type of contribution, not a measure of novelty, and
+distance in an embedding space is not originality. Entry status counts ICLR submissions only, and the change in author
+identifiers in 2021 hides earlier histories, which pulls the entry contrasts towards zero. Some abstracts and titles
+are final versions written after the decision; code links were removed for discovery papers, but titles could not be
+corrected. Withdrawn papers are left out of the acceptance tests. Finally, the hindsight comparison is a bracket,
+because the topic maps differ in the papers they are fitted on as well as in their time window.
 
 \section{Future work}
 \label{sec:future}
 
-\begin{itemize}[leftmargin=*,itemsep=2pt,topsep=3pt,parsep=0pt]
-\item \textbf{Separate status from continuity.} If the record-side associations reflect status, they should be
-stronger where a preprint identifies the authors before review \citep{ibrahim2026bias}. This test needs a new
-declaration before it is run.
-\item \textbf{Validate the labels with a second human coder.} Two people labelling the same random sample
-independently would give an agreement figure between humans and between humans and the LLM, and would show how the
-borderline cases affect the entry results.
-\item \textbf{Look beyond acceptance.} Acceptance is a short-run outcome. Researchers who stayed close to their own
-record during the previous shift had lower later impact \citep{bao2025persistence}, so acceptance and later impact
-need not favour the same work. Linking submissions to later citations would test this at ICLR.
-\item \textbf{Test flocking with a held-out test.} Whether entrants crowd into hot topics remains open; a registered
-held-out test with enough power could settle it.
-\item \textbf{Other venues.} Repeating the design at other ML and NLP venues, such as NeurIPS or ACL, would show
-whether the findings are specific to ICLR.
-\item \textbf{Withdrawals and review texts.} Withdrawn papers and the text of reviews could show whether the gate also
-selects through withdrawal and what reviewers object to in far jumps.
-\item \textbf{Resources.} Team size is the only resource observed here. Data on compute or institutions could show
-whether the concentration of measurement papers among incumbents reflects resources.
-\item \textbf{Trend monitoring without hindsight.} Refitting topic maps on early years and using predictors measured
-from the past could become a routine check for claims about research trends.
-\end{itemize}
+The most direct next step is to separate status from continuity. If the record-side associations reflect status, they
+should be stronger where a preprint identifies the authors before review, which is how \citet{ibrahim2026bias} found
+prestige to operate. Running this test would require a new declaration before any outcome is read, as the protocol of
+this report requires.
+
+The labels also need a human check that does not depend on one person. Two coders labelling the same random sample
+independently would give agreement between humans and between humans and the LLM, and would show whether the
+borderline cases change the entry results. A related question is what newcomers' method papers contain: whether they
+propose new ideas or adapt existing ones to a new topic.
+
+Several open questions could be answered with more data. Whether entrants flock to hot topics remains unsettled, and a
+registered held-out test with enough power could settle it. Linking submissions to their later citations would show
+whether the work that is accepted more often is also the work that has lasting impact, as the persistence results of
+\citet{bao2025persistence} suggest it may not be. Withdrawn papers and the text of reviews could show whether the gate
+also selects through withdrawal and what reviewers object to in papers that move far from their authors' earlier work.
+Data on compute or institutions could show whether the concentration of measurement papers among incumbents reflects
+resources other than team size.
+
+Finally, the design could be repeated at other ML and NLP venues, such as NeurIPS or ACL, to see whether the findings
+are specific to ICLR. Refitting topic maps on early years and using predictors measured only from the past could also
+become a routine check for claims about research trends.
+
+\section{Closing remarks}
+
+Machine learning is easy to describe as a field that chases fashions, and its keyword waves and the rapid spread of
+foundation models seem to confirm it. When the herding account is tested where it makes distinct predictions, however,
+it finds little support at ICLR. Newcomers to a topic bring methods rather than follow-on work, and acceptance shows
+no detectable association with following the crowd. What acceptance is associated with, instead, is staying close to
+the team's own earlier work. Whether that reflects expertise, status or the value of continuing a line of
+work is the main question this report leaves open.

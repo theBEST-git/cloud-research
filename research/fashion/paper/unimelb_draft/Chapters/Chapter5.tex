@@ -1,108 +1,146 @@
-\chapter{Entry: Who Writes What}
-\label{sec:entry}
-\lhead{\emph{Chapter 5. Entry}}  % page header
+\chapter{Conclusions and Future Work}
+\label{sec:conclusion}
+\lhead{\emph{Chapter 5. Conclusions and Future Work}}  % page header
 
-This chapter asks what researchers write when they enter a topic, and whether they follow others into it as the
-herding account implies.
+This report tested the herding account of ML on ten years of ICLR submissions, at the level of the field, at entry to
+a topic and at the acceptance decision. This chapter lists the key findings (Section~\ref{sec:findings}), answers the
+research questions (Section~\ref{sec:answers}), states the limitations (Section~\ref{sec:limitations}) and suggests
+future work (Section~\ref{sec:future}).
 
-\section{Newcomers propose methods}
-We registered the prediction that newcomer papers, whose authors face the most uncertainty, would more often be
-follow-on work: measurement papers that benchmark, collect data for or evaluate what others had proposed. Newcomer
-papers make up 73\% of the 42,325 papers in 2019--2026 that have an author identifier. Against incumbent papers, the
-difference in the share of method papers is +3.71\,pp [+2.61, +4.80] in discovery and +3.60 [+1.48, +5.71] on held-out
-papers; for measurement papers it is $-$1.70 [$-$2.46, $-$0.93] and $-$2.10 [$-$3.35, $-$0.85]
-(Table~\ref{tab:entry}, Figure~\ref{fig:entry}). Both contrasts are \lab{replicated}. Our
-registered prediction thus failed in the opposite direction, and the reversed hypotheses, registered before the
-held-out data were released to us, were supported on the held-out papers. All ten counted variants agree in sign, and
-the $t$-statistics (6.7 and $-$4.4) are too large to be explained by the inflated false-positive rate reported in
-Chapter~\ref{sec:design}. Team size accounts for much of the measurement gap: with log team size as a control, the gap
-shrinks to $-$0.54 [$-$1.11, +0.04] in discovery and $-$0.98 ($p = 0.10$) on held-out papers, whereas the method gap
-barely changes (+3.92 and +3.64).
+\section{Key findings}
+\label{sec:findings}
 
-\begin{table}[tb]
-\centering
-\footnotesize
-\setlength{\tabcolsep}{3pt}
-\renewcommand{\arraystretch}{1.1}
-\begin{tabularx}{\textwidth}{@{}Y L{2.7cm} L{2.7cm} L{2.4cm}@{}}
-\toprule
-Contrast & Discovery [95\% CI] & Held-out [95\% CI] & Label \\
-\midrule
-Method paper & +3.71\newline[+2.61, +4.80] & +3.60\newline[+1.48, +5.71] & \lab{replicated} \\
-Measurement paper & $-$1.70\newline[$-$2.46, $-$0.93] & $-$2.10\newline[$-$3.35, $-$0.85] & \lab{replicated} \\
-Measurement paper, with log team size$^a$ & $-$0.54\newline[$-$1.11, +0.04] & $-$0.98\newline($p = 0.10$) &
-\lab{registered variant} \\
-\addlinespace
-Method: returning topic newcomer $-$ incumbent$^b$ & +3.43\newline[+2.31, +4.55] & -- & \lab{exploratory} \\
-Method: first-time team $-$ returning topic newcomer$^b$ & +0.92\newline[$-$0.44, +2.29] & -- & \lab{exploratory} \\
-Distance from earlier ICLR work, own work excluded (percentile points) & +4.33\newline[+3.44, +5.22] & -- &
-\lab{exploratory} \\
-\addlinespace
-Entry into hot topics: incumbent share, hot $-$ other topics$^c$ & $-$0.73\newline[$-$2.68, +1.22] & -- &
-\lab{inconclusive} \\
-\bottomrule
-\end{tabularx}
-\caption[Entry contrasts between newcomer and incumbent papers]{Entry contrasts: newcomer minus incumbent papers
-unless the row names other profiles, in pp within topic and year. Held-out tests are one-sided. $^a$Registered
-supplementary variant, outside the support rule. $^b$First-time team: no author has any earlier ICLR submission;
-returning topic newcomer: an author has one, in another topic. $^c$No held-out test was registered.}
-\label{tab:entry}
-\end{table}
+The evidence label of each finding is given in brackets (see Chapter~\ref{sec:intro}).
 
-\section{Topic newcomers and first-time ICLR teams}
-Newcomer papers split into those from first-time teams (26.3\% of papers; median team size 3) and those from returning
-topic newcomers (46.7\%; median 5); incumbent papers make up the remaining 27.0\% (median 5). Returning topic newcomers
-write method papers more often than incumbents (+3.43\,pp [+2.31, +4.55]) at the same median team size, and the
-difference holds with team size controlled (+3.62). For first-time teams the difference is +4.35 [+2.82, +5.89], and
-the interval for the gap between the two newcomer profiles includes zero (+0.92 [$-$0.44, +2.29]). All three contrasts
-are \lab{exploratory}. The method surplus, then, is associated mainly with entering a topic rather than with being new to ICLR or with
-working in a small team, and it appears in every period, including before 2023.
+\paragraph{The field (RQ1).}
+\begin{enumerate}[leftmargin=*,itemsep=2pt,topsep=3pt,parsep=0pt,label=F\arabic*.]
+\item Keyword waves are real: 17 of the 68 most frequent author keywords rose and then fell between 2019 and 2026
+(\lab{exploratory}).
+\item The number of emerging topics depends on hindsight. The same papers give 8 emerging topics on a topic map fitted
+on 2017--2020 and 29 on a map fitted on all years (\lab{exploratory}).
+\item The shift to foundation models is the one lasting change. Topics where more papers built on FMs in the previous
+year have fewer papers proposing a new architecture: $-$8.0\,pp in discovery and $-$11.0\,pp on held-out papers for a
+change from 0 to 100\% adoption (\lab{replicated}). Lock-in, efficient choice and a bandwagon all predict this shift.
+\item A topic's contribution mix does not change detectably as the topic accumulates papers on the all-years map
+(registered tests not supported).
+\end{enumerate}
 
-The measurement gap behaves differently. For first-time teams it is accounted for by team size ($-$2.24 [$-$3.24,
-$-$1.25] against incumbents, and +0.09 [$-$0.63, +0.80] with team size controlled); for returning topic newcomers part
-of it remains ($-$1.47, and $-$0.81 [$-$1.46, $-$0.16] with team size controlled). The gap appears only in 2024--2026
-(first-time teams against incumbents: $-$2.75 [$-$4.07, $-$1.44]). In the FM era, then, measurement papers are
-concentrated among topic incumbents and larger teams. Team size is the only resource we observe; others, such as
-compute, may also matter. NLP shows a parallel at the level of research trends, where tasks and methods lead and
-datasets follow \citep{pramanick2023diachronic}.
+\paragraph{Entry (RQ2).}
+\begin{enumerate}[leftmargin=*,itemsep=2pt,topsep=3pt,parsep=0pt,label=F\arabic*.,resume]
+\item Newcomers to a topic write more method papers than incumbents, by 3.7\,pp in discovery and 3.6\,pp on held-out
+papers, and fewer measurement papers, by 1.7\,pp and 2.1\,pp. This is the reverse of the registered herding prediction
+(\lab{replicated}).
+\item The method surplus is about entering a topic, not about being new to ICLR: researchers with ICLR work in other
+topics show it too (+3.4\,pp), and it appears in every period, including before 2023 (\lab{exploratory}).
+\item Much of the measurement gap goes with team size. In 2024--2026, measurement papers are concentrated among topic
+incumbents and larger teams (\lab{exploratory}).
+\item Newcomer papers lie farther from earlier ICLR work than incumbent papers (+4.3 percentile points with the authors'
+own work excluded), and papers by returning topic newcomers less often have a very similar paper (a twin) in the same year
+(\lab{exploratory}).
+\item First-time ICLR teams take up foundation models and young, rising keywords later than teams with earlier ICLR
+work (\lab{exploratory}).
+\item Whether entrants flock to hot topics could not be decided (registered test \lab{inconclusive}).
+\end{enumerate}
 
-\begin{figure}[tb]
-  \centering
-  \includegraphics[width=0.72\textwidth]{figs/fig3_entry.pdf}
-  \caption[Entry contrasts within topic and year]{Entry contrasts within topic and year (pp), with 95\% intervals:
-  discovery (blue circles) and held-out (orange squares). Rows 1--2 compare newcomer with incumbent papers; they are
-  registered and \lab{replicated}. Rows 3--5 are \lab{exploratory} (discovery only). Row 3 compares papers by returning
-  topic newcomers with incumbent papers, with first-time teams entered separately and with contribution-type, FM and
-  team-size controls. Row 4 compares first-time teams with returning topic newcomers, and row 5 compares first-time
-  teams with returning teams (all teams with earlier ICLR submissions) on the use of young, rising Emerging keywords.
-  Grey shading marks the side that the herding prediction expected.}
-  \label{fig:entry}
-\end{figure}
+\paragraph{The gate (RQ3).}
+\begin{enumerate}[leftmargin=*,itemsep=2pt,topsep=3pt,parsep=0pt,label=F\arabic*.,resume]
+\item There is no detectable penalty or premium for papers in crowded topics; the registered test is
+\lab{uninformative}.
+\item Branded titles (a coined name and a colon) rose from 10.9\% to 44.6\% of titles and carry a small premium in
+discovery (+1.7\,pp), which the held-out test was too weak to confirm (\lab{exploratory}).
+\item Papers far from their team's own earlier work are accepted less often: 5.4\,pp less in discovery and 6.1\,pp less
+on held-out papers (\lab{held-out supported}).
+\item For the same author, a paper closer to that author's earlier work is accepted more often, and a team with one
+topic insider is accepted more often than a team with none (\lab{held-out supported}; the insider result does not
+survive the family-wise correction).
+\item A topic that was favoured at review in 2018--2022 keeps only part of its advantage in 2024--2026
+(\lab{held-out supported}).
+\item FM papers are accepted 4.6\,pp more often, and the premium does not change as FMs spread within a topic
+(\lab{exploratory}).
+\item Keyword timing shows at most weak associations with acceptance (\lab{exploratory}).
+\end{enumerate}
 
-\section{Farther from earlier work}
-Newcomer papers lie farther from earlier ICLR work than incumbent papers. Within topic and year the difference is
-+5.90 percentile points [+4.95, +6.85]; it is +5.24 among method papers alone and +4.33 [+3.44, +5.22] when the
-authors' own earlier papers are excluded from the reference set. Papers by returning topic newcomers are less likely than incumbent papers to
-have a same-year \emph{twin}, an independent submission at cosine similarity $\geq 0.70$; with first-time teams
-controlled separately, the difference in twin share is $-$3.86\,pp [$-$4.98, $-$2.74]. These results are
-\lab{exploratory}. The follow-on prediction expects newcomer papers to lie closer to earlier work. Writing method papers
-could itself be imitation of the venue's dominant genre, since three quarters of ICLR papers are method papers, but
-newcomers' distance from earlier work argues against that reading. Neither contribution type nor embedding distance
-measures originality; these results argue against newcomers following others but say nothing about whether their work
-is more original.
+\section{Answers to the research questions}
+\label{sec:answers}
 
-\section{Later uptake of foundation models}
-Among 2023--2026 papers in topics where 5--50\% of the previous year's papers built on FMs, the gap in FM-paper share
-between first-time teams and returning topic newcomers is $-$4.58\,pp [$-$6.55, $-$2.60], widening to $-$14.71
-[$-$19.82, $-$9.61] as adoption rises. For returning topic newcomers and incumbents the data show no clear difference.
-First-time teams also list \emph{Emerging} keywords, which are young and rising, at a lower rate than teams with earlier
-ICLR submissions; the difference is $-$3.74 [$-$5.14, $-$2.35]. Both results are \lab{exploratory}. Foundation models
-thus spread through teams with earlier ICLR work, as absorptive capacity predicts \citep{cohen1990absorptive}. Network
-diffusion predicts the same order, however, so this contrast cannot tell the routes apart.
+\paragraph{RQ1.} Keyword waves exist, but the number of emerging topics depends on whether the topic map is fitted with
+knowledge of later years, so trend claims based on a single map fitted on all years should be checked against a map
+fitted on early years. The one lasting change, the shift to foundation models, is predicted equally by imitation and by
+continuity, so the field level alone cannot show whether ML herds.
 
-\section{Open questions}
-Whether entrants crowd into hot topics remains open. The registered test of entry into hot topics, which compares the
-incumbent share in hot and other topics, is inconclusive ($-$0.73 [$-$2.68, +1.22]), and no held-out test was registered
-for it. None of the entry contrasts we measured favours the follow-on prediction.
+\paragraph{RQ2.} Researchers entering a topic do not appear to follow others. They propose methods more often than
+incumbents and lie farther from earlier work, the opposite of what the herding account predicts. Benchmark and
+evaluation work in the FM era sits mainly with incumbents and larger teams.
 
-% ===============================================================================================================
+\paragraph{RQ3.} Acceptance shows no detectable response to crowding. The associations that held up on held-out papers
+all involve the team's own earlier work: papers far from it are accepted less often. These results fit continuity, but
+they do not single it out. Expertise, conservative evaluators and visible status predict them as well
+\citep{li2017expertise,merton1968matthew}. Double-blind review does not rule status out: where reviewers can see the
+authors, famous authors fare better \citep{tomkins2017reviewer}, and preprints can reveal who wrote a paper
+\citep{bharadhwaj2020deanonymization}.
+
+The conformity that can be detected at ICLR therefore points to a record, not to the crowd. The
+distinction matters because the two routes carry different risks. Imitation can discard private information and leave
+a fragile consensus \citep{bikhchandani1992theory,banerjee1992simple}; continuity trades long-run exploration for
+short-run competence \citep{march1991exploration}. A field that looks herded may instead conform by continuity, and a
+diagnosis of fads would then misread it. The finding also qualifies earlier work on newcomers and the reward of
+novelty. Newcomers to ICLR topics bring methods, as the work on outsiders would expect
+\citep{jeppesen2010marginality,zeng2021fresh}, and moving far from one's own earlier work is associated with lower
+acceptance, which extends the pivot penalty \citep{hill2025pivot} to the review decision at an ML venue.
+
+\section{Limitations}
+\label{sec:limitations}
+
+\begin{itemize}[leftmargin=*,itemsep=2pt,topsep=3pt,parsep=0pt]
+\item \textbf{Associations only.} All results are associations at one venue. None measures what choosing a different
+topic, team, title or contribution type would change.
+\item \textbf{The held-out set.} The held-out papers share conference years, reviewers and authors with the discovery
+papers. The held-out tests guard against overfitting by the analyst, not against patterns specific to a year or to a
+pool of reviewers, and a supported test confirms the direction of an association, not its size.
+\item \textbf{The framework came after the tests.} The imitation--continuity framework was drawn up after the
+registered and declared tests had run, and continuity's predictions were written afterwards. The record-side gate
+results were found post hoc; two of the three are secondary held-out tests, and the insider result does not survive a
+family-wise correction.
+\item \textbf{Inference.} Under one simulated null, the main entry tests rejected 12.6\% and 10.0\% of the time at a
+nominal 5\% level.
+\item \textbf{Labels.} Contribution and FM labels come from an LLM. They are consistent across two runs, but they were
+hand-checked by the author alone, on 100 papers, of which about 20 were borderline cases. No agreement with a second
+human coder is available. A method paper is a contribution type, not a measure of novelty, and embedding distance is
+not originality.
+\item \textbf{Entry status.} Entry status counts ICLR submissions only, and the 2021 change in author identifiers
+hides earlier histories, which pulls the entry contrasts towards zero.
+\item \textbf{Text versions.} Abstracts and titles are partly final versions. Code links were removed and the text
+re-embedded for discovery papers only, and titles could not be corrected.
+\item \textbf{Selection.} Withdrawn papers are left out of the acceptance tests.
+\item \textbf{Status.} Status and continuity are not separated. Work that continues a known line may itself reveal its
+authors.
+\item \textbf{Hindsight.} The hindsight comparison is a bracket, because the topic maps differ in the papers they are
+fitted on as well as in their time window.
+\item \textbf{Prior exploration.} Keyword popularity and title style had been explored against acceptance before
+registration.
+\end{itemize}
+
+\section{Future work}
+\label{sec:future}
+
+\begin{itemize}[leftmargin=*,itemsep=2pt,topsep=3pt,parsep=0pt]
+\item \textbf{Separate status from continuity.} If the record-side associations reflect status, they should be
+stronger where a preprint identifies the authors before review \citep{ibrahim2026bias}. This test needs a new
+declaration before it is run.
+\item \textbf{Validate the labels with a second human coder.} Two people labelling the same random sample
+independently would give an agreement figure between humans and between humans and the LLM, and would show how the
+borderline cases affect the entry results.
+\item \textbf{Look beyond acceptance.} Acceptance is a short-run outcome. Researchers who stayed close to their own
+record during the previous shift had lower later impact \citep{bao2025persistence}, so acceptance and later impact
+need not favour the same work. Linking submissions to later citations would test this at ICLR.
+\item \textbf{Test flocking with a held-out test.} Whether entrants crowd into hot topics remains open; a registered
+held-out test with enough power could settle it.
+\item \textbf{Other venues.} Repeating the design at other ML and NLP venues, such as NeurIPS or ACL, would show
+whether the findings are specific to ICLR.
+\item \textbf{Withdrawals and review texts.} Withdrawn papers and the text of reviews could show whether the gate also
+selects through withdrawal and what reviewers object to in far jumps.
+\item \textbf{Resources.} Team size is the only resource observed here. Data on compute or institutions could show
+whether the concentration of measurement papers among incumbents reflects resources.
+\item \textbf{Trend monitoring without hindsight.} Refitting topic maps on early years and using predictors measured
+from the past could become a routine check for claims about research trends.
+\end{itemize}

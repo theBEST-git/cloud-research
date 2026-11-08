@@ -1,72 +1,231 @@
-\chapter{Data and Design}
+\chapter{Method}
 \label{sec:design}
-\lhead{\emph{Chapter 3. Data and Design}}  % page header
+\lhead{\emph{Chapter 3. Method}}  % page header
 
-\section{Corpus}
-The corpus was built from official OpenReview submission data, which we downloaded ourselves on documented dates. The discovery
-set (43,480 submissions with a usable abstract) was used to develop and run the registered tests. The held-out set
-(11,099 papers) consists of submissions that the data source had reserved for confirmation; they were released to us
-only after the discovery tests had been registered and run. Acceptance tests use the 32,190 decided discovery papers
-submitted in 2018--2026 (2017 serves only as earlier history), of which 40.1\% were accepted, and the 8,185 decided held-out
-papers from the same years; withdrawn papers are left out. The field and entry analyses use no acceptance decisions.
+This chapter states the hypotheses (Section~\ref{sec:hypotheses}), describes the data (Section~\ref{sec:data}) and the
+measures (Section~\ref{sec:measures}), and sets out the testing protocol (Section~\ref{sec:protocol}).
+Section~\ref{sec:threats} notes two weaknesses of the design.
 
-\section{Instruments}
-A \emph{topic map} is one spherical $k$-means clustering ($k = 100$) of SPECTER2 embeddings of title and abstract
-\citep{cohan2020specter,singh2023scirepeval}, fitted on a given set of years; a \emph{topic} is one cluster. Unless
-another map is named, topics come from the map fitted on all years. An LLM with a fixed codebook assigns each paper one
-primary contribution type. A \emph{method paper} proposes a method, including a new architecture, and a
-\emph{measurement paper} contributes a dataset, benchmark or evaluation. An \emph{FM paper} is one that uses or adapts
-a large pre-trained model. A blind second labelling pass agreed with the first at Cohen's $\kappa = 0.93$, and we
-hand-checked a small random sample.
-% TODO(author): sample size and agreement of the hand check
-This measures consistency between two LLM passes; it does not establish agreement with human coders, which for
-zero-shot LLM labels is often only fair \citep{ziems2024can}.
+\section{Hypotheses}
+\label{sec:hypotheses}
 
-\section{Entry profiles}
-Entry status is defined relative to a topic and counts ICLR submissions only. In a \emph{newcomer paper}, no author has
-an earlier ICLR submission in the paper's topic, whatever its outcome (a topic-relative definition, as in
-\citet{biliotti2024breaking}); otherwise it is an \emph{incumbent paper}, and an author with such a submission is a
+Table~\ref{tab:predictions} sets out what imitation and continuity predict for each research question.
+Under imitation, researchers entering a topic face the most uncertainty, so they should flock to hot topics, adopt
+rising tools early and write follow-on work that benchmarks or evaluates what others have proposed. If review rewards
+following, papers in crowded topics, papers with branded titles (a short coined name and a colon) and papers with
+keywords near their peak should be accepted more often. Under continuity, incumbents should consolidate a topic's
+existing body of work, newcomers should bring work from elsewhere, new tools should spread through teams that already
+have ICLR work, and acceptance should track how close a paper stays to its team's earlier work.
+
+Some rival explanations make the same predictions. Visible status, cumulative advantage and expertise
+\citep{merton1968matthew,ibrahim2026bias,li2017expertise} also predict that acceptance is associated with a team's
+record. Network diffusion, in which less connected people adopt later \citep{coleman1957diffusion}, predicts the same as
+continuity for new tools, namely that teams new to ICLR take them up later.
+
+\begin{table}[tb]
+\centering
+\footnotesize
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabularx}{\textwidth}{@{}L{2.1cm} L{2.2cm} Y L{3.9cm}@{}}
+\toprule
+Route (reference point) & Field (RQ1) & Entry (RQ2) & Gate (RQ3) \\
+\midrule
+\textbf{Imitation} (others, now) & Convergence on shared tools & Entrants flock to hot topics, adopt rising tools early
+and write follow-on work that benchmarks or evaluates others' methods & Acceptance responds to crowding (the registered
+test predicted a penalty); a premium for branded titles and for keywords near their peak \\
+\addlinespace
+\textbf{Continuity} (own record) & Convergence on shared tools & Entrants bring work from other topics; incumbents
+consolidate; new tools spread through teams with earlier ICLR work & Acceptance tracks closeness to the team's own
+record \\
+\bottomrule
+\end{tabularx}
+\caption[What each route predicts for the field, at entry and at the gate]{What each route predicts at the three
+levels. Lock-in and efficient choice also predict convergence on shared tools, so only entry and the gate can tell the
+routes apart.}
+\label{tab:predictions}
+\end{table}
+
+Not all of these predictions were registered in advance. Table~\ref{tab:registered} lists the hypotheses that were
+registered before any outcome was examined. They cover imitation's predictions for entry and the crowding test at the
+gate, plus tests of how a topic's contribution mix changes as it grows. The registered crowding test predicted a
+penalty for crowded topics, whereas imitation, if review rewards it, predicts a premium; a result of either sign would
+therefore show review responding to the crowd. Continuity's predictions were written after the tests had been run and
+are used only to organise the results. Two further hypotheses on the use of fashionable keywords (H2d and H3c) were
+dropped before any estimate, because their measure failed its validation check.
+
+\begin{table}[tb]
+\centering
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.1}
+\begin{tabularx}{\textwidth}{@{}l l Y l@{}}
+\toprule
+ID & RQ & Prediction & Sign \\
+\midrule
+H1a--c & 1 & As a topic accumulates papers, its share of method papers falls and its shares of measurement and empirical
+papers rise & $-$, $+$, $+$ \\
+H1d & 1 & Where more of a topic's papers built on FMs in the previous year, fewer papers propose a new architecture &
+$-$ \\
+H1e & 1 & \ldots{} and more papers are empirical or evaluation studies & $+$ \\
+\addlinespace
+H2a & 2 & Hot topics have a lower share of incumbent papers (entrants flock to them) & $-$ \\
+H2b & 2 & Newcomer papers are less often method papers & $-$ \\
+H2c & 2 & Newcomer papers are more often measurement papers & $+$ \\
+\addlinespace
+H3a & 3 & Papers in more crowded topics are accepted less often & $-$ \\
+H3b & 3 & This penalty is larger for method papers & $-$ \\
+\bottomrule
+\end{tabularx}
+\caption[Registered hypotheses]{Hypotheses registered before any paper in the full corpus was labelled. All models
+include topic and year fixed effects (Section~\ref{sec:protocol}).}
+\label{tab:registered}
+\end{table}
+
+\section{Data}
+\label{sec:data}
+
+The corpus was built from official OpenReview submission records, which were downloaded on documented dates. It
+contains 55,938 ICLR submissions from 2017 to 2026, including rejected and withdrawn papers. Titles, abstracts,
+author keywords, author lists and decisions all come from these records.
+
+Before the analysis began, about one fifth of the submissions were selected at random and set aside as a held-out
+set. The remaining submissions form the \emph{discovery set}: the 43,480 papers with a usable abstract (at least 30
+words). The discovery set was used to develop and run the registered tests. The \emph{held-out set} contains 11,099
+papers with an abstract; 1,309 submissions whose links to other submissions were unresolved were kept out of both sets.
+The held-out papers were not analysed until after the discovery tests had been registered and run, and they were then
+used only for tests declared in advance. Because the two sets share conference years, reviewers and authors, the
+held-out tests guard against overfitting by the analyst but not against patterns specific to a year or to a pool of
+reviewers. For this reason the held-out analysis is described as a pre-registered out-of-sample replication, not a
+certified untouched holdout. Table~\ref{tab:years} gives the number of papers by year.
+
+\begin{table}[tb]
+\centering
+\footnotesize
+\begin{tabular}{@{}lrr@{}}
+\toprule
+Year & Discovery & Held-out \\
+\midrule
+2017 & 384 & 105 \\
+2018 & 770 & 212 \\
+2019 & 1,248 & 309 \\
+2020 & 2,070 & 500 \\
+2021 & 2,360 & 603 \\
+2022 & 2,649 & 704 \\
+2023 & 3,872 & 995 \\
+2024 & 5,765 & 1,445 \\
+2025 & 8,951 & 2,284 \\
+2026 & 15,411 & 3,942 \\
+\midrule
+All & 43,480 & 11,099 \\
+\bottomrule
+\end{tabular}
+\caption[Papers by year]{Papers with a usable abstract by year. 69.3\% of discovery papers are from 2024--2026.}
+\label{tab:years}
+\end{table}
+
+Different questions use different subsets. The field analyses use all discovery papers. The entry analyses use the
+42,325 papers from 2019--2026 that have at least one author identifier. The acceptance tests use the 32,190 discovery
+papers from 2018--2026 that were accepted or rejected (40.1\% were accepted) and the 8,185 held-out papers from the same
+years that were accepted or rejected. Papers from 2017 serve only as earlier history, and the 9,986 withdrawn discovery
+papers are left out of the acceptance tests. The field and entry analyses use no acceptance decisions.
+
+Existing collections of ICLR data were checked but not used as the main source. The Re$^2$ dataset
+\citep{zhang2025re2} was considered first. Its coverage of the main ICLR conference ends in 2023 and omits 2019, so this
+study collected its own data.
+
+\section{Measures}
+\label{sec:measures}
+
+\subsection{Topics}
+A \emph{topic map} is one clustering of all papers into 100 topics. Each paper's title and abstract are turned into a
+vector with SPECTER2, a text encoder trained on scientific papers \citep{cohan2020specter,singh2023scirepeval}, and the
+vectors are grouped by spherical $k$-means with $k = 100$. A \emph{topic} is one cluster. A topic map can be fitted on
+papers from any set of years and then applied to all papers. Unless another map is named, topics come from the map
+fitted on all years. Alternative maps (other values of $k$, a map that weights each year equally, and maps fitted on
+2017--2020 only) are used as robustness checks.
+
+\subsection{Contribution types}
+Each paper is given one primary contribution type by an LLM (Claude Haiku) that follows a fixed codebook. The types are
+method (including a new architecture), theory, empirical study, dataset or benchmark, evaluation, and other. A
+\emph{method paper} proposes a method. A \emph{measurement paper} contributes a dataset, benchmark or evaluation. An
+\emph{FM paper} uses or adapts a large pre-trained model, such as an LLM; this label is coded with the same codebook.
+Over all discovery papers, 75.1\% are method papers and 7.6\% are measurement papers.
+
+The labels were checked in two ways. First, the same LLM labelled a sample of 2,174 discovery papers a second time, in
+an independent run that could not see the first labels. The two runs agreed at Cohen's $\kappa = 0.93$ (97.5\%
+agreement for method papers and 99.3\% for measurement papers). Second, the author checked a random sample of 100 labels
+by hand against the codebook, without help from anyone else. About 80 of the 100 labels were clearly correct. The other
+20 or so were borderline cases in which the author could not decide between two types either, and the LLM's label was
+kept. No label in the sample was judged clearly wrong, but the borderline cases are not counted as agreement.
+
+These checks show that the LLM is consistent with itself. They do not show how often its labels would match those of
+trained human coders. \citet{ziems2024can} found that LLMs labelling social science text without task-specific
+training often reach only fair agreement with human coders. A second human coder would be needed to measure this for
+the present labels, and Chapter~\ref{sec:conclusion} lists it as future work.
+
+\subsection{Entry profiles}
+Entry status is defined relative to a topic and counts ICLR submissions only, with any outcome. In a \emph{newcomer
+paper}, no author has an earlier ICLR submission in the paper's topic, following the topic-relative definition of
+\citet{biliotti2024breaking}; otherwise it is an \emph{incumbent paper}, and an author with such a submission is a
 \emph{topic insider}. A newcomer paper comes from a \emph{first-time team} if no author has any earlier ICLR
-submission, and from a \emph{returning topic newcomer} if some author has one in another topic.
+submission, and from a \emph{returning topic newcomer} if some author has one in another topic. Authors are matched by
+their OpenReview identifiers, never by name. In 2021 ICLR moved from e-mail-based to profile-based identifiers, and the
+two are not linked, so some earlier histories are hidden and some incumbents appear as newcomers. This pulls the entry
+contrasts towards zero.
 
-\section{Two distances}
-Both distances are measured in one centred SPECTER2 embedding space, but from different reference points.
-\emph{Closeness to the team's own record}, \Fmax{}, is the highest cosine similarity between the paper and the mean of
-an author's earlier ICLR submissions since 2021, taken over the paper's \emph{experienced authors} (those with such
-submissions), following \citet{bao2025persistence}. \emph{Distance from earlier ICLR work} is one minus the mean cosine
-similarity to the ten nearest submissions from earlier years, expressed as a percentile within topic and year.
+\subsection{Two distances}
+Both distances are measured in the same SPECTER2 vector space, but from different reference points.
+\emph{Closeness to the team's own record}, \Fmax{}, follows \citet{bao2025persistence}. For each author with earlier
+ICLR submissions since 2021 (an \emph{experienced author}), it is the cosine similarity between the paper and the mean
+of that author's earlier submissions; \Fmax{} is the highest value among the paper's experienced authors. Probable
+earlier versions of the same paper are excluded. \emph{Distance from earlier ICLR work} is one minus the mean cosine
+similarity to the ten most similar submissions from earlier years, expressed as a percentile within topic and year.
 
-\section{Prospective measurement}
-Predictors use only information from the past. \emph{Prior FM adoption} is the FM share of the topic's papers in the
-previous year, \emph{crowding} is the log of one plus the number of the topic's earlier papers, and a \emph{hot topic}
-is one in the top fifth of prior growth. Links to code repositories, usually added after acceptance, appear in 17.6\%
-of accepted but only 0.5\% of rejected 2023--2026 abstracts and so leak the outcome \citep{kaufman2012leakage}.
-Removing them leaves the discovery estimates of the distance-based acceptance tests unchanged; the check is not
-possible for held-out papers.
+\subsection{Predictors measured from the past}
+Every predictor uses only information that was available before the paper's year. \emph{Prior FM adoption} is the FM
+share of the topic's papers in the previous year. \emph{Crowding} is the natural log of one plus the number of the
+topic's earlier papers. A \emph{hot topic} is one in the top fifth of growth before the paper's year.
 
-\section{Protocol}
-Hypotheses, models and a support rule were registered before the full corpus had been labelled. The registration and
-each later declaration are dated documents kept with the analysis code. Each registered test was re-run under
-pre-specified variants (other topic maps and numbers of topics, a year-balanced map, subsets of years and of papers);
-tests were grouped into families by research question for the Holm correction \citep{holm1979simple}. A registered
-hypothesis is supported if its estimate has the predicted sign with a Holm-adjusted $p < 0.05$ in its family, and keeps
-that sign in at least 75\% of the counted variants and in both hindsight variants (the year-balanced map, and the
-2017--2020 map applied to 2021--2026 papers). Outcomes were examined only by pre-committed analysis code, in a single
-logged run \citep{nosek2018preregistration,vandenakker2021preregistration}.
+Abstracts were downloaded after the decisions, so some accepted papers carry their final version. Links to code
+repositories, which are usually added after acceptance, appear in 17.6\% of accepted but only 0.5\% of rejected
+2023--2026 abstracts, and so leak the outcome \citep{kaufman2012leakage}. Removing them and recomputing the text vectors
+leaves the discovery estimates of the distance-based acceptance tests unchanged. This check could not be repeated for
+held-out papers.
 
-Post hoc analyses were declared before they were run, and their one-sided held-out tests were declared before any
-held-out estimate for that question was computed. A declared held-out test is supported if its one-sided $p$ is below
-0.05; Holm-adjusted values across the six secondary held-out tests are reported alongside but do not set the label.
-Because held-out tests are one-sided, a supported held-out test confirms the sign of an association; its size should
-not be compared with the discovery estimate. A test that is not supported is \emph{uninformative} when its estimate
-lies below its minimum detectable effect at 80\% power (MDE80), and \emph{inconclusive} otherwise or when no MDE80 is
-available. An uninformative test cannot distinguish a small association from none. Unless stated otherwise, models are linear probability
-models with topic and year fixed effects and errors clustered by topic.
+\section{Testing protocol}
+\label{sec:protocol}
 
-Two limitations should be noted. First, under a simulated null whose structure cuts across topics, the main entry
-tests rejected 12.6\% and 10.0\% of the time at a nominal 5\% level, and a wild cluster bootstrap
+The hypotheses, models and a rule for support were registered in dated documents, kept with the analysis code, before
+the full corpus had been labelled. Unless stated otherwise, the models are linear probability models with topic and
+year fixed effects, and standard errors are clustered by topic. For the registered tests, acceptance decisions were read
+only by pre-committed analysis code, in a single logged run \citep{nosek2018preregistration,vandenakker2021preregistration}.
+
+Each registered test was re-run under pre-specified variants: other topic maps and numbers of topics, the map that
+weights years equally, and subsets of years and of papers. Tests were grouped into families by research question for
+the Holm correction for multiple testing \citep{holm1979simple}. A registered hypothesis counts as supported if its
+estimate has the predicted sign with a Holm-adjusted $p < 0.05$ in its family, and keeps that sign in at least 75\% of
+the counted variants and in both hindsight variants (the map that weights years equally, and the 2017--2020 map applied
+to 2021--2026 papers).
+
+Analyses that were not registered at the start (post hoc analyses) were declared in writing before they were run. For
+each question, a one-sided test on the held-out papers was declared before any held-out estimate for that question was
+computed. A declared held-out test is supported if its one-sided $p$ is below 0.05. Holm-adjusted values across the six
+secondary held-out tests are reported alongside, but do not set the label. Because the held-out tests are one-sided, a
+supported held-out test confirms the sign of an association; its size should not be compared with the discovery
+estimate.
+
+Tests that are not supported are described in one of two ways. A test is \emph{uninformative} when its estimate lies
+below its minimum detectable effect at 80\% power (MDE80): it cannot tell a small association from none. It is
+\emph{inconclusive} otherwise, or when no MDE80 is available. The evidence labels \lab{replicated}, \lab{held-out
+supported} and \lab{exploratory} are defined in Chapter~\ref{sec:intro}.
+
+\section{Weaknesses of the design}
+\label{sec:threats}
+
+Two weaknesses should be kept in mind when reading the results. First, the standard errors may be too small. In a
+simulation in which there was no true effect but papers were related across topics, the main entry tests gave a
+significant result 12.6\% and 10.0\% of the time at a nominal 5\% level, and a wild cluster bootstrap
 \citep{cameron2008bootstrap} did not correct this. Second, keyword popularity and title style had been explored against
-acceptance on the discovery papers before registration. The discovery estimate for titles is therefore not a test, and
-the keyword-timing tests probe a dimension that had already been seen.
-
-% ===============================================================================================================
+acceptance on the discovery papers before the hypotheses were registered. The discovery estimate for titles is
+therefore not a test, and the keyword-timing tests probe a dimension that had already been seen.

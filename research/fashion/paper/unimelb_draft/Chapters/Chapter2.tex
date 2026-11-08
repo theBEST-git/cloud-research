@@ -1,61 +1,184 @@
-\chapter{Two Routes to Conformity}
-\label{sec:theory}
-\lhead{\emph{Chapter 2. Two Routes to Conformity}}  % page header
+\chapter{Literature Review}
+\label{sec:litreview}
+\lhead{\emph{Chapter 2. Literature Review}}  % page header
 
-\section{Imitation}
-When outcomes are uncertain, organisations mimic one another \citep{dimaggio1983iron}, individuals follow their
-predecessors and discard their own information \citep{bikhchandani1992theory,banerjee1992simple}, and herding protects
-a reputation when evaluators judge people against their peers \citep{scharfstein1990herd}. Bandwagons can spread even
-when adopting brings no gain \citep{abrahamson1993institutional}. In ML, benchmark use is increasingly concentrated on a
-small set of datasets \citep{koch2021reduced}. Entrants to a topic face the most uncertainty, so imitation predicts that
-they flock to hot topics, adopt rising tools early and write follow-on work that benchmarks or evaluates what others
-have proposed. If review favours following, imitation also predicts that, at the gate, papers in crowded topics and
-papers with branded titles (a short coined name and a colon) or keywords near their peak are accepted more often.
+This chapter reviews research about research that bears on the three research questions. Section~\ref{sec:lit-fashion}
+covers fashions, herding and bandwagons in science and organisations. Section~\ref{sec:lit-novelty} covers how science
+balances tradition and novelty, and how novel work is rewarded. Section~\ref{sec:lit-entry} covers newcomers and
+researchers who move between topics. Section~\ref{sec:lit-review} covers peer review at ML venues,
+Section~\ref{sec:lit-ml} covers meta-research on ML and natural language processing (NLP), and
+Section~\ref{sec:lit-topics} covers how research topics are measured over time. Section~\ref{sec:lit-gap} summarises
+what is missing.
 
-\section{Continuity}
-Search stays near existing competence \citep{march1991exploration,stuart1996local}, and taking up new knowledge depends
-on related prior knowledge \citep{cohen1990absorptive}. At entry, continuity predicts that incumbents
-consolidate a topic's existing body of work and that new tools spread through teams that already have earlier ICLR
-work. Entrants, on this view, bring work from elsewhere rather than copy what a topic already does, as accounts of
-outsiders in science expect \citep{zeng2021fresh,packalen2019age}. At the gate, acceptance should track how close a
-paper stays to its team's record. \citet{weisberg2009epistemic} separate `followers' of others' approaches from agents
-who ignore them; we borrow the distinction but not their welfare conclusions, which \citet{alexander2015epistemic}
-dispute.
+\section{Fashions, herding and bandwagons}
+\label{sec:lit-fashion}
 
-\section{Rival explanations and the timing of predictions}
-Visible status, cumulative advantage and expertise \citep{merton1968matthew,ibrahim2026bias,li2017expertise} predict as
-well that acceptance is associated with a team's record. Network diffusion, in which less connected actors adopt later
-\citep{coleman1957diffusion}, makes the same prediction as continuity for new tools, namely that teams new to ICLR take
-them up later, so that contrast cannot separate the routes.
+The idea that science has fashions goes back at least to \citet{crane1969fashion}. In organisation studies,
+\citet{abrahamson1991managerial} described management fashions, in which ideas spread because others adopt them rather
+than because they work, and \citet{abrahamson1993institutional} showed that bandwagons can spread even when adopting
+brings no gain. \citet{abrahamson1999management} followed one such fashion over its whole life and found that the way
+people wrote about it differed between its rise and its fall. Institutional theory gives a related reason for
+convergence: under uncertainty, organisations copy one another \citep{dimaggio1983iron}, especially organisations that
+look successful \citep{haunschild1997modes}. \citet{strang2001search} modelled firms that imitate their most
+successful peers and showed that this can produce cycles of adoption and abandonment.
 
-The hypotheses we registered before reading any outcome were imitation's entry predictions and the crowding test at
-the gate (Table~\ref{tab:predictions}). The registered crowding test predicted a penalty for crowded topics, whereas
-imitation, if review rewards it, would predict a premium; a result of either sign would therefore show review
-responding to the crowd. Continuity's predictions were formulated after the tests had been run and are used here only
-to organise the results.
+Economic models explain why imitation can be rational for each person and still harmful overall. In an information
+cascade, people follow those who chose before them and ignore their own information
+\citep{bikhchandani1992theory,banerjee1992simple}. The resulting consensus can rest on very little evidence and can
+break easily. Herding also protects a reputation when people are judged against their peers
+\citep{scharfstein1990herd}. Diffusion research describes how a new practice spreads through a population over time,
+from early adopters to late ones \citep{rogers2003diffusion}, and shows that less connected people tend to adopt later
+\citep{coleman1957diffusion}.
 
-\begin{table}[tb]
-\centering
-\footnotesize
-\setlength{\tabcolsep}{3pt}
-\renewcommand{\arraystretch}{1.15}
-\begin{tabularx}{\textwidth}{@{}L{2.1cm} L{2.2cm} Y L{3.9cm}@{}}
-\toprule
-Route (reference point) & Field & Entry & Gate \\
-\midrule
-\textbf{Imitation} (others, now) & Convergence on shared tools & Entrants flock to hot topics, adopt rising tools early
-and write follow-on work that benchmarks or evaluates others' methods & Acceptance responds to crowding (the registered
-test predicted a penalty); a premium for branded titles and for keywords near their peak \\
-\addlinespace
-\textbf{Continuity} (own record) & Convergence on shared tools & Entrants bring work from other topics; incumbents
-consolidate; new tools spread through teams with earlier ICLR work & Acceptance tracks closeness to the team's own
-record \\
-\bottomrule
-\end{tabularx}
-\caption[What each route predicts for the field, at entry and at the gate]{What each route predicts at the three
-levels. Lock-in and efficient choice also predict convergence on shared tools, so only entry and the gate can tell the
-routes apart.}
-\label{tab:predictions}
-\end{table}
+Several authors apply these ideas to science. \citet{fujimura1988molecular} described a bandwagon in cancer research
+that formed around a package of theory and methods that many laboratories could adopt. \citet{baddeley2015herding}
+reviewed herding and social influence in scientific research. In formal models, \citet{weisberg2009epistemic}
+separate scientists who follow others' approaches from those who ignore them, and \citet{weisberg2013modeling} model
+herding as a way to avoid risk. \citet{alexander2015epistemic} dispute some of the conclusions of the first model, and
+\citet{kitcher1990division} and \citet{strevens2003role} ask how credit and the priority rule shape how scientists
+divide their effort. A randomised trial in ML review found no herding among reviewers in discussions
+\citep{stelmakh2023large}, while a study of ICLR rebuttals found that reviewers respond to their co-reviewers' scores
+\citep{kargaran2025insights}.
 
-% ===============================================================================================================
+There is also a body of work on staying close to one's own past, which this report calls continuity. Organisations
+learn from their own experience \citep{levitt1988organizational} and search near what they already know
+\citep{march1991exploration,stuart1996local}. Taking up new knowledge depends on related knowledge that one already
+has \citep{cohen1990absorptive}. Small early events can lock a population into one technology
+\citep{arthur1989competing}. These accounts also predict that a field converges, but through each group's own record
+rather than through copying others.
+
+Two limits of this literature matter here. It mostly measures how much an idea is adopted or discussed, and rarely
+observes how each adopter is judged. It also rarely separates copying others from staying close to one's own record,
+although both lead to convergence.
+
+\section{Tradition, novelty and their reward}
+\label{sec:lit-novelty}
+
+The science of science studies research itself with large data \citep{fortunato2018science}. A central theme is the
+tension between building on a tradition and breaking from it \citep{kuhn1977essential}. \citet{foster2015tradition}
+found that most biomedical researchers choose strategies that extend existing knowledge, and that more innovative
+strategies are rarer, riskier and more variable in their payoff. \citet{uzzi2013atypical} found that the most cited
+papers combine mostly conventional prior work with a small amount of unusual combinations. \citet{wang2017bias} found
+that highly novel papers are less cited in the short run and more cited in the long run. At the scale of whole fields,
+\citet{park2023papers} report that papers have become less disruptive over time, \citet{wu2019large} report that large
+teams develop existing work while small teams disrupt it, and \citet{chu2021slowed} report that in very large fields new
+papers find it harder to become widely cited. \citet{rzhetsky2015choosing} show that choices that are safe for each
+scientist can make the whole field explore less. \citet{xiang2025research} review how researchers choose topics.
+
+Whether evaluators penalise novelty is contested. In grant review, \citet{boudreau2016looking} found that evaluators
+gave lower scores to highly novel proposals and to proposals close to their own expertise. In review files from 49
+journals, \citet{teplitskiy2022is} found no such penalty. \citet{lane2022conservatism} showed in field experiments that
+evaluators lower their scores more after seeing critical peer scores than they raise them after seeing favourable ones.
+\citet{li2017expertise} found that grant reviewers favour applications in their own area, but are also better informed
+about them. Cumulative advantage, in which those already recognised gain more recognition, is a further reason why a
+record can matter at the gate \citep{merton1968matthew}. Priority and timing also matter to scientists
+\citep{merton1957priorities}.
+
+These studies measure reward mostly through citations, grants or published papers. They seldom see, in the same
+population, both what researchers choose to write and how the gate judges every submission, including rejected ones.
+
+\section{Newcomers and moving between topics}
+\label{sec:lit-entry}
+
+A long line of work finds that people at the margin of a field bring new ideas. On an open innovation platform,
+problems were more often solved by people whose expertise lay far from the problem's field
+\citep{jeppesen2010marginality}. Students from groups under-represented in their field introduce more novel ideas, but
+these ideas are taken up less \citep{hofstra2020diversity}. Younger researchers try newer ideas
+\citep{packalen2019age}, and fresh teams produce more novel work \citep{zeng2021fresh}. When an eminent scientist dies,
+researchers from outside the field enter it and their papers are often highly cited \citep{azoulay2019does}. Inventors
+who move into new fields produce more novel but less valuable patents, and the loss is smaller when they work with
+experts \citep{arts2018paradise}.
+
+Moving away from one's own past work has costs. In the pivot penalty, larger shifts from a researcher's earlier work go
+with lower impact and lower publication success \citep{hill2025pivot}. Researchers who stayed close to their own record
+during the deep learning shift had lower later impact \citep{bao2025persistence}. Crowding can also push researchers
+away: after the Soviet collapse, American mathematicians moved out of the fields that received many Soviet
+mathematicians \citep{borjas2015cognitive}. Ties to insiders help newcomers: junior scientists
+who publish with established authors do better later \citep{sekara2018chaperone}, and senior expertise offsets the
+disadvantage of newcomers to a new research frontier \citep{biliotti2024breaking}. In ML, half of the first
+authors of LLM papers on arXiv in 2023 were new to LLM research \citep{movva2024topics}, NLP researchers increasingly publish at
+ML venues \citep{jurgens2026future}, and at ICLR some papers act as catalysts that come before a topic grows
+\citep{huang2026catalyst}.
+
+This work measures how novel newcomers' work is, or how they fare later. It does not ask what type of contribution
+newcomers bring, for example a new method or a benchmark of existing ones, and it rarely looks at the accept or reject
+decision under double-blind review.
+
+\section{Peer review at ML venues}
+\label{sec:lit-review}
+
+Peer review at ML venues is noisy. When the same papers were reviewed by two separate committees, many papers accepted
+by one were rejected by the other \citep{cortes2021inconsistency,beygelzimer2023has}. \citet{shah2022challenges}
+surveys the problems of review at computer science venues, such as bias, miscalibration and strategic behaviour.
+
+ICLR is a common object of study because its reviews and decisions are public on OpenReview. \citet{kang2018dataset}
+released a dataset of drafts and reviews from ICLR and other venues and showed that acceptance is partly predictable
+from the text. \citet{tran2020open} and \citet{zhang2022investigating} studied how acceptance at ICLR relates to authors
+and institutions, and \citet{sun2022does} and \citet{manzoor2021uncovering} used ICLR's switch to double-blind review in
+2018 to show that blinding reduced, but did not remove, a prestige effect. Where reviewers can see the authors, famous
+authors fare better \citep{tomkins2017reviewer}, and preprints can reveal who wrote a paper even under double-blind
+review \citep{bharadhwaj2020deanonymization}. \citet{ibrahim2026bias} tested a prestige gap at ICLR with a pre-registered
+out-of-sample test. Other studies relate ICLR acceptance to the review process \citep{jung2025what} and to research
+area \citep{wang2023what,xu2026reviewer}.
+
+These studies ask mostly who gets accepted. They do not ask how acceptance relates to a paper's position in a changing
+field: whether it is in a crowded topic, whether its authors are new to the topic, or how far it is from the team's
+earlier work.
+
+\section{Meta-research on machine learning and NLP}
+\label{sec:lit-ml}
+
+ML has a growing literature that examines its own research practice. \citet{lipton2019troubling} describe trends in
+ML writing, such as claims that go beyond the evidence. Several authors argue that ML converges for reasons other than
+merit: on ideas that suit the available hardware \citep{hooker2021hardware}, on a few benchmarks
+\citep{dehghani2021benchmark,koch2021reduced,raji2021ai} and on foundation models that many applications share
+\citep{bommasani2021opportunities}. Others note the growing role of industry and compute in deep learning
+\citep{ahmed2020dedemocratization,abdalla2023elephant} and the values that highly cited ML papers express, among them
+performance, novelty and building on past work \citep{birhane2022values}. On the other side, \citet{sutton2019bitter}
+argues that convergence on general methods that scale with computation has been the efficient choice.
+
+Studies of NLP describe paradigm shifts in the field. Interviews and citation analysis show cycles of exploration and
+exploitation \citep{gururaja2023build,saphra2024first}, and an analysis of tasks, methods and datasets in NLP papers
+found that methods and tasks lead and datasets follow \citep{pramanick2023diachronic}. \citet{klinger2020narrowing}
+found that the thematic diversity of AI research has stagnated.
+
+Most of this literature consists of essays, interviews or descriptive trends. Few studies test claims of herding or
+homogenisation with hypotheses fixed in advance.
+
+\section{Measuring research topics over time}
+\label{sec:lit-topics}
+
+Computational histories of a field usually fit a topic model to all its papers and then read how topics rise and fall.
+\citet{griffiths2004finding} did this for PNAS abstracts, \citet{hall2008studying} and \citet{anderson2012towards} for
+computational linguistics, and \citet{schafermeier2021topic} for ML. Dynamic topic models and BERTopic also use all
+years when fitting \citep{blei2006dynamic,grootendorst2022bertopic}. \citet{prabhakaran2016predicting} showed that the
+role a topic plays in abstracts, for example as a method or as a task, helps predict whether it will grow.
+
+Judging which topics are emerging is hard, because emergence is partly defined by what happens later
+\citep{rotolo2015what}, and a classification of topics fitted at one time may not suit later years
+\citep{leydesdorff2002dynamic}. \citet{li2025evaluation} evaluated how well static topic models detect emerging topics,
+and \citet{khanbayov2026topical} tested a signal for emerging AI topics that uses only earlier data. In prediction,
+information that would not have been available at the time, known as leakage, makes results look better than they are
+\citep{kaufman2012leakage,kapoor2023leakage}. Hindsight bias is the same problem in human judgement
+\citep{fischhoff1975hindsight}.
+
+This report also uses tools for confirmatory research on existing data. Pre-registration means fixing hypotheses and
+analyses before seeing the outcomes, and it can be applied to data that already exist
+\citep{nosek2018preregistration,vandenakker2021preregistration}. Multiverse and specification curve analyses run a
+result under many reasonable choices to see how much it depends on them
+\citep{steegen2016increasing,simonsohn2020specification}, and analyses chosen after looking at the data should be
+treated as exploratory \citep{gelman2014statistical}. Labels produced by LLMs are increasingly used in such research,
+but their agreement with human coders varies by task \citep{ziems2024can}.
+
+\section{Summary and research gap}
+\label{sec:lit-gap}
+
+The literature offers two broad accounts of why a field converges: imitation of others, and continuity with one's own
+record. It provides evidence on each, but mostly in separate settings and for published work. Studies of fashions
+measure adoption rather than reward. Studies of novelty and newcomers measure reward through citations, grants or
+journals and rarely see the decision on every submission. Studies of ML review focus on prestige and noise rather than
+on herding, and histories of ML and NLP fit topics with hindsight.
+
+This report brings these strands together in one population. It asks whether ICLR's waves survive measurement without
+hindsight (RQ1), what kind of contribution newcomers bring to a topic (RQ2), and whether acceptance follows the crowd or
+the team's own record (RQ3). It uses hypotheses registered in advance and tests the main ones again on held-out papers.

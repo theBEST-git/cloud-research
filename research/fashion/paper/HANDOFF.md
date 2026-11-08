@@ -93,10 +93,25 @@ Author's answers (2026-11-08):
 - Held-out set: selected randomly (about 20% of all submissions). Still to confirm: was the draw random at paper
   level, and who made it (the data source or the author)?
 
-Open questions for the author (needed before writing):
-- The "blind second labelling pass" was a second, independent run of the same LLM (κ = 0.93).
-- Whether the author rewrites the prose personally (supervisor asked for "your own plain words"); suggested division:
-  Claude does structure, literature research, factual fixes; the author writes the prose.
+Decided: the author rewrites the prose in their own words at the end; Claude does structure, literature, factual
+fixes. The "blind second labelling pass" is described as a second, independent run of the same LLM (κ = 0.93).
+
+## 4a. Revision status (2026-11-08)
+
+Draft 2 restructure is done in `unimelb_draft/` and builds cleanly (57 pages):
+1 Introduction (motivation, gap, RQ1–RQ3, approach, contributions, outline); 2 Literature Review (seven areas of
+research about research, only verified references from `notes/literature/`); 3 Method (hypotheses with the
+predictions table and a registered-hypotheses table, data with held-out selection and a papers-by-year table,
+measures incl. the hand check, protocol, design weaknesses); 4 Results (old Chapters 4–6 merged, plus a verdict table
+for every registered hypothesis); 5 Conclusions and Future Work (16 numbered key findings, answers to the RQs,
+limitations, future work). Acknowledgements removed. All 16 supervisor annotations addressed.
+
+Still open:
+- Held-out selection: the report now says the held-out fifth was "selected at random" (author's answer), but the
+  repo (`appendix.tex`, Data Provenance) says the source did not document how papers were assigned. The author should
+  confirm who made the random draw and at what level, or soften the sentence in Chapter 3, Section 3.2.
+- The author's own rewrite of the prose (supervisor comment 8).
+- The labelling model is named in Chapter 3 (Claude Haiku), as method disclosure; the author may decide otherwise.
 
 ## 5. Environment notes
 
